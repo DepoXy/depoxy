@@ -1,0 +1,18 @@
+/.gitignore.local
+/.ignore
+
+# Symlinks for my convenience.
+/bin/infuse
+/bin/infuse-depoxy-ambers
+/bin/infuse-dubs-vim
+/bin/infuse-home-fries
+/bin/infuse-platform-macOS
+/bin/infuse-user-home
+# Author's personal infuser (home fries, waffle fries, get it?)
+# - You can ignore this file. (And I'd normally use a private
+#   .git/info/exclude for such a file, but this is that exlude.)
+/bin/infuse-waffle-fries
+
+# This binrary is overlayed by DepoXy Ambers, so not part of OMR repo.
+/bin/js-npm-patch-opn-sensible-open
+

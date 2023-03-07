@@ -1,0 +1,45 @@
+# DepoXy Archetype is a separate repo, so YOU (yes, DEV you!) can
+# fork and customize, and then rebase on top of your new client.
+#  https://github.com/DepoXy/depoxy-archetype#🏹
+/archetype/
+
+# LATER/2023-02-26: How temporary is this?
+# git-put-wise -> ~/.kit/git/git-put-wise/
+/git-put-wise
+
+# Generated file.
+/home/.mrtrust
+
+# Symlink -> ~/.kit/git/git-smart/.gitconfig
+# CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
+/home/.gitconfig
+
+# Embedded repo.
+/.kit/
+
+# home/.config/tig/config-client -> ~/.depoxy/running/home/.config/tig/config
+/home/.config/tig/config-client
+# home/.config/tig/config-newtons -> ~/.kit/git/tig-newtons/tig/config
+/home/.config/tig/config-newtons
+
+# The complex_modifications/ symlinks are managed by 'infuse' tasks.
+/home/.config/karabiner/assets/complex_modifications/
+
+# Symlink to private (client) infuser.
+/home/_git
+
+# Symlink to private (client) infuser.
+/home/.kit/_git
+
+/home/.vim/cmdt_paths/symlinks/
+
+/home/.vim/dubs_project_tray/dubs_cuts/
+
+# From :Helptags.
+/home/.vim/pack/DepoXy/start/vim-depoxy/doc/tags
+# Symlink by infuse-dubs-vim's setup_project_plug_vim_depoxy.
+/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf.vim
+
+# Vim spell file generated on 'infuse'.
+/home/.vim/spell/en.utf-8.add--compiled
+

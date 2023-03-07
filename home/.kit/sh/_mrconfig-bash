@@ -1,0 +1,118 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 470
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Author's *shoilerplate* projects (modular shell programs).
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-ask-yesnoskip.git'
+skip = ! mr_exclusive "entrusted"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-colors.git'
+skip = ! mr_exclusive "entrusted"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-git-nubs.git'
+skip = ! mr_exclusive "entrusted"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-logger.git'
+skip = ! mr_exclusive "entrusted"
+infuse =
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
+    "deps/sh-colors/bin/colors.sh"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-pather.git'
+skip = ! mr_exclusive "entrusted"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-print-nanos-now.git'
+skip = ! mr_exclusive "entrusted"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-rm_safe.git'
+skip = ! mr_exclusive "entrusted"
+# FIXME/2022-12-08: Verify infuse @home.
+infuse =
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
+    "deps/sh-colors/bin/colors.sh"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-sensible-open.git'
+skip = ! mr_exclusive "entrusted"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# heavily annotated `.inputrc` 🎛️
+# https://github.com/DepoXy/dot-inputrc#🎛️
+[${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc]
+checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/dot-inputrc.git'
+skip = ! mr_exclusive "entrusted"
+infuse =
+  if os_is_macos; then
+    # 2022-10-17: Since when did that happen? I thought on my old MacBook
+    # circa 2020-21 that ~/.inputrc was a symlink, but on my new MacBook,
+    # in iTerm2 (I didn't test Terminal.app), `bind -P` doesn't show my
+    # ~/.inputrc bindings if that file is a symlink. And a quick search
+    # didn't land any hits (though you'd think someone else would've
+    # already complained).
+    link_hard ".inputrc" "${HOME}/.inputrc"
+  else
+    symlink_mrinfuse_file ".inputrc" "${HOME}/.inputrc"
+  fi
+
+# ***
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report]
+# AWAIT/2023-03-06: DepoXy/feature-coverage-report not yet released.
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/feature-coverage-report.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = false  # i.e., mr_exclusive "entrusted" "..."...
+install = PREFIX="${HOME}/.local" make link
+infuse =
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/assets/Makefile" "Makefile"
+  #
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
+    "deps/sh-colors/bin/colors.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
+    "deps/sh-git-nubs/bin/git-nubs.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
+    "deps/sh-logger/bin/logger.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
+    "deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+
+# ***
+
+# 2023-01-01: Not that I ever use fries-findup.
+[${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/fries-findup.git'
+skip = ! mr_exclusive "entrusted"
+install = PREFIX="${HOME}/.local" make link
+
+# ***
+
+# Similar as previous, but for GVim.
+# Kindly file opener positions cursor, too 🐬
+# https://github.com/DepoXy/gvim-open-kindness#🐬
+[${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
+checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/gvim-open-kindness.git'
+skip = ! mr_exclusive "entrusted"
+install =
+  symlink_overlay_file "${MR_REPO}/bin/gvim-open-kindness" "${HOME}/.local/bin/gvim-open-kindness"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

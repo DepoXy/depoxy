@@ -1,0 +1,74 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 471
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Par-TY
+
+# Dubs Vim support tool.
+[${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
+checkout = git_clone_giturl -o publish "http://github.com/landonb/parT.git"
+install =
+  cd "${MR_REPO}"
+  make -f protoMakefile
+  ln -sf "${MR_REPO}/parT" "${HOME}/.local/bin"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Tmux
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/.tmux]
+checkout = git_clone_giturl -o starter "http://github.com/gpakosz/.tmux.git"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-sensible]
+checkout = git_clone_giturl -o starter "http://github.com/tmux-plugins/tmux-sensible.git"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/tpm]
+checkout = git_clone_giturl -o starter "http://github.com/tmux-plugins/tpm.git"
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion]
+checkout = git_clone_giturl -o starter "http://github.com/imomaliev/tmux-bash-completion.git"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Commacd
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/commacd]
+checkout = git_clone_giturl -o starter "http://github.com/shyiko/commacd.git"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** complete-alias (_complete_alias)
+
+# https://github.com/cykerway/complete-alias
+[${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias]
+checkout = git_clone_giturl -o starter "http://github.com/cykerway/complete-alias.git"
+install =
+  info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"
+  /bin/cp "complete_alias" "${HOME}/.complete_alias"
+  #
+  info "Clobbering $(fg_lightorange)~/.bash_completion$(attr_reset)"
+  truncate -s 0 "${HOME}/.bash_completion"
+  echo ". ~/.complete_alias" >> "${HOME}/.bash_completion"
+  #
+  # Completion Aliases:
+  # - tig alias completions, e.g., `t <tab>`
+  echo "complete -F _complete_alias t" >> ~/.complete_alias
+  #
+  # FIXME/2023-02-02: Identify more aliases to add.
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

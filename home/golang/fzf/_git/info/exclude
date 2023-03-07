@@ -1,0 +1,19 @@
+.gitignore.local
+
+# 2020-02-06: Seen after go-get'ting:
+# $ git st
+# ...
+# Changes not staged for commit:
+#  ...
+#   modified:   go.mod
+#   modified:   go.sum
+# ...
+# Untracked files:
+#  ...
+#  bin/fzf-DISTRO-DOWNLOADED
+#  bin/tmux-client-22093.log
+bin/fzf-DISTRO-DOWNLOADED
+bin/tmux-client-*.log
+
+# YOU: Run `git co .` to resolve the go.mod and go.sum issues...
+

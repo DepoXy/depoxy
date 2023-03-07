@@ -1,0 +1,50 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 550
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "vim-dubs" ] ||
+     [ "${MR_INCLUDE}" = "dubs" ] ||
+     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
+  false; then
+    cat ${HOME}/.vim/.mrconfig-dubs
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
+  false; then
+    cat ${HOME}/.vim/.mrconfig-3rdp
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "vim-lsp" ] ||
+  false; then
+    cat ${HOME}/.vim/.mrconfig-lsp
+  fi
+
+# NOTE: Current [SECTION] is final section of last cat'ted file,
+#       so end file with [DEFAULT] section to avoid some issues
+#       (that I forgot to document previously).
+[DEFAULT]
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

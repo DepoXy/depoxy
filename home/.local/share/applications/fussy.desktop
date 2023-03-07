@@ -1,0 +1,23 @@
+#!/usr/bin/env xdg-open
+# CXREF:
+# - Inspired by Finicky:
+#     https://github.com/johnste/finicky
+# - This Desktop entry's key-values mimic those from the file it supplants:
+#     /usr/share/applications/google-chrome.desktop
+[Desktop Entry]
+Version=1.0
+Name=Fussy
+GenericName=Web Browser
+Comment=Access the Internet
+# REFER: %U — "A list of URLs."
+#   https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
+# SAVVY: Shell-out so we can reference user home.
+Exec=/bin/sh -c "${HOME}/.depoxy/ambers/bin/fussy %U"
+StartupNotify=true
+Terminal=false
+# CXREF: /usr/share/icons/Mint-X/apps/48/*.png
+Icon=web-browser
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xhtml_xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;
+

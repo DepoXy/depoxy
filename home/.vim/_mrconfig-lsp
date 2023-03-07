@@ -1,0 +1,163 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 300
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Vim plugins for Language Server Protocol support.
+
+# =================================================================
+# ****************************************************************
+# vim-lsp
+# **************************************************************
+# =============================================================
+
+# Ref:
+#
+#   https://github.com/prabirshrestha/vim-lsp/blob/master/minimal.vimrc
+#
+#   https://github.com/prabirshrestha/vim-lsp/wiki/Servers-TypeScript
+#
+#   Medium.com:
+#
+#     https://medium.com/@vanuan/vim-for-typescript-and-react-in-2020-9724b9139be2
+
+# ------------------------------------------------------------------------
+
+[pack/prabirshrestha/opt/vim-lsp]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/vim-lsp.git'
+
+# Medium.com: "so that vim doesn’t freeze while waiting for the LSP server to start"
+[pack/prabirshrestha/opt/async.vim]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/async.vim.git'
+
+# Clever language server installer, e.g., open file, run ``:LspInstallServer``.
+[pack/mattn/opt/vim-lsp-settings]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/mattn/vim-lsp-settings.git'
+
+[pack/prabirshrestha/opt/asyncomplete.vim]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/asyncomplete.vim.git'
+
+# Medium.com: "glue between asyncomplete.vim and vim-lsp"
+[pack/prabirshrestha/opt/asyncomplete-lsp.vim]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/asyncomplete-lsp.vim.git'
+
+# ------------------------------------------------------------------------
+
+# 2020-09-23: Shouldn't need these two LS projects,
+# as `vim-lsp-settings` will install its own LSes,
+# and if you npm-install `typescript-language-server`,
+# you'll end up with duplicate definitions (i.e., on ``gd``).
+# - So repathing these to pack/*/opt,
+#   and setting skip on. But leaving
+#   here for posterity, as I say.
+
+# "Sets up vim-lsp for JavaScript."
+# - Requires a TS language server:
+#     https://github.com/theia-ide/typescript-language-server
+#   That you can `mr -d ... install` easily:
+#     npm install typescript typescript-language-server
+[pack/ryanolsonx/opt/vim-lsp-typescript]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/ryanolsonx/vim-lsp-typescript.git'
+install = cd ${HOME}/.local && npm install typescript typescript-language-server
+infuse = link_private_exclude "$@"
+
+[pack/ryanolsonx/opt/vim-lsp-javascript]
+skip = true
+checkout = git_clone_giturl -o starter 'https://github.com/ryanolsonx/vim-lsp-javascript.git'
+# install = See vim-lsp-typescript's install.
+infuse = link_private_exclude "$@"
+
+# ------------------------------------------------------------------------
+
+# =================================================================
+# ****************************************************************
+# CoC
+# **************************************************************
+# =============================================================
+
+# https://github.com/neoclide/coc.nvim
+[pack/neoclide/start/coc.nvim]
+checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc.nvim.git'
+install =
+  # https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
+  #
+  # 2022-11-22: The release tag is not part of default branch history...
+  #   $ git tags
+  #   2022-08-01 1d3c525e tag: v0.0.82
+  #   ...
+  # There's some weird release branch that has commits with messages
+  # like "commit <SHA>", like they're mirroring, but manually,
+  # revisions from the main branch. Strange.
+  # - We could checkout, e.g., tags/v0.0.82, or you could live on
+  #   the edge, lots of active development recently.
+  # - Oh, n/m, README says to use release branch.
+  #   - Oh, hey, a 'release' branch!
+  #     - Now I wonder if my terminology is misleading... I use
+  #       'release' branches like 'main' branches... well, both,
+  #       I support, so 'release' is fine, it still applies.
+  git checkout release
+  git pull
+  #
+  # ***
+  #
+  # Install TSLint, which is deprecated (says it's replaced by
+  # ESLint), but if it's not installed, then `npm install` warns:
+  #   npm WARN @typescript-eslint/eslint-plugin-tslint@4.2.0
+  #     requires a peer of tslint@^5.0.0 || ^6.0.0 but none is installed.
+  #     You must install peer dependencies yourself.
+  # npm install eslint tslint
+  # 2022-11-22:
+  #   npm WARN deprecated tslint@6.1.3: TSLint has been deprecated in favor of ESLint.
+  npm install
+  # The install changes package.json, which makes the repo look changed.
+  debug " Restore package.json"
+  git checkout -- package.json
+  # Update Vim help.
+  debug " Calling :Helptags"
+  vim -u NONE -c "helptags ./doc" -c q
+  #
+  # Wire ~/.vim/coc-settings.json
+  # - See also:
+  #     mr -d ~/.vim infuse
+  #   which calls:
+  #     ~/.depoxy/ambers/home/infuse-dubs-vim
+  #   which calls:
+  #     setup_private_coc_config
+  #   This is the equivalent, for the 1 file we want planted:
+  MR_REPO="${HOME}/.vim" symlink_mrinfuse_file 'coc-settings.json'
+  # This also works, but then the symlink is an absolute path
+  # (and `/bin/ls -l` is more likely to wrap when printing it):
+  #  symlink_overlay_file \
+  #    "${HOME}/.depoxy/ambers/home/.vim/coc-settings.json" \
+  #    "${HOME}/.vim/coc-settings.json"
+#
+infuse =
+  # 2020-12-26: Ignore package-lock.json.
+  link_private_exclude "$@"
+
+# https://github.com/neoclide/coc-tsserver
+[pack/neoclide/start/coc-tsserver]
+checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc-tsserver.git'
+
+# https://github.com/neoclide/coc-json
+[pack/neoclide/start/coc-json]
+checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc-json.git'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

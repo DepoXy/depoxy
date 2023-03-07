@@ -1,0 +1,206 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+[DEFAULT]
+order = 495
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# - Q: Why not use the Docker Desktop Homebrew cash?
+#
+#      - Author had issues with the cask, so prefers DMG install.
+#
+# - Q: Why not automate this install?
+#
+#      - Author demoed automated install to Applications/, but
+#        mounting DMG with `hdiutil attach` is slow. Also, the
+#        copy operation requires sudo. So the automated operation
+#        isn‘t necessarily more convenient than just doing this
+#        yourself.
+
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
+checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
+install =
+  os_is_macos || return 0
+  #
+  local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
+  mkdir -p "${downloads_dir}"
+  cd "${downloads_dir}"
+  # BWARE: Targets arm64/AArch64/Apple Silicon/M1 Macs.
+  # - If you're encouraged to add a dynamic h/w check, please do so!
+  #   - For now, hard-coded to author's latest machine architecture.
+  local arch="arm64"
+  local docker_dmg="Docker.dmg"
+  local download_url="https://desktop.docker.com/mac/main/${arch}/${docker_dmg}"
+  if [ ! -e "${docker_dmg}" ]; then
+    wget "${download_url}"
+  else
+    echo "Skipping: Already downloaded: $(pwd)/${docker_dmg}"
+  fi
+  # Not quite "automatic", still prompting user for password.
+  echo "YOU: Enter admin password for slower automatic install."
+  echo " OR: Ctrl-c prompt and then you drag-drop install."
+  sudo -k
+  sudo -v
+  if sudo -nv 2> /dev/null; then
+    hdiutil attach "${downloads_dir}/${docker_dmg}"
+    sudo cp -rf /Volumes/Docker.app /Applications
+    sudo hdiutil detach /Volumes/Docker
+  else
+    echo "YOU: Drag-and-drop the app folder to the Applications/ folder."
+    echo "THEN: Open Finder and click Unmount ⏏ symbol to unmount the DMG."
+    open "${docker_dmg}"
+  fi
+
+# ------------------------------------------------------------------------
+# ========================================================================
+
+# https://github.com/johnste/finicky
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
+checkout = mkdir "${MR_REPO}"
+infuse =
+  os_is_macos || return 0
+  #
+  # Guard clause.
+  # - HUH: Cannot simply source default-browser.sh and call default-browser
+  #        because shell OMR uses does not allow train-case function names,
+  #        didn't realize that wasn't POSIX'y. So run via Bash.
+  [ "$(/bin/bash "${HOME}/.homefries/lib/distro/default-browser.sh")" \
+    = "net.kassett.finicky" ] && return 0
+  #
+  warn "Finicky is not the default browser."
+  warn "- Run *Finicky* once to set as default browser:"
+  warn "    open /Applications/Finicky.app/"
+  warn "  - Click notification drop-down and choose *Allow*."
+  warn "- OR: Systems Preferences... > General > Default web browser: *👇 Finicky.app*"
+  #
+  exit 1
+
+# ------------------------------------------------------------------------
+# ========================================================================
+
+# https://www.tynsoe.org/geektool/
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
+checkout = mkdir "${MR_REPO}"
+install =
+  #
+  os_is_macos || return 0
+  #
+  local geektool_vers="331.014"
+  local dist_root="1470733752"
+  #
+  echo "Installing GeekTool:"
+  echo "- Version: ${geektool_vers}"
+  echo
+  echo "YOU: Update GeekTool to latest version as appropriate."
+  echo "- Visit:"
+  echo
+  echo "    https://www.tynsoe.org/geektool/"
+  echo
+  #
+  local geektool_base="GeekTool-${geektool_vers}"
+  #
+  cd ~/.downloads
+  wget "https://dl.devmate.com/org.tynsoe.GeekTool/${geektool_vers}/${dist_root}/${geektool_base}.zip"
+  unzip -d "${geektool_base}" "${geektool_base}.zip"
+  mv "${geektool_base}/GeekTool.app/" "${HOME}/Applications/"
+  echo "GeekTool copied to ~/Applications"
+  echo "... please wait a few seconds until Spotlight knows it."
+
+# ------------------------------------------------------------------------
+# ========================================================================
+
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/homebrew-autoupdate]
+# Use 'origin' remote specifically, otherwise:
+#   $ brew install some-app
+#   Warning: No remote 'origin' in /opt/homebrew/Library/Taps/homebrew/homebrew-autoupdate, skipping update!
+#   Running `brew update --auto-update`...
+# - Or maybe that has nothing to do with this repo...
+checkout = git_clone_giturl -o origin 'https://github.com/landonb/homebrew-autoupdate.git'
+wireupstream = remote_add starter 'https://github.com/Homebrew/homebrew-autoupdate.git'
+install =
+  git fetch --all --prune
+  git checkout landonb--custom--call-omr-infuse-after-update
+  git br -u starter/master
+  #
+  # Nothing to install on Linux, but previous keeps branch up to date.
+  os_is_macos || return 0
+  #
+  # The `brew autoupdate` command uses Homebrew's `cli/parser` Ruby library
+  # to run as external command. It works like git-foo commands: name the
+  # executable with the `brew-` prefix, and stick it on path.
+  symlink_overlay_dir "${DOPP_KIT:-${HOME}/.kit}/mOS/homebrew-autoupdate" \
+    "${HOMEBREW_PREFIX:-/usr/local/Homebrew}/Library/Taps/homebrew/homebrew-autoupdate"
+  #
+  # USAGE: brew autoupdate <subcommand> [<interval>] [<options>]
+  # HELP: brew autoupdate.rb --help
+  # ASSETS: ll ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/
+  #       (after first run)
+  # Run immediately: brew autoupdate
+  # Runs via: launchctl
+  #       launchctl list | grep com.github.domt4.homebrew-autoupdate
+  # STOP: brew autoupdate delete
+  #
+  # FIXME/2021-08-04: Is this sticky across reboots?
+  #
+  brew autoupdate start 86400 --upgrade
+# FIXME/2022-12-04: Will this affect me?:
+#  Warning: Please note if you use Casks that require `sudo` to upgrade there
+#  are known issues with that use case and this command unless using
+#  `SUDO_ASKPASS`.
+#
+#    https://github.com/Homebrew/homebrew-autoupdate/issues/40
+#
+update =
+  git fetch --all --prune
+  # git pull --rebase --autostash
+  #
+  git checkout landonb--custom--call-omr-infuse-after-update
+  #
+  # git rebase starter/master
+  git br -u starter/master
+  git pull -r
+
+# FIXME/2021-08-04: Add tip commit management.
+# - Also clone to personal repo and pull from there.
+
+# WARNING:  You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
+#   gem executables will not run.
+
+# ------------------------------------------------------------------------
+# ========================================================================
+
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
+checkout = git_clone_giturl -o starter 'https://github.com/pqrs-org/Karabiner-Elements.git'
+skip = ! os_is_macos
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# working 🐘 for peanuts
+# Linux-like macOS keybindings 🐘
+# https://github.com/DepoXy/Karabiner-Elephants#🐘
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants]
+checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/Karabiner-Elephants.git'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# FIXME/2022-11-19: See if other favorites have sources: Rectangle, etc.
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# “It’s a turn, not a religion”
+# Opinionated `brew install` and `defaults` commands 🏂
+# https://github.com/DepoXy/macOS-onboarder#🏂
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder]
+checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/macOS-onboarder.git'
+install = make install
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

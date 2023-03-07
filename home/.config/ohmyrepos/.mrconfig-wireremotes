@@ -1,0 +1,64 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# USAGE: 
+#
+# - Use in project config:
+#
+#   [DEFAULT]
+#   lib =
+#     MR_REPO_PUBLISH_USER_URL="git@github.com:"
+#     #
+#     MR_REPO_ENTRUST_USER_URL="git@github_userX:"
+#     MR_REPO_ENTRUST_USER_NAME="userX"
+#
+#   [/path/to/some/project]
+#   lib = MR_REPO_REMOTE_URL="https://github.com/some/project.git"
+#   checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+#
+# - Wire single project via `mr`:
+#
+#   $ mr -d . -n run remotes_add_publish_entrust
+#
+# - Or batch process a group of projects:
+#
+#   $ MR_INCLUDE=entrusted mr -d / run remotes_add_publish_entrust
+
+# CXREF: remote_add: ~/.ohmyrepos/lib/remote-add.sh
+
+# MAYBE: If this grows complex, convert to shell script, like OMR/lib/*.sh
+
+lib =
+  remotes_add_publish_entrust () {
+    #
+    remote_add publish "${MR_REPO_REMOTE_URL}" \
+      "${MR_REPO_PUBLISH_USER_URL}" "${MR_REPO_PUBLISH_USER_NAME}"
+    #
+    if [ -n "${MR_REPO_ENTRUST_USER_URL}" ]; then
+      remote_add entrust "${MR_REPO_REMOTE_URL}" \
+        "${MR_REPO_ENTRUST_USER_URL}" "${MR_REPO_ENTRUST_USER_NAME}"
+      #
+      info "Testing 'entrust' remote..."
+      if test -n "$(/bin/bash -c 'git fetch entrust 2> >(grep -e "ERROR: Repository not found.")')"; then
+        info "- not there"
+        #
+        git remote remove entrust
+      else
+        info "✓ verified"
+      fi
+    fi
+  }
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

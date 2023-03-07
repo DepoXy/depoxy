@@ -1,0 +1,36 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ************************************************************************
+
+# Patches `opn` to call `sensible-open` instead of macOS `open`, so that,
+# when run, the app opens in a new browser window, and not in a new tab
+# of an existing window.
+#
+#   DEPENDS: https://github.com/landonb/sh-sensible-open#☔
+#
+# NOTE: This might not be an issue anymore. I saw this in the older
+#       webpack-dev-server v3.x, which uses npm `opn`, not `open`.
+
+[DEFAULT]
+lib =
+  hack_patch_opn_to_call_sensible_open () {
+    local opn_js="node_modules/opn/index.js"
+    if [ ! -e "${opn_js}" ]; then
+      >&2 error "No such file: ${opn_js}"
+      return 1
+    fi
+    if [ ! -e "${opn_js}-ORIG" ]; then
+      /bin/cp "${opn_js}" "${opn_js}-ORIG"
+    fi
+    # If you need to recover:
+    #  /bin/cp node_modules/opn/index.js-ORIG node_modules/opn/index.js
+    sed -i -E "s#^\t\tcmd = 'open';\$#\t\tcmd = 'sensible-open';#" "${opn_js}"
+    # This line just for ref., but return true to not fail OMR.
+    diff "${opn_js}-ORIG" "${opn_js}" || true
+  }
+
+# ************************************************************************
+

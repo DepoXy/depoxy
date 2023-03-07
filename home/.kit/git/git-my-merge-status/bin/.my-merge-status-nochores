@@ -1,0 +1,6 @@
+# vim:ft=conf
+# USAGE: List paths to repos that are on a feature branch
+#        that's not an ancestor of the conventional progenitor
+#        branch, so that a status report does not see these as
+#        needing to be merged up, etc.
+

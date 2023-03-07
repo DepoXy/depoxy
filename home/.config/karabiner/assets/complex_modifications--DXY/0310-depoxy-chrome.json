@@ -1,0 +1,90 @@
+{
+  "title": "#0310 — Google Chrome — Global Hotkeys, and Wire Ctrl-Click and F5 like Linux",
+  "rules": [
+
+    {
+      "description": "#0311.y — Google Chrome — New Window (Cmd-y)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open -na \"Google Chrome\" --args --new-window && sleep 1 && osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/resize--curapp--1920x1052.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#0313 — Google Chrome — Systemwide — *Inspect* Window Foreground (Cmd-r) *ALT MAPPING*",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/raise--chrome--devtools-or-inspect-window.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#0318 — Google Chrome — Customize Ctrl-PageUp/PageDown (originally cycles tabs, just like Ctrl-Tab/Ctrl-Shift-Tab; but we want textarea motion userscript to process)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "page_up",
+            "modifiers": { "mandatory": [ "left_control" ] }
+          },
+          "to": {
+            "key_code": "page_up",
+            "modifiers": [ "left_option" ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [ "^com\\.google\\.Chrome" ]
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "page_down",
+            "modifiers": { "mandatory": [ "left_control" ] }
+          },
+          "to": {
+            "key_code": "page_down",
+            "modifiers": [ "left_option" ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [ "^com\\.google\\.Chrome" ]
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
+

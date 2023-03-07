@@ -1,0 +1,31 @@
+{
+  "title": "#0510 — Video Conferenching — Teams/Webex/Zoom — Foregrounders",
+  "rules": [
+
+    {
+      "description": "#0511.a — Teams/Webex/Zoom — Systemwide — Foreground (Shift-Ctrl-Cmd-W)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "left_control",
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/raise--teams--webex--zoom.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}
+

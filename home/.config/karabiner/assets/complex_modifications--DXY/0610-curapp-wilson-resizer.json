@@ -1,0 +1,31 @@
+{
+  "title": "#0610 — Current Application — Resize and Position So Wilson From Home Improvement Can Peak Over The Titlebar",
+  "rules": [
+
+    {
+      "description": "#0611 — Curr Appl — Resize and Position Almost Fully — (Shift-Ctrl-Alt-R)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "left_control",
+                "left_option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/resize--curapp--1920x1052.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}
+

@@ -1,0 +1,393 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:ai:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Setup user home.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps () {
+  # Load: warn, etc.
+  command -v logger.sh > /dev/null && . logger.sh ||
+    . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
+
+  # Load: link_private_exclude
+  command -v link-private-exclude.sh > /dev/null && . link-private-exclude.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-private-exclude.sh"
+
+  # Load: symlink_*, infuser_prepare.
+  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/overlay-symlink.sh"
+
+  # Load: link_hard.
+  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-hard.sh"
+
+  # Required by distro_util.sh: tweak_errexit
+  . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/process_util.sh"
+  # Load: os_is_macos.
+  . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/distro_util.sh"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# SAVVY/2020-11-22: On my home machine I have additional infusers
+# that I did not incorporate into DepoXy Ambers, just FYI in case
+# you realize you're missing anything:
+#
+#  symlink_mrinfuse_dir '.config/direnv'
+#  symlink_mrinfuse_file '.config/libreoffice/4/user/wordbook/standard.dic'
+
+infuse_symlinks_user_home_dotconfig () {
+  mkdir -p '.config/less'
+  symlink_mrinfuse_file '.config/less/termcap'
+
+  # ***
+
+  mkdir -p '.config/pdbr'
+  symlink_mrinfuse_file '.config/pdbr/setup.cfg'
+
+  # *** Convenience symlinks (for Vimprojects)
+
+  # Remove symlinks from .mrinfuse/.config/tig
+  find ".mrinfuse/.config/tig" -maxdepth 1 -type l -exec /bin/rm {} +
+  # Repopulate .mrinfuse/.config/tig/cfg-tgn-*
+  local tnewtons_tig="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}/tig"
+  if [ -d "${tnewtons_tig}" ]; then
+    local tconf
+
+    # Note the <(find ...) is not POSIX (dash would complain,
+    # "Syntax error: redirection unexpected").
+    while read -r tconf; do
+      local fname="$(basename "${tconf}")"
+
+      symlink_overlay_file "${tnewtons_tig}/${fname}" \
+        ".mrinfuse/.config/tig/cfg-tgn-${fname}"
+    done < <(find "${tnewtons_tig}" -maxdepth 1 -type f)
+  fi
+
+  # The main DepoXy Client tig/config entry point.
+  local dxc_root="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}"
+  symlink_overlay_file "${dxc_root}/home/.config/tig/config" \
+    ".mrinfuse/.config/tig/tigconfig-client"
+
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+  symlink_overlay_file \
+    "${DEPOXYARCHETYPE_DIR:-${ambers_root}/archetype}/home/.config/tig/config.EVAL" \
+    ".mrinfuse/.config/tig/tigconfig.EVAL"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_user_home_dotfiles () {
+  # Common dotfiles are symlinked below.
+  # Feel free to add to this list, but use
+  #  an isn't-there-don't-care policy (e.g.,
+  #  call symlink_mrinfuse_file_optional,
+  #  symlink_mrinfuse_file_first_optional, or
+  #  symlink_overlay_file_first_optional).
+
+  # 2018-12-23: Skip .anacron, because machine-specific!
+  # SKIP: symlink_mrinfuse_file '.anacron'
+
+  # 2020-11-22: Ctags a bit obsolete, given Vim-CoC and LSPs.
+  symlink_mrinfuse_file '.ctags'
+
+  # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
+
+  # ~/.inputrc: CXREF: See ~/.kit/sh/dot-inputrc/.inputrc 'infuse' task:
+  #     ~/.depoxy/ambers/home/.kit/sh/_mrconfig-bash
+
+  symlink_mrinfuse_file '.multitail.conf'
+
+  symlink_mrinfuse_file '.pdbrc'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_user_home_dotlocal () {
+  os_is_macos ||
+    symlink_mrinfuse_file '.local/share/applications/fussy.desktop'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
+  local before_cd="$(pwd -L)"
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  cd "${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
+
+  # 2020-09-01: Meh. This is more of an infuse-depoxy-ambers task, but the
+  # next function, infuse_symlinks_user_home_gitconfig, needs this symlink.
+  symlink_overlay_file "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}/.gitconfig"
+
+  cd "${before_cd}"
+}
+
+# ***
+
+infuse_symlinks_user_home_gitconfig () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
+  # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig,
+  #               aka ~/.depoxy/ambers/home/.gitconfig:
+  #   - See now instead:
+  #       /kit/working/git/git-smart/.gitconfig
+  #     and infuser function in this file:
+  #       infuse_symlinks_user_home_gitsmart
+  # - NOT REALLY USED: Host-specific .gitconfig.
+  # - NOTE: This supports host-specific .gitconfig, e.g., it'll prefer to symlink
+  #   to a file named ".gitconfig-$(hostname)" if one exists. But I don't use that
+  #   feature anymore. And it's probably better to set project-specific config as
+  #   necessary, rather than doing something wonky with host-specificity.
+  local DEPOXY_GITCONF="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig"
+  local MACHINE_GITCONF="${DEPOXY_GITCONF}-$(hostname)"
+  # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
+  local MRINFUSE_GITCONF="${HOME}/.mrinfuse/.gitconfig"
+  symlink_mrinfuse_file_first \
+    '.gitconfig' "${MACHINE_GITCONF}" "${MRINFUSE_GITCONF}" "${DEPOXY_GITCONF}"
+
+  # - ACTIVE: I continue to store my private git conf at ~/.mrinfuse/.gitconfig.local,
+  #           aka ~/.depoxy/ambers/home/.gitconfig.local:
+  local DEPOXY_GITCONF_LOCAL="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig.local"
+  local MACHINE_GITCONF_LOCAL="${DEPOXY_GITCONF_LOCAL}-$(hostname)"
+  local MRINFUSE_GITCONF_LOCAL="${HOME}/.mrinfuse/.gitconfig.local"
+  symlink_mrinfuse_file_first \
+    '.gitconfig.local' "${MACHINE_GITCONF_LOCAL}" "${MRINFUSE_GITCONF_LOCAL}" "${DEPOXY_GITCONF_LOCAL}"
+
+  # - RELATED: See also .gitconfig.user-business and .gitconfig.user-personal,
+  #            a pair of directory-specific Git config files, e.g.,
+  #            to use different user.name and email depending on path.
+
+  # ***
+
+  # Place ~/.gitignore.local, and ~/.git/info/exclude.
+  # NOTE: You must create the ~/.mrinfuse/_git symlink
+  #       from a private (client) infuser. (And maybe
+  #       you need to run `infuse` twice, once to create
+  #       the ~/.mrinfuse/_git symlink, and again to run
+  #       this code.
+  if [ -f "${HOME}/.mrinfuse/_git/info/exclude" ]; then
+    link_private_exclude "${@}"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_user_home_gitsmart () {
+  local before_cd="$(pwd -L)"
+
+  local git_smart_dir="${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
+
+  # *** Under ${HOME}
+
+  cd "${HOME}"
+  #
+  # 2020-03-13: Meh. I added a symlink at ~/.depoxy/ambers/home/.gitconfig
+  #             so that .vimprojects shows .gitconfig, .gitconfig.local,
+  #             and the .gitconfigs/ directory all together.
+  #
+  #               symlink_overlay_file "${git_smart_dir}/.gitconfig"
+  #
+  #             See above: infuse_symlinks_user_home_dotfiles' DEPOXY_GITCONF.
+  #
+  # 2020-02-13: Let's also make a convenience directory symlink.
+  # 2020-09-01: Don't need on macOS dev machine.
+  #  symlink_overlay_dir "${git_smart_dir}"
+
+  # Wire symlink: ~/.config/git/attributes
+  mkdir -p "${HOME}/.config/git"
+  cd "${HOME}/.config/git"
+  symlink_overlay_file "${git_smart_dir}/.config/git/attributes"
+
+  # Prepare `git init` template: Customize ~/.config/git/template/HEAD
+  if [ ! -e "${HOME}/.config/git/template/HEAD" ]; then
+    mkdir -p "${HOME}/.config/git/template"
+    cd "${HOME}/.config/git/template"
+    # Edit HEAD to set a different default branch name, then copy it.
+    # EXPLAIN: Why cannot this be a symlink? Does Git copy template on `git init`?
+    /bin/cp "${git_smart_dir}/.config/git/template/HEAD" .
+  fi
+
+  # *** Under ${HOME}/.homefries
+
+  # 2020-02-09: Total convenience symlink (and more work to add .ignore rule).
+  # MAYBE/2020-11-22: Append to (or ensure added to) ~/.homefries/.ignore automatically.
+  #   I.e., this "convenience symlink" means file is repeated in *grep searches,
+  #   which we ameliorate by adding the symlink path to ~/.homefries/.ignore.
+  #   That is, this symlink_overlay_file corresponds to a specific .ignore rule!
+  #
+  #   2020-11-22: I've used SYNC_ME previously. What about a 5-char LABEL?
+  #               NSYNC comes to mind. So does the band.
+  #               SYNCZ aka Synchronize Me.
+  #               CODEP Co-dependency. Code-pendecy, huhha.
+  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
+  # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.homefries/.gitconfig
+  symlink_overlay_file "${git_smart_dir}/.gitconfig"
+
+  # ***
+
+  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+  symlink_overlay_file "${git_smart_dir}/bin/completions/git-completion.bash"
+
+  # ***
+
+  symlink_tig_completion_readlink_guess () {
+    # tig, on @macOS, the long way, to not worry about versions, e.g.,
+    #   /usr/local/Cellar/tig/2.5.1/etc/bash_completion.d/tig-completion.bash
+    # (lb): Doesn't work me on Linux because tig at /usr/bin/tig and not a
+    # symlink, and `locate tig-completion.bash` does not see a system version...
+    # which is why it's preferable to locate tig-completion.bash in source.
+
+    # Ensure we can see the `tig` file.
+    type -t tig > /dev/null || return 1
+
+    # Ensure on macOS user running Homebrew Bash.
+    type -t realpath > /dev/null || return 1
+
+    local rel_bin="$(which tig)"
+    local tig_bin="$(realpath -- "${rel_bin}")"
+    local tig_base="$(dirname "$(dirname "${tig_bin}")")"
+    local tig_bash="${tig_base}/etc/bash_completion.d/tig-completion.bash"
+
+    # Ensure Bash file found.
+    [ -f "${tig_bash}" ] || return 1
+
+    symlink_overlay_file "${tig_bash}"
+  }
+
+  symlink_tig_completion_from_source () {
+    # E.g., ~/.kit/git/tig/contrib/tig-completion.bash
+
+    local tig_bash=${GITREPOSPATH:-${HOME}/.kit/git}/tig/contrib/tig-completion.bash
+
+    # Ensure Bash file found.
+    [ -f "${tig_bash}" ] || return 1
+
+    symlink_overlay_file "${tig_bash}"
+  }
+
+  symlink_tig_completion_from_source ||
+    symlink_tig_completion_readlink_guess ||
+      warn 'UNFOUND: Could not locate ‘tig-completion.bash’'
+
+  # ***
+
+  cd "${before_cd}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_home_tmux_dotfiles () {
+  # 2018-04-02: This runs after the rest of the chase_and_face, so .tmux is cloned?
+  local tmux_clone="${SHOILERPLATE:-${HOME}/.kit/sh}/.tmux"
+  if [ ! -d "${tmux_clone}" ]; then
+    warn "No such .tmux at: ${tmux_clone}"
+  else
+    # Add a convenience symlink to the static .tmux.conf file.
+    local dot_tmux_conf='.tmux.conf'
+    symlink_overlay_file "${tmux_clone}/${dot_tmux_conf}"
+    # 2020-01-03: (lb): The user tmux conf was private, but now it's in home-fries.
+    #   symlink_mrinfuse_file '.tmux.conf.local'
+    # 2020-02-09: (lb): Add symlink alongside .tmux.conf.local source.
+    local before_cd="$(pwd -L)"
+    cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
+    symlink_overlay_file "${tmux_clone}/${dot_tmux_conf}"
+    cd "${before_cd}"
+
+    mkdir -p .tmux
+    mkdir -p .tmux/plugins
+
+    local tmux_sensible="${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-sensible"
+    if [ -d "${tmux_sensible}" ]; then
+      symlink_overlay_dir "${tmux_sensible}" '.tmux/plugins/tmux-sensible'
+    else
+      warn "No such clone at: ${tmux_sensible}"
+    fi
+
+    local path_tpm="${SHOILERPLATE:-${HOME}/.kit/sh}/tpm"
+    if [ -d "${path_tpm}" ]; then
+      symlink_overlay_dir "${path_tpm}" '.tmux/plugins/tpm'
+    else
+      warn "No such clone at: ${path_tpm}"
+    fi
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_home_tmux_completion () {
+  local before_cd="$(pwd -L)"
+  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+
+  local tmux_bash_completion_dir="${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion/completions"
+
+  symlink_overlay_file "${tmux_bash_completion_dir}/tmux"
+
+  cd "${before_cd}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_home_projlns () {
+  # Populate ~/.projlns for Dubs Vim grep path #9.
+  ./.mrinfuse/.projlns/infuse-projlns-breadcrumb.sh
+  ./.mrinfuse/.projlns/infuse-projlns-core.sh
+  ./.mrinfuse/.projlns/infuse-projlns-omr.sh
+  # There's a template for running private/machine-specific infusers:
+  #  .mrinfuse/.projlns/infuse-projlns-work.example.sh
+  # but you might find it easier to just use the 'infuse' task from
+  # the client-specific ${HOME}/client/_mrconfig file.
+  info " ${MSG_PREFIX_ADDED_SYMLINKS_DIR} $(font_highlight "~/.projlns/")"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_all_the_symlinks () {
+  infuse_symlinks_user_home_dotconfig
+
+  infuse_symlinks_user_home_dotfiles
+
+  infuse_symlinks_user_home_dotlocal
+
+  infuse_symlinks_depoxy_ambers_git_smart_gitconfig
+
+  infuse_symlinks_user_home_gitconfig
+
+  infuse_symlinks_user_home_gitsmart
+
+  infuse_symlinks_home_tmux_dotfiles
+
+  infuse_symlinks_home_tmux_completion
+
+  infuse_symlinks_home_projlns
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  source_deps
+
+  [ "$(basename $0)" != "infuse-user-home" ] || LOG_LEVEL=0
+
+  # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
+  infuser_prepare "${HOME}" "${@}"
+
+  local before_cd="$(pwd -L)"
+  cd ${MR_REPO}
+
+  infuse_all_the_symlinks
+
+  cd "${before_cd}"
+}
+
+set -e
+
+# Run the infuser iff being executed.
+if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+  main "$@"
+fi
+

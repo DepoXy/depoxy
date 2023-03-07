@@ -1,0 +1,170 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 795
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# Installs a VIA keyboard customizer command.
+# - On @macOS, opens browser window to online app.
+#   - CXREF: https://usevia.app/ TypeScript sources:
+#       https://github.com/the-via/app
+# - On @linux, web app won't connect, so using AppImage.
+[${DOPP_KIT:-${HOME}/.kit}/odd/via-nativia]
+checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
+ffssh = true
+travel = true
+unpack = true
+install =
+  # CXREF: Find latest version:
+  #   https://github.com/the-via/releases/releases
+  #   
+  local via_version="2.1.0"
+  #
+  local via_app_url="https://usevia.app/"
+  #
+  local app_name_local=""
+  #
+  # Use https://usevia.app/ on macOS
+  if os_is_macos; then
+    app_name_local="sensible-open-usevia.app"
+    #
+    # If more browsers were supported, we could open user's preferred BROWSER:
+    #   echo "sensible-open ${via_app_url}" > "${MR_REPO}/${app_name_local}"
+    # But UseVia.app only runs on Chrome.
+    echo "open -na \"Google Chrome\" --args --new-window \"${via_app_url}\"" \
+      > "${MR_REPO}/${app_name_local}"
+  else
+    # E.g., https://github.com/the-via/releases/releases/download/v2.1.0/via-2.1.0-linux.AppImage
+    local app_image_base="https://github.com/the-via/releases/releases/download"
+    local app_image_url="${app_image_base}/v${via_version}/via-${via_version}-linux.AppImage"
+    #
+    app_name_local="$(basename "${app_image_url}")"
+    #
+    if [ ! -f "${app_name_local}" ]; then
+      wget "${app_image_url}"
+    fi
+  fi
+  chmod +x "${app_name_local}"
+  symlink_overlay_file "${MR_REPO}/${app_name_local}" "${HOME}/.local/bin/via-nativia"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# ZSA Moonlander Mark I
+# https://www.zsa.io/moonlander
+
+# Wally — Keyboard firmware flash utility.
+# - On the landing page
+#     https://www.zsa.io/wally/
+#   You'll find a download link
+#     https://configure.zsa.io/wally/osx
+#   Which redirects to the latest version, e.g.,
+#     https://github.com/zsa/wally/releases/download/2.1.0-osx/wally-osx-2.1.0.dmg
+#   As seen in the "Location:" line output from `wget https://configure.zsa.io/wally/osx`
+# - You'll also find the same download assets on the GH release page:
+#     https://github.com/zsa/wally/releases/
+#   - Note that OS X, Linux, and Windows releases are released separately.
+[${DOPP_KIT:-${HOME}/.kit}/odd/wally]
+checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
+ffssh = true
+travel = true
+unpack = true
+install =
+  local latest_wally_url_macos="https://configure.zsa.io/wally/osx"
+  local latest_wally_url_debian="https://configure.ergodox-ez.com/wally/linux"
+  #
+  local location=""
+  local vers_url=""
+  local app_name=""
+  if os_is_macos; then
+    # We could pin version, but can also download latest and somewhat easily
+    # suss its version.
+    # - The redirect line is, e.g.,
+    #     Location: https://github.com/zsa/wally/releases/download/2.1.0-osx/wally-osx-2.1.0.dmg [following]
+    location="$(wget "${latest_wally_url_macos}" 2>&1 | grep "Location:" | head -1)"
+    vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
+    app_name="$(basename "${vers_url}")"
+    #
+    /bin/mv -f "$(basename "${latest_wally_url_macos}")" "${app_name}"
+    #
+    # Alternatively, see `hdiutil attach <dmg>` for automated install,
+    # but slower and requires sudo, so preferring manual intervention.
+    #
+    # FIXME: I'm unsure the app name, as having no MacBook no more.
+    echo && echo "FIXME/2023-02-11: Verify remaining steps:" && echo
+    #
+    echo && echo "YOU: Drag-drop Wally to Applications to install Wally." && echo
+    open "${app_name}"
+    echo
+    # Sit in sleep-loop polling until user completes their action.
+    while [ ! -d "/Applications/Wally.app" ]; do
+      sleep 1
+    done
+    #
+    local local_bin_shim="${HOME}/.local/bin/wally"
+    if [ ! -e "${local_bin_shim}" ]; then
+      cat <<EOF > "${local_bin_shim}"
+ #!/bin/sh
+ open /Applications/Wally.app
+ EOF
+    fi
+    #
+    echo "Wally is now installed. You can run it thusly:"
+    echo
+    echo "  open /Applications/Wally.app"
+    echo
+    echo "Or more conveniently:"
+    echo
+    echo "  $(basename "${local_bin_shim}")"
+  else
+    # Prereqs: gtk3 (should be installed, though not sure specifically what
+    # the Aptitude package name is); webkit2gtk (possibly specifically
+    # libwebkit2gtk-4.0-dev), and libusb.
+    sudo apt install -y libusb-1.0-0-dev
+    #
+    local udevd_rules_path="etc/udev/rules.d/50-zsa.rules"
+    sudo /bin/cp -f "${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}/${udevd_rules_path}" \
+      "/${udevd_rules_path}"
+    #
+    # Ensure user is part of plugdev group.
+    sudo groupadd -f "plugdev"
+    # Note that [ $(id -un) = ${USER} ]
+    sudo usermod -aG "plugdev" "$(id -un)"
+    #
+    # We could just call the download `wally` (its default name), but for
+    # version readability, we'll add the version to its name.
+    # - The wget redirects look like this:
+    #       Location: https://configure.zsa.io/wally/linux [following]
+    #     * Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally [following]
+    #       Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/...
+    echo "Downloading latest release..."
+    location="$(wget "${latest_wally_url_debian}" 2>&1 | grep "Location:" | head -2 | tail -1)"
+    # vers_url is * Location, above, with prefix and suffix stripped.
+    vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
+    # Make the app_name, e.g., "wally-2.1.3-linux".
+    local url_name="$(basename "${vers_url}")"
+    local app_vers="$(basename "$(dirname "${vers_url}")")"
+    app_name="${url_name}-${app_vers}"
+    /bin/mv "$(basename "${latest_wally_url_debian}")" "${app_name}"
+    chmod +x "${app_name}"
+    ln -sf "${MR_REPO}/${app_name}" "${HOME}/.local/bin/${url_name}"
+    #
+    echo
+    echo "Wally is now installed. You can run it thusly:"
+    echo
+    echo "  ${url_name}"
+    echo
+    echo "YOU: You may need to logoff or reboot to realize ZSA udev rules"
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

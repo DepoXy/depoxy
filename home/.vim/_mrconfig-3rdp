@@ -1,0 +1,314 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 570
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# To cross-check the paths listed here against reality::
+#
+#   ll -d ~/.vim/pack/*/*/*
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** From 'a' to 'landonb'
+
+[pack/arcticicestudio/start/nord-vim]
+checkout = git_clone_giturl -o starter 'https://github.com/arcticicestudio/nord-vim'
+
+[pack/cespare/start/vim-toml]
+checkout = git_clone_giturl -o starter 'https://github.com/cespare/vim-toml'
+
+[pack/chrisbra/start/improvedft]
+checkout = git_clone_giturl -o starter 'https://github.com/chrisbra/improvedft.git'
+infuse = link_private_exclude "$@"
+
+# 2021-08-18: matchit Refs:
+# - Original matchit.vim, 1.13.2 [2008-01-29], by Benji Fisher:
+#   - https://www.vim.org/scripts/script.php?script_id=39
+# - On GitHub:
+#   - v1.17: https://github.com/adelarsq/vim-matchit
+#   - v1.18, https://github.com/chrisbra/matchit (and vimscript-4)
+# - See also: vim-python-matchit
+[pack/chrisbra/start/matchit]
+checkout = git_clone_giturl -o starter 'https://github.com/chrisbra/matchit.git'
+
+[pack/ctrlpvim/start/ctrlp.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/ctrlpvim/ctrlp.vim'
+
+# *** 'DepoXy': See .mrconfig-dubs
+#
+# mine: [pack/DepoXy/start/vim-clip-expand-path] #👣
+# mine: [pack/DepoXy/start/vim-depoxy-coc-defaults] #🥥
+#
+# # Symlink to private plugin for DepoXy Client @biz-specific features.
+# mine: [pack/DepoXy/start/vim-trap]
+
+[pack/editorconfig/start/editorconfig-vim]
+checkout = git_clone_giturl -o starter 'https://github.com/editorconfig/editorconfig-vim'
+
+[pack/flazz/start/vim-colorschemes]
+checkout = git_clone_giturl -o starter 'https://github.com/flazz/vim-colorschemes'
+
+[pack/HerringtonDarkholme/start/yats.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/HerringtonDarkholme/yats.vim.git'
+
+[pack/jamessan/start/vim-gnupg]
+checkout = git_clone_giturl -o starter 'https://github.com/jamessan/vim-gnupg'
+infuse = link_private_exclude "$@"
+
+[pack/juanpabloaj/start/vim-istanbul]
+checkout = git_clone_giturl -o starter 'https://github.com/juanpabloaj/vim-istanbul'
+
+[pack/junegunn/start/fzf.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/junegunn/fzf.vim.git'
+
+[pack/junegunn/start/goyo.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/junegunn/goyo.vim'
+
+[pack/junegunn/start/limelight.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/junegunn/limelight.vim'
+
+# ------------------------------------------------------------------------
+
+# *** 'landonb': See .mrconfig-dubs
+#
+#   ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
+
+# # Key: Original projects ('mine') and forks
+#        (untouched 'fork' or improved 'both')
+# # --- Retired/Obsolete:
+# [pack/landonb/opt/dubs_cycloplan]
+# [pack/landonb/opt/vim-jsx] (*fork)
+# # --- Forked and slightly tweaked:
+# both: [pack/landonb/start/ansible-vim]
+# # --- Dubs Vim (original projects):
+# mine: [pack/landonb/start/dubs_after_dark#🌃]
+# mine: [pack/landonb/start/dubs_appearance#💅]
+# mine: [pack/landonb/start/dubs_buffer_fun#🎲]
+# mine: [pack/landonb/start/dubs_edit_juice#🥤]
+# mine: [pack/landonb/start/dubs_file_finder#🗄]
+# mine: [pack/landonb/start/dubs_ftype_mess#🧹]
+# mine: [pack/landonb/start/dubs_grep_steady#🤹]
+# mine: [pack/landonb/start/dubs_html_entities#👽]
+# mine: [pack/landonb/start/dubs_mescaline#🍄]
+# mine: [pack/landonb/start/dubs_project_tray#🗂]
+# mine: [pack/landonb/start/dubs_quickfix_wrap#🌯]
+# mine: [pack/landonb/start/dubs_style_guard#💂]
+# mine: [pack/landonb/start/dubs_syntastic_wrap#🤸]
+# mine: [pack/landonb/start/dubs_toggle_textwrap#🔘]
+# mine: [pack/landonb/start/dubs_web_hatch#🐣]
+# # --- Original projects and some forks:
+# both: [pack/landonb/start/vim-buffer-ring#💍]
+# fork: [pack/landonb/start/vim-classic-taglist#🏛]
+# mine: [pack/landonb/start/vim-command-line-clock#🕰]
+# mine: [pack/landonb/start/vim-ftplugin-how-it-works#🎆]
+# mine: [pack/landonb/start/vim-lcd-project-root#🥔]
+# fork: [pack/landonb/start/vim-markdown#👇]
+# mine: [pack/landonb/start/vim-netrw-cfg-split-explorer#🌐]
+# mine: [pack/landonb/start/vim-netrw-link-resolve#🧩]
+# mine: [pack/landonb/start/vim-nicer-file-changed-prompt#🗯]
+# mine: [pack/landonb/start/vim-ovm-easyescape-kj-jk#🧼]
+# mine: [pack/landonb/start/vim-ovm-seven-of-spines#🦴]
+# mine: [pack/landonb/start/vim-reSTfold#🙏]
+# mine: [pack/landonb/start/vim-reST-highdefs#🎨]
+# mine: [pack/landonb/start/vim-reST-highfive#🖐]
+# mine: [pack/landonb/start/vim-reST-highline#➖]
+# mine: [pack/landonb/start/vim-select-mode-stopped-down#🛑]
+# mine: [pack/landonb/start/vim-source-reloader#🔃]
+# fork: [pack/landonb/start/vim-surround#🔄]
+# mine: [pack/landonb/start/vim-title-bar-time-of-day#⌚]
+# fork: [pack/landonb/start/vim-tmux-navigator#🧭]
+# fork: [pack/landonb/start/vim-unimpaired#👿]
+
+# ------------------------------------------------------------------------
+
+# *** From 'landonb' to 'tpope'
+
+# 2021-04-15: Having TypeScript comment autoindent issues.
+# - JS/JSX works, using indentexpr=GetJavascriptIndent() from pangloss/vim-javascript.
+# - TS/TSX noops, using indentexpr=GetJsxIndent() from MaxMEllon/vim-jsx-pretty.
+#   (Hint: Run `verbose set indentexpr?` to see what and from where.)
+# - S/O articles, such as https://stackoverflow.com/questions/15419589/
+#   how-to-indent-typescript-files-in-vim-correctly, suggest leafgarland.
+#   - See also (years stale) https://github.com/jason0x43/vim-js-indent.git
+# - I have not vetted except to confirm that TS autoindent now works.
+#   Hopefully it doesn't interfere with anything else (because spending an
+#   hour fiddling with autoindent is not necessarily time well spent... but
+#   I also hate being frustrated but *the little things*. I prefer a smoove
+#   editor eXperience. At all costs).
+[pack/leafgarland/start/typescript-vim]
+checkout = git_clone_giturl -o starter 'https://github.com/leafgarland/typescript-vim.git'
+
+[pack/majutsushi/start/tagbar]
+checkout = git_clone_giturl -o starter 'https://github.com/majutsushi/tagbar'
+
+# HadIssuz: [pack/marshallward/start/vim-restructuredtext]  # OFF/UNINSTALLED.
+# - 2018-02-01: The new reST plugin makes editing sluggish.
+#   And (2) when I use \s to find-replace <TAB>s, it only works
+#   on the first line of matches, and then it exits replace mode,
+#   and you see "xx matches on xx lines" message like you would
+#   with \S find-replace-multi-files command. So weird. So disabled!
+#    /bin/ln -sf ${bdir}/vim-restructuredtext/
+[pack/marshallward/opt/vim-restructuredtext]
+checkout = git_clone_giturl -o starter 'https://github.com/marshallward/vim-restructuredtext.git'
+skip = true
+
+# See .mrconfig-lsp: [pack/mattn/start/vim-lsp-settings]
+
+[pack/MaxMEllon/start/vim-jsx-pretty]
+checkout = git_clone_giturl -o starter 'https://github.com/MaxMEllon/vim-jsx-pretty'
+
+[pack/nanotech/start/jellybeans.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/nanotech/jellybeans.vim'
+
+[pack/pangloss/start/vim-javascript]
+checkout = git_clone_giturl -o starter 'https://github.com/pangloss/vim-javascript'
+
+# See .mrconfig-lsp: [pack/prabirshrestha/start/async.vim]
+# See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete.vim]
+# See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete-lsp.vim]
+# See .mrconfig-lsp: [pack/prabirshrestha/start/vim-lsp]
+
+[pack/preservim/start/nerdcommenter]
+checkout = git_clone_giturl -o starter 'https://github.com/preservim/nerdcommenter.git'
+pull =
+  local remote_branch_default="$(git symbolic-ref refs/remotes/starter/HEAD)"
+  cd "${MR_REPO}"
+  git fetch starter
+  git rebase ${remote_branch_default}
+install =
+  # Implied: cd "${MR_REPO}"
+  local branch_name=$(git rev-parse --abbrev-ref HEAD)
+  [[ "${branch_name}" = tip/* ]] && info "NERD Commenter already TIPped (“${branch_name}”)" && return
+  [ "${branch_name}" != "master" ] && warn "NERD Commenter on non-default branch “${branch_name}”" && return
+  local tipped_branch="tip/load-after--$(date "+%Y-%m-%d")"
+  git co -b "${tipped_branch}" "master"
+  mkdir -p after/
+  git mv plugin/ after/plugin/
+  # Note I see this on my @macOS machine but not @linux machine,
+  # meaning there's a race condition that causes this to happen.
+  git ci -m "Bugfix: Load plugin 'after' so user's Vimrc able to set globals."
+  info "NERD Commenter branch-TIPped and ready! (“${tipped_branch}”)"
+
+# See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-javascript]
+# See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-typescript]
+
+[pack/samoshkin/start/vim-mergetool]
+checkout = git_clone_giturl -o starter 'https://github.com/samoshkin/vim-mergetool.git'
+
+[pack/scrooloose/opt/nerdtree]
+checkout = git_clone_giturl -o starter 'https://github.com/scrooloose/nerdtree'
+
+[pack/scrooloose/start/syntastic]
+checkout = git_clone_giturl -o starter 'https://github.com/scrooloose/syntastic'
+
+[pack/tomtom/start/tlib_vim]
+checkout = git_clone_giturl -o starter 'https://github.com/tomtom/tlib_vim'
+
+[pack/tomtom/start/viki_vim]
+checkout = git_clone_giturl -o starter 'https://github.com/tomtom/viki_vim'
+
+# *** tpope [retired]
+
+# - 2021-01-23: See instead: github.com/preservim/nerdcommenter
+[pack/tpope/opt/vim-commentary]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-commentary'
+
+# - 2019-03-19: Disabled vim-endwise: it's frustrating me.
+[pack/tpope/opt/vim-endwise]
+order = 790
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-endwise.git'
+
+[pack/tpope/opt/vim-pathogen]
+order = 790
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-pathogen.git'
+
+# - The scriptease package is quite esoteric. It's basically Tim Pope's
+#   Vim dev commands. And the last thing I need to do is spend time more
+#   time developing Vim, especially core Vim!! Pass.
+[pack/tpope/opt/vim-scriptease]
+order = 790
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-scriptease'
+
+# - 2018-12-13: A colorscheme I looked at, for inspiration, but ultimately
+#               dubs_after_dark is too hot.
+[pack/tpope/opt/vim-vividchalk]
+order = 790
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-vividchalk.git'
+
+# *** tpope [active]
+
+[pack/tpope/start/vim-abolish]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-abolish'
+
+[pack/tpope/start/vim-fugitive]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-fugitive'
+
+[pack/tpope/start/vim-jdaddy]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-jdaddy'
+
+[pack/tpope/start/vim-rails]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-rails'
+
+[pack/tpope/start/vim-speeddating]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-speeddating'
+
+[pack/tpope/start/vim-vinegar]
+checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-vinegar'
+
+# *** vim-scripts
+
+[pack/vim-scripts/start/AutoAdapt]
+checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/AutoAdapt'
+infuse = link_private_exclude "$@"
+
+[pack/vim-scripts/start/ingo-library]
+checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/ingo-library'
+infuse = link_private_exclude "$@"
+
+# In -core: [pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
+
+[pack/vim-scripts/start/TeTrIs.vim]
+checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/TeTrIs.vim'
+
+[pack/vim-scripts/start/ZoomWin]
+checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/ZoomWin.git'
+infuse = link_private_exclude "$@"
+
+# 2021-08-18: python_matchit Refs:
+# - Original python_match.vim, v0.5 [2003-10-02], by Benji Fisher:
+#   - https://www.vim.org/scripts/script.php?script_id=386
+# - On GitHub:
+#   - v0.5: https://github.com/voithos/vim-python-matchit
+# - See also: matchit
+[pack/voithos/start/vim-python-matchit]
+checkout = git_clone_giturl -o starter 'https://github.com/voithos/vim-python-matchit.git'
+
+# *** From 'w' to 'z'
+
+[pack/wincent/start/command-t]
+checkout = git_clone_giturl -o starter 'https://github.com/wincent/command-t'
+
+# GONE-BNF: [pack/xolox/start/vim-easytags]  # 2016-11-13 or earlier: Removed.
+
+[pack/xolox/start/vim-misc]
+checkout = git_clone_giturl -o starter 'https://github.com/xolox/vim-misc'
+
+[pack/yuezk/start/vim-js]
+checkout = git_clone_giturl -o starter 'https://github.com/yuezk/vim-js'
+
+[pack/zhou13/start/vim-easyescape]
+checkout = git_clone_giturl -o starter 'https://github.com/zhou13/vim-easyescape'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

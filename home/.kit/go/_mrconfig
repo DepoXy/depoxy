@@ -1,0 +1,94 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 690
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/go/fzf]
+checkout = git_clone_giturl -o starter 'https://github.com/junegunn/fzf.git'
+infuse =
+  link_private_exclude "${@}"
+  if [ -e "${MR_REPO}/bin/fzf" ]; then
+    symlink_overlay_file "${MR_REPO}/bin/fzf" "${HOME}/.local/bin/fzf"
+  elif [ -n "${HOMEBREW_PREFIX}" ] && [ -e "${HOMEBREW_PREFIX}/bin/fzf" ]; then
+    # Fallback Homebrew.
+    # - Interestingly, on @macOS after `brew install fzf`, when you run
+    #     ~/.kit/go/fzf/install 
+    #   it prefers the `fzf` on PATH (or at least Homebrew's fzf). It'll
+    #   simply symlink bin/fzf to the one of PATH. (Whereas, if you do
+    #   not have fzf installed from brew, ./install will build `bin/fzf`.)
+    #   In any case, if you Homebrew-install fzf, there's no reason to
+    #   install it from source... so currently this OMR project exists
+    #   for @linux parity, but that's only for now, because I plan to
+    #   eventually evaluate install-homebrew.sh on @linux, after which
+    #   I might be able to remove the OMR fzf project (considering I do
+    #   not need it to reference sources, which I most certainly do not).
+    symlink_overlay_file "${HOMEBREW_PREFIX}/bin/fzf" "${HOME}/.local/bin/fzf"
+  fi
+  mkdir -p "${HOME}/.local/man"
+  symlink_overlay_file "${MR_REPO}/man/man1/fzf.1" "${HOME}/.local/man/man1/fzf.1"
+  symlink_overlay_file "${MR_REPO}/man/man1/fzf-tmux.1" "${HOME}/.local/man/man1/fzf-tmux.1"
+install =
+  cd "${MR_REPO}"
+  # I don't use Z shell, so if fzf creates a Z startup script, remove it.
+  local no_zshrc=false
+  [ ! -e "${HOME}/.zshrc" ] && no_zshrc=true
+  printf 'no\nno\nno\n' | ./install
+  /bin/rm "${HOME}/.fzf.bash" "${HOME}/.fzf.zsh"
+  ${no_zshrc} && /bin/rm "${HOME}/.zshrc"
+  mr -d "${MR_REPO}" -n infuse
+  printf '\n%s\n\n%b%s%b\n\n' \
+    "YOU: Undo FZF changes to ~/.bashrc:" \
+    "\033[38;2;255;0;135m" \
+    "  cdh && git checkout -- .bashrc-bin/bashrc.base.sh" \
+    "\033[0m"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# Install tag-ag using Go, because Homebrew's `tag` segfaults:
+#   $ brew install aykamko/tag-ag/tag-ag
+#   $ /opt/homebrew/bin/tag
+#   Segmentation fault: 11
+[${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag]
+checkout = git_clone_giturl -o starter 'https://github.com/aykamko/tag.git' 'aykamko-tag'
+install =
+  go install github.com/aykamko/tag@latest
+  # Installs to ~/go/bin/tag
+  # FIXME: Should I be using GOPATH/GO_PATH instead of ${HOME}/go ?
+  symlink_overlay_file "${HOME}/go/bin/tag" "${HOME}/.local/bin/tag"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# 2021-01-20: Meh. A nifty tool I used for a short spell but not so much anymore.
+#  [${DOPP_KIT:-${HOME}/.kit}/go/direnv]
+#  checkout = git_clone_giturl -o publish 'https://github.com/landonb/direnv.git'
+#  wireupstream = remote_add starter 'https://github.com/direnv/direnv.git'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# 2021-01-20: Here in case you find yourself wanting profiling.
+#  # 2018-05-16: To use `python -m timeit` on any app, requires shelling out.
+#  # - But here's a Go project of same name that works on any executable.
+#  [${DOPP_KIT:-${HOME}/.kit}/go/timeit]
+#  checkout = git_clone_giturl -o starter 'https://github.com/choksheak/timeit.git'
+#  install = go build timeit.go
+
+# ========================================================================
+# ------------------------------------------------------------------------
+[${DOPP_KIT:-${HOME}/.kit}/go/helm]
+checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

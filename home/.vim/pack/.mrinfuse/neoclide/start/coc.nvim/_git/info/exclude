@@ -1,0 +1,5 @@
+/.gitignore.local
+/package-lock.json
+# 2021-01-26: Since last time I (re)installed.
+/doc/tags-cn
+

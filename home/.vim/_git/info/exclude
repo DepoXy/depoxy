@@ -1,0 +1,15 @@
+# vim:ft=conf
+/.gitignore.local
+
+# infuse -> ~/.depoxy/ambers/home/infuse-dubs-vim
+/infuse
+
+# _mrconfig* -> .mrinfuse/_mrconfig*
+/.mrconfig
+/.mrconfig-3rdp
+/.mrconfig-dubs
+/.mrconfig-lsp
+
+# .mrinfuse -> ~/.depoxy/ambers/home/.vim/
+/.mrinfuse
+

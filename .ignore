@@ -1,0 +1,39 @@
+/.git/
+
+/bin/macOS/onboarder/deps/homebrew-install.sh
+
+# Symlink -> ../home/.homefries/.bashrc-bin/bashrx.private.sh
+/core/wire-bash.sh
+
+# home/.config/tig/config-client -> ~/.depoxy/running/home/.config/tig/config
+/home/.config/tig/config-client
+# home/.config/tig/config-newtons -> ~/.kit/git/tig-newtons/tig/config
+/home/.config/tig/config-newtons
+
+# Symlink -> ~/.kit/git/git-smart/.gitconfig
+# CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
+/home/.gitconfig
+
+# Generated file.
+/home/.vim/pack/DepoXy/start/vim-depoxy/doc/tags
+
+# Live Vim spell file generated from sources.
+/home/.vim/spell/en.utf-8.add
+# Vim spell file generated on 'infuse'.
+/home/.vim/spell/en.utf-8.add--compiled
+
+# CXREF: ~/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications
+#   is populated with symlinks by symlink_kbmods_using_file_symlinks in
+#     ~/.depoxy/ambers/home/infuse-platform-macOS:47
+#   and DXC's depoxy_client_id_infuse_karabiner_elements_complex_modifications
+#     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr:751
+#   that serve as canon for ~/.projlns
+/home/.config/karabiner/assets/complex_modifications/
+# --DXC symlink -> ../../../../../running/home/.config/karabiner/assets/complex_modifications/
+/home/.config/karabiner/assets/complex_modifications--DXC/
+# --KBE symlink -> ~/.kit/mOS/Karabiner-Elephants/complex_modifications/
+/home/.config/karabiner/assets/complex_modifications--KBE/
+
+# Symlink -> ../../../../bin/macOS/launchers/
+/home/.config/karabiner/assets/launchers
+

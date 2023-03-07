@@ -1,0 +1,373 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+MSG_PREFIX_ADDED_SYMLINKS_DIR='Created symlinks for'
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps () {
+  # Load: warn, etc.
+  command -v logger.sh > /dev/null && . logger.sh ||
+    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+
+  # Load: link_hard
+  command -v link-hard.sh > /dev/null && . link-hard.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
+  # Load: link_private_exclude
+  command -v link-private-exclude.sh > /dev/null && . link-private-exclude.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-exclude.sh"
+  # Load: link_private_ignore
+  command -v link-private-ignore.sh > /dev/null && . link-private-ignore.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-ignore.sh"
+  # Load: symlink_*, infuser_prepare, font_highlight.
+  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+seed_myrepos_mrconfig_dubs_vim () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  # We could carnally link the config, e.g.,
+  #   symlink_file_clobber "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/.mrconfig"
+  # But I'd rather the symlink be figured out via .mrinfuse.
+  # - So the ~/.vim/.mrinfuse symlink, which symlink_mrinfuse_* expects.
+  # (Note that .mrinfuse references a subdirectory of the DepoXy Ambers infuse pasture.)
+  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim" '.mrinfuse'
+
+  symlink_mrinfuse_file '_mrconfig' '.mrconfig'
+  symlink_mrinfuse_file '_mrconfig-dubs' '.mrconfig-dubs'
+  symlink_mrinfuse_file '_mrconfig-3rdp' '.mrconfig-3rdp'
+  symlink_mrinfuse_file '_mrconfig-lsp' '.mrconfig-lsp'
+}
+
+# ***
+
+# 2020-03-21: For some reason I'm conflicted whether the pack/.mrinfuse belongs
+# here in private dotfiles, or just put publicly in ~/.vim, especially because
+# ~/.vim/.gitignore is public and calls out all the repos. Specifically, I do
+# not really expect anyone to use my Vim shell, so no need to separate private
+# from not... meh, I also don't expect people to really adopy OhMyRepos, either,
+# do I.
+seed_myrepos_mrinfuse_dubs_vim_pack () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/.mrinfuse" 'pack/.mrinfuse'
+}
+
+# ***
+
+setup_private_git_exclude () {
+  # Place ~/.vim/.gitignore.local
+  #     → ~/.vim/.git/info/exclude
+  #     → home/.vim/_git/info/exclude
+  link_private_exclude
+}
+
+# ***
+
+# Place ~/.vim/pack/.gitignore.
+setup_vim_pack_git_exclude () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/_gitignore" 'pack/.gitignore'
+}
+
+# ***
+
+setup_private_grep_ignore () {
+  # Place ~/.vim/.ignore.
+  link_private_ignore '_ignore'
+}
+
+# ***
+
+wire_home_vimrc () {
+  # Link ~/.vimrc → ~/.vim/.vimrc
+  local before_cd="$(pwd -L)"
+  cd ${HOME}
+  symlink_overlay_file '.vim/.vimrc' '.vimrc'
+  cd "${before_cd}"
+}
+
+# ***
+
+infuse_this_infuser () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim" 'infuse'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+populate_run_generator () {
+  local symldir="$1"
+
+  info " Running symlink generator: $(font_highlight "${symldir}"/)…"
+
+  ${symldir}/generate_links.sh > /dev/null
+
+  info " ${MSG_PREFIX_ADDED_SYMLINKS_DIR} $(font_highlight "${symldir}/")"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_private_plug_file_dubs_file_finder () {
+  [ -d pack/landonb/start/dubs_file_finder ] || return 0
+
+  local before_cd="$(pwd -L)"
+  cd pack/landonb/start/dubs_file_finder
+
+  symlink_overlay_dir "${HOME}/.vim/.mrinfuse/cmdt_paths"
+
+  cd "${before_cd}"
+}
+
+# ***
+
+populate_cmdt_paths () {
+  # Populate ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths for cmdT.
+  populate_run_generator 'pack/landonb/start/dubs_file_finder/cmdt_paths'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# dubs_cuts is searched on #9 search (aka #9 grep aka #9 grep-steady).
+
+# 2021-08-20: I had this partially disabled on macOS hosts, because the
+# generator script ran "for a hot minute", or at least an old comment
+# suggested. But I ran `infuse` just now, and this action took 11 secs. to
+# run (and populated dubs_cuts/ with 180 links $(find . -type l | wc -l)).
+
+populate_dubs_cuts_maybe () {
+  if populate_dubs_cuts_should_generate; then
+    populate_dubs_cuts_generate
+  fi
+}
+
+# Always regerate dubs_cuts on Linux hosts, but only if necessary on Darwin.
+populate_dubs_cuts_should_generate () {
+  if [ "$(uname)" != "Darwin" ]; then
+    return 0
+  fi
+
+  # 2021-08-20: See comment above; disabling check and always regenerating.
+  if true; then
+    warn
+    warn "NOTICE: Expect to wait about ~9-11 secs. [2021-08-20]"
+    warn
+
+    return 0
+  fi
+  # The rest is now unreachable.
+
+  local dubs_cuts="${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
+
+  populate_dubs_cuts_warn_preamble
+
+  # The -xtype option is apparently a test performed on a deferenced
+  #   link, but I don't see it document in `man find` (Darwin).
+  # And `find --help` merely shows its options: "-xtype [bcdpfls]".
+  # (Answer was top hit to "linux detect broken symlink"
+  #  https://unix.stackexchange.com/a/38691)
+  if [ -z "$(find "${dubs_cuts}" -xtype l)" ]; then
+    populate_dubs_cuts_warn_lucky
+
+    return 1
+  else
+    # Fix broken symlinks, otherwise #9 search will show
+    # ‘No fule file or directory’ errors in Vim quickfix.
+    populate_dubs_cuts_warn_patience
+  fi
+}
+
+populate_dubs_cuts_warn_preamble () {
+  warn
+  warn "NOTICE: populate_dubs_cuts hangs macOS for a hot minute!"
+  warn
+}
+
+populate_dubs_cuts_warn_lucky () {
+  warn "        But you're in luck! None of its symlinks are broken."
+  warn
+  warn "        Though it might be missing newish symlinks."
+  warn
+  warn "        If you want to be certain, run it manually:"
+  warn
+  warn "          ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.vim/dubs_project_tray/generate_links.sh"
+  warn
+}
+
+populate_dubs_cuts_warn_patience () {
+  warn "        But broken symlink(s) were detected!! So we have to regenerate..."
+  warn
+  warn "        Please be patient..."
+  warn
+}
+
+populate_dubs_cuts_generate () {
+  # MEH/2019-10-27: This infuser takes a hot second to run (possibly
+  # because I could not make the script POSIX-compliant, or more likely
+  # because of the for-loop on find with regex).
+
+  # Run the Dubs Vim dubs_cuts infuser, i.e., execute:
+  #   ~/.depoxy/ambers/home/.vim/dubs_project_tray/generate_links.sh
+  # to populate:
+  #   ~/.depoxy/ambers/home/.vim/dubs_project_tray/dubs_cuts/
+  # aka:
+  #  "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
+  # upon which setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
+  # depends.
+  populate_run_generator '.mrinfuse/dubs_project_tray'
+}
+
+# ***
+
+setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
+  [ -d pack/landonb/start/dubs_project_tray ] || return 0
+
+  local before_cd="$(pwd -L)"
+  cd pack/landonb/start/dubs_project_tray
+
+  symlink_overlay_dir "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
+
+  cd "${before_cd}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_project_plug_vim_depoxy () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
+  local fzf_vim="${DOPP_KIT:-${HOME}/.kit}/go/fzf/plugin/fzf.vim"
+
+  local depoxy_vim_org="DepoXy"
+
+  mkdir -p "pack/${depoxy_vim_org}/start"
+
+  local before_cd="$(pwd -L)"
+
+  # ***
+
+  cd "pack/${depoxy_vim_org}"
+
+  symlink_overlay_file \
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/_ignore" \
+    ".ignore"
+
+  # ***
+
+  cd "start"
+
+  symlink_overlay_dir \
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/start/vim-depoxy" \
+    "vim-depoxy"
+
+  if [ -e "${fzf_vim}" ]; then
+    cd "./vim-depoxy/plugin"
+
+    symlink_overlay_file "${fzf_vim}" "fzf.vim"
+  fi
+
+  # ***
+
+  cd "${before_cd}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_project_plug_vim_landonb () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
+  local landonb_vim_org="landonb"
+
+  mkdir -p "pack/${landonb_vim_org}"
+
+  local before_cd="$(pwd -L)"
+
+  # ***
+
+  cd "pack/${landonb_vim_org}"
+
+  symlink_overlay_file \
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${landonb_vim_org}/_ignore" \
+    ".ignore"
+
+  # ***
+
+  cd "${before_cd}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_private_coc_config () {
+  symlink_mrinfuse_file 'coc-settings.json'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  source_deps
+
+  [ "$(basename $0)" != "infuse-dubs-vim" ] || LOG_LEVEL=0
+
+  # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
+  infuser_prepare "${HOME}/.vim" "$@"
+
+  local before_cd="$(pwd -L)"
+  cd ${MR_REPO}
+
+  # ***
+
+  seed_myrepos_mrconfig_dubs_vim
+
+  seed_myrepos_mrinfuse_dubs_vim_pack
+
+  setup_private_git_exclude
+
+  setup_vim_pack_git_exclude
+
+  setup_private_grep_ignore
+
+  wire_home_vimrc
+
+  infuse_this_infuser
+
+  # ***
+
+  setup_private_plug_file_dubs_file_finder
+  populate_cmdt_paths
+
+  # ***
+
+  setup_project_plug_vim_depoxy
+
+  setup_project_plug_vim_landonb
+
+  # ***
+
+  # Setup Coc's config.
+
+  setup_private_coc_config
+
+  # ***
+
+  # Calls populate_dubs_cuts_should_generate which takes a sec,
+  # so call last, so debugging previous calls is quicker.
+  populate_dubs_cuts_maybe
+  setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
+
+  # ***
+
+  cd "${before_cd}"
+}
+
+set -e
+
+# Run the infuser iff being executed.
+if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+  main "$@"
+fi
+

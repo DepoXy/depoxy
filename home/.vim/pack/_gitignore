@@ -1,0 +1,176 @@
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# Vim packages overview.
+
+# Use Vim's new(ish) packages feature (see: :help packages) and manually
+# install packages under ~/.vim/pack. To keep packages organized, use
+# subdirectories to manage packages by their author. E.g., for a package
+# you always want loaded, use a path such as, e.g.,
+#       ~/.vim/pack/<author>/start/<package>
+# - If you later want to disable a package, make it optional by
+#   moving the directory under 'opt', e.g.,
+#         ~/.vim/pack/<author>/opt/<package>
+#   and then should you want to load it, run, e.g.,:
+#         :packadd! <package>
+# - If you're looking for a way to manage multiple git repositories,
+#   the author recommends myrepos:
+#       https://myrepos.branchable.com/
+#   paired with the author's myrepos extensions and actions:
+#       https://github.com/landonb/ohmyrepos
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+/.gitignore
+/.mrinfuse
+
+# ***
+
+# Rather than just ignore everything hereunder, e.g.,
+#
+#     *
+#
+# Be deliberate instead, and list every plugin.
+#
+# - While a little more work, it'll help you
+#   keep better form. E.g., if you clone a new
+#   plugin but don't update this .gitignore file,
+#   you'll see the new plugin on the next git-status.
+#   This might remind you to add the new plugin to your
+#   myrepos config, and to update this .gitignore file.
+# - It's also nice to see a complete list of everything
+#   installed.
+#
+# HINT:
+#   ll -d ~/.vim/pack/*/*/*
+
+# *** DepoXy
+
+/DepoXy/.ignore
+
+# *** DepoXy published plugs
+
+/DepoXy/start/vim-clip-expand-path/
+/DepoXy/start/vim-depoxy-coc-defaults/
+
+# *** DepoXy Client plugs
+
+# Public DepoXy Ambers Plugin.
+/DepoXy/start/vim-depoxy
+
+# Private DepoXy Client Plugin.
+#
+# Unpublished plugin playground, either for testing out new features,
+# or for @biz-specific features.
+/DepoXy/start/vim-trap
+
+# *** landonb
+
+/landonb/.ignore
+/landonb/start/ansible-vim/
+/landonb/start/dubs_after_dark/
+/landonb/start/dubs_appearance/
+/landonb/start/dubs_buffer_fun/
+/landonb/start/dubs_edit_juice/
+/landonb/start/dubs_file_finder/
+/landonb/start/dubs_ftype_mess/
+/landonb/start/dubs_grep_steady/
+/landonb/start/dubs_html_entities/
+/landonb/start/dubs_mescaline/
+/landonb/start/dubs_project_tray/
+/landonb/start/dubs_quickfix_wrap/
+/landonb/start/dubs_style_guard/
+/landonb/start/dubs_syntastic_wrap/
+/landonb/start/dubs_toggle_textwrap/
+/landonb/start/dubs_web_hatch/
+/landonb/start/QFEnter/
+/landonb/start/vim-buffer-ring/
+/landonb/start/vim-classic-taglist/
+/landonb/start/vim-command-line-clock/
+/landonb/start/vim-lcd-project-root/
+/landonb/start/vim-markdown/
+/landonb/start/vim-netrw-cfg-split-explorer/
+/landonb/start/vim-netrw-link-resolve/
+/landonb/start/vim-nicer-file-changed-prompt/
+/landonb/start/vim-ovm-easyescape-kj-jk/
+/landonb/start/vim-ovm-seven-of-spines/
+/landonb/start/vim-reSTfold/
+/landonb/start/vim-reST-highdefs/
+/landonb/start/vim-reST-highfive/
+/landonb/start/vim-reST-highline/
+/landonb/start/vim-select-mode-stopped-down/
+/landonb/start/vim-source-reloader/
+/landonb/start/vim-surround/
+/landonb/start/vim-title-bar-time-of-day/
+/landonb/start/vim-tmux-navigator/
+/landonb/start/vim-unimpaired/
+
+# ***
+
+/arcticicestudio/start/nord-vim/
+/autozimu/opt/LanguageClient-neovim/
+/cespare/start/vim-toml/
+/chrisbra/start/improvedft/
+/chrisbra/start/matchit/
+/ctrlpvim/start/ctrlp.vim/
+/editorconfig/start/editorconfig-vim/
+/editorconfig/opt/vim-go/
+/flazz/start/vim-colorschemes/
+/HerringtonDarkholme/start/yats.vim/
+/jamessan/start/vim-gnupg/
+/juanpabloaj/start/vim-istanbul/
+/junegunn/start/fzf.vim/
+/junegunn/start/goyo.vim/
+/junegunn/start/limelight.vim/
+/leafgarland/start/typescript-vim/
+/majutsushi/start/tagbar/
+/marshallward/opt/vim-restructuredtext/
+/MaxMEllon/start/vim-jsx-pretty/
+/nanotech/start/jellybeans.vim/
+/pangloss/start/vim-javascript/
+/preservim/start/nerdcommenter/
+/samoshkin/start/vim-mergetool/
+/scrooloose/opt/nerdtree/
+/scrooloose/start/syntastic/
+/tomtom/start/tlib_vim/
+/tomtom/start/viki_vim/
+/tpope/opt/vim-commentary/
+/tpope/opt/vim-endwise/
+/tpope/opt/vim-pathogen/
+/tpope/opt/vim-scriptease/
+/tpope/opt/vim-vividchalk/
+/tpope/start/vim-abolish/
+/tpope/start/vim-fugitive/
+/tpope/start/vim-jdaddy/
+/tpope/start/vim-rails/
+/tpope/start/vim-speeddating/
+/tpope/start/vim-vinegar/
+/vim-scripts/start/AutoAdapt/
+/vim-scripts/start/ingo-library/
+/vim-scripts/start/TeTrIs.vim/
+/vim-scripts/start/ZoomWin/
+/voithos/start/vim-python-matchit/
+/wincent/start/command-t/
+/xolox/start/vim-misc/
+/yuezk/start/vim-js/
+/zhou13/start/vim-easyescape/
+
+# *** CoC and related LSP.
+
+# - Note that DepoXy symlinks a file we cannot set an ignore rule on:
+#     ../coc-settings.json
+#   Because this file is symlinked at ~/.vim/pack/.gitignore.
+# - So that ignore rule is upstream in the Dubs Vim project.
+#     https://github.com/landonb/dubs-vim#🖖
+/neoclide/start/coc.nvim/
+/neoclide/start/coc-json/
+/neoclide/start/coc-tsserver/
+
+# vim-lsp
+/prabirshrestha/opt/vim-lsp/
+/prabirshrestha/opt/async.vim/
+/prabirshrestha/opt/asyncomplete.vim/
+/prabirshrestha/opt/asyncomplete-lsp.vim/
+/mattn/opt/vim-lsp-settings/
+# Deprecated Language Servers (use vim-lsp-settings instead).
+/ryanolsonx/opt/vim-lsp-javascript/
+/ryanolsonx/opt/vim-lsp-typescript/
+
+# ***
+

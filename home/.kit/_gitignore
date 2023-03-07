@@ -1,0 +1,165 @@
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# NOTE: Git 2.32.0+ does not allow `.gitignore` symlinks; so now a hard link.
+# - LINKD: ~/.gitignore ↔ ~/.depoxy/ambers/home/.kit/_gitignore
+
+# Symlinks to ~/.depoxy/ambers/home/.kit/ files.
+/.gitignore
+/README.md
+
+# *** Git
+
+# GitHub's official CLI.
+/git/cli/
+# Git itself.
+/git/git/
+# Bumper Gits.
+/git/git-bump-version-tag/
+# Wicked clever Git commands.
+/git/git-extras/
+# Powerful history rewriter.
+/git/git-filter-repo/
+# Explosively consise Git status.
+/git/git-my-merge-status/
+# Pull up a monolith, let me explain how this works
+/git/git-put-wise/
+# Set up the rebase a little quicker.
+/git/git-interactive-rebase-tool/
+# Show various stats about the project.
+/git/git-quick-stats/
+# Lots of small, smart Git tweaks.
+/git/git-smart/
+# Garden variety interactive rebase.
+/git/git-veggie-patch/
+# Community CLI (that I find more powerful than official `gh`).
+/git/hub/
+# One app to rule them all.
+/git/myrepos/
+# mredit and mropen commands.
+/git/myrepos-mredit-command/
+# One major extension to make it actually rule.
+/git/ohmyrepos/
+# Palindromeda strain.
+/git/tig/
+# Git smarts walks into a tig.
+/git/tig-newtons/
+
+# *** Golang
+
+# Infamous `tag` command.
+/go/aykamko-tag/
+# Mostly for Vim :FZF.
+/go/fzf/
+# Helm charts... @biz-specific, sorta more appropriate for .git/info/exclude.
+/go/helm/
+
+# golang -> go/
+/golang
+
+# *** JavaScript
+
+# LATER/2021-01-28: WIP: This coverage diff tool looks awesome.
+# - But I either new admin access to the project to wire it as an action;
+# - Or, I need to figure out if I can run it locally.
+/js/Jest-Coverage-Diff/
+
+# Basic JS dev support: Better ctags.
+# - Which is great, until you learn about Language Servers.
+#
+#  /js/ctags-patterns-for-javascript/
+
+# A decent JS LS that works.
+# - Except the language engine is embedded in the project, and
+#   outdated (so you will see false positive diagnostic issues).
+#
+#  /js/javascript-typescript-langserver/
+
+# OpenLens Kubernetes GUI (another item more approp. for .gitignore.local)
+/js/lens/
+
+# For digging into internals when you Need To Know.
+/js/nvm/
+
+# An awesome JS LS that blew my mind.
+# - And settles any question of whether I need to learn VS Code.
+#   (*Nope!*)
+/js/typescript-language-server/
+
+# *** macOS
+
+/mOS/Docker-Desktop-OMR-install/
+
+/mOS/GeekTool/
+
+/mOS/Karabiner-Elements/
+
+/mOS/finicky/
+
+# 2021-08-06: This project opened a whole can o' worms. Or at least a trifecta:
+# 1.) Homebrew no longer supports `gocryptfs` because it switched from `osxfuse` to
+# closed-source MacFuse, but also `brew update` fails because of its refusal, which
+# meant I couldn't update my other brews (or taps, or whatever they're called). This
+# led me to uninstalling `gocryptfs` to try the one from MacPorts, which seemed to
+# work at first (I could an encfs to mount). But I quickly found out that no apps
+# could get the current working directory from within its mounted paths, meaning it
+# wasn't working. And I couldn't find a solution (or even others having the same
+# problem) onlne, so then I had to uninstall it (though now that I write this,
+# perhaps it was because my encfs was created with version 1, and MacPorts installed
+# version 2, and projects are not backwards-compatible? who knows). So this led to an
+# hour or more figuring out how to install the *old* version with Homebrew (and Home-
+# brew makes it real tough; fortunately I found an article/walk-through, and was able
+# to guess at a few missing steps). Finally, I learned how to pin the old version so
+# that brew-update wouldn't complain about it and fail, like it was doing originally.
+# 2.) I hadn't updated Homebrew projects in a while, because I don't run the update
+# command regularly, nor do I run brew-install very often, which also updates all
+# installed brews as a side effect. And when I updated all my Homebrew apps, the
+# latest Git was installed, which no longer supports symlinked `.gitignore` files.
+# So I had to add an OMR hard link helper, and I update the mrconfig infuse tasks
+# to use hard links instead.
+# 3.) (Now I've spent too much time griping about the first 2 items, I forgot what
+# the third is. Whatever, I'm already and TMI.)
+/mOS/homebrew-autoupdate/
+
+# macOS -> mOS/
+/macOS
+
+# *** "Odd" [Currently: Mechanical Keyboard apps]
+
+# CXREF: ~/.depoxy/ambers/home/.kit/odd/_mrconfig
+
+/odd/via-nativia/
+/odd/wally/
+
+# *** Python
+
+/py/aws-cli/
+/py/pyenv-virtualenv/
+
+# python -> py/
+/python
+
+# *** [Sh]oilerplate et al
+
+/sh/.tmux/
+/sh/EvanHagn-dotfiles
+/sh/commacd/
+/sh/feature-coverage-report/
+/sh/gvim-open-kindness/
+/sh/fries-findup/
+/sh/parT
+/sh/sh-ask-yesnoskip/
+/sh/sh-colors/
+/sh/sh-git-nubs/
+/sh/sh-logger/
+/sh/sh-pather/
+/sh/sh-print-nanos-now/
+/sh/sh-rm_safe/
+/sh/sh-sensible-open/
+/sh/tmux-bash-completion
+/sh/tmux-sensible/
+/sh/tpm/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
