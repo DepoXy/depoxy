@@ -1,0 +1,12 @@
+/.git/
+
+# The Vimprojects template is only updated when synced (against DepoXy
+# Client file, DXC/home/.vimprojects--purged).
+# - Here we keep it from searches so you're not tempted to waste time
+#   editing it otherwise.
+# - What's canon is DXC/home/.vimprojects — go edit that, then sync
+#   the --purged copy you have @home against the template.
+home/.vimprojects.EVAL
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+

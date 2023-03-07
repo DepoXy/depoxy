@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2022 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+CUT_HEAD_UNTIL_DELIM="^#░░▒░░▒░░▒░░#"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps () {
+  :
+}
+
+DUBS_PROJECT_TRAY_PATH="home/.vim/pack/landonb/start/dubs_project_tray"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+vimprojects_sans_CLIENT_PROJECTS_header_jumpers () {
+  local vimpf="${DUBS_PROJECT_TRAY_PATH}/.vimprojects"
+
+  tail +$(
+    grep -m 1 -n "${CUT_HEAD_UNTIL_DELIM}" "${vimpf}" | tr ':' ' ' | awk '{ print $1 }'
+  ) "${vimpf}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+vimprojects_create_copy_without_work_projects () {
+  cd "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/${DEPOXYDIR_RUNNING_NAME:-running}}"
+
+  local vimpg="${DUBS_PROJECT_TRAY_PATH}/.vimprojects--purged"
+
+  vimprojects_sans_CLIENT_PROJECTS_header_jumpers |
+    grep -B 99999 -A 8 "# BEG: CLIENT_WORKS ############" \
+    > "${vimpg}"
+
+  printf '%s\n\n...\n\n%s\n%s\n' \
+    "# ░░ BEG: <COMING SOON> ░░░░░░░░" \
+    "CLIENT_PROJECTS" \
+    "# <INSERT FIRST PROJECT HERE>" \
+    >> "${vimpg}"
+
+  vimprojects_sans_CLIENT_PROJECTS_header_jumpers |
+      grep -B 6 -A 99999 "# ░░ BEG: <COMING SOON> ░░░░░░░░" \
+    >> "${vimpg}"
+
+  # less home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--purged
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  source_deps
+
+  vimprojects_create_copy_without_work_projects
+}
+
+main "$@"
+

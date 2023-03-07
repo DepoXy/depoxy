@@ -1,0 +1,76 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# USAGE:
+#
+# - You could uncomment `wiresigning = true` and then configure
+#   individual projects, e.g.,
+#
+#     # Equivalent [set_signing_config defaults $(git config user.name)
+#     #             and calls set_signing_config_<user>]:
+#     wiresigning = set_signing_config
+#     wiresigning = set_signing_config "userX"
+#     wiresigning = set_signing_config_userX
+#
+#   - Uncomment to use `wiresigning` task, then calling
+#     `mr -d / wiresigning` won't fail on projects that
+#     didn't opt-in:
+#
+#  wiresigning = true
+#
+# - Another approach (easier) is to set signing on an ad-hoc basis, e.g.,:
+#
+#     $ mr -d . -n run set_signing_config
+#
+#   Or you could apply to all your repos:
+#
+#     $ mr -d / run set_signing_config
+#
+#   Or to a MR_INCLUDE subset:
+#
+#     $ MR_INCLUDE=depoxy mr -d / run set_signing_config
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+lib =
+  set_signing_config () {
+    local git_user="${1:-$(git config user.name)}"
+    #
+    local user_cmd="set_signing_config_${git_user}"
+    if ! command -v "${user_cmd}" > /dev/null; then
+      >&2 echo "ERROR: Please define your own \"${user_cmd}\" command, e.g.,"
+      >&2 echo
+      >&2 cat << EOF
+ [DEFAULT]
+ lib =
+   ${user_cmd} () {
+     git config user.name "${git_user}"
+     git config user.email "${git_user}@users.noreply.github.com"
+     git config user.signingkey <YOUR-GPG-KEY-ID>
+     git config commit.gpgSign true
+   }
+ EOF
+      >&2 echo
+      >&2 echo "- Or try a different user, e.g,"
+      >&2 echo "    mr -d \"${MR_REPO}\" -n set_signing_config \"userX\""
+      #
+      return 1
+    fi
+    #
+    "${user_cmd}" "$@"
+  }
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

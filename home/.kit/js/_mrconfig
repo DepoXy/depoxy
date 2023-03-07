@@ -1,0 +1,139 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 490
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# FTREQ/2021-01-27: Rewire this so you can run it locally, to produce your own reports
+# - 2021-06-02: That, or just wire it to the projects you want to use it on.
+
+[${DOPP_KIT:-${HOME}/.kit}/js/Jest-Coverage-Diff]
+lib = MR_REPO_REMOTE_URL="https://github.com/anuraag016/Jest-Coverage-Diff.git"
+checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# Lens aka OpenLens aka Electron Lens.
+[${DOPP_KIT:-${HOME}/.kit}/js/lens]
+lib = MR_REPO_REMOTE_URL="https://github.com/lensapp/lens.git"
+checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+install =
+  # Alternatively to building and installing, you could run from sources:
+  #   $ _depoxy_run_or_front_electron_lens
+  # Just be sure to kill `lens` and `node` if you run from source and later
+  # decide to build and install Lens (else `open /Applications/OpenLens.app`
+  # will beach-ball the cursor but not open Lens).
+  if ! os_is_macos; then
+    >&2 echo "ERROR: Only macOS Lens install currently plumbed."
+    #
+    exit 1
+  fi
+  #
+  echo "Building OpenLens..."
+  echo "- This installer known to work on:"
+  echo "  - node version: v16.18.1"
+  echo "    yarn version: 1.22.19"
+  echo "- This host:"
+  echo "  - node version: $(node -v)"
+  echo "    yean version: $(yarn -v)"
+  #
+  #
+  local node_vers="v16.18.1"
+  echo "- Using node version: ${node_vers}"
+  echo "  - YOU: Periodically bump Node version as appropriate."
+  nvm install ${node_vers}
+  nvm use ${node_vers}
+  #
+  # FIXME/2023-01-01: Resolve this comment next time you ONBRD.
+  echo "MAYBE/2023-01-01: Is this install task missing an \`nvm\` call?"
+  #
+  # 2023-01-01: First time I ran this, first time it failed.
+  echo "- HINT: If build fails, try it again."
+  #
+  build_lens () {
+    env ELECTRON_BUILDER_EXTRA_ARGS="--arm64 --x64 --config.dmg.sign=false" make build
+  }
+  build_lens
+  if [ $? -ne 0 ]; then
+    echo && echo "Build failed. Trying again!" && echo
+    build_lens
+  fi
+  if [ $? -ne 0 ]; then
+    echo && echo "YOU: Drag-drop Lens to Applications to install Lens." && echo
+    open dist/OpenLens-6.2.0-alpha.0-arm64.dmg
+    echo
+    # Sit in sleep-loop polling until user completes their action.
+    while [ ! -d "/Applications/OpenLens.app" ]; do
+      sleep 1
+    done
+    echo "Lens is now installed. You can run it thusly:"
+    echo
+    echo "  open /Applications/OpenLens.app"
+  else
+    >&2 echo
+    >&2 echo "Failed! Please resolve the issue and fix this install task."
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/js/nvm]
+lib = MR_REPO_REMOTE_URL="https://github.com/nvm-sh/nvm.git"
+checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+# Checkout the latest tagged release, so we're not running "unreleased" code.
+install =
+  # Implied: cd "${MR_REPO}"
+  local latest_vers
+  # latest_vers='0.37.2'  # 2021-01-28.
+  latest_vers="$(git latest-version)"
+  [ -z "${latest_vers}" ] && >&2 warn "ERROR: Cannot determine \`nvm\` version" && return 1
+  local release_branch="rel/${latest_vers}"
+  local current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  if [ "${current_branch}" != "${release_branch}" ]; then
+    git checkout -b rel/${latest_vers} v${latest_vers}
+  fi
+  # FIXME: Pinning branch does not matter, b/c install.sh downloads files.
+  # - So why on ~2021-01-28 did I pin branch but didn't call install.sh?
+  ./install.sh
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# SKIP:
+#   https://github.com/romainl/ctags-patterns-for-javascript
+#   https://github.com/sourcegraph/javascript-typescript-langserver.git
+
+# TypeScript engine used for Vim LSP support, bridged by
+# vim-lsp-javascript (at least that's my understanding).
+#   ~/.vim/pack/ryanolsonx/start/vim-lsp-javascript
+[${DOPP_KIT:-${HOME}/.kit}/js/typescript-language-server]
+lib = MR_REPO_REMOTE_URL="https://github.com/theia-ide/typescript-language-server.git"
+checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# pampering 💆 time
+# Tampermonkey macOS motion scripts 💆
+# https://github.com/DepoXy/pampermonkey#💆
+[${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey]
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/pampermonkey.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = false  # i.e., mr_exclusive "entrusted" "..."...
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

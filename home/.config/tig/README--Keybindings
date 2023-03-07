@@ -1,0 +1,147 @@
+XXX HINT: See what keys are in use:
+XXX HINT:
+XXX HINT:   sort ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2
+XXX HINT:     | awk '{ print $1 " " $2 " " $3 }'  # If you want
+XXX HINT:
+XXX HINT: Better yet, dump to a new buffer in Vim:
+XXX HINT:
+XXX HINT:   :enew | read !sort ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2 | grep -v XXX | awk '{ print $1 " " $2 " " $3 }'
+XXX HINT:
+XXX HINT: See also :tabnew (like TabMessage).
+XXX HINT:
+XXX HINT: Keys that do not work:
+XXX HINT: - Don't work: <C-->, <C-.>, <C-Delete>, etc.
+XXX HINT: - Escape works, but brief pause before you see shell:
+XXX HINT:     bind generic <Esc> !sh -c "
+XXX HINT: - <C-i> responds "Only one view is displayed":
+XXX HINT:     bind generic <C-i> !sh -c "
+XXX HINT: - <C-.> responds "Unknown key":
+XXX HINT:     bind generic <C-.> !sh -c "
+XXX HINT:
+all                        m view-main           Show main view
+all                        d view-diff           Show diff view
+all                        l view-log            Show log view
+all                        L view-reflog         Show reflog view
+all                        t view-tree           Show tree view
+all                        f view-blob           Show blob view
+all                        b view-blame          Show blame view
+all                        r view-refs           Show refs view
+all                        s view-status         Show status view
+all                        S view-status         Show status view
+all                        c view-stage          Show stage view
+all                        y view-stash          Show stash view
+all                        g view-grep           Show grep view
+all                        p view-pager          Show pager view
+all                        h view-help           Show help view
+all                  <Enter> enter               Enter and open selected line
+all                        < back                Go back to the previous view state
+all                   <Down> next                Move to next
+all                 <Ctrl-N> next                Move to next
+all                        J next                Move to next
+all                     <Up> previous            Move to previous
+all                 <Ctrl-P> previous            Move to previous
+all                        K previous            Move to previous
+all                        , parent              Move to parent
+all                    <Tab> view-next           Move focus to the next view
+all                     <F5> refresh             Reload and refresh view
+all                        O maximize            Maximize the current view
+all                        q view-close          Close the current view
+all                        Q quit                Close all views and quit
+all                 <Ctrl-C> quit                Close all views and quit
+all                        k move-up             Move cursor one line up
+all                        j move-down           Move cursor one line down
+all                 <PageUp> move-page-up        Move cursor one page up
+all                        - move-page-up        Move cursor one page up
+all               <PageDown> move-page-down      Move cursor one page down
+all                  <Space> move-page-down      Move cursor one page down
+all                 <Ctrl-U> move-half-page-up   Move cursor half a page up
+all                 <Ctrl-D> move-half-page-down Move cursor half a page down
+all                   <Home> move-first-line     Move cursor to first line
+all                    <End> move-last-line      Move cursor to last line
+all                 <Insert> scroll-line-up      Scroll one line up
+all                 <Ctrl-Y> scroll-line-up      Scroll one line up
+all                 <Delete> scroll-line-down    Scroll one line down
+all                 <Ctrl-E> scroll-line-down    Scroll one line down
+all             <ScrollBack> scroll-page-up      Scroll one page up
+all              <ScrollFwd> scroll-page-down    Scroll one page down
+all                        | scroll-first-col    Scroll to the first line columns
+all                   <Left> scroll-left         Scroll two columns left
+all                  <Right> scroll-right        Scroll two columns right
+all                        / search              Search the view
+all                        ? search-back         Search backwards in the view
+all                        n find-next           Find next search match
+all                        N find-prev           Find previous search match
+all                        : prompt              Open the prompt
+all                        o options             Open the options menu
+all                 <Ctrl-L> screen-redraw       Redraw the screen
+all                        z stop-loading        Stop all loading views
+all                        I :toggle sort-order
+all                        i :toggle sort-field
+all                        # :toggle line-number
+all                        D :toggle date
+all                        A :toggle author
+all                        ~ :toggle line-graphics
+all                        F :toggle file-name
+all                        W :toggle ignore-space
+all                        X :toggle id
+all                        $ :toggle commit-title-overflow
+all                        T :set main-view-date = width:16,display:default
+all                        R :set main-view-date = width:6,display:relative
+all                        V :show-version
+all                        v !open_line_under_cursor__gVim______________
+all                        e !open_line_under_cursor__editor____________
+all                        x !clipboard_copy__selected_commit_sha_______
+all                        P !clipboard_copy__file_path_________________
+all                 <Ctrl-r> !rebase_interactive___from_selected_rev____
+all                        * !rebase_edit__________selected_rev_________
+all                        + !rebase_fixup_staged__into_selected_rev____
+all                 <Ctrl-t> !wip_commit__push__aka_tidy_up_____________
+all                        ^ !wip_commit__pop___iff_youngest_rev________
+all                        . !shell_out_to_view_previous_command_output_
+all                 <Ctrl-o> !git_drop_revision_________________________
+all                 <Ctrl-a> !git_put_wise__archive_____________________
+all                 <Ctrl-s> !git_put_wise__push________________________
+all                 <Ctrl-f> !git_put_wise__push__force_________________
+all                 <Ctrl-v> !git_put_wise__pull________________________
+all                 <Ctrl-b> !git_put_wise__apply_______________________
+all                        % !git_sort_by_scope__rebase_________________
+all                        C !git_commit_verbose________________________
+all                        & !rebase_reword________selected_rev_________
+all                 <Ctrl-C> view-close          Close the current view
+all                   <Down> find-next           Find next search match
+all                 <Ctrl-N> find-next           Find next search match
+all                 <Ctrl-J> find-next           Find next search match
+all                     <Up> find-prev           Find previous search match
+all                 <Ctrl-P> find-prev           Find previous search match
+all                 <Ctrl-K> find-prev           Find previous search match
+main                       G :toggle commit-title-graph
+main                       F :toggle commit-title-refs
+main                       H :goto HEAD
+main                       C !git_commit_verbose________________________
+main                       M !make_lint_________________________________
+main                       ! !git_upraise_revision______________________
+diff                       [ :toggle diff-context -1
+diff                       ] :toggle diff-context +1
+diff                       @ :/^@@
+diff                       ! !git_upraise_revision______________________
+reflog                     F :toggle commit-title-refs
+reflog                     C ?git checkout %(branch)
+reflog                     ! ?git reset --hard %(commit)
+refs                       C ?git checkout %(branch)
+refs                       ! ?git branch -D %(branch)
+status                     u status-update       Stage/unstage chunk or file changes
+status                     ! status-revert       Revert chunk or file changes
+status                     M status-merge        Merge file using external tool
+status                     C !git commit
+stage                      u status-update       Stage/unstage chunk or file changes
+stage                      ! status-revert       Revert chunk or file changes
+stage                      1 stage-update-line   Stage/unstage single line
+stage                      2 stage-update-part   Stage/unstage part of a chunk
+stage                      \ stage-split-chunk   Split current diff chunk
+stage                      [ :toggle diff-context -1
+stage                      ] :toggle diff-context +1
+stage                      @ :/^@@
+stash                      A ?git stash apply %(stash)
+stash                      P ?git stash pop %(stash)
+stash                      ! ?git stash drop %(stash)
+pager                      @ :/^@@

@@ -1,0 +1,67 @@
+{
+  // Do not auto suggest completions while typing.
+  "suggest.autoTrigger": "none",
+
+  // Do not indicate diagnostic errors in column
+  // or popup the error message on cursor hover.
+  "diagnostic.enable": false,
+
+  // Enable logging:
+  //
+  //  "tsserver.log": "verbose",
+  //  "tsserver.trace.server": "verbose",
+
+  // Diagnositc tweaking:
+  //
+  //  "diagnostic.enableSign": false,
+  //  "diagnostic.enableHighlightLineNumber": false,
+  //  "diagnostic.errorSign": "X",
+  //  "diagnostic.enableMessage": false,
+  //  "diagnostic.level": "error"
+
+
+// (lb): 2020-12-26: Trying to enable verbose logging
+//                   to debug trying to configure
+//                   pyright to ``gd`` goto definition
+//                   of function from external dependency,
+//                   magically started working, so stopped
+//                   trying to figure this out...
+//
+//  "tsserver.log": "verbose",
+//  "tsserver.trace.server": "verbose",
+//  "diagnostic.level": "error",
+//
+//  "languageserver": {
+//    "python": {
+//      //"command": "gopls",
+//      //"rootPatterns": ["go.mod"],
+//
+//      // https://pastebin.com/raw/YUPPDA8h
+//      // https://www.reddit.com/r/neovim/comments/e9k01h/help_me_with_cocnvim_using_for_python_used_with/fc4jm0s/
+//      //"command": "python",
+//      //"args": [
+//      //  "-mpyls",
+//      //  "-vv",
+//      //  "--log-file",
+//      //  "/tmp/lsp_python.log"
+//      //],
+//
+//      "trace.server": "verbose",
+//      "filetypes": ["py", "python"]
+//    }
+//  }
+
+
+  // (lb): 2022-11-22: Weird. The whole return type syntax
+  // (spaces and arrow " -> " and type), is highlighted such that
+  // I cannot read it. More interestingly, the cursor jumps the
+  // whole block of return type syntax. I can't even <F10> to see
+  // the formatting rule. (Same with variable types.) And trying
+  // to backspace over the highlight deletes what's before it, so
+  // how would a developer edit the return type annotation. Strange.
+  "pyright.inlayHints.functionReturnTypes": false,
+  "pyright.inlayHints.variableTypes": false,
+  // 2022-11-28: Not sure why inlay hints showing up @biz again...
+  "pyright.inlayHints.enable": false,
+}
+

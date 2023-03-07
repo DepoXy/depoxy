@@ -1,0 +1,20 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+
+# USAGE: Call this script from a Karabiner-Elements rule.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  [ -f "${HOME}/.config/depoxy/depoxyrc" ] && . "${HOME}/.config/depoxy/depoxyrc"
+
+  # Open, e.g., ~/.kit/txt/emoji-lookup/emoji-lookup.rst
+  "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
+    "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst"
+}
+
+# Run the function iff being executed.
+if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+  main "$@"
+fi
+

@@ -1,0 +1,113 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 480
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# https://github.com/landonb/git-smart#💡
+# "Clever Git Config & Commands"
+[${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}]
+lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-smart.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+# CXREF: For the infuser that places ~/.gitconfig, see:
+#   ~/.depoxy/ambers/home/infuse-user-home
+infuse =
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" "deps/sh-git-nubs/bin/git-nubs.sh"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# "Pure Bash Git version tag increment and push"
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag]
+lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-bump-version-tag.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+infuse =
+  link_hard \
+    "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
+    "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh"
+  link_hard \
+    "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
+    "deps/sh-git-nubs/bin/git-nubs.sh"
+
+# GH Slugln.:
+#   "Fancy, information-dense, multiple-remote workflow-aware git-status for the sophisticated dev in you"
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-my-merge-status]
+lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-my-merge-status.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+infuse =
+  link_private_exclude "$@"
+  #
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
+    "deps/sh-git-nubs/bin/git-nubs.sh"
+  #
+  symlink_mrinfuse_file 'bin/.my-merge-status-nochores'
+
+# enigmatic encrypted repo conveyance 🥨
+# https://github.com/DepoXy/git-put-wise#🥨
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-put-wise]
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/git-put-wise.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = false  # i.e., mr_exclusive "entrusted" "..."...
+install = make install
+infuse =
+  link_private_exclude "$@"
+  #
+  symlink_overlay_file "${MR_REPO}/bin/git-put-wise" \
+    "${HOME}/.local/bin/git-put-wise"
+  symlink_overlay_file "${MR_REPO}/bin/git-rebase-sort-by-scope-protected-private" \
+    "${HOME}/.local/bin/git-rebase-sort-by-scope-protected-private"
+  # Too much?
+  symlink_overlay_file "${MR_REPO}/bin/putwisely" \
+    "${HOME}/.local/bin/putwisely"
+  #
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
+    "deps/sh-git-nubs/bin/git-nubs.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
+    "deps/sh-logger/bin/logger.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/deps/sh-colors/bin/colors.sh" \
+    "deps/sh-logger/deps/sh-colors/bin/colors.sh"
+
+# Interactive Git patch injector.
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-veggie-patch]
+lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-veggie-patch.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# Locate and edit myrepos config fastly 🧜
+# https://github.com/DepoXy/myrepos-mredit-command#🧜
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command]
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/myrepos-mredit-command.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+install = make install
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# Supercharged `tig` config 🍎
+# https://github.com/DepoXy/tig-newtons#🍎
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons]
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/tig-newtons.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = ! mr_exclusive "entrusted"
+infuse =
+  link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-fup" \
+    "deps/git-smart/bin/git-fup"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

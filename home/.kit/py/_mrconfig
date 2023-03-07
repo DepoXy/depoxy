@@ -1,0 +1,182 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 695
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/py/pyenv]
+checkout =
+  # Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
+  #   ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
+  # Otherwise might be, e.g., author's Linux env. (where I don't (or
+  # haven't started to) use Homebrew).
+  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    git_clone_giturl -o starter 'git@github.com:pyenv/pyenv.git' 'pyenv'
+  else
+    mkdir -p "${MR_REPO}"
+    touch "${MR_REPO}/.omr-placeholder"
+  fi
+install =
+  if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    return 0
+  fi
+  # Probably needless state check.
+  if [ ! -d "${MR_REPO}/.git" ]; then
+    >&2 echo "ERROR: Where's the Git?: ${MR_REPO}/.git"
+    return 1
+  fi
+  #
+  # FIXME/2022-09-29: So... what's the best way to keep up to date?
+  git co v2.3.4
+  src/configure && make -C src
+  # You could also install Python versions now, e.g.,
+  #
+  #   mr -d ${MR_REPO} -n installpythons
+installpythons =
+  # Install all supported Pythons so they're at the ready.
+  pyenv install 3.10.6 --skip-existing
+  pyenv install 3.9.13 --skip-existing
+  pyenv install 3.8.13 --skip-existing
+  pyenv install 3.7.13 --skip-existing
+  # EOL Pythons:
+  #  pyenv install 3.6.15 --skip-existing
+  #  pyenv install 3.5.10 --skip-existing
+infuse =
+  if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    return 0
+  fi
+  #
+  # Wire project root.
+  symlink_overlay_dir "${MR_REPO}" "${HOME}/.pyenv"
+  # Wire executable.
+  symlink_overlay_file "${MR_REPO}/bin/pyenv" "${HOME}/.local/bin/pyenv"
+  # Effectively:
+  #  symlink_overlay_file "${MR_REPO}/libexec/pyenv" "${HOME}/.local/bin/pyenv"
+  # Copy pyenv manual.
+  #  /bin/cp -f man/man1/pyenv.1 ${HOME}/.local/share/man/man1
+  #  echo "/bin/cp -f man/man1/pyenv.1 ${HOME}/.local/share/man/man1"
+  symlink_overlay_file "${MR_REPO}/man/man1/pyenv.1" "${HOME}/.local/share/man/man1/pyenv.1"
+  # Wire the completions file (Homefries-specific).
+  if [ -d "${HOME}/.homefries/bin/completions" ]; then
+    cd "${HOME}/.homefries/bin/completions"
+    symlink_overlay_file "${MR_REPO}/completions/pyenv.bash" pyenv.bash
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# I don't use this copy of pyenv-virtualenv; see brew-install version instead.
+# - CXREF: ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
+[${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv]
+checkout =
+  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ]; then
+    git_clone_giturl -o "starter" "pyenv/pyenv-virtualenv.git"
+  else
+    mkdir -p "${MR_REPO}"
+    touch "${MR_REPO}/.omr-placeholder"
+  fi
+install =
+  # 2022-11-20: So far I just want `po shell` @home [on Linux, which is this path]
+  # - SPIKE: Is there a diff. btw. pyenv-virtualenv (which uses py -m venv)
+  #                            and using poetry?
+  #   - NTHEN: Pick a side, then remove pyenv-virtualenv if you don't want it.
+  # - SPIKE: Do I even use this @work anymore? Double-check perhaps, another
+  #          reason to remove this OMR project, perhaps.
+  #
+  # Guard clause: You gotta want this
+  if ! ${DXC_OMR_ENABLE_PYENV_VIRTUALENV:-false}; then
+    info "Skipping py/pyenv-virtualenv b/c DXC_OMR_ENABLE_PYENV_VIRTUALENV falsey"
+    #
+    return 0
+  fi
+  #
+  # Another guard: Skip if Homebrew got us
+  [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ] || return 0
+  #
+  # Now we're cleared
+  local plugins_dir="$(pyenv root)/plugins"
+  if [ -d "${plugins_dir}" ]; then
+    symlink_overlay_dir "${MR_REPO}" "${plugins_dir}/pyenv-virtualenv"
+  else
+    warning "Could not identify/locate pyenv plugins directory: ${plugins_dir}"
+    #
+    return 1
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# https://aws.amazon.com/cli/
+# https://github.com/aws/aws-cli.git
+# https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
+[${DOPP_KIT:-${HOME}/.kit}/py/aws-cli]
+checkout = git_clone_giturl -o starter 'https://github.com/aws/aws-cli.git' 'aws-cli'
+install =
+  local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
+  mkdir -p "${downloads_dir}"
+  cd "${downloads_dir}"
+  # I usually use `wget` for downloading files, and `curl` for testing API calls.
+  # - But maybe I should get in the habit of using `curl` for all my calls.
+  #
+  #  wget "https://awscli.amazonaws.com/AWSCLIV2.pkg"
+  local awscli_pkg="AWSCLIV2.pkg"
+  # Only download again if package older than today, using curl 'continue' option.
+  local midnight_file="$(mktemp)"
+  if ! date --help > /dev/null 2>&1; then
+    error "ERROR: Incompatible (not GNU) \`date\` command."
+    if [ -n "${PYENV_VIRTUAL_ENV}" ]; then
+      error "- HINT: Try exiting the virtualenv."
+    fi
+    #
+    exit 1
+  fi
+  touch -t "$(date -d "today 0" +"%C%y%m%d%H%M.%S")" "${midnight_file}"
+  local do_continue
+  [ "${midnight_file}" -ot "${awscli_pkg}" ] && do_continue="-C -"
+  curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "${awscli_pkg}" ${do_continue}
+  #
+  # *** System-wide install
+  #
+  #  sudo installer -pkg ./AWSCLIV2.pkg -target /
+  #
+  # *** User-local install
+  # INERT/2022-11-04: This is the only app locally-installed to ~/.downloads.
+  #                   But if I had more, I'd consider alt. dir., e.g., ~/.applications
+  local install_base="${downloads_dir}"
+  local install_home="${install_base}/aws-cli"
+  #
+  local choices_xml="${downloads_dir}/aws-cli-choices.xml"
+  echo '<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+ <plist version="1.0">
+   <array>
+     <dict>
+       <key>choiceAttribute</key>
+       <string>customLocation</string>
+       <key>attributeSetting</key>
+       <string>'${install_base}'</string>
+       <key>choiceIdentifier</key>
+       <string>default</string>
+     </dict>
+   </array>
+ </plist>' > "${choices_xml}"
+  #
+  installer \
+    -pkg "${awscli_pkg}" \
+    -target CurrentUserHomeDirectory \
+    -applyChoiceChangesXML "${choices_xml}"
+  #
+  symlink_overlay_file "${install_home}/aws" "${HOME}/.local/bin/aws"
+  symlink_overlay_file "${install_home}/aws_completer" "${HOME}/.local/bin/aws_completer"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

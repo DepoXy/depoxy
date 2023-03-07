@@ -1,0 +1,109 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 590
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+autocommit = true
+
+# NOTE: Use _mrconfig, or any name that's not .mrconfig, so if you run `mr`
+#       from within one of these subdirectories, you do not see repos twice.
+[DEFAULT]
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "git" ] ||
+     [ "${MR_INCLUDE}" = "kit-git" ] ||
+     [ "${MR_INCLUDE}" = "entrusted" ] ||
+  false; then
+    if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
+      cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-core
+    fi
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-smart
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "go" ] ||
+     [ "${MR_INCLUDE}" = "kit-go" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/go/_mrconfig
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "js" ] ||
+     [ "${MR_INCLUDE}" = "kit-js" ] ||
+     [ "${MR_INCLUDE}" = "entrusted" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/js/_mrconfig
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "mOS" ] ||
+     [ "${MR_INCLUDE}" = "kit-mOS" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "odd" ] ||
+     [ "${MR_INCLUDE}" = "kit-odd" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/_mrconfig
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "py" ] ||
+     [ "${MR_INCLUDE}" = "kit-py" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "sh" ] ||
+     [ "${MR_INCLUDE}" = "kit-sh" ] ||
+     [ "${MR_INCLUDE}" = "entrusted" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-bash
+    if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
+      cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-shell
+    fi
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "txt" ] ||
+     [ "${MR_INCLUDE}" = "kit-txt" ] ||
+  false; then
+    cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/txt/_mrconfig
+  fi
+
+# NOTE: Current [SECTION] is whatever last section of last cat'ted file is.
+# So be sure next line in this file is either another include, or a [section].
+[DEFAULT]
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

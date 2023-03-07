@@ -1,0 +1,32 @@
+*vim_depoxy.txt*	For Vim version 7.4.	Last change: 2022 Dec 12
+
+DepoXy Ambers Vim Config and Functionality~
+
+DEPOXY AMBERS VIM			*depoxy-ambers-vim*
+
+1. About This Plugin			|depoxy-ambers-vim-about|
+2. Configure FZF			|depoxy-ambers-vim-setup-fzf|
+3. Configure NERD Commenter		|depoxy-ambers-vim-setup-nerd|
+
+==============================================================================
+1. About This Plugin			*depoxy-ambers-vim-about*
+
+This plugin configures Vim plugins specifically for the DepoXy Ambers
+development environment.
+
+Project page: https://github.com/DepoXy/depoxy#🍯
+
+https://github.com/DepoXy/depoxy/blob/release/home/.vim/pack/DepoXy/start/depoxy-ambers-vim
+
+==============================================================================
+2. Configure FZF			*depoxy-ambers-vim-setup-fzf*
+
+Wires `junegunn`'s `fzf.vim` plugin into the DepoXy Ambers experience,
+and sets a few commands, such as `FZF` and `F`.
+
+==============================================================================
+3. Configure NERD Commenter		*depoxy-ambers-vim-setup-nerd*
+
+Sets NERD Commenter options just the way we want.
+
+ vim:tw=78:ts=8:ft=help:norl:

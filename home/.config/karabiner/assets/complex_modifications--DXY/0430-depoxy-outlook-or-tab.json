@@ -1,0 +1,31 @@
+{
+  "title": "#0430 — Microsoft — Global Hotkeys: Application Foregrounders",
+  "rules": [
+
+    {
+      "description": "#0431.a — Google Chrome — Systemwide — 'Mail' tab — Foreground (Shift-Ctrl-Cmd-A)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "left_control",
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/raise--chrome--mail.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}
+

@@ -1,0 +1,31 @@
+{
+  "title": "#0320 — Google Chrome — Systemwide — Outlook 'Calendar' tab — Foreground",
+  "rules": [
+
+    {
+      "description": "#0321 — Chrome — Systemwide — 'Calendar' tab — Foreground (Shift-Ctrl-Cmd-D)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "left_control",
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/raise--chrome--calendar.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}
+

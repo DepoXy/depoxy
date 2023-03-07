@@ -1,0 +1,775 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitconfig
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# This file contains 3 types of Git config:
+# - Config that is DepoXy-specific.
+# - Config that is opinionated.
+# - Config that is experimental.
+#
+# DepoXy-specific config includes references to projects that DepoXy
+# installs (e.g., git-bump-version-tag) that don't belong in a more
+# generic Git config project (like the author's git-smart project,
+# which anyone can use without needing to install other libraries).
+#
+# Opinionated config includes changes to default settings that might
+# confuse people familiar with Git, such as modifiying autosetupmerge.
+#
+# Experimental config is just that, config that the author developed
+# or pasted herein and either has not polished, or has not vetted well
+# enough to graduate it to their git-smart project.
+#
+# REFER: https://github.com/landonb/git-smart
+# - And that project's lengthy Git config:
+#     https://github.com/landonb/git-smart/blob/release/.gitconfig
+
+# #######################################################################
+# =======================================================================
+# #######################################################################
+
+# #######################################################################
+# ***                   DepoXy-specific Git config                    ***
+# #######################################################################
+
+[alias]
+
+  # Project: https://github.com/landonb/git-bump-version-tag
+  #
+  # Easily apply a semantic version tag.
+  bump = bump-version-tag
+
+  # Project: https://github.com/landonb/git-my-merge-status#🌵
+  #
+  # Show a fancy, very detailed one-line repository status.
+  # - BWARE: On arm64 macOS, the Homebrew-installed Bash v5 is *slow*.
+  #   - You're better off ensuring built-in Bash v3 on PATH first so
+  #     this command runs reasonably fast (by which I mean, it takes
+  #     a quarter of a second on the author's Linux machine, one sec
+  #     longer on macOS using Bash v3, and four secs longer w/ Bash v5).
+  st = my-merge-status
+  #
+  # Show the same detailed one-liner, but formatted to align well when
+  # printed alongide other status lines.
+  # - This is mostly used for testing changes to the status line for when it's
+  #   used by the ohmyrepos 'mystatus' action (github.com:landonb/ohmyrepos).
+  #   E.g., to see status lines for each of your repos, you could run:
+  #     $ mr -d / mystatus
+  #   but to see a similar status for only the current repo, run this command.
+  stt = ! GITSMART_MYST_ALIGN_COLS=true git my-merge-status
+
+  # From within DepoXy Ambers:
+  #   ~/.depoxy/ambers/bin/git-rebase-sort-by-scope-protected-private
+  #
+  sort-by-scope = rebase-sort-by-scope-protected-private
+  pwip = ! git add -A && git commit --no-verify -m '"PRIVATE: WIP"'
+
+[interactive]
+
+  # Project: https://github.com/landonb/git-veggie-patch
+  #
+  # Add a visual break (colorful flower bed) between interactive patch hunks.
+  diffFilter = diff-filter-garden
+
+# AWAIT/2022-10-25: This comment and the useBuiltin setting are transitory,
+#                   and will be removed after macOS updates to Git >v.37.
+# - The issue: Git v2.37 activated new `git add -p` code rewritten in C,
+#   but there was a regression with interactive patch using color codes.
+#   - The issue was fixed in the following release, Git v.238.
+#   - REFER: https://github.com/so-fancy/diff-so-fancy/issues/437
+# - Note that Homebrew Git at v2.38, but Brew git is slow to run some of
+#   my custom commands. For instance, `git st` (my-merge-status) and the
+#   `git add -p` interactive patch filter (git-veggie-patch) each run
+#   very slowly with Brew git. (I've seen similar slowness sourcing files
+#   with Brew Bash, while seems like a file read bottleneck (if you try
+#   to source a no-op shell script file, it takes half a second). I've
+#   also noticed that ggrep is slow.) So I like to use system Git, which
+#   is snappy, and I wouldn't recommend using Brew bash as a work-around.
+# This *temporary* work-around re-enables the old behavior (so Git uses
+# the old interactive code, and not the new C implementation). And while
+# I read that the C code is faster, it's not like the old impl. was slow.
+[add "interactive"]
+
+  useBuiltin = false
+
+# #######################################################################
+# =======================================================================
+# #######################################################################
+
+# #######################################################################
+# ***                     Opinionated Git config                      ***
+# #######################################################################
+
+[branch]
+
+  # For more on the autosetup* options, see:
+  #   https://stackoverflow.com/questions/5480069/autosetuprebase-vs-autosetupmerge
+  #   https://mislav.net/2010/07/git-tips/#pull-with-rebase-instead-of-merge
+  #
+  # autosetupmerge defaults true, which means `git co <remote>/<branch>` will
+  # create <branch> tracking its remote counterpart. But by settings always,
+  # it'll also cause `git co -b <branch>` to track the local branch you had
+  # checked out when you create the new branch. Use case: Paired with the
+  # autosetuprebase option, you can `git pull` on a feature branch instead
+  # of running, e.g., `git rebase <mainline>`.
+  # (2021-05-30: We'll see if I find this useful at all.)
+  autosetupmerge = always
+  #
+  # autosetuprebase will change `git pull` to behave like `git pull --rebase`,
+  # but it's probably redundant for me, given that I usually call the `git p`
+  # alias, which calls `git pull --rebase --autostash`.
+  autosetuprebase = always
+
+[interactive]
+
+  # The singleKey option is not in git-smart/.gitconfig proper because
+  # it can be aggravating if your brain's not ready and wired for it.
+  # - But it's here to remind you that it exists, and you might like.
+  # [2020-02-10: Giving this a shot.]
+  singleKey = true
+
+[diff]
+  # 2022-11-22: Demoing a new Git setting:
+  # - Highlight refactored code that moved but is otherwise unchanged.
+  # https://spin.atomicobject.com/2020/05/05/git-configurations-default/
+  colorMoved = zebra
+
+# https://github.com/MitMaro/git-interactive-rebase-tool
+[interactive-rebase-tool]
+
+  # I didn't really like using git-interactive-rebase-tool until
+  # I remapped rebase and abort not to prompt (I trust myself on
+  # rebase and to recover from error, so don't need a guard).
+  # This makes the whole interaction much more pleasant and zippy.
+
+  inputAbort = Q
+  inputForceAbort = q
+
+  inputRebase = W
+  inputForceRebase = w
+
+  # j/k moves the select revision up/down, but I've always found
+  # hjkl counter-intuitive. I rarely use it, but when I do, I always
+  # think it should be left-up-down-right, not left-down-up-right.
+  # - And apparently I'm not alone:
+  #   https://karl-voit.at/2021/07/04/hjkl-navigation/
+  # - I like that left-up-down-right follows CSS box model.
+  #   It also matches left-to-right top-to-bottom reading
+  #   order better, because left two keys will move your
+  #   cursor to upper-left, and right two keys bottom-right.
+
+  inputMoveSelectionUp = j
+  inputMoveSelectionDown = k
+
+# #######################################################################
+# =======================================================================
+# #######################################################################
+
+# #######################################################################
+# ***                Absolutely Ridiculous Git config                 ***
+# #######################################################################
+
+[alias]
+
+  # This alias is not only too silly for graduating to git-smart, but
+  # arguably too silly for including in DepoXy. But for some reason I
+  # enjoy its novelty. And it shows you can do whatever you want with
+  # Git aliases, including actions completely unrelated to Git.
+  #
+  # - With thanks to artist b'ger
+  #   http://www.ascii-art.de/ascii/uvw/vomit.txt
+  puke = \
+    ! echo \
+      "ICAgICAgICAgICAgICAgICAgICAlJSUlJSUKICAgICAgICAgICAgICAgICAgICUlJSUgPSA9CiAg \
+       ICAgICAgICAgICAgICAgICAlJUMgICAgPgogICAgICAgICAgICAgICAgICAgIF8pJyBfKCAuJyAs \
+       CiAgICAgICAgICAgICAgICAgX18vIHxfL1wgICAiICouIG8KICAgICAgICAgICAgICAgIC9gIFxf \
+       XCBcLyAgICAgJWA9ICdfICAuCiAgICAgICAgICAgICAgIC8gICkgICBcL3wgICAgICAuXicsKi4g \
+       LAogICAgICAgICAgICAgIC8nIC8tICAgby8gICAgICAgLSAiICUgJ18KICAgICAgICAgICAgIC9c \
+       Xy8gICAgIDwgICAgICAgPSAsIF4gfiAuCiAgICAgICAgICAgICApX298LS0tLSd8ICAgICAgICAg \
+       IC5gICAnCiAgICAgICAgIF9fXy8vIChfICAtIChcCiAgICAgICAgLy8vLSggICAgXCcgICBcXCBi \
+       J2dlcgo=" \
+      | tr -d '[:space:]' \
+      | base64 --decode;
+
+# #######################################################################
+# =======================================================================
+# #######################################################################
+
+# #######################################################################
+# ***                    Experimental Git config                      ***
+# #######################################################################
+
+# *** The remainder of the file is experimental settings, which might
+#     someday graduate to git-smart.
+
+# #######################################################################
+# ***        Git is-root of git project working tree reminder         ***
+# #######################################################################
+
+[alias]
+
+  #  See also, git-rev-parse, e.g.,:
+  #   [ "$(git rev-parse --show-toplevel)" = "$(pwd)" ] && echo 't' || echo 'f'
+  isroot = ! [ -z "${GIT_PREFIX}" ] && echo 't' || echo 'f'
+
+# #######################################################################
+# ***                            GIT  CPC                             ***
+# #######################################################################
+
+[alias]
+
+  # FIXME/UTEST/2020-11-24: I just threw this together...
+  #
+  # This is like the `git rc` alias (git rebase --continue)
+  # but with a --no-verify twist, à la commit-no-verify.gitconfig,
+  # except the cherry-pick command has no such option, so we
+  # wang it oursmelves.
+
+  # Hrmm: I have the other command as `git rc`, not `git rbc`,
+  # so not sure this should be `git cpc` and not `git cc`, except
+  # "cc" doesn't seem like something I'll remember. But if you
+  # consider train case for the abbreviation, then the two make
+  # sense (feel more complementary), i.e.,
+  #      `rebase --continue` → `git rc` / `cherry-pick --continue` → `git cpc`
+  #       *        *                **     *      *      *                ***
+  cpc = "! f() { \
+    local hook_orig=\".git/hooks/pre-commit\"; \
+    local hook_temp=\"${hook_orig}.OFF\"; \
+    \
+    if [ -e \"${hook_temp}\" ]; then \
+      >&2 echo \"tempfile exists!: ${hook_temp}\"; \
+      return 1; \
+    fi; \
+    \
+    local unhooked=false; \
+    [ -e \"${hookfile}\" ] && unhooked=true || unhooked=false; \
+    \
+    set -e; \
+    ${unhooked} && mv -i \"${hook_orig}\" \"${hook_temp}\"; \
+    git cherry-pick --continue; \
+    ${unhooked} && mv -i \"${hook_temp}\" \"${hook_orig}\"; \
+  }; f"
+
+# #######################################################################
+# ***                            GIT FIXUP                            ***
+# #######################################################################
+
+[alias]
+
+  # ***
+
+  # 2020-12-03: Smells obvious to me, how have I never thought of this before?
+  # FIXME/2020-12-03: Move to commit-no-verify.gitconfig, and base .gitconfig.
+  #  fu = commit --fixup
+  fu = commit --no-verify --fixup
+  # FIXME/2021-05-30: I haven't used this since adding it, have I?
+  # - Tell me: How is this different than `git cin`?
+
+# #######################################################################
+# ***                          GIT LOG -S/-G                          ***
+# #######################################################################
+
+[alias]
+
+# FIXME/2020-12-17: Move all the gross `! f() ...` to their own
+# Bash files (1 each), maybe even on PATH (then you don't have to source!).
+#
+# At least I think so... or, if you want to keep them grouped,
+# maybe move to a separate Git config file and [include]...
+# or maybe add to Bash file to be sourced, so you can use non-
+# escaped functions...
+
+  # ***
+
+  # 2020-10-21: New sauce, to help find --fixup commit when rebasing.
+
+  #search-first = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
+  #first-occurrence = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
+  #first = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
+
+  #search-last = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
+  #last-occurrence = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
+  #last = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
+
+  # Use earliest, or rename first-commit? "init-commit"? show-init-commit git log-first-commit ! git log-first
+  #earliest = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
+  #latest = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
+
+# *** 2020-11-24: WHAT I'VE BEEN SPINNING "AT WORK" (ON WORK MACHINE) RECENTLY: ***
+
+  # 2020-10-21: New sauce, to help find --fixup commit when rebasing.
+  # `git find-first` or `git earliest` or `git latest` or `git deep-find`
+  # or however you want to think about it.
+  # 2020-11-20: I'm finding this useful, so promoting to `git ff`
+  # which also clarifies a bit, because it finds all matches, not just
+  # first or last, so thereskies.
+  # Aka I dunno, it's not really 'find-first', it prints log of all commits
+  # with matches, maybe fully-find, fun-find, ugh.
+  # git-search and git-find are available, and smell obvious.
+  # But I do like how easy `git ff` is to type... fixup-finder, how's that?
+#  ff = "!f(){ git --no-pager log -S \"$*\" --source --reverse; }; f"
+  ff = "!f(){ git --no-pager log -S \"$*\" --source -m --reverse; }; f"
+
+  # 2021-05-30: I'm not the only one who finds such commands useful!
+  #
+  # Here are similar find-commit-containing-text commands,
+  # but with a more compact report, using one line per match.
+  #   https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
+  # I added a newline to the format (%n), and changed $1 to $* so
+  # you don't have to quote the search string if you'd rather not.
+  #
+  # *Find commits by source code* aka "find-commit"
+  fc = "!f(){ \
+    git --no-pager log --decorate --date=short \
+      --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d%n' \
+      -S \"$*\"; \
+  }; f"
+  # *Find commits by commit message*
+  fm = "!f() { \
+    git log --decorate --date=short \
+      --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d%n' \
+      --grep=\"$*\"; \
+  }; f"
+  # Similar find-commit-by-commit-message tricks, courtesy:
+  #
+  #   https://mislav.net/2010/07/git-tips/#find-out-if-a-change-is-part-of-a-release
+  #
+  # *Show the last commit which message matches a regex*
+  #
+  #   $ git show :/fix
+  #   # shows the last commit which has the word "fix" in its message
+  #
+  #   $ git show :/^Merge
+  #   # shows the last merge commit
+
+  # 2020-12-01:
+  # -1 not working?
+  #ff1 = "!f(){ git --no-pager log -S \"$*\" --source --reverse -1; }; f"
+  # What about just using lg1? (But no --reverse w/ --graph... or do not use -S w/ --graph)
+  #   --graph \
+  # Don't want pager either, though...
+  #   | less -S -R; \
+  # Can I specify commit?
+  #   -S \"$*\" --source --reverse \
+  # HRMM: do not quote if no more args, else git sees empty {commit} string
+  #    \"$*\" \
+  # (Or specify HEAD as last arg)
+  #    $* \
+#      -S \"${term}\" --source --reverse \
+  lg1 = "! f() { \
+    local term=\"$1\"; \
+    shift 1; \
+    [ -n \"$1\" ] || set -- HEAD; \
+    git \
+      --no-pager \
+      log \
+      --color=always \
+      \
+      -S \"${term}\" --source -m --reverse \
+      \
+      --date=\"format:%a %F %H:%M %z\" \
+      --pretty=\"format:%h %C(blue)%cd %C(green)%<(22)%an%C(reset)%C(blue)o%C(reset)%C(red)%d%C(reset) %s\" \
+      $* \
+    ; \
+    echo; \
+  }; f"
+
+# All args are terms; no need for commit because --all.
+# No wait filepath -- ... ???
+#      -S \"${term}\" --source --all --reverse \
+  lga1 = "! f() { \
+    local term=\"$1\"; \
+    shift 1; \
+    git \
+      --no-pager \
+      log \
+      --color=always \
+      \
+      -S \"${term}\" --source --all -m --reverse \
+      \
+      --date=\"format:%a %F %H:%M %z\" \
+      --pretty=\"format:%h %C(blue)%cd %C(green)%<(22)%an%C(reset)%C(blue)o%C(reset)%C(red)%d%C(reset) %s\" \
+      $* \
+    ; \
+    echo; \
+  }; f"
+
+# FIXME/2020-12-02: `git log -S` does not search merge commits by default!
+#
+# See:  -m --first-parent
+#
+# - Think -m without the --first-parent works best...
+#
+# https://stackoverflow.com/questions/37142920/git-log-s-does-not-show-anything
+
+
+  # All --all to find matches in any commit, any branch/ancestry.
+  #  find-anywhere = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
+  # 2020-11-25: Oy, So Obvious!: ffa.
+  #ffa = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
+  ffa = "!f(){ git --no-pager log -S \"$*\" --source --all -m --reverse; }; f"
+# 2020-11-20: Nice!: git find-first 'foo bar' | tig
+# MAYBE/2020-11-20: find-first → ff ?? (but fast-forward?)
+# fuzzy find first find fuhhh
+
+# FIXME/2020-11-23: `log -S<string>` vs. `log -G<regex>`.
+#
+# Suppose you have change:
+#
+#   -export const fooBar = (baz) => ({
+#   +export const fooBar = (baz, bat) => ({
+#
+# then `git log -S fooBar` will *not* match that commit,
+# but `git log -G fooBar` (or `git log -S bat`) would.
+
+  # Tell `tig` which commits to show: send it commit hashes.
+  # - Tell git-log to print hashes (format:%H),
+  #   and tell tig to look for 'em (--stdin).
+  # - Note that tig passes both options to git-log:
+  #   --no-walk[=(sorted|unsorted)]
+  #     Only show the given commits, but do not traverse their ancestors. If
+  #     'unsorted', commits shown in order they were given on the command line.
+  #     Otherwise (if 'sorted' or omitted), shown in reverse chronological order.
+  #   --stdin
+  #     In addition to the <commit> listed on the command line, read them from the
+  #     standard input (until -- separator is seen, which signifies path arguments).
+
+#    git --no-pager log -S \"$*\" --pretty=format:%H | tig --no-walk --stdin; \
+  tigf = "! f() { \
+    git --no-pager log -S \"$*\" -m --pretty=format:%H | tig --no-walk --stdin; \
+  }; f"
+
+# FIXME/2021-01-04:  \"$*\" really? and not \"$@\" ??
+#    git --no-pager log -S \"$*\" --pretty=format:%H --all | tig --no-walk --stdin; \
+  tigfa = "! f() { \
+    git --no-pager log -S \"$*\" -m --pretty=format:%H --all | tig --no-walk --stdin; \
+  }; f"
+
+  # ***
+
+  # FIXME/2021-05-30: Audit these.
+
+  # 2021-05-30: Haven't tried this. From:
+  #   https://itnext.io/advanced-git-features-you-didnt-know-you-needed-ed8455c45495
+  graph = log --graph --abbrev-commit --decorate --all \
+    --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)'
+
+  # From: https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
+  # Color graph log view
+  graph2 = log --graph --color \
+    --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+
+  # From: https://gist.github.com/sethvargo/d10a81f219f6469889269af2076b4d39
+  graph3 = "!f() { git log --oneline --abbrev-commit --graph --decorate; }; f"
+
+  # FIXME/2021-05-30: Audit this. Compare with: lg, lg1, log1, logs
+  # Yet another log alias.
+  #   https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
+  lg2 = \
+    log --graph --abbrev-commit --color --decorate \
+        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset'
+
+  # 2021-05-30: https://gist.github.com/pksunkara/988716#gistcomment-2142527
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+
+  # ***
+
+  # Show tag date, tag message, and tag author; or commit message if not annotated.
+  #   refs/tags/annotated-tag    Sun Nov 27 15:12:52 2022 -0600 The tag message <user@host>
+  #   refs/tags/lightweight-tag   Testing: The commit message
+  tag-log = for-each-ref --format '%(refname) %09 %(taggerdate) %(subject) %(taggeremail)' refs/tags --sort=taggerdate
+
+# #######################################################################
+# ***                           GIT {MISC}                            ***
+# #######################################################################
+
+[alias]
+
+  # ***
+
+  bag = tag-n-bag
+  t-bag = tag-n-bag
+
+  # ***
+
+  # 2020-12-04: ??? I've found myself doing this more frequently...
+  # - 2023-03-05: Today I cannot recall last time I invoked this.
+  # git push -u release HEAD
+  pur = push -u release HEAD
+  # FIXME/2020-12-04: `purh`? What about other remotes?
+  pup = push -u proving HEAD
+
+  # ***
+
+  # 2020-12-11: 'git clear upstream', 'stop tracking a remote branch',
+  # USE CASE: I renamed branch locally after pushing previous commit or
+  # something, and git-status says, Your branch is based on 'release/branch-name',
+  # but the upstream is gone.
+  # See also: git branch -d -r origin/<remote branch name> &&
+  #           git config --unset branch.<branch>.remote &&
+  #           git config --unset branch.<branch>.merge
+  bruu = branch --unset-upstream
+
+  # ***
+
+  # 2020-12-13:
+  # aka status --short --branch
+  short-format-status = status -s -b
+
+  # ***
+
+  # 2020-12-14:
+  dated-tags = "! f() { \
+    local GITSMART_GLOB_DATED_TAG='[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*'; \
+    local GITSMART_RE_VERSPARTS='^[0-9]\\{4\\}\\-[0-9]\\{2\\}\\-[0-9]\\{2\\}\\-'; \
+    git tag -l \"${GITSMART_GLOB_DATED_TAG}\" | \
+      grep -e \"${GITSMART_RE_VERSPARTS}\" | \
+      sort --numeric-sort \
+      ; \
+  }; f"
+
+  # ***
+
+  # 2020-12-17: A few takes on squashing all commits (fixup all commits):
+  # - 1. Start fresh:
+  #         rmrm .git/
+  # - 2. Filter the todo for interactive rebase, and change all
+  #      'pick' to 'fixup', except first commit.
+  # - 2b. See the newish --root option:
+  #         git rebase --root -i
+  # - 3. Create an orphan commit from HEAD's tree object, and move HEAD.
+  #   https://stackoverflow.com/questions/1657017/how-to-squash-all-git-commits-into-one
+  # We'll try 3. Looks nifty.
+
+  squash-all = "!f(){ git reset $(git commit-tree HEAD^{tree} -m \"${1:-Squashed!}\");};f"
+
+  squash-most = "! f() { \
+    local second_commit=\"$(git --no-pager log --format='%H' --reverse | head -2 | tail -1)\"; \
+    git reset --soft \"${second_commit}\"; \
+    git commit --amend -m \"${1:-Squashed!}\"; \
+  }; f"
+
+  # ***
+
+  # 2021-05-30: From
+  #   https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
+  # by way of
+  #   https://itnext.io/advanced-git-features-you-didnt-know-you-needed-ed8455c45495
+  # but not sure I'll use -- or want to use -- but could also see it being helpful.
+  #
+  # *Switch to a branch, creating it if necessary*
+  go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+  # ***
+
+  # 2021-05-30: Oh, yeah, I already have a Git stats tool!
+  #
+  #   git quick-stats
+
+  # 2021-05-30: Let's all compare sizes, shall we?
+  #   https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
+  # List contributors with number of commits
+  contributors = shortlog --summary --numbered
+
+  # Seth Vargo [broken link] https://gist.github.com/sethvargo/d10a81f219f6469889269af2076b4d39
+	top = !git log --format=format:%an | sort | uniq -c | sort -r | head -n 20
+
+  # See also git-rank-contributors.
+
+  # ***
+
+  # *See your Git aliases (like Bash's `alias` cmd).*
+  #  https://twitter.com/TrevorBramble/status/774292970681937920
+  # Although it removes newlines but leaves leading whitespace,
+  # so the format makes it hard to read.
+  aliases = !git config -l | grep ^alias | cut -c 7- | sort
+
+  # ***
+
+  # MAYBE/2021-05-30: Should I get in the habit?
+  #
+  # *A safer git push --force*
+  #   https://github.com/mgedmin/dotfiles/blob/master/gitconfig
+  #  fpush = ...
+  # HRMMM: pf? pfl?
+  pf = push --force-with-lease
+
+  # ***
+
+  # *Find out if a change is part of a release*
+  #
+  # Courtesy:
+  #
+  #   https://mislav.net/2010/07/git-tips/#find-out-if-a-change-is-part-of-a-release
+  #
+  # E.g., `git released-tag 8491edc` on this git-smart prints `tags/1.0.4~4`,
+  # where the `~4` means the commit happened 4 revisions before the tag. (The
+  # penultimate commit before the tagged commit is `~1`, and if you query the
+  # commit of the tag itself, it's `^0`, e.g., `tags/1.0.4^0`.) If the commit
+  # is not part of a tagged release, you see the name of the current branch.
+  #
+  #   released-tag = !git name-rev --name-only
+  #
+  # Or, perhaps better yet, add the `-tags` option, which print `undefined`
+  # rather than the current branch name if a revision has not been released,
+  # and also removes the `tags/` prefix, e.g., `1.0.4~4`.
+  #
+  # Also better yet, add `--no-undefined` so that it returns nonzero and
+  # doesn't print `undefined` if the revision is not released (albeit it
+  # prints a `fatal: cannot describe '<SHA-1>'` message instead).
+  #
+  #   released-tag = !git name-rev --name-only --tags --no-undefined
+  #
+  # Or finally maybe even better, suppress the error message. I think the
+  # user will get it if there's no output (and will be quicker for their
+  # branch to process than seeing -- and reading -- a long error message).
+  #
+  released-tag = "!f() { \
+    git name-rev --name-only --tags --no-undefined $1 2>/dev/null; \
+  }; f"
+  #
+  # And then here's a cute trick: You can pipe a block of text to name-rev and
+  # it will annotate it -- with the caveat you cannot use abbreviated commits,
+  # but must use the full 40-character SHA-1 hex. E.g.,
+  #
+  #   $ echo 'Fixes bug from 872679007eaf769ddca7412f4b824446199b202b.' | git name-rev --stdin
+  #   Fixes bug from 872679007eaf769ddca7412f4b824446199b202b (tags/1.0.1~15).
+
+  # ***
+
+  # FIXME/AUDIT/2021-05-30: Do I care/Will I use these?
+
+  # https://github.com/jessfraz/dotfiles/blob/master/.gitconfig#L68
+  # (lb): merge-diff: Show difference between latest local commit and upstream HEAD.
+  mdiff = "!f() { \
+    git stash | head -1 | grep -q 'No local changes to save'; \
+    x=$?; \
+    git merge --no-commit $1 &>/dev/null; \
+    git add -u &>/dev/null; \
+    git diff --staged; \
+    git reset --hard &>/dev/null; \
+    test $x -ne 0 && git stash pop &>/dev/null; \
+    }; f"
+  # Sources:
+  # https://github.com/mgedmin/dotfiles/blob/1da8d86/gitconfig#L79-L84
+  # http://stackoverflow.com/questions/231211/using-git-how-do-i-find-modified-files-between-local-and-remote/6389348#6389348
+  # https://github.com/ddollar/git-utils/blob/master/git-incoming
+  # https://github.com/ddollar/git-utils/blob/master/git-outgoing
+  # (https://github.com/ddollar/git-utils is technically not licensed: No license file.)
+  outgoing = log --oneline @{u}..
+  incoming = !git fetch && git log --oneline ..@{u}
+
+  # ***
+
+  # FIXME/2021-05-30: Revisit this the next time you want to avoid
+  # copying the commit message when you need to the split a commit.
+  # *splitting the last commit interactively (cumbersome; I rarely use it)*
+  # https://github.com/mgedmin/dotfiles/blob/1da8d86/gitconfig#L220-L222
+  split-commit = "!f() { \
+    git tag ORIG_MESSAGE && \
+      git reset HEAD^ && \
+      echo 'Now run: git co-split -p; git co-split -p; git tag -d ORIG_MESSAGE'; \
+  }; f"
+  co-split = !git ci -c ORIG_MESSAGE
+
+  # ***
+
+  # FIXME/2021-06-02: Add back to git-smart...
+  # MAYBE/2021-06-02: Or do I want this called git-ria! ?
+  #  ria1 = !git -c sequence.editor=${EDITOR} rebase -i --autosquash
+
+# ***
+
+[alias]
+
+  wire-for-work = "!f() { \
+    local remote=${2:-origin}; \
+    local upstream_head=$(git remote show ${remote} | grep 'HEAD branch' | cut -d' ' -f5); \
+    git checkout -b $1; \
+    git branch -u ${remote}/${upstream_head}; \
+  }; f"
+  new = wire-for-work
+
+# ***
+
+[alias]
+
+  cihrule = commit --allow-empty -m \"PRIVATE: ‰\"
+
+# ***
+
+[alias]
+
+  # Use the latest commit message and squash to the second commit.
+  # - Use Case: git-put-wise project patches repo that securlely
+  #             shuffles GPG-archived Git patches between hosts.
+  flatten = "!f () { \
+    git_first_commit_sha () { \
+      git rev-list --max-parents=0 --first-parent HEAD; \
+    }; \
+    git_latest_commit_message () { \
+      git --no-pager log --format=%s -1 \"${1:-HEAD}\"; \
+    }; \
+    git squash \"$(git_first_commit_sha)\" \"$(git_latest_commit_message)\"; \
+  }; f"
+
+  # Use the latest commit message and make empty commit with same message.
+  # - Use Case: git-put-wise squashes its commits, so you can use this
+  #             empty commit to coerce put-wise into squashing to this
+  #             commit instead.
+  commit-empty-same-message = "!f() { \
+    git_latest_commit_message () { \
+      git --no-pager log --format=%s -1 \"${1:-HEAD}\"; \
+    }; \
+    git commit --allow-empty -m \"$(git_latest_commit_message)\"; \
+  }; f"
+
+# ***
+
+[alias]
+
+  same = "!f() { \
+    if [ -z \"$1\" ]; then \
+      >&2 echo \"ERROR: Please specify a diff ref (aka HEAD recognizes HEAD)\"; \
+      \
+      exit 1; \
+    fi; \
+    if git diff --quiet $1; then \
+      echo 'Same'; \
+      \
+      return 0; \
+    else \
+      echo 'Not so Same'; \
+      \
+      return 1; \
+    fi; \
+  }; f"
+
+# ***
+
+# #######################################################################
+# =======================================================================
+# #######################################################################
+
+# #######################################################################
+# ***      Strategy to manage your Git user.user and user.email       ***
+# #######################################################################
+
+# To keep this file developer-agnostic, keep your [user] config separate.
+#
+# - When you deploy your DepoXy Client, it'll create ~/.gitconfig.user
+#   to manage which Git user and email is used for each of your projects.
+#   - You can also jump to the template for that file if you have the
+#     DepoXy Archetype cloned at its preferred location:
+#       ~/.depoxy/ambers/archetype/home/.gitconfig.user.m4
+#   - You can also obviously set the Git user and email on a per-project
+#     basis, but the strategy DepoXy Client uses should work for anyone.
+
+# NOTE: Include last, so user aliases override those above.
+
+[include]
+
+  path = .gitconfig.user
+

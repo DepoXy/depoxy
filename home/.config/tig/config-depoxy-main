@@ -1,0 +1,33 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=conf
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# SYNC_ME:
+#
+#   cdd ~/.depoxy/ambers/home/.config/tig && meld config-depoxy-diff config-depoxy-main &
+#
+# Only difference should be 'bind main...' vs. 'bind diff', so commands
+# don't apply to other views (pager, reflog, refs, stage, stash, status),
+# because tig config doesn't support reusing code for multiple commands
+# (alternating, we could immediately shell-out, but I'd rather not).
+#
+# In many case, using 'generic' is fine, if the binding doesn't shadow
+# other view bindings. But there are a few symbols defined only for the
+# special views, e.g., the ! binding is defined separately for multiple
+# views (reflogs, refs, stage, status).
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# YOU: Add DepoXy-specific commands here.
+# - The DepoXy 'main' and 'diff' files mimic the convention used
+#   in tig-newtons:
+#     ~/.kit/git/tig-newtons/tig/config-diff-main
+#     ~/.kit/git/tig-newtons/tig/config-diff-diff
+# - You might not really need this file, if you can promote
+#   commands to tig-newtons.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2023 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# All this just so Slack sends each link to a new window.
+# - Use case: Slack links are one-offs: Open, view, close.
+#   (At least that's the Author's typical M.O.)
+# - I don't appreciate the default behavior: Raising the last-used browser
+#   window and opening a new tab, because then after closing the new tab,
+#   I'll have to minimize the raised window.
+#   - Also, I group tabs by window, so it's very unlikely that whatever I
+#     opened from Slack will be related to the other tabs in whatever
+#     window Chrome chooses to raise.
+# - Note this hook applies system-wide, unlike macOS Finicky
+#     https://github.com/johnste/finicky
+#   which lets you filter by calling application.
+#   - But I cannot deduce caller here: $0 is bash (obviously),
+#     and $PPID is PID 1 (systemd), not very helpful.
+#     - E.g., call this below:
+#         ~/.depoxy/ambers/bin/notify "$(ps -q $PPID)"
+#     - Is there any other way a Desktop Entry can figure out
+#       what calls it? Not AFAICT.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+fussy () {
+  /usr/bin/google-chrome-stable --new-window "$@"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  fussy "$@"
+}
+
+fussy "$@"
+

@@ -1,0 +1,128 @@
+{
+  "title": "#1210 — DepoXy Ambers Launchers",
+  "rules": [
+
+    {
+      "description": "#1211 — MacVim Docs — Systemwide — Open Unicode One-Sheet (Cmd-u)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/gvim-open--Unicode-Emojis"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#1212 — iTerm2 — Systemwide — Foreground “dob” window (Cmd-d)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'tell application \"iTerm2\"' -e 'repeat with w in windows' -e 'tell w' -e 'if NAME of w ends with \"dob edit (Python)\" then' -e 'set index to 1' -e 'tell application \"System Events\" to tell process \"iTerm2\"' -e 'perform action \"AXRaise\" of window 1' -e 'set frontmost to true' -e 'end tell' -e 'return' -e 'end if' -e 'end tell' -e 'end repeat' -e 'end tell'"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#1213 — Clippy — Systemwide — Put Date in Clipboard (Cmd--)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "hyphen",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "/opt/homebrew/bin/bash -c 'f () { local sep=\"${1:--}\"; printf \"$(date \"+%Y${sep}%m${sep}%d\")\" | pbcopy; }; f'"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "#1214 — Chrome & iTerm2 — Remap Cmd-- (use Ctrl-- to Zoom Out; use Cmd-- to clip date)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "hyphen",
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ]
+            }
+          },
+          "to": {
+            "key_code": "hyphen",
+            "modifiers": [ "left_command" ]
+          },
+          "conditions": [{
+            "type": "frontmost_application_if",
+            "bundle_identifiers": [
+              "^com\\.google\\.Chrome",
+              "^com\\.googlecode\\.iterm2"
+            ]
+          }],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#1215 — Chrome & iTerm2 & MacVim — Open PowerThesaurus (Cmd-p)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open -na \"Google Chrome\" --args --new-window \"https://www.powerthesaurus.org/\""
+            }
+          ],
+          "conditions": [{
+            "type": "frontmost_application_if",
+            "bundle_identifiers": [
+              "^com\\.google\\.Chrome",
+              "^com\\.googlecode\\.iterm2",
+              "^org\\.vim\\.MacVim"
+            ]
+          }],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}

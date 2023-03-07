@@ -1,0 +1,446 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos}/.mrconfig-omr"
+
+# For convenience.
+# FIXME/2023-02-12: Remove ambers_path usage and update subsequent lines with this:
+#   ${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}
+lib = AMBERS_PATH="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+# CXREF:
+#   remotes_add_publish_entrust:
+#     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes
+include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wireremotes"
+
+# CXREF:
+#   set_signing_config:
+#     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wiresigning
+include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wiresigning"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# spells.sh runner (commit_sorted_spells_and_alert_if_conflicts) for Vim spell file maintenance.
+lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/spellfile.txt-runner.sh"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[ALIAS]
+# HINT: Not necessary to alias status, as shorthand actions are inherently aliased.
+#   st = status
+
+# Alias `clone`, to be more Gitish, and less SVNny. At least from the command
+# line. Internally, myrepos projects still use the `checkout` command to wire
+# their git-clone operations.
+clone = checkout
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+# Default order is 10.
+order = 100
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#   Guard repos.
+
+# Note that we might need to tell Git commit the email address.
+#
+# - If not specified or not set by ~/.gitconfig, git-commit tries to
+#   determine the user.name and user.email. If you're onboarding a new
+#   machine, that file might not be placed yet.
+# - The name is probably always obtainable. On Linux and macOS, I see
+#   that Git always finds the user's full name, e.g.,:
+#
+#     # Linux
+#     full_name=$(getent passwd $(id -un) | cut -d ':' -f 5 | cut -d ',' -f 1)
+#
+#     # macOS
+#     full_name=$(id -P $(stat -f%Su /dev/console) | cut -d : -f 8)
+#
+#   Refs:
+#     https://stackoverflow.com/questions/833227/
+#       whats-the-easiest-way-to-get-a-users-full-name-on-a-linux-posix-system
+#
+#     https://apple.stackexchange.com/questions/269066/
+#       how-can-i-obtain-the-full-name-of-the-currently-logged-in-user-via-terminal-when
+#
+# - As such, we only need to check that an email is specified, otherwise
+#   Git is likely to fail with a message such as:
+#
+#     $ git commit -m "Testing"
+#     Author identity unknown
+#     ...
+#     fatal: unable to auto-detect email address (got 'username@hostname.(none))
+#
+#   Which is silly, because you can successfully commit with
+#   an empty email address if you're explicit about it, e.g.,
+#
+#     $ git -c user.email="" commit -m "Fooled you!"
+#
+#   which results in a git log that shows no email, e.g.,
+#
+#     Author: username <>
+#
+#   which basically makes our job a lot easier than it took the time you
+#   you to read this comment.
+
+# LOPRI/2022-10-13: Break prepare_guard_repo out to its own lib file.
+
+[DEFAULT]
+lib =
+  prepare_guard_repo () {
+    local reppath="${1:-"${MR_REPO}"}"
+    #
+    mkdir -p "${reppath}"
+    #
+    if [ ! -e "${reppath}/.git" ]; then
+      # Do a return-to-sender on the email, such that whatever is currently
+      # the email address gets used, even if it's not set (which stops Git
+      # from otherwise complain-failing).
+      local user_email="$(git config user.email)"
+      #
+      # Tell Git init how to name the initial branch, otherwise it prints a
+      # long hint about how the default branch name is subject to change.
+      local init_branch="private"
+      #
+      cd "${reppath}"
+      #
+      git -c init.defaultBranch="${init_branch}" init .
+      #
+      touch .gitisempty
+      git add .gitisempty
+      #
+      git -c user.email="${user_email}" commit -m \
+        "💂Guard💂Repo💂 — 🚧 This is an unmanaged (🚫💼) facility 🚧"
+    fi
+  }
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#   Home, itself
+
+# NOTE: [${HOME}] is a minimal repo, it's just meant to complain on
+#       `mr status` to let you know if things have changed therein.
+#
+# NOTE: myrepos lets us use full paths or relative. E.g.,
+#
+#         [${HOME}]
+#
+#       works, as does:
+#
+#         [.]
+#
+#       For the sake of readability, let's use the env. var.
+#
+[${MR_HOME:-${HOME}}]
+order = 110
+checkout = true
+skip = mr_exclusive "home"
+# We create a new Git repo in user home, but it's just a trap (using
+# the .gitignore symlink we wire in) to let us know if new files pop
+# up under $HOME.
+infuse =
+  # Create a mostly unmanaged repo in user home. This project won't be
+  # backed up or synced. It lives to tell you when there are changes in
+  # your home directory that you might want to know about.
+  prepare_guard_repo
+  #
+  ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  #
+  symlink_overlay_file \
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/_ignore-macOS" \
+    ".ignore"
+  #
+  # Create an empty file, not only because all good repos deserve a README,
+  # but because `gvim-open-kindness` defaults to this file when its called
+  # without a path (otherwise, gvim's `--servername {name}` will not work).
+  touch ${HOME}/README.rst
+  #
+  # Infuse core DepoXy Ambers assets into $HOME that the other projects rely upon.
+  LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-depoxy-ambers "${@}"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Home Fries (robust dotfiles)
+
+[${HOMEFRIES_DIR:-${MR_HOME:-${HOME}}/.homefries}]
+order = 120
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/home-fries.git' '.homefries'
+infuse =
+  # Most of the symlinks are installed via the infuse scripts, but we wire
+  # the exclude and ignore file here. (Though really for no good reason.)
+  link_private_exclude "${@}"
+  link_private_ignore "${@}"
+  # Rely on external infuser scripts for the rest of the setup.
+  ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries "${@}"
+  LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-user-home "${@}"
+skip = mr_exclusive "bash" "sh" "home"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  DepoXy Ambers (opinionated dev environment orchestrator)
+
+# Note again that absolute or relative works, so
+#   [${HOME}/.depoxy/ambers]
+# works, as does
+#   [.depoxy/ambers]
+# but again we'll choose readability over "portability",
+# or whatever advantage using a relative path would get us.
+
+# The Developmer Experience 🍯
+# https://github.com/DepoXy/depoxy#🍯
+[${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers}]
+order = 131
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/depoxy.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}" "ambers"
+skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted"
+infuse =
+  local ambers_path="${MR_REPO}"
+  #
+  # FIXME/2022-11-01: Did I forget to remove this infuse task?
+  #                   Or did I forget to add the source file?
+  #                   - I think this is @home only,
+  #                     and @work I have stints/.gitignore ??
+  #symlink_overlay_file "home/.depoxy/_gitignore" \
+  #  "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/.gitignore"
+  #
+  # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
+  LOG_LEVEL=10 ${MR_REPO}/home/infuse-platform-macOS "${@}"
+  #
+  local kit_mrconfig="${MR_REPO}/home/.kit/_mrconfig"
+  if [ ! -f "${kit_mrconfig}" ]; then
+    warn "WARNING: Missing .mrconfig: ${kit_mrconfig}"
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Depoxy Ambers's DepoXy Archetype DepoXy Client template
+
+# “We live with our archetypes 🏹 but can we live in them?”
+#   https://en.wikipedia.org/wiki/Poul_Anderson
+#   https://www.brainyquote.com/topics/archetypes-quotes
+# DepoXy template engine 🏹
+# https://github.com/DepoXy/depoxy-archetype#🏹
+[${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
+order = 132
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/depoxy-archetype.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}" "archetype"
+skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted"
+infuse =
+  link_private_exclude "$@"
+  link_private_ignore_ "$@"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Dubs Vim (~/.vim foundation and lightweight ~/.vimrc)
+
+[${MR_HOME:-${HOME}}/.vim]
+order = 140
+# SAVVY/2019-10-21: I tried a [.] section in ~/.depoxy/ambers/home/.vim/_mrconfig,
+#   but then the repo gets listed twice (because of this entry).
+# SKIPPING: GIT_REPO_SEEDS_0: See: once/setup_ubuntu.sh, once/vendor_dubs-vim.sh
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs-vim.git' '.vim'
+chain = true
+infuse =
+  ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim "$@"
+skip = mr_exclusive "vim" "dubs-vim" "dubs" "3rdp-vim" "3rdp" "vim-dubs" "vim-lsp" "vim-3rdp"
+
+# NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
+#   is within ~/.depoxy/running/_mrconfig
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Dev Dopp Kit/ (wherein you'll find Shell- and Git-related projects).
+
+[${MR_HOME:-${HOME}}/.kit]
+order = 133
+infuse =
+  mkdir -p "${MR_REPO}"
+  # NOTE: Use _gitignore, not .gitignore, so not read from within DepoXy Ambers.
+  # As of Git 2.32.0, symlinked .gitignore no longer allowed.
+  #  symlink_overlay_file "${HOME}/.depoxy/ambers/home/.kit/_gitignore" ".gitignore"
+  ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/_gitignore" ".gitignore"
+  # .gitignore.local and .git/info/exclude symlinks are placed by DXC infuse.
+  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/README.md" "README.md"
+  prepare_guard_repo
+  # myrepos checkout will fails `mr: failed to determine working directory`
+  # if the base path does not exist, so ensure repo parents directories exist.
+  mkdir -p "${MR_REPO}/git"
+  mkdir -p "${MR_REPO}/go"
+  mkdir -p "${MR_REPO}/js"
+  mkdir -p "${MR_REPO}/mOS"
+  mkdir -p "${MR_REPO}/py"
+  mkdir -p "${MR_REPO}/sh"
+# In lieu of creating placeholder .gitisempty, we could just
+# set Git ops true, but then we'd have to list them all.
+# - We'll at list these, for readability.
+fetch = true
+update = true
+pull = true
+
+# NOTE: Rather than using the .mrconfig chain feature, e.g.,
+#         chain = true
+#       We'll load the config via include.
+#       - Note that if you were to cd ~/.kit and run a `mr` command,
+#         myrepos always loads the local .mrconfig. To avoid this, the
+#         include loads a file named _mrconfig. If it were named .mrconfig
+#         instead, running `mr` from ~/.kit would result in local .mrconfig
+#         being read, and then config being loaded a second time by include.
+#       - Using include means we use in if-statement to test MR_INCLUDE,
+#         rather than using skip, e.g., with chain=true, one might also:
+#           skip =
+#             ! [ -z ${MR_INCLUDE+x} ] &&
+#             [ "${MR_INCLUDE}" != "home" ] &&
+#             ... \
+#             true
+#           # (lb): I think I've cleaned up this &&-chain using
+#           #       mr_exclusive since I wrote this skip example.
+#       - (lb): I don't know that there's one reason or another to use
+#               chain vs. include. Maybe with chain, the target config
+#               must alwaysa exist, but with include, you could test if
+#               the file exists first. / Also, stats-wise, using include
+#               means that config's repos would count toward the stats
+#               report totals.
+
+[DEFAULT]
+order = 205
+
+[DEFAULT]
+autocommit = true
+
+[DEFAULT]
+include =
+  load_kit_mrconfig () {
+    local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+    # CXREF: ~/.depoxy/ambers/home/.kit/_mrconfig
+    local kit_mrconfig="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/_mrconfig"
+    # If there's no ~/.kit mrconfig, alert the user during `infuse`. (It's
+    # more tedious to alter from an `include`: you have to `. logger`, and
+    # then `>&2 warn`. Also why warn so much: User eventually `infuse`'s.)
+    if [ -f "${kit_mrconfig}" ]; then
+      cat "${kit_mrconfig}"
+    fi
+  }
+  #
+  if \
+    [ -z ${MR_INCLUDE+x} ] ||
+    \
+    [ "${MR_INCLUDE}" = "kit" ] ||
+    \
+    [ "${MR_INCLUDE}" = "git" ] ||
+    [ "${MR_INCLUDE}" = "kit-git" ] ||
+    \
+    [ "${MR_INCLUDE}" = "go" ] ||
+    [ "${MR_INCLUDE}" = "kit-go" ] ||
+    \
+    [ "${MR_INCLUDE}" = "js" ] ||
+    [ "${MR_INCLUDE}" = "kit-js" ] ||
+    \
+    [ "${MR_INCLUDE}" = "mOS" ] ||
+    [ "${MR_INCLUDE}" = "kit-mOS" ] ||
+    \
+    [ "${MR_INCLUDE}" = "odd" ] ||
+    [ "${MR_INCLUDE}" = "kit-odd" ] ||
+    \
+    [ "${MR_INCLUDE}" = "py" ] ||
+    [ "${MR_INCLUDE}" = "kit-py" ] ||
+    \
+    [ "${MR_INCLUDE}" = "sh" ] ||
+    [ "${MR_INCLUDE}" = "kit-sh" ] ||
+    \
+    [ "${MR_INCLUDE}" = "txt" ] ||
+    [ "${MR_INCLUDE}" = "kit-txt" ] ||
+    \
+    [ "${MR_INCLUDE}" = "entrusted" ] ||
+    \
+  false; then
+    load_kit_mrconfig
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Client-specific config.
+
+# So that an `include =` block can use mr_exclusive, source 'skip-grouping.sh'
+# within it. (This is because the `. skip-grouping.sh` from `cat skip-grouping`, 
+# which is previously called by .mrconfig-omr, is in a `lib` block, and lib
+# blocks are not processed until after `include` blocks.)
+#
+# (lb): Note that I tried the source command in an `include` from .mrconfig-omr,
+# hoping to make it universally available, but it didn't want to work that way.
+# So the `.` is localized here.
+
+[DEFAULT]
+
+lib =
+  source_depoxy_fs () {
+    local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+    local ambers_core="${DEPOXYAMBERS_DIR:-${ambers_path}}/core"
+    . "${ambers_core}/depoxy_fs.sh"
+  }
+  #
+  export_depoxy_fs_paths () {
+    source_depoxy_fs
+    # This config only runs on the client underway, and never on the
+    # *primary host*, so this check should never return.
+    local stints_basedir
+    stints_basedir="$(_vendorfs_path_stints_basedir_print)"
+    local client_name
+    client_name="$(_VENDORFS_WARN_ON_ERROR=false _vendorfs_resolve_client_name_underway)" || return 0
+    #
+    # DUNNO/2022-10-13: Explain why you need to export these.
+    # - Is it for ${HOME}/work/_mrconfig, cat'ted below?
+    export DEPOXYDIR_STINTS_FULL=${stints_basedir}
+    export DEPOXY_CLIENT_ID=${client_name}
+  }
+  # Expose VENDOFS environs so OMR projects can use in their paths.
+  export_depoxy_fs_paths
+
+include =
+  . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
+  #
+  include_client_mrconfig () {
+    local client_mrconfig="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/_mrconfig"
+    if [ -e "${client_mrconfig}" ] && ! mr_exclusive "client" "work"; then
+      cat "${client_mrconfig}"
+    fi
+    return 0
+  }
+  include_client_mrconfig
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

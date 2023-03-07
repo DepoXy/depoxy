@@ -1,0 +1,8 @@
+/.git/
+/.bashrc
+/bin/completions/
+
+# ~/.homefries/.gitconfig -> ~/.kit/.git/git-smart/.gitconfig
+# CODEP: GS_GITCFG_SPARE_SYMLN: ~/.homefries/.gitconfig
+/.gitconfig
+

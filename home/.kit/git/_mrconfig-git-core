@@ -1,0 +1,368 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 690
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${GITREPOSPATH:-${HOME}/.kit/git}/git]
+checkout = git_clone_giturl -o starter 'https://github.com/git/git.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+install =
+  echo "YOU: Update to the latest release if necessary, something like:
+  
+    git fetch --all --prune
+    git checkout master
+    git pull --rebase --autostash
+    GIT_LATEST=\$(git latest-version)
+    git co -b starter/\${GIT_LATEST} \${GIT_LATEST}
+  
+  Though maybe you want to run \`git tags\` so you're not,
+  e.g., installing a release candidate (like v2.32.0-rc1).
+  "
+  if ! command -v docbook2x-texi > /dev/null 2>&1; then
+    echo "You need to install docbook2x first:"
+    # FIXME/2021-05-30: What about Darwin...
+    echo "  sudo apt-get -y install docbook2x"
+    sudo apt-get -y install docbook2x
+  fi
+  make clean
+  make configure
+  ./configure --prefix=${HOME}/.local
+  make prefix="${HOME}/.local" all doc info
+  make prefix="${HOME}/.local" install install-doc install-html install-info
+  make clean
+  info "You might see a stray 'git-rebase--preserve-merges' file. /I did/"
+  info "- You can delete it. It's already installed locally:\n  diff \\\\\n    ~/.local/libexec/git-core/git-rebase--preserve-merges \\\\\n    ${MR_REPO}/git-rebase--preserve-merges"
+  warn "FIXME: Replace this warning with: /bin/rm git-rebase--preserve-merges"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# 2021-05-30: I normally pull Git commands or aliases from other people's
+# projects into git-smart, but this project has a number of unique useful
+# commands, so pulling it all in.
+[${GITREPOSPATH:-${HOME}/.kit/git}/git-extras]
+checkout = git_clone_giturl -o starter 'https://github.com/tj/git-extras.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+install =
+  #
+  # Make and place man pages.
+  make docs
+  # See the `make install` task.
+  # - The bin path is wired manually to PATH,
+  #   via ~/.depoxy/ambers/core/pathanova.sh,
+  #   so just copy the man docs to their destination.
+  # Note: FreeBSD uses ~/.local/man/man1
+  mkdir -p "${HOME}/.local/share/man/man1"
+  debug "/bin/cp -f man/git-*.1 ${HOME}/.local/share/man/man1"
+  /bin/cp -f man/git-*.1 "${HOME}/.local/share/man/man1"
+  #
+  git checkout master
+  git branch -u starter/master
+  git fetch starter --prune
+  git pull --rebase --autostash
+  #
+  git branch -D tip/rename-commands-that-conflict-with-git-smart-commands || true
+  git checkout -b tip/rename-commands-that-conflict-with-git-smart-commands \
+    --track starter/master
+  #
+  # Move conflicts outta the way.
+  git mv "bin/git-abort" "bin/git-extras-abort"
+  git mv "bin/git-pr" "bin/git-extras-pr"
+  git mv "bin/git-undo" "bin/git-extras-undo"
+  #
+  git add .
+  git commit -m "PRIVATE: Customize: Renames commands that conflict with git-smart commands."
+  #
+  # Wire the completions file (Homefries-specific).
+  if [ -d "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions" ]; then
+    cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+    symlink_overlay_file "${MR_REPO}/etc/bash_completion.sh" "git-extras-bash_completion.sh"
+  fi
+update =
+  git fetch starter --prune
+  git pull --rebase --autostash
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# FIXME/2021-08-19: Not yet tested on @macOS. (I copied from from home config.)
+#                   FIXME: See if available from homebrew (if so, installDarwin).
+# Git history rewriter (filter-branch/BFG/git-obliterate replacement).
+[${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo]
+checkout = git_clone_giturl -o starter 'https://github.com/newren/git-filter-repo.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+infuse =
+  symlink_overlay_file \
+    "${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo/git-filter-repo" \
+    "${HOME}/.local/bin/git-filter-repo"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# git-heads -- "show branches without any child commits with `git-log`(1)"
+# https://github.com/seschwar/git-heads.git
+[${GITREPOSPATH:-${HOME}/.kit/git}/git-heads]
+checkout = git_clone_giturl starter 'git@github.com:seschwar/git-heads.git'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# https://github.com/MitMaro/git-interactive-rebase-tool
+# See also:
+# - Node clone: https://github.com/sjurba/rebase-editor
+[${GITREPOSPATH:-${HOME}/.kit/git}/git-interactive-rebase-tool]
+checkout = git_clone_giturl -o starter 'https://github.com/MitMaro/git-interactive-rebase-tool.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+infuse =
+  link_private_exclude "$@"
+  link_private_ignore_ "$@"
+# FIXME/2021-05-30: Update these instructions for Darwin.
+install =
+  [ "$(uname)" = "Darwin" ] &&
+      mr -d ${MR_REPO} -n installDarwin ||
+      mr -d ${MR_REPO} -n installLinux
+# 2021-06-01: Both Brew and sources are at v2.1.0. I think maintainers update
+# Brew when tagging new versions, so no need to worry about falling behind.
+# - (Also remember that underscores are special to `mr`, so camelCase.)
+installDarwin =
+  if [ -e "/opt/homebrew/bin/interactive-rebase-tool" ]; then
+    # $ /opt/homebrew/bin/interactive-rebase-tool --version
+    # interactive-rebase-tool 2.2.1 (2022-10-14)
+    echo "git-interactive-rebase-tool is already installed"
+    /opt/homebrew/bin/interactive-rebase-tool --version
+  else
+    echo "Installing git-interactive-rebase-tool from Homebrew"
+  fi
+  brew install git-interactive-rebase-tool
+installLinux =
+  # Requires Rust!
+  #   https://www.rust-lang.org/tools/install
+  # See installation instructions and a nifty on-demand (JIT) lazy-loader:
+  #   https://github.com/landonb/home-fries/blob/release/lib/rust_util.sh
+  #     ~/.homefries/lib/rust_util.sh
+  #
+  # We could build and use the tool immediately, but it's a little more
+  # tedious: you have to point it at the rebase todo file:
+  #   cargo build --release
+  #   # build and run
+  #   cargo run -- <path-to-git-rebase-todo-file>
+  # So make the Debian package instead:
+  #   cargo deb
+  #
+  # Note that blank lines break myrepos parsing, so we use comment
+  # characters for holding line breaks.
+  cat <<'EOF'
+    *** Install git-interactive-rebase-tool
+    #
+    These instructions are current as of 2023-01-09 v2.2.1.
+    #
+    Install Rust [https://www.rust-lang.org/tools/install]:
+    #
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    #
+    Or update Rust (and cargo):
+    #
+      rustup update
+    #
+    Prepare the current shell:
+    #
+      . "${HOME}/.cargo/env"
+    #
+    Install release build dependencies:
+    #
+      sudo apt install pkg-config liblzma-dev
+      cargo install --force cargo-make
+      cargo install cargo-deb
+    #
+    Build the tool:
+    #
+      cd "${MR_REPO}"
+      cargo make build --release
+      # 2023-01-09: README.md says `cargo made deb`
+      # but cargo-make retorts "Task deb not found".
+      cargo deb
+    #
+    Install the package:
+    #
+      version=$(grep -e "^version =" Cargo.toml \
+        | sed "s/^version = [\"']\?\([^\"']*\)[\"']\?$/\1/")
+    #
+      # E.g.,
+      #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.2.1_amd64.deb
+      sudo dpkg -i target/debian/git-interactive-rebase-tool_${version}_amd64.deb
+    #
+ EOF
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# 2020-01-17: Like `cloc`, but for git code authors.
+[${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats]
+checkout = git_clone_giturl -o starter 'https://github.com/arzzen/git-quick-stats.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+infuse =
+  symlink_overlay_file \
+    "${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats/git-quick-stats" \
+    "${HOME}/.local/bin/git-quick-stats"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${GITREPOSPATH:-${HOME}/.kit/git}/hub]
+# checkout = git_clone_giturl -o starter 'git@github.com:github/hub.git' 'hub'
+# As suggested by its README. Assume makes download smaller, but if so, not by much!
+# Or maybe it's setting the config, too, for future transfers. Hrmm.
+#   hub /bin/du -b size with fsckobjects=false:   19688219
+#   hub /bin/du -b size without fsckobjects=..:   19689032
+checkout = \
+  git_clone_giturl -o starter \
+    --config transfer.fsckobjects=false \
+    --config receive.fsckobjects=false \
+    --config fetch.fsckobjects=false \
+    'https://github.com/github/hub.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+install = make install prefix="${HOME}/.local"
+
+[${GITREPOSPATH:-${HOME}/.kit/git}/cli]
+checkout = git_clone_giturl -o starter 'https://github.com/cli/cli.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+# Build requires Go 1.13+.
+install = make install prefix="${HOME}/.local"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${GITREPOSPATH:-${HOME}/.kit/git}/myrepos]
+order = 470
+# Note this is pretty much an impossible clone command: You can't clone the cloner!
+# - Well, not unless you previously cloned it elsewhere and can run it. But this is
+#   mostly just for readability. Not like you're gonna checkout myrepos using myrepos!
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/myrepos.git'
+wireupstream = remote_add starter 'git://myrepos.branchable.com/'
+skip = mr_exclusive "kit" "git" "kit-git"
+infuse =
+  infuser_prepare "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos" "${@}"
+  symlink_overlay_file "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos/mr" "${HOME}/.local/bin/mr"
+
+# HINT: Debug myrepos:
+#
+#   /usr/bin/env perl -d ~/.local/bin/mr ls
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Oh, My Repos! (The app that uses this file, hello!)
+
+[${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}]
+order = 150
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/ohmyrepos.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+infuse =
+  link_private_exclude "$@"
+  link_private_ignore_ "$@"
+  #
+  # FIXME/2023-01-15: Missing infuse task for open patch:
+  #   ohmyrepos/bin/js-npm-patch-opn-sensible-open
+  #
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
+    "deps/sh-logger/bin/logger.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/deps/sh-colors/bin/colors.sh" \
+    "deps/sh-logger/deps/sh-colors/bin/colors.sh"
+  #
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
+    "deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# 2020-11-21: Loving it!
+#                  G IT
+#                  T IG
+#                   TIG!
+[${GITREPOSPATH:-${HOME}/.kit/git}/tig]
+checkout = git_clone_giturl -o starter 'https://github.com/jonas/tig.git'
+skip = mr_exclusive "kit" "git" "kit-git"
+# 2021-08-04: Old tig actions in case I need to fork it again.
+#
+#  [${GITREPOSPATH:-${HOME}/.kit/git}/tig]
+#  checkout = git_clone_giturl -o starter 'https://github.com/landonb/tig.git'
+#  wireupstream = remote_add starter 'https://github.com/jonas/tig.git'
+install =
+  # Prefer Homebrew tig on macOS, which is generally up to date, otherwise
+  # you need a slightly more complicated installer (and need to install
+  # prerequisites).
+  # - 2023-02-12: I don't always keep my Linux Mint current, e.g.,
+  #   Linux Mint 19.3 installs tig 2.3.0, but 2.5.3 is latest (and
+  #   has features I want).
+  ! os_is_macos || return 0
+  #
+  # Ensure deps available.
+  # - SAVVY: Stack Overflowers suggest you cannot determine the
+  #   shared library path easily (e.g., /usr/lib/x86_64-linux-gnu).
+  #   - You could parse /etc/ld.so.conf but on, e.b., Linux Mint 19.3,
+  #     that includes /etc/ld.so.conf.d/*.conf which itself contains
+  #     four more files that each specify one or more paths.
+  #   - So we'll just hardcode it (which, not to worry, that path
+  #     has remained the same for eons (at least since Mint 16)).
+  # - SAVVY: Use `dpkg -L <pkg>` to see what <paths> <pkg> installs; or
+  #          use `dpkg -S <path>` to see what <pkg> installs <path>.
+  #          - That's how I determined the tests for this if-clause;
+  #            and that's how I determined the package names to
+  #            install for some of the non-obvious dependencies.
+  if false \
+    || [ ! -f "/usr/lib/x86_64-linux-gnu/libssl.so" ] \
+    || [ ! -f "/usr/lib/x86_64-linux-gnu/libncursesw.so" ] \
+    || [ ! -f "/usr/lib/x86_64-linux-gnu/perl5/5.26/auto/Text/Iconv/Iconv.so" ] \
+    || [ ! -f "/usr/lib/x86_64-linux-gnu/libreadline.so" ] \
+    || ! command -v pcregrep > /dev/null \
+    || ! command -v autoconf > /dev/null \
+    || ! command -v asciidoc > /dev/null \
+    || ! command -v xmlto > /dev/null \
+    || [ ! -f "/usr/share/xml/docbook/stylesheet/docbook-xsl/VERSION" ] \
+  ; then
+    local pkgs=""
+    pkgs="${pkgs} libssl-dev"         # for `make all`
+    pkgs="${pkgs} libncursesw5-dev"   # but ncursesw for wide char supp (UTF-8)
+    # Not sure if this is the package the tig INSTALL doc means, but this
+    # is what I see installed on my machine, and install tig + docs works.
+    pkgs="${pkgs} libtext-iconv-perl" # "If iconv is not provided by the c library you need to change
+                                      #  the Makefile to link it into the binary"
+    # Optional:
+    pkgs="${pkgs} libreadline-dev"    # readline  # completion and history
+    # Not sure which PCRE package it is:
+    #   libpcre16-3 libpcre3 libpcre3:i386 libpcre3-dev libpcre32-3 libpcrecpp0v5 pcregrep
+    # - We'll just assume its the package that installs the executable.
+    pkgs="${pkgs} pcregrep"           # PCRE  # Perl Compat. Reg. Expressions, for searches...
+    pkgs="${pkgs} autoconf"           # generates configure
+    pkgs="${pkgs} asciidoc"           # generates HTML and (DocBook) XML from text
+    pkgs="${pkgs} xmlto"              # generates manpages
+    pkgs="${pkgs} docbook-xsl"        # DocBook SXL  # used by xmlto
+                                      # DocBook (DSSL/Jade) tools  # gen's XML → PDF  [for why?]
+    sudo apt install -y ${pkgs}
+  fi
+  #
+  make clean
+  make configure
+  ./configure
+  make prefix=${HOME}/.local
+  make install prefix=${HOME}/.local
+  make install-doc prefix=${HOME}/.local
+#
+# FIXME/2023-02-12: Explore making default OMR 'update' command that does this.
+update =
+  git fetch --all --prune
+  git pull
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

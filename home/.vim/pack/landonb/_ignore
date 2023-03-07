@@ -1,0 +1,22 @@
+.git/
+
+opt/*/doc/tags
+start/*/doc/tags
+
+# Ignore symlinks to user's private files.
+start/dubs_file_finder/cmdt_paths
+start/dubs_grep_steady/dubs_projects.vim
+start/dubs_project_tray/dubs_cuts
+start/dubs_project_tray/.vimprojects
+
+# Ignore symlinks to chosen shell syntax file.
+start/dubs_ftype_mess/syntax/bash.vim
+start/dubs_ftype_mess/syntax/sh.vim
+# Ignore all but the currently wired shell syntax file.
+start/dubs_ftype_mess/syntax/sh-Version_131.vim
+start/dubs_ftype_mess/syntax/sh-Version_165.vim
+start/dubs_ftype_mess/syntax/sh-Version_185.vim
+start/dubs_ftype_mess/syntax/sh-Version_189.vim
+# This is the shell syntax file that's currently hot:
+#  start/dubs_ftype_mess/syntax/sh-Version_189-lb.vim
+

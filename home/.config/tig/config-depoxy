@@ -1,0 +1,195 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=conf
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** git-put-wise commands
+
+# There are four project-centric GPW commands:
+# - apply/archive/pull/push
+# Also force-push.
+
+# MAYBE: Perhaps replace separate apply and pull commands with single `pw in`?
+#        Perhaps replace separate archive and push commands with single `pw out`?
+#        (There's also bare `pw` command, but it's not always smart enough,
+#         and it takes a little longer to run, because it has to suss more.)
+
+# MAYBE: I added exit_val checks below, because functions that return nonzero
+# will cause `tig` to wait on *Press ENTER to continue* prompt, so that the
+# user can read the error message.
+#
+# - But I might want to consider what tig-newtons sometimes does, which is
+#   to kill the parent `tig` process altogether so user can deal with an
+#   incomplete rebase.
+#
+#   E.g.,
+#
+#       if ! git rebase -i %(commit) || [ -f \".git/rebase-merge/git-rebase-todo\" ]; then \
+#         >&2 echo; \
+#         >&2 echo \"Killing \\`tig\\` because you got work to do\"; \
+#         >&2 echo \"  🥩 🥩 chop chop\"; \
+#         kill -s 9 $PPID; \
+#       fi; \
+#
+#
+#   But I need to investigate which failed put-wise commands might need
+#   such a mechanism (so really this MAYBE more like a SPIKE: Keep eye
+#   out for scenario where you want to kill `tig` after put-wise fail).
+
+# ***
+
+# MAYBE/2023-01-17: Do I need to catch errors and kill tig?
+# - Probably, because archive or push could result in scoped-sort
+#   rebase conflicts...
+
+bind generic <C-a> >sh -c " \
+  git_put_wise__archive_____________________ () { \
+    echo; \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <Ctrl-a> disabled while staging' \
+      && return 1 || true; \
+    local wipped=false; \
+    git add -A \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-a>]' \
+      && wipped=true; \
+    local exit_val; \
+    git put-wise archive; \
+    exit_val=$?; \
+    ${wipped} && git reset --mixed @~1; \
+    echo; \
+    return ${exit_val}; \
+  }; git_put_wise__archive_____________________"
+
+# MAYBE/2023-01-17: Just call 'pw out'?
+# - Sorta want to verify how client works:
+#   - If not special branch, does it always default push (and skip archive)?
+#   - If special branch, does it check is-client environ and then archive?
+#   - For @home, does it check is-client and then always push unless there
+#     is no 'publish' or 'entrust' or 'origin' remote? (I.e., ignore local
+#     machine remotes -- so you could maybe parse remotes for .com/TLD and
+#     assume if just a hostname, then it's not a push remote and to use
+#     archive instead.)
+
+# 2023-01-17: Nice, how fortunate both C-a and C-s are available,
+# at least for now, though I might consolidate with a `pw out` call.
+bind generic <C-s> >sh -c " \
+  git_put_wise__push________________________ () { \
+    echo; \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <Ctrl-s> disabled while staging' \
+      && return 1 || true; \
+    local wipped=false; \
+    git add -A \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-s>]' \
+      && wipped=true; \
+    local exit_val; \
+    git put-wise push; \
+    exit_val=$?; \
+    ${wipped} && git reset --mixed @~1; \
+    echo; \
+    return ${exit_val}; \
+  }; git_put_wise__push________________________"
+
+# Ctrl-f, for reals...
+bind generic <C-f> >sh -c " \
+  git_put_wise__push__force_________________ () { \
+    echo; \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <Ctrl-f> disabled while staging' \
+      && return 1 || true; \
+    local wipped=false; \
+    git add -A \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-f>]' \
+      && wipped=true; \
+    local exit_val; \
+    git put-wise push -f; \
+    exit_val=$?; \
+    ${wipped} && git reset --mixed @~1; \
+    echo; \
+    return ${exit_val}; \
+  }; git_put_wise__push__force_________________"
+
+# MEH/2023-01-18: Ctrl-v and Ctrl-b available...
+bind generic <C-v> >sh -c " \
+  git_put_wise__pull________________________ () { \
+    echo; \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <Ctrl-v> disabled while staging' \
+      && return 1 || true; \
+    local wipped=false; \
+    git add -A \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-v>]' \
+      && wipped=true; \
+    local exit_val; \
+    git put-wise pull; \
+    exit_val=$?; \
+    ${wipped} && git reset --mixed @~1; \
+    echo; \
+    return ${exit_val}; \
+  }; git_put_wise__pull________________________"
+
+bind generic <C-b> >sh -c " \
+  git_put_wise__apply_______________________ () { \
+    echo; \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <Ctrl-b> disabled while staging' \
+      && return 1 || true; \
+    local wipped=false; \
+    git add -A \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-b>]' \
+      && wipped=true; \
+    local exit_val; \
+    git put-wise apply; \
+    exit_val=$?; \
+    ${wipped} && git reset --mixed @~1; \
+    echo; \
+    return ${exit_val}; \
+  }; git_put_wise__apply_______________________"
+
+# ***
+
+# Built-ins I don't use I could steal:
+# - '$' toggles commit-title-overflow, which colors in red characters
+#   in commit title after some number of characters (defaults 50). I
+#   have no idea the purpose, maybe to encourage oneself to write
+#   shorter commit message titles?
+#     '$' -> :set main-view-commit-title-overflow = [no|50]
+# - '%' toggles the file-filter "in order to see the full diff instead
+#   of only the diff concerning the currently selected file" except
+#   when I demo the option, I don't see anything change.
+#     '%' -> :set file-filter [no|yes]
+#
+bind generic % >sh -c " \
+  git_sort_by_scope__rebase_________________ () { \
+    echo; \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
+      && return 1 || true; \
+    local wipped=false; \
+    git add -A \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig %]' \
+      && wipped=true; \
+    local exit_val; \
+    git rebase-sort-by-scope-protected-private %(commit); \
+    exit_val=$?; \
+    ${wipped} && git reset --mixed @~1; \
+    echo; \
+    return ${exit_val}; \
+  }; git_sort_by_scope__rebase_________________"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+bind main M >sh -c " \
+  make_lint_________________________________ () { \
+    echo; \
+    local exit_val; \
+    make lint; \
+    exit_val=$?; \
+    echo; \
+    return ${exit_val}; \
+  }; make_lint_________________________________"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+

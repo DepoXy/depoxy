@@ -1,0 +1,184 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+source_deps () {
+  # Load: debug, etc.
+  command -v logger.sh > /dev/null && . logger.sh ||
+    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+
+  # Load: link_hard.
+  command -v link-hard.sh > /dev/null && . link-hard.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
+
+  # Load: symlink_*, infuser_prepare, font_highlight.
+  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
+    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+
+  # Load: _vendorfs_host_is_depoxy_client_id.
+  command -v depoxy_fs.sh > /dev/null && . depoxy_fs.sh ||
+    . "$(dirname "$(realpath "$0")")/../core/depoxy_fs.sh"
+
+  # Load: _dxy_print_homebrew_path.
+  command -v brewskies.sh > /dev/null && . brewskies.sh ||
+    . "$(dirname "$(realpath "$0")")/../core/brewskies.sh"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_private_fries_bashrc () {
+  cd "${HOME}"
+
+  # Symlink:          ${HOME}/.mrinfuse/.homefries/.bashrc-bin/bashrx.private.sh
+  # (which is really: ${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers/home/.homefries/.bashrc-bin/bashrx.private.sh)
+  #   from:           ${HOME}/.homefries/.bashrc-bin/bashrx.private.sh
+  symlink_mrinfuse_file '.homefries/.bashrc-bin/bashrx.private.sh'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_private_fries_home_convenience () {
+  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
+
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
+  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig.local"
+
+  # SPIKE/2023-02-28: I don't recall if this is merely a convenience, or
+  # if it's actually wired.
+  # - SPIKE: If just a convenience, remove this symlink.
+  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.inputrc"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+setup_public_fries_dot_files () {
+  cd "${HOME}"
+
+  # Symlink publib dotfiles top-level home-fries, at ~/.homefries/, e.g.,
+  #   .homefries/.gitmux.conf
+  #   .homefries/.profile
+  #   .homefries/.tmux.conf.local
+  # Oh, that's it.
+  # See also:
+  #   ll ~ | grep "home/"
+  # to what's from WF, too, like
+  #   .depoxy/ambers/home/.gitconfig.local
+  # etc.
+
+  # Instead of the find, see also 1-depth ls-files:
+  #
+  #   git ls-files | sed -E 's,.*/.*,,' | sed -E '/^\s*$/d'
+  #
+  # except includes symlinks.
+
+  symlink_overlay_file ".homefries/.bashrc"
+
+  # Look for home-fries home file paths.
+  for hfdfpath in $(
+    find "${HOMEFRIES_DIR:-${HOME}/.homefries}/" \
+      -maxdepth 1 \
+      -type f \
+      ! -name "LICENSE" \
+      ! -name "*README*" \
+      ! -name ".gitignore" \
+      ! -name ".ignore-example" \
+  ); do
+    # echo "${hfdfpath}"
+    symlink_overlay_file "${hfdfpath}"
+  done
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# FIXME/2022-12-08: DRY: Make a function for each deps/sh-* project,
+# and then call from here, and from other infusers (this whole function
+# is duplicate code, but not all projects use the same set of deps).
+setup_homefries_deps_hard_links () {
+  # Note that, regardless of the script name (infuse-home-fries)
+  # the local directory is ${HOME}, so use .homefries/ prefix.
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
+    ".homefries/deps/sh-colors/bin/colors.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
+    ".homefries/deps/sh-logger/bin/logger.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_prefix" \
+    ".homefries/deps/sh-pather/bin/path_prefix"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_suffix" \
+    ".homefries/deps/sh-pather/bin/path_suffix"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/pather.sh" \
+    ".homefries/deps/sh-pather/bin/pather.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
+    ".homefries/deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/path_device" \
+    ".homefries/deps/sh-rm_safe/bin/path_device"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_rotate" \
+    ".homefries/deps/sh-rm_safe/bin/rm_rotate"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_safe" \
+    ".homefries/deps/sh-rm_safe/bin/rm_safe"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rmrm" \
+    ".homefries/deps/sh-rm_safe/bin/rmrm"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Homefries defines a `bexit` command when you run `bash` from within
+# a shell, so you can easily exit subshells but not the enclosing shell.
+# - Generally, you can `be<TAB>` to auto-complete `bexit`, except
+#   @macos Homebrew imagemagick installs `benchmark_xl`.
+#   So `bex<TAB>`? I don't think so. Rename the conflict that we don't use.
+# - At least I think it's from imagemagick:
+#     /opt/homebrew/bin/benchmark_xl ->
+#       /opt/homebrew/Cellar/jpeg-xl/0.7.0_1/bin/benchmark_xl
+setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
+  local brew_bin="$(dirname "$(_dxy_print_homebrew_path)")"
+
+  local conflict="${brew_bin}/benchmark_xl"
+  local renamed="${brew_bin}/jpeg-xl--benchmark_xl"
+
+  if [ -f "${conflict}" ]; then
+    /bin/mv "${conflict}" "${renamed}"
+
+    info " Renamed offensive $(font_highlight "${conflict}") → $(font_highlight "${renamed}")"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  source_deps
+
+  [ "$(basename $0)" != "infuse-home-fries" ] || LOG_LEVEL=0
+
+  # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
+  infuser_prepare "${HOME}" "${@}"
+
+  local before_cd="$(pwd -L)"
+  cd "${MR_REPO}"
+
+  setup_private_fries_bashrc
+
+  setup_private_fries_home_convenience
+
+  setup_public_fries_dot_files
+
+  setup_homefries_deps_hard_links
+
+  setup_homefries_bexit_deconflict_imagemagick_benchmark_xl
+
+  cd "${before_cd}"
+}
+
+set -e
+
+# Run the infuser iff being executed.
+if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+  main "$@"
+fi
+

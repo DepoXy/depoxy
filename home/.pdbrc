@@ -1,0 +1,17 @@
+# https://stackoverflow.com/questions/5169702/how-do-i-list-the-current-line-in-python-pdb
+
+# Same as `list .` to reset location. Or `l .`.
+alias L u;;d;;l
+
+# *** From pdb's `h a`
+# Print instance variables (usage "pi classInst")
+alias pi for k in %1.__dict__.keys(): print("%1.",k,"=",%1.__dict__[k])
+# Print instance variables in self
+alias ps pi self
+
+# prevent finally and skip __exit__ methods, but really don't print that
+# screen-paging bdb.BdbQuit stacktrace that scrolls your pdb session out
+# of view.
+alias QUIT import os; os._exit(0)
+alias Q QUIT
+

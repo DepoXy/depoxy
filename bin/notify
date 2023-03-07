@@ -1,0 +1,467 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2022 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# CXREF:
+#
+#   https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/DisplayNotifications.html
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# See also Homebrew's terminal-notifier, CLI alt. to calling osascript:
+#
+#   # Homebrew:
+#   #   brew install terminal-notifier
+#   # Installs to:
+#   #   /usr/local/bin/terminal-notifier
+#   # Usage:
+#   #   terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+#   # Simple examples:
+#   terminal-notifier --help
+#   terminal-notifier -title "A title!" -subtitle "A subtitle" -message "The message"
+#   echo 'Piped Message Data!' | terminal-notifier -sound default
+#   terminal-notifier -list ALL
+#   terminal-notifier -message foo -group bar
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Notification alert sounds (macOS):
+#
+#   # /System/Library/Sounds/
+#   Basso, Blow, Bottle, Frog, Funk, Glass, Hero,
+#   Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
+#
+# Note that sound names from System Preferences... Sound
+# won't work (e.g., Boop, Breeze, Bubble, Crystal, Funky).
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Notification timeout (macOS):
+#
+# The user configures each application's notification style via
+#
+#   System Preferences... > Notification & Focus > Notifications
+#     > {App} > {App} alert style: None | Banners | Alerts
+#
+# Where:
+# - None      disabled
+# - Banners   goes away automatically after a few seconds
+# - Alerts    stays on screen until user dismisses
+#
+# The author prefers "Alerts" style so that I can use notifs like a
+# sticky -- it's there until I choose to deal with it and dismiss it.
+#
+# This script's entry will appear in the list after you run it,
+# and then you can configure its notification style.
+# FIXME: Or does this script run under iTerm2.app? Or Script Editor?
+
+# ================================================================= #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ================================================================= #
+
+# Displays a desktop notification, e.g.,
+#
+#   /usr/bin/osascript -e \
+#     "display notification "${notif_messg}" \
+#       with title "${notif_title}" \
+#       subtitle "${notif_subby}" \
+#       sound name "${notif_sound}""
+#
+# And also speaks the notification message, if that's your jam, e.g.,
+#
+#   say -v "${voice}" "${notif_messg}"
+
+notify () {
+  display_notification "$@"
+  sleep 0.620
+  say_it_and_spray_it "$@"
+}
+
+# ***
+
+random_notif_sound_name () {
+  os_is_macos && random_notif_sound_name_macos "$@" || random_notif_sound_name_linux "$@"
+}
+
+display_notification () {
+  os_is_macos && display_notification_macos "$@" || display_notification_linux "$@"
+}
+
+say_it_and_spray_it () {
+  os_is_macos && say_it_and_spray_it_macos "$@" || say_it_and_spray_it_linux "$@"
+}
+
+random_voice () {
+  os_is_macos && random_voice_macos "$@" || random_voice_linux "$@"
+}
+
+# ***
+
+os_is_macos () {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# ================================================================= #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ================================================================= #
+
+display_notification_macos () {
+  local notif_messg="$1"
+  local notif_title="$2"
+  local notif_subby="$3"
+  local notif_sound="$4"
+
+  if [ -z "${notif_sound}" ]; then
+    notif_sound="$(random_notif_sound_name)"
+  fi
+
+  local opt_messg="\"${notif_messg}\""
+  local opt_title="with title \"${notif_title}\""
+  local opt_subby="subtitle \"${notif_subby}\""
+  local opt_sound="sound name \"${notif_sound}\""
+
+  /usr/bin/osascript -e "display notification ${opt_messg} ${opt_title} ${opt_subby} ${opt_sound}"
+}
+
+# ***
+
+
+random_notif_sound_name_macos () {
+  # I sampled all the sounds but really I only like a few on them.
+  random_notif_sound_name_from_favorites
+}
+
+# So hard to choose which I like best, perhaps Hero or Submarine.
+# - I want something that's not the default notification sound,
+#   also that doesn't sound like a message arrived, but sounds
+#   more like an alarm or action reminder, because that's how
+#   I use this wired, called via cron to as a sort of calendar
+#   reminder.
+
+random_notif_sound_name_from_favorites () {
+  case $((RANDOM % 2)) in
+    0) printf "Hero";;
+    1) printf "Submarine";;
+  esac
+}
+
+random_notif_sound_name_from_all () {
+  declare -a MACOS_SOUNDS
+
+  # CXREF: /System/Library/Sounds/
+  MACOS_SOUNDS+=("Basso")
+  MACOS_SOUNDS+=("Blow")
+  MACOS_SOUNDS+=("Bottle")
+  MACOS_SOUNDS+=("Frog")
+  MACOS_SOUNDS+=("Funk")
+  MACOS_SOUNDS+=("Glass")
+  MACOS_SOUNDS+=("Hero")
+  MACOS_SOUNDS+=("Morse")
+  MACOS_SOUNDS+=("Ping")
+  MACOS_SOUNDS+=("Pop")
+  MACOS_SOUNDS+=("Purr")
+  MACOS_SOUNDS+=("Sosumi")
+  MACOS_SOUNDS+=("Submarine")
+  MACOS_SOUNDS+=("Tink")
+
+  printf "%s" "${MACOS_SOUNDS[$((RANDOM % ${#MACOS_SOUNDS[@]}))]}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# The `say` command accepts 4 optionals:
+#
+#   voice, rate, and pitch, and modulation.
+#
+# - E.g., from Apple's examples,
+#
+#   /usr/bin/osascript -e "say \"Just what do you think you're doing Dave?\" \
+#     using \"Alex\" speaking rate 140 pitch 42 modulation 60"
+#
+# https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/SpeakText.html
+
+# There's a complementary shell command, `say`, e.g.,
+#
+#   /usr/bin/osascript -e "say \"${notif_messg}\" using \"${voice}\""
+#
+# is less verbosely expressed as:
+#
+#   say -v "${voice}" "${notif_messg}"
+#
+# CXREF: `man say`
+
+# The default rate for the default voice, 'Alex', is 175.
+# - It's probably different for other voices, e.g., it's slower for 'Bahh'.
+#
+# https://apple.stackexchange.com/questions/96808/what-is-the-default-speaking-rate-for-the-speech-synthesis-program
+
+# macOS only includes a handful of voices by default (they're GBs in size).
+#
+# - You can download additional voices from sys prefs:
+#
+#   - System Preferences... > Accessibility > Spoken Content
+#      - Open drop-down:
+#        Alex, Fred, Nicky, Samantha, Siri Voice 1, Victoria, Customize...
+#      - Choose Customize...
+#      - Select all the voices you want (e.g., all "English (*)" voices,
+#        except maybe the "Siri Voice [1|2]" voices), and download.
+#
+# A user on GH also compiled a list of all available voices:
+# - *List of voices available by the `say` command on OS X*
+#   https://gist.github.com/mculp/4b95752e25c456d425c6
+
+# `say` oftens fails when from run this script via cron, and you'll end
+# up with mail (output from this script) in your user mailbox which shows
+# the same message 6 times, like `say` retried and failed to make itself
+# work. Also, when you run *the same* command manually, it works.
+# - Basically, there's a ghost in the shell that I have not identified.
+#   I burned a handful of minutes diagnosing, but there's no obvious
+#   fault showing itself, so falling back to a work-around.
+# - SAVVY/2023-01-31: Here's an example of the `say` error messaging:
+#     2023-01-26 13:25:02.720 say[40941:19589130] Could not retrieve voice
+#       [AVSpeechSynthesisProviderVoice 0x6000030196d0] Name: Shelley,
+#         Identifier: com.apple.eloquence.en-US.Shelley, Supported Languages (
+#           "en-US"
+#         ), Age: 0, Gender: 0, Size: 0, Version: (null)
+#     2023-01-26 13:25:02.722 say[40941:19589130] Could not retrieve voice
+#       [AVSpeechSynthesisProviderVoice 0x6000030196d0] Name: Shelley,
+#     ...
+
+say_it_and_spray_it_macos () {
+  local notif_messg="$1"
+  local notif_title="$2"
+  local notif_subby="$3"
+  local notif_sound="$4"
+
+  # ***
+
+  local voice="$(random_voice)"
+
+  local say_said=""
+  say_said="$(say -v "${voice}" "${notif_messg}" 2>&1)"
+
+  # See comment above re: `say` often fails. Check for that here.
+  if [ $? -ne 0 ] || [ -n "${say_said}" ]; then
+    local blabbering="wooooot woot wowowowo wowowo"
+    # - Fallback default voice: This so far has always worked.
+    say_said="$( \
+      say "Gather 'round rats, this monster before you has FAILED... ${blabbering}" 2>&1 \
+      && say "${notif_messg}" 2>&1
+    )"
+  fi
+
+  # 2023-01-10: I added this so I could demo voices, e.g., use `notify` for
+  # my normal day-to-day, and then see if I liked any particular voices, or
+  # disliked any particular voices, so that I could compile a favorites list.
+  # But either way, I might keep this additional `say`, so long as it keeps
+  # assuming me.
+  sleep 0.42
+  say -r 255 "Thank you ${voice}.... shoo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
+}
+
+# `say -v '?'` prints table of voices, which we parse for English voice names
+# (irrespective of type of English, e.g., find all "English (*)" matches),
+# will make the experience feel more worldly and sophisticated.
+random_voice_macos () {
+  IFS=$'\r\n' GLOBIGNORE='*' command eval "VOICES=(\$(say -v ? | grep en_ | awk '{ print \$1 }'))"
+
+  local n_voices=${#VOICES[@]}
+
+  printf "%s" "${VOICES[$((RANDOM % ${#VOICES[@]}))]}"
+}
+
+# ================================================================= #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ================================================================= #
+
+display_notification_linux () {
+  local notif_messg="$1"
+  local notif_title="$2"
+  local notif_subby="$3"
+  local notif_sound="$4"
+  # Linux-only `notify` option.
+  local notif_image="$5"
+
+  if [ -z "${notif_sound}" ]; then
+    notif_sound="$(random_notif_sound_name)"
+  fi
+
+  # notify-send only has summary and body, no subtitle.
+  [ -z "${notif_subby}" ] || notif_title="${notif_title}
+${notif_subby}"
+
+  [ -n "${notif_image}" ] || notif_image="$(random_notif_image_name_linux)"
+
+  # notify-send from libnotify-bin, standard (AFAIK) on Desktop distros.
+  if [ -n "${notif_title}" ]; then
+    notify-send -i "${notif_image}" "${notif_title}" "${notif_messg}"
+  else
+    notify-send -i "${notif_image}" "${notif_messg}"
+  fi
+
+  # paplay from pulseaudio-utils, standard (AFAIK) on Desktop distros.
+  [ -z "${notif_sound}" ] || paplay "${notif_sound}"
+}
+
+# ***
+
+# NOTE: The Author runs Linux Mint MATE, without plans to support other OSes.
+#       - Feel free to add support for your favorite distro herein.
+random_notif_sound_name_linux () {
+  random_notif_sound_name_from_mate_alerts
+}
+
+# CXREF:
+#   /usr/share/sounds/
+#   /usr/share/sounds/mate/default/alerts/
+#     bark.ogg, drip.ogg, glass.ogg, sonar.ogg
+random_notif_sound_name_from_mate_alerts () {
+  local alert_dir="/usr/share/sounds/mate/default/alerts"
+
+  # ***
+
+  if [ ! -d "${alert_dir}" ]; then
+    notify-send "FIXME: Unable to locate alert sounds
+
+No such directory: ${alert_dir}"
+
+    return 1
+  fi
+
+  if [ -z "$(/bin/ls -1 "${alert_dir}"/*.ogg 2> /dev/null)" ]; then
+    notify-send "FIXME: Alert sounds directory is empty, wha??!
+
+No .ogg files: ${alert_dir}"
+
+    return 1
+  fi
+
+  # ***
+
+  /bin/ls -1 "${alert_dir}/"*.ogg | shuf -n 1
+}
+
+# ***
+
+# Not sure what path(s) are searched, but you'll find icons,
+# e.g., "face-wink", under /usr/share/icons/, e.g.,
+#   /usr/share/icons/mate/48x48/emotes/face-wink.png
+random_notif_image_name_linux () {
+  local image_dir="/usr/share/icons/mate/48x48/emotes"
+
+  # ***
+
+  if [ ! -d "${image_dir}" ]; then
+    notify-send "FIXME: Unable to locate icon images
+
+No such directory: ${image_dir}"
+
+    return 1
+  fi
+
+  if [ -z "$(/bin/ls -1 "${image_dir}"/*.png 2> /dev/null)" ]; then
+    notify-send "FIXME: Icon images directory is empty, wha??!
+
+No .png files: ${image_dir}"
+
+    return 1
+  fi
+
+  # ***
+
+  basename "$(/bin/ls -1 "${image_dir}"/*.png | shuf -n 1)" | sed 's/\.png$//'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Text-to-speech apps:
+#   espeak
+#   festival
+#   pico2wave (libttspico-utils)
+#   gtts-cli (python3-gtts)
+#
+# Espeak (`sudo apt install espeak`) ranked highest on the two text-to-speech
+# articles that I read, so I installed that, and it works great, great.
+
+say_it_and_spray_it_linux () {
+  local notif_messg="$1"
+  local notif_title="$2"
+  local notif_subby="$3"
+  local notif_sound="$4"
+
+  # ***
+
+  if ! type espeak > /dev/null 2>&1; then
+    notify-send "FIXME: Cannot speak: No espeak"
+
+    return 1
+  fi
+
+  # ***
+
+  local voice="$(random_voice)"
+
+  espeak -v "${voice}" "${notif_messg}"
+
+  # On MATE, I only see voices for dialects, not for personalities, so I
+  # am not interested to know which voice was just used for speaking (unlike
+  # on macOS where I enjoy learning which voice was used (in case I decide
+  # to add voices allow- and block-lists, and just out of curiosity)).
+  false && (
+    sleep 0.42
+    espeak -s 255 "Thank you ${voice}.... shoo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
+  )
+}
+
+# Voices are under
+#   /usr/lib/x86_64-linux-gnu/espeak-data/voices/
+# But voice names are contained in those files.
+# - Easier way to list voices: `espeak --voices=en`,
+#   but this isn't quite right, either:
+#   - Not all the supposed voices seem to work,
+#     but at least you'll hear something.
+#   - Some voices sound really low and slow, not sure what's up, and you'll
+#     see this on stderr:
+#       mbrola: mbrola: No such file or directory
+#       mbrowrap error: mbrola exited with status 1
+#       mbrola voice not found
+#   - These voices (at least) work without spewing stderr:
+#       english
+#       english-us
+#       en-scottish
+#       english-north
+#       english_wmids
+random_voice_linux () {
+  # First line is header:
+  #   Pty Language Age/Gender VoiceName          File          Other Languages
+  # Voice is 4th field, e.g.,
+  #    2  en-gb          M  english              en            (en-uk 2)(en 2)
+  # You could pick a random voice thusly:
+  #  espeak --voices=en | tail -n +2 | awk '{ print $4 }' | shuf -n 1
+  # But as noted previously, not all (most) voices don't work, so we'll
+  # maintain a curated list.
+  echo "english
+english-us
+en-scottish
+english-north
+english_rp
+english_wmids
+en-westindies" | shuf -n 1
+}
+
+# ================================================================= #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ================================================================= #
+
+main () {
+  notify "$@"
+}
+
+main "$@"
+

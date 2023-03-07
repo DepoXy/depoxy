@@ -1,0 +1,16 @@
+/.git/
+
+# See also how this file is ignored from projlns search:
+#   ~/.projlns/dubs-fries/.ignore
+
+# Symlinks for my convenience.
+/bin/infuse
+/bin/infuse-depoxy-ambers
+/bin/infuse-dubs-vim
+/bin/infuse-home-fries
+/bin/infuse-platform-macOS
+/bin/infuse-user-home
+# Author's personal infuser (home fries, waffle fries, get it?)
+# - You can ignore this file.
+/bin/infuse-waffle-fries
+

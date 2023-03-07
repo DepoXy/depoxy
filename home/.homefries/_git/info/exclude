@@ -1,0 +1,14 @@
+# Symlinks for my convenience.
+/.gitconfig
+/.gitconfig.local
+/.gitignore.local
+/.inputrc
+/.tmux.conf
+
+/.bashrc-bin/.ignore
+
+/bin/completions/git-completion.bash
+/bin/completions/git-extras-bash_completion.sh
+/bin/completions/tig-completion.bash
+/bin/completions/tmux
+

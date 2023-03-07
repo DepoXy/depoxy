@@ -1,0 +1,51 @@
+{
+  "title": "#9110 — DepoXy Ambers and DepoXy Client Docs Launchers",
+  "rules": [
+
+    {
+      "description": "#9111 — MacVim — Systemwide — Open @Work Backlog (Cmd-e)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/gvim-open-DepoXy-Client-docs.sh Backlog_Client_"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#9112 — MacVim — Systemwide — Open @Work Woodlot (Ctrl-Cmd-e)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/gvim-open-DepoXy-Client-docs.sh Woodlot_Client_"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}

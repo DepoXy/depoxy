@@ -1,0 +1,282 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 560
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# To cross-check the paths listed here against reality::
+#
+#   ll -d ~/.vim/pack/*/*/*
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** In -3rdp: a-l.
+
+#  # [pack/AndrewRadev/start/bufferize.vim]
+#  [pack/arcticicestudio/start/nord-vim]
+#  [pack/cespare/start/vim-toml]
+#  [pack/chrisbra/start/improvedft]
+#  [pack/chrisbra/start/matchit]
+#  [pack/ctrlpvim/start/ctrlp.vim]
+#  [pack/editorconfig/opt/vim-go]
+#  [pack/editorconfig/start/editorconfig-vim]
+#  # [pack/fholgado/opt/minibufexpl.vim]  # OFF: 2017-11-02: Removed minibufexpl.vim.
+#  [pack/flazz/start/vim-colorschemes]
+#  # [pack/henrik/start/vim-open-url]  # I demoed but prefer dubs_web_hatch.
+#  [pack/HerringtonDarkholme/start/yats.vim]
+#  [pack/jamessan/start/vim-gnupg]
+#  [pack/juanpabloaj/start/vim-istanbul]
+#  [pack/junegunn/start/fzf.vim]
+#  [pack/junegunn/start/goyo.vim]
+#  [pack/junegunn/start/limelight.vim]
+
+# ------------------------------------------------------------------------
+
+# Original project.
+# Copy file path 👣 to system clipboard
+# https://github.com/DepoXy/vim-clip-expand-path#👣
+[pack/DepoXy/start/vim-clip-expand-path]
+checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/vim-clip-expand-path.git'
+
+# Original project.
+# to relieve 🥥 this bellyache
+# Opinionated CoC defaults 🥥
+# https://github.com/DepoXy/vim-depoxy-coc-defaults#🥥
+[pack/DepoXy/start/vim-depoxy-coc-defaults]
+checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/vim-depoxy-coc-defaults.git'
+
+# Symlink to private plugin for DepoXy Client @biz-specific features.
+#  [pack/DepoXy/start/vim-trap]
+
+# ------------------------------------------------------------------------
+
+# 2018-12-17: ansible-vim forked to tweak Yaml syntax engine.
+[pack/landonb/start/ansible-vim]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/ansible-vim.git'
+wireupstream = remote_add starter 'https://github.com/pearofducks/ansible-vim.git'
+
+# ------------------------------------------------------------------------
+
+# *** Original Dubs Vim plugins.
+
+# "Vibrant negative polarity Vim color scheme. Turn off the lights and dance"
+[pack/landonb/start/dubs_after_dark]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_after_dark'
+
+[pack/landonb/start/dubs_appearance]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_appearance'
+
+[pack/landonb/start/dubs_buffer_fun]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_buffer_fun'
+
+[pack/landonb/start/dubs_edit_juice]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_edit_juice'
+
+[pack/landonb/start/dubs_file_finder]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_file_finder'
+
+[pack/landonb/start/dubs_ftype_mess]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_ftype_mess'
+
+[pack/landonb/start/dubs_grep_steady]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_grep_steady'
+
+[pack/landonb/start/dubs_html_entities]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_html_entities'
+
+# "Spirited Vim Status Line"
+[pack/landonb/start/dubs_mescaline]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_mescaline'
+
+[pack/landonb/start/dubs_project_tray]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_project_tray'
+
+[pack/landonb/start/dubs_quickfix_wrap]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_quickfix_wrap'
+
+[pack/landonb/start/dubs_style_guard]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_style_guard'
+
+[pack/landonb/start/dubs_syntastic_wrap]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_syntastic_wrap'
+
+[pack/landonb/start/dubs_toggle_textwrap]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_toggle_textwrap'
+
+[pack/landonb/start/dubs_web_hatch]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_web_hatch'
+
+# ------------------------------------------------------------------------
+
+# 2021-02-18: QFEnter forked to restore cursor position in QuickFix after jumping (:cc).
+[pack/landonb/start/QFEnter]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/QFEnter.git'
+wireupstream = remote_add starter 'https://github.com/yssl/QFEnter.git'
+p = rebase_tip starter/master
+
+# ------------------------------------------------------------------------
+
+# *** Dubs' vim-* projects (newer than Dubs Vim, made easier for others to use),
+#
+#     and some forked projects that I tweaked.
+
+# Forked project but heavily developed since.
+# MEH/2020-03-19: You don't need wireupstream if you just use checkout...
+#                       except then changing remotes is not as easy, is it?
+# 2020-03-19: Forked, to keep .vimprojects and netrw out of BufSurf w:history queue.
+# GHSLUGLINE: "Like vim-bufsurf, but 1) includes buffers only once, and 2) wraps around the list"
+[pack/landonb/start/vim-buffer-ring]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-buffer-ring.git'
+wireupstream = remote_add starter 'https://github.com/ton/vim-bufsurf.git'
+
+# Forked project.
+[pack/landonb/start/vim-classic-taglist]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-classic-taglist.git'
+
+# Original project.
+[pack/landonb/start/vim-command-line-clock]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-command-line-clock.git'
+
+# Original project.
+[pack/landonb/start/vim-lcd-project-root]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-lcd-project-root.git'
+
+# 2017-03-16: vim-markdown forked to fix issue of "white on white".
+[pack/landonb/start/vim-markdown]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-markdown'
+wireupstream = remote_add starter 'https://github.com/gabrielelana/vim-markdown.git'
+# Alt. repo: https://github.com/plasticboy/vim-markdown.git
+
+# Original project.
+[pack/landonb/start/vim-netrw-cfg-split-explorer]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-netrw-cfg-split-explorer.git'
+
+# Original project.
+[pack/landonb/start/vim-netrw-link-resolve]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-netrw-link-resolve.git'
+
+# Original project.
+# "Streamline the File Changed prompt behavior"
+[pack/landonb/start/vim-nicer-file-changed-prompt]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-nicer-file-changed-prompt.git'
+
+# Original project.
+# "Escape from Insert Mode with `kj` or `jk`"
+[pack/landonb/start/vim-ovm-easyescape-kj-jk]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-ovm-easyescape-kj-jk.git'
+
+# Original project.
+# "Insert Seven Dashes and Two Newlines on <Ctrl-Shift-->"
+[pack/landonb/start/vim-ovm-seven-of-spines]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-ovm-seven-of-spines.git'
+
+# Original project.
+# "Innovative reStructuredText section folder for Vim"
+# "Level-aware, Performance-conscious reST Section Folding for Vim"
+[pack/landonb/start/vim-reSTfold]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reSTfold'
+
+# Original project.
+# "Nonstandard syntax highlights so you can manage notes in Vim with reST"
+[pack/landonb/start/vim-reST-highdefs]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highdefs'
+
+# Original project.
+# "Innovative reStructuredText five-letter word highlighter"
+[pack/landonb/start/vim-reST-highfive]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highfive'
+# 2022-10-05: So I can search-find the file via Project Tray, b/c I update this file often.
+infuse = symlink_mrinfuse_file "${MR_REPO}/after/syntax/rst.vim" "FIVERs.vim"
+
+# Original project.
+# "Highlight arbitrary horizontal rule lines in reST docs"
+[pack/landonb/start/vim-reST-highline]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highline'
+
+# Original project.
+# "Build selections cleverly with Ctrl-Shift-Left/-Right"
+[pack/landonb/start/vim-select-mode-stopped-down]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-select-mode-stopped-down.git'
+
+# Original project.
+[pack/landonb/start/vim-source-reloader]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-source-reloader.git'
+
+# Tipless fork, i.e., I've made zero changes. Just want to be cool, I guess.
+# - Forked vim-surround... but haven't actually tipped the code.
+[pack/landonb/start/vim-surround]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-surround'
+wireupstream = remote_add starter 'https://github.com/tpope/vim-surround.git'
+
+# Original project.
+[pack/landonb/start/vim-title-bar-time-of-day]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-title-bar-time-of-day.git'
+
+# 2020-02-08: Forked vim-tmux-navigator to add C-S-Up/-Down navigation.
+# 2020-02-08: vim-tmux-nav. forked to add Dubs' C-S-Up/-Down +/- pane mappings.
+# - (lb): I forked vim-tmux-nav. to add C-S-Up/-Down +/- pane motions
+[pack/landonb/start/vim-tmux-navigator]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-tmux-navigator.git'
+wireupstream = remote_add starter 'https://github.com/christoomey/vim-tmux-navigator.git'
+
+# Forked project.
+[pack/landonb/start/vim-unimpaired]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-unimpaired'
+wireupstream = remote_add starter 'https://github.com/tpope/vim-unimpaired.git'
+
+# ------------------------------------------------------------------------
+
+# *** In -3rdp: m-z.
+
+# *** m-to
+#  [pack/majutsushi/start/tagbar]
+#  #[pack/marshallward/opt/vim-restructuredtext]  # Uninstalled: HadIssuz.
+#  [pack/MaxMEllon/start/vim-jsx-pretty]
+#  [pack/nanotech/start/jellybeans.vim]
+#  [pack/pangloss/start/vim-javascript]
+#  [pack/preservim/start/nerdcommenter]
+#  [pack/samoshkin/start/vim-mergetool]
+#  [pack/scrooloose/opt/nerdtree]
+#  [pack/scrooloose/start/syntastic]
+#  [pack/tomtom/start/tlib_vim]
+#  [pack/tomtom/start/viki_vim]
+# *** tpope [retired]
+#  [pack/tpope/opt/vim-endwise]
+#  [pack/tpope/opt/vim-pathogen]
+#  [pack/tpope/opt/vim-scriptease]
+#  [pack/tpope/opt/vim-vividchalk]
+# *** tpope [active]
+#  [pack/tpope/start/vim-abolish]
+#  [pack/tpope/start/vim-fugitive]
+#  [pack/tpope/start/vim-jdaddy]
+#  [pack/tpope/start/vim-rails]
+#  [pack/tpope/start/vim-speeddating]
+#  [pack/tpope/start/vim-unimpaired]
+#  [pack/tpope/start/vim-vinegar]
+# *** vim-scripts
+#  [pack/vim-scripts/start/AutoAdapt]
+#  [pack/vim-scripts/start/ingo-library]
+#  #[pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
+#  [pack/vim-scripts/start/TeTrIs.vim]
+#  [pack/vim-scripts/start/ZoomWin]
+# *** vo-z
+#  [pack/voithos/start/vim-python-matchit]
+#  [pack/wincent/start/command-t]
+#  #[pack/xolox/opt/vim-easytags]  # Removed.
+#  [pack/xolox/start/vim-misc]
+#  [pack/yssl/start/QFEnter]
+#  [pack/yuezk/start/vim-js]
+#  [pack/zhou13/start/vim-easyescape]
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

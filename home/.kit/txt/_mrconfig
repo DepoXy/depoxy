@@ -1,0 +1,41 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 195
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# a different type of rabbit hole 🙄
+# Emoji lookup — for your editor 🙄
+# Textual Emoji v15.0 ref — for your editor 🙄
+# https://github.com/DepoXy/emoji-lookup#🙄
+[${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup]
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/emoji-lookup.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+wireupstream = remote_add publish "git@github.com:DepoXy/emoji-lookup.git"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# ✗ excellent broom service 🧙
+# ✓ at your 🧙 broom service
+# ! scream cheese 🧙
+# Vim spell file builder from public, private parts 🧙
+# https://github.com/DepoXy/spellfile.txt#🧙
+[${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt]
+lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/spellfile.txt.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+wireupstream = remote_add publish "git@github.com:DepoXy/spellfile.txt.git"
+infuse =
+  link_private_exclude "$@"
+
+# ------------------------------------------------------------------------
+# ========================================================================
+
