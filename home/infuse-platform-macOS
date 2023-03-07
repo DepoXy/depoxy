@@ -134,7 +134,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
     # Remove symlinks and (if directory then empty) remove directory,
     # and use directory symlink instead of individual file symlinks.
     # - This makes it easier to maintain two sets of source JSON,
-    #   one public (DepoXy Ambers) and one private (e.g., Client 2033).
+    #   one public (DepoXy Ambers) and one private (DepoXy Client).
 
     # Remove directory if exists, but if not empty, fail task
     # and require user to manually figure it out.
