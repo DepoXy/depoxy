@@ -434,7 +434,7 @@ include =
   #
   include_client_mrconfig () {
     local client_mrconfig="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/_mrconfig"
-    if [ -e "${client_mrconfig}" ] && ! mr_exclusive "client" "work"; then
+    if [ -e "${client_mrconfig}" ] && mr_exclusive "client" "work"; then
       cat "${client_mrconfig}"
     fi
     return 0
