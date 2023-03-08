@@ -17,7 +17,7 @@ order = 480
 [${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}]
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-smart.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 # CXREF: For the infuser that places ~/.gitconfig, see:
 #   ~/.depoxy/ambers/home/infuse-user-home
 infuse =
@@ -30,7 +30,7 @@ infuse =
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag]
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-bump-version-tag.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 infuse =
   link_hard \
     "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
@@ -44,7 +44,7 @@ infuse =
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-my-merge-status]
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-my-merge-status.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 infuse =
   link_private_exclude "$@"
   #
@@ -82,7 +82,7 @@ infuse =
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-veggie-patch]
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-veggie-patch.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -92,7 +92,7 @@ skip = ! mr_exclusive "entrusted"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command]
 lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/myrepos-mredit-command.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 install = make install
 
 # ========================================================================
@@ -103,7 +103,7 @@ install = make install
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons]
 lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/tig-newtons.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 infuse =
   link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-fup" \
     "deps/git-smart/bin/git-fup"

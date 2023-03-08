@@ -16,34 +16,34 @@ order = 470
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-ask-yesnoskip.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-colors.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-git-nubs.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-logger.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 infuse =
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
     "deps/sh-colors/bin/colors.sh"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-pather.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-print-nanos-now.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-rm_safe.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 # FIXME/2022-12-08: Verify infuse @home.
 infuse =
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
@@ -51,7 +51,7 @@ infuse =
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-sensible-open.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -60,7 +60,7 @@ skip = ! mr_exclusive "entrusted"
 # https://github.com/DepoXy/dot-inputrc#🎛️
 [${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/dot-inputrc.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 infuse =
   if os_is_macos; then
     # 2022-10-17: Since when did that happen? I thought on my old MacBook
@@ -99,7 +99,7 @@ infuse =
 # 2023-01-01: Not that I ever use fries-findup.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/fries-findup.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 install = PREFIX="${HOME}/.local" make link
 
 # ***
@@ -109,7 +109,7 @@ install = PREFIX="${HOME}/.local" make link
 # https://github.com/DepoXy/gvim-open-kindness#🐬
 [${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/gvim-open-kindness.git'
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 install =
   symlink_overlay_file "${MR_REPO}/bin/gvim-open-kindness" "${HOME}/.local/bin/gvim-open-kindness"
 

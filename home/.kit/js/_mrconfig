@@ -18,7 +18,7 @@ order = 490
 [${DOPP_KIT:-${HOME}/.kit}/js/Jest-Coverage-Diff]
 lib = MR_REPO_REMOTE_URL="https://github.com/anuraag016/Jest-Coverage-Diff.git"
 checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -27,7 +27,7 @@ skip = ! mr_exclusive "entrusted"
 [${DOPP_KIT:-${HOME}/.kit}/js/lens]
 lib = MR_REPO_REMOTE_URL="https://github.com/lensapp/lens.git"
 checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 install =
   # Alternatively to building and installing, you could run from sources:
   #   $ _depoxy_run_or_front_electron_lens
@@ -91,7 +91,7 @@ install =
 [${DOPP_KIT:-${HOME}/.kit}/js/nvm]
 lib = MR_REPO_REMOTE_URL="https://github.com/nvm-sh/nvm.git"
 checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 install =
   # Implied: cd "${MR_REPO}"
@@ -121,7 +121,7 @@ install =
 [${DOPP_KIT:-${HOME}/.kit}/js/typescript-language-server]
 lib = MR_REPO_REMOTE_URL="https://github.com/theia-ide/typescript-language-server.git"
 checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
-skip = ! mr_exclusive "entrusted"
+skip = mr_exclusive "!entrusted"
 
 # ========================================================================
 # ------------------------------------------------------------------------
