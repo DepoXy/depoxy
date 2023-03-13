@@ -104,7 +104,11 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Duplicate alias, in case you start typing `cdv` thinking vim-spellfile.
   pushd_alias_or_warn "cdvs" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 
-  # ***
+  # *** ~/.downloads
+
+  pushd_alias_or_warn "cddl" "${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
+
+  # *** ~/.projlns
 
   # Changes to ripgrep corral. (Not that I go there very often,
   # but it's nice to quickly jump there when I notice a gap in
