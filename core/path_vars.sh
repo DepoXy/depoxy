@@ -50,17 +50,15 @@ _dxy_export_path_var_git_basedir () {
 }
 
 _dxy_export_path_var_ohmyrepos_lib () {
-  if [ -d "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}" ]; then
-    export OHMYREPOS_LIB="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
-    # This environ is an after-thought. OHMYREPOS_LIB use is more prolific,
-    # so derive this if unset (as opposed to deriving _LIB from _DIR, which
-    # seems more logical).
-    # - MAYBE: Beautify with realpath?
-    export OHMYREPOS_DIR="${OHMYREPOS_DIR:-${OHMYREPOS_LIB}/..}"
-  elif [ -n "${OHMYREPOS_LIB}" ]; then
-    >&2 echo "UNSUSSABLE: OHMYREPOS_LIB incorrect: ‘${OHMYREPOS_LIB}’."
+  local omr_dir="${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
+
+  if [ -d "${omr_dir}" ]; then
+    export OHMYREPOS_DIR="${omr_dir}"
+    export OHMYREPOS_LIB="${OHMYREPOS_DIR}/lib"
+  elif [ -n "${OHMYREPOS_DIR}" ]; then
+    >&2 echo "UNSUSSABLE: OHMYREPOS_DIR incorrect: ‘${OHMYREPOS_DIR}’."
   else
-    >&2 echo "UNSUSSABLE: OHMYREPOS_LIB not set and indeterminable."
+    >&2 echo "UNSUSSABLE: OHMYREPOS_DIR not set and indeterminable."
   fi
 }
 
