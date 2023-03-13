@@ -94,6 +94,11 @@ lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/myrepos-mredit-command.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
 install = make install
+infuse =
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
+    "deps/sh-colors/bin/colors.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
+    "deps/sh-logger/bin/logger.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
