@@ -32,10 +32,13 @@ source_deps () {
 #          but I realized there's no need. Just require Homebrew first.)
 infuse_script_suss_fullpath () {
   local script_fullpath=$(realpath -- "${0}")
+
   if [ ! -f "${script_fullpath}" ]; then
     >&2 echo "UNEXPECTED: ‘$0’ not a file: ‘${script_fullpath}’"
+
     exit 1
   fi
+
   printf %s "${script_fullpath}"
 }
 
@@ -44,6 +47,7 @@ infuse_script_suss_fullpath () {
 # Leaves a breadcrumb to indicate how the directory was populated.
 infuse_project_drop_breadcrumb_dxy () {
   local script_fullpath="$1"
+
   /bin/ln -sf "${script_fullpath}" "CXREF.depoxy"
 }
 
@@ -53,10 +57,13 @@ main () {
   source_deps
 
   local script_fullpath
-  script_fullpath="$(infuse_script_suss_fullpath)" || return 1
+  script_fullpath="$(infuse_script_suss_fullpath)" \
+    || return 1
 
   local before_cd="$(pwd -L)"
+
   /bin/mkdir -p "${DEPOXY_PROJLNS}"
+
   cd "${DEPOXY_PROJLNS}"
 
   infuser_prepare "${DEPOXY_PROJLNS}" "${@}"
@@ -68,6 +75,7 @@ main () {
 
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   set -e
+
   main "$@"
 fi
 

@@ -31,7 +31,9 @@ populate_links_directory () {
   local lns_func="$2"
 
   local before_cd="$(pwd -L)"
+
   mkdir -p "${lns_path}"
+
   cd "${lns_path}"
 
   infuser_prepare "$(realpath .)" "${@}"
