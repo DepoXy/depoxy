@@ -36,7 +36,7 @@ populate_links_directory () {
 
   cd "${lns_path}"
 
-  infuser_prepare "$(realpath .)" "${@}"
+  infuser_prepare "$(realpath .)" "${lns_path}"
 
   remove_existing_links
 
