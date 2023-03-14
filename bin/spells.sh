@@ -9,9 +9,10 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
-  # Load: logger.sh, and color.sh
-  . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}/deps/sh-logger/bin/logger.sh"
-
+  # Load: logger.sh, and colors.sh, for link_deep.
+  # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  
   # Load: _vendorfs_path_running_client_print.
   # - CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
