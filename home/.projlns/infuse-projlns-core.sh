@@ -10,6 +10,8 @@ DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
 
 DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
 
+DEPOXY_PROJLNS_USRDOC="${DEPOXY_PROJLNS_USRDOC:-${DEPOXY_PROJLNS}/docs-and-backlog}"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
@@ -152,7 +154,7 @@ infuse_create_symlinks_core_sh_lib () {
 
 infuse_projects_links_docs () {
   populate_links_directory \
-    "${DEPOXY_PROJLNS}/docs-notes" \
+    "${DEPOXY_PROJLNS_USRDOC}" \
     "infuse_create_symlinks_docs"
 }
 
