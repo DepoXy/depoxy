@@ -11,25 +11,20 @@
 source_deps () {
   # Load: warn, etc.
   # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
-  command -v logger.sh > /dev/null && . logger.sh ||
-    . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
+  . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
 
   # *** OMR
 
+  # The OMR/lib modules expect that OMR/lib is on PATH.
+  export PATH="${PATH}:${OHMYREPOS_LIB:-${HOME}/.ohmyrepos/lib}"
+
   # Load: link_private_exclude
   # CXREF: ~/.kit/git/ohmyrepos/lib/link-private-exclude.sh
-  command -v link-private-exclude.sh > /dev/null && . link-private-exclude.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-private-exclude.sh"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-private-exclude.sh"
 
   # Load: symlink_*, infuser_prepare.
   # CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
-  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/overlay-symlink.sh"
-
-  # Load: link_hard.
-  # CXREF: ~/.kit/git/ohmyrepos/lib/link-hard.sh
-  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-hard.sh"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # *** Homefries
 
