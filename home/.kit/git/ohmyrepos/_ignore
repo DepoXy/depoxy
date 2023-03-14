@@ -1,7 +1,7 @@
 /.git/
 
 # See also how this file is ignored from projlns search:
-#   ~/.projlns/dubs-fries/.ignore
+#   ~/.projlns/depoxy-deeplinks/.ignore
 
 # Symlinks for my convenience.
 /bin/infuse

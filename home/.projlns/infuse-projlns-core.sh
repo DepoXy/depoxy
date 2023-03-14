@@ -8,6 +8,8 @@
 
 DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
 
+DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
@@ -49,7 +51,7 @@ populate_links_directory () {
 
 infuse_projects_links_core () {
   populate_links_directory \
-    "${DEPOXY_PROJLNS}/dubs-fries" \
+    "${DEPOXY_PROJLNS_DEPOXY}" \
     "infuse_create_symlinks_core"
 }
 
@@ -59,7 +61,7 @@ infuse_create_symlinks_core () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
   # 2020-03-01: Top-level file data ignore rules.
-  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.projlns/dubs-fries/.ignore"
+  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.projlns/depoxy-deeplinks/.ignore"
 
   /bin/ln -s "${HOMEFRIES_DIR:-${HOME}/.homefries}"
   /bin/ln -s "${HOME}/.vim"
@@ -74,7 +76,7 @@ infuse_create_symlinks_core () {
   # *** ~/.kit/ Dopp Kit Git scaffolding.
 
   # 2020-12-16: Unnecessary: There's a symlink at:
-  #   ~/.projlns/dubs-fries/depoxy-ambers -> ~/.depoxy/ambers
+  #   ${DEPOXY_PROJLNS_DEPOXY}/depoxy-ambers -> ~/.depoxy/ambers
   #
   #  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/.gitignore" \
   #              "kit-.gitignore-dxy"

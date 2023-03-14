@@ -57,7 +57,7 @@ dubs_vim_file_finder_cmdt_path_generate_links () {
   /bin/ln -s "${HOMEFRIES_DIR:-${HOME}/.homefries}" "home-fries"
 
   # FIXME/2021-08-23: What about linking DepoXy Ambers? OMR? Shoilerplate?
-  # - FIXME/2021-08-23: Or what about reusing ~/.projlns/dubs-fries?
+  # - FIXME/2021-08-23: Or what about reusing ~/.projlns/depoxy-deeplinks?
 
   # FIXME/2022-12-24: Move each symlink below to that project's
   #                   OMR `infuse` task.
