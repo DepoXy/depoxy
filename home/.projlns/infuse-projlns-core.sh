@@ -65,14 +65,23 @@ infuse_create_symlinks_core () {
   # 2020-03-01: Top-level file data ignore rules.
   /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.projlns/depoxy-deeplinks/.ignore"
 
-  /bin/ln -s "${HOMEFRIES_DIR:-${HOME}/.homefries}"
-  /bin/ln -s "${HOME}/.vim"
-  /bin/ln -s "${HOME}/.vim/pack/landonb" ".vim-pack-landonb"
+  link_deep "${HOMEFRIES_DIR:-${HOME}/.homefries}"
 
-  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}" ".depoxy-ambers"
+  link_deep "${HOME}/.vim"
+  # Note that ~/.vim/.ignore skips ~/.vim/pack, so that search
+  # doesn't include third-party plugs.
+  # - As such, we cannot simply call:
+  #     link_deep "${HOME}/.vim/pack/landonb"
+  #   because ${DEPOXY_PROJLNS_DEPOXY}/home/user/.vim -> ~/.vim,
+  #   meaning ${DEPOXY_PROJLNS_DEPOXY}/home/user/.vim/pack/landonb is
+  #   actual ~/.vim/pack/landonb. So specify a different target path.
+  link_deep "${HOME}/.vim/pack/landonb" \
+    "$(echo "${HOME}" | sed 's#^/##')/.vim-pack-landonb"
+
+  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
   if [ -d "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/stints" ]; then
-    /bin/ln -s "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/stints" ".depoxy-stints"
+    link_deep "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/stints"
   fi
 
   # *** ~/.kit/ Dopp Kit Git scaffolding.
@@ -80,28 +89,28 @@ infuse_create_symlinks_core () {
   # 2020-12-16: Unnecessary: There's a symlink at:
   #   ${DEPOXY_PROJLNS_DEPOXY}/depoxy-ambers -> ~/.depoxy/ambers
   #
-  #  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/.gitignore" \
-  #              "kit-.gitignore-dxy"
-  #  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/README.md" \
-  #              "kit-README.md"
+  #  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/.gitignore"
+  #  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/README.md"
 
-  # *** ~/.kit/[sh]oilerplate library projects
+  # *** ~/.kit/sh aka shoilerplate projects
 
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
+  # **** ~/.kit/sh library projects
 
-  # *** ~/.kit/[sh]oilerplate feature projects
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
 
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
-  /bin/ln -s "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
+  # **** ~/.kit/sh feature projects
+
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
 
   # Make one directory of symlinks to all sh-* project binaries.
   # This is for showing in the Vim project tray (.vimprojects),
@@ -111,37 +120,37 @@ infuse_create_symlinks_core () {
 
   # *** ~/.kit/git projects
 
-  /bin/ln -s "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
+  link_deep "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
 
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise"
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch"
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
 
   # *** (oh)myrepos
 
   # MAYBE/2019-10-23: Remove this link?
   # - 2020-02-13: Or do I like it? It hardly has gotten in the way, never see its hits!
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos"
 
-  /bin/ln -s "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}" 'ohmyrepos'
+  link_deep "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
 
-  /bin/ln -s "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command"
 
   # *** ~/.kit/js projects
 
-  /bin/ln -s "${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey"
+  link_deep "${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey"
 
   # *** ~/.kit/mOS projects
 
-  /bin/ln -s "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
-  /bin/ln -s "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
+  link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
+  link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
 
   # *** ~/.kit/txt projects
 
-  /bin/ln -s "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
-  /bin/ln -s "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
+  link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
+  link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -174,10 +183,10 @@ infuse_create_symlinks_docs () {
     local subdir_name="$(basename "${subdir_path}")"
 
     if [ -d "${subdir_path}/docs" ]; then
-      /bin/ln -s "${subdir_path}/docs" "client-${subdir_name}-docs"
+      link_deep "${subdir_path}/docs" "client-${subdir_name}-docs"
     fi
     if [ -d "${subdir_path}/notes" ]; then
-      /bin/ln -s "${subdir_path}/notes" "client-${subdir_name}-notes"
+      link_deep "${subdir_path}/notes" "client-${subdir_name}-notes"
     fi
   done
 }

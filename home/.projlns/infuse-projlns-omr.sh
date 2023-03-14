@@ -61,7 +61,7 @@ infuse_create_symlinks_omr_home () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local home_cfg_root="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
-  symlink "${home_cfg_root}/_mrconfig"
+  link_deep "${home_cfg_root}/_mrconfig"
 }
 
 # *** ${GITREPOSPATH}/ohmyrepos/.mrconfig-omr
@@ -69,10 +69,9 @@ infuse_create_symlinks_omr_home () {
 infuse_create_symlinks_omr_ohmyrepos () {
   local omr_cfg_root="${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
 
-  symlink "${omr_cfg_root}/.mrconfig-omr"
+  link_deep "${omr_cfg_root}/.mrconfig-omr"
   # Just FYI (we don't need to put it under search), the example config:
-  #  symlink "${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/.mrconfig.example" \
-  #     "kit-omr-mrconfig.example"
+  #  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/.mrconfig.example"
 }
 
 # *** ${HOME}/.vim
@@ -81,10 +80,10 @@ infuse_create_symlinks_omr_vim () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local vim_cfg_root="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim"
 
-  symlink "${vim_cfg_root}/_mrconfig"
-  symlink "${vim_cfg_root}/_mrconfig-3rdp"
-  symlink "${vim_cfg_root}/_mrconfig-dubs"
-  symlink "${vim_cfg_root}/_mrconfig-lsp"
+  link_deep "${vim_cfg_root}/_mrconfig"
+  link_deep "${vim_cfg_root}/_mrconfig-3rdp"
+  link_deep "${vim_cfg_root}/_mrconfig-dubs"
+  link_deep "${vim_cfg_root}/_mrconfig-lsp"
 }
 
 # *** ${DOPP_KIT:-${HOME}/.kit}
@@ -93,7 +92,7 @@ infuse_create_symlinks_omr_kit_root () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local kit_cfg_root="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit"
 
-  symlink "${kit_cfg_root}/_mrconfig"
+  link_deep "${kit_cfg_root}/_mrconfig"
 }
 
 # *** ${DOPP_KIT:-${HOME}/.kit}/**
@@ -102,16 +101,16 @@ infuse_create_symlinks_omr_kit_projects () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local kit_cfg_root="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit"
 
-  symlink "${kit_cfg_root}/git/_mrconfig-git-core"
-  symlink "${kit_cfg_root}/git/_mrconfig-git-smart"
-  symlink "${kit_cfg_root}/go/_mrconfig"
-  symlink "${kit_cfg_root}/js/_mrconfig"
-  symlink "${kit_cfg_root}/mOS/_mrconfig"
-  symlink "${kit_cfg_root}/odd/_mrconfig"
-  symlink "${kit_cfg_root}/py/_mrconfig"
-  symlink "${kit_cfg_root}/sh/_mrconfig-bash"
-  symlink "${kit_cfg_root}/sh/_mrconfig-shell"
-  symlink "${kit_cfg_root}/txt/_mrconfig"
+  link_deep "${kit_cfg_root}/git/_mrconfig-git-core"
+  link_deep "${kit_cfg_root}/git/_mrconfig-git-smart"
+  link_deep "${kit_cfg_root}/go/_mrconfig"
+  link_deep "${kit_cfg_root}/js/_mrconfig"
+  link_deep "${kit_cfg_root}/mOS/_mrconfig"
+  link_deep "${kit_cfg_root}/odd/_mrconfig"
+  link_deep "${kit_cfg_root}/py/_mrconfig"
+  link_deep "${kit_cfg_root}/sh/_mrconfig-bash"
+  link_deep "${kit_cfg_root}/sh/_mrconfig-shell"
+  link_deep "${kit_cfg_root}/txt/_mrconfig"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -137,44 +136,10 @@ infuse_create_symlinks_omr_client () {
   local client_basedir
   client_basedir="$(_vendorfs_path_running_client_print)" || return 0
 
-  find "${client_basedir}" -type f -regex '.*mrconfig.*' |
-    while read -r mrconfig_path; do
-      symlink "${mrconfig_path}"
-    done
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-symlink () {
-  local source="$1"
-
-  # Build the hierarchy.
-  local relative_dir
-  relative_dir="$(dirname "${source}" | sed 's#^/##')"
-
-  mkdir -p "${relative_dir}"
-
-  # Make the symlink.
-  local config_file
-  config_file="$(basename "${source}")"
-
-  local target="${relative_dir}/${config_file}"
-
-  # Not calling symlink_overlay_file, which dies on missing target.
-  /bin/ln -s "${source}" "${target}"
-
-  # `ln` happily makes symlink to non-existent target, which we
-  # will allow (which is a Good Thing, e.g., `rg` complains on
-  # broken links, which'll alert user to the problem). But we'll
-  # also check ourselves, to be proactive.
-  if [ -e "${source}" ]; then
-    let 'INFUSE_SYMLINKS_CNT += 1'
-  else
-    let 'INFUSE_SYMLINKS_NOK += 1'
-
-    >&2 warn "Phantom target symlinked: ${source}"
-    >&2 warn "- Find broken symlink at: $(pwd)/${target}"
-  fi
+  local mrconfig_path
+  while read -r mrconfig_path; do
+    link_deep "${mrconfig_path}"
+  done < <(find "${client_basedir}" -type f -regex '.*mrconfig.*')
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #

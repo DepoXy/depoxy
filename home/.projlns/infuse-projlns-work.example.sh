@@ -47,8 +47,8 @@ infuse_projects_links_work () {
 
 infuse_create_symlinks_work () {
   # YOU: Replace this and customize with your own project paths.
-  /bin/ln -s "${HOME}/work/division1/project-AA"
-  /bin/ln -s "${HOME}/work/projectZ/superflycool"
+  link_deep "${HOME}/work/division1/project-AA"
+  link_deep "${HOME}/work/projectZ/superflycool"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
