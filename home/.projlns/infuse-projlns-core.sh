@@ -65,7 +65,9 @@ infuse_create_symlinks_core () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
   # 2020-03-01: Top-level file data ignore rules.
-  /bin/ln -s "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.projlns/depoxy-deeplinks/.ignore"
+  /bin/ln -s \
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.projlns/depoxy-deeplinks/_ignore" \
+    ".ignore"
 
   link_deep "${HOMEFRIES_DIR:-${HOME}/.homefries}"
 
