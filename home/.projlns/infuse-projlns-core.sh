@@ -79,8 +79,11 @@ infuse_create_symlinks_core () {
   #   because ${DEPOXY_PROJLNS_DEPOXY}/home/user/.vim -> ~/.vim,
   #   meaning ${DEPOXY_PROJLNS_DEPOXY}/home/user/.vim/pack/landonb is
   #   actual ~/.vim/pack/landonb. So specify a different target path.
-  link_deep "${HOME}/.vim/pack/landonb" \
-    "$(echo "${HOME}" | sed 's#^/##')/.vim-pack-landonb"
+  # - Note that deep_link sub's "${HOME}" for user-agnostic "/home/user",
+  #   so that ~/.projlns/depoxy-deeplinks/.ignore doesn't have to be
+  #   customized with the active user name (nor have to care if macOS
+  #   /Users/<user> or Linux /home/<user>).
+  link_deep "${HOME}/.vim/pack/landonb" "home/user/_vim/pack/landonb"
 
   link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
