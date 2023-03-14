@@ -20,6 +20,7 @@ dubs_cuts_generate_links () {
   # Caller ensures we're in the proper directory, but just in case:
   if [ $(basename -- "$(pwd -P)") != 'dubs_cuts' ]; then
     >&2 echo 'Where am I?!'
+
     exit 1
   fi
 
@@ -144,7 +145,9 @@ dubs_cuts_generate_links () {
 
 main () {
   local before_cd="$(pwd -L)"
+
   mkdir -p "${DUBS_PROJECT_TRAY_DUBS_CUTS}"
+
   cd "${DUBS_PROJECT_TRAY_DUBS_CUTS}"
 
   dubs_cuts_generate_links
