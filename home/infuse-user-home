@@ -10,24 +10,35 @@
 
 source_deps () {
   # Load: warn, etc.
+  # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
   command -v logger.sh > /dev/null && . logger.sh ||
     . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
 
+  # *** OMR
+
   # Load: link_private_exclude
+  # CXREF: ~/.kit/git/ohmyrepos/lib/link-private-exclude.sh
   command -v link-private-exclude.sh > /dev/null && . link-private-exclude.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-private-exclude.sh"
 
   # Load: symlink_*, infuser_prepare.
+  # CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Load: link_hard.
+  # CXREF: ~/.kit/git/ohmyrepos/lib/link-hard.sh
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos/lib}/link-hard.sh"
 
+  # *** Homefries
+
   # Required by distro_util.sh: tweak_errexit
+  # CXREF: ~/.homefries/lib/process_util.sh
   . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/process_util.sh"
+
   # Load: os_is_macos.
+  # CXREF: ~/.homefries/lib/distro_util.sh
   . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/distro_util.sh"
 }
 
@@ -334,9 +345,16 @@ infuse_symlinks_home_tmux_completion () {
 
 infuse_symlinks_home_projlns () {
   # Populate ~/.projlns for Dubs Vim grep path #9.
+
+  # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-breadcrumb.sh
   ./.mrinfuse/.projlns/infuse-projlns-breadcrumb.sh
+
+  # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
   ./.mrinfuse/.projlns/infuse-projlns-core.sh
+
+  # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
   ./.mrinfuse/.projlns/infuse-projlns-omr.sh
+
   # There's a template for running private/machine-specific infusers:
   #  .mrinfuse/.projlns/infuse-projlns-work.example.sh
   # but you might find it easier to just use the 'infuse' task from
