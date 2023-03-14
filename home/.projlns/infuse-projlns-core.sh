@@ -20,12 +20,10 @@ source_deps () {
 
   # Load: _vendorfs_path_stints_basedir_print
   . "$(dirname "$(realpath "$0")")/../../core/depoxy_fs.sh"
-}
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-remove_existing_links () {
-  find . -maxdepth 1 -type l -exec /bin/rm {} +
+  # Load: link_deep, and remove_symlink_hierarchy_safe.
+  # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
+  . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -42,7 +40,7 @@ populate_links_directory () {
 
   infuser_prepare "${lns_path}"
 
-  remove_existing_links
+  remove_symlink_hierarchy_safe
 
   eval "${lns_func}"
 

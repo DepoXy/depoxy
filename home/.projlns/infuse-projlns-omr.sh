@@ -16,16 +16,14 @@ source_deps () {
   # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
+  # Load: link_deep, and remove_symlink_hierarchy_safe.
+  # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
+  . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
+
   # Load: _vendorfs_path_running_client_print.
   # - CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/depoxy_fs.sh"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-remove_existing_links () {
-  find . -maxdepth 1 -type l -exec /bin/rm {} +
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -39,8 +37,6 @@ infuse_projects_links_omr_config () {
 
   info "$(fg_mintgreen)$(attr_emphasis)Creating links$(attr_reset)" \
     "$(fg_lightorange)$(pwd)$(attr_reset)"
-
-  remove_existing_links
 
   infuse_create_symlinks_omr_home
 
@@ -195,9 +191,19 @@ main () {
 
   # ***
 
+  local before_cd="$(pwd -L)"
+
+  mkdir -p "${MREDIT_CONFIGS}"
+
+  cd "${MREDIT_CONFIGS}"
+
+  remove_symlink_hierarchy_safe
+
   infuser_prepare "${MREDIT_CONFIGS}"
 
   infuse_projects_links_omr_config
+
+  cd "${before_cd}"
 
   # ***
 

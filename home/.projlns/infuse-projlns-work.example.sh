@@ -17,12 +17,14 @@ DEPOXY_PROJLNS_EXAMPLE="${DEPOXY_PROJLNS_EXAMPLE:-${DEPOXY_PROJLNS}/work.example
 source_deps () {
   # Load: infuser_prepare.
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
-}
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+  # Load: logger.sh, and colors.sh, for link_deep.
+  # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
-remove_existing_links () {
-  find . -maxdepth 1 -type l -exec /bin/rm {} +
+  # Load: link_deep, and remove_symlink_hierarchy_safe.
+  # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
+  . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -33,6 +35,8 @@ infuse_projects_links_work () {
   mkdir -p "${DEPOXY_PROJLNS_EXAMPLE}"
 
   cd "${DEPOXY_PROJLNS_EXAMPLE}"
+
+  remove_symlink_hierarchy_safe
 
   infuse_create_symlinks_work
 
