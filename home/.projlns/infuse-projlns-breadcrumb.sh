@@ -50,7 +50,7 @@ infuse_script_suss_fullpath () {
 infuse_project_drop_breadcrumb_dxy () {
   local script_fullpath="$1"
 
-  /bin/ln -sf "${script_fullpath}" "CXREF.depoxy"
+  /bin/ln -sf "${script_fullpath}" "XCRUMB.depoxy"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
