@@ -10,6 +10,8 @@
 
 DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
 
+DEPOXY_PROJLNS_EXAMPLE="${DEPOXY_PROJLNS_EXAMPLE:-${DEPOXY_PROJLNS}/work.example}"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
@@ -26,15 +28,11 @@ remove_existing_links () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_projects_links_work () {
-  local lns_path="${DEPOXY_PROJLNS:-${HOME}/.projlns}/work.example"
-
-  mkdir -p "${lns_path}"
-
   local before_cd="$(pwd -L)"
 
-  cd "${lns_path}"
+  mkdir -p "${DEPOXY_PROJLNS_EXAMPLE}"
 
-  remove_existing_links
+  cd "${DEPOXY_PROJLNS_EXAMPLE}"
 
   infuse_create_symlinks_work
 
@@ -52,13 +50,19 @@ infuse_create_symlinks_work () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
+  set -e
+
   source_deps
 
-  infuser_prepare "${MR_REPO}" "${@}"
+  infuser_prepare "${DEPOXY_PROJLNS_EXAMPLE}"
 
   infuse_projects_links_work
 }
 
-set -e
-main "$@"
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Only run when executed; no-op when sourced.
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
 

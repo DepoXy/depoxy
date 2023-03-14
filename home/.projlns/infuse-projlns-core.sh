@@ -13,7 +13,9 @@ DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplin
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
-  # Load: infuser_prepare.
+  # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
+  #                        for this file, and for link_deep).
+  # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Load: _vendorfs_path_stints_basedir_print
@@ -38,7 +40,7 @@ populate_links_directory () {
 
   cd "${lns_path}"
 
-  infuser_prepare "$(realpath .)" "${lns_path}"
+  infuser_prepare "${lns_path}"
 
   remove_existing_links
 
@@ -183,12 +185,18 @@ infuse_create_symlinks_docs () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
+  set -e
+
   source_deps
 
   infuse_projects_links_core
   infuse_projects_links_docs
 }
 
-set -e
-main "$@"
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Only run when executed; no-op when sourced.
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
 

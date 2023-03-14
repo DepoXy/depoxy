@@ -11,7 +11,9 @@ DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
-  # Load: infuser_prepare.
+  # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
+  #                        for this file, and for link_deep).
+  # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 }
 
@@ -54,6 +56,8 @@ infuse_project_drop_breadcrumb_dxy () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
+  set -e
+
   source_deps
 
   local script_fullpath
@@ -66,16 +70,17 @@ main () {
 
   cd "${DEPOXY_PROJLNS}"
 
-  infuser_prepare "${DEPOXY_PROJLNS}" "${@}"
+  infuser_prepare "${DEPOXY_PROJLNS}"
 
   infuse_project_drop_breadcrumb_dxy "${script_fullpath}"
 
   cd "${before_cd}"
 }
 
-if [ "$0" = "${BASH_SOURCE[0]}" ]; then
-  set -e
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Only run when executed; no-op when sourced.
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
 

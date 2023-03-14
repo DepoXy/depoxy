@@ -11,8 +11,10 @@ MREDIT_CONFIGS="${MREDIT_CONFIGS:-${DEPOXY_PROJLNS:-${HOME}/.projlns}/mymrconfig
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
-  # Load: logger.sh, and color.sh
-  . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}/deps/sh-logger/bin/logger.sh"
+  # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
+  #                        for this file, and for link_deep).
+  # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Load: _vendorfs_path_running_client_print.
   # - CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh
@@ -182,12 +184,22 @@ symlink () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
-  INFUSE_SYMLINKS_CNT=0
-  INFUSE_SYMLINKS_NOK=0
+  set -e
 
   source_deps
 
+  # ***
+
+  INFUSE_SYMLINKS_CNT=0
+  INFUSE_SYMLINKS_NOK=0
+
+  # ***
+
+  infuser_prepare "${MREDIT_CONFIGS}"
+
   infuse_projects_links_omr_config
+
+  # ***
 
   local nok_msg=""
   [ ${INFUSE_SYMLINKS_NOK} -eq 0 ] || nok_msg=" (${INFUSE_SYMLINKS_NOK} broken)"
@@ -195,8 +207,6 @@ main () {
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-set -e
 
 # Only run when executed; no-op when sourced.
 if [ "$0" = "${BASH_SOURCE}" ]; then
