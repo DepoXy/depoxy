@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim:tw=0:ts=2:sw=2:et:norl:spell:ft=bash
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
 # Author: Landon Bouma <https://tallybark.com/>
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
