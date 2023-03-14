@@ -12,6 +12,8 @@ DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplin
 
 DEPOXY_PROJLNS_USRDOC="${DEPOXY_PROJLNS_USRDOC:-${DEPOXY_PROJLNS}/docs-and-backlog}"
 
+DEPOXY_PROJLNS_SH_LIB="${DEPOXY_PROJLNS_SH_LIB:-${DEPOXY_PROJLNS}/sh-lib}"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
@@ -112,12 +114,6 @@ infuse_create_symlinks_core () {
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
 
-  # Make one directory of symlinks to all sh-* project binaries.
-  # This is for showing in the Vim project tray (.vimprojects),
-  # so we can show a short list of all shell scripts, and not
-  # have to use multiple directory listings.
-  populate_links_directory "sh-lib" "infuse_create_symlinks_core_sh_lib"
-
   # *** ~/.kit/git projects
 
   link_deep "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
@@ -151,12 +147,6 @@ infuse_create_symlinks_core () {
 
   link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
   link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-infuse_create_symlinks_core_sh_lib () {
-  find ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-*/bin/ -type f -exec ln -s {} \;
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
@@ -193,6 +183,27 @@ infuse_create_symlinks_docs () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
+# Make one directory of symlinks to all sh-* project binaries.
+# This is for showing in the Vim project tray (.vimprojects),
+# so we can show a short list of all shell scripts, and not
+# have to use multiple directory listings.
+
+infuse_projects_links_sh_lib () {
+  populate_links_directory \
+    "${DEPOXY_PROJLNS_SH_LIB}" \
+    "infuse_create_symlinks_core_sh_lib"
+
+  info " Created sh-lib links $(fg_lightorange)${DEPOXY_PROJLNS_SH_LIB}$(attr_reset)"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_create_symlinks_core_sh_lib () {
+  find ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-*/bin/ -type f -exec ln -s {} \;
+}
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+
 main () {
   set -e
 
@@ -200,6 +211,7 @@ main () {
 
   infuse_projects_links_core
   infuse_projects_links_docs
+  infuse_projects_links_sh_lib
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
