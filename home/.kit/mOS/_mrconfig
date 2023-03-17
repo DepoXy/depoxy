@@ -186,10 +186,8 @@ skip = ! os_is_macos
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/Karabiner-Elephants.git'
 
-# ========================================================================
 # ------------------------------------------------------------------------
 
-# FIXME/2022-11-19: See if other favorites have sources: Rectangle, etc.
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -200,6 +198,11 @@ checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/Karabiner-Elep
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/macOS-onboarder.git'
 install = make install
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# FIXME/2022-11-19: See if other favorites have sources: Rectangle, etc.
 
 # ========================================================================
 # ------------------------------------------------------------------------
