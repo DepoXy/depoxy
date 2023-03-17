@@ -187,7 +187,12 @@ skip = ! os_is_macos
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/Karabiner-Elephants.git'
 
 # ------------------------------------------------------------------------
+# ========================================================================
 
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
+checkout = git_clone_giturl -o starter 'https://github.com/ttscoff/KeyBindings.git' \
+  'DefaultKeybindings.dict'
+skip = ! os_is_macos
 
 # ========================================================================
 # ------------------------------------------------------------------------
