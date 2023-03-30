@@ -104,18 +104,6 @@ clone_ohmyrepos () {
 prepare_mrconfig () {
   cd "${HOME}"
 
-  # Wire the main mrconfig (~/.mrconfig) and its allowlist (~/.mrtrust).
-  #
-  # - CXREF: See ~/.depoxy/ambers/home/infuse-depoxy-ambers,
-  #          which also performs these tasks.
-
-  # Symlink the .mrconfig that we curate and is saved to the repo.
-  ln -sf "${DEPOXYAMBERS_DIR}/home/_mrconfig" ".mrconfig"
-
-  # Make a symlink for ~/.mrtrust before we generate the file, so
-  # that the generated file is saved to ~/.depoxy/ambers/home.
-  ln -sf "${DEPOXYAMBERS_DIR}/home/.mrtrust" ".mrtrust"
-
   # Generate the myrepos trust file.
   m4 \
     --define=USER_HOME=${HOME} \
@@ -123,6 +111,18 @@ prepare_mrconfig () {
     --define=GITREPOSPATH=${GITREPOSPATH} \
     ${DEPOXYAMBERS_DIR}/home/.mrtrust.m4 \
     > ${DEPOXYAMBERS_DIR}/home/.mrtrust
+
+  # Wire the main mrconfig (~/.mrconfig) and its allowlist (~/.mrtrust).
+  #
+  # - CXREF: See ~/.depoxy/ambers/home/infuse-depoxy-ambers,
+  #          which also ensures these files are symlinked.
+
+  # Symlink the .mrconfig that we curate and is saved to the repo.
+  ln -sf "${DEPOXYAMBERS_DIR}/home/_mrconfig" ".mrconfig"
+
+  # Make a symlink for ~/.mrtrust before we generate the file, so
+  # that the generated file is saved to ~/.depoxy/ambers/home.
+  ln -sf "${DEPOXYAMBERS_DIR}/home/.mrtrust" ".mrtrust"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
