@@ -7,6 +7,9 @@ Neovim
 Vimscript
 dep
 deps
+dirs
 errexit
 fcn
 msg
+python3
+rsync
