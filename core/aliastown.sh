@@ -41,6 +41,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to Git project directory.
   pushd_alias_or_warn "cdgg" "${GITREPOSPATH:-${HOME}/.kit/git}/git"
 
+  # Change to tig project directory.
+  pushd_alias_or_warn "cdgt" "${GITREPOSPATH:-${HOME}/.kit/git}/tig"
+
   # Change to Git-Smart project directory.
   pushd_alias_or_warn "cdgs" "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
 
