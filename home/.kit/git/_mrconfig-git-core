@@ -319,10 +319,20 @@ install =
   #          - That's how I determined the tests for this if-clause;
   #            and that's how I determined the package names to
   #            install for some of the non-obvious dependencies.
+  #
+  # Suss the perl lib path, e.g.,
+  # - Ubuntu 20.04/Mint 19.3: /usr/lib/x86_64-linux-gnu/perl5/5.26
+  # - Ubuntu 22.04/Mint 21.1: /usr/lib/x86_64-linux-gnu/perl5/5.34
+  perl_lib_path=$(
+    for path in $(perl -e "print qq(@INC)"); do
+      echo $path
+    done | sed '\#/usr/lib/x86_64-linux-gnu/perl5/#!d'
+  )
+  #
   if false \
     || [ ! -f "/usr/lib/x86_64-linux-gnu/libssl.so" ] \
     || [ ! -f "/usr/lib/x86_64-linux-gnu/libncursesw.so" ] \
-    || [ ! -f "/usr/lib/x86_64-linux-gnu/perl5/5.26/auto/Text/Iconv/Iconv.so" ] \
+    || [ ! -f "${perl_lib_path}/auto/Text/Iconv/Iconv.so" ] \
     || [ ! -f "/usr/lib/x86_64-linux-gnu/libreadline.so" ] \
     || ! command -v pcregrep > /dev/null \
     || ! command -v autoconf > /dev/null \
