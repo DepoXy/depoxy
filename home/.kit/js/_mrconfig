@@ -94,9 +94,8 @@ checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 install =
-  # Implied: cd "${MR_REPO}"
+  git fetch starter
   local latest_vers
-  # latest_vers='0.37.2'  # 2021-01-28.
   latest_vers="$(git latest-version)"
   [ -z "${latest_vers}" ] && >&2 warn "ERROR: Cannot determine \`nvm\` version" && return 1
   local release_branch="rel/${latest_vers}"
@@ -104,9 +103,13 @@ install =
   if [ "${current_branch}" != "${release_branch}" ]; then
     git checkout -b rel/${latest_vers} v${latest_vers}
   fi
-  # FIXME: Pinning branch does not matter, b/c install.sh downloads files.
-  # - So why on ~2021-01-28 did I pin branch but didn't call install.sh?
-  ./install.sh
+  # ISOFF/2023-04-25: I think ./install.sh is unnecessary.
+  # - Homefries Bashrc sources nvm from repo location, which should be
+  #   equivalent (./install.sh downloads sources and probably wires to
+  #   shell; which is what the local repo and Homefries Bashrc accomplish).
+  # - If we called ./install.sh, then pinning branch would not matter,
+  #   because ./install.sh downloads files.
+  #  ./install.sh
 
 # ========================================================================
 # ------------------------------------------------------------------------
