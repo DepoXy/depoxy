@@ -26,11 +26,15 @@ meld () {
     || [ -d "/var/lib/flatpak/app/org.gnome.meld" ] \
   ; then
     flatpak run org.gnome.meld "$@"
-  else
+  elif type -f "meld" > /dev/null 2>&1; then
+    # `type -f` ignores functions, i.e., don't match the function we're in.
+
     # We don't need ourselves again.
     unset -f meld
 
     /usr/bin/env meld "$@"
+  else
+    echo "ERROR: Cannot locate meld (via flatpak or on PATH)"
   fi
 }
 
