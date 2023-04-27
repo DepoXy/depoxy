@@ -15,10 +15,17 @@
 meld () {
   # Prefer flatpak meld.
   # - If you want your own meld, uninstall flatpak's.
-  if command -v "flatpak" > /dev/null 2>&1; then
-    if flatpak info org.gnome.meld > /dev/null 2>&1; then
-      flatpak run org.gnome.meld "$@"
-    fi
+
+  # - SAVVY: Just check dir., as flatpak-info is slower. E.g., not:
+  #
+  #     if command -v "flatpak" > /dev/null 2>&1; then
+  #       # CXREF: ${HOME}/.local/share/flatpak/app/org.gnome.meld
+  #       if flatpak info org.gnome.meld > /dev/null 2>&1; then
+  #         ...
+  if [ -d "${HOME}/.local/share/flatpak/app/org.gnome.meld" ] \
+    || [ -d "/var/lib/flatpak/app/org.gnome.meld" ] \
+  ; then
+    flatpak run org.gnome.meld "$@"
   else
     # We don't need ourselves again.
     unset -f meld
