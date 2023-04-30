@@ -61,7 +61,7 @@ _dxy_wire_omr_status_snip_cd () {
   # 2020-03-14: I dunno, I use `stt` way more than `gs`!
   #  alias gs="git-my-merge-status"
 
-  export OMR_MYSTATUS_SNIP_CD='cdd'
+  export OMR_CPYST_CD='cdd'
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
