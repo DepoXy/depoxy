@@ -8,6 +8,7 @@ Neovim
 Vimscript
 dep
 deps
+dir
 dirs
 errexit
 fcn
