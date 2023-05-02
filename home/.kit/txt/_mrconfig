@@ -35,6 +35,9 @@ checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 wireupstream = remote_add publish "git@github.com:DepoXy/spellfile.txt.git"
 infuse =
   link_private_exclude "$@"
+autocommit =
+  git_auto_commit_parse_args "$@"
+  git_auto_commit_one '.vim/spell/en.utf-8.add--personal' -m "Update: Spells"
 
 # ------------------------------------------------------------------------
 # ========================================================================
