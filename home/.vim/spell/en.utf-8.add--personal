@@ -1,6 +1,7 @@
 Arduino
 Asus
 BenQ
+Caja
 DXY # aka "DepoXy Ambers"
 DisplayPort
 JetBrains
@@ -9,9 +10,11 @@ Vimscript
 dep
 deps
 dir
+dir's
 dirs
 errexit
 fcn
 msg
+nav
 python3
 rsync
