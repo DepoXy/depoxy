@@ -135,6 +135,7 @@ _source_scripts_following_homefries_dxy () {
 
   # Py py, py, py py py py.
   _dxy_source "py-dev-up.sh"
+  _dxy_source "py-workon.sh"
 
   # Start those apps that don't start themselves.
   _dxy_source "startapps.sh"
