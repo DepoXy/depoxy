@@ -39,5 +39,5 @@ main () {
   fussy "$@"
 }
 
-fussy "$@"
+main "$@"
 
