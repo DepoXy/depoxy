@@ -21,6 +21,31 @@ lint-py () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Prints the path to the virtualenv site-packages directory.
+#
+# - E.g., for pyenv-managed venv on macOS:
+#
+#     /Users/user/.pyenv/versions/3.9.5/envs/my-project-venv/lib/python3.9/site-packages
+#
+# - Or for user-managed `python -m venv` venv on Linux, e.g.:
+#
+#     /home/user/path/to/project/.venv/lib/python3.10/site-packages
+
+# See also `poetry env info -p` output, e.g.,:
+#
+#   $ poetry env info --path
+#   /home/user/path/to/project/.venv
+#
+# But this doesn't expand easily to the site-packages path,
+# because you're missing the Python major.minor version.
+# - You could hardcode the Python version, e.g.:
+#     $(poetry env info -p)/lib/python3.9/site-packages
+#   but this is is inelegant.
+# - Or you could suss the Python version, but this means
+#   calling Python, and if you're gonna call Python, you
+#   might as well call site.getsitepackages() instead, as
+#   we do here.
+
 _dxy_python_util_site_packages_path_print_and_clip () {
   local os_clip=""
   local po_prefix=""
@@ -30,11 +55,6 @@ _dxy_python_util_site_packages_path_print_and_clip () {
 
   command -v poetry > /dev/null && po_prefix="poetry run"
 
-  # Same as:
-  #
-  #   $(poetry env info --path)/lib/python3.9/site-packages
-
-  # E.g., /Users/user/.pyenv/versions/3.9.5/envs/my-project-venv/lib/python3.9/site-packages
   ${po_prefix} python -c "import site; print(site.getsitepackages()[0])" \
     | tee >(tr -d "\n" | ${os_clip})
 }
