@@ -42,10 +42,10 @@ install =
   #   mr -d ${MR_REPO} -n installpythons
 installpythons =
   # Install all supported Pythons so they're at the ready.
-  pyenv install 3.10.6 --skip-existing
-  pyenv install 3.9.13 --skip-existing
-  pyenv install 3.8.13 --skip-existing
-  pyenv install 3.7.13 --skip-existing
+  pyenv install -s 3.10 --skip-existing
+  pyenv install -s 3.9 --skip-existing
+  pyenv install -s 3.8 --skip-existing
+  pyenv install -s 3.7 --skip-existing
   # EOL Pythons:
   #  pyenv install 3.6.15 --skip-existing
   #  pyenv install 3.5.10 --skip-existing
