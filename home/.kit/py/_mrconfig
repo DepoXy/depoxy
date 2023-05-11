@@ -114,6 +114,15 @@ install =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper]
+checkout = git_clone_giturl -o "release" "landonb/virtualenvwrapper.git" \
+  && mr -d "${MR_REPO}" -n wireupstream
+wireupstream = remote_add starter 'python-virtualenvwrapper/virtualenvwrapper.git'
+infuse = link_private_exclude "$@"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # https://aws.amazon.com/cli/
 # https://github.com/aws/aws-cli.git
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
