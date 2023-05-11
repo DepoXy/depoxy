@@ -37,6 +37,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # Change to Git projects parent directory.
   pushd_alias_or_warn "cdg" "${GITREPOSPATH:-${HOME}/.kit/git}"
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdgi" "${DOPP_KIT:-${HOME}/.kit}/git"
 
   # Change to Git project directory.
   pushd_alias_or_warn "cdgg" "${GITREPOSPATH:-${HOME}/.kit/git}/git"
@@ -78,19 +80,41 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to myrepos-mredit-command project directory, aka mister-mister.
   pushd_alias_or_warn "cdmm" "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command"
 
+  # *** ~/.kit/go — Golang
+
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdgo" "${DOPP_KIT:-${HOME}/.kit}/go"
+
   # *** ~/.kit/js — JavaScript
+
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdjs" "${DOPP_KIT:-${HOME}/.kit}/js"
 
   pushd_alias_or_warn "cdpm" "${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey"
 
+  # *** ~/.kit/ml — (Machine Learning)
+
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdml" "${DOPP_KIT:-${HOME}/.kit}/ml"
+
   # *** ~/.kit/mOS — macOS
+
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdma" "${DOPP_KIT:-${HOME}/.kit}/mOS"
 
   pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
 
   pushd_alias_or_warn "cdke" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
 
+  # *** ~/.kit/py — Python
+
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdpy" "${DOPP_KIT:-${HOME}/.kit}/py"
+
   # *** ~/.kit/sh — Shell
 
   # Change to Shell project directories.
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdsh" "${SHOILERPLATE:-${HOME}/.kit/sh}"
 
   pushd_alias_or_warn "cddi" "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
@@ -98,6 +122,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdok" "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
 
   # *** ~/.kit/txt — Text
+
+  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  pushd_alias_or_warn "cdtx" "${SHOILERPLATE:-${HOME}/.kit/txt}"
 
   pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
   # Duplicate alias, because, ya know.
