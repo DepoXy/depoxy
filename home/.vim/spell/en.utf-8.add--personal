@@ -19,6 +19,14 @@ msg
 nav
 python3
 rsync
+tig
+tmux
+txt
 venv
 venv's
 venvs
+vim
+vimdiff
+virtualenv
+virtualenvs
+wakatime
