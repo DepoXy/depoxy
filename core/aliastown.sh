@@ -25,6 +25,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # Change to Home Fries directory.
   pushd_alias_or_warn "cdh" "${HOMEFRIES_DIR:-${HOME}/.homefries}"
+  pushd_alias_or_warn "cdhb" "${HOMEFRIES_DIR:-${HOME}/.homefries}/.bashrc-bin"
+  pushd_alias_or_warn "cdhl" "${HOMEFRIES_DIR:-${HOME}/.homefries}/lib"
 
   # *** ~/.kit — Dopp Kit
 
