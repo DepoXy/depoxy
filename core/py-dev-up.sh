@@ -7,7 +7,8 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# Prints the path to the virtualenv site-packages directory.
+# Prints the path to the virtualenv site-packages directory,
+# and copies the path to the clipboard.
 #
 # - E.g., for pyenv-managed venv on macOS:
 #
