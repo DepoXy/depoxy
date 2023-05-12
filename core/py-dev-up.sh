@@ -57,6 +57,8 @@ _depoxy_core_wire_aliases () {
   #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
   # - Calls black, flake8, and isort.
   claim_alias_or_warn "lint" "make lint"
+
+  claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
