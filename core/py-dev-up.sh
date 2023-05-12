@@ -31,6 +31,17 @@ _dxy_python_util_site_packages_path_print_and_clip () {
 
   ${po_prefix} python -c "import site; print(site.getsitepackages()[0])" \
     | tee >(tr -d "\n" | ${os_clip})
+
+_dxy_python_util_must_find_python_virtualenvwrapper () {
+  command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
+    && return
+
+  >&2 echo "ERROR: Please install (or source) virtualenvwrapper.sh:"
+  >&2 echo "  https://github.com/landonb/virtualenvwrapper"
+  >&2 echo "Or the original:"
+  >&2 echo "  https://github.com/python-virtualenvwrapper/virtualenvwrapper"
+
+  return 1
 }
 
 _dxy_python_util_site_packages_path_print_and_clip_alias () {
