@@ -48,7 +48,7 @@ _dxy_python_util_site_packages_path_print_and_clip () {
 }
 
 _dxy_python_util_site_packages_path_print_and_clip_alias () {
-  claim_alias_or_warn "py-site-packages-print" "_dxy_python_util_site_packages_path_print_and_clip"
+  claim_alias_or_warn "py-site-packages-clip" "_dxy_python_util_site_packages_path_print_and_clip"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
