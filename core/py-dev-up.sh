@@ -7,20 +7,6 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_depoxy_core_wire_aliases_python () {
-  # FIXME/2022-11-14: Move this to private Bashrc.
-  claim_alias_or_warn "lint" "lint-py"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-lint-py () {
-  # FIXME/2022-11-14: Do something about this hardcoded line-length.
-  py3 -m black . ; py3 -m flake8 . ; py3 -m isort --profile black --line-length=72 .
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 # Prints the path to the virtualenv site-packages directory.
 #
 # - E.g., for pyenv-managed venv on macOS:
@@ -66,8 +52,10 @@ _dxy_python_util_site_packages_path_print_and_clip_alias () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _depoxy_core_wire_aliases () {
-  _depoxy_core_wire_aliases_python
-  unset -f _depoxy_core_wire_aliases_python
+  # CXREF: Defer to the Makefile task:
+  #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
+  # - Calls black, flake8, and isort.
+  claim_alias_or_warn "lint" "make lint"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
