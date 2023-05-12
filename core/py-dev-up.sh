@@ -18,21 +18,6 @@
 #
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
-# See also `poetry env info -p` output, e.g.,:
-#
-#   $ poetry env info --path
-#   /home/user/path/to/project/.venv
-#
-# But this doesn't expand easily to the site-packages path,
-# because you're missing the Python major.minor version.
-# - You could hardcode the Python version, e.g.:
-#     $(poetry env info -p)/lib/python3.9/site-packages
-#   but this is is inelegant.
-# - Or you could suss the Python version, but this means
-#   calling Python, and if you're gonna call Python, you
-#   might as well call site.getsitepackages() instead, as
-#   we do here.
-
 _dxy_python_util_site_packages_path_print_and_clip () {
   local os_clip=""
   local po_prefix=""
