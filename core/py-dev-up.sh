@@ -37,7 +37,9 @@ _dxy_python_util_site_packages_path_print_and_clip () {
   local po_prefix=""
 
   # Adjust for macOS (pbcopy) and X11 (xclip).
-  command -v pbcopy > /dev/null && os_clip="pbcopy" || os_clip="xclip -selection c"
+  command -v pbcopy > /dev/null \
+    && os_clip="pbcopy" \
+    || os_clip="xclip -selection c"
 
   command -v poetry > /dev/null && po_prefix="poetry run"
 
