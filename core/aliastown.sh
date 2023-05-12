@@ -72,7 +72,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # Change to DepoXy-defined put-wise patches repo directory.
   # - CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh
-  pushd_alias_or_warn "cdpr" "${PW_PATCHES_REPO}"
+  # - Avoid tab-complete clash with `cdproject`, aka don't use original choice:
+  #     pushd_alias_or_warn "cdpr" "${PW_PATCHES_REPO}"
+  pushd_alias_or_warn "cdps" "${PW_PATCHES_REPO}"
 
   # *** ~/.kit/git — OMR
 
