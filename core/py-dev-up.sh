@@ -19,18 +19,20 @@
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
 _dxy_python_util_site_packages_path_print_and_clip () {
+  _dxy_python_util_must_find_python_virtualenvwrapper \
+    || return 1
+
   local os_clip=""
-  local po_prefix=""
 
   # Adjust for macOS (pbcopy) and X11 (xclip).
   command -v pbcopy > /dev/null \
     && os_clip="pbcopy" \
     || os_clip="xclip -selection c"
 
-  command -v poetry > /dev/null && po_prefix="poetry run"
-
-  ${po_prefix} python -c "import site; print(site.getsitepackages()[0])" \
-    | tee >(tr -d "\n" | ${os_clip})
+  # Caller prints `distutils.sysconfig.get_python_lib()`
+  # - Equivalent to: `site.getsitepackages()[0]`
+  virtualenvwrapper_get_site_packages_dir | tee >(tr -d "\n" | ${os_clip})
+}
 
 _dxy_python_util_must_find_python_virtualenvwrapper () {
   command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
