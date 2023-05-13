@@ -30,7 +30,7 @@ _depoxy_python_wire_aliases () {
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
 _dxy_python_site_packages_path_print_and_clip () {
-  _dxy_python_util_must_find_python_virtualenvwrapper \
+  _dxy_python_must_find_python_virtualenvwrapper \
     || return 1
 
   local os_clip=""
@@ -45,7 +45,7 @@ _dxy_python_site_packages_path_print_and_clip () {
   virtualenvwrapper_get_site_packages_dir | tee >(tr -d "\n" | ${os_clip})
 }
 
-_dxy_python_util_must_find_python_virtualenvwrapper () {
+_dxy_python_must_find_python_virtualenvwrapper () {
   command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
     && return
 
