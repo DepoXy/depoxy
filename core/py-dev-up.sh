@@ -30,6 +30,18 @@ _depoxy_python_wire_aliases () {
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
 _depoxy_python_site_packages_path_print_and_clip () {
+  _depoxy_python_must_find_python_virtualenvwrapper () {
+    command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
+      && return
+
+    >&2 echo "ERROR: Please install (or source) virtualenvwrapper.sh:"
+    >&2 echo "  https://github.com/landonb/virtualenvwrapper"
+    >&2 echo "Or the original:"
+    >&2 echo "  https://github.com/python-virtualenvwrapper/virtualenvwrapper"
+
+    return 1
+  }
+
   _depoxy_python_must_find_python_virtualenvwrapper \
     || return 1
 
@@ -45,18 +57,6 @@ _depoxy_python_site_packages_path_print_and_clip () {
   virtualenvwrapper_get_site_packages_dir | tee >(tr -d "\n" | ${os_clip})
 }
 
-_depoxy_python_must_find_python_virtualenvwrapper () {
-  command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
-    && return
-
-  >&2 echo "ERROR: Please install (or source) virtualenvwrapper.sh:"
-  >&2 echo "  https://github.com/landonb/virtualenvwrapper"
-  >&2 echo "Or the original:"
-  >&2 echo "  https://github.com/python-virtualenvwrapper/virtualenvwrapper"
-
-  return 1
-}
-
 _depoxy_python_site_packages_path_print_and_clip_wire_alias () {
   claim_alias_or_warn "py-site-packages-clip" "_depoxy_python_site_packages_path_print_and_clip"
 }
@@ -69,9 +69,6 @@ main () {
 
   # Don't unset:
   #   _depoxy_python_site_packages_path_print_and_clip
-
-  # Don't unset:
-  #   _depoxy_python_must_find_python_virtualenvwrapper
 
   _depoxy_python_site_packages_path_print_and_clip_wire_alias
   unset -f _depoxy_python_site_packages_path_print_and_clip_wire_alias
