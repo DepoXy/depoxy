@@ -29,7 +29,7 @@ _depoxy_python_wire_aliases () {
 #
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
-_dxy_python_util_site_packages_path_print_and_clip () {
+_dxy_python_site_packages_path_print_and_clip () {
   _dxy_python_util_must_find_python_virtualenvwrapper \
     || return 1
 
@@ -57,8 +57,8 @@ _dxy_python_util_must_find_python_virtualenvwrapper () {
   return 1
 }
 
-_dxy_python_util_site_packages_path_print_and_clip_alias () {
-  claim_alias_or_warn "py-site-packages-clip" "_dxy_python_util_site_packages_path_print_and_clip"
+_dxy_python_site_packages_path_print_and_clip () {
+  claim_alias_or_warn "py-site-packages-clip" "_dxy_python_site_packages_path_print_and_clip"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -67,8 +67,8 @@ main () {
   _depoxy_python_wire_aliases
   unset -f _depoxy_python_wire_aliases
 
-  _dxy_python_util_site_packages_path_print_and_clip_alias
-  unset -f _dxy_python_util_site_packages_path_print_and_clip_alias
+  _dxy_python_site_packages_path_print_and_clip
+  unset -f _dxy_python_site_packages_path_print_and_clip
 }
 
 main "$@"
