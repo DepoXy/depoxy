@@ -115,6 +115,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdpy" "${DOPP_KIT:-${HOME}/.kit}/py"
 
+  # 2023-05-12: Completely unnecessary; unlikely to work on this much.
+  pushd_alias_or_warn "cdve" "${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper"
+
   # *** ~/.kit/sh — Shell
 
   # Change to Shell project directories.
