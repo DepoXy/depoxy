@@ -97,6 +97,7 @@ update =
 # FIXME/2021-08-19: Not yet tested on @macOS. (I copied from from home config.)
 #                   FIXME: See if available from homebrew (if so, installDarwin).
 # Git history rewriter (filter-branch/BFG/git-obliterate replacement).
+# CXREF: https://github.com/newren/git-filter-repo
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo]
 checkout = git_clone_giturl -o starter 'https://github.com/newren/git-filter-repo.git'
 skip = mr_exclusive "kit" "git" "kit-git"
