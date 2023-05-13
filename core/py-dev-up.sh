@@ -3,7 +3,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-# Copyright (c) © 2022-2022 Landon Bouma. All Rights Reserved.
+# Copyright (c) © 2022-2023 Landon Bouma. All Rights Reserved.
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
