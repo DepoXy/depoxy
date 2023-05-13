@@ -7,6 +7,17 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_depoxy_core_wire_aliases () {
+  # CXREF: Defer to the Makefile task:
+  #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
+  # - Calls black, flake8, and isort.
+  claim_alias_or_warn "lint" "make lint"
+
+  claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Prints the path to the virtualenv site-packages directory,
 # and copies the path to the clipboard.
 #
@@ -48,17 +59,6 @@ _dxy_python_util_must_find_python_virtualenvwrapper () {
 
 _dxy_python_util_site_packages_path_print_and_clip_alias () {
   claim_alias_or_warn "py-site-packages-clip" "_dxy_python_util_site_packages_path_print_and_clip"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-_depoxy_core_wire_aliases () {
-  # CXREF: Defer to the Makefile task:
-  #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
-  # - Calls black, flake8, and isort.
-  claim_alias_or_warn "lint" "make lint"
-
-  claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
