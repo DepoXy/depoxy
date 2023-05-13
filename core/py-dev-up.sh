@@ -30,6 +30,18 @@ _depoxy_python_wire_aliases () {
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
 _dxy_python_site_packages_path_print_and_clip () {
+  _dxy_python_must_find_python_virtualenvwrapper () {
+    command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
+      && return
+
+    >&2 echo "ERROR: Please install (or source) virtualenvwrapper.sh:"
+    >&2 echo "  https://github.com/landonb/virtualenvwrapper"
+    >&2 echo "Or the original:"
+    >&2 echo "  https://github.com/python-virtualenvwrapper/virtualenvwrapper"
+
+    return 1
+  }
+
   _dxy_python_must_find_python_virtualenvwrapper \
     || return 1
 
@@ -43,18 +55,6 @@ _dxy_python_site_packages_path_print_and_clip () {
   # Caller prints `distutils.sysconfig.get_python_lib()`
   # - Equivalent to: `site.getsitepackages()[0]`
   virtualenvwrapper_get_site_packages_dir | tee >(tr -d "\n" | ${os_clip})
-}
-
-_dxy_python_must_find_python_virtualenvwrapper () {
-  command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
-    && return
-
-  >&2 echo "ERROR: Please install (or source) virtualenvwrapper.sh:"
-  >&2 echo "  https://github.com/landonb/virtualenvwrapper"
-  >&2 echo "Or the original:"
-  >&2 echo "  https://github.com/python-virtualenvwrapper/virtualenvwrapper"
-
-  return 1
 }
 
 _dxy_python_site_packages_path_print_and_clip () {
