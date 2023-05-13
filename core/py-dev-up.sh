@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_depoxy_core_wire_aliases () {
+_depoxy_python_wire_aliases () {
   # CXREF: Defer to the Makefile task:
   #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
   # - Calls black, flake8, and isort.
@@ -64,8 +64,8 @@ _dxy_python_util_site_packages_path_print_and_clip_alias () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
-  _depoxy_core_wire_aliases
-  unset -f _depoxy_core_wire_aliases
+  _depoxy_python_wire_aliases
+  unset -f _depoxy_python_wire_aliases
 
   _dxy_python_util_site_packages_path_print_and_clip_alias
   unset -f _dxy_python_util_site_packages_path_print_and_clip_alias
