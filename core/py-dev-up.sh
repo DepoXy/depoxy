@@ -61,12 +61,39 @@ _depoxy_python_site_packages_path_print_and_clip () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_depoxy_python_lazy_load_virtualenvwrapper () {
+  local virtualenvwrappersh
+  local wrapper_source_lazy
+
+  # Prefer bleeding-edge.
+  virtualenvwrappersh="${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper/virtualenvwrapper.sh"
+  wrapper_source_lazy="${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper/virtualenvwrapper_lazy.sh"
+
+  if [ ! -f "${virtualenvwrappersh}" ] || [ ! -f "${wrapper_source_lazy}" ]; then
+    # Fallback on what's on PATH (from `pip install virtualenvwrapper`).
+    virtualenvwrappersh="$(which virtualenvwrapper.sh)"
+    wrapper_source_lazy="$(which virtualenvwrapper_lazy.sh)"
+  fi
+
+  if [ -f "${virtualenvwrappersh}" ] && [ -f "${wrapper_source_lazy}" ]; then
+    VIRTUALENVWRAPPER_SCRIPT="${virtualenvwrappersh}"
+
+    . "${wrapper_source_lazy}"
+  # else, it's up to the user to find out it wasn't loaded.
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 main () {
   _depoxy_python_wire_aliases
   unset -f _depoxy_python_wire_aliases
 
   # Don't unset:
   #   _depoxy_python_site_packages_path_print_and_clip
+
+  _depoxy_python_lazy_load_virtualenvwrapper
+  unset -f _depoxy_python_lazy_load_virtualenvwrapper
 }
 
 main "$@"
