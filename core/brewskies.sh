@@ -21,7 +21,7 @@
 #     because I don't remember seeing this issue on older Intel MacBook.
 #   - I also tried NixOS Bash, but NixOS Bash also slow. https://nixos.org
 
-_dxy_print_homebrew_path () {
+_depoxy_print_homebrew_path () {
   # Apple Silicon (M1 Mac/arm64/AArch64) brew path is /opt/homebrew.
   local brew_bin="/opt/homebrew/bin"
 
@@ -36,7 +36,7 @@ _dxy_print_homebrew_path () {
 # Set Homebrew environs: HOMEBREW_PREFIX, HOMEBREW_CELLAR,
 # HOMEBREW_REPOSITORY, PATH, MANPATH, and INFOPATH.
 infuse_brew_shellenv () {
-  local brew_path="$(_dxy_print_homebrew_path)"
+  local brew_path="$(_depoxy_print_homebrew_path)"
 
   if [ -e "${brew_path}" ]; then
     eval "$(${brew_path} shellenv)"

@@ -21,7 +21,7 @@ source_deps () {
   command -v depoxy_fs.sh > /dev/null && . depoxy_fs.sh ||
     . "$(dirname "$(realpath "$0")")/../core/depoxy_fs.sh"
 
-  # Load: _dxy_print_homebrew_path.
+  # Load: _depoxy_print_homebrew_path.
   command -v brewskies.sh > /dev/null && . brewskies.sh ||
     . "$(dirname "$(realpath "$0")")/../core/brewskies.sh"
 }
@@ -137,7 +137,7 @@ setup_homefries_deps_hard_links () {
 #     /opt/homebrew/bin/benchmark_xl ->
 #       /opt/homebrew/Cellar/jpeg-xl/0.7.0_1/bin/benchmark_xl
 setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
-  local brew_bin="$(dirname "$(_dxy_print_homebrew_path)")"
+  local brew_bin="$(dirname "$(_depoxy_print_homebrew_path)")"
 
   local conflict="${brew_bin}/benchmark_xl"
   local renamed="${brew_bin}/jpeg-xl--benchmark_xl"
