@@ -14,6 +14,8 @@ _depoxy_python_wire_aliases () {
   claim_alias_or_warn "lint" "make lint"
 
   claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
+
+  claim_alias_or_warn "py-site-packages-clip" "_depoxy_python_site_packages_path_print_and_clip"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -57,10 +59,6 @@ _depoxy_python_site_packages_path_print_and_clip () {
   virtualenvwrapper_get_site_packages_dir | tee >(tr -d "\n" | ${os_clip})
 }
 
-_depoxy_python_site_packages_path_print_and_clip_wire_alias () {
-  claim_alias_or_warn "py-site-packages-clip" "_depoxy_python_site_packages_path_print_and_clip"
-}
-
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
@@ -69,9 +67,6 @@ main () {
 
   # Don't unset:
   #   _depoxy_python_site_packages_path_print_and_clip
-
-  _depoxy_python_site_packages_path_print_and_clip_wire_alias
-  unset -f _depoxy_python_site_packages_path_print_and_clip_wire_alias
 }
 
 main "$@"
