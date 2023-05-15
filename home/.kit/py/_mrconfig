@@ -118,7 +118,9 @@ install =
 checkout = git_clone_giturl -o "release" "landonb/virtualenvwrapper.git" \
   && mr -d "${MR_REPO}" -n wireupstream
 wireupstream = remote_add starter 'python-virtualenvwrapper/virtualenvwrapper.git'
-infuse = link_private_exclude "$@"
+infuse =
+  link_private_exclude "$@"
+  symlink_overlay_file "${MR_REPO}/virtualenvwrapper.sh" "${HOME}/.local/bin/virtualenvwrapper.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
