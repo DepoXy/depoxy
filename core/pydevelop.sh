@@ -65,6 +65,9 @@ _depoxy_python_lazy_load_virtualenvwrapper () {
   local virtualenvwrappersh
   local wrapper_source_lazy
 
+  # Use `pushd` instead of `cd`.
+  export VIRTUALENVWRAPPER_PUSHD="1"
+
   # Prefer bleeding-edge.
   virtualenvwrappersh="${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper/virtualenvwrapper.sh"
   wrapper_source_lazy="${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper/virtualenvwrapper_lazy.sh"
