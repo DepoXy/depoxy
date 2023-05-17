@@ -120,7 +120,12 @@ checkout = git_clone_giturl -o "release" "landonb/virtualenvwrapper.git" \
 wireupstream = remote_add starter 'python-virtualenvwrapper/virtualenvwrapper.git'
 infuse =
   link_private_exclude "$@"
-  symlink_overlay_file "${MR_REPO}/virtualenvwrapper.sh" "${HOME}/.local/bin/virtualenvwrapper.sh"
+  symlink_mrinfuse_file ".editorconfig"
+  symlink_overlay_file "README.txt" "README.rst"
+  symlink_overlay_file "${MR_REPO}/virtualenvwrapper.sh" \
+                       "${HOME}/.local/bin/virtualenvwrapper.sh"
+  symlink_overlay_file "${MR_REPO}/virtualenvwrapper_lazy.sh" \
+                       "${HOME}/.local/bin/virtualenvwrapper_lazy.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
