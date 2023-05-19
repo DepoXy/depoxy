@@ -12,10 +12,24 @@ _depoxy_python_wire_aliases () {
   #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
   # - Calls black, flake8, and isort.
   claim_alias_or_warn "lint" "make lint"
+  claim_alias_or_warn "doc8" "_depoxy_python_doc8"
 
   claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
 
   claim_alias_or_warn "py-site-packages-clip" "_depoxy_python_site_packages_path_print_and_clip"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_depoxy_python_doc8 () {
+  if type -P doc8 > /dev/null; then
+    command doc8 "$@"
+  elif make -n doc8 > /dev/null 2>&1; then
+    make doc8
+  else
+    # Let shell emit failure.
+    command doc8
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
