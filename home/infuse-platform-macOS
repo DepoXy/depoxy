@@ -212,6 +212,8 @@ infuse_symlink_macOS_MacVim_latest_version_symlink () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
+  set -e
+
   source_deps
 
   [ "$(basename $0)" != "infuse-platform-macOS" ] || LOG_LEVEL=0
@@ -234,10 +236,11 @@ main () {
   cd "${before_cd}"
 }
 
-set -e
 
 # Run the infuser iff being executed.
 if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
   main "$@"
 fi
+
+unset -f main
 

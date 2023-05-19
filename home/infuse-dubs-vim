@@ -309,6 +309,8 @@ setup_private_coc_config () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
+  set -e
+
   source_deps
 
   [ "$(basename $0)" != "infuse-dubs-vim" ] || LOG_LEVEL=0
@@ -364,10 +366,10 @@ main () {
   cd "${before_cd}"
 }
 
-set -e
-
 # Run the infuser iff being executed.
 if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
   main "$@"
 fi
+
+unset -f main
 

@@ -90,6 +90,8 @@ setup_private_infuse_symlinks_ohmyrepos_lib () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
+  set -e
+
   source_deps
 
   [ "$(basename $0)" != "infuse-depoxy-ambers" ] || LOG_LEVEL=0
@@ -109,10 +111,10 @@ main () {
   cd "${before_cd}"
 }
 
-set -e
-
 # Run the infuser iff being executed.
 if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
   main "$@"
 fi
+
+unset -f main
 
