@@ -23,11 +23,6 @@ lib = AMBERS_PATH="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
 #     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes
 include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wireremotes"
 
-# CXREF:
-#   set_signing_config:
-#     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wiresigning
-include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wiresigning"
-
 # ========================================================================
 # ------------------------------------------------------------------------
 
