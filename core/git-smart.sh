@@ -139,9 +139,15 @@ _dxy_wire_alias_just_t_for_tig () {
 _dxy_add_on_demand_source_git_nubs () {
   local git_nubs="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh"
   local common_pw="${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise/lib/common_put_wise.sh"
+  # source_dep "lib/dep_apply_confirm_patch_base.sh"
+  # source_dep "lib/dep_ephemeral_branch.sh"
+  # source_dep "lib/dep_tig_prompt.sh"
 
   if [ -f "${git_nubs}" ]; then
-    eval "git-nubs-load () { . '${git_nubs}'; . '${common_pw}'; }"
+    eval "git-nubs-load () {
+      . '${git_nubs}';
+      . '${common_pw}';
+    }"
   fi
 }
 
