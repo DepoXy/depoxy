@@ -16,6 +16,7 @@ dir's
 dirs
 errexit
 fcn
+fcns
 msg
 nav
 python3
