@@ -60,6 +60,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to Git-Extras project directory (not my project, but overlaps).
   pushd_alias_or_warn "cdge" "${GITREPOSPATH:-${HOME}/.kit/git}/git-extras"
 
+  pushd_alias_or_warn "cdgb" "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
+
   # *** ~/.kit/git — Git lib
 
   # Change to sh-git-nubs project directory.
@@ -202,6 +204,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
 
 # 2021-07-31: Extrapolating...
 _dxy_wire_aliases_pushd_paths_kit () {
+  pushd_alias_or_warn "cdkcl" "${DOPP_KIT:-${HOME}/.kit}/clang"
   pushd_alias_or_warn "cdkgit" "${DOPP_KIT:-${HOME}/.kit}/git"
   pushd_alias_or_warn "cdkgo" "${DOPP_KIT:-${HOME}/.kit}/go"
   pushd_alias_or_warn "cdkjs" "${DOPP_KIT:-${HOME}/.kit}/js"
