@@ -42,13 +42,21 @@ install =
   #   mr -d ${MR_REPO} -n installpythons
 installpythons =
   # Install all supported Pythons so they're at the ready.
-  pyenv install -s 3.10 --skip-existing
-  pyenv install -s 3.9 --skip-existing
-  pyenv install -s 3.8 --skip-existing
-  pyenv install -s 3.7 --skip-existing
+  # - -s: --skip-existing
+  # USYNC: pyenv-install-pys
+  #   ~/.kit/py/easy-as-pypi/Makefile
+  # USYNC: envlist
+  #   ~/kit/.py/easy-as-pypi/tox.ini
+  pyenv install -s 3.8
+  pyenv install -s 3.9
+  pyenv install -s 3.10
+  pyenv install -s 3.11
+  # Pre-release Python only installable by full version.
+  # This installs the non-dev version, e.g., '3.12.0a5', not '3.12-dev'.
+  pyenv install -s $$(pyenv install -l | grep '^ \+3\.12\.' | tail -1)
   # EOL Pythons:
-  #  pyenv install 3.6.15 --skip-existing
-  #  pyenv install 3.5.10 --skip-existing
+  #  pyenv install -s 3.5.10
+  #  pyenv install -s 3.6.15
 infuse =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     return 0
