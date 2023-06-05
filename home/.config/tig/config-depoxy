@@ -169,7 +169,6 @@ bind generic % >sh -c " \
     git rebase-sort-by-scope-protected-private %(commit); \
     exit_val=$?; \
     ${wipped} && git reset -q --mixed @~1; \
-    echo; \
     return ${exit_val}; \
   }; git_sort_by_scope__rebase_________________"
 
