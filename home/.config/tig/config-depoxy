@@ -46,7 +46,6 @@
 
 bind generic <C-a> >sh -c " \
   git_put_wise__archive_____________________ () { \
-    echo; \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-a> disabled while staging' \
       && return 1 || true; \
@@ -76,7 +75,6 @@ bind generic <C-a> >sh -c " \
 # at least for now, though I might consolidate with a `pw out` call.
 bind generic <C-s> >sh -c " \
   git_put_wise__push________________________ () { \
-    echo; \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-s> disabled while staging' \
       && return 1 || true; \
@@ -95,7 +93,6 @@ bind generic <C-s> >sh -c " \
 # Ctrl-f, for reals...
 bind generic <C-f> >sh -c " \
   git_put_wise__push__force_________________ () { \
-    echo; \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-f> disabled while staging' \
       && return 1 || true; \
@@ -114,7 +111,6 @@ bind generic <C-f> >sh -c " \
 # MEH/2023-01-18: Ctrl-v and Ctrl-b available...
 bind generic <C-v> >sh -c " \
   git_put_wise__pull________________________ () { \
-    echo; \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-v> disabled while staging' \
       && return 1 || true; \
@@ -132,7 +128,6 @@ bind generic <C-v> >sh -c " \
 
 bind generic <C-b> >sh -c " \
   git_put_wise__apply_______________________ () { \
-    echo; \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-b> disabled while staging' \
       && return 1 || true; \
@@ -163,7 +158,6 @@ bind generic <C-b> >sh -c " \
 #
 bind generic % >sh -c " \
   git_sort_by_scope__rebase_________________ () { \
-    echo; \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
       && return 1 || true; \
@@ -183,7 +177,6 @@ bind generic % >sh -c " \
 
 bind main M >sh -c " \
   make_lint_________________________________ () { \
-    echo; \
     local exit_val; \
     make lint; \
     exit_val=$?; \
