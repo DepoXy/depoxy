@@ -51,7 +51,7 @@ bind generic <C-a> >sh -c " \
       && return 1 || true; \
     local wipped=false; \
     git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-a>]' \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-a>]' > /dev/null \
       && wipped=true; \
     local exit_val; \
     git put-wise archive; \
@@ -80,7 +80,7 @@ bind generic <C-s> >sh -c " \
       && return 1 || true; \
     local wipped=false; \
     git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-s>]' \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-s>]' > /dev/null \
       && wipped=true; \
     local exit_val; \
     git put-wise push; \
@@ -98,7 +98,7 @@ bind generic <C-f> >sh -c " \
       && return 1 || true; \
     local wipped=false; \
     git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-f>]' \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-f>]' > /dev/null \
       && wipped=true; \
     local exit_val; \
     git put-wise push -f; \
@@ -116,7 +116,7 @@ bind generic <C-v> >sh -c " \
       && return 1 || true; \
     local wipped=false; \
     git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-v>]' \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-v>]' > /dev/null \
       && wipped=true; \
     local exit_val; \
     git put-wise pull; \
@@ -133,7 +133,7 @@ bind generic <C-b> >sh -c " \
       && return 1 || true; \
     local wipped=false; \
     git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-b>]' \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-b>]' > /dev/null \
       && wipped=true; \
     local exit_val; \
     git put-wise apply; \
@@ -164,7 +164,7 @@ bind generic % >sh -c " \
       && return 1 || true; \
     local wipped=false; \
     git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig %]' \
+      && git commit -q --no-verify -m 'PRIVATE: WIP [tig %]' > /dev/null \
       && wipped=true; \
     local exit_val; \
     git rebase-sort-by-scope-protected-private %(commit); \
