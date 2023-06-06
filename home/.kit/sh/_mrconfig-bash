@@ -29,9 +29,15 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-logger.git'
 skip = mr_exclusive "!entrusted"
-infuse =
+# CXREF: See GIT_POST_REBASE_EXEC usage.
+# - Used post-rebase to remake hard links.
+# SAVYY: Call link_hard from infusePostRebase, not infuse.
+infusePostRebase =
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
     "deps/sh-colors/bin/colors.sh"
+infuse =
+  # Hard links
+  mr -d . -n infusePostRebase
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-pather.git'
@@ -44,10 +50,16 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-rm_safe.git'
 skip = mr_exclusive "!entrusted"
-# FIXME/2022-12-08: Verify infuse @home.
-infuse =
+# CXREF: See GIT_POST_REBASE_EXEC usage.
+# - Used post-rebase to remake hard links.
+# SAVYY: Call link_hard from infusePostRebase, not infuse.
+infusePostRebase =
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
     "deps/sh-colors/bin/colors.sh"
+# FIXME/2022-12-08: Verify infuse @home.
+infuse =
+  # Hard links
+  mr -d . -n infusePostRebase
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-sensible-open.git'
@@ -61,18 +73,23 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/dot-inputrc.git'
 skip = mr_exclusive "!entrusted"
+# CXREF: See GIT_POST_REBASE_EXEC usage.
+# - Used post-rebase to remake hard links.
+# SAVYY: Call link_hard from infusePostRebase, not infuse.
+infusePostRebase =
+  # 2022-10-17: Since when did that happen? I thought on my old MacBook
+  # circa 2020-21 that ~/.inputrc was a symlink, but on my new MacBook,
+  # in iTerm2 (I didn't test Terminal.app), `bind -P` doesn't show my
+  # ~/.inputrc bindings if that file is a symlink. And a quick search
+  # didn't land any hits (though you'd think someone else would've
+  # already complained).
+  # - Won't work (at least on macOS (though author's Bash/readline
+  #   on their Linux box might just be dated)):
+  #     symlink_mrinfuse_file ".inputrc" "${HOME}/.inputrc"
+  link_hard ".inputrc" "${HOME}/.inputrc"
 infuse =
-  if os_is_macos; then
-    # 2022-10-17: Since when did that happen? I thought on my old MacBook
-    # circa 2020-21 that ~/.inputrc was a symlink, but on my new MacBook,
-    # in iTerm2 (I didn't test Terminal.app), `bind -P` doesn't show my
-    # ~/.inputrc bindings if that file is a symlink. And a quick search
-    # didn't land any hits (though you'd think someone else would've
-    # already complained).
-    link_hard ".inputrc" "${HOME}/.inputrc"
-  else
-    symlink_mrinfuse_file ".inputrc" "${HOME}/.inputrc"
-  fi
+  # Hard links
+  mr -d . -n infusePostRebase
 
 # ***
 
@@ -82,7 +99,10 @@ lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/feature-coverage-report.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = false  # i.e., mr_exclusive "entrusted" "..."...
 install = PREFIX="${HOME}/.local" make link
-infuse =
+# CXREF: See GIT_POST_REBASE_EXEC usage.
+# - Used post-rebase to remake hard links.
+# SAVYY: Call link_hard from infusePostRebase, not infuse.
+infusePostRebase =
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/assets/Makefile" "Makefile"
   #
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
@@ -93,6 +113,9 @@ infuse =
     "deps/sh-logger/bin/logger.sh"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
     "deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+infuse =
+  # Hard links
+  mr -d . -n infusePostRebase
 
 # ***
 
