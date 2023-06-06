@@ -85,8 +85,8 @@ setup_private_grep_ignore () {
 
 # ***
 
+# Link ~/.vimrc → ~/.vim/.vimrc
 wire_home_vimrc () {
-  # Link ~/.vimrc → ~/.vim/.vimrc
   local before_cd="$(pwd -L)"
   cd ${HOME}
   symlink_overlay_file '.vim/.vimrc' '.vimrc'
