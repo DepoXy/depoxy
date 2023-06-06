@@ -162,14 +162,41 @@ bind generic % >sh -c " \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
       && return 1 || true; \
+    \
     local wipped=false; \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig %]' > /dev/null \
       && wipped=true; \
+    \
     local retcode; \
+    \
     git rebase-sort-by-scope-protected-private %(commit); \
     retcode=$?; \
-    ${wipped} && git reset -q --mixed @~1; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      local __comment__='♯ git-rebase-sort-by-scope-protected-private handles GIT_POST_REBASE_EXEC'; \
+      if ${wipped}; then \
+        GITSMART_POST_REBASE_EXECS_TAG=\" $(echo '16i 23 P' | dc)git-abort\"; \
+        echo \"exec sleep 0.1 && git reset -q --mixed @~1 &\" \
+          \"${GITSMART_POST_REBASE_EXECS_TAG}\" \
+            >> \"${GIT_REBASE_TODO_PATH}\"; \
+      fi; \
+      \
+      local also_why=''; \
+      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
+      \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    else \
+      local __comment__='♯ git-rebase-sort-by-scope-protected-private handles GIT_POST_REBASE_EXEC'; \
+      \
+      ${wipped} && git reset -q --mixed @~1; \
+    fi; \
+    \
     return ${retcode}; \
   }; git_sort_by_scope__rebase_________________"
 
@@ -178,9 +205,12 @@ bind generic % >sh -c " \
 bind main M >sh -c " \
   make_lint_________________________________ () { \
     local retcode; \
+    \
     make lint; \
     retcode=$?; \
+    \
     echo; \
+    \
     return ${retcode}; \
   }; make_lint_________________________________"
 
