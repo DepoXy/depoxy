@@ -33,6 +33,7 @@ source_deps () {
 
 seed_myrepos_mrconfig_dubs_vim () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   # We could carnally link the config, e.g.,
   #   symlink_file_clobber "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/.mrconfig"
   # But I'd rather the symlink be figured out via .mrinfuse.
@@ -56,6 +57,7 @@ seed_myrepos_mrconfig_dubs_vim () {
 # do I.
 seed_myrepos_mrinfuse_dubs_vim_pack () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/.mrinfuse" 'pack/.mrinfuse'
 }
 
@@ -73,6 +75,7 @@ setup_private_git_exclude () {
 # Place ~/.vim/pack/.gitignore.
 setup_vim_pack_git_exclude () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/_gitignore" 'pack/.gitignore'
 }
 
@@ -88,8 +91,11 @@ setup_private_grep_ignore () {
 # Link ~/.vimrc → ~/.vim/.vimrc
 wire_home_vimrc () {
   local before_cd="$(pwd -L)"
+
   cd ${HOME}
+
   symlink_overlay_file '.vim/.vimrc' '.vimrc'
+
   cd "${before_cd}"
 }
 
@@ -97,6 +103,7 @@ wire_home_vimrc () {
 
 infuse_this_infuser () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim" 'infuse'
 }
 
@@ -118,6 +125,7 @@ setup_private_plug_file_dubs_file_finder () {
   [ -d pack/landonb/start/dubs_file_finder ] || return 0
 
   local before_cd="$(pwd -L)"
+
   cd pack/landonb/start/dubs_file_finder
 
   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/cmdt_paths"
@@ -229,6 +237,7 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
   [ -d pack/landonb/start/dubs_project_tray ] || return 0
 
   local before_cd="$(pwd -L)"
+
   cd pack/landonb/start/dubs_project_tray
 
   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
