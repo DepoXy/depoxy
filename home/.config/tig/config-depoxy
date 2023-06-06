@@ -16,7 +16,7 @@
 #        (There's also bare `pw` command, but it's not always smart enough,
 #         and it takes a little longer to run, because it has to suss more.)
 
-# MAYBE: I added exit_val checks below, because functions that return nonzero
+# MAYBE: I added retcode checks below, because functions that return nonzero
 # will cause `tig` to wait on *Press ENTER to continue* prompt, so that the
 # user can read the error message.
 #
@@ -53,12 +53,12 @@ bind generic <C-a> >sh -c " \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-a>]' > /dev/null \
       && wipped=true; \
-    local exit_val; \
+    local retcode; \
     git put-wise archive; \
-    exit_val=$?; \
+    retcode=$?; \
     ${wipped} && git reset -q --mixed @~1; \
     echo; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; git_put_wise__archive_____________________"
 
 # MAYBE/2023-01-17: Just call 'pw out'?
@@ -82,12 +82,12 @@ bind generic <C-s> >sh -c " \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-s>]' > /dev/null \
       && wipped=true; \
-    local exit_val; \
+    local retcode; \
     git put-wise push; \
-    exit_val=$?; \
+    retcode=$?; \
     ${wipped} && git reset -q --mixed @~1; \
     echo; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; git_put_wise__push________________________"
 
 # Ctrl-f, for reals...
@@ -100,12 +100,12 @@ bind generic <C-f> >sh -c " \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-f>]' > /dev/null \
       && wipped=true; \
-    local exit_val; \
+    local retcode; \
     git put-wise push -f; \
-    exit_val=$?; \
+    retcode=$?; \
     ${wipped} && git reset -q --mixed @~1; \
     echo; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; git_put_wise__push__force_________________"
 
 # MEH/2023-01-18: Ctrl-v and Ctrl-b available...
@@ -118,12 +118,12 @@ bind generic <C-v> >sh -c " \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-v>]' > /dev/null \
       && wipped=true; \
-    local exit_val; \
+    local retcode; \
     git put-wise pull; \
-    exit_val=$?; \
+    retcode=$?; \
     ${wipped} && git reset -q --mixed @~1; \
     echo; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; git_put_wise__pull________________________"
 
 bind generic <C-b> >sh -c " \
@@ -135,12 +135,12 @@ bind generic <C-b> >sh -c " \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-b>]' > /dev/null \
       && wipped=true; \
-    local exit_val; \
+    local retcode; \
     git put-wise apply; \
-    exit_val=$?; \
+    retcode=$?; \
     ${wipped} && git reset -q --mixed @~1; \
     echo; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; git_put_wise__apply_______________________"
 
 # ***
@@ -166,22 +166,22 @@ bind generic % >sh -c " \
     git add -A \
       && git commit -q --no-verify -m 'PRIVATE: WIP [tig %]' > /dev/null \
       && wipped=true; \
-    local exit_val; \
+    local retcode; \
     git rebase-sort-by-scope-protected-private %(commit); \
-    exit_val=$?; \
+    retcode=$?; \
     ${wipped} && git reset -q --mixed @~1; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; git_sort_by_scope__rebase_________________"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 bind main M >sh -c " \
   make_lint_________________________________ () { \
-    local exit_val; \
+    local retcode; \
     make lint; \
-    exit_val=$?; \
+    retcode=$?; \
     echo; \
-    return ${exit_val}; \
+    return ${retcode}; \
   }; make_lint_________________________________"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
