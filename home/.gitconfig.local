@@ -136,13 +136,75 @@
   # https://spin.atomicobject.com/2020/05/05/git-configurations-default/
   colorMoved = zebra
 
-# https://github.com/MitMaro/git-interactive-rebase-tool
+# #######################################################################
+# ***                     Interactive Rebase Tool                     ***
+# #######################################################################
+
+# CXREF:
+#
+#   https://github.com/MitMaro/git-interactive-rebase-tool
+
+# The easiest solution to wire interactive-rebase-tool is to simply
+# set the sequence.editor setting, e.g.,
+#
+#   git config --global sequence.editor=interactive-rebase-tool
+#
+# Or herein the config:
+#
+#   [sequence]
+#
+#     editor = interactive-rebase-tool
+#
+# And then you could just call `git rebase`, or we could make an
+# alias here so `git commit --fixup` and `git commit --squash`
+# commits are automatically reordered, e.g.,
+#
+#   [alias]
+#
+#     ria = rebase -i --autosquash
+#
+# But, as usual, we make it more complicated.
+#
+# Here we inject the optional post-rebase user hook, GIT_POST_REBASE_EXEC,
+# into the rebase-todo before invoking interactive-rebase-tool.
+
+[alias]
+
+  ria-interactive = "! f() { \
+    GIT_SEQUENCE_EDITOR=\"seqedit () { \
+      local rebase_todo_path=\\\"\\$1\\\"; \
+      \
+      if [ -n \\\"\\${GIT_POST_REBASE_EXEC}\\\" ]; then \
+        echo \\\"exec \\${GIT_POST_REBASE_EXEC}\\\" >> \\\"\\${rebase_todo_path}\\\"; \
+      fi; \
+      \
+      interactive-rebase-tool \\\"\\${rebase_todo_path}\\\"; \
+    }; seqedit \\\"\\$1\\\"\" git rebase -i --autosquash \"$@\"; \
+  }; f"
+
+  # The guts of the function are in a separate alias, because git-smart's
+  #   ~/.kit/git/git-smart/gitconfigs/commit-no-verify.gitconfig
+  # (config tweaker user may choose to load) aliases `ria = ria-no-verify`.
+  ria = ria-interactive
+
+  ria-no-verify = ria-interactive --no-verify
+
+# Customize git-interactive-rebase-tool bindings.
+# - These are opinionated, they change default bindings,
+#   and they might confuse or infuriate users.
+# - CXREF: git-interactive-rebase-tool customization doc:
+#     https://github.com/MitMaro/git-interactive-rebase-tool/blob/master/readme/customization.md#key-bindings
+
 [interactive-rebase-tool]
 
   # I didn't really like using git-interactive-rebase-tool until
   # I remapped rebase and abort not to prompt (I trust myself on
   # rebase and to recover from error, so don't need a guard).
   # This makes the whole interaction much more pleasant and zippy.
+  # - We're just swapping the Q ↔ q bindings, and W ↔ w, so you
+  #   can hit 'w' to rebase immediately, or 'q' to cancel (what's
+  #   'W' and 'Q' in the default config, whereas default 'w' and
+  #   'q' prompt).
 
   inputAbort = Q
   inputForceAbort = q
