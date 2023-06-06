@@ -155,7 +155,8 @@ bind generic <C-b> >sh -c " \
 #   of only the diff concerning the currently selected file" except
 #   when I demo the option, I don't see anything change.
 #     '%' -> :set file-filter [no|yes]
-#
+# Here we "steal" % for resorting scoped commits.
+
 bind generic % >sh -c " \
   git_sort_by_scope__rebase_________________ () { \
     ! git diff --cached --quiet \
