@@ -161,7 +161,7 @@ installLinux =
   #
   # Note that blank lines break myrepos parsing, so we use comment
   # characters for holding line breaks.
-  cat <<'EOF'
+  cat <<'#EOF'
     *** Install git-interactive-rebase-tool
     #
     These instructions are current as of 2023-01-09 v2.2.1.
@@ -201,7 +201,8 @@ installLinux =
       #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.2.1_amd64.deb
       sudo dpkg -i target/debian/git-interactive-rebase-tool_${version}_amd64.deb
     #
- EOF
+ #EOF
+#EOF
 
 # ========================================================================
 # ------------------------------------------------------------------------
