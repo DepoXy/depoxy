@@ -44,20 +44,34 @@
 # - Probably, because archive or push could result in scoped-sort
 #   rebase conflicts...
 
+# Note that none of the put-wise wrappers manage a WIP commit, nor
+# process the optional post-rebase user hook, GIT_POST_REBASE_EXEC.
+# - git-put-wise handles both of these.
+
 bind generic <C-a> >sh -c " \
   git_put_wise__archive_____________________ () { \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-a> disabled while staging' \
       && return 1 || true; \
-    local wipped=false; \
-    git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-a>]' > /dev/null \
-      && wipped=true; \
+    \
     local retcode; \
+    \
     git put-wise archive; \
     retcode=$?; \
-    ${wipped} && git reset -q --mixed @~1; \
-    echo; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
+      \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    else \
+      echo; \
+    fi; \
+    \
     return ${retcode}; \
   }; git_put_wise__archive_____________________"
 
@@ -78,15 +92,25 @@ bind generic <C-s> >sh -c " \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-s> disabled while staging' \
       && return 1 || true; \
-    local wipped=false; \
-    git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-s>]' > /dev/null \
-      && wipped=true; \
+    \
     local retcode; \
+    \
     git put-wise push; \
     retcode=$?; \
-    ${wipped} && git reset -q --mixed @~1; \
-    echo; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
+      \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    else \
+      echo; \
+    fi; \
+    \
     return ${retcode}; \
   }; git_put_wise__push________________________"
 
@@ -96,15 +120,25 @@ bind generic <C-f> >sh -c " \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-f> disabled while staging' \
       && return 1 || true; \
-    local wipped=false; \
-    git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-f>]' > /dev/null \
-      && wipped=true; \
+    \
     local retcode; \
+    \
     git put-wise push -f; \
     retcode=$?; \
-    ${wipped} && git reset -q --mixed @~1; \
-    echo; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
+      \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    else \
+      echo; \
+    fi; \
+    \
     return ${retcode}; \
   }; git_put_wise__push__force_________________"
 
@@ -115,15 +149,23 @@ bind generic <C-v> >sh -c " \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-v> disabled while staging' \
       && return 1 || true; \
-    local wipped=false; \
-    git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-v>]' > /dev/null \
-      && wipped=true; \
+    \
     local retcode; \
+    \
     git put-wise pull; \
     retcode=$?; \
-    ${wipped} && git reset -q --mixed @~1; \
-    echo; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    else \
+      echo; \
+    fi; \
+    \
     return ${retcode}; \
   }; git_put_wise__pull________________________"
 
@@ -132,15 +174,25 @@ bind generic <C-b> >sh -c " \
     ! git diff --cached --quiet \
       && printf '%s\\n\\n' 'ERROR: <Ctrl-b> disabled while staging' \
       && return 1 || true; \
-    local wipped=false; \
-    git add -A \
-      && git commit -q --no-verify -m 'PRIVATE: WIP [tig <C-b>]' > /dev/null \
-      && wipped=true; \
+    \
     local retcode; \
+    \
     git put-wise apply; \
     retcode=$?; \
-    ${wipped} && git reset -q --mixed @~1; \
-    echo; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
+      \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    else \
+      echo; \
+    fi; \
+    \
     return ${retcode}; \
   }; git_put_wise__apply_______________________"
 
