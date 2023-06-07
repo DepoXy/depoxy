@@ -35,6 +35,12 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # - MAYBE/2021-08-12: Check `! type` on all aliases first.
   pushd_alias_or_warn "cdk" "${DOPP_KIT:-${HOME}/.kit}"
 
+  # *** ~/.kit/git — Clang
+
+  pushd_alias_or_warn "cdcl" "${DOPP_KIT:-${HOME}/.kit}/clang"
+
+  pushd_alias_or_warn "cdcv" "${DOPP_KIT:-${HOME}/.kit}/clang/vim"
+
   # *** ~/.kit/git — Git
 
   # Change to Git projects parent directory.
