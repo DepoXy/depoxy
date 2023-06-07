@@ -83,6 +83,8 @@ install = make install
 # - Used post-rebase to remake hard links.
 # SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
+  link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-abort" \
+    "deps/git-smart/bin/git-abort"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
     "deps/sh-git-nubs/bin/git-nubs.sh"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
