@@ -153,6 +153,7 @@ depoxy_configure_remind_task_install_omr_projects () {
   # ***
 
   depoxy_configure_remind_task_install_omr_projects_vim_parT
+  depoxy_configure_remind_task_install_omr_projects_vim_vim
   depoxy_configure_remind_task_install_omr_projects_vim_coc
   depoxy_configure_remind_task_install_omr_projects_vim_nerd_commenter
   depoxy_configure_remind_task_install_omr_projects_vim_lsp_typescript
@@ -224,6 +225,13 @@ depoxy_configure_remind_task_install_omr_projects () {
 depoxy_configure_remind_task_install_omr_projects_vim_parT () {
   print_at_end+=("🔳 DepoXy: Install \`parT\` from source:
    mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/parT\" -n install")
+}
+
+# ***
+
+depoxy_configure_remind_task_install_omr_projects_vim_vim () {
+  print_at_end+=("🔳 DepoXy: Install \`vim\` from source:
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/vim\" -n install")
 }
 
 # ***
