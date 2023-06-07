@@ -108,7 +108,8 @@ bind generic <C-f> >sh -c " \
     return ${retcode}; \
   }; git_put_wise__push__force_________________"
 
-# MEH/2023-01-18: Ctrl-v and Ctrl-b available...
+# MEH/2023-01-18: Ctrl-v and Ctrl-b are a few of still available bindings...
+# - I'd rather not use <C-v> (it's paste!) but also you'll get used to it.
 bind generic <C-v> >sh -c " \
   git_put_wise__pull________________________ () { \
     ! git diff --cached --quiet \
@@ -145,7 +146,7 @@ bind generic <C-b> >sh -c " \
 
 # ***
 
-# Built-ins I don't use I could steal:
+# Built-in bindings I don't use, that I steal:
 # - '$' toggles commit-title-overflow, which colors in red characters
 #   in commit title after some number of characters (defaults 50). I
 #   have no idea the purpose, maybe to encourage oneself to write
