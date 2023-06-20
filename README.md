@@ -17,6 +17,12 @@ DepoXy 🍯 Developer Experience Orchestrator
 
   plus hundreds more projects DepoXy installs...
 
+## RELATED ARTICLES
+
+  - *Developer experience: what is it and why should you care? | The GitHub Blog*
+
+    https://github.blog/2023-06-08-developer-experience-what-is-it-and-why-should-you-care/
+
 ## AUTHOR
 
 Copyright (c) 2015-2023 Landon Bouma &lt;depoxy@tallybark.com&gt;
