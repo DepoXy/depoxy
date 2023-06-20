@@ -1,5 +1,6 @@
 Arduino
 Asus
+Bashcov
 BenQ
 Caja
 DXY # aka "DepoXy Ambers"
@@ -17,8 +18,10 @@ dirs
 errexit
 fcn
 fcns
+hostname
 msg
 nav
+pytest
 python3
 rsync
 tig
