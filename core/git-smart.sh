@@ -13,6 +13,7 @@ _dxy_wire_alias_git_safe () {
     . "${git_safe_sh}"
   else
     >&2 echo "UNPATCHED: git_safe.sh not found, you’re on your own!"
+    >&2 echo "- Expected file at: ${git_safe_sh}"
   fi
 }
 
