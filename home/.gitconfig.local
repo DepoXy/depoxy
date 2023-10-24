@@ -422,7 +422,7 @@
 #      -S \"${term}\" --source --reverse \
   lg1 = "! f() { \
     local term=\"$1\"; \
-    shift 1; \
+    [ -z \"$1\" ] || shift 1; \
     [ -n \"$1\" ] || set -- HEAD; \
     git \
       --no-pager \
@@ -443,7 +443,7 @@
 #      -S \"${term}\" --source --all --reverse \
   lga1 = "! f() { \
     local term=\"$1\"; \
-    shift 1; \
+    [ -z \"$1\" ] || shift 1; \
     git \
       --no-pager \
       log \
