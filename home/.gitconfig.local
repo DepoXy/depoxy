@@ -758,7 +758,9 @@
 
 [alias]
 
-  cihrule = commit --allow-empty -m \"PRIVATE: ‰\"
+  cihrule = "!f() { \
+    git commit --allow-empty -m \"${1:-PRIVATE: ‰}\"; \
+  }; f"
 
 # ***
 
