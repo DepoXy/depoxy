@@ -9,6 +9,10 @@
 [DEFAULT]
 include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos}/.mrconfig-omr"
 
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
 # For convenience.
 # FIXME/2023-02-12: Remove ambers_path usage and update subsequent lines with this:
 #   ${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}
@@ -26,6 +30,7 @@ include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepo
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[DEFAULT]
 # spells.sh runner (commit_sorted_spells_and_alert_if_conflicts) for Vim spell file maintenance.
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/spellfile.txt-runner.sh"
 
