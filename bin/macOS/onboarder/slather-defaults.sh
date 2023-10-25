@@ -181,6 +181,7 @@ depoxy_configure_remind_task_install_omr_projects () {
   depoxy_configure_remind_task_install_omr_projects_geektool
 
   depoxy_configure_remind_task_install_omr_projects_python_pyenv
+  depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
 
   depoxy_configure_remind_task_install_omr_projects_nvm
   depoxy_configure_remind_task_install_omr_projects_lens
@@ -420,6 +421,13 @@ depoxy_configure_remind_task_install_omr_projects_geektool () {
 depoxy_configure_remind_task_install_omr_projects_python_pyenv () {
   print_at_end+=("🔳 DepoXy: Install \`pyenv\` Python versions:
    mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/pyenv\" -n installpythons")
+}
+
+# ***
+
+depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv () {
+  print_at_end+=("🔳 DepoXy: Install \`pyenv-virtualenv\` (or not, really, it’s disabled):
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv\" -n install")
 }
 
 # ***

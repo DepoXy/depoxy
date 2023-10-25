@@ -40,6 +40,9 @@ install =
   # You could also install Python versions now, e.g.,
   #
   #   mr -d ${MR_REPO} -n installpythons
+# USYNC: 
+#   depoxy_configure_remind_task_install_omr_projects_python_pyenv
+#     file://~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults.sh @ 421
 installpythons =
   # Install all supported Pythons so they're at the ready.
   # - -s: --skip-existing
@@ -91,13 +94,22 @@ checkout =
     mkdir -p "${MR_REPO}"
     touch "${MR_REPO}/.omr-placeholder"
   fi
+# USYNC: 
+#   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
+#     file://~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults.sh @ 428
 install =
   # 2022-11-20: So far I just want `po shell` @home [on Linux, which is this path]
-  # - SPIKE: Is there a diff. btw. pyenv-virtualenv (which uses py -m venv)
-  #                            and using poetry?
+  # - SPOKE/SPIKE: Is there a diff. btw. pyenv-virtualenv (which uses py -m venv)
+  #                                  and using poetry?
   #   - NTHEN: Pick a side, then remove pyenv-virtualenv if you don't want it.
-  # - SPIKE: Do I even use this @work anymore? Double-check perhaps, another
-  #          reason to remove this OMR project, perhaps.
+  # - SPOKE/SPIKE/2023-01-29: Do I even use this @work anymore? Double-check perhaps,
+  #                   another reason to remove this OMR project, perhaps.
+  # - SAVVY/SPOKE/2023-10-10: I enhanced `workon` and use that for venvs.
+  #   - CXREF: ~/.kit/py/virtualenvwrapper  # See my changes 2023-05-11/-12.
+  #   - MAYBE: Retire this project.
+  #     - My DepoXy does not set DXC_OMR_ENABLE_PYENV_VIRTUALENV,
+  #       and I don't run this install during onboarding, so it's
+  #       effectively disabled.
   #
   # Guard clause: You gotta want this
   if ! ${DXC_OMR_ENABLE_PYENV_VIRTUALENV:-false}; then
