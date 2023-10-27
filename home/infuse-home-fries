@@ -17,6 +17,10 @@ source_deps () {
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
+  # Load: link_hard_dep*.
+  command -v my-deps-manage-shoilerplate.sh > /dev/null && . my-deps-manage-shoilerplate.sh ||
+    . "$(dirname "$(realpath "$0")")/../home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
+
   # Load: _vendorfs_host_is_depoxy_client_id.
   command -v depoxy_fs.sh > /dev/null && . depoxy_fs.sh ||
     . "$(dirname "$(realpath "$0")")/../core/depoxy_fs.sh"
@@ -54,37 +58,23 @@ setup_private_fries_home_convenience () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# FIXME/2022-12-08: DRY: Make a function for each deps/sh-* project,
-# and then call from here, and from other infusers (this whole function
-# is duplicate code, but not all projects use the same set of deps).
 setup_private_fries_deps_hard_links () {
-  # Note that, regardless of the script name (infuse-home-fries)
-  # the local directory is ${HOME}, so use .homefries/ prefix.
+  # Local directory is $HOME, just FYI. Run from Homefries's directory.
+  local before_cd="$(pwd -L)"
 
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
-    ".homefries/deps/sh-colors/bin/colors.sh"
+  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
 
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
-    ".homefries/deps/sh-logger/bin/logger.sh"
+  link_hard_dep_sh_colors
 
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_prefix" \
-    ".homefries/deps/sh-pather/bin/path_prefix"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_suffix" \
-    ".homefries/deps/sh-pather/bin/path_suffix"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/pather.sh" \
-    ".homefries/deps/sh-pather/bin/pather.sh"
+  link_hard_dep_sh_logger
 
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
-    ".homefries/deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+  link_hard_dep_sh_pather
 
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/path_device" \
-    ".homefries/deps/sh-rm_safe/bin/path_device"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_rotate" \
-    ".homefries/deps/sh-rm_safe/bin/rm_rotate"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_safe" \
-    ".homefries/deps/sh-rm_safe/bin/rm_safe"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rmrm" \
-    ".homefries/deps/sh-rm_safe/bin/rmrm"
+  link_hard_dep_sh_print_nanos_now
+
+  link_hard_dep_sh_rm_safe
+
+  cd "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

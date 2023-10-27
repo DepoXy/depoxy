@@ -13,6 +13,15 @@ include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/oh
 # ------------------------------------------------------------------------
 
 [DEFAULT]
+# Set PATH for the source `.` command to work from the `include`'d files
+# (which run from ${MR_REPO} and otherwise don't know where these files at).
+lib = PATH="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/my-deps-manage-shoilerplate"
 
 # ========================================================================
 # ------------------------------------------------------------------------
