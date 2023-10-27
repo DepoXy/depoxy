@@ -269,19 +269,10 @@ infuse =
 order = 150
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/ohmyrepos.git'
 skip = mr_exclusive "kit" "git" "kit-git"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
-    "deps/sh-logger/bin/logger.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/deps/sh-colors/bin/colors.sh" \
-    "deps/sh-logger/deps/sh-colors/bin/colors.sh"
-  #
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
-    "deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+  link_hard_dep_sh_logger_and_colors
+  link_hard_dep_sh_print_nanos_now
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
   #
   link_private_exclude "$@"
@@ -289,6 +280,8 @@ infuse =
   #
   # FIXME/2023-01-15: Missing infuse task for open patch:
   #   ohmyrepos/bin/js-npm-patch-opn-sensible-open
+updateDeps =
+  update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------

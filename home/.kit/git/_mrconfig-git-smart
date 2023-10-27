@@ -18,17 +18,14 @@ order = 480
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-smart.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
-    "deps/sh-git-nubs/bin/git-nubs.sh"
+  link_hard_dep_sh_git_nubs
 # CXREF: For the infuser that places ~/.gitconfig, see:
 #   ~/.depoxy/ambers/home/infuse-user-home
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -38,19 +35,13 @@ infuse =
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-bump-version-tag.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard \
-    "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
-    "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh"
-  link_hard \
-    "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
-    "deps/sh-git-nubs/bin/git-nubs.sh"
+  link_hard_dep_sh_ask_yesnoskip
+  link_hard_dep_sh_git_nubs
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 # GH Slugln.:
 #   "Fancy, information-dense, multiple-remote workflow-aware git-status for the sophisticated dev in you"
@@ -58,19 +49,16 @@ infuse =
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-my-merge-status.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
-    "deps/sh-git-nubs/bin/git-nubs.sh"
+  link_hard_dep_sh_git_nubs
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
   #
   link_private_exclude "$@"
   #
   symlink_mrinfuse_file 'bin/.my-merge-status-nochores'
+updateDeps =
+  update_deps_shoilerplate
 
 # enigmatic encrypted repo conveyance 🥨
 # https://github.com/DepoXy/git-put-wise#🥨
@@ -79,20 +67,11 @@ lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/git-put-wise.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = false  # i.e., mr_exclusive "entrusted" "..."...
 install = make install
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-abort" \
-    "deps/git-smart/bin/git-abort"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
-    "deps/sh-git-nubs/bin/git-nubs.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
-    "deps/sh-logger/bin/logger.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/deps/sh-colors/bin/colors.sh" \
-    "deps/sh-logger/deps/sh-colors/bin/colors.sh"
+  link_hard_dep_git_smart_git_abort
+  link_hard_dep_sh_git_nubs
+  link_hard_dep_sh_logger_and_colors
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
   #
   link_private_exclude "$@"
@@ -104,6 +83,8 @@ infuse =
   # Too much?
   symlink_overlay_file "${MR_REPO}/bin/putwisely" \
     "${HOME}/.local/bin/putwisely"
+updateDeps =
+  update_deps_shoilerplate
 
 # Brialliantly-hacky cross-project same-filesystem dependency-maintainer.
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful]
@@ -135,17 +116,13 @@ lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/myrepos-mredit-command.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
 install = make install
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
-    "deps/sh-colors/bin/colors.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
-    "deps/sh-logger/bin/logger.sh"
+  link_hard_dep_sh_colors
+  link_hard_dep_sh_logger
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -156,15 +133,12 @@ infuse =
 lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/tig-newtons.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-fup" \
-    "deps/git-smart/bin/git-fup"
+  link_hard_dep_git_smart_git_fup
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------

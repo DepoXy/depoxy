@@ -29,15 +29,12 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-logger.git'
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
-    "deps/sh-colors/bin/colors.sh"
+  link_hard_dep_sh_colors
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-pather.git'
@@ -50,16 +47,12 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-rm_safe.git'
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
-    "deps/sh-colors/bin/colors.sh"
-# FIXME/2022-12-08: Verify infuse @home.
+  link_hard_dep_sh_colors
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-sensible-open.git'
@@ -73,9 +66,6 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/dot-inputrc.git'
 skip = mr_exclusive "!entrusted"
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
   # 2022-10-17: Since when did that happen? I thought on my old MacBook
   # circa 2020-21 that ~/.inputrc was a symlink, but on my new MacBook,
@@ -88,7 +78,6 @@ infusePostRebase =
   #     symlink_mrinfuse_file ".inputrc" "${HOME}/.inputrc"
   link_hard ".inputrc" "${HOME}/.inputrc"
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
 
 # ***
@@ -105,17 +94,14 @@ install = PREFIX="${HOME}/.local" make link
 infusePostRebase =
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/assets/Makefile" "Makefile"
   #
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
-    "deps/sh-colors/bin/colors.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
-    "deps/sh-git-nubs/bin/git-nubs.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
-    "deps/sh-logger/bin/logger.sh"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
-    "deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+  link_hard_dep_sh_colors
+  link_hard_dep_sh_git_nubs
+  link_hard_dep_sh_logger
+  link_hard_dep_sh_print_nanos_now
 infuse =
-  # Hard links
   mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
 
 # ***
 

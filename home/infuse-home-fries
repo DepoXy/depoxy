@@ -58,7 +58,7 @@ setup_private_fries_home_convenience () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-setup_private_fries_deps_hard_links () {
+link_hard_dep_shoilerplate () {
   # Local directory is $HOME, just FYI. Run from Homefries's directory.
   local before_cd="$(pwd -L)"
 
@@ -158,7 +158,7 @@ main () {
 
   setup_private_fries_home_convenience
 
-  setup_private_fries_deps_hard_links
+  link_hard_dep_shoilerplate
 
   setup_public_fries_dot_files
 
