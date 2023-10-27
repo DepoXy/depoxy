@@ -121,23 +121,20 @@ infuse_create_symlinks_core () {
 
   # *** ~/.kit/git projects
 
-  link_deep "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
-
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise"
+  link_deep "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-update-faithful"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
-
-  # *** (oh)myrepos
-
-  # MAYBE/2019-10-23: Remove this link?
-  # - 2020-02-13: Or do I like it? It hardly has gotten in the way, never see its hits!
+  #
+  # **** (oh)myrepos
+  #
+  # 2023-10-26/2020-02-13/2019-10-23: Not my project, but also never seen hit on #9 grep.
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos"
-
-  link_deep "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
-
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command"
+  link_deep "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
 
   # *** ~/.kit/js projects
 

@@ -1,0 +1,31 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/landonb/ohmyrepos#😤
+# License: MIT
+
+[DEFAULT]
+lib =
+  # Note that update-faithful.sh is Bash (it uses <(process redirection)),
+  # so we don't source it into OMR:
+  #
+  #   . "update-faithful.sh"
+  #
+  # Instead, we shell-out to it.
+  GIT_UPDATE_FAITHFUL_BASE="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful"
+  #
+  render_faithful_file () {
+    ${GIT_UPDATE_FAITHFUL_BASE}/bin/render-faithful-file "$@"
+  }
+  #
+  update_faithful_begin () {
+    ${GIT_UPDATE_FAITHFUL_BASE}/bin/update-faithful-begin "$@"
+  }
+  #
+  update_faithful_file () {
+    ${GIT_UPDATE_FAITHFUL_BASE}/bin/update-faithful-file "$@"
+  }
+  #
+  update_faithful_finish () {
+    ${GIT_UPDATE_FAITHFUL_BASE}/bin/update-faithful-finish "$@"
+  }
+

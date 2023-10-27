@@ -105,6 +105,20 @@ infuse =
   symlink_overlay_file "${MR_REPO}/bin/putwisely" \
     "${HOME}/.local/bin/putwisely"
 
+# Brialliantly-hacky cross-project same-filesystem dependency-maintainer.
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful]
+lib = MR_REPO_REMOTE_URL="https://github.com/thegittinsgood/git-update-faithful.git"
+checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+skip = mr_exclusive "!entrusted"
+infusePostRebase =
+  link_hard_dep_sh_logger_and_colors
+infuse =
+  mr -d . -n infusePostRebase
+  #
+  link_private_exclude "$@"
+updateDeps =
+  update_deps_shoilerplate
+
 # Interactive Git patch injector.
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-veggie-patch]
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-veggie-patch.git"
