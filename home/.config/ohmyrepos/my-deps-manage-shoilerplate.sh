@@ -20,13 +20,54 @@
 # ------------------------------------------------------------------------
 
 # HINT: Run DXY's `updateDeps .` to run updateDeps then infusePostRebase,
-# e.g., it'll call both:
-#   mr -d . -n updateDeps
-#   mr -d . -n infusePostRebase
-# This is useful because update-faithful breaks hard-links,
-# but it doesn't remake them.
+#       e.g., it'll call both:
+#         mr -d . -n updateDeps
+#         mr -d . -n infusePostRebase
+#       This is useful because update-faithful breaks hard-links,
+#       but it doesn't remake them.
+#
+# NOTE: If you've added link_hard_dep_* calls to infusePostRebase
+#       but haven't added the files to the repo yet, you either
+#       need to call `updateDeps` *twice*, or you need to make
+#       a call sandwich, e.g., 
+#         mr -d . -n infusePostRebase
+#         mr -d . -n updateDeps
+#         mr -d . -n infusePostRebase
+#       So that the first 'infusePostRebase' creates the deps/
+#       hard links, the 'updateDeps' adds-commits them to the repo,
+#       and the second 'infusePostRebase' re-creates the hard links.
+#       - MAYBE: Perhaps `updateDeps` shell command can do the sandwich,
+#         but I wonder if the infusePostRebase might fail where updateDeps
+#         wouldn't (because updateDeps understands GPW scoped commits, but
+#         OMR's hard_link only knows HEAD).
 
 update_deps_shoilerplate () {
+  local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"
+
+  update_deps_git_smart_git_abort () {
+    [ -f "deps/git-smart/bin/git-abort" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${gitsmart_path}"
+
+    update_faithful_file \
+      "deps/git-smart/bin/git-abort" \
+      "bin/git-abort"
+
+    update_faithful_finish
+  }
+
+  update_deps_git_smart_git_fup () {
+    [ -f "deps/git-smart/bin/git-fup" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${gitsmart_path}"
+
+    update_faithful_file \
+      "deps/git-smart/bin/git-fup" \
+      "bin/git-fup"
+
+    update_faithful_finish
+  }
+
   update_deps_git_update_faithful () {
     [ -d "deps/git-update-faithful" ] || return 0
 
@@ -47,6 +88,18 @@ update_deps_shoilerplate () {
     update_faithful_file \
       "deps/sh-colors/bin/colors.sh" \
       "bin/colors.sh"
+
+    update_faithful_finish
+  }
+
+  update_deps_sh_git_nubs () {
+    [ -d "deps/sh-git-nubs" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
+
+    update_faithful_file \
+      "deps/sh-git-nubs/bin/git-nubs.sh" \
+      "bin/git-nubs.sh"
 
     update_faithful_finish
   }
@@ -127,8 +180,11 @@ update_deps_shoilerplate () {
     update_faithful_finish
   }
 
+  update_deps_git_smart_git_abort
+  update_deps_git_smart_git_fup
   update_deps_git_update_faithful
   update_deps_sh_colors
+  update_deps_sh_git_nubs
   update_deps_sh_logger_and_colors
   update_deps_sh_logger
   update_deps_sh_pather
@@ -139,14 +195,34 @@ update_deps_shoilerplate () {
 # ========================================================================
 # ------------------------------------------------------------------------
 
+link_hard_dep_git_smart_git_abort () {
+  link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-abort" \
+    "deps/git-smart/bin/git-abort"
+}
+
+link_hard_dep_git_smart_git_fup () {
+  link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-fup" \
+    "deps/git-smart/bin/git-fup"
+}
+
 link_hard_dep_git_update_faithful () {
   link_hard "${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful/lib/update-faithful.sh" \
     "deps/git-update-faithful/lib/update-faithful.sh"
 }
 
+link_hard_dep_sh_ask_yesnoskip () {
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
+    "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh"
+}
+
 link_hard_dep_sh_colors () {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
     "deps/sh-colors/bin/colors.sh"
+}
+
+link_hard_dep_sh_git_nubs () {
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
+    "deps/sh-git-nubs/bin/git-nubs.sh"
 }
 
 link_hard_dep_sh_logger () {
