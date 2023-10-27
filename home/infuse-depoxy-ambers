@@ -69,6 +69,8 @@ setup_private_infuse_symlinks_ohmyrepos_lib () {
 
   cd "${omr_bin}"
 
+  # ***
+
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local home_cfg_root="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
@@ -80,9 +82,13 @@ setup_private_infuse_symlinks_ohmyrepos_lib () {
   symlink_overlay_file "${home_cfg_root}/infuse-platform-macOS"
   symlink_overlay_file "${home_cfg_root}/infuse-user-home"
 
+  # ***
+
   # Somewhat related. Sorta somewhat.
   symlink_overlay_file \
     "${home_cfg_root}/.kit/git/ohmyrepos/bin/js-npm-patch-opn-sensible-open"
+
+  # ***
 
   cd "${before_cd}"
 }
