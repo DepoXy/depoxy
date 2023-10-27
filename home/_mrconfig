@@ -13,6 +13,12 @@ include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/oh
 # ------------------------------------------------------------------------
 
 [DEFAULT]
+# CXREF/2023-05-18: EAPP project boilerplate symlink and hard link infuse wiring:
+#   infuse_easy_as_pypi_follower
+#   update_easy_as_pypi_follower
+#   onboard_easy_as_pypi_follower_2023
+#     ~/.depoxy/ambers/home/.config/ohmyrepos/my-deps-manage-easy-as-pypi
+include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/my-deps-manage-easy-as-pypi"
 
 include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/my-deps-manage-shoilerplate"
 
