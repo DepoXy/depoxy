@@ -60,6 +60,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to git-my-merge-status project directory.
   pushd_alias_or_warn "cdgm" "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
 
+  # Change to git-update-faithful project directory.
+  pushd_alias_or_warn "cdgu" "${GITREPOSPATH:-${HOME}/.kit/git}/git-update-faithful"
+
   # Change to tig-newtons project directory.
   pushd_alias_or_warn "cdtn" "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
 
