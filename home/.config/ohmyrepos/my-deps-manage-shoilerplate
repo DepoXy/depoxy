@@ -5,5 +5,5 @@
 
 [DEFAULT]
 lib =
-  . "my-deps-manage-shoilerplate.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
 
