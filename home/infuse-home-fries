@@ -54,6 +54,41 @@ setup_private_fries_home_convenience () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# FIXME/2022-12-08: DRY: Make a function for each deps/sh-* project,
+# and then call from here, and from other infusers (this whole function
+# is duplicate code, but not all projects use the same set of deps).
+setup_homefries_deps_hard_links () {
+  # Note that, regardless of the script name (infuse-home-fries)
+  # the local directory is ${HOME}, so use .homefries/ prefix.
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
+    ".homefries/deps/sh-colors/bin/colors.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
+    ".homefries/deps/sh-logger/bin/logger.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_prefix" \
+    ".homefries/deps/sh-pather/bin/path_prefix"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_suffix" \
+    ".homefries/deps/sh-pather/bin/path_suffix"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/pather.sh" \
+    ".homefries/deps/sh-pather/bin/pather.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
+    ".homefries/deps/sh-print-nanos-now/bin/print-nanos-now.sh"
+
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/path_device" \
+    ".homefries/deps/sh-rm_safe/bin/path_device"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_rotate" \
+    ".homefries/deps/sh-rm_safe/bin/rm_rotate"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_safe" \
+    ".homefries/deps/sh-rm_safe/bin/rm_safe"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rmrm" \
+    ".homefries/deps/sh-rm_safe/bin/rmrm"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 setup_public_fries_dot_files () {
   cd "${HOME}"
 
@@ -89,41 +124,6 @@ setup_public_fries_dot_files () {
     # echo "${hfdfpath}"
     symlink_overlay_file "${hfdfpath}"
   done
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-# FIXME/2022-12-08: DRY: Make a function for each deps/sh-* project,
-# and then call from here, and from other infusers (this whole function
-# is duplicate code, but not all projects use the same set of deps).
-setup_homefries_deps_hard_links () {
-  # Note that, regardless of the script name (infuse-home-fries)
-  # the local directory is ${HOME}, so use .homefries/ prefix.
-
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
-    ".homefries/deps/sh-colors/bin/colors.sh"
-
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
-    ".homefries/deps/sh-logger/bin/logger.sh"
-
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_prefix" \
-    ".homefries/deps/sh-pather/bin/path_prefix"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_suffix" \
-    ".homefries/deps/sh-pather/bin/path_suffix"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/pather.sh" \
-    ".homefries/deps/sh-pather/bin/pather.sh"
-
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
-    ".homefries/deps/sh-print-nanos-now/bin/print-nanos-now.sh"
-
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/path_device" \
-    ".homefries/deps/sh-rm_safe/bin/path_device"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_rotate" \
-    ".homefries/deps/sh-rm_safe/bin/rm_rotate"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_safe" \
-    ".homefries/deps/sh-rm_safe/bin/rm_safe"
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rmrm" \
-    ".homefries/deps/sh-rm_safe/bin/rmrm"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -168,9 +168,9 @@ main () {
 
   setup_private_fries_home_convenience
 
-  setup_public_fries_dot_files
-
   setup_homefries_deps_hard_links
+
+  setup_public_fries_dot_files
 
   setup_homefries_bexit_deconflict_imagemagick_benchmark_xl
 
