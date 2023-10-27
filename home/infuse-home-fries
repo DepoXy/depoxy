@@ -57,7 +57,7 @@ setup_private_fries_home_convenience () {
 # FIXME/2022-12-08: DRY: Make a function for each deps/sh-* project,
 # and then call from here, and from other infusers (this whole function
 # is duplicate code, but not all projects use the same set of deps).
-setup_homefries_deps_hard_links () {
+setup_private_fries_deps_hard_links () {
   # Note that, regardless of the script name (infuse-home-fries)
   # the local directory is ${HOME}, so use .homefries/ prefix.
 
@@ -168,7 +168,7 @@ main () {
 
   setup_private_fries_home_convenience
 
-  setup_homefries_deps_hard_links
+  setup_private_fries_deps_hard_links
 
   setup_public_fries_dot_files
 

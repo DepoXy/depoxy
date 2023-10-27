@@ -204,7 +204,7 @@ infusePostRebase =
   #
   . "${infuse_home_fries}"
   # The only function that uses link_hard.
-  setup_homefries_deps_hard_links
+  setup_private_fries_deps_hard_links
 infuse =
   # SKIPD: Calling infusePostRebase from this infuser is redundant.
   #  mr -d . -n infusePostRebase
