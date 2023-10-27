@@ -27,6 +27,15 @@ lib = AMBERS_PATH="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
 #     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes
 include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wireremotes"
 
+# CXREF: These environs for:
+#   remotes_add_publish_entrust:
+#     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes:42
+lib =
+  MR_REPO_PUBLISH_USER_URL="git@github.com:"
+  #
+  MR_REPO_ENTRUST_USER_URL="git@github_XXXXXXXXXXXXX:"
+  MR_REPO_ENTRUST_USER_NAME="XXXXXXXXXXXXX"
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
