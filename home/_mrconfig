@@ -13,10 +13,6 @@ include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/oh
 # ------------------------------------------------------------------------
 
 [DEFAULT]
-# For convenience.
-# FIXME/2023-02-12: Remove ambers_path usage and update subsequent lines with this:
-#   ${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}
-lib = AMBERS_PATH="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
 
 # ========================================================================
 # ------------------------------------------------------------------------
