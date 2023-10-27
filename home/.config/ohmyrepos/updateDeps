@@ -1,0 +1,14 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=sh
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+if [ -z "$1" ]; then
+  mr -d / updateDeps
+  mr -d / infusePostRebase
+else
+  mr -d "$1" -n updateDeps
+  mr -d "$1" -n infusePostRebase
+fi
+
