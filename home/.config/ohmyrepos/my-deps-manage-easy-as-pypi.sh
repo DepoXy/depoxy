@@ -169,6 +169,18 @@ onboard_easy_as_pypi_follower_2023 () {
 
   # ***
 
+  remove_coveragerc () {
+    git_rm_gentle ".coveragerc"
+
+    if git_nothing_staged; then
+      echo "SKIPD: .coveragerc"
+    else
+      git commit -q -m "Cleanup: Build: Remove unnecessary .coveragerc"
+
+      echo "COMIT: ✗ .coveragerc"
+    fi
+  }
+
   remove_Makefile_local_example () {
     git_rm_gentle "Makefile.local.example"
 
@@ -273,6 +285,8 @@ onboard_easy_as_pypi_follower_2023 () {
   must_insist_nothing_staged
 
   # ***
+
+  remove_coveragerc
 
   remove_Makefile_local_example
 
