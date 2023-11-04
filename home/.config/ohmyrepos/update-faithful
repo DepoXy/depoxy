@@ -13,6 +13,10 @@ lib =
   # Instead, we shell-out to it.
   GIT_UPDATE_FAITHFUL_BASE="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful"
   #
+  remove_faithful_file () {
+    ${GIT_UPDATE_FAITHFUL_BASE}/bin/remove-faithful-file "$@"
+  }
+  #
   render_faithful_file () {
     ${GIT_UPDATE_FAITHFUL_BASE}/bin/render-faithful-file "$@"
   }
