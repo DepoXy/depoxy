@@ -80,6 +80,18 @@ update_deps_shoilerplate () {
     update_faithful_finish
   }
 
+  update_deps_sh_ask_yesnoskip () {
+    [ -d "deps/sh-ask-yesnoskip" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
+
+    update_faithful_file \
+      "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
+      "bin/ask-yesnoskip.sh"
+
+    update_faithful_finish
+  }
+
   update_deps_sh_colors () {
     [ -d "deps/sh-colors" ] || return 0
 
@@ -183,6 +195,7 @@ update_deps_shoilerplate () {
   update_deps_git_smart_git_abort
   update_deps_git_smart_git_fup
   update_deps_git_update_faithful
+  update_deps_sh_ask_yesnoskip
   update_deps_sh_colors
   update_deps_sh_git_nubs
   update_deps_sh_logger_and_colors
