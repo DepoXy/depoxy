@@ -24,14 +24,14 @@
 
 # Note the comment leaders below: BUILD, IGNOR, BELOW, INFUS, SPLIT.
 # - CXREF: See update-defs for these FIVER defs:
-#     ~/.kit/py/easy-as-pypi/bin/update-deps
+#     ~/.kit/py/easy-as-pypi/bin/update-faithful
 
 infuse_easy_as_pypi_follower () {
   link_private_exclude "$@"
   link_private_ignore "$@"
 
   # USYNC: CXREF: This list is SYNCD with:
-  #   ~/.kit/py/easy-as-pypi/bin/update-deps
+  #   ~/.kit/py/easy-as-pypi/bin/update-faithful
 
   # SPLIT: "AUTHORS.rst"
   # IGNOR: "bin/"
@@ -140,8 +140,8 @@ infuse_easy_as_pypi_follower () {
 # ------------------------------------------------------------------------
 
 update_easy_as_pypi_follower () {
-  # CXREF: ~/.kit/py/easy-as-pypi/bin/update-deps
-  ${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/update-deps
+  # CXREF: ~/.kit/py/easy-as-pypi/bin/update-faithful
+  ${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/update-faithful
 }
 
 # ========================================================================
