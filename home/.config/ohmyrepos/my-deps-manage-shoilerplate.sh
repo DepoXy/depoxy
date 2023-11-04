@@ -113,7 +113,7 @@ update_deps_shoilerplate () {
       "deps/sh-logger/deps/sh-colors/bin/colors.sh" \
       "deps/sh-colors/bin/colors.sh"
 
-    # Chain another update-deps, which will `update_faithful_finish`.
+    # Chain the next update_deps, and let it call `update_faithful_finish`.
     update_deps_sh_logger
   }
 
