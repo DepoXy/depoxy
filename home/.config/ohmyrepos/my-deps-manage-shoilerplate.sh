@@ -44,6 +44,12 @@
 update_deps_shoilerplate () {
   local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"
 
+  update_faithful_finish_signed () {
+    local sourcerer="https://github.com/DepoXy/depoxy/blob/release/home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
+
+    update_faithful_finish "${sourcerer}"
+  }
+
   update_deps_git_smart_git_abort () {
     [ -f "deps/git-smart/bin/git-abort" ] || return 0
 
@@ -53,7 +59,7 @@ update_deps_shoilerplate () {
       "deps/git-smart/bin/git-abort" \
       "bin/git-abort"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_git_smart_git_fup () {
@@ -65,7 +71,7 @@ update_deps_shoilerplate () {
       "deps/git-smart/bin/git-fup" \
       "bin/git-fup"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_git_update_faithful () {
@@ -77,7 +83,7 @@ update_deps_shoilerplate () {
       "deps/git-update-faithful/lib/update-faithful.sh" \
       "lib/update-faithful.sh"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_ask_yesnoskip () {
@@ -89,7 +95,7 @@ update_deps_shoilerplate () {
       "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
       "bin/ask-yesnoskip.sh"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_colors () {
@@ -101,7 +107,7 @@ update_deps_shoilerplate () {
       "deps/sh-colors/bin/colors.sh" \
       "bin/colors.sh"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_git_nubs () {
@@ -113,7 +119,7 @@ update_deps_shoilerplate () {
       "deps/sh-git-nubs/bin/git-nubs.sh" \
       "bin/git-nubs.sh"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_logger_and_colors () {
@@ -125,7 +131,7 @@ update_deps_shoilerplate () {
       "deps/sh-logger/deps/sh-colors/bin/colors.sh" \
       "deps/sh-colors/bin/colors.sh"
 
-    # Chain the next update_deps, and let it call `update_faithful_finish`.
+    # Chain the next update_deps, and let it call `update_faithful_finish_signed`.
     update_deps_sh_logger
   }
 
@@ -138,7 +144,7 @@ update_deps_shoilerplate () {
       "deps/sh-logger/bin/logger.sh" \
       "bin/logger.sh"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_pather () {
@@ -156,7 +162,7 @@ update_deps_shoilerplate () {
       "deps/sh-pather/bin/path_suffix" \
       "bin/path_suffix"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_print_nanos_now () {
@@ -168,7 +174,7 @@ update_deps_shoilerplate () {
       "deps/sh-print-nanos-now/bin/print-nanos-now.sh" \
       "bin/print-nanos-now.sh"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_sh_rm_safe () {
@@ -189,7 +195,7 @@ update_deps_shoilerplate () {
       "deps/sh-rm_safe/bin/rm_safe" \
       "bin/rm_safe"
 
-    update_faithful_finish
+    update_faithful_finish_signed
   }
 
   update_deps_git_smart_git_abort
