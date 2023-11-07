@@ -169,6 +169,12 @@ onboard_easy_as_pypi_follower_2023 () {
 
   # ***
 
+  is_canon () {
+    [ "$(basename "$(realpath "$(pwd)")")" = "easy-as-pypi" ]
+  }
+
+  # ***
+
   remove_coveragerc () {
     git_rm_gentle ".coveragerc"
 
@@ -182,7 +188,7 @@ onboard_easy_as_pypi_follower_2023 () {
   }
 
   remove_Makefile_local_example () {
-    git_rm_gentle "Makefile.local.example"
+    is_canon || git_rm_gentle "Makefile.local.example"
 
     if git_nothing_staged; then
       echo "SKIPD: Makefile.local.example"
