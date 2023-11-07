@@ -162,8 +162,9 @@ onboard_easy_as_pypi_follower_2023 () {
 
   git_rm_gentle () {
     local filepath="$1"
+    shift
 
-    git rm -q -f "${filepath}" 2> /dev/null \
+    git rm -q -f $@ "${filepath}" 2> /dev/null \
       || true
   }
 
@@ -184,6 +185,18 @@ onboard_easy_as_pypi_follower_2023 () {
       git commit -q -m "Cleanup: Build: Remove unnecessary .coveragerc"
 
       echo "COMIT: ✗ .coveragerc"
+    fi
+  }
+
+  remove_localized_sphinx_rtd_theme () {
+    git_rm_gentle -r docs/_themes/sphinx_rtd_theme/
+
+    if git_nothing_staged; then
+      echo "SKIPD: docs/_themes/sphinx_rtd_theme"
+    else
+      git commit -q -m "Cleanup: Remove outdated and unnecessary sphinx_rtd_theme"
+
+      echo "COMIT: ✗ docs/_themes/sphinx_rtd_theme"
     fi
   }
 
@@ -295,6 +308,8 @@ onboard_easy_as_pypi_follower_2023 () {
   # ***
 
   remove_coveragerc
+
+  remove_localized_sphinx_rtd_theme
 
   remove_Makefile_local_example
 
