@@ -14,7 +14,9 @@ Cython
 DBeaver
 DXY # aka "DepoXy Ambers"
 DisplayPort
+EditorConfig
 JetBrains
+Jinja
 Neovim
 PRs
 VBox
@@ -28,6 +30,7 @@ dob's
 errexit
 fcn
 fcns
+filesystems
 hostname
 msg
 nav
