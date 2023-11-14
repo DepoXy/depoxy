@@ -66,7 +66,10 @@ infuse_easy_as_pypi_follower () {
   # BUILD: "poetry.lock"
   # UPDEP: ".pyproject-doc8/"
   # BUILD: ".pyproject-editable/"
-  # SPLIT: "pyproject.toml"
+  # UPDEP: ".pyproject.common.tmpl"
+  # └→ Uses: ".pyproject.tmpl"
+  # UPDEP: "pyproject.toml"
+  # └→ Uses: ".pyproject.project.tmpl"
   # BUILD: ".pytest_cache/"
   # SPLIT: "README.rst"
   # UPDEP: ".readthedocs.yml"
@@ -103,12 +106,22 @@ infuse_easy_as_pypi_follower () {
 
   # *** .github/ files
 
-  # IGNOR: ".github/README--github-variable-dump--example.rst"
   # UPDEP: ".github/dependabot.yml"
+  # UPDEP: ".github/doblabs-dependencies.yml"
+  # IGNOR: ".github/README--github-variable-dump--example.rst"
+  #
+  # UPDEP: ".github/bin/update-poetry"
+  #
+  # UPDEP: ".github/deps/git-update-faithful/lib/update-faithful.sh"
+  # UPDEP: ".github/deps/sh-logger/bin/logger.sh"
+  # UPDEP: ".github/deps/sh-logger/deps/sh-colors/bin/colors.sh"
+  #
   # IGNOR: ".github/disabled/coverity.yml"
+  #
   # UPDEP: ".github/workflows/checks-unspecial.yml"
   # UPDEP: ".github/workflows/checks-versioned.yml"
   # UPDEP: ".github/workflows/checks.yml"
+  # UPDEP: ".github/workflows/ci-tags-wrangle.yml"
   # UPDEP: ".github/workflows/codeql-analysis.yml"
   # UPDEP: ".github/workflows/coverage-comment-external.yml"
   # UPDEP: ".github/workflows/coverage-comment.yml"
@@ -116,6 +129,9 @@ infuse_easy_as_pypi_follower () {
   # UPDEP: ".github/workflows/release-github.yml"
   # UPDEP: ".github/workflows/release-pypi.yml"
   # UPDEP: ".github/workflows/release-smoke-test.yml"
+  # UPDEP: ".github/workflows/update-cascade.yml"
+  # UPDEP: ".github/workflows/update-deps.yml"
+  # UPDEP: ".github/workflows/update-merged.yml"
 
   # *** .pyproject-doc8/ files
 
