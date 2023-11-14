@@ -29,7 +29,8 @@ _dxy_wire_alias_git_no_pager () {
 
 # Adds 2 aliases, `pwip` and `pp`, that both call `git pwip`, I know,
 # all the ways.
-_dxy_wire_alias_git_pwip () {
+_dxy_wire_alias_git_wip_pwip () {
+  claim_alias_or_warn "wip" "git wip"
   claim_alias_or_warn "pwip" "git pwip"
 
   # 2023-01-14: Shorter!
@@ -222,8 +223,8 @@ main () {
   _dxy_wire_alias_git_no_pager
   unset -f _dxy_wire_alias_git_no_pager
 
-  _dxy_wire_alias_git_pwip
-  unset -f _dxy_wire_alias_git_pwip
+  _dxy_wire_alias_git_wip_pwip
+  unset -f _dxy_wire_alias_git_wip_pwip
 
   _dxy_wire_alias_git_cv
   unset -f _dxy_wire_alias_git_cv
