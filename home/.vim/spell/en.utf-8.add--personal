@@ -10,6 +10,7 @@ Asus
 Bashcov
 BenQ
 Caja
+Codecov
 Cython
 DBeaver
 DXY # aka "DepoXy Ambers"
@@ -21,11 +22,13 @@ Neovim
 PRs
 VBox
 Vimscript
+cd'd
 dep
 deps
 dir
 dir's
 dirs
+doblabs
 dob's
 errexit
 fcn
@@ -34,6 +37,7 @@ filesystems
 hostname
 msg
 nav
+py3
 pytest
 python3
 rsync
