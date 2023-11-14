@@ -35,7 +35,12 @@ install =
   fi
   #
   # FIXME/2022-09-29: So... what's the best way to keep up to date?
-  git co v2.3.4
+  # git checkout v2.3.4
+  # WRKLG/2023-11-13 00:48: 
+  #   # git checkout v2.3.32
+  #   git branch -m main
+  git fetch starter
+  git reset --hard "$(git latest-version)"
   src/configure && make -C src
   # You could also install Python versions now, e.g.,
   #
@@ -54,12 +59,10 @@ installpythons =
   pyenv install -s 3.9
   pyenv install -s 3.10
   pyenv install -s 3.11
+  pyenv install -s 3.12
   # Pre-release Python only installable by full version.
-  # This installs the non-dev version, e.g., '3.12.0a5', not '3.12-dev'.
-  pyenv install -s $$(pyenv install -l | grep '^ \+3\.12\.' | tail -1)
-  # EOL Pythons:
-  #  pyenv install -s 3.5.10
-  #  pyenv install -s 3.6.15
+  # This installs the non-dev version, e.g., '3.13.0a1', not '3.13-dev'.
+  pyenv install -s $$(pyenv install -l | grep '^ \+3\.13\.' | tail -1)
 infuse =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     return 0
