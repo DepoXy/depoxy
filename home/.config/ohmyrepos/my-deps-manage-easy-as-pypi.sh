@@ -28,7 +28,11 @@
 
 infuse_easy_as_pypi_follower () {
   link_private_exclude "$@"
-  link_private_ignore "$@"
+
+  # Only look for ./.ignore if not part of the repo.
+  if [ -z "$(git ls-files -- .ignore)" ]; then
+    link_private_ignore "$@"
+  fi
 
   # USYNC: CXREF: This list is SYNCD with:
   #   ~/.kit/py/easy-as-pypi/bin/update-faithful
@@ -147,9 +151,13 @@ infuse_easy_as_pypi_follower () {
   # BUILD: ".trustme/.trustme.kill/"
   # BUILD: ".trustme/.trustme.lock/"
   # BUILD: ".trustme/.trustme.log"
-  symlink_mrinfuse_file ".trustme/.trustme.plugin"
-  symlink_mrinfuse_file ".trustme/.trustme.sh"
-  symlink_mrinfuse_file ".trustme/.trustme.vim"
+  if ! (
+    symlink_mrinfuse_file ".trustme/.trustme.plugin"
+    symlink_mrinfuse_file ".trustme/.trustme.sh"
+    symlink_mrinfuse_file ".trustme/.trustme.vim"
+  ); then
+    warn "└→ Ignore the last warning, $(attr_emphasis)I'll allow this!$(attr_reset)"
+  fi
 }
 
 # ========================================================================
