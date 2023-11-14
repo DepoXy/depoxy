@@ -75,6 +75,9 @@ _depoxy_python_site_packages_path_print_and_clip () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF:
+#   ~/.kit/py/virtualenvwrapper/virtualenvwrapper.sh
+
 _depoxy_python_lazy_load_virtualenvwrapper () {
   local virtualenvwrappersh
   local wrapper_source_lazy
