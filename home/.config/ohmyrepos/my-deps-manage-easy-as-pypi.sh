@@ -255,6 +255,7 @@ onboard_easy_as_pypi_follower_2023 () {
     git_rm_gentle "MANIFEST.in"
     git_rm_gentle "setup.cfg"
     git_rm_gentle "setup.py"
+    git_rm_gentle "requirements.txt"
     git_rm_gentle "requirements/dev.pip"
     git_rm_gentle "requirements/docs.pip"
     git_rm_gentle "requirements/release.pip"
