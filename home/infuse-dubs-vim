@@ -81,6 +81,19 @@ setup_vim_pack_git_exclude () {
 
 # ***
 
+setup_vim_pack_grep_ignore () {
+  local before_cd="$(pwd -L)"
+  cd "pack"
+
+  pwd
+
+  link_private_ignore 'pack/_ignore'
+
+  cd "${before_cd}"
+}
+
+# ***
+
 setup_private_grep_ignore () {
   # Place ~/.vim/.ignore.
   link_private_ignore '_ignore'
@@ -339,6 +352,8 @@ main () {
   setup_private_git_exclude
 
   setup_vim_pack_git_exclude
+
+  setup_vim_pack_grep_ignore
 
   setup_private_grep_ignore
 

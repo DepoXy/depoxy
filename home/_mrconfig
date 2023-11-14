@@ -320,14 +320,15 @@ infusePostRebase =
   . "${infuse_dubs_vim}"
   # The only function that uses link_hard.
   setup_vim_pack_git_exclude
+  setup_vim_pack_grep_ignore
 infuse =
   # SKIPD: Calling infusePostRebase from this infuser is redundant.
   #  mr -d . -n infusePostRebase
   #
+  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   LOG_LEVEL=10 "${infuse_dubs_vim}" "$@"
 #
 skip = mr_exclusive "vim" "dubs-vim" "dubs" "3rdp-vim" "3rdp" "vim-dubs" "vim-lsp" "vim-3rdp"
