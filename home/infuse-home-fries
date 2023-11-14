@@ -44,6 +44,7 @@ setup_private_fries_bashrc () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_private_fries_home_convenience () {
+  local before_cd="$(pwd -L)"
   cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
 
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
@@ -54,6 +55,8 @@ setup_private_fries_home_convenience () {
   # if it's actually wired.
   # - SPIKE: If just a convenience, remove this symlink.
   symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.inputrc"
+
+  cd "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -80,6 +83,7 @@ link_hard_dep_shoilerplate () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_public_fries_dot_files () {
+  local before_cd="$(pwd -L)"
   cd "${HOME}"
 
   # Symlink publib dotfiles top-level home-fries, at ~/.homefries/, e.g.,
@@ -102,7 +106,7 @@ setup_public_fries_dot_files () {
   symlink_overlay_file ".homefries/.bashrc"
 
   # Look for home-fries home file paths.
-  for hfdfpath in $(
+  for hfhfpath in $(
     find "${HOMEFRIES_DIR:-${HOME}/.homefries}/" \
       -maxdepth 1 \
       -type f \
@@ -111,9 +115,11 @@ setup_public_fries_dot_files () {
       ! -name ".gitignore" \
       ! -name ".ignore-example" \
   ); do
-    # echo "${hfdfpath}"
-    symlink_overlay_file "${hfdfpath}"
+    # echo "${hfhfpath}"
+    symlink_overlay_file "${hfhfpath}"
   done
+
+  cd "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -149,7 +155,7 @@ main () {
   [ "$(basename $0)" != "infuse-home-fries" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
-  infuser_prepare "${HOME}" "${@}"
+  infuser_prepare "${HOME}" "$@"
 
   local before_cd="$(pwd -L)"
   cd "${MR_REPO}"

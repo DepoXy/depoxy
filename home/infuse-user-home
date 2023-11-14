@@ -289,7 +289,7 @@ infuse_symlinks_user_home_gitsmart () {
 
 infuse_symlinks_home_tmux_dotfiles () {
   # 2018-04-02: This runs after the rest of the chase_and_face, so .tmux is cloned?
-  local tmux_clone="${SHOILERPLATE:-${HOME}/.kit/sh}/.tmux"
+  local tmux_clone="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/.tmux"
   if [ ! -d "${tmux_clone}" ]; then
     warn "No such .tmux at: ${tmux_clone}"
   else
@@ -307,14 +307,14 @@ infuse_symlinks_home_tmux_dotfiles () {
     mkdir -p .tmux
     mkdir -p .tmux/plugins
 
-    local tmux_sensible="${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-sensible"
+    local tmux_sensible="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tmux-sensible"
     if [ -d "${tmux_sensible}" ]; then
       symlink_overlay_dir "${tmux_sensible}" '.tmux/plugins/tmux-sensible'
     else
       warn "No such clone at: ${tmux_sensible}"
     fi
 
-    local path_tpm="${SHOILERPLATE:-${HOME}/.kit/sh}/tpm"
+    local path_tpm="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tpm"
     if [ -d "${path_tpm}" ]; then
       symlink_overlay_dir "${path_tpm}" '.tmux/plugins/tpm'
     else
@@ -329,7 +329,7 @@ infuse_symlinks_home_tmux_completion () {
   local before_cd="$(pwd -L)"
   cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
 
-  local tmux_bash_completion_dir="${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion/completions"
+  local tmux_bash_completion_dir="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tmux-bash-completion/completions"
 
   symlink_overlay_file "${tmux_bash_completion_dir}/tmux"
 
