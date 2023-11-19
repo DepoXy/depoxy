@@ -31,6 +31,7 @@ dir's
 dirs
 doblabs
 dob's
+envs
 errexit
 fcn
 fcns
@@ -44,6 +45,7 @@ pytest
 python3
 rsync
 tig
+tig's
 tix
 tmux
 toml
@@ -57,3 +59,5 @@ vimdiff
 virtualenv
 virtualenvs
 wakatime
+webhook
+webhooks
