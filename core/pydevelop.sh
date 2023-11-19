@@ -8,9 +8,11 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _depoxy_python_wire_aliases () {
-  # CXREF: Defer to the Makefile task:
-  #   ~/.depoxy/ambers/archetype/home/.config/work/Makefile.python-generic
-  # - Calls black, flake8, and isort.
+  # CXREF: See the EAPP Makefile task:
+  # https://github.com/doblabs/easy-as-pypi#🥧
+  #   ~/.kit/py/easy-as-pypi/Makefile
+  #   ~/.kit/py/easy-as-pypi/Maketasks.sh
+  # - Calls black, flake8, isort, and more.
   claim_alias_or_warn "lint" "make lint"
   claim_alias_or_warn "doc8" "_depoxy_python_doc8"
 
