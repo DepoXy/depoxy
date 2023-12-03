@@ -543,6 +543,18 @@
   #   refs/tags/lightweight-tag   Testing: The commit message
   tag-log = for-each-ref --format '%(refname) %09 %(taggerdate) %(subject) %(taggeremail)' refs/tags --sort=taggerdate
 
+  # ***
+
+  tag-value = "!f() { \
+    if [ -z \"$1\" ]; then \
+      git tag --list --format='%(contents:subject)'; \
+    else \
+      git --no-pager tag --list --format='%(contents:subject)' \"$@\"; \
+    fi; \
+  }; f"
+
+  # ***
+
 # #######################################################################
 # ***                           GIT {MISC}                            ***
 # #######################################################################
