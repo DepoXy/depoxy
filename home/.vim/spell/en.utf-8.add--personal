@@ -41,6 +41,8 @@ filesystems
 hostname
 msg
 nav
+notif
+notifs
 py3
 pyproject
 pytest
