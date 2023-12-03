@@ -113,6 +113,9 @@ _source_scripts_following_homefries_dxy () {
   # Electron Lens k8s GUI.
   _dxy_source "kube-lens.sh"
 
+  # A single make convenience.
+  _dxy_source "make-itso.sh"
+
   # Backgrounds meld if you don't; avoids virtualenv 'gi' issue.
   _dxy_source "meld-wrap.sh"
 
