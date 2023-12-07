@@ -39,6 +39,7 @@ fcn
 fcns
 filesystems
 hostname
+inputrc
 msg
 nav
 notif
@@ -48,6 +49,7 @@ pyproject
 pytest
 python3
 rsync
+spellfile
 tig
 tig's
 tix
