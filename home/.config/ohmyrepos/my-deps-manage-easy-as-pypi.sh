@@ -28,6 +28,7 @@
 
 infuse_easy_as_pypi_follower () {
   infuse_easy_as_pypi_follower_links "$@"
+  infuse_easy_as_pypi_git_aliases
 }
 
 infuse_easy_as_pypi_follower_links () {
@@ -162,6 +163,16 @@ infuse_easy_as_pypi_follower_links () {
   ); then
     warn "└→ Ignore the last warning, $(attr_emphasis)I'll allow this!$(attr_reset)"
   fi
+}
+
+infuse_easy_as_pypi_git_aliases () {
+  # Project: https://github.com/landonb/git-bump-version-tag
+  # - Easily apply a semantic version tag.
+  git config alias.bump "! bin/git-bump-version-tag"
+
+  # Project: https://github.com/landonb/git-bump-version-tag
+  # - Easily apply a semantic version tag.
+  git config alias.cascade "! bin/git-cascade"
 }
 
 # ========================================================================
