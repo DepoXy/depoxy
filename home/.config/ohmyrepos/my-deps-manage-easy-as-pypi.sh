@@ -27,6 +27,10 @@
 #     ~/.kit/py/easy-as-pypi/bin/update-faithful
 
 infuse_easy_as_pypi_follower () {
+  infuse_easy_as_pypi_follower_links "$@"
+}
+
+infuse_easy_as_pypi_follower_links () {
   link_private_exclude "$@"
 
   # Only look for ./.ignore if not part of the repo.
