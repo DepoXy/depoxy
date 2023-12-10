@@ -26,6 +26,18 @@ autocommit = true
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "dob" ] ||
+     [ "${MR_INCLUDE}" = "eapp" ] ||
+  false; then
+    # CXREF: ~/.kit/dob/.mrconfigs/_mrconfig
+    local dob_conf="${DOPP_KIT:-${HOME}/.kit}/dob/.mrconfigs/_mrconfig"
+
+    mr_cat "${dob_conf}"
+  fi
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "git" ] ||
      [ "${MR_INCLUDE}" = "kit-git" ] ||
      [ "${MR_INCLUDE}" = "entrusted" ] ||

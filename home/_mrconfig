@@ -533,6 +533,8 @@ include =
     [ "${MR_INCLUDE}" = "txt" ] ||
     [ "${MR_INCLUDE}" = "kit-txt" ] ||
     \
+    [ "${MR_INCLUDE}" = "dob" ] ||
+    [ "${MR_INCLUDE}" = "eapp" ] ||
     [ "${MR_INCLUDE}" = "entrusted" ] ||
     [ "${MR_INCLUDE}" = "git-nubs" ] ||
     \
