@@ -446,6 +446,7 @@ include =
     \
     [ "${MR_INCLUDE}" = "sh" ] ||
     [ "${MR_INCLUDE}" = "kit-sh" ] ||
+    [ "${MR_INCLUDE}" = "bash" ] ||
     \
     [ "${MR_INCLUDE}" = "txt" ] ||
     [ "${MR_INCLUDE}" = "kit-txt" ] ||

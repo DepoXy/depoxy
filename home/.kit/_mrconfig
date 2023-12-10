@@ -94,6 +94,7 @@ include =
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "sh" ] ||
      [ "${MR_INCLUDE}" = "kit-sh" ] ||
+     [ "${MR_INCLUDE}" = "bash" ] ||
      [ "${MR_INCLUDE}" = "entrusted" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/sh/_mrconfig-bash
