@@ -418,7 +418,9 @@ include =
       cat "${kit_mrconfig}"
     fi
   }
-  #
+  # USYNC: MR_INCLUDE keywords used in both files:
+  #   ~/.depoxy/ambers/home/_mrconfig
+  #   ~/.depoxy/ambers/home/.kit/_mrconfig
   if \
     [ -z ${MR_INCLUDE+x} ] ||
     \
