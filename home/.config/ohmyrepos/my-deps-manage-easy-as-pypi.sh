@@ -29,6 +29,7 @@
 infuse_easy_as_pypi_follower () {
   infuse_easy_as_pypi_follower_links "$@"
   infuse_easy_as_pypi_git_aliases
+  infuse_easy_as_pypi_gh_configure
 }
 
 infuse_easy_as_pypi_follower_links () {
@@ -173,6 +174,44 @@ infuse_easy_as_pypi_git_aliases () {
   # Project: https://github.com/landonb/git-bump-version-tag
   # - Easily apply a semantic version tag.
   git config alias.cascade "! bin/git-cascade"
+}
+
+# ***
+
+infuse_easy_as_pypi_gh_configure () {
+  infuse_easy_as_pypi_gh_repo_set_default
+}
+
+# Adds 'gh-resolved' to `.git/config`, e.g.:
+#
+#   $ git remote get-url publish
+#   git@github.com:DepoXy/depoxy.git
+#
+#   $ gh repo set-default DepoXy/depoxy
+#
+#   $ cat .git/config
+#   ...
+#   [remote "publish"]
+#     ...
+#     gh-resolved = base
+#    
+# REFER:
+#
+#   gh help environment | less
+infuse_easy_as_pypi_gh_repo_set_default () {
+  local gh_repo="doblabs/$(basename "$(git rev-parse --show-toplevel)")"
+
+  # Prints, e.g.,
+  #   ✓ Set doblabs/easy-as-pypi as the default repository for the current directory
+  # unless pipelined, then prints nothing.
+  if gh repo set-default "${gh_repo}" \
+    > /dev/null \
+  ; then
+    info "✓ $(font_emphasize "gh repo set-default") $(font_info_created "${gh_repo}")"
+  else
+    # Print error and fail.
+    gh repo set-default "doblabs/$(basename "$(git rev-parse --show-toplevel)")"
+  fi
 }
 
 # ========================================================================
