@@ -170,10 +170,6 @@ infuse_easy_as_pypi_git_aliases () {
   # Project: https://github.com/landonb/git-bump-version-tag
   # - Easily apply a semantic version tag.
   git config alias.bump "! ${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/git-bump-version-tag"
-
-  # Project: https://github.com/landonb/git-bump-version-tag
-  # - Easily apply a semantic version tag.
-  git config alias.cascade "! ${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/git-cascade"
 }
 
 # ***
