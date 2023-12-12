@@ -302,6 +302,20 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
+  remove_pytest_ini () {
+    git_rm_gentle "pytest.ini"
+
+    if git_nothing_staged; then
+      echo "SKIPD: pytest.ini"
+    else
+      git commit -q -m "Cleanup: Build: Remove obsolete pytest.ini
+
+- See instead [tool.pytest.ini_options] table in pyproject.toml"
+
+      echo "COMIT: ✗ pytest.ini"
+    fi
+  }
+
   commit_pyproject_toml_and_decommission_setup_py () {
     git_rm_gentle ".flake8"
     git_rm_gentle "MANIFEST.in"
@@ -389,6 +403,8 @@ onboard_easy_as_pypi_follower_2023 () {
   remove_localized_sphinx_rtd_theme
 
   remove_Makefile_local_example
+
+  remove_pytest_ini
 
   remove_travis_config
 
