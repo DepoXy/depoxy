@@ -195,9 +195,7 @@ infuse_easy_as_pypi_gh_configure () {
 #     ...
 #     gh-resolved = base
 #    
-# REFER:
-#
-#   gh help environment | less
+# REFER: gh help environment | less
 infuse_easy_as_pypi_gh_repo_set_default () {
   local gh_repo="doblabs/$(basename "$(git rev-parse --show-toplevel)")"
 
