@@ -40,6 +40,3 @@ commit_sorted_spells_and_alert_if_conflicts () {
     ls -la $(dirname -- "${compiled_spells}")/sync-spells--*
   fi
 }
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
