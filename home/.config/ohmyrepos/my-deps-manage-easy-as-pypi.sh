@@ -358,11 +358,13 @@ onboard_easy_as_pypi_follower_2023 () {
   }
 
   mv_trustme_to_subdir_local () {
-    command mkdir -p ./.trustme
+    if ls ./.trustme.* > /dev/null 2>&1; then
+      command mkdir -p ./.trustme
 
-    command mv ./.trustme.* ./.trustme 2> /dev/null \
-      && echo "MOVED: → .trustme/ files" \
-      || echo "SKIPD: .trustme/ files"
+      command mv ./.trustme.* ./.trustme 2> /dev/null \
+        && echo "MOVED: → .trustme/ files" \
+        || echo "SKIPD: .trustme/ files"
+    fi
   }
 
   mv_trustme_to_subdir_mrinfuse () {
