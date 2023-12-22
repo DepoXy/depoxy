@@ -89,6 +89,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/git — OMR
 
+  # Change to myrepos project directory.
+  pushd_alias_or_warn "cdmr" "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos"
+
   # Change to Oh My Repos project directory.
   pushd_alias_or_warn "cdo" "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
 
