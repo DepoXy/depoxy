@@ -243,6 +243,7 @@ install = make install prefix="${HOME}/.local"
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# SLUGL: myrepos fork for ohmyrepos
 [${GITREPOSPATH:-${HOME}/.kit/git}/myrepos]
 order = 470
 # Note this is pretty much an impossible clone command: You can't clone the cloner!
@@ -265,6 +266,7 @@ infuse =
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 #  Oh, My Repos! (The app that uses this file, hello!)
 
+# SLUGL: Oh, My Repos! supercharged `myrepos` multiple repository management
 [${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}]
 order = 150
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/ohmyrepos.git'
