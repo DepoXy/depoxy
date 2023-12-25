@@ -14,7 +14,10 @@ _depoxy_python_wire_aliases () {
   #   ~/.kit/py/easy-as-pypi/Maketasks.sh
   # - Calls black, flake8, isort, and more.
   claim_alias_or_warn "lint" "make lint"
-  claim_alias_or_warn "doc8" "_depoxy_python_doc8"
+  # ISOFF/2023-12-21: I don't use this enough. `make doc8` easy enough.
+  # - Also conflicts with actual `doc8` executable.
+  # - FIXME: Just remove this, probably.
+  #  claim_alias_or_warn "doc8" "_depoxy_python_doc8"
 
   claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
 
