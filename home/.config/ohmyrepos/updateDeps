@@ -5,7 +5,15 @@
 # License: MIT
 
 if [ -z "$1" ]; then
-  mr -d / updateDeps
+  # JANKY: It's probably not a good idea to run updateDeps against all
+  # repos, because you'll likely want to push changes, and you might
+  # need to rebase scoped (PRIVATE) commits, and maybe you want to
+  # version.
+  #  mr -d / updateDeps
+  # But if you're hacking on the EAPP Python stack (22 projects that
+  # share the same boilerplate!), you have tools to help you process
+  # each project after running ``updateDeps``.
+  MR_INCLUDE=eapp mr -d / updateDeps
   mr -d / infusePostRebase
 else
   mr -d "$1" -n updateDeps
