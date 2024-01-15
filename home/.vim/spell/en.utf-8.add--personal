@@ -40,9 +40,12 @@ errexit
 fcn
 fcns
 filesystems
+fixup
 hostname
 inputrc
 linters
+monorepo
+monorepos
 msg
 nav
 notif
