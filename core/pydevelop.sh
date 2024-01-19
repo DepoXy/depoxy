@@ -22,6 +22,8 @@ _depoxy_python_wire_aliases () {
   claim_alias_or_warn "off" "type deactivate >/dev/null 2>&1 && deactivate"
 
   claim_alias_or_warn "py-site-packages-clip" "_depoxy_python_site_packages_path_print_and_clip"
+
+  claim_alias_or_warn "report-cascade" "_depoxy_python_easy_as_pypi_report_cascade"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -171,6 +173,23 @@ _depoxy_python_prefix_PS1_with_venv_name () {
 
   PS1="$(_depoxy_python_format_PS1_venv_name)${PS1:-}"
   export PS1
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# REFER: https://github.com/doblabs/easy-as-pypi#🥧
+
+_depoxy_python_easy_as_pypi_report_cascade () {
+  local report_cascade="${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/report-cascade"
+
+  if [ ! -x "${report_cascade}" ]; then
+    >&2 echo "ERROR: Where's easy-as-pypi? Nothing found at:"
+    >&2 echo "  ${report_cascade}"
+
+    return 1
+  fi
+
+  ${report_cascade}
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
