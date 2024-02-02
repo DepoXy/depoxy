@@ -49,7 +49,7 @@ lib =
         "${MR_REPO_ENTRUST_USER_URL}" "${MR_REPO_ENTRUST_USER_NAME}"
       #
       info "Testing 'entrust' remote..."
-      if test -n "$(/bin/bash -c 'git fetch entrust 2> >(grep -e "ERROR: Repository not found.")')"; then
+      if ! git fetch entrust > /dev/null 2>&1; then
         info "- not there"
         #
         git remote remove entrust
