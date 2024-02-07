@@ -115,7 +115,7 @@ skip = mr_exclusive "!entrusted"
 lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/myrepos-mredit-command.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
-install = make install
+install = PREFIX="${HOME}/.local" make install
 infusePostRebase =
   link_hard_dep_sh_colors
   link_hard_dep_sh_logger
