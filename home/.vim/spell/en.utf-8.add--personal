@@ -16,6 +16,8 @@ DBeaver
 DXY # aka "DepoXy Ambers"
 DisplayPort
 EditorConfig
+Flathub
+Flatpak
 JetBrains
 Jinja
 Jupyter
@@ -60,6 +62,7 @@ pyproject
 pytest
 python3
 rsync
+rsynced
 spellfile
 tig
 tig's
