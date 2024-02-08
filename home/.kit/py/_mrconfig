@@ -68,7 +68,7 @@ installpythons =
   pyenv install -s 3.12
   # Pre-release Python only installable by full version.
   # This installs the non-dev version, e.g., '3.13.0a1', not '3.13-dev'.
-  pyenv install -s $$(pyenv install -l | grep '^ \+3\.13\.' | tail -1)
+  pyenv install -s $(pyenv install -l | grep '^ \+3\.13\.' | tail -1)
 infuse =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     return 0
