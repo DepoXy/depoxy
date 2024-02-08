@@ -19,6 +19,8 @@ order = 471
 checkout = git_clone_giturl -o publish "http://github.com/landonb/parT.git"
 install =
   cd "${MR_REPO}"
+  make -f protoMakefile clean
+  # What ./build.sh calls:
   make -f protoMakefile
   ln -sf "${MR_REPO}/parT" "${HOME}/.local/bin"
 
