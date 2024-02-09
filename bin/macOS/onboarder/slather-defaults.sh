@@ -43,7 +43,22 @@ depoxy_configure () {
   # ***
 
   depoxy_configure_remind_task_install_omr_projects
+
+  # ***
+
+  # USAGE: See next note abote how to add your own (private) reminders.
+  depoxy_configure_private
 }
+
+# USAGE: If you'd like to add your own private reminders, add this file:
+#   ~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults--PRIVATE.sh
+# and create this function:
+#   depoxy_configure_private
+depoxy_configure_private () {
+  :
+}
+
+# ***
 
 depoxy_configure_remind_task_create_depoxy_client () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
@@ -154,12 +169,7 @@ depoxy_configure_remind_task_vim_helptags () {
 
 # ***
 
-
 depoxy_configure_remind_task_install_omr_projects () {
-  depoxy_configure_remind_task_install_omr_all_projects
-
-  # ***
-
   depoxy_configure_remind_task_install_omr_projects_vim_parT
   depoxy_configure_remind_task_install_omr_projects_vim_vim
   depoxy_configure_remind_task_install_omr_projects_vim_coc
@@ -524,6 +534,18 @@ slather_macos_defaults () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+  # USAGE: See note atop depoxy_configure_private if you'd like to
+  # supply your private reminders, which you'll add to this file.
+  local private_slather_defaults="${ambers_root}/bin/macOS/onboarder/slather-defaults--PRIVATE.sh"
+
+  if [ -f "${private_slather_defaults}" ]; then
+    . "${private_slather_defaults}"
+  fi
+
+  # ***
+
   slather_macos_defaults "$@"
 }
 
