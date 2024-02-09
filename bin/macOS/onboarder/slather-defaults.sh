@@ -70,7 +70,7 @@ depoxy_configure_remind_task_create_depoxy_client () {
 🔳 DepoXy: DXC: Create DepoXy Client on @biz host:
 
      cd ${archetype_path}
-     # Customize deploy-archetype.sh and make 'PRIVATE:' commit.
+     # Customize deploy-archetype.sh and make 'PRIVATE:' commits as necessary.
      ./deploy-archetype.sh")
 }
 
