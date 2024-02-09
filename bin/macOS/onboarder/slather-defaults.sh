@@ -27,6 +27,14 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 depoxy_configure () {
+  print_at_end+=("\
+
+🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩
+🧩  𝝙 𝝣 𝝦 𝝧 𝞆 𝝪   𝓻 𝓮 𝓶 𝓲 𝓷 𝓭 𝓮 𝓻 𝓼   🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩
+")
+
+  # ***
+
   depoxy_configure_remind_task_create_depoxy_client
   depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel
   depoxy_configure_remind_task_hydrate_personal_notes
@@ -505,7 +513,6 @@ slather_macos_defaults () {
   [ -z "${print_at_end}" ] || (
     echo
     echo "ALERT: Please perform the following tasks manually:"
-    echo
 
     for print_ln in "${print_at_end[@]}"; do
       echo -e "${print_ln}"
