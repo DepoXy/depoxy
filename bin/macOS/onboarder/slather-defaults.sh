@@ -71,7 +71,8 @@ depoxy_configure_remind_task_create_depoxy_client () {
 
      cd ${archetype_path}
      # Customize deploy-archetype.sh and make 'PRIVATE:' commits as necessary.
-     ./deploy-archetype.sh")
+     ./deploy-archetype.sh
+")
 }
 
 depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel () {
@@ -164,7 +165,8 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
 
 depoxy_configure_remind_task_vim_helptags () {
   print_at_end+=("🔳 DepoXy: Generate Vim help docs: Run Vim, then:
-   :Helptags")
+   :Helptags
+")
 }
 
 # ***
@@ -244,34 +246,40 @@ depoxy_configure_remind_task_install_omr_projects () {
 
 depoxy_configure_remind_task_install_omr_projects_vim_parT () {
   print_at_end+=("🔳 DepoXy: Install \`parT\` from source:
-   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/parT\" -n install")
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/parT\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_vim_vim () {
   print_at_end+=("🔳 DepoXy: Install \`vim\` from source:
-   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/vim\" -n install")
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/vim\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_vim_coc () {
   print_at_end+=("🔳 DepoXy: Install CoC:
-   mr -d \"${HOME}/.vim/pack/neoclide/start/coc.nvim\" -n install")
+   mr -d \"${HOME}/.vim/pack/neoclide/start/coc.nvim\" -n install
+")
 
   print_at_end+=("🔳 DepoXy: Install \`vim-lsp-typescript\`:
-   mr -d \"${HOME}/.vim/pack/ryanolsonx/opt/vim-lsp-typescript\" -n install")
+   mr -d \"${HOME}/.vim/pack/ryanolsonx/opt/vim-lsp-typescript\" -n install
+")
 
   print_at_end+=("🔳 DepoXy: Install LSPs: Run Vim, then:
-   :CocInstall coc-pyright coc-json coc-tsserver")
+   :CocInstall coc-pyright coc-json coc-tsserver
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_vim_nerd_commenter () {
   print_at_end+=("🔳 DepoXy: Install NERD Commenter:
-   mr -d \"${HOME}/.vim/pack/preservim/start/nerdcommenter\" -n install")
+   mr -d \"${HOME}/.vim/pack/preservim/start/nerdcommenter\" -n install
+")
 }
 
 # ***
@@ -282,7 +290,8 @@ depoxy_configure_remind_task_install_omr_projects_vim_nerd_commenter () {
 depoxy_configure_remind_task_install_omr_projects_vim_lsp_typescript () {
   false && (
     print_at_end+=("🔳 DepoXy: Install TypeScript Node projects:
-     mr -d \"${HOME}/.vim/pack/ryanolsonx/opt/vim-lsp-typescript\" -n install")
+     mr -d \"${HOME}/.vim/pack/ryanolsonx/opt/vim-lsp-typescript\" -n install
+")
    )
 }
 
@@ -290,7 +299,8 @@ depoxy_configure_remind_task_install_omr_projects_vim_lsp_typescript () {
 
 depoxy_configure_remind_task_install_omr_projects_tag () {
   print_at_end+=("🔳 DepoXy: Install \`tag\` from source:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag\" -n install
+")
 }
 
 # ***
@@ -302,7 +312,8 @@ depoxy_configure_remind_task_install_omr_projects_fzf () {
   #  install step and the fzf OMR project might be disappeared completely.)
   if [ ! -e "${HOMEBREW_PREFIX}/bin/fzf" ]; then
     print_at_end+=("🔳 DepoXy: Install \`fzf\` from source:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/go/fzf\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/go/fzf\" -n install
+")
   fi
 }
 
@@ -310,7 +321,8 @@ depoxy_configure_remind_task_install_omr_projects_fzf () {
 
 depoxy_configure_remind_task_install_omr_projects_git_itself () {
   print_at_end+=("❌ DepoXy: Build yer own \`git\` (SKIP: macOS Git is *adequate*):
-   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git\" -n install")
+   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git\" -n install
+")
 }
 
 # ***
@@ -318,7 +330,8 @@ depoxy_configure_remind_task_install_omr_projects_git_itself () {
 # Installs git-show-tree, et al.
 depoxy_configure_remind_task_install_omr_projects_git_extras () {
   print_at_end+=("🔳 DepoXy: Install \`git-extras\`:
-   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-extras\" -n install")
+   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-extras\" -n install
+")
 }
 
 # ***
@@ -328,7 +341,8 @@ depoxy_configure_remind_task_install_omr_projects_git_interactive_rebase_tool ()
   # 2023-01-04: Oh, this is installed via Homebrew.
   false && (
     print_at_end+=("🔳 DepoXy: Install \`git-interactive-rebase-tool\`:
-     mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-interactive-rebase-tool\" -n install")
+     mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-interactive-rebase-tool\" -n install
+")
   )
 }
 
@@ -336,78 +350,92 @@ depoxy_configure_remind_task_install_omr_projects_git_interactive_rebase_tool ()
 
 depoxy_configure_remind_task_install_omr_projects_git_hub () {
   print_at_end+=("🔳 DepoXy: Install \`hub\` (if necessary for your @biz client):
-   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/hub\" -n install")
+   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/hub\" -n install
+")
 }
 
 depoxy_configure_remind_task_install_omr_projects_git_cli () {
   print_at_end+=("🔳 DepoXy: Install \`cli\` (if necessary for your @biz client):
-   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/cli\" -n install")
+   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/cli\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_git_put_wise () {
   print_at_end+=("🔳 DepoXy: Install \`git-put-wise\`:
-   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-put-wise\" -n install")
+   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-put-wise\" -n install
+")
 }
 
 depoxy_configure_remind_task_install_omr_projects_myrepos_mredit_command () {
   print_at_end+=("🔳 DepoXy: Install \`myrepos-mredit-command\`:
-   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command\" -n install")
+   mr -d \"${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_feature_coverage_report () {
   print_at_end+=("🔳 DepoXy: Install \`feature-coverage-report\`:
-   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report\" -n install")
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report\" -n install
+")
 }
 
 depoxy_configure_remind_task_install_omr_projects_fries_findup () {
   print_at_end+=("🔳 DepoXy: Install \`fries-findup\`:
-   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup\" -n install")
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup\" -n install
+")
 }
 
 depoxy_configure_remind_task_install_omr_projects_gvim_open_kindness () {
   print_at_end+=("🔳 DepoXy: Install \`gvim-open-kindness\`:
-   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness\" -n install")
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_complete_alias () {
   print_at_end+=("🔳 DepoXy: Install \`complete-alias\`:
-   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias\" -n install")
+   mr -d \"${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_homebrew_autoupdate () {
   print_at_end+=("🔳 DepoXy: Install \`homebrew-autoupdate\`:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/homebrew-autoupdate\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/homebrew-autoupdate\" -n install
+")
 
   print_at_end+=("🔳 DepoXy: Configure \`homebrew-autoupdate\`:
-   System Preferences... > Notifications & Focus > Notifications > *brew-autoupdate*: ✓ Allow Notifications")
+   System Preferences... > Notifications & Focus > Notifications > *brew-autoupdate*: ✓ Allow Notifications
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_finicky () {
   print_at_end+=("🔳 DepoXy: Install Finicky:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/finicky\" -n infuse")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/finicky\" -n infuse
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_geektool () {
   print_at_end+=("🔳 DepoXy: Install GeekTool:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/GeekTool\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/GeekTool\" -n install
+")
 
   print_at_end+=("🔳 DepoXy: Configure GeekTool:
-   System Preferences... > GeekTool > ✓ Automatically launch at login")
+   System Preferences... > GeekTool > ✓ Automatically launch at login
+")
 
   print_at_end+=("🔳 DepoXy: Configure GeekTool:
-   System Preferences... > GeekTool > Check for updates: ✓ Automatic")
+   System Preferences... > GeekTool > Check for updates: ✓ Automatic
+")
 
   print_at_end+=("🔳 DepoXy: Create GeekTool *geeklets*:
 
@@ -432,74 +460,85 @@ depoxy_configure_remind_task_install_omr_projects_geektool () {
 
    - SAVVY: You can Ctrl-Alt-D show-desktop to more easily move geeklet widgets around.
 
-   - SAVVY: Use the eyedropper to match the second widget font color to the first widget.")
+   - SAVVY: Use the eyedropper to match the second widget font color to the first widget.
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_python_pyenv () {
   print_at_end+=("🔳 DepoXy: Install \`pyenv\` Python versions:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/pyenv\" -n installpythons")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/pyenv\" -n installpythons
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv () {
   print_at_end+=("🔳 DepoXy: Install \`pyenv-virtualenv\` (or not, really, it’s disabled):
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_python_birdseye () {
   print_at_end+=("🔳 DepoXy: Install \`birdseye\`:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/birdseye\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/birdseye\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_nvm () {
   print_at_end+=("🔳 DepoXy: Install \`nvm\`:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/js/nvm\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/js/nvm\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_lens () {
   print_at_end+=("🔳 DepoXy: Install \`lens\`:
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/js/lens\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/js/lens\" -n install
+")
 
   print_at_end+=("🔳 DepoXy: Configure OpenLens icons:
    # Pick an icon for each cluster.
    ll ~/.depoxy/ambers/home/.kube/*.png
    # See the README.rst if you want to generate more icons
-   fs ~/.depoxy/ambers/home/.kube/README.rst")
+   fs ~/.depoxy/ambers/home/.kube/README.rst
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_docker_desktop () {
   print_at_end+=("🔳 DepoXy: Install Docker Desktop (if that‘s something you'll use):
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/Docker-Desktop-Omr-installer\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/mOS/Docker-Desktop-Omr-installer\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_aws_cli () {
   print_at_end+=("🔳 DepoXy: Install AWS CLI (if that‘s something you'll use):
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/aws-cli\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/py/aws-cli\" -n install
+")
 }
 
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_via_nativia () {
   print_at_end+=("🔳 DepoXy: Install VIA (for you mechanical keyboard lubbers):
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/odd/via-nativia\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/odd/via-nativia\" -n install
+")
 }
 
 depoxy_configure_remind_task_install_omr_projects_zsa_wally () {
   print_at_end+=("🔳 DepoXy: Install Wally (for you ZSA mechanical keyboard owners):
-   mr -d \"${DOPP_KIT:-${HOME}/.kit}/odd/wally\" -n install")
+   mr -d \"${DOPP_KIT:-${HOME}/.kit}/odd/wally\" -n install
+")
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
