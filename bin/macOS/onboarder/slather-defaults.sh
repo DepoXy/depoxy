@@ -233,7 +233,23 @@ depoxy_configure_remind_task_install_omr_all_projects_hint () {
 # ***
 
 depoxy_configure_remind_task_install_omr_projects_print_all () {
-  :
+  if ! command -v mr > /dev/null; then
+    local err_msg="ERROR: Please install \`mr\` form from https://github.com/landonb/myrepos"
+
+    print_at_end+=("${err_msg}")
+
+    return 0
+  fi
+
+  printf "Gathering copy-pasta..."
+
+  print_at_end+=("$(mr -d / -M slatherInstall)")
+
+  printf "\r"
+
+  # DUNNO: Even though the final `slatherInstall` includes a blank line,
+  # it's not printed. So add one here.
+  print_at_end+=("")
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
