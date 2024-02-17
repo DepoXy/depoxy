@@ -178,9 +178,11 @@ depoxy_configure_remind_task_vim_helptags () {
 ")
 }
 
-# ***
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 depoxy_configure_remind_task_install_omr_projects () {
+  depoxy_configure_remind_task_install_omr_all_projects_hint
+
   depoxy_configure_remind_task_install_omr_projects_vim_parT
   depoxy_configure_remind_task_install_omr_projects_vim_vim
   depoxy_configure_remind_task_install_omr_projects_vim_coc
@@ -222,6 +224,50 @@ depoxy_configure_remind_task_install_omr_projects () {
 
   depoxy_configure_remind_task_install_omr_projects_via_nativia
   depoxy_configure_remind_task_install_omr_projects_zsa_wally
+}
+
+# ***
+
+depoxy_configure_remind_task_install_omr_all_projects_hint () {
+  print_at_end+=("\
+⚠️  DepoXy: Feeling fearless?
+
+   *UNSUGGESTED*: You *could* install all OMR projects from source at once.
+
+   - E.g., you *could* run a blanket install::
+
+       # mr -d / install
+
+   - But we advise that you 'install' each project individually instead.
+
+   - This is because 'install' actions are somewhat brittle:
+
+     - When setting up DepoXy on a different OS or a more recent OS than
+       before, you might find that system library versions have changed,
+       and that an 'install' action needs to be updated.
+
+     - Or, you might find that the latest upstream source has changed the
+       installation requirements or how to install that project (and some
+       'install' actions themselves will git-fetch and git-rebase against
+       the latest upstream version, without having you bump the version
+       manually).
+
+   - Additionally, 'install' tasks can be slow. So best not to entertain
+     using \`mr -d / install\` if it's likely you'll have to run it again
+     (and again).
+
+   - Alternatively, you could use myrepos' interactive mode, e.g.,
+
+       # mr -d / -i install
+
+     This stops in a subshell if any 'install' action fails, which allows
+     you to investigate and resolve any problems. This way you won't have
+     to re-run all installs, and can repair any broken installs along the
+     way. But you still might want to just run each install individually.
+
+   - *SUGGESTED*: Instead, perform each install manually, copy-pasting the
+     following the per-project 'install' actions.
+")
 }
 
 # ***
