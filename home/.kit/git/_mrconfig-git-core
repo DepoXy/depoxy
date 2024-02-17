@@ -304,11 +304,18 @@ install =
   # Prefer Homebrew tig on macOS, which is generally up to date, otherwise
   # you need a slightly more complicated installer (and need to install
   # prerequisites).
-  # - 2023-02-12: I don't always keep my Linux Mint current, e.g.,
-  #   Linux Mint 19.3 installs tig 2.3.0, but 2.5.3 is latest (and
-  #   has features I want).
-  ! os_is_macos || return 0
-  #
+  # - SAVVY/2023-02-12: I don't always keep my Linux Mint current,
+  #   e.g., Linux Mint 19.3 installs tig 2.3.0, but 2.5.3 is latest
+  #   (and has features I want). So add 'install' action.
+  # - MAYBE/2024-02-09: I might start hacking on tig, in which case
+  #   I'll want to figure out the macOS build. So separate installs.
+  if os_is_macos; then
+    mr -d ${MR_REPO} -n installDarwin
+  else
+    mr -d ${MR_REPO} -n installLinux
+  fi
+installDarwin = false
+installLinux =
   # Ensure deps available.
   # - SAVVY: Stack Overflowers suggest you cannot determine the
   #   shared library path easily (e.g., /usr/lib/x86_64-linux-gnu).
