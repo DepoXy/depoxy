@@ -202,7 +202,6 @@ skip = ! os_is_macos
 # https://github.com/DepoXy/macOS-onboarder#🏂
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/macOS-onboarder.git'
-install = make install
 
 # ========================================================================
 # ------------------------------------------------------------------------
