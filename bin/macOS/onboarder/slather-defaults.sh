@@ -173,7 +173,8 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
 
 depoxy_configure_remind_task_vim_helptags () {
   print_at_end+=("🔳 DepoXy: Generate Vim help docs: Run Vim, then::
-   :Helptags
+
+     :Helptags
 ")
 }
 
