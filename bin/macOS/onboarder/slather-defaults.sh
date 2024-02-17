@@ -272,9 +272,16 @@ slather_macos_defaults () {
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
+  os_is_macos () {
+    [ "$(uname)" = 'Darwin' ]
+  }
+
   [ -z "${print_at_end}" ] || (
-    echo
-    echo "ALERT: Please perform the following tasks manually:"
+    # If macOS-onboarder ran, it printed a bunch of stuff, so add blank line.
+    ! os_is_macos \
+      || echo
+
+    echo "CPYST: Please perform the following tasks manually (DepoXy):"
 
     for print_ln in "${print_at_end[@]}"; do
       echo -e "${print_ln}"
