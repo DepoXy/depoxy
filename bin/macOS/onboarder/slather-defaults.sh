@@ -20,7 +20,8 @@
 #   cd ~/.depoxy/ambers/bin/macOS/onboarder
 #   ./slather-defaults.sh
 #
-#   # To see list of reminders, and to test script runs, dry-run it:
+#   # To see list of reminders, and to test script runs, dry-run it
+#   # (works from Linux, too):
 #   ./slather-defaults.sh --dry-run
 #   # Or:
 #   ./bin/macOS/onboarder/slather-defaults.sh --dry-run
