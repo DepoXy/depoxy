@@ -94,9 +94,9 @@ depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretz
           # @biz:
           decrypt_asset \"\$(base64 -d \"__ENC_TOKEN__\")\"
 
-    - Use token to set remote URL (note the \"DepoXy\" text can be anything)::
+    - Use token to set remote URL (note the \"Gitputwise\" name can be anything)::
 
-        cdpr
+        cdps
         git remote add entrust https://Gitputwise:__APP_TOKEN__@github.com/__GH_USER__/patchz.git
 
     - Archive the client (run OMR autocommit, cd active DXC/, put-wise --archive)::
@@ -107,7 +107,7 @@ depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretz
 
     - Publish the client::
 
-        cdpr
+        cdps
         # Bare \`pw\` from patches repo pushes it if local more recently changed.
         # - Really this is just being lazy. Calling \`pw\` equivalent to:
         #     git push entrust HEAD:refs/heads/scoping
@@ -122,12 +122,12 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
 
     - Refresh the put-wise tunnel repo @home::
 
-        cdpr
+        cdps
         git p
 
     - Unpack the new client *patchkage*::
 
-        cdpr
+        cdps
         pw apply
 
       - FIXME/2022-12-25: I've never tested --apply on project
@@ -154,12 +154,12 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
 
         # Keep twisting:
         cxc
-        pw pout  # Aka: pw out && cdpr && git push -f && popd
+        pw pout  # Aka: pw out && cdps && git push -f && popd
 
       - Complete the pretzel back @biz::
 
         cxc
-        pw pin   # Aka: cdpr && git p && popd && pw in
+        pw pin   # Aka: cdps && git p && popd && pw in
 ")
 }
 
