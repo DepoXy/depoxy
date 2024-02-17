@@ -77,6 +77,8 @@ depoxy_configure_remind_task_create_depoxy_client () {
 }
 
 depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel () {
+  local dxc_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
+
   print_at_end+=("\
 🔳 DepoXy: DXC: Setup GitHub authenticated remote application token and push project:
 
@@ -96,11 +98,15 @@ depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretz
 
     - Use token to set remote URL (note the \"Gitputwise\" name can be anything)::
 
+        # cdps → cd \"\${PW_PATCHES_REPO}\" → cd ${PW_PATCHES_REPO}
         cdps
         git remote add entrust https://Gitputwise:__APP_TOKEN__@github.com/__GH_USER__/patchz.git
 
     - Archive the client (run OMR autocommit, cd active DXC/, put-wise --archive)::
 
+        # aci    → mr -d / autocommit -y
+        # cxc    → cd \"\${DEPOXYDIR_STINTS_FULL:-\${HOME}/.depoxy/stints}/\${DEPOXY_CLIENT_ID}\" → cd ${dxc_dir}
+        # pw out → git-put-wise --archive
         aci
         cxc
         pw out
