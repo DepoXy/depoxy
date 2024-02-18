@@ -446,7 +446,8 @@ installLinux =
 #
 update =
   git fetch --all --prune
-  git pull
+  # Don't just `git pull`, but rebase, in case you're hacking on tig.
+  git pull --rebase --autostash
 
 # ========================================================================
 # ------------------------------------------------------------------------
