@@ -17,19 +17,19 @@ order = 550
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "vim" ] ||
-     [ "${MR_INCLUDE}" = "vim-dubs" ] ||
-     [ "${MR_INCLUDE}" = "dubs" ] ||
-     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
+     [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
   false; then
-    cat ${HOME}/.vim/.mrconfig-dubs
+    cat ${HOME}/.vim/.mrconfig-3rdp
   fi
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "vim" ] ||
-     [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
+     [ "${MR_INCLUDE}" = "vim-dubs" ] ||
+     [ "${MR_INCLUDE}" = "dubs" ] ||
+     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
   false; then
-    cat ${HOME}/.vim/.mrconfig-3rdp
+    cat ${HOME}/.vim/.mrconfig-dubs
   fi
 
 include =
