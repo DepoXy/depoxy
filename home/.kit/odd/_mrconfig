@@ -1,4 +1,4 @@
-# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
 # Author: Landon Bouma <https://tallybark.com/>
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
@@ -111,10 +111,7 @@ install =
     #
     local local_bin_shim="${HOME}/.local/bin/wally"
     if [ ! -e "${local_bin_shim}" ]; then
-      cat <<EOF > "${local_bin_shim}"
- #!/bin/sh
- open /Applications/Wally.app
- EOF
+      echo -e "#!/bin/sh\nopen /Applications/Wally.app" > "${local_bin_shim}"
     fi
     #
     echo "Wally is now installed. You can run it thusly:"
