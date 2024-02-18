@@ -76,6 +76,11 @@ install =
 
 # ========================================================================
 # ------------------------------------------------------------------------
+[${DOPP_KIT:-${HOME}/.kit}/go/helm]
+checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
+
+# ========================================================================
+# ------------------------------------------------------------------------
 
 # 2021-01-20: Here in case you find yourself wanting profiling.
 #  # 2018-05-16: To use `python -m timeit` on any app, requires shelling out.
@@ -83,11 +88,6 @@ install =
 #  [${DOPP_KIT:-${HOME}/.kit}/go/timeit]
 #  checkout = git_clone_giturl -o starter 'https://github.com/choksheak/timeit.git'
 #  install = go build timeit.go
-
-# ========================================================================
-# ------------------------------------------------------------------------
-[${DOPP_KIT:-${HOME}/.kit}/go/helm]
-checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
 
 # ========================================================================
 # ------------------------------------------------------------------------
