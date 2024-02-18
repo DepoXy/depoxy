@@ -68,6 +68,7 @@ installLinux =
       sudo apt-get -y install ${package}
     fi
   done
+  #
   make clean
   make configure
   ./configure --prefix=${HOME}/.local
@@ -75,6 +76,7 @@ installLinux =
   make prefix="${HOME}/.local" install install-doc install-html install-info
   # SCALE/2024-02-17: `make clean` reduces disk usage from 678M to 379M (v2.44.0-rc1).
   make clean
+  #
   echo
   echo "RUNME: To use the new app in open terminals, reset the hash environment:"
   echo "  hash -r"
@@ -171,7 +173,8 @@ infuse =
 # ------------------------------------------------------------------------
 
 # git-heads -- "show branches without any child commits with `git-log`(1)"
-# https://github.com/seschwar/git-heads.git
+#   https://github.com/seschwar/git-heads.git
+# SAVVY/2024-02-18: Not updated since 2010-10-11.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-heads]
 lib = MR_REPO_REMOTES="starter https://github.com/seschwar/git-heads.git"
 
@@ -222,6 +225,8 @@ installLinux =
   #
   # Note that blank lines break myrepos parsing, so we use comment
   # characters for holding line breaks.
+  #
+  # INERT/2024-02-18: I use tig-newtons to rebase, otherwise I'd automate this.
   cat <<'#EOF'
     *** Install git-interactive-rebase-tool
     #
@@ -285,7 +290,7 @@ infuse =
 # here than in a ~/.depoxy/ambers/home/.kit/go/_mrconfig file.
 
 # SAVVY/2021-01-30: Both `hub` and `gh` sometimes require a token, e.g.,
-#   GITHUB_TOKEN=XXX hub / GITHUB_TOKEN=XXX gh / GH_TOKEN=XXX gh
+#   GITHUB_TOKEN=<tok> hub / GITHUB_TOKEN=<tok> gh / GH_TOKEN=<tok> gh
 # - MAYBE: We could add a `grip`-like wrapper that reads it from `pass`.
 #   - But I don't have a use case for it yet.
 
@@ -325,6 +330,10 @@ skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   infuser_prepare "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos" "${@}"
   symlink_overlay_file "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos/mr" "${HOME}/.local/bin/mr"
+# DEBAR: There's no 'install' or 'update' action because myrepos doesn't
+# budge much, and the landonb/myrepos fork is a versioned TIP. So we want
+# to be deliberate about merging upstream changes (and to avoid requiring
+# landonb/myrepos users to `reset --hard` to fetch our changes).
 
 # HINT: Debug myrepos:
 #
