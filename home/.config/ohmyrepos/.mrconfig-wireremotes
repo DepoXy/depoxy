@@ -38,6 +38,10 @@
 
 # MAYBE: If this grows complex, convert to shell script, like OMR/lib/*.sh
 
+# SAVVY/2024-02-17: Projects do not call this function directly.
+# - Instead, they set MR_REPO_REMOTE_URL, e.g.,
+#     lib = MR_REPO_REMOTE_URL="https://github.com/user/repo.git"
+
 lib =
   remotes_add_publish_entrust () {
     #
