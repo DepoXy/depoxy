@@ -78,10 +78,12 @@ install =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# "The Kubernetes Package Manager" / "Helm is a tool for managing Charts"
-# - "Think of it like apt/yum/homebrew for Kubernetes"
-[${DOPP_KIT:-${HOME}/.kit}/go/helm]
-checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
+# ISOFF/2024-02-18: I used this for a client, but haven't used otherwise.
+#
+# # "The Kubernetes Package Manager" / "Helm is a tool for managing Charts"
+# # - "Think of it like apt/yum/homebrew for Kubernetes"
+# [${DOPP_KIT:-${HOME}/.kit}/go/helm]
+# checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
 
 # ========================================================================
 # ------------------------------------------------------------------------
