@@ -382,6 +382,8 @@ install = install_os_specific
 #   I'll want to figure out the macOS build. So separate installs.
 installDarwin = false
 installLinux =
+  git fetch --prune starter
+  git merge --ff-only
   # Ensure deps available.
   # - SAVVY: Stack Overflowers suggest you cannot determine the
   #   shared library path easily (e.g., /usr/lib/x86_64-linux-gnu).
@@ -443,11 +445,6 @@ installLinux =
   make prefix=${HOME}/.local
   make install prefix=${HOME}/.local
   make install-doc prefix=${HOME}/.local
-#
-update =
-  git fetch --all --prune
-  # Don't just `git pull`, but rebase, in case you're hacking on tig.
-  git pull --rebase --autostash
 
 # ========================================================================
 # ------------------------------------------------------------------------
