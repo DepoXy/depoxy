@@ -86,7 +86,8 @@ infuse =
 updateDeps =
   update_deps_shoilerplate
 
-# Brialliantly-hacky cross-project same-filesystem dependency-maintainer.
+# Brilliantly-hacky cross-project same-filesystem dependency-maintainer.
+# "The undependency dependency maintainer"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful]
 lib = MR_REPO_REMOTE_URL="https://github.com/thegittinsgood/git-update-faithful.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
