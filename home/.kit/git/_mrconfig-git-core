@@ -15,6 +15,12 @@ order = 690
 [${GITREPOSPATH:-${HOME}/.kit/git}/git]
 lib = MR_REPO_REMOTES="starter https://github.com/git/git.git"
 skip = mr_exclusive "kit" "git" "kit-git"
+# REFER: https://github.com/git/git/blob/master/Documentation/SubmittingPatches
+# - Git uses four branches: maint > master > next > seen
+#   - 'master' is more bleeding edge, but it has same version tags as
+#     'maint', from what I see. And 'next' and 'seen' are like the author's
+#     'liminal' branches, a collection of feature branches that is often
+#     rebased and force-pushed.
 install =
   echo "YOU: Update to the latest release if necessary, something like:
   
