@@ -22,32 +22,93 @@ skip = mr_exclusive "kit" "git" "kit-git"
 #     'liminal' branches, a collection of feature branches that is often
 #     rebased and force-pushed.
 install =
-  echo "YOU: Update to the latest release if necessary, something like:
+  if os_is_macos; then
+    mr -d ${MR_REPO} -n installDarwin
+  else
+    mr -d ${MR_REPO} -n installLinux
+  fi
+# MAYBE/2021-05-30: Add Darwin support. See at least `package` list below.
+installDarwin = false
+installLinux =
+  # CXREF: Similar strategy to pyenv:
+  #   ~/.depoxy/ambers/home/.kit/py/_mrconfig
+  git fetch starter --prune
+  git checkout master
+  git branch -u starter/master
+  git pull --rebase --autostash
+  # Note that pyenv does not leave a branch trail:
+  #  git reset --hard "$(git latest-version-normal)"
+  GIT_LATEST=$(git latest-version-normal)
+  NEW_BRANCH="starter/${GIT_LATEST}"
+  echo "SAVVY: We'll update to the latest tagged version, something like:
   
-    git fetch --all --prune
+    git fetch starter --prune
     git checkout master
     git pull --rebase --autostash
-    GIT_LATEST=\$(git latest-version)
-    git co -b starter/\${GIT_LATEST} \${GIT_LATEST}
+    GIT_LATEST=\"\$(git latest-version-normal)\"
+    NEW_BRANCH=\"starter/\${GIT_LATEST}\"
+    echo \"Installing Git \${GIT_LATEST} from branch \${NEW_BRANCH}...\"
+    git checkout -b \${NEW_BRANCH} \${GIT_LATEST} || true
+    git checkout \${NEW_BRANCH}
   
-  Though maybe you want to run \`git tags\` so you're not,
-  e.g., installing a release candidate (like v2.32.0-rc1).
+  - ALTLY: If you want the latest normal release, and not a release
+    candidate (like v2.32.0-rc1), run \`git tags\` and pick your own
+    tag, then call this 
   "
-  if ! command -v docbook2x-texi > /dev/null 2>&1; then
-    echo "You need to install docbook2x first:"
-    # FIXME/2021-05-30: What about Darwin...
-    echo "  sudo apt-get -y install docbook2x"
-    sudo apt-get -y install docbook2x
-  fi
+  echo "Installing Git ${GIT_LATEST} from branch ${NEW_BRANCH}..."
+  git checkout -b ${NEW_BRANCH} ${GIT_LATEST} || true
+  git checkout ${NEW_BRANCH}
+  # Install packages necessary to build the app.
+  # - For `make all`: libssl-dev
+  # - For `make doc`: asciidoc xmlto
+  for package in \
+    asciidoc \
+    docbook2x \
+    libssl-dev \
+    xmlto \
+  ; do
+    if ! dpkg -l "${package}" | tail -1 | grep -q "^ii"; then
+      echo "RAISE: You need to install ${package} first:"
+      echo "  sudo apt-get -y install ${package}"
+      sudo apt-get -y install ${package}
+    fi
+  done
   make clean
   make configure
   ./configure --prefix=${HOME}/.local
   make prefix="${HOME}/.local" all doc info
   make prefix="${HOME}/.local" install install-doc install-html install-info
+  # SCALE/2024-02-17: `make clean` reduces disk usage from 678M to 379M (v2.44.0-rc1).
   make clean
-  info "You might see a stray 'git-rebase--preserve-merges' file. /I did/"
-  info "- You can delete it. It's already installed locally:\n  diff \\\\\n    ~/.local/libexec/git-core/git-rebase--preserve-merges \\\\\n    ${MR_REPO}/git-rebase--preserve-merges"
-  warn "FIXME: Replace this warning with: /bin/rm git-rebase--preserve-merges"
+  echo
+  echo "RUNME: To use the new app in open terminals, reset the hash environment:"
+  echo "  hash -r"
+  #
+  # HSTRY/2024-02-17: On previous builds, I saw un-ignored build files,
+  # but I haven't seen them recently:
+  #
+  # - 2023-12-19: I didn't see this file today, Git 2.43.0.rc2,
+  #   but I (maybe) saw it last version I built, 1 year ago, Git 2.38.1:
+  #   - You might see a stray 'git-rebase--preserve-merges' file. /I did/
+  #   - You can delete it. It's already installed locally:
+  #       diff -q \
+  #         ~/.local/libexec/git-core/git-rebase--preserve-merges \
+  #         ${MR_REPO}/git-rebase--preserve-merges" \
+  #         && command rm git-rebase--preserve-merges
+  #
+  # - 2021-05-30: Un-ignored files from today's build:
+  #     $ git st
+  #     ?? git-parse-remote
+  #     ?? git-remote-testsvn
+  #     ?? t/helper/test-line-buffer
+  #     ?? t/helper/test-svn-fe
+  #     $ command rm \
+  #         git-parse-remote \
+  #         git-remote-testsvn \
+  #         t/helper/test-line-buffer \
+  #         t/helper/test-svn-fe
+  #   - Odd that Git would generate build files that are not ignored.
+  #   - 2021-09-20: I don't these files with v2.33.0, and `st` is tidy.
 
 # ========================================================================
 # ------------------------------------------------------------------------
