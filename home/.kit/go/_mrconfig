@@ -69,25 +69,31 @@ install =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# 2021-01-20: Meh. A nifty tool I used for a short spell but not so much anymore.
-#  [${DOPP_KIT:-${HOME}/.kit}/go/direnv]
-#  checkout = git_clone_giturl -o publish 'https://github.com/landonb/direnv.git'
-#  wireupstream = remote_add starter 'https://github.com/direnv/direnv.git'
+# ISOFF/2021-01-20: A nifty tool I used for a short spell but not anymore.
+#
+# [${DOPP_KIT:-${HOME}/.kit}/go/direnv]
+# checkout = git_clone_giturl -o publish 'https://github.com/landonb/direnv.git'
+# wireupstream = remote_add starter 'https://github.com/direnv/direnv.git'
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+# "The Kubernetes Package Manager" / "Helm is a tool for managing Charts"
+# - "Think of it like apt/yum/homebrew for Kubernetes"
 [${DOPP_KIT:-${HOME}/.kit}/go/helm]
 checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# 2021-01-20: Here in case you find yourself wanting profiling.
-#  # 2018-05-16: To use `python -m timeit` on any app, requires shelling out.
-#  # - But here's a Go project of same name that works on any executable.
-#  [${DOPP_KIT:-${HOME}/.kit}/go/timeit]
-#  checkout = git_clone_giturl -o starter 'https://github.com/choksheak/timeit.git'
-#  install = go build timeit.go
+# ISOFF/2021-01-20: Here in case you find yourself wanting profiling.
+#
+# # 2018-05-16: To use `python -m timeit` on any app, requires shelling out.
+# # - But here's a Go project of same name that works on any executable.
+# [${DOPP_KIT:-${HOME}/.kit}/go/timeit]
+# checkout = git_clone_giturl -o starter 'https://github.com/choksheak/timeit.git'
+# # 2021-08-19: Tested on @macOS, but not on @Linux.
+# install = go build timeit.go
 
 # ========================================================================
 # ------------------------------------------------------------------------
