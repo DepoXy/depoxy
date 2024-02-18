@@ -21,12 +21,7 @@ skip = mr_exclusive "kit" "git" "kit-git"
 #     'maint', from what I see. And 'next' and 'seen' are like the author's
 #     'liminal' branches, a collection of feature branches that is often
 #     rebased and force-pushed.
-install =
-  if os_is_macos; then
-    mr -d ${MR_REPO} -n installDarwin
-  else
-    mr -d ${MR_REPO} -n installLinux
-  fi
+install = install_os_specific
 # MAYBE/2021-05-30: Add Darwin support. See at least `package` list below.
 installDarwin = false
 installLinux =
@@ -194,10 +189,7 @@ infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
 # FIXME/2021-05-30: Update these instructions for Darwin.
-install =
-  [ "$(uname)" = "Darwin" ] &&
-      mr -d ${MR_REPO} -n installDarwin ||
-      mr -d ${MR_REPO} -n installLinux
+install = install_os_specific
 # 2021-06-01: Both Brew and sources are at v2.1.0. I think maintainers update
 # Brew when tagging new versions, so no need to worry about falling behind.
 # - (Also remember that underscores are special to `mr`, so camelCase.)
@@ -367,20 +359,15 @@ lib = MR_REPO_REMOTES="starter https://github.com/jonas/tig.git"
 #    starter https://github.com/jonas/tig.git"
 #    "
 skip = mr_exclusive "kit" "git" "kit-git"
-install =
-  # Prefer Homebrew tig on macOS, which is generally up to date, otherwise
-  # you need a slightly more complicated installer (and need to install
-  # prerequisites).
-  # - SAVVY/2023-02-12: I don't always keep my Linux Mint current,
-  #   e.g., Linux Mint 19.3 installs tig 2.3.0, but 2.5.3 is latest
-  #   (and has features I want). So add 'install' action.
-  # - MAYBE/2024-02-09: I might start hacking on tig, in which case
-  #   I'll want to figure out the macOS build. So separate installs.
-  if os_is_macos; then
-    mr -d ${MR_REPO} -n installDarwin
-  else
-    mr -d ${MR_REPO} -n installLinux
-  fi
+install = install_os_specific
+# Prefer Homebrew tig on macOS, which is generally up to date, otherwise
+# you need a slightly more complicated installer (and need to install
+# prerequisites).
+# - SAVVY/2023-02-12: I don't always keep my Linux Mint current,
+#   e.g., Linux Mint 19.3 installs tig 2.3.0, but 2.5.3 is latest
+#   (and has features I want). So add 'install' action.
+# - MAYBE/2024-02-09: I might start hacking on tig, in which case
+#   I'll want to figure out the macOS build. So separate installs.
 installDarwin = false
 installLinux =
   # Ensure deps available.
