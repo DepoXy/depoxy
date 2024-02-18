@@ -14,6 +14,9 @@ order = 690
 
 # *** Par-TY
 
+# NOTE: parT is a Clang project, perhaps belongs in .kit/clang/_mrconfig-clang
+#       but it's also a shell/stdio app, so living here is acceptable, too.
+
 # Dubs Vim support tool.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
 checkout = git_clone_giturl -o publish "http://github.com/landonb/parT.git"
@@ -46,6 +49,16 @@ checkout = git_clone_giturl -o starter "http://github.com/imomaliev/tmux-bash-co
 
 # *** Commacd
 
+# CXREF: `commacd`:
+#   https://github.com/shyiko/commacd
+# Similar project(s):
+#   https://github.com/wting/autojump
+#   https://github.com/gsamokovarov/jump
+#   https://github.com/vigneshwaranr/bd
+#   https://github.com/b4b4r07/enhancd
+#   https://github.com/rupa/z
+#   https://github.com/rupa/v
+#   https://github.com/clvv/fasd
 [${SHOILERPLATE:-${HOME}/.kit/sh}/commacd]
 checkout = git_clone_giturl -o starter "http://github.com/shyiko/commacd.git"
 
@@ -61,6 +74,8 @@ install =
   info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"
   /bin/cp "complete_alias" "${HOME}/.complete_alias"
   #
+  # CXREF/2023-05-14: ~/.bash_completion is sourced by /etc/base_completion
+  #   /etc/bash_completion -> /usr/share/bash-completion/bash_completion
   info "Clobbering $(fg_lightorange)~/.bash_completion$(attr_reset)"
   truncate -s 0 "${HOME}/.bash_completion"
   echo ". ~/.complete_alias" >> "${HOME}/.bash_completion"
