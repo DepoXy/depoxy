@@ -13,7 +13,7 @@ order = 690
 # ------------------------------------------------------------------------
 
 [${GITREPOSPATH:-${HOME}/.kit/git}/git]
-checkout = git_clone_giturl -o starter 'https://github.com/git/git.git'
+lib = MR_REPO_REMOTES="starter https://github.com/git/git.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 install =
   echo "YOU: Update to the latest release if necessary, something like:
@@ -50,7 +50,7 @@ install =
 # projects into git-smart, but this project has a number of unique useful
 # commands, so pulling it all in.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-extras]
-checkout = git_clone_giturl -o starter 'https://github.com/tj/git-extras.git'
+lib = MR_REPO_REMOTES="starter https://github.com/tj/git-extras.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 install =
   #
@@ -99,7 +99,7 @@ update =
 # Git history rewriter (filter-branch/BFG/git-obliterate replacement).
 # CXREF: https://github.com/newren/git-filter-repo
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo]
-checkout = git_clone_giturl -o starter 'https://github.com/newren/git-filter-repo.git'
+lib = MR_REPO_REMOTES="starter https://github.com/newren/git-filter-repo.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   symlink_overlay_file \
@@ -112,7 +112,7 @@ infuse =
 # git-heads -- "show branches without any child commits with `git-log`(1)"
 # https://github.com/seschwar/git-heads.git
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-heads]
-checkout = git_clone_giturl starter 'git@github.com:seschwar/git-heads.git'
+lib = MR_REPO_REMOTES="starter https://github.com/seschwar/git-heads.git"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -121,7 +121,7 @@ checkout = git_clone_giturl starter 'git@github.com:seschwar/git-heads.git'
 # See also:
 # - Node clone: https://github.com/sjurba/rebase-editor
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-interactive-rebase-tool]
-checkout = git_clone_giturl -o starter 'https://github.com/MitMaro/git-interactive-rebase-tool.git'
+lib = MR_REPO_REMOTES="starter https://github.com/MitMaro/git-interactive-rebase-tool.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   link_private_exclude "$@"
@@ -209,7 +209,7 @@ installLinux =
 
 # 2020-01-17: Like `cloc`, but for git code authors.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats]
-checkout = git_clone_giturl -o starter 'https://github.com/arzzen/git-quick-stats.git'
+lib = MR_REPO_REMOTES="starter https://github.com/arzzen/git-quick-stats.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   symlink_overlay_file \
@@ -220,22 +220,19 @@ infuse =
 # ------------------------------------------------------------------------
 
 [${GITREPOSPATH:-${HOME}/.kit/git}/hub]
-# checkout = git_clone_giturl -o starter 'git@github.com:github/hub.git' 'hub'
-# As suggested by its README. Assume makes download smaller, but if so, not by much!
-# Or maybe it's setting the config, too, for future transfers. Hrmm.
-#   hub /bin/du -b size with fsckobjects=false:   19688219
-#   hub /bin/du -b size without fsckobjects=..:   19689032
-checkout = \
-  git_clone_giturl -o starter \
-    --config transfer.fsckobjects=false \
-    --config receive.fsckobjects=false \
-    --config fetch.fsckobjects=false \
-    'https://github.com/github/hub.git'
+# NOTE: README suggests additional clone args., e.g.,:
+#   git clone \
+#     --config transfer.fsckobjects=false \
+#     --config receive.fsckobjects=false \
+#     --config fetch.fsckobjects=false \
+#     https://github.com/github/hub.git
+# - But per `man git-config`, these all default 'false' already.
+lib = MR_REPO_REMOTES="starter https://github.com/github/hub.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 install = make install prefix="${HOME}/.local"
 
 [${GITREPOSPATH:-${HOME}/.kit/git}/cli]
-checkout = git_clone_giturl -o starter 'https://github.com/cli/cli.git'
+lib = MR_REPO_REMOTES="starter https://github.com/cli/cli.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 # Build requires Go 1.13+.
 install = make install prefix="${HOME}/.local"
@@ -249,8 +246,10 @@ order = 470
 # Note this is pretty much an impossible clone command: You can't clone the cloner!
 # - Well, not unless you previously cloned it elsewhere and can run it. But this is
 #   mostly just for readability. Not like you're gonna checkout myrepos using myrepos!
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/myrepos.git'
-wireupstream = remote_add starter 'git://myrepos.branchable.com/'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/myrepos.git
+  starter git://myrepos.branchable.com/
+  "
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   infuser_prepare "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos" "${@}"
@@ -269,7 +268,7 @@ infuse =
 # SLUGL: Oh, My Repos! supercharged `myrepos` multiple repository management
 [${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}]
 order = 150
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/ohmyrepos.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/ohmyrepos.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 infusePostRebase =
   link_hard_dep_sh_logger_and_colors
@@ -293,13 +292,14 @@ updateDeps =
 #                  T IG
 #                   TIG!
 [${GITREPOSPATH:-${HOME}/.kit/git}/tig]
-checkout = git_clone_giturl -o starter 'https://github.com/jonas/tig.git'
-skip = mr_exclusive "kit" "git" "kit-git"
-# 2021-08-04: Old tig actions in case I need to fork it again.
+lib = MR_REPO_REMOTES="starter https://github.com/jonas/tig.git"
+# 2021-08-04: Old remote wiring in case I need to fork tig again.
 #
-#  [${GITREPOSPATH:-${HOME}/.kit/git}/tig]
-#  checkout = git_clone_giturl -o starter 'https://github.com/landonb/tig.git'
-#  wireupstream = remote_add starter 'https://github.com/jonas/tig.git'
+#  lib = MR_REPO_REMOTES="
+#    publish https://github.com/landonb/tig.git
+#    starter https://github.com/jonas/tig.git"
+#    "
+skip = mr_exclusive "kit" "git" "kit-git"
 install =
   # Prefer Homebrew tig on macOS, which is generally up to date, otherwise
   # you need a slightly more complicated installer (and need to install
