@@ -14,12 +14,18 @@ order = 550
 
 [DEFAULT]
 
+# SAVVY/2024-02-18: These files won't exist until you run `infuse`
+# for the first time, because they're symlinked from ~/.depoxy/home/.vim
+# so use [ -f ] tests to avoid `mr` warn-fail.
+
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "vim" ] ||
      [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
   false; then
-    cat ${HOME}/.vim/.mrconfig-3rdp
+    if [ -f "${HOME}/.vim/.mrconfig-3rdp" ]; then
+      cat ${HOME}/.vim/.mrconfig-3rdp
+    fi
   fi
 
 include =
@@ -29,7 +35,9 @@ include =
      [ "${MR_INCLUDE}" = "dubs" ] ||
      [ "${MR_INCLUDE}" = "dubs-vim" ] ||
   false; then
-    cat ${HOME}/.vim/.mrconfig-dubs
+    if [ -f "${HOME}/.vim/.mrconfig-dubs" ]; then
+      cat ${HOME}/.vim/.mrconfig-dubs
+    fi
   fi
 
 include =
@@ -37,7 +45,9 @@ include =
      [ "${MR_INCLUDE}" = "vim" ] ||
      [ "${MR_INCLUDE}" = "vim-lsp" ] ||
   false; then
-    cat ${HOME}/.vim/.mrconfig-lsp
+    if [ -f "${HOME}/.vim/.mrconfig-lsp" ]; then
+      cat ${HOME}/.vim/.mrconfig-lsp
+    fi
   fi
 
 # NOTE: Current [SECTION] is final section of last cat'ted file,
