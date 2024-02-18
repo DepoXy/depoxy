@@ -61,9 +61,8 @@ checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/asynco
 # as `vim-lsp-settings` will install its own LSes,
 # and if you npm-install `typescript-language-server`,
 # you'll end up with duplicate definitions (i.e., on ``gd``).
-# - So repathing these to pack/*/opt,
-#   and setting skip on. But leaving
-#   here for posterity, as I say.
+# - So repathing these to pack/*/opt, and enabling 'skip'.
+#   But leaving here *for posterity*, as I say.
 
 # "Sets up vim-lsp for JavaScript."
 # - Requires a TS language server:
@@ -94,6 +93,10 @@ infuse = link_private_exclude "$@"
 [pack/neoclide/start/coc.nvim]
 checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc.nvim.git'
 install =
+  # MAYBE/2021-03-11 23:17: Pin to specific version?
+  # - E.g. coc-pyright "requires coc.nvim >= >=0.0.80":
+  #   git checkout refs/tags/v0.0.80
+  #
   # https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
   #
   # 2022-11-22: The release tag is not part of default branch history...
