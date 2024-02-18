@@ -9,7 +9,7 @@ order = 690
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# - Q: Why not use the Docker Desktop Homebrew cash?
+# - Q: Why not use the Docker Desktop Homebrew cask?
 #
 #      - Author had issues with the cask, so prefers DMG install.
 #
