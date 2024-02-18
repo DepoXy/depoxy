@@ -156,8 +156,7 @@ update =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# FIXME/2021-08-19: Not yet tested on @macOS. (I copied from from home config.)
-#                   FIXME: See if available from homebrew (if so, installDarwin).
+# FIXME/2021-08-19: Not yet tested on @macOS (works on @linux).
 # Git history rewriter (filter-branch/BFG/git-obliterate replacement).
 # CXREF: https://github.com/newren/git-filter-repo
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo]
@@ -179,6 +178,11 @@ lib = MR_REPO_REMOTES="starter https://github.com/seschwar/git-heads.git"
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# CXREF/2024-02-17: I used to use git-interactive-rebase-tool,
+# but then I plumbed rebase into tig, which I find easier and
+# quicker to use:
+#   https://github.com/DepoXy/tig-newtons#🍎
+
 # https://github.com/MitMaro/git-interactive-rebase-tool
 # See also:
 # - Node clone: https://github.com/sjurba/rebase-editor
@@ -188,11 +192,9 @@ skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
-# FIXME/2021-05-30: Update these instructions for Darwin.
 install = install_os_specific
 # 2021-06-01: Both Brew and sources are at v2.1.0. I think maintainers update
 # Brew when tagging new versions, so no need to worry about falling behind.
-# - (Also remember that underscores are special to `mr`, so camelCase.)
 installDarwin =
   if [ -e "/opt/homebrew/bin/interactive-rebase-tool" ]; then
     # $ /opt/homebrew/bin/interactive-rebase-tool --version
@@ -262,6 +264,7 @@ installLinux =
     #
  #EOF
 #EOF
+#↑↑↑ So ft=bash stops highlighting the Heredoc.
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -278,6 +281,14 @@ infuse =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# NOTED/2021-01-30: These are both Go projects, but they feel more at home
+# here than in a ~/.depoxy/ambers/home/.kit/go/_mrconfig file.
+
+# SAVVY/2021-01-30: Both `hub` and `gh` sometimes require a token, e.g.,
+#   GITHUB_TOKEN=XXX hub / GITHUB_TOKEN=XXX gh / GH_TOKEN=XXX gh
+# - MAYBE: We could add a `grip`-like wrapper that reads it from `pass`.
+#   - But I don't have a use case for it yet.
+
 [${GITREPOSPATH:-${HOME}/.kit/git}/hub]
 # NOTE: README suggests additional clone args., e.g.,:
 #   git clone \
@@ -290,6 +301,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/github/hub.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 install = make install prefix="${HOME}/.local"
 
+# 2021-01-30: The `hub` competitor, the "official" 'cli'. Er, `gh`.
 [${GITREPOSPATH:-${HOME}/.kit/git}/cli]
 lib = MR_REPO_REMOTES="starter https://github.com/cli/cli.git"
 skip = mr_exclusive "kit" "git" "kit-git"
@@ -302,9 +314,9 @@ install = make install prefix="${HOME}/.local"
 # SLUGL: myrepos fork for ohmyrepos
 [${GITREPOSPATH:-${HOME}/.kit/git}/myrepos]
 order = 470
-# Note this is pretty much an impossible clone command: You can't clone the cloner!
-# - Well, not unless you previously cloned it elsewhere and can run it. But this is
-#   mostly just for readability. Not like you're gonna checkout myrepos using myrepos!
+# Note that 'checkout' on this project is pretty much impossible: You can't clone the cloner!
+# - Well, not unless you previously cloned it elsewhere and can run it.
+# - At least you can still run `wireRemotes`, though.
 lib = MR_REPO_REMOTES="
   publish https://github.com/landonb/myrepos.git
   starter git://myrepos.branchable.com/
@@ -432,7 +444,6 @@ installLinux =
   make install prefix=${HOME}/.local
   make install-doc prefix=${HOME}/.local
 #
-# FIXME/2023-02-12: Explore making default OMR 'update' command that does this.
 update =
   git fetch --all --prune
   git pull
