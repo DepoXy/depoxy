@@ -17,17 +17,18 @@ source_deps () {
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
+  # ***
+
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   # Load: link_hard_dep*.
-  command -v my-deps-manage-shoilerplate.sh > /dev/null && . my-deps-manage-shoilerplate.sh ||
-    . "$(dirname "$(realpath "$0")")/../home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
+  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
 
   # Load: _vendorfs_host_is_depoxy_client_id.
-  command -v depoxy_fs.sh > /dev/null && . depoxy_fs.sh ||
-    . "$(dirname "$(realpath "$0")")/../core/depoxy_fs.sh"
+  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/depoxy_fs.sh"
 
   # Load: _depoxy_print_homebrew_path.
-  command -v brewskies.sh > /dev/null && . brewskies.sh ||
-    . "$(dirname "$(realpath "$0")")/../core/brewskies.sh"
+  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/brewskies.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

@@ -15,8 +15,9 @@ source_deps () {
 
   # *** OMR
 
-  # The OMR/lib modules expect that OMR/lib is on PATH.
-  export PATH="${PATH}:${OHMYREPOS_LIB:-${HOME}/.ohmyrepos/lib}"
+  # The OMR/lib modules (link-private-exclude.sh and link-private-ignore.sh)
+  # expect that OMR/lib is on PATH.
+  PATH="${PATH}:${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
 
   # Load: link_private_exclude
   # CXREF: ~/.kit/git/ohmyrepos/lib/link-private-exclude.sh
