@@ -96,7 +96,7 @@ setup_vim_pack_grep_ignore () {
 
 setup_private_grep_ignore () {
   # Place ~/.vim/.ignore.
-  link_private_ignore '_ignore'
+  link_private_ignore_
 }
 
 # ***
