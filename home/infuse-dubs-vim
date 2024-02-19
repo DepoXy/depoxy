@@ -15,6 +15,10 @@ source_deps () {
   command -v logger.sh > /dev/null && . logger.sh ||
     . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
+  # The OMR/lib modules (link-private-exclude.sh and link-private-ignore.sh)
+  # expect that OMR/lib is on PATH.
+  PATH="${PATH}:${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+
   # Load: link_hard
   command -v link-hard.sh > /dev/null && . link-hard.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
