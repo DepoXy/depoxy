@@ -58,6 +58,16 @@ checkout = git_clone_giturl -o starter 'https://github.com/ctrlpvim/ctrlp.vim'
 # # Symlink to private plugin for DepoXy Client @biz-specific features.
 # mine: [pack/DepoXy/start/vim-trap]
 
+# ISOFF/2016-10-04: golang syntax plugin:
+#  [pack/fatih/opt/vim-go]
+# DUNNO/2020-07-15: I demoed this for Hugo and HTML Go Template highlighting
+# but didn't see it make a difference.
+# - Until/Unless I try again to make it work, or to ensure it's loaded
+#   and enabled, relegated to opt/.
+# CXREF: https://github.com/fatih/vim-go
+[pack/editorconfig/opt/vim-go]
+checkout = git clone -o starter 'git@github.com:fatih/vim-go.git'
+
 [pack/editorconfig/start/editorconfig-vim]
 checkout = git_clone_giturl -o starter 'https://github.com/editorconfig/editorconfig-vim'
 
