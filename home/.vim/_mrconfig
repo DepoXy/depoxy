@@ -14,6 +14,10 @@ order = 250
 
 [DEFAULT]
 
+# NOTE: Because include, [SECTION] changes to final one in file being read aloud.
+# NOTE: For skip to work, these includes must come after.
+#       DUNNO/2022-10-23: That the `skip` I referred to above that I don't use?
+
 # SAVVY/2024-02-18: These files won't exist until you run `infuse`
 # for the first time, because they're symlinked from ~/.depoxy/home/.vim
 # so use [ -f ] tests to avoid `mr` warn-fail.
@@ -50,9 +54,10 @@ include =
     fi
   fi
 
-# NOTE: Current [SECTION] is final section of last cat'ted file,
-#       so end file with [DEFAULT] section to avoid some issues
-#       (that I forgot to document previously).
+# SAVVY: End with a [DEFAULT] section because previous cat'ted file ends
+#        with a [/path/to/project] section. If not, the file the cats
+#        this file would have to specify [DEFAULT] again to avoid config
+#        after the cat from going to [/path/to/project].
 [DEFAULT]
 
 # ========================================================================
