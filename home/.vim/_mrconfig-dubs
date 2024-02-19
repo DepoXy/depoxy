@@ -41,8 +41,7 @@ order = 750
 
 # ------------------------------------------------------------------------
 
-# Original project.
-# Copy file path 👣 to system clipboard
+# Copy file path 👣 to system clipboard [Original project]
 # https://github.com/DepoXy/vim-clip-expand-path#👣
 [pack/DepoXy/start/vim-clip-expand-path]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/vim-clip-expand-path.git'

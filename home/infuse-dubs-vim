@@ -21,10 +21,10 @@ source_deps () {
   # Load: link_private_exclude
   command -v link-private-exclude.sh > /dev/null && . link-private-exclude.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-exclude.sh"
-  # Load: link_private_ignore
+  # Load: link_private_ignore, link_private_ignore_
   command -v link-private-ignore.sh > /dev/null && . link-private-ignore.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-ignore.sh"
-  # Load: symlink_*, infuser_prepare, font_highlight.
+  # Load: symlink_*, infuser_prepare, font_highlight
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 }
@@ -49,12 +49,6 @@ seed_myrepos_mrconfig_dubs_vim () {
 
 # ***
 
-# 2020-03-21: For some reason I'm conflicted whether the pack/.mrinfuse belongs
-# here in private dotfiles, or just put publicly in ~/.vim, especially because
-# ~/.vim/.gitignore is public and calls out all the repos. Specifically, I do
-# not really expect anyone to use my Vim shell, so no need to separate private
-# from not... meh, I also don't expect people to really adopy OhMyRepos, either,
-# do I.
 seed_myrepos_mrinfuse_dubs_vim_pack () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
@@ -76,6 +70,8 @@ setup_private_git_exclude () {
 setup_vim_pack_git_exclude () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
+  # MAYBE/2023-11-11: What about using newish `link_private_exclude`?
+  # - Or is there an issue because subdirectory?
   link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/_gitignore" 'pack/.gitignore'
 }
 

@@ -1,11 +1,15 @@
 #!/bin/sh
-# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=sh
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # This command makes links to important files and dirs in a cmdt search root.
 
 # FIXME/2021-08-23: Is the next comment true? If so, add git-add/-commit herein?
 # (To be honest, I haven't used Command-T in a long while.)
-# - If true, *don't* commit to DXY, but commit to new CmdT-specific repo.
+# - If true, *don't* commit to DXY, but commit to new CmdT-specific repo, or to DXC.
 
 # ===================================================================== #
 # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE #
@@ -41,7 +45,7 @@ remove_existing_links () {
 }
 
 dubs_vim_file_finder_cmdt_path_generate_links () {
-  # Tell .vimprojects not to descend in the links directory.
+  # Tell .vimprojects not to descend into the links directory.
   touch .dubs_project.vim-ignore
 
   remove_existing_links
@@ -65,7 +69,7 @@ dubs_vim_file_finder_cmdt_path_generate_links () {
   # FIXME/2022-12-24: Move each symlink below to that project's
   #                   OMR `infuse` task.
   #                   - Test CmdT first on @biz b/c been forever since you used it.
-
+  #
   # CRUMB/2021-08-23: YOU: Add Client/Work/@biz project paths here.
   warn "HEY! Please set up Command-T paths (and remove this warning)."
   if [ -e "${HOME}/work/division1" ]; then
