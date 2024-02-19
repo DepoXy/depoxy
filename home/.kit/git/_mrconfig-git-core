@@ -167,6 +167,7 @@ infuse =
   symlink_overlay_file \
     "${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo/git-filter-repo" \
     "${HOME}/.local/bin/git-filter-repo"
+update = git pull --ff-only
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -281,6 +282,7 @@ infuse =
   symlink_overlay_file \
     "${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats/git-quick-stats" \
     "${HOME}/.local/bin/git-quick-stats"
+update = git pull --ff-only
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -303,14 +305,18 @@ infuse =
 # - But per `man git-config`, these all default 'false' already.
 lib = MR_REPO_REMOTES="starter https://github.com/github/hub.git"
 skip = mr_exclusive "kit" "git" "kit-git"
-install = make install prefix="${HOME}/.local"
+install =
+  git pull --ff-only
+  make install prefix="${HOME}/.local"
 
 # 2021-01-30: The `hub` competitor, the "official" 'cli'. Er, `gh`.
 [${GITREPOSPATH:-${HOME}/.kit/git}/cli]
 lib = MR_REPO_REMOTES="starter https://github.com/cli/cli.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 # Build requires Go 1.13+.
-install = make install prefix="${HOME}/.local"
+install =
+  git pull --ff-only
+  make install prefix="${HOME}/.local"
 
 # ========================================================================
 # ------------------------------------------------------------------------
