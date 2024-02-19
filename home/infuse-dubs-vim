@@ -192,8 +192,6 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 setup_project_plug_vim_depoxy () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  local fzf_vim="${DOPP_KIT:-${HOME}/.kit}/go/fzf/plugin/fzf.vim"
-
   local depoxy_vim_org="DepoXy"
 
   mkdir -p "pack/${depoxy_vim_org}/start"
@@ -215,6 +213,8 @@ setup_project_plug_vim_depoxy () {
   symlink_overlay_dir \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/start/vim-depoxy" \
     "vim-depoxy"
+
+  local fzf_vim="${DOPP_KIT:-${HOME}/.kit}/go/fzf/plugin/fzf.vim"
 
   if [ -e "${fzf_vim}" ]; then
     cd "./vim-depoxy/plugin"
