@@ -1,26 +1,26 @@
-.git/
+/.git/
 
 # Ignore the pack/ directory -- it's expected you'll enter it to search it.
-pack/
+/pack/
 
-sessions/
+/sessions/
 
 # Keep track of your spell/en.utf-8.add using another repo (and symlink to it).
-spell/
+/spell/
 
 # mkview/loadview files are in view/.
-view/
+/view/
 
 # Generated readme.
-README-USING.rst
+/README-USING.rst
 
 # The ~/.vim/.mrinfuse symlinks to ~/.depoxy/home/.vim so that ~/.projlns
 # Vim-greppers are already wired for everything thereunder.
-infuse
-.mrinfuse/
+/infuse
+/.mrinfuse/
 # Symlinks into files under .mrinfuse/ (which symlinks ~/.depoxy/ambers/home/.vim).
-.mrconfig
-.mrconfig-3rdp
-.mrconfig-dubs
-.mrconfig-lsp
+/.mrconfig
+/.mrconfig-3rdp
+/.mrconfig-dubs
+/.mrconfig-lsp
 
