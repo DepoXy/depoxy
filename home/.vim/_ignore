@@ -14,11 +14,11 @@
 # Generated readme.
 /README-USING.rst
 
-# The ~/.vim/.mrinfuse symlinks to ~/.depoxy/home/.vim so that ~/.projlns
-# Vim-greppers are already wired for everything thereunder.
+# The ~/.vim/.mrinfuse symlinks to ~/.depoxy/home/.vim, which means that
+# ~/.projlns Vim-greppers are already wired for everything thereunder.
 /infuse
 /.mrinfuse/
-# Symlinks into files under .mrinfuse/ (which symlinks ~/.depoxy/ambers/home/.vim).
+# Symlinks to files under .mrinfuse/ (aka ~/.depoxy/ambers/home/.vim).
 /.mrconfig
 /.mrconfig-3rdp
 /.mrconfig-dubs
