@@ -25,34 +25,9 @@ install = install_os_specific
 # MAYBE/2021-05-30: Add Darwin support. See at least `package` list below.
 installDarwin = false
 installLinux =
-  # CXREF: Similar strategy to pyenv:
-  #   ~/.depoxy/ambers/home/.kit/py/_mrconfig
-  git fetch starter --prune
-  git checkout master
-  git branch -u starter/master
-  git pull --rebase --autostash
-  # Note that pyenv does not leave a branch trail:
-  #  git reset --hard "$(git latest-version-normal)"
-  GIT_LATEST=$(git latest-version-normal)
-  NEW_BRANCH="starter/${GIT_LATEST}"
-  echo "SAVVY: We'll update to the latest tagged version, something like:
-  
-    git fetch starter --prune
-    git checkout master
-    git pull --rebase --autostash
-    GIT_LATEST=\"\$(git latest-version-normal)\"
-    NEW_BRANCH=\"starter/\${GIT_LATEST}\"
-    echo \"Installing Git \${GIT_LATEST} from branch \${NEW_BRANCH}...\"
-    git checkout -b \${NEW_BRANCH} \${GIT_LATEST} || true
-    git checkout \${NEW_BRANCH}
-  
-  - ALTLY: If you want the latest normal release, and not a release
-    candidate (like v2.32.0-rc1), run \`git tags\` and pick your own
-    tag, then call this 
-  "
-  echo "Installing Git ${GIT_LATEST} from branch ${NEW_BRANCH}..."
-  git checkout -b ${NEW_BRANCH} ${GIT_LATEST} || true
-  git checkout ${NEW_BRANCH}
+  # Update to the latest version.
+  pull_latest "starter" "master"
+  #
   # Install packages necessary to build the app.
   # - For `make all`: libssl-dev
   # - For `make doc`: asciidoc xmlto
