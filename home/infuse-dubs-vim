@@ -153,77 +153,6 @@ populate_cmdt_paths () {
 
 # dubs_cuts is searched on #9 search (aka #9 grep aka #9 grep-steady).
 
-# 2021-08-20: I had this partially disabled on macOS hosts, because the
-# generator script ran "for a hot minute", or at least an old comment
-# suggested. But I ran `infuse` just now, and this action took 11 secs. to
-# run (and populated dubs_cuts/ with 180 links $(find . -type l | wc -l)).
-
-populate_dubs_cuts_maybe () {
-  if populate_dubs_cuts_should_generate; then
-    populate_dubs_cuts_generate
-  fi
-}
-
-# Always regerate dubs_cuts on Linux hosts, but only if necessary on Darwin.
-populate_dubs_cuts_should_generate () {
-  if [ "$(uname)" != "Darwin" ]; then
-    return 0
-  fi
-
-  # 2021-08-20: See comment above; disabling check and always regenerating.
-  if true; then
-    warn
-    warn "NOTICE: Expect to wait about ~9-11 secs. [2021-08-20]"
-    warn
-
-    return 0
-  fi
-  # The rest is now unreachable.
-
-  local dubs_cuts="${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
-
-  populate_dubs_cuts_warn_preamble
-
-  # The -xtype option is apparently a test performed on a deferenced
-  #   link, but I don't see it document in `man find` (Darwin).
-  # And `find --help` merely shows its options: "-xtype [bcdpfls]".
-  # (Answer was top hit to "linux detect broken symlink"
-  #  https://unix.stackexchange.com/a/38691)
-  if [ -z "$(find "${dubs_cuts}" -xtype l)" ]; then
-    populate_dubs_cuts_warn_lucky
-
-    return 1
-  else
-    # Fix broken symlinks, otherwise #9 search will show
-    # ‘No fule file or directory’ errors in Vim quickfix.
-    populate_dubs_cuts_warn_patience
-  fi
-}
-
-populate_dubs_cuts_warn_preamble () {
-  warn
-  warn "NOTICE: populate_dubs_cuts hangs macOS for a hot minute!"
-  warn
-}
-
-populate_dubs_cuts_warn_lucky () {
-  warn "        But you're in luck! None of its symlinks are broken."
-  warn
-  warn "        Though it might be missing newish symlinks."
-  warn
-  warn "        If you want to be certain, run it manually:"
-  warn
-  warn "          ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.vim/dubs_project_tray/generate_links.sh"
-  warn
-}
-
-populate_dubs_cuts_warn_patience () {
-  warn "        But broken symlink(s) were detected!! So we have to regenerate..."
-  warn
-  warn "        Please be patient..."
-  warn
-}
-
 populate_dubs_cuts_generate () {
   # MEH/2019-10-27: This infuser takes a hot second to run (possibly
   # because I could not make the script POSIX-compliant, or more likely
@@ -376,9 +305,10 @@ main () {
 
   # ***
 
-  # Calls populate_dubs_cuts_should_generate which takes a sec,
-  # so call last, so debugging previous calls is quicker.
-  populate_dubs_cuts_maybe
+  # Populating ~/.depoxy/ambers/home/.vim/dubs_project_tray/dubs_cuts/
+  # might take a few secs (or 10), so call last, to make debugging previous
+  # calls quicker.
+  populate_dubs_cuts_generate
   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
 
   # ***
