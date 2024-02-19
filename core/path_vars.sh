@@ -19,6 +19,40 @@ _dxy_export_path_var_depoxy_ambers () {
   fi
 }
 
+_dxy_export_path_var_depoxy_archetype () {
+  if [ -d "${DEPOXYARCHETYPE_DIR:-${DEPOXYAMBERS_DIR}/archetype}" ]; then
+    export DEPOXYARCHETYPE_DIR="${DEPOXYARCHETYPE_DIR:-${DEPOXYAMBERS_DIR}/archetype}"
+  elif [ -n "${DEPOXYARCHETYPE_DIR}" ]; then
+    >&2 echo "UNSUSSABLE: DEPOXYARCHETYPE_DIR incorrect: ‘${DEPOXYARCHETYPE_DIR}’."
+  else
+    >&2 echo "UNSUSSABLE: DEPOXYARCHETYPE_DIR not set and indeterminable."
+  fi
+}
+
+_dxy_export_path_var_depoxy_projlns () {
+  if [ -d "${DEPOXY_PROJLNS:-${HOME}/.projlns}" ]; then
+    export DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
+  elif [ -n "${DEPOXY_PROJLNS}" ]; then
+    >&2 echo "UNSUSSABLE: DEPOXY_PROJLNS incorrect: ‘${DEPOXY_PROJLNS}’."
+  else
+    >&2 echo "UNSUSSABLE: DEPOXY_PROJLNS not set and indeterminable."
+  fi
+}
+
+# CXREF: If not set by ~/.config/depoxy/depoxyrc, the following environs will
+# be set by ~/.depoxy/ambers/core/depoxy_fs.sh (_vendorfs_define_environs):
+#   DEPOXY_IS_CLIENT
+#   DEPOXYDIR_BASE_FULL
+#   DEPOXYDIR_STINTS_NAME
+#   DEPOXYDIR_RUNNING_NAME
+#   DEPOXY_HOSTNAMES_NAME
+#   PW_PATCHES_REPO
+# Which also sets the following environs not specified in depoxyrc:
+#   DEPOXYDIR_STINTS_FULL
+#   DEPOXYDIR_RUNNING_FULL
+
+# ***
+
 _dxy_export_path_var_dopp_kit () {
   if [ -d "${DOPP_KIT:-${HOME}/.kit}" ]; then
     export DOPP_KIT="${DOPP_KIT:-${HOME}/.kit}"
@@ -87,6 +121,14 @@ _dxy_wire_cmdpath () {
 
   _dxy_export_path_var_depoxy_ambers
   unset -f _dxy_export_path_var_depoxy_ambers
+
+  _dxy_export_path_var_depoxy_archetype
+  unset -f _dxy_export_path_var_depoxy_archetype
+
+  _dxy_export_path_var_depoxy_projlns
+  unset -f _dxy_export_path_var_depoxy_projlns
+
+  # ***
 
   _dxy_export_path_var_dopp_kit
   unset -f _dxy_export_path_var_dopp_kit
