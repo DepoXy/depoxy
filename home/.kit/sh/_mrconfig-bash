@@ -97,11 +97,16 @@ infuse =
 
 # ***
 
+# FIXME/2022-10-10: This is not yet published.
+#
+# GH1LN: "Measures code coverage between two branches"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report]
 # AWAIT/2023-03-06: DepoXy/feature-coverage-report not yet released.
+# - Eventually (or never?) it'll be published to DepoXy:
 lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/feature-coverage-report.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
-skip = false  # i.e., mr_exclusive "entrusted" "..."...
+# FIXME/2022-10-10: Not yet published.
+skip = [ ! -d "${MR_REPO}" ]
 install = PREFIX="${HOME}/.local" make link
 # CXREF: See GIT_POST_REBASE_EXEC usage.
 # - Used post-rebase to remake hard links.
