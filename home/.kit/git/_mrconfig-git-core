@@ -92,22 +92,21 @@ installLinux =
 lib = MR_REPO_REMOTES="starter https://github.com/tj/git-extras.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 install =
-  #
-  # Make and place man pages.
-  make docs
-  # See the `make install` task.
-  # - The bin path is wired manually to PATH,
-  #   via ~/.depoxy/ambers/core/pathanova.sh,
-  #   so just copy the man docs to their destination.
-  # Note: FreeBSD uses ~/.local/man/man1
-  mkdir -p "${HOME}/.local/share/man/man1"
-  debug "/bin/cp -f man/git-*.1 ${HOME}/.local/share/man/man1"
-  /bin/cp -f man/git-*.1 "${HOME}/.local/share/man/man1"
-  #
   git checkout master
   git branch -u starter/master
   git fetch starter --prune
-  git pull --rebase --autostash
+  git merge --ff-only
+  #
+  # Make and place man pages.
+  # - Prereq.: Requires `ronn`: "tool to build manuals from Markdown".
+  # FIXME/2024-02-18 01:21: Make OMR lib fcn. for this?
+  for package in ronn; do
+    if ! dpkg -l "${package}" | tail -1 | grep -q "^ii"; then
+      echo "RAISE: You need to install ${package} first:"
+      echo "  sudo apt-get -y install ${package}"
+      sudo apt-get -y install ${package}
+    fi
+  done
   #
   git branch -D tip/rename-commands-that-conflict-with-git-smart-commands || true
   git checkout -b tip/rename-commands-that-conflict-with-git-smart-commands \
@@ -118,17 +117,42 @@ install =
   git mv "bin/git-pr" "bin/git-extras-pr"
   git mv "bin/git-undo" "bin/git-extras-undo"
   #
+  git commit -m "PRIVATE: Rename commands that conflict with git-smart commands"
+  #
+  # See the `make install` task.
+  # - The bin path is wired manually to PATH, via
+  #     ~/.depoxy/ambers/core/pathanova.sh
+  #   so just make the docs and install them.
+  #
+  git mv "man/git-abort.md" "man/git-extras-abort.md"
+  git mv "man/git-pr.md" "man/git-extras-pr.md"
+  git mv "man/git-undo.md" "man/git-extras-undo.md"
+  #
+  git commit -m "PRIVATE: Rename docs for renamed commands"
+  #
+  # Note that docs are committed to the repo, so clean them first.
+  # - Also note that the latest commit (7.1.0) doesn't have the latest
+  #   docs committed, but `make docs` won't run unless cleaned first.
+  make clean
+  make docs
+  #
   git add .
-  git commit -m "PRIVATE: Customize: Renames commands that conflict with git-smart commands."
+  git commit -m "PRIVATE: Build docs"
+  #
+  # Note: FreeBSD uses ~/.local/man/man1
+  local man1_dir="${HOME}/.local/share/man/man1"
+  if os_is_macos; then
+    man1_dir="${HOME}/.local/man/man1"
+  fi
+  mkdir -p "${man1_dir}"
+  debug "/bin/cp -f man/git-*.1 \"${man1_dir}\""
+  /bin/cp -f man/git-*.1 "${man1_dir}"
   #
   # Wire the completions file (Homefries-specific).
   if [ -d "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions" ]; then
     cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
     symlink_overlay_file "${MR_REPO}/etc/bash_completion.sh" "git-extras-bash_completion.sh"
   fi
-update =
-  git fetch starter --prune
-  git pull --rebase --autostash
 
 # ========================================================================
 # ------------------------------------------------------------------------
