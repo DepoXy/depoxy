@@ -82,16 +82,28 @@ skip = mr_exclusive "!entrusted"
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/dot-inputrc.git'
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
-  # 2022-10-17: Since when did that happen? I thought on my old MacBook
-  # circa 2020-21 that ~/.inputrc was a symlink, but on my new MacBook,
-  # in iTerm2 (I didn't test Terminal.app), `bind -P` doesn't show my
-  # ~/.inputrc bindings if that file is a symlink. And a quick search
-  # didn't land any hits (though you'd think someone else would've
-  # already complained).
-  # - Won't work (at least on macOS (though author's Bash/readline
-  #   on their Linux box might just be dated)):
-  #     symlink_mrinfuse_file ".inputrc" "${HOME}/.inputrc"
-  link_hard ".inputrc" "${HOME}/.inputrc"
+  local inputrc_path=".inputrc"
+  #
+  # USAGE: If you'd like to use your own ~/.inputrc, symlink or copy to
+  # ~/.depoxy/ambers/home/.inputrc — Otherwise installs dot-inputrc's.
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local user_inputrc="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.inputrc"
+  if [ -f "${inputrc_path}" ]; then
+    inputrc_path="$(realpath "${user_inputrc}")"
+  fi
+  #
+  if os_is_macos; then
+    # DUNNO/2022-10-17: Since when did this happen? I thought on my old
+    # MacBook (circa 2020-21) that ~/.inputrc was a symlink, but on my
+    # new MacBook, in iTerm2 (I didn't test Terminal.app, but should it
+    # matter?), `bind -P` doesn't show the ~/.inputrc bindings if that
+    # file is a symlink. (And a quick web search didn't land any hits,
+    # though you'd think that someone else would've complained already.)
+    link_hard "${inputrc_path}" "${HOME}/.inputrc"
+  else
+    # On @Linux, using a symlink works fine.
+    symlink_mrinfuse_file "${inputrc_path}" "${HOME}/.inputrc"
+  fi
 infuse =
   mr -d . -n infusePostRebase
 

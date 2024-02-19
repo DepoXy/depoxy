@@ -28,6 +28,9 @@
 # Symlink to private (client) infuser.
 /home/_git
 
+# If exists, private .inputrc installed instead of dot-inputrc's.
+/home/.inputrc
+
 # Symlink to private (client) infuser.
 /home/.kit/_git
 
