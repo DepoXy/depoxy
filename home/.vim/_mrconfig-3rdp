@@ -21,6 +21,12 @@ order = 780
 
 # *** From 'a' to 'landonb'
 
+# # "Execute a :command and show the output in a temporary buffer"
+# # CXREF: https://github.com/AndrewRadev/bufferize.vim
+# # ALTLY/2021-02-01: Similar to :TabMessage
+# [pack/AndrewRadev/start/bufferize.vim]
+# checkout = git clone -o starter 'git@github.com:AndrewRadev/bufferize.vim.git'
+
 [pack/arcticicestudio/start/nord-vim]
 checkout = git_clone_giturl -o starter 'https://github.com/arcticicestudio/nord-vim'
 
@@ -55,8 +61,17 @@ checkout = git_clone_giturl -o starter 'https://github.com/ctrlpvim/ctrlp.vim'
 [pack/editorconfig/start/editorconfig-vim]
 checkout = git_clone_giturl -o starter 'https://github.com/editorconfig/editorconfig-vim'
 
+# ISOFF/2017-11-02: Aka GONE-BNF.
+# - Removed from .vimrc: `let g:miniBufExplAutoStart = 0`
+#  [pack/fholgado/opt/minibufexpl.vim]
+
 [pack/flazz/start/vim-colorschemes]
 checkout = git_clone_giturl -o starter 'https://github.com/flazz/vim-colorschemes'
+
+# ISOFF/2020-05-10: I demoed vim-open-url, but prefer dubs_web_hatch.
+# CXREF: https://github.com/henrik/vim-open-url
+#  [pack/henrik/opt/vim-open-url]
+#  checkout = git clone -o starter 'git@github.com:henrik/vim-open-url.git'
 
 [pack/HerringtonDarkholme/start/yats.vim]
 checkout = git_clone_giturl -o starter 'https://github.com/HerringtonDarkholme/yats.vim.git'
@@ -78,10 +93,6 @@ checkout = git_clone_giturl -o starter 'https://github.com/junegunn/goyo.vim'
 checkout = git_clone_giturl -o starter 'https://github.com/junegunn/limelight.vim'
 
 # ------------------------------------------------------------------------
-
-# *** 'landonb': See .mrconfig-dubs
-#
-#   ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
 
 # # Key: Original projects ('mine') and forks
 #        (untouched 'fork' or improved 'both')
@@ -151,13 +162,13 @@ checkout = git_clone_giturl -o starter 'https://github.com/leafgarland/typescrip
 [pack/majutsushi/start/tagbar]
 checkout = git_clone_giturl -o starter 'https://github.com/majutsushi/tagbar'
 
-# HadIssuz: [pack/marshallward/start/vim-restructuredtext]  # OFF/UNINSTALLED.
+# ISOFF/2020-02-13: #HadIssuz:
+#  [pack/marshallward/start/vim-restructuredtext]
 # - 2018-02-01: The new reST plugin makes editing sluggish.
-#   And (2) when I use \s to find-replace <TAB>s, it only works
+#   - Also, when I use \s to find-replace <TAB>s, it only works
 #   on the first line of matches, and then it exits replace mode,
 #   and you see "xx matches on xx lines" message like you would
 #   with \S find-replace-multi-files command. So weird. So disabled!
-#    /bin/ln -sf ${bdir}/vim-restructuredtext/
 [pack/marshallward/opt/vim-restructuredtext]
 checkout = git_clone_giturl -o starter 'https://github.com/marshallward/vim-restructuredtext.git'
 skip = true
@@ -178,6 +189,36 @@ checkout = git_clone_giturl -o starter 'https://github.com/pangloss/vim-javascri
 # See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete-lsp.vim]
 # See .mrconfig-lsp: [pack/prabirshrestha/start/vim-lsp]
 
+# NERD Commenter: *Vim plugin for intensely nerdy commenting powers*
+# CXREF: https://github.com/preservim/nerdcommenter
+# ALTLY: See also:
+# - tpope's commentary.vim: *comment stuff out*
+#     https://github.com/tpope/vim-commentary
+# - tomtom's tcomment: *An extensible & universal comment vim-plugin
+#                       that also handles embedded filetypes*
+#     https://github.com/tomtom/tcomment_vim
+# HSTRY/2020-12-20: Having not tried the others, I chose NERD Commenter.
+# - It's the one plugin I've seen promoted in a few VIM must-plug articles.
+# BUGGY/2021-01-26: Load plugin 'after' so user's Vimrc able to set globals.
+# - ALTHO: I don't see this issue on @macOS, just @Linux.
+# - HOWTO: Rather than fork, make a tip/ branch using OMR 'install'. And
+#   fetch the remote default branch programmatically, to avoid hard-coding.
+# - FIXME: Read remote default branch from remote: git_remote_default_branch
+#   so that 'install' is re-entrant.
+# 2023-01-01: Ha, aka Oops, I moved NERD Commenter config to core ~/.vim project
+# not remembering that I had forked NERD Commenter to address the issue (so both
+# this fix and the ~/.vim repo config setting tackling same problem).
+# - I think this solution is the better solution.
+#   - I don't like having plugin config committed to my core Vim project, which
+#     exists mostly as scaffolding to load plugins, and tries to abstain from any
+#     customization itself. I'd prefer instead that NERD Commenter loads after my
+#     plugins, so that I can set its global variable options before it loads
+#     (otherwise setting the global variables has no effect, and I don't know
+#     of a way to reload the plugin (or at least didn't investigate if there is
+#     a way)).
+# - Nonetheless, having both solutions doesn't hurt: At least with the config
+#   in the core ~/.vim project, NERD Commenter works without user running this
+#   install task.
 [pack/preservim/start/nerdcommenter]
 checkout = git_clone_giturl -o starter 'https://github.com/preservim/nerdcommenter.git'
 pull =
@@ -227,6 +268,8 @@ checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-commentary'
 [pack/tpope/opt/vim-endwise]
 order = 790
 checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-endwise.git'
+# FIXME/2020-02-13: Uncomment (and skip) someday:
+#  skip = true
 
 [pack/tpope/opt/vim-pathogen]
 order = 790
