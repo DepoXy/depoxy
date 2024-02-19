@@ -45,10 +45,10 @@ seed_myrepos_mrconfig_dubs_vim () {
   # (Note that .mrinfuse references a subdirectory of the DepoXy Ambers infuse pasture.)
   symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim" '.mrinfuse'
 
-  symlink_mrinfuse_file '_mrconfig' '.mrconfig'
-  symlink_mrinfuse_file '_mrconfig-dubs' '.mrconfig-dubs'
-  symlink_mrinfuse_file '_mrconfig-3rdp' '.mrconfig-3rdp'
-  symlink_mrinfuse_file '_mrconfig-lsp' '.mrconfig-lsp'
+  symlink_mrinfuse_file "_mrconfig" ".mrconfig"
+  symlink_mrinfuse_file "_mrconfig-dubs" ".mrconfig-dubs"
+  symlink_mrinfuse_file "_mrconfig-3rdp" ".mrconfig-3rdp"
+  symlink_mrinfuse_file "_mrconfig-lsp" ".mrconfig-lsp"
 }
 
 # ***
