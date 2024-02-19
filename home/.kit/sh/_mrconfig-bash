@@ -54,6 +54,21 @@ infuse =
 updateDeps =
   update_deps_shoilerplate
 
+# Sense and Sensibility; *By A Lady* (1st edit. author; aka Jane Austen)
+#   https://www.gutenberg.org/files/161/161-h/161-h.htm
+#       https://en.wikipedia.org/wiki/Jane_Austen
+# "“I should have been sensible of it at the time.”"
+# "sensible and clever; but eager in everything"
+# "of five and twenty must have been insensible indeed, not to become an immediate convert"
+# "most feelingly sensible of every fresh circumstance in favour"
+# "seemed entirely insensible of the sting"
+# "that my heart should have been so insensible!"
+# "Yes, I found myself, by insensible degrees, sincerely fond"
+#
+# DUNNO/2021-01-27: Finding an emoji for this project is a *Toughy*:
+#   sh-sensible-open#🦉🐧📂🕵🤺🧘🐂☔🔔📖
+#
+# `sensible-browser` for Linux and macOS with new-window default
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-sensible-open.git'
 skip = mr_exclusive "!entrusted"
