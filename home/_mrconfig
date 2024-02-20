@@ -29,6 +29,9 @@ include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepo
 # CXREF:
 #   remotes_add_publish_entrust:
 #     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes
+#
+# USAGE:
+#   $ MR_INCLUDE=entrusted mr -d / -n run remotes_add_publish_entrust
 include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wireremotes"
 
 # CXREF: These environs for:
@@ -197,7 +200,8 @@ infuse =
   # without a path (otherwise, gvim's `--servername {name}` will not work).
   touch ${HOME}/README.rst
   #
-  # Infuse core DepoXy Ambers assets into $HOME that the other projects rely upon.
+  # Ensure ~/.mrconfig and ~/.mrtrust symlinked (should be redundant, because
+  # how else can you run this 'infuse' task?), and ensure ~/.mrinfuse/ wired.
   LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-depoxy-ambers "${@}"
 
 # ========================================================================
@@ -316,6 +320,7 @@ order = 140
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs-vim.git' '.vim'
 chain = true
 infusePostRebase =
+  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
   . "${infuse_dubs_vim}"
@@ -325,6 +330,7 @@ infusePostRebase =
 infuse =
   # SKIPD: Calling infusePostRebase from this infuser is redundant.
   #  mr -d . -n infusePostRebase
+  # B/c infuse-dubs-vim calls setup_vim_pack_git_exclude and setup_vim_pack_grep_ignore.
   #
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
