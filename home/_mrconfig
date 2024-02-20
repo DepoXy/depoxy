@@ -51,8 +51,9 @@ lib =
 [DEFAULT]
 # CXREF:
 #   update_faithful_file et al:
-#     ~/.depoxy/ambers/home/.config/ohmyrepos/update-faithful
-include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/update-faithful"
+#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/update-faithful
+include =
+  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/update-faithful"
 
 # ========================================================================
 # ------------------------------------------------------------------------
