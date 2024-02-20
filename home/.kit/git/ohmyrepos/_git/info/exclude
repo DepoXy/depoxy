@@ -13,7 +13,7 @@
 #   .git/info/exclude for such a file, but this is that exlude.)
 /bin/infuse-waffle-fries
 
-# This binrary is overlayed by DepoXy Ambers, so not part of OMR repo.
+# This binary is overlayed by DepoXy Ambers, so not part of OMR repo.
 /bin/js-npm-patch-opn-sensible-open
 
 # An `updateDeps` wrapper, akin to `infuse`.
