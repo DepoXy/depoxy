@@ -365,7 +365,7 @@ infuse =
   link_private_ignore_ "$@"
   #
   # FIXME/2023-01-15: Missing infuse task for open patch:
-  #   ohmyrepos/bin/js-npm-patch-opn-sensible-open
+  #   ohmyrepos/lib/js-npm-patch-opn-sensible-open
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================
