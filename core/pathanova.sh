@@ -65,11 +65,6 @@ user_path_add_tj_git_extras () {
 # ***
 
 user_path_add_omr_lib () {
-  # FIXME/2023-02-27: I moved `infuse` and related lib/ → bin/,
-  # so this path part might not be needed any longer.
-  # - Commented for now. LATER: Remove if not needed.
-  #path_prefix "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
-
   # This puts the `infuse` and `updateDeps` shortcuts on PATH.
   # - Both wrappers work similarly, e.g.,
   #   `updateDeps` same as `mr -d / updateDeps`, and
