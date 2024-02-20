@@ -54,7 +54,8 @@ include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepo
 
 [DEFAULT]
 # spells.sh runner (commit_sorted_spells_and_alert_if_conflicts) for Vim spell file maintenance.
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/spellfile.txt-runner.sh"
+# CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh @ 17
+lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
