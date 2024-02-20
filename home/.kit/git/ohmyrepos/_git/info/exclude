@@ -2,7 +2,6 @@
 /.ignore
 
 # Symlinks for my convenience.
-/bin/infuse
 /bin/infuse-depoxy-ambers
 /bin/infuse-dubs-vim
 /bin/infuse-home-fries
@@ -15,9 +14,4 @@
 
 # This binary is overlayed by DepoXy Ambers, so not part of OMR repo.
 /bin/js-npm-patch-opn-sensible-open
-
-# An `updateDeps` wrapper, akin to `infuse`.
-# - E.g., `updateDeps` same as `mr -d / updateDeps`
-#   and `updateDeps .` same as `mr -d . -n updateDeps`.
-/bin/updateDeps
 

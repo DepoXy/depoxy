@@ -70,9 +70,12 @@ user_path_add_omr_lib () {
   # - Commented for now. LATER: Remove if not needed.
   #path_prefix "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
 
-  # This puts the bin/infuse symlink on PATH, which is a roundabout way to
-  # wire ~/.depoxy/ambers/home/infuse
-  path_prefix "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}/bin"
+  # This puts the `infuse` and `updateDeps` shortcuts on PATH.
+  # - Both wrappers work similarly, e.g.,
+  #   `updateDeps` same as `mr -d / updateDeps`, and
+  #   `updateDeps .` same as `mr -d . -n updateDeps`.
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  path_prefix "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/git/ohmyrepos/bin"
 }
 
 # ***
