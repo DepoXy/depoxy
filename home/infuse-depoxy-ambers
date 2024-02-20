@@ -9,10 +9,6 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
-  # Load: warn, etc.
-  command -v logger.sh > /dev/null && . logger.sh ||
-    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
-
   # Load: symlink_*, infuser_prepare.
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
