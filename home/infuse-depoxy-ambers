@@ -63,41 +63,6 @@ setup_myrepos_generated_mrtrust () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-setup_private_infuse_symlinks_ohmyrepos_lib () {
-  local omr_bin="${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}/bin"
-
-  local before_cd="$(pwd -L)"
-
-  cd "${omr_bin}"
-
-  # ***
-
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  local home_cfg_root="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
-
-  # Symlinks for your DEV convenience.
-  symlink_overlay_file "${home_cfg_root}/infuse-depoxy-ambers"
-  symlink_overlay_file "${home_cfg_root}/infuse-dubs-vim"
-  symlink_overlay_file "${home_cfg_root}/infuse-home-fries"
-  symlink_overlay_file "${home_cfg_root}/infuse-platform-macOS"
-  symlink_overlay_file "${home_cfg_root}/infuse-user-home"
-
-  symlink_overlay_file "${home_cfg_root}/.config/ohmyrepos/infuse"
-  symlink_overlay_file "${home_cfg_root}/.config/ohmyrepos/updateDeps"
-
-  # ***
-
-  # Somewhat related. Sorta somewhat.
-  symlink_overlay_file \
-    "${home_cfg_root}/.kit/git/ohmyrepos/bin/js-npm-patch-opn-sensible-open"
-
-  # ***
-
-  cd "${before_cd}"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 main () {
   set -e
 
@@ -114,8 +79,6 @@ main () {
   setup_myrepos_mrconfig_and_mrinfuse
 
   setup_myrepos_generated_mrtrust
-
-  setup_private_infuse_symlinks_ohmyrepos_lib
 
   cd "${before_cd}"
 }
