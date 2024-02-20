@@ -258,7 +258,7 @@ skip = mr_exclusive "bash" "sh" "home"
 order = 131
 lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/depoxy.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}" "ambers"
-skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted"
+skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   local ambers_path="${MR_REPO}"
   #
@@ -331,7 +331,10 @@ infuse =
   #
   LOG_LEVEL=10 "${infuse_dubs_vim}" "$@"
 #
-skip = mr_exclusive "vim" "dubs-vim" "dubs" "3rdp-vim" "3rdp" "vim-dubs" "vim-lsp" "vim-3rdp"
+# USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
+#   ~/.depoxy/ambers/home/.vim/_mrconfig
+skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
+  "github.com/landonb" "vim-lsp" "vim-private" "DXC" "${LOGNAME}"
 
 # NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
 #   is within ~/.depoxy/running/_mrconfig

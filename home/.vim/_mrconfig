@@ -25,6 +25,7 @@ order = 250
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
      [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
@@ -36,11 +37,10 @@ include =
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "vim" ] ||
-     [ "${MR_INCLUDE}" = "vim-dubs" ] ||
-     [ "${MR_INCLUDE}" = "dubs" ] ||
      [ "${MR_INCLUDE}" = "dubs-vim" ] ||
-     [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
+     [ "${MR_INCLUDE}" = "vim-dubs" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
+     [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
   false; then
     if [ -f "${HOME}/.vim/.mrconfig-dubs" ]; then
       cat ${HOME}/.vim/.mrconfig-dubs
@@ -50,6 +50,7 @@ include =
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
      [ "${MR_INCLUDE}" = "vim-lsp" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
