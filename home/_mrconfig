@@ -30,15 +30,16 @@ include =
 [DEFAULT]
 # CXREF:
 #   remotes_add_publish_entrust:
-#     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes
+#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/.mrconfig-wireremotes
 #
 # USAGE:
 #   $ MR_INCLUDE=entrusted mr -d / -n run remotes_add_publish_entrust
-include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/.mrconfig-wireremotes"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/.mrconfig-wireremotes"
 
 # CXREF: These environs for:
 #   remotes_add_publish_entrust:
-#     ~/.depoxy/ambers/home/.config/ohmyrepos/.mrconfig-wireremotes:42
+#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/.mrconfig-wireremotes:42
 lib =
   MR_REPO_PUBLISH_USER_URL="git@github.com:"
   #
