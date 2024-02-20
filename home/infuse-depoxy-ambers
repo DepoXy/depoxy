@@ -40,6 +40,8 @@ setup_myrepos_mrconfig_and_mrinfuse () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_myrepos_generated_mrtrust () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   # We setup ~/.mrtrust as a symlink to ~/.depoxy/ambers/home/.mrtrust,
   # though the latter file is generated and not stored in the repo.
   # (There's no requirement for this, it's just nice to keep assets
@@ -48,10 +50,9 @@ setup_myrepos_generated_mrtrust () {
   # source exists or not, we want to call symlink_mrinfuse_file, so
   # that its nicely formatted output is included in the output log.
   # As such, give the source a little poke to ensure it exists.
-  touch "${DEPOXYAMBERS_DIR}/home/.mrtrust"
+  touch "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.mrtrust"
   symlink_mrinfuse_file ".mrtrust"
 
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   m4 \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
