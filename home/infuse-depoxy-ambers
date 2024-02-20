@@ -21,7 +21,7 @@ setup_myrepos_mrconfig_and_mrinfuse () {
   # of the symlink_mrinfuse_file and symlink_mrinfuse_dir chores
   # that many projects use.
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home" '.mrinfuse'
+  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home" ".mrinfuse"
 
   # The ~/.depoxy/ambers/bin/macOS/install-ohmyrepos.sh installer
   # was probably the first to seed ~/.mrconfig, but just in case
@@ -53,8 +53,8 @@ setup_myrepos_generated_mrtrust () {
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
     --define=GITREPOSPATH=${GITREPOSPATH:-${HOME}/.kit/git} \
-    ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.mrtrust.m4 \
-    > ${HOME}/.mrtrust
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.mrtrust.m4" \
+    > "${HOME}/.mrtrust"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
