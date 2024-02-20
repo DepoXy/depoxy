@@ -22,7 +22,7 @@ source_deps () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
   # Load: link_hard_dep*.
-  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
+  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh"
 
   # Load: _vendorfs_host_is_depoxy_client_id.
   . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/depoxy_fs.sh"

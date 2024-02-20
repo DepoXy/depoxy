@@ -17,10 +17,12 @@ include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/oh
 #   infuse_easy_as_pypi_follower
 #   update_easy_as_pypi_follower
 #   onboard_easy_as_pypi_follower_2023
-#     ~/.depoxy/ambers/home/.config/ohmyrepos/my-deps-manage-easy-as-pypi
-include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/my-deps-manage-easy-as-pypi"
+#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi
+include =
+  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi"
 
-include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.config/ohmyrepos/my-deps-manage-shoilerplate"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate"
 
 # ========================================================================
 # ------------------------------------------------------------------------

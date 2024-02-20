@@ -45,7 +45,7 @@ update_deps_shoilerplate () {
   local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"
 
   update_faithful_finish_signed () {
-    local sourcerer="https://github.com/DepoXy/depoxy/blob/release/home/.config/ohmyrepos/my-deps-manage-shoilerplate.sh"
+    local sourcerer="https://github.com/DepoXy/depoxy/blob/release/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh"
 
     update_faithful_finish "${sourcerer}"
   }
