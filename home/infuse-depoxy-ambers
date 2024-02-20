@@ -17,11 +17,12 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_myrepos_mrconfig_and_mrinfuse () {
+  local ambers_home="$1"
+
   # First create the ~/.mrinfuse symlink, which is the basis for many
   # of the symlink_mrinfuse_file and symlink_mrinfuse_dir chores
   # that many projects use.
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home" ".mrinfuse"
+  symlink_overlay_dir "${ambers_home}" ".mrinfuse"
 
   # The ~/.depoxy/ambers/bin/macOS/install-ohmyrepos.sh installer
   # was probably the first to seed ~/.mrconfig, but just in case
@@ -36,7 +37,7 @@ setup_myrepos_mrconfig_and_mrinfuse () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_myrepos_generated_mrtrust () {
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local ambers_home="$1"
 
   # We setup ~/.mrtrust as a symlink to ~/.depoxy/ambers/home/.mrtrust,
   # though the latter file is generated and not stored in the repo.
@@ -46,25 +47,34 @@ setup_myrepos_generated_mrtrust () {
   # source exists or not, we want to call symlink_mrinfuse_file, so
   # that its nicely formatted output is included in the output log.
   # As such, give the source a little poke to ensure it exists.
-  touch "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.mrtrust"
+  touch "${ambers_home}/.mrtrust"
   symlink_mrinfuse_file ".mrtrust"
 
   m4 \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
     --define=GITREPOSPATH=${GITREPOSPATH:-${HOME}/.kit/git} \
-    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.mrtrust.m4" \
+    "${ambers_home}/.mrtrust.m4" \
     > "${HOME}/.mrtrust"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
+  local depoxy_root="$1"
+
   set -e
 
   source_deps
 
   [ "$(basename $0)" != "infuse-depoxy-ambers" ] || LOG_LEVEL=0
+
+  local ambers_path="${depoxy_root}"
+  local ambers_home="${depoxy_root}/home"
+  if [ -z "${ambers_path}" ]; then
+    ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+    ambers_home="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
+  fi
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   infuser_prepare "${HOME}" "$@"
@@ -72,9 +82,9 @@ main () {
   local before_cd="$(pwd -L)"
   cd ${MR_REPO}
 
-  setup_myrepos_mrconfig_and_mrinfuse
+  setup_myrepos_mrconfig_and_mrinfuse "${ambers_home}"
 
-  setup_myrepos_generated_mrtrust
+  setup_myrepos_generated_mrtrust "${ambers_home}"
 
   cd "${before_cd}"
 }
