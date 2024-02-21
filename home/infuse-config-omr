@@ -67,7 +67,7 @@ main () {
 
   source_deps
 
-  [ "$(basename $0)" != "infuse-depoxy-ambers" ] || LOG_LEVEL=0
+  [ "$(basename $0)" != "infuse-config-omr" ] || LOG_LEVEL=0
 
   local ambers_path="${depoxy_root}"
   local ambers_home="${depoxy_root}/home"

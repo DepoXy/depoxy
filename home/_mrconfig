@@ -206,7 +206,7 @@ infuse =
   #
   # Ensure ~/.mrconfig and ~/.mrtrust symlinked (should be redundant, because
   # how else can you run this 'infuse' task?), and ensure ~/.mrinfuse/ wired.
-  LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-depoxy-ambers "${@}"
+  LOG_LEVEL=10 ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-config-omr "${@}"
 
 # ========================================================================
 # ------------------------------------------------------------------------

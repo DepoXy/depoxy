@@ -114,7 +114,7 @@ prepare_mrconfig () {
 
   # Wire the main mrconfig (~/.mrconfig) and its allowlist (~/.mrtrust).
   #
-  # - CXREF: See ~/.depoxy/ambers/home/infuse-depoxy-ambers,
+  # - CXREF: See ~/.depoxy/ambers/home/infuse-config-omr,
   #          which also ensures these files are symlinked.
 
   # Symlink the .mrconfig that we curate and is saved to the repo.
