@@ -1,4 +1,13 @@
+# -> /kit/docsacks/source/retrosoft/Backlog_Dubs_Vim.rst
+/Backlog_Dubs_Vim.rst
+
+# -> .mrinfuse/coc-settings.json
+/coc-settings.json
+
 /.git/
+
+# -> .git/info/exclude -> .mrinfuse/_git/info/exclude
+/.gitignore.local
 
 # -> ~/.waffle/home/infuse-dubs-vim
 /infuse
