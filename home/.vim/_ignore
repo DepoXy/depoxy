@@ -1,7 +1,30 @@
 /.git/
 
+# -> ~/.waffle/home/infuse-dubs-vim
+/infuse
+
+# The ~/.vim/.mrinfuse symlinks to ~/.depoxy/home/.vim, which means that
+# ~/.projlns Vim-greppers are already wired for everything thereunder.
+#
+# Symlinks to files under .mrinfuse/ (aka ~/.depoxy/ambers/home/.vim).
+#  -> .mrinfuse/_mrconfig
+/.mrconfig
+#  -> .mrinfuse/_mrconfig-3rdp
+/.mrconfig-3rdp
+#  -> .mrinfuse/_mrconfig-dubs
+/.mrconfig-dubs
+#  -> .mrinfuse/_mrconfig-lsp
+/.mrconfig-lsp
+#  -> .mrinfuse/_mrconfig-private
+/.mrconfig-private
+#  -> ~/.waffle/home/.vim/
+/.mrinfuse/
+
 # Ignore the pack/ directory -- it's expected you'll enter it to search it.
 /pack/
+
+# Generated readme.
+/README-USING.rst
 
 /sessions/
 
@@ -10,17 +33,4 @@
 
 # mkview/loadview files are in view/.
 /view/
-
-# Generated readme.
-/README-USING.rst
-
-# The ~/.vim/.mrinfuse symlinks to ~/.depoxy/home/.vim, which means that
-# ~/.projlns Vim-greppers are already wired for everything thereunder.
-/infuse
-/.mrinfuse/
-# Symlinks to files under .mrinfuse/ (aka ~/.depoxy/ambers/home/.vim).
-/.mrconfig
-/.mrconfig-3rdp
-/.mrconfig-dubs
-/.mrconfig-lsp
 
