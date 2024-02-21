@@ -24,9 +24,6 @@ source_deps () {
   # Load: link_hard_dep*.
   . "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh"
 
-  # Load: _vendorfs_host_is_depoxy_client_id.
-  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/depoxy_fs.sh"
-
   # Load: _depoxy_print_homebrew_path.
   . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/brewskies.sh"
 }
