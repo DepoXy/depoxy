@@ -1,3 +1,7 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
 # These rules are mostly used to avoid duplicate grep results
 # (as opposed to ignoring content we don't care about, like
 #  third-party code).
