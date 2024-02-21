@@ -127,8 +127,6 @@ infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   cd "${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
-  # 2020-09-01: Meh. This is more of an infuse-depoxy-ambers task, but the
-  # next function, infuse_symlinks_user_home_gitconfig, needs this symlink.
   symlink_overlay_file "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}/.gitconfig"
 
   cd "${before_cd}"
@@ -166,8 +164,8 @@ infuse_symlinks_user_home_gitconfig () {
     '.gitconfig.local' "${MACHINE_GITCONF_LOCAL}" "${MRINFUSE_GITCONF_LOCAL}" "${DEPOXY_GITCONF_LOCAL}"
 
   # - RELATED: See also .gitconfig.user-business and .gitconfig.user-personal,
-  #            a pair of directory-specific Git config files, e.g.,
-  #            to use different user.name and email depending on path.
+  #            a pair of directory-specific Git config files, e.g., to use
+  #            different user.name and user.email depending on path.
 
   # ***
 
@@ -175,8 +173,8 @@ infuse_symlinks_user_home_gitconfig () {
   # NOTE: You must create the ~/.mrinfuse/_git symlink
   #       from a private (client) infuser. (And maybe
   #       you need to run `infuse` twice, once to create
-  #       the ~/.mrinfuse/_git symlink, and again to run
-  #       this code.
+  #       the ~/.mrinfuse/_git symlink, and once again
+  #       to run this code.)
   if [ -f "${HOME}/.mrinfuse/_git/info/exclude" ]; then
     link_private_exclude "${@}"
   fi
