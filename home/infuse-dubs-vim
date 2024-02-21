@@ -43,7 +43,7 @@ seed_myrepos_mrconfig_dubs_vim () {
   # But I'd rather the symlink be figured out via .mrinfuse.
   # - So the ~/.vim/.mrinfuse symlink, which symlink_mrinfuse_* expects.
   # (Note that .mrinfuse references a subdirectory of the DepoXy Ambers infuse pasture.)
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim" '.mrinfuse'
+  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim" ".mrinfuse"
 
   symlink_mrinfuse_file "_mrconfig" ".mrconfig"
   symlink_mrinfuse_file "_mrconfig-dubs" ".mrconfig-dubs"
@@ -56,7 +56,7 @@ seed_myrepos_mrconfig_dubs_vim () {
 seed_myrepos_mrinfuse_dubs_vim_pack () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/.mrinfuse" 'pack/.mrinfuse'
+  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/.mrinfuse" "pack/.mrinfuse"
 }
 
 # ***
@@ -76,7 +76,7 @@ setup_vim_pack_git_exclude () {
 
   # MAYBE/2023-11-11: What about using newish `link_private_exclude`?
   # - Or is there an issue because subdirectory?
-  link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/_gitignore" 'pack/.gitignore'
+  link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/_gitignore" "pack/.gitignore"
 }
 
 # ***
@@ -87,7 +87,7 @@ setup_vim_pack_grep_ignore () {
 
   pwd
 
-  link_private_ignore 'pack/_ignore'
+  link_private_ignore "pack/_ignore"
 
   cd "${before_cd}"
 }
@@ -107,7 +107,7 @@ wire_home_vimrc () {
 
   cd ${HOME}
 
-  symlink_overlay_file '.vim/.vimrc' '.vimrc'
+  symlink_overlay_file ".vim/.vimrc" ".vimrc"
 
   cd "${before_cd}"
 }
@@ -117,7 +117,7 @@ wire_home_vimrc () {
 infuse_this_infuser () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim" 'infuse'
+  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim" "infuse"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -135,11 +135,11 @@ populate_run_generator () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_private_plug_file_dubs_file_finder () {
-  [ -d pack/landonb/start/dubs_file_finder ] || return 0
+  [ -d "pack/landonb/start/dubs_file_finder" ] || return 0
 
   local before_cd="$(pwd -L)"
 
-  cd pack/landonb/start/dubs_file_finder
+  cd "pack/landonb/start/dubs_file_finder"
 
   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/cmdt_paths"
 
@@ -150,7 +150,7 @@ setup_private_plug_file_dubs_file_finder () {
 
 populate_cmdt_paths () {
   # Populate ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths for cmdT.
-  populate_run_generator 'pack/landonb/start/dubs_file_finder/cmdt_paths'
+  populate_run_generator "pack/landonb/start/dubs_file_finder/cmdt_paths"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -170,17 +170,17 @@ populate_dubs_cuts_generate () {
   #  "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
   # upon which setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
   # depends.
-  populate_run_generator '.mrinfuse/dubs_project_tray'
+  populate_run_generator ".mrinfuse/dubs_project_tray"
 }
 
 # ***
 
 setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
-  [ -d pack/landonb/start/dubs_project_tray ] || return 0
+  [ -d "pack/landonb/start/dubs_project_tray" ] || return 0
 
   local before_cd="$(pwd -L)"
 
-  cd pack/landonb/start/dubs_project_tray
+  cd "pack/landonb/start/dubs_project_tray"
 
   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
 
@@ -194,13 +194,13 @@ setup_project_plug_vim_depoxy () {
 
   local depoxy_vim_org="DepoXy"
 
-  mkdir -p "pack/${depoxy_vim_org}/start"
+  mkdir -p "./pack/${depoxy_vim_org}/start"
 
   local before_cd="$(pwd -L)"
 
   # ***
 
-  cd "pack/${depoxy_vim_org}"
+  cd "./pack/${depoxy_vim_org}"
 
   symlink_overlay_file \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/_ignore" \
@@ -208,7 +208,7 @@ setup_project_plug_vim_depoxy () {
 
   # ***
 
-  cd "start"
+  cd "./start"
 
   symlink_overlay_dir \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/start/vim-depoxy" \
@@ -254,7 +254,7 @@ setup_project_plug_vim_landonb () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_private_coc_config () {
-  symlink_mrinfuse_file 'coc-settings.json'
+  symlink_mrinfuse_file "coc-settings.json"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -270,7 +270,7 @@ main () {
   infuser_prepare "${HOME}/.vim" "$@"
 
   local before_cd="$(pwd -L)"
-  cd ${MR_REPO}
+  cd "${MR_REPO}"
 
   # ***
 
