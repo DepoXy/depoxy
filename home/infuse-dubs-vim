@@ -74,8 +74,11 @@ setup_private_git_exclude () {
 setup_vim_pack_git_exclude () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  # MAYBE/2023-11-11: What about using newish `link_private_exclude`?
-  # - Or is there an issue because subdirectory?
+  # MAYBE/2023-11-11: Make `link_hard_mrinfuse_file`, akin to `symlink_mrinfuse_file`.
+  # - This hard-links .gitignore (sorta like `link_private_exclude`, except that
+  #   function hard-links .git/info/exclude).
+  # - A `link_hard_mrinfuse_file` would let us simplify the args, e.g.,
+  #     link_hard_mrinfuse_file "pack/.gitignore"
   link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/_gitignore" "pack/.gitignore"
 }
 
@@ -146,8 +149,8 @@ setup_private_plug_file_dubs_file_finder () {
 
 # ***
 
+# Populate ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths for cmdT.
 populate_cmdt_paths () {
-  # Populate ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths for cmdT.
   populate_run_generator "pack/landonb/start/dubs_file_finder/cmdt_paths"
 }
 
@@ -200,6 +203,8 @@ setup_project_plug_vim_depoxy () {
 
   cd "./pack/${depoxy_vim_org}"
 
+  # FIXME/2024-02-21: Verify this ignore file, b/c its paths look like
+  # they're from perspective of ~/.vim/pack, and not ~/.vim/pack/DepoXy.
   symlink_overlay_file \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/_ignore" \
     ".ignore"
@@ -211,6 +216,8 @@ setup_project_plug_vim_depoxy () {
   symlink_overlay_dir \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/start/vim-depoxy" \
     "vim-depoxy"
+
+  # ***
 
   local fzf_vim="${DOPP_KIT:-${HOME}/.kit}/go/fzf/plugin/fzf.vim"
 
@@ -307,9 +314,9 @@ main () {
 
   # ***
 
-  # Populating ~/.depoxy/ambers/home/.vim/dubs_project_tray/dubs_cuts/
-  # might take a few secs (or 10), so call last, to make debugging previous
-  # calls quicker.
+  # It might take a few-ten secs to populate
+  #   ~/.depoxy/ambers/home/.vim/dubs_project_tray/dubs_cuts/
+  # so call last, to make debugging previous calls quicker.
   populate_dubs_cuts_generate
   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
 
