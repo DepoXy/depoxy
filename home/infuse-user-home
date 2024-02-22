@@ -134,6 +134,7 @@ infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
 
 infuse_symlinks_user_home_gitconfig () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local mrinfuse_real="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
   # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig:
   #   - See now instead:
@@ -145,7 +146,7 @@ infuse_symlinks_user_home_gitconfig () {
   #   to a file named ".gitconfig-$(hostname)" if one exists. But I don't use that
   #   feature anymore. And it's probably better to set project-specific config as
   #   necessary, rather than doing something wonky with host-specificity.
-  local DEPOXY_GITCONF="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig"
+  local DEPOXY_GITCONF="${mrinfuse_real}/.gitconfig"
   local MACHINE_GITCONF="${DEPOXY_GITCONF}-$(hostname)"
   # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
   local MRINFUSE_GITCONF="${HOME}/.mrinfuse/.gitconfig"
@@ -153,7 +154,7 @@ infuse_symlinks_user_home_gitconfig () {
     '.gitconfig' "${MACHINE_GITCONF}" "${MRINFUSE_GITCONF}" "${DEPOXY_GITCONF}"
 
   # - ACTIVE: I continue to store my private git conf at ~/.mrinfuse/.gitconfig.local:
-  local DEPOXY_GITCONF_LOCAL="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig.local"
+  local DEPOXY_GITCONF_LOCAL="${mrinfuse_real}/.gitconfig.local"
   local MACHINE_GITCONF_LOCAL="${DEPOXY_GITCONF_LOCAL}-$(hostname)"
   local MRINFUSE_GITCONF_LOCAL="${HOME}/.mrinfuse/.gitconfig.local"
   symlink_mrinfuse_file_first \
