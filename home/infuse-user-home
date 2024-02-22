@@ -40,18 +40,9 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# SAVVY/2020-11-22: On my home machine I have additional infusers
-# that I did not incorporate into DepoXy Ambers, just FYI in case
-# you realize you're missing anything:
-#
-#  symlink_mrinfuse_dir '.config/direnv'
-#  symlink_mrinfuse_file '.config/libreoffice/4/user/wordbook/standard.dic'
-
 infuse_symlinks_user_home_dotconfig () {
   mkdir -p '.config/less'
   symlink_mrinfuse_file '.config/less/termcap'
-
-  # ***
 
   mkdir -p '.config/pdbr'
   symlink_mrinfuse_file '.config/pdbr/setup.cfg'
@@ -105,8 +96,10 @@ infuse_symlinks_user_home_dotfiles () {
 
   # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
 
-  # ~/.inputrc: CXREF: See ~/.kit/sh/dot-inputrc/.inputrc 'infuse' task:
-  #     ~/.depoxy/ambers/home/.kit/sh/_mrconfig-bash
+  # CXREF/2023-02-28: See dot-inputrc#🎛️:
+  #   ~/.kit/sh/dot-inputrc/.inputrc
+  # - Infused by .kit/sh OMR config:
+  #   ~/.depoxy/ambers/home/.kit/sh/_mrconfig-bash
 
   symlink_mrinfuse_file '.multitail.conf'
 
@@ -137,8 +130,7 @@ infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
 infuse_symlinks_user_home_gitconfig () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig,
-  #               aka ~/.depoxy/ambers/home/.gitconfig:
+  # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig:
   #   - See now instead:
   #       /kit/working/git/git-smart/.gitconfig
   #     and infuser function in this file:
@@ -155,8 +147,7 @@ infuse_symlinks_user_home_gitconfig () {
   symlink_mrinfuse_file_first \
     '.gitconfig' "${MACHINE_GITCONF}" "${MRINFUSE_GITCONF}" "${DEPOXY_GITCONF}"
 
-  # - ACTIVE: I continue to store my private git conf at ~/.mrinfuse/.gitconfig.local,
-  #           aka ~/.depoxy/ambers/home/.gitconfig.local:
+  # - ACTIVE: I continue to store my private git conf at ~/.mrinfuse/.gitconfig.local:
   local DEPOXY_GITCONF_LOCAL="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig.local"
   local MACHINE_GITCONF_LOCAL="${DEPOXY_GITCONF_LOCAL}-$(hostname)"
   local MRINFUSE_GITCONF_LOCAL="${HOME}/.mrinfuse/.gitconfig.local"
@@ -191,16 +182,16 @@ infuse_symlinks_user_home_gitsmart () {
 
   cd "${HOME}"
   #
-  # 2020-03-13: Meh. I added a symlink at ~/.depoxy/ambers/home/.gitconfig
+  # 2020-03-13: Meh. I added a symlink at ~/.mrinfuse/home/.gitconfig
   #             so that .vimprojects shows .gitconfig, .gitconfig.local,
   #             and the .gitconfigs/ directory all together.
   #
   #               symlink_overlay_file "${git_smart_dir}/.gitconfig"
   #
-  #             See above: infuse_symlinks_user_home_dotfiles' DEPOXY_GITCONF.
+  #             See above: DEPOXY_GITCONF (infuse_symlinks_user_home_gitconfig).
   #
   # 2020-02-13: Let's also make a convenience directory symlink.
-  # 2020-09-01: Don't need on macOS dev machine.
+  # ISOFF/2024-02-18 23:38: I never use this.
   #  symlink_overlay_dir "${git_smart_dir}"
 
   # Wire symlink: ~/.config/git/attributes
@@ -217,7 +208,7 @@ infuse_symlinks_user_home_gitsmart () {
     /bin/cp "${git_smart_dir}/.config/git/template/HEAD" .
   fi
 
-  # ***
+  # *** ${HOME}/.homefries/bin/completions
 
   cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
   symlink_overlay_file "${git_smart_dir}/bin/completions/git-completion.bash"
@@ -271,7 +262,6 @@ infuse_symlinks_user_home_gitsmart () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_home_tmux_dotfiles () {
-  # 2018-04-02: This runs after the rest of the chase_and_face, so .tmux is cloned?
   local tmux_clone="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/.tmux"
   if [ ! -d "${tmux_clone}" ]; then
     warn "No such .tmux at: ${tmux_clone}"

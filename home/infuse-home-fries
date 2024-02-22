@@ -30,12 +30,19 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Create symlink to "private" DepoXy Bashrc:
+# - Symlink:         ~/.mrinfuse/.homefries/.bashrc-bin/bashrx.private.sh
+#   Which is really: ~/.depoxy/ambers/home/.homefries/.bashrc-bin/bashrx.private.sh
+#   From target:     ~/.homefries/.bashrc-bin/bashrx.private.sh
+# - It's not really "private", because it's publicly published from DepoXy,
+#   but Homefries considers it private.
+#   - But this "private" Bashrc will load your truly private Bashrc
+#     from the DepoXy Client (which you likely won't publish publicly).
+#     - The truly private DepoXy Client Bashrc is created from a template:
+#         ~/.depoxy/ambers/archetype/home/bashrx.private.DXY_USERNAME.EVAL.sh.example
 setup_private_fries_bashrc () {
   cd "${HOME}"
 
-  # Symlink:          ${HOME}/.mrinfuse/.homefries/.bashrc-bin/bashrx.private.sh
-  # (which is really: ${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers/home/.homefries/.bashrc-bin/bashrx.private.sh)
-  #   from:           ${HOME}/.homefries/.bashrc-bin/bashrx.private.sh
   symlink_mrinfuse_file '.homefries/.bashrc-bin/bashrx.private.sh'
 }
 
@@ -62,26 +69,25 @@ link_hard_dep_shoilerplate () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Create user home dotfile symlinks to ~/.homefries/ files, currently
+# the following files:
+#
+#   ~/.gitmux.conf      -> .homefries/.gitmux.conf
+#   ~/.profile          -> .homefries/.profile
+#   ~/.tmux.conf.local  -> .homefries/.tmux.conf.local
+#
+# - To see just the top-level committed files in ~/.homefries, try:
+#     cd ~/.homefries
+#     git ls-files | sed -E 's,.*/.*,,' | sed -E '/^\s*$/d'
+#
+# - To see all symlinks in user home, try:
+#     find ~ -maxdepth 1 -type l -printf "%f -> %l\n" | sort
+#   Or:
+#     ll ~ | grep " -> "
+
 setup_public_fries_dot_files () {
   local before_cd="$(pwd -L)"
   cd "${HOME}"
-
-  # Symlink publib dotfiles top-level home-fries, at ~/.homefries/, e.g.,
-  #   .homefries/.gitmux.conf
-  #   .homefries/.profile
-  #   .homefries/.tmux.conf.local
-  # Oh, that's it.
-  # See also:
-  #   ll ~ | grep "home/"
-  # to what's from WF, too, like
-  #   .depoxy/ambers/home/.gitconfig.local
-  # etc.
-
-  # Instead of the find, see also 1-depth ls-files:
-  #
-  #   git ls-files | sed -E 's,.*/.*,,' | sed -E '/^\s*$/d'
-  #
-  # except includes symlinks.
 
   symlink_overlay_file ".homefries/.bashrc"
 

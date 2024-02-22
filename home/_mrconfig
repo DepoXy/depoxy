@@ -226,7 +226,9 @@ infusePostRebase =
   . "${infuse_home_fries}"
   link_hard_dep_shoilerplate
 infuse =
-  # SKIPD: Calling infusePostRebase from this infuser is redundant.
+  # SKIPD: The 'infuse' action usually calls 'infusePostRebase', but that's
+  # redundant here, b/c infuse-home-fries calls link_hard_dep_shoilerplate.
+  #
   #  mr -d . -n infusePostRebase
   #
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
