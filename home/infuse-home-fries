@@ -127,7 +127,8 @@ setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
   if [ -f "${conflict}" ]; then
     /bin/mv "${conflict}" "${renamed}"
 
-    info " Renamed offensive $(font_highlight "${conflict}") → $(font_highlight "${renamed}")"
+    info " Renamed $(font_highlight "${conflict}") → $(font_highlight "${renamed}")" \
+      "to avoid completion competition"
   fi
 }
 
