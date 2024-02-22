@@ -2,6 +2,11 @@
 
 /.bashrc-bin/.ignore
 
+# You'll find some completion files committed to Homefries:
+#   bin/completions/docker-compose
+#   bin/completions/jira-completion
+#   bin/completions/poetry-completion.bash
+# While other completion files are symlinked therein as appropriate:
 /bin/completions/git-completion.bash
 /bin/completions/git-extras-bash_completion.sh
 /bin/completions/pyenv.bash
