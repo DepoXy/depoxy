@@ -9,6 +9,10 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
+  # Load: debug, etc.
+  command -v logger.sh > /dev/null && . logger.sh ||
+    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+
   # Load: symlink_*, infuser_prepare.
   command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
     . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
@@ -18,6 +22,8 @@ source_deps () {
 
 setup_myrepos_mrconfig_and_mrinfuse () {
   local ambers_home="$1"
+
+  alert_missing_home_mrconfig
 
   # First create the ~/.mrinfuse symlink, which is the basis for many
   # of the symlink_mrinfuse_file and symlink_mrinfuse_dir chores
@@ -31,7 +37,20 @@ setup_myrepos_mrconfig_and_mrinfuse () {
   # somehow got clobbered, we'll ensure it's wired correctly.
   # - That is, the $HOME infuse task in the '.mrconfig' file symlinked
   #   here is the task that invoked *us*, most likely. Circuitous!
+  # - See `alert_missing_home_mrconfig` comment. This should be a no-op.
   symlink_mrinfuse_file "_mrconfig" ".mrconfig"
+}
+
+# ***
+
+# Note that DepoXy onboarding installs ~/.mrconfig before the user
+# interacts with `mr` (OMR), so one should never see this error.
+# - This is essentially a *soundness check*, should user run this
+#   script sooner than expected.
+alert_missing_home_mrconfig () {
+  if [ ! -f "${HOME}/.mrconfig" ]; then
+    error "UNEXPECTED: Missing .mrconfig (?!): ${HOME}/.mrconfig"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
