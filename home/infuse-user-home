@@ -119,8 +119,10 @@ infuse_symlinks_user_home_dotlocal () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
-  local before_cd="$(pwd -L)"
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
+  local before_cd="$(pwd -L)"
+
   cd "${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
   symlink_overlay_file "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}/.gitconfig"
