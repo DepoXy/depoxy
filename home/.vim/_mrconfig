@@ -59,6 +59,27 @@ include =
     fi
   fi
 
+# USAGE: Optional private DepoXy Client Vim projects.
+# - To use, create an OMR config in your DepoXy Client, at
+#     ${DEPOXYDIR_STINTS_FULL}/${DEPOXY_CLIENT_ID}/home/.vim/_mrconfig-private
+#   E.g., ~/.depoxy/stints/1234/home/.vim/_mrconfig-private
+#   And then `infuse` to wire it (see `seed_myrepos_mrconfig_dubs_vim`
+#   in ~/.depoxy/ambers/home/infuse-dubs-vim).
+# - Alternatively, you can instead create a private config under DepoXy:
+#     ${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers/home/.vim/_mrconfig-private
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
+     [ "${MR_INCLUDE}" = "vim-private" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
+     [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
+  false; then
+    if [ -f "${HOME}/.vim/.mrconfig-private" ]; then
+      cat ${HOME}/.vim/.mrconfig-private
+    fi
+  fi
+
 # SAVVY: End with a [DEFAULT] section because previous cat'ted file ends
 #        with a [/path/to/project] section. If not, the file the cats
 #        this file would have to specify [DEFAULT] again to avoid config
