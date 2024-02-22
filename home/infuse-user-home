@@ -310,7 +310,7 @@ infuse_symlinks_home_tmux_dotfiles () {
 
 infuse_symlinks_home_tmux_completion () {
   local before_cd="$(pwd -L)"
-  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+  cd "${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.homefries}/bin}/completions"
 
   local tmux_bash_completion_dir="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tmux-bash-completion/completions"
 
