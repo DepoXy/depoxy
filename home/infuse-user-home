@@ -163,15 +163,19 @@ infuse_symlinks_user_home_gitconfig () {
   # - RELATED: See also .gitconfig.user-business and .gitconfig.user-personal,
   #            a pair of directory-specific Git config files, e.g., to use
   #            different user.name and user.email depending on path.
+}
 
-  # ***
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-  # Place ~/.gitignore.local, and ~/.git/info/exclude.
-  # NOTE: You must create the ~/.mrinfuse/_git symlink
-  #       from a private (client) infuser. (And maybe
-  #       you need to run `infuse` twice, once to create
-  #       the ~/.mrinfuse/_git symlink, and once again
-  #       to run this code.)
+# Place ~/.gitignore.local, and ~/.git/info/exclude.
+# NOTE: You must create the ~/.mrinfuse/_git symlink
+#       from a private (client) infuser. (And maybe
+#       you need to run `infuse` twice, once to create
+#       the ~/.mrinfuse/_git symlink, and once again
+#       to run this code.)
+# - CXREF: See symlink_overlay_dir "${MR_REPO}/home/_git" "${HOME}/.mrinfuse/_git" in:
+#     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr
+infuse_symlinks_user_home_gitignore_local () {
   if [ -f "${HOME}/.mrinfuse/_git/info/exclude" ]; then
     link_private_exclude "${@}"
   fi
@@ -345,6 +349,8 @@ infuse_all_the_symlinks () {
   infuse_symlinks_depoxy_ambers_git_smart_gitconfig
 
   infuse_symlinks_user_home_gitconfig
+
+  infuse_symlinks_user_home_gitignore_local
 
   infuse_symlinks_user_home_gitsmart
 
