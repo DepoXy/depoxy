@@ -162,6 +162,9 @@ main () {
 
   cd "${MREDIT_CONFIGS}"
 
+  info "$(fg_mintgreen)$(attr_emphasis)Creating links$(attr_reset)" \
+    "$(fg_lightorange)$(pwd)$(attr_reset)"
+
   remove_symlink_hierarchy_safe
 
   infuser_prepare "${MREDIT_CONFIGS}"
