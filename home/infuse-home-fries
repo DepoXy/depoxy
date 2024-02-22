@@ -41,7 +41,6 @@ source_deps () {
 #     - The truly private DepoXy Client Bashrc is created from a template:
 #         ~/.depoxy/ambers/archetype/home/bashrx.private.DXY_USERNAME.EVAL.sh.example
 setup_private_fries_bashrc () {
-  cd "${HOME}"
 
   symlink_mrinfuse_file '.homefries/.bashrc-bin/bashrx.private.sh'
 }
@@ -86,9 +85,6 @@ link_hard_dep_shoilerplate () {
 #     ll ~ | grep " -> "
 
 setup_public_fries_dot_files () {
-  local before_cd="$(pwd -L)"
-  cd "${HOME}"
-
   symlink_overlay_file ".homefries/.bashrc"
 
   # Look for home-fries home file paths.
@@ -104,8 +100,6 @@ setup_public_fries_dot_files () {
     # echo "${hfhfpath}"
     symlink_overlay_file "${hfhfpath}"
   done
-
-  cd "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
