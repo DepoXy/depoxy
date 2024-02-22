@@ -34,8 +34,12 @@
 # Symlink to private (client) infuser.
 /home/.kit/_git
 
+# Ignore generated directory. See:
+#   ~/.depoxy/ambers/home/.vim/cmdt_paths/generate_links.sh
 /home/.vim/cmdt_paths/symlinks/
 
+# Ignore generated directory. See:
+#   ~/.depoxy/ambers/home/.vim/dubs_project_tray/generate_links.sh
 /home/.vim/dubs_project_tray/dubs_cuts/
 
 # From :Helptags.
