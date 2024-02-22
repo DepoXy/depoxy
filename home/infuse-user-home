@@ -273,31 +273,36 @@ infuse_symlinks_user_home_gitsmart () {
 
 infuse_symlinks_home_tmux_dotfiles () {
   local tmux_clone="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/.tmux"
+
   if [ ! -d "${tmux_clone}" ]; then
-    warn "No such .tmux at: ${tmux_clone}"
+    # This is unexpected, because user should run `mr -d / checkout`
+    # before calling `mr -d / infuse`.
+    warn "Missing gpakosz/.tmux clone at: ${tmux_clone}"
+
+    return 0
+  fi
+
+  # Add a symlink to the static .tmux.conf file.
+  # - CXREF: ~/.tmux.conf -> ~/.kit/sh/.tmux/.tmux.conf
+  local dot_tmux_conf=".tmux.conf"
+  symlink_overlay_file "${tmux_clone}/${dot_tmux_conf}"
+
+  # *** Populate ~/.tmux/plugins
+
+  mkdir -p "./.tmux/plugins"
+
+  local tmux_sensible="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tmux-sensible"
+  if [ -d "${tmux_sensible}" ]; then
+    symlink_overlay_dir "${tmux_sensible}" ".tmux/plugins/tmux-sensible"
   else
-    # Add a convenience symlink to the static .tmux.conf file.
-    local dot_tmux_conf='.tmux.conf'
-    symlink_overlay_file "${tmux_clone}/${dot_tmux_conf}"
-    # 2020-01-03: (lb): The user tmux conf was private, but now it's in home-fries.
-    #   symlink_mrinfuse_file '.tmux.conf.local'
+    warn "Missing tmux-plugins/tmux-sensible clone at: ${tmux_sensible}"
+  fi
 
-    mkdir -p .tmux
-    mkdir -p .tmux/plugins
-
-    local tmux_sensible="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tmux-sensible"
-    if [ -d "${tmux_sensible}" ]; then
-      symlink_overlay_dir "${tmux_sensible}" '.tmux/plugins/tmux-sensible'
-    else
-      warn "No such clone at: ${tmux_sensible}"
-    fi
-
-    local path_tpm="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tpm"
-    if [ -d "${path_tpm}" ]; then
-      symlink_overlay_dir "${path_tpm}" '.tmux/plugins/tpm'
-    else
-      warn "No such clone at: ${path_tpm}"
-    fi
+  local path_tpm="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tpm"
+  if [ -d "${path_tpm}" ]; then
+    symlink_overlay_dir "${path_tpm}" ".tmux/plugins/tpm"
+  else
+    warn "Missing tmux-plugins/tpm clone at: ${path_tpm}"
   fi
 }
 
