@@ -101,7 +101,8 @@ setup_vim_pack_git_exclude () {
 
 setup_vim_pack_grep_ignore () {
   local before_cd="$(pwd -L)"
-  cd "pack"
+
+  cd "${HOME}/.vim/pack"
 
   link_private_ignore "pack/_ignore"
 
@@ -121,7 +122,7 @@ setup_private_grep_ignore () {
 wire_home_vimrc () {
   local before_cd="$(pwd -L)"
 
-  cd ${HOME}
+  cd "${HOME}"
 
   symlink_overlay_file ".vim/.vimrc" ".vimrc"
 
@@ -151,11 +152,11 @@ populate_run_generator () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_private_plug_file_dubs_file_finder () {
-  [ -d "pack/landonb/start/dubs_file_finder" ] || return 0
+  [ -d "${HOME}/.vim/pack/landonb/start/dubs_file_finder" ] || return 0
 
   local before_cd="$(pwd -L)"
 
-  cd "pack/landonb/start/dubs_file_finder"
+  cd "${HOME}/.vim/pack/landonb/start/dubs_file_finder"
 
   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/cmdt_paths"
 
@@ -192,11 +193,11 @@ populate_dubs_cuts_generate () {
 # ***
 
 setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
-  [ -d "pack/landonb/start/dubs_project_tray" ] || return 0
+  [ -d "${HOME}/.vim/pack/landonb/start/dubs_project_tray" ] || return 0
 
   local before_cd="$(pwd -L)"
 
-  cd "pack/landonb/start/dubs_project_tray"
+  cd "${HOME}/.vim/pack/landonb/start/dubs_project_tray"
 
   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
 
@@ -210,13 +211,13 @@ setup_project_plug_vim_depoxy () {
 
   local depoxy_vim_org="DepoXy"
 
-  mkdir -p "./pack/${depoxy_vim_org}/start"
+  mkdir -p "${HOME}/.vim/pack/${depoxy_vim_org}/start"
 
   local before_cd="$(pwd -L)"
 
   # ***
 
-  cd "./pack/${depoxy_vim_org}"
+  cd "${HOME}/.vim/pack/${depoxy_vim_org}"
 
   # FIXME/2024-02-21: Verify this ignore file, b/c its paths look like
   # they're from perspective of ~/.vim/pack, and not ~/.vim/pack/DepoXy.
@@ -254,13 +255,13 @@ setup_project_plug_vim_landonb () {
 
   local landonb_vim_org="landonb"
 
-  mkdir -p "pack/${landonb_vim_org}"
+  mkdir -p "${HOME}/.vim/pack/${landonb_vim_org}"
 
   local before_cd="$(pwd -L)"
 
   # ***
 
-  cd "pack/${landonb_vim_org}"
+  cd "${HOME}/.vim/pack/${landonb_vim_org}"
 
   symlink_overlay_file \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${landonb_vim_org}/_ignore" \
