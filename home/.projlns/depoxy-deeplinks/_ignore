@@ -70,15 +70,6 @@
 # Aka: ~/.depoxy/ambers/home/.homefries/.ignore
 /home/user/.homefries/.ignore
 
-# -> ~/.depoxy/ambers/home/.gitconfig.local
-/home/user/.homefries/.gitconfig.local
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-# FIXME/2023-03-14: Replace ~/.depoxy/ambers/home/.inputrc with ~/.kit/sh/dot-inputrc/.inputrc
-# -> ~/.depoxy/ambers/home/.inputrc
-/home/user/.homefries/.inputrc
-
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # -> .git/info/exclude

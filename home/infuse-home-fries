@@ -41,24 +41,6 @@ setup_private_fries_bashrc () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-setup_private_fries_home_convenience () {
-  local before_cd="$(pwd -L)"
-  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
-
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-
-  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.gitconfig.local"
-
-  # SPIKE/2023-02-28: I don't recall if this is merely a convenience, or
-  # if it's actually wired.
-  # - SPIKE: If just a convenience, remove this symlink.
-  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.inputrc"
-
-  cd "${before_cd}"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 link_hard_dep_shoilerplate () {
   # Local directory is $HOME, just FYI. Run from Homefries's directory.
   local before_cd="$(pwd -L)"
@@ -159,8 +141,6 @@ main () {
   cd "${MR_REPO}"
 
   setup_private_fries_bashrc
-
-  setup_private_fries_home_convenience
 
   link_hard_dep_shoilerplate
 

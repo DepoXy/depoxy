@@ -217,22 +217,6 @@ infuse_symlinks_user_home_gitsmart () {
     /bin/cp "${git_smart_dir}/.config/git/template/HEAD" .
   fi
 
-  # *** Under ${HOME}/.homefries
-
-  # 2020-02-09: Total convenience symlink (and more work to add .ignore rule).
-  # MAYBE/2020-11-22: Append to (or ensure added to) ~/.homefries/.ignore automatically.
-  #   I.e., this "convenience symlink" means file is repeated in *grep searches,
-  #   which we ameliorate by adding the symlink path to ~/.homefries/.ignore.
-  #   That is, this symlink_overlay_file corresponds to a specific .ignore rule!
-  #
-  #   2020-11-22: I've used SYNC_ME previously. What about a 5-char LABEL?
-  #               NSYNC comes to mind. So does the band.
-  #               SYNCZ aka Synchronize Me.
-  #               CODEP Co-dependency. Code-pendecy, huhha.
-  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
-  # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.homefries/.gitconfig
-  symlink_overlay_file "${git_smart_dir}/.gitconfig"
-
   # ***
 
   cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
@@ -297,11 +281,6 @@ infuse_symlinks_home_tmux_dotfiles () {
     symlink_overlay_file "${tmux_clone}/${dot_tmux_conf}"
     # 2020-01-03: (lb): The user tmux conf was private, but now it's in home-fries.
     #   symlink_mrinfuse_file '.tmux.conf.local'
-    # 2020-02-09: (lb): Add symlink alongside .tmux.conf.local source.
-    local before_cd="$(pwd -L)"
-    cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
-    symlink_overlay_file "${tmux_clone}/${dot_tmux_conf}"
-    cd "${before_cd}"
 
     mkdir -p .tmux
     mkdir -p .tmux/plugins

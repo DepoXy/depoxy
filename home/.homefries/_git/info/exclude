@@ -1,9 +1,4 @@
-# Symlinks for my convenience.
-/.gitconfig
-/.gitconfig.local
 /.gitignore.local
-/.inputrc
-/.tmux.conf
 
 /.bashrc-bin/.ignore
 
