@@ -48,9 +48,22 @@ install =
   #     git reset --hard "$(git latest-version 2> /dev/null)"
   git reset --hard "$(git latest-version)"
   src/configure && make -C src
-  # You could also install Python versions now, e.g.,
   #
+  # TRACK/2024-02-22: I removed a stray "man/index.db", not sure
+  # what from, its date didn't match other build assets, e.g.,
+  #   Feb 17 23:40 man/index.db
+  # Vs.
+  #   Nov 13 00:46 libexec/pyenv
+  #   ...
+  #   Sep 29  2022 libexec/pyenv-realpath.dylib
+  # - So keep an eye out for it. If it is make related, since there's
+  #   no `make clean`, do it yourself, e.g.,
+  #     /bin/rm -f "man/index.db"
+  #
+  # SAVVY: We don't also install Python versions now, which takes a while, e.g.,
   #   mr -d ${MR_REPO} -n installpythons
+  # - Have the user call that deliberately, on their own time.
+#
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
 #     file://~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults.sh @ 421
