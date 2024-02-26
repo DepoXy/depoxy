@@ -326,7 +326,10 @@ skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'Very Probably unnecessary for any development environment; see `gh` instead'
 install =
+  # SKPID/2024-02-26: Not calling `pull_latest "starter" "master" because
+  # latest version, v2.14.2, tagged 3 years, but lots of code since then.
   git pull --ff-only
+  # CXREF: Calls Bash install script: /kit/working/git/hub/script/install.sh
   make install prefix="${HOME}/.local"
 
 # 2021-01-30: The `hub` competitor, the "official" 'cli'. Er, `gh`.
