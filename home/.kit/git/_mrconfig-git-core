@@ -97,10 +97,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/tj/git-extras.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
 install =
-  git checkout master
-  git branch -u starter/master
-  git fetch starter --prune
-  git merge --ff-only
+  pull_latest "starter" "master"
   #
   # Make and place man pages.
   # - Prereq.: Requires `ronn`: "tool to build manuals from Markdown".
