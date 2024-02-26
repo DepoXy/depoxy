@@ -39,7 +39,7 @@ infuse =
 # On @macOS, installed via Homebrew.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install =
-  cd "${MR_REPO}"
+  pull_latest "starter" "master"
   # I don't use Z shell, so if fzf creates a Z startup script, remove it.
   local no_zshrc=false
   [ ! -e "${HOME}/.zshrc" ] && no_zshrc=true
