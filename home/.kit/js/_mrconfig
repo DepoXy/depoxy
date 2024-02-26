@@ -31,7 +31,7 @@ skip = mr_exclusive "!entrusted"
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_maybe'
   #
-  echo "🔳 DepoXy: Configure OpenLens icons::
+  echo "$(echoInstallHelpWidget 'os_all' 'dxy_maybe') DepoXy: Configure OpenLens icons::
     # Pick an icon for each cluster.
     ll ~/.depoxy/ambers/home/.kube/*.png
     # See the README.rst if you want to generate more icons
