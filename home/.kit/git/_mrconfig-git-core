@@ -323,7 +323,8 @@ update = git pull --ff-only
 # - But per `man git-config`, these all default 'false' already.
 lib = MR_REPO_REMOTES="starter https://github.com/github/hub.git"
 skip = mr_exclusive "kit" "git" "kit-git"
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
+  'Very Probably unnecessary for any development environment; see `gh` instead'
 install =
   git pull --ff-only
   make install prefix="${HOME}/.local"
