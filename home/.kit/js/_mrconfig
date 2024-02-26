@@ -28,6 +28,15 @@ skip = mr_exclusive "!entrusted"
 lib = MR_REPO_REMOTE_URL="https://github.com/lensapp/lens.git"
 checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
+echoInstallHelp =
+  echoInstallHelp 'os_all' 'dxy_maybe'
+  #
+  echo "🔳 DepoXy: Configure OpenLens icons::
+    # Pick an icon for each cluster.
+    ll ~/.depoxy/ambers/home/.kube/*.png
+    # See the README.rst if you want to generate more icons
+    fs ~/.depoxy/ambers/home/.kube/README.rst
+ "
 install =
   # Alternatively to building and installing, you could run from sources:
   #   $ _depoxy_run_or_front_electron_lens
@@ -93,6 +102,7 @@ lib = MR_REPO_REMOTE_URL="https://github.com/nvm-sh/nvm.git"
 checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   git fetch starter
   local latest_vers

@@ -25,6 +25,7 @@ order = 690
 checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
+echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_maybe' 'if that‘s something you‘ll use'
 install =
   os_is_macos || return 0
   #
@@ -65,6 +66,10 @@ install =
 checkout = mkdir "${MR_REPO}"
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
+echoInstallHelp =
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure *Finicky*:
+    Systems Preferences... > General > Default web browser: *👇 Finicky.app*
+ "
 infuse =
   os_is_macos || return 0
   #
@@ -91,6 +96,41 @@ infuse =
 checkout = mkdir "${MR_REPO}"
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
+echoInstallHelp =
+  echoInstallHelp 'os_macos' 'dxy_all'
+  #
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') Configure GeekTool:
+    System Preferences... > GeekTool > ✓ Automatically launch at login
+ "
+  #
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') Configure GeekTool:
+    System Preferences... > GeekTool > Check for updates: ✓ Automatic
+ "
+  #
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Create GeekTool *geeklets*:
+    - Create new *Shell* geeklet to stand in for menu bar clock when menu bar is hidden:
+      - Name: CTRDATE
+      - Command::
+  
+           date '+%a %Y-%m-%d %H:%M'
+  
+      - Refresh every: 1 s.
+      - Font: *Herculanum* 36pt Green (GUI doesn't show Hex code, just picker).
+        - To set, click *Click here to set font & color...*.
+      - I set text center-aligned, and then positioned the window.
+         - I tried right-aligned, but even with spaces at the end, the last
+           character from the clock was clipped by the *GeekTool* window.
+  
+    - Create new *Shell* geeklet to be visible on desktop on show-desktop:
+      - Use case: You wanna know the time but can't see it.
+        - The geeklet lets you show-desktop, read time, and un-show desktop to resume work.
+      - Configure similarly to menu bar clock, but center this widget on the desktop,
+        so that you can see if when you look straight ahead.
+  
+    - SAVVY: You can Ctrl-Alt-D show-desktop to more easily move geeklet widgets around.
+  
+    - SAVVY: Use the eyedropper to match the second widget font color to the first widget.
+ "
 install =
   #
   os_is_macos || return 0
@@ -127,6 +167,12 @@ install =
 # - Or maybe that has nothing to do with this repo...
 checkout = git_clone_giturl -o origin 'https://github.com/landonb/homebrew-autoupdate.git'
 wireupstream = remote_add starter 'https://github.com/Homebrew/homebrew-autoupdate.git'
+echoInstallHelp =
+  echoInstallHelp 'os_macos' 'dxy_all'
+  #
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure \`homebrew-autoupdate\`:
+    System Preferences... > Notifications & Focus > Notifications > *brew-autoupdate*: ✓ Allow Notifications
+ "
 install =
   git fetch --all --prune
   git checkout landonb--custom--call-omr-infuse-after-update

@@ -36,7 +36,8 @@ infuse =
   mkdir -p "${HOME}/.local/man"
   symlink_overlay_file "${MR_REPO}/man/man1/fzf.1" "${HOME}/.local/man/man1/fzf.1"
   symlink_overlay_file "${MR_REPO}/man/man1/fzf-tmux.1" "${HOME}/.local/man/man1/fzf-tmux.1"
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+# On @macOS, installed via Homebrew.
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install =
   cd "${MR_REPO}"
   # I don't use Z shell, so if fzf creates a Z startup script, remove it.
@@ -61,7 +62,7 @@ install =
 #   Segmentation fault: 11
 [${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag]
 checkout = git_clone_giturl -o starter 'https://github.com/aykamko/tag.git' 'aykamko-tag'
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
 install =
   go install github.com/aykamko/tag@latest
   # Installs to ~/go/bin/tag

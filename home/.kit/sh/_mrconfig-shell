@@ -20,6 +20,7 @@ order = 690
 # Dubs Vim support tool.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
 checkout = git_clone_giturl -o publish "http://github.com/landonb/parT.git"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   cd "${MR_REPO}"
   make -f protoMakefile clean
@@ -70,6 +71,7 @@ checkout = git_clone_giturl -o starter "http://github.com/shyiko/commacd.git"
 # https://github.com/cykerway/complete-alias
 [${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias]
 checkout = git_clone_giturl -o starter "http://github.com/cykerway/complete-alias.git"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"
   /bin/cp "complete_alias" "${HOME}/.complete_alias"

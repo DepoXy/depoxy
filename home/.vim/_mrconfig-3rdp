@@ -236,6 +236,7 @@ pull =
   cd "${MR_REPO}"
   git fetch starter
   git rebase ${remote_branch_default}
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'NERD Commenter'
 install =
   # Implied: cd "${MR_REPO}"
   local branch_name=$(git rev-parse --abbrev-ref HEAD)

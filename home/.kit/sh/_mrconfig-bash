@@ -119,6 +119,7 @@ lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/feature-coverage-report.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 # FIXME/2022-10-10: Not yet published.
 skip = [ ! -d "${MR_REPO}" ]
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = PREFIX="${HOME}/.local" make link
 # CXREF: See GIT_POST_REBASE_EXEC usage.
 # - Used post-rebase to remake hard links.
@@ -141,6 +142,7 @@ updateDeps =
 [${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/fries-findup.git'
 skip = mr_exclusive "!entrusted"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = PREFIX="${HOME}/.local" make link
 
 # ***
@@ -151,6 +153,7 @@ install = PREFIX="${HOME}/.local" make link
 [${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
 checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/gvim-open-kindness.git'
 skip = mr_exclusive "!entrusted"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   symlink_overlay_file "${MR_REPO}/bin/gvim-open-kindness" "${HOME}/.local/bin/gvim-open-kindness"
 

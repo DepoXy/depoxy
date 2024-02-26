@@ -21,6 +21,7 @@ skip = mr_exclusive "kit" "git" "kit-git"
 #     'maint', from what I see. And 'next' and 'seen' are like the author's
 #     'liminal' branches, a collection of feature branches that is often
 #     rebased and force-pushed.
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all' 'on macOS, use system git'
 install = install_os_specific
 # MAYBE/2021-05-30: Add Darwin support. See at least `package` list below.
 installDarwin = false
@@ -94,6 +95,7 @@ installLinux =
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-extras]
 lib = MR_REPO_REMOTES="starter https://github.com/tj/git-extras.git"
 skip = mr_exclusive "kit" "git" "kit-git"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
 install =
   git checkout master
   git branch -u starter/master
@@ -198,6 +200,8 @@ skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
+# On @macOS, installed via Homebrew.
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
 # 2021-06-01: Both Brew and sources are at v2.1.0. I think maintainers update
 # Brew when tagging new versions, so no need to worry about falling behind.
@@ -308,6 +312,7 @@ update = git pull --ff-only
 # - But per `man git-config`, these all default 'false' already.
 lib = MR_REPO_REMOTES="starter https://github.com/github/hub.git"
 skip = mr_exclusive "kit" "git" "kit-git"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe'
 install =
   git pull --ff-only
   make install prefix="${HOME}/.local"
@@ -317,6 +322,8 @@ install =
 lib = MR_REPO_REMOTES="starter https://github.com/cli/cli.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 # Build requires Go 1.13+.
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
+  'aka `gh` — may or may not be necessary for your @biz client'
 install =
   git pull --ff-only
   make install prefix="${HOME}/.local"
@@ -387,6 +394,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/jonas/tig.git"
 #    starter https://github.com/jonas/tig.git"
 #    "
 skip = mr_exclusive "kit" "git" "kit-git"
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
 # Prefer Homebrew tig on macOS, which is generally up to date, otherwise
 # you need a slightly more complicated installer (and need to install
