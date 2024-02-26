@@ -47,10 +47,21 @@ install =
   /bin/rm "${HOME}/.fzf.bash" "${HOME}/.fzf.zsh"
   ${no_zshrc} && /bin/rm "${HOME}/.zshrc"
   mr -d "${MR_REPO}" -n infuse
-  printf '\n%s\n\n%b%s%b\n\n' \
+  printf '\n%s\n\n%b%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s%b\n\n' \
     "YOU: Undo FZF changes to ~/.bashrc:" \
     "\033[38;2;255;0;135m" \
-    "  cdh && git checkout -- .bashrc-bin/bashrc.base.sh" \
+    "  pushd ${HOMEFRIES_DIR:-${HOME}/.homefries} \\" \
+    "  && echo 'Verify none of these changes are yours:' \\" \
+    "  && git --no-pager diff \\" \
+    "  && ask_yes_no_default 'n' \\" \
+    "  && [ \${the_choice} = 'Y' ] \\" \
+    "  && git checkout -- .bashrc-bin/bashrc.base.sh \\" \
+    "  && git checkout -- .profile \\" \
+    "  && cd \${HOME} \\" \
+    "  && ([ \"\$(cat .zshenv)\" = \"\$(echo -e \". \\\"\\\$HOME/.cargo/env\\\"\\\n\")\" ] \\" \
+    "    && /bin/rm \${HOME}/.zshenv \\" \
+    "    || echo \"YOU: Check ~/.zshenv yourself (and remove the last line)\") \\" \
+    "  && popd" \
     "\033[0m"
 
 # ========================================================================
