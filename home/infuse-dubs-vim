@@ -280,6 +280,15 @@ setup_private_coc_config () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# REFER: Run Vim without vimrc, run :Helptags, run :quit:
+#          -u {vimrc}      Don't load the vimrc
+#          -c {command}    Execute {command}
+setup_vim_generate_helptags () {
+  vim -u NONE -c "Helptags" -c q
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 main () {
   set -e
 
@@ -327,6 +336,10 @@ main () {
   # Setup Coc's config.
 
   setup_private_coc_config
+
+  # ***
+
+  setup_vim_generate_helptags
 
   # ***
 

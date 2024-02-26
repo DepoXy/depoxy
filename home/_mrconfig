@@ -327,6 +327,12 @@ order = 140
 # SKIPPING: GIT_REPO_SEEDS_0: See: once/setup_ubuntu.sh, once/vendor_dubs-vim.sh
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs-vim.git' '.vim'
 chain = true
+# CXREF: setup_vim_generate_helptags calls :Helptags.
+echoInstallHelp =
+  echo "$(echoInstallHelpWidget 'os_all' 'dxy_maybe') \
+ DepoXy: Generate Vim help docs (also runs on \`infuse\`): Run Vim, then::
+      :Helptags
+ "
 infusePostRebase =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"

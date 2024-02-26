@@ -40,7 +40,6 @@ depoxy_configure () {
   depoxy_configure_remind_task_create_depoxy_client
   depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel
   depoxy_configure_remind_task_hydrate_personal_notes
-  depoxy_configure_remind_task_vim_helptags
 
   # ***
 
@@ -167,15 +166,6 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
 
         cxc
         pw pin   # Aka: cdps && git p && popd && pw in
-")
-}
-
-# ***
-
-depoxy_configure_remind_task_vim_helptags () {
-  print_at_end+=("🔳 DepoXy: Generate Vim help docs: Run Vim, then::
-
-     :Helptags
 ")
 }
 
