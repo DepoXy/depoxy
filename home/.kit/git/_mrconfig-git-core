@@ -234,22 +234,24 @@ installLinux =
   # characters for holding line breaks.
   #
   # INERT/2024-02-18: I use tig-newtons to rebase, otherwise I'd automate this.
-  cat <<'#EOF'
+  cat <<[EOF--git-interactive-rebase-tool]
     *** Install git-interactive-rebase-tool
     #
     These instructions are current as of 2023-01-09 v2.2.1.
+    #
+      cd "${MR_REPO}"
     #
     Install Rust [https://www.rust-lang.org/tools/install]:
     #
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     #
-    Or update Rust (and cargo):
+    In Rust already installed, update Rust (and cargo):
     #
       rustup update
     #
     Prepare the current shell:
     #
-      . "${HOME}/.cargo/env"
+      . "\${HOME}/.cargo/env"
     #
     Install release build dependencies:
     #
@@ -261,21 +263,23 @@ installLinux =
     #
       cd "${MR_REPO}"
       cargo make build --release
-      # 2023-01-09: README.md says `cargo made deb`
+      # 2023-01-09: README.md says \`cargo made deb\`
       # but cargo-make retorts "Task deb not found".
       cargo deb
     #
     Install the package:
     #
-      version=$(grep -e "^version =" Cargo.toml \
+      version=\$(grep -e "^version =" Cargo.toml \\
         | sed "s/^version = [\"']\?\([^\"']*\)[\"']\?$/\1/")
-    #
+      #
       # E.g.,
       #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.2.1_amd64.deb
-      sudo dpkg -i target/debian/git-interactive-rebase-tool_${version}_amd64.deb
+      sudo dpkg -i target/debian/git-interactive-rebase-tool_\${version}_amd64.deb
     #
- #EOF
-#EOF
+ [EOF--git-interactive-rebase-tool]
+#↓↓↓ So ft=bash stops highlighting the Heredoc.
+[EOF--git-interactive-rebase-tool]
+skip = true
 #↑↑↑ So ft=bash stops highlighting the Heredoc.
 
 # ========================================================================
