@@ -143,6 +143,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # Change to Shell project directories.
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # - USYNC: These are all synonymous: cdsh, cdks, cdksh
   pushd_alias_or_warn "cdsh" "${SHOILERPLATE:-${HOME}/.kit/sh}"
 
   pushd_alias_or_warn "cddi" "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
@@ -240,6 +241,7 @@ _dxy_wire_aliases_pushd_paths_kit () {
   #  pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/ml"
   pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/mOS"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
+  # - USYNC: These are all synonymous: cdsh, cdks, cdksh
   pushd_alias_or_warn "cdks" "${DOPP_KIT:-${HOME}/.kit}/sh"
 }
 
