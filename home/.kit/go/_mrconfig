@@ -75,10 +75,8 @@ install =
 checkout = git_clone_giturl -o starter 'https://github.com/aykamko/tag.git' 'aykamko-tag'
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
 install =
+  # Installs to ~/.gopath/bin/tag
   go install github.com/aykamko/tag@latest
-  # Installs to ~/go/bin/tag
-  # FIXME: Should I be using GOPATH/GO_PATH instead of ${HOME}/go ?
-  symlink_overlay_file "${HOME}/go/bin/tag" "${HOME}/.local/bin/tag"
 
 # ========================================================================
 # ------------------------------------------------------------------------
