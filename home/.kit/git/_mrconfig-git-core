@@ -340,7 +340,8 @@ skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'aka `gh` — may or may not be necessary for your @biz client'
 install =
-  git pull --ff-only
+  pull_latest "starter" "trunk"
+  # Go install wrapper.
   make install prefix="${HOME}/.local"
 
 # ========================================================================
