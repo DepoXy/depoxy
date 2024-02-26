@@ -237,9 +237,13 @@ installLinux =
   cat <<[EOF--git-interactive-rebase-tool]
     *** Install git-interactive-rebase-tool
     #
-    These instructions are current as of 2023-01-09 v2.2.1.
+    These instructions are current as of 2024-02-26 version 2.3.0@ea756cf.
     #
       cd "${MR_REPO}"
+    #
+    Update source
+    #
+      git pull
     #
     Install Rust [https://www.rust-lang.org/tools/install]:
     #
@@ -262,10 +266,12 @@ installLinux =
     Build the tool:
     #
       cd "${MR_REPO}"
+      cargo clean
       cargo make build --release
-      # 2023-01-09: README.md says \`cargo made deb\`
+      # 2024-02-26: README.md says \`cargo make deb\`
       # but cargo-make retorts "Task deb not found".
-      cargo deb
+      # - REFER: See Makefile.toml for task names.
+      cargo make build-deb
     #
     Install the package:
     #
@@ -274,7 +280,8 @@ installLinux =
       #
       # E.g.,
       #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.2.1_amd64.deb
-      sudo dpkg -i target/debian/git-interactive-rebase-tool_\${version}_amd64.deb
+      #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.3.0-1_amd64.deb
+      sudo dpkg -i target/debian/git-interactive-rebase-tool_\${version}*_amd64.deb
     #
  [EOF--git-interactive-rebase-tool]
 #↓↓↓ So ft=bash stops highlighting the Heredoc.
