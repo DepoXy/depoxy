@@ -51,6 +51,13 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to Git project directory.
   pushd_alias_or_warn "cdgg" "${GITREPOSPATH:-${HOME}/.kit/git}/git"
 
+  # SAVVY/2024-02-26: git/cli is the `gh` command, which supersedes `hub`.
+  #
+  # Change to hub project directory.
+  #  pushd_alias_or_warn "cdgh" "${GITREPOSPATH:-${HOME}/.kit/git}/hub"
+  # Change to cli project directory.
+  pushd_alias_or_warn "cdgl" "${GITREPOSPATH:-${HOME}/.kit/git}/cli"
+
   # Change to tig project directory.
   pushd_alias_or_warn "cdgt" "${GITREPOSPATH:-${HOME}/.kit/git}/tig"
 
