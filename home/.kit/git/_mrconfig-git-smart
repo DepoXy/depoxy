@@ -67,7 +67,7 @@ lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/git-put-wise.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = false  # i.e., mr_exclusive "entrusted" "..."...
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-install = make install
+install = PREFIX=~/.local make install
 infusePostRebase =
   link_hard_dep_git_smart_git_abort
   link_hard_dep_sh_git_nubs
