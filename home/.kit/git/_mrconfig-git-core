@@ -110,8 +110,11 @@ install =
     fi
   done
   #
-  git branch -D tip/rename-commands-that-conflict-with-git-smart-commands || true
-  git checkout -b tip/rename-commands-that-conflict-with-git-smart-commands \
+  . ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh
+  local base_branch="$(git_branch_name)"
+  local tip_branch="tip/${base_branch}/rename-commands-that-conflict-with-git-smart-commands"
+  git branch -D ${tip_branch} || true
+  git checkout -b ${tip_branch} \
     --track starter/master
   #
   # Move conflicts outta the way.
