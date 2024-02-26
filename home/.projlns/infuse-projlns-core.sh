@@ -161,6 +161,7 @@ infuse_projects_links_docs () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# USYNC: DXY_MAKE_LNS_NAME and infuse_create_symlinks_docs use same '.syml--' prefix.
 infuse_create_symlinks_docs () {
   # E.g., ~/.depoxy/stints
   local clients_path="$(_vendorfs_path_stints_basedir_print)"
@@ -173,6 +174,11 @@ infuse_create_symlinks_docs () {
     | while read subdir_path; \
   do
     local subdir_name="$(basename "${subdir_path}")"
+
+    if [ "${subdir_name#.syml--}" != "${subdir_name}" ]; then
+      # Ignore `.syml--XXXX' dirs (DXY_MAKE_LNS_NAME).
+      continue
+    fi
 
     if [ -d "${subdir_path}/docs" ]; then
       link_deep "${subdir_path}/docs" "client-${subdir_name}-docs"
