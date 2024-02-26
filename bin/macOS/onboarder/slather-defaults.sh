@@ -244,11 +244,11 @@ depoxy_configure_remind_task_install_omr_projects_print_all () {
 
   printf "Gathering copy-pasta..."
 
-  print_at_end+=("$(mr -d / -M slatherInstall)")
+  print_at_end+=("$(mr -d / -M echoInstallHelp)")
 
   printf "\r"
 
-  # DUNNO: Even though the final `slatherInstall` includes a blank line,
+  # DUNNO: Even though the final `echoInstallHelp` includes a blank line,
   # it's not printed. So add one here.
   print_at_end+=("")
 }
