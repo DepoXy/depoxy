@@ -104,15 +104,7 @@ skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
-  git fetch starter
-  local latest_vers
-  latest_vers="$(git latest-version)"
-  [ -z "${latest_vers}" ] && >&2 warn "ERROR: Cannot determine \`nvm\` version" && return 1
-  local release_branch="rel/${latest_vers}"
-  local current_branch="$(git rev-parse --abbrev-ref HEAD)"
-  if [ "${current_branch}" != "${release_branch}" ]; then
-    git checkout -b rel/${latest_vers} v${latest_vers}
-  fi
+  pull_latest "starter" "master"
   # ISOFF/2023-04-25: I think ./install.sh is unnecessary.
   # - Homefries Bashrc sources nvm from repo location, which should be
   #   equivalent (./install.sh downloads sources and probably wires to
