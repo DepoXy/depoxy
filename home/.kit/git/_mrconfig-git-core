@@ -422,8 +422,9 @@ install = install_os_specific
 #   I'll want to figure out the macOS build. So separate installs.
 installDarwin = false
 installLinux =
-  git fetch --prune starter
-  git merge --ff-only
+  GITSMART_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" \
+    pull_latest "starter" "master"
+  #
   # Ensure deps available.
   # - SAVVY: Stack Overflowers suggest you cannot determine the
   #   shared library path easily (e.g., /usr/lib/x86_64-linux-gnu).
