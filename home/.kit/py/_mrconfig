@@ -34,11 +34,6 @@ install =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     return 0
   fi
-  # Probably needless state check.
-  if [ ! -d "${MR_REPO}/.git" ]; then
-    >&2 echo "ERROR: Where's the Git?: ${MR_REPO}/.git"
-    return 1
-  fi
   #
   # FIXME/2022-09-29: So... what's the best way to keep up to date?
   # git checkout v2.3.4
