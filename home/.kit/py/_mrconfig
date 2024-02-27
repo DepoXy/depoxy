@@ -40,7 +40,8 @@ installDarwin =
 installLinux =
   pull_latest "starter" "master" "" "main"
   #
-  src/configure && make -C src
+  src/configure
+  make -C src
   #
   # TRACK/2024-02-22: I removed a stray "man/index.db", not sure
   # what from, its date didn't match other build assets, e.g.,
