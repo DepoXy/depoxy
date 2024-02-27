@@ -149,6 +149,9 @@ install =
     echo
     echo "  $(basename "${local_bin_shim}")"
   else
+    echo "Enter sudo password to install wally:"
+    sudo -v
+    #
     # Prereqs: gtk3 (should be installed, though not sure specifically what
     # the Aptitude package name is); webkit2gtk (possibly specifically
     # libwebkit2gtk-4.0-dev), and libusb.
