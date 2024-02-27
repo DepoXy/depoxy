@@ -343,6 +343,17 @@ install =
   pull_latest "starter" "trunk"
   # Go install wrapper.
   make install prefix="${HOME}/.local"
+  #
+  echo
+  echo "YOU: To start using \`gh\`, authenticate yourself:"
+  echo
+  echo "  gh auth login"
+  echo
+  echo "- Choose GitHub.com"
+  echo "- Choose SSH"
+  echo "- Pick your SSH key"
+  echo "- Name the new key, e.g., GitHub-CLI-<user>-sha"
+  echo "- Either Login via web, or paste an authentication token"
 
 # ========================================================================
 # ------------------------------------------------------------------------
