@@ -68,6 +68,7 @@ checkout = git_clone_giturl -o starter "http://github.com/shyiko/commacd.git"
 # *** complete-alias (_complete_alias)
 
 # https://github.com/cykerway/complete-alias
+# "automagical shell alias completion;"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias]
 checkout = git_clone_giturl -o starter "http://github.com/cykerway/complete-alias.git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
