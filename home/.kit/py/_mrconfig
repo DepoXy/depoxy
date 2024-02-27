@@ -53,6 +53,9 @@ installLinux =
   # - So keep an eye out for it. If it is make related, since there's
   #   no `make clean`, do it yourself, e.g.,
   #     /bin/rm -f "man/index.db"
+  # TRACK/2024-02-26 23:04: Removed man/index.db again, but unsure if
+  # from `src/configure` or `make -C src`, because after re-running the
+  # build, man/index.db was not recreated.
   #
   # SAVVY: We don't also install Python versions now, which takes a while, e.g.,
   #   mr -d ${MR_REPO} -n installpythons
