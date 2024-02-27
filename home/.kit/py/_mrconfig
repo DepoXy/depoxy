@@ -38,20 +38,8 @@ installDarwin =
     return 1
   fi
 installLinux =
+  pull_latest "starter" "master" "" "main"
   #
-  # FIXME/2022-09-29: So... what's the best way to keep up to date?
-  # git checkout v2.3.4
-  # WRKLG/2023-11-13 00:48: 
-  #   # git checkout v2.3.32
-  #   git branch -m main
-  git fetch starter
-  # SAVVY: `latest-version` works across branches, but alerts stderr when so, e.g.,:
-  #   * BWARE: The latest version tag is outside this branch
-  # - So don't need to change to upstream dev branch:
-  #     git reset --hard starter/master
-  # - And if you wanted to squelch the warning:
-  #     git reset --hard "$(git latest-version 2> /dev/null)"
-  git reset --hard "$(git latest-version)"
   src/configure && make -C src
   #
   # TRACK/2024-02-22: I removed a stray "man/index.db", not sure
