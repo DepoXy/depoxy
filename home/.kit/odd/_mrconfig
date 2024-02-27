@@ -27,7 +27,8 @@ install =
   # CXREF: Find latest version:
   #   https://github.com/the-via/releases/releases
   #   
-  local via_version="2.1.0"
+  # local via_version="2.1.0"
+  local via_version="3.0.0"
   #
   local via_app_url="https://usevia.app/"
   #
@@ -53,8 +54,32 @@ install =
       wget "${app_image_url}"
     fi
   fi
+  #
   chmod +x "${app_name_local}"
+  #
   symlink_overlay_file "${MR_REPO}/${app_name_local}" "${HOME}/.local/bin/via-nativia"
+  #
+  # CXREF/2024-02-26: See DXY's udev rules copy:
+  #   ~/.depoxy/ambers/etc/udev/rules.d/92-viia.rules
+  local udevd_rules_path="etc/udev/rules.d/50-zsa.rules"
+  #
+  echo
+  echo "BWARE: When you run \`via-nativia\` for the first time, it'll prompt"
+  echo "       you to create a udev rule, and then for your admin password."
+  echo
+  echo "- You'll find the new rule at:"
+  echo "    cat /etc/udev/rules.d/92-viia.rules"
+  echo
+  echo "- You could instead make the rule yourself:"
+  echo "    sudo cp \\"
+  echo "      \"${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}/${udevd_rules_path}\" \\"
+  echo "      \"/${udevd_rules_path}\""
+  echo "    sudo chmod 644 /etc/udev/rules.d/92-viia.rules"
+  # DUNNO/2024-02-26 23:15: I'm not sure if Via does this, but Wally does (my
+  # user is already part of the group, and I have not inspected Via source).
+  echo "  You might also need to add your user to the plugdev group:"
+  echo "    sudo groupadd -f \"plugdev\""
+  echo "    sudo usermod -aG \"plugdev\" \"$(id -un)\""
 
 # ========================================================================
 # ------------------------------------------------------------------------
