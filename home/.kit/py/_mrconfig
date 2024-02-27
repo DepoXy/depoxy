@@ -74,6 +74,8 @@ installpythons =
   # USYNC: DEPOXY_PYENV_PYVERS
   #   ~/.config/depoxy/depoxyrc
   #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL.sh
+  # USYNC: Other 'installpythons' task(s):
+  #   See virtualenvwrapper project, below
   pyenv install -s 3.8
   pyenv install -s 3.9
   pyenv install -s 3.10
@@ -223,6 +225,30 @@ install =
   fi
   #
   python3 -m pip install ${MR_REPO}
+
+# You need to install virtualenvwrapper systemwide for the basics
+# to work, e.g., `workon`. But you also need to install it to the
+# pyenv versions so that hooks don't fail (even if you don't use
+# them), otherwise you'll see hook failure errors, e.g.,
+#   $ workon <some-venv>
+#   virtualenvwrapper.sh: Failed to run ‘post_activate’ hook
+#   $ off
+#   virtualenvwrapper.sh: Failed to run ‘pre_deactivate’ hook
+installpythons =
+  eval "$(pyenv init -)"
+  #
+  # USYNC: See pyenv installpythons versions, above.
+  for pyver in \
+    3.8 \
+    3.9 \
+    3.10 \
+    3.11 \
+    3.12 \
+    3.13.0a3 \
+  ; do
+    pyenv shell ${pyver}
+    python3 -m pip install ${MR_REPO}
+  done
 
 # ========================================================================
 # ------------------------------------------------------------------------
