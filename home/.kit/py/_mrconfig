@@ -25,15 +25,19 @@ checkout =
     touch "${MR_REPO}/.omr-placeholder"
   fi
 echoInstallHelp =
-  echoInstallHelp 'os_all' 'dxy_all'
+  echoInstallHelp 'os_linux' 'dxy_all'
   #
   echo "🔳 DepoXy: Install \`pyenv\` Python versions::
     mr -d \"${MR_REPO}\" -n installpythons
  "
-install =
-  if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
-    return 0
+install = install_os_specific
+installDarwin =
+  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    warn "Please install \`pyenv\` from Homebrew"
+    #
+    return 1
   fi
+installLinux =
   #
   # FIXME/2022-09-29: So... what's the best way to keep up to date?
   # git checkout v2.3.4
