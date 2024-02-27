@@ -99,26 +99,6 @@ infuse_create_symlinks_core () {
   #  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/.gitignore"
   #  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/README.md"
 
-  # *** ~/.kit/sh aka shoilerplate projects
-
-  # **** ~/.kit/sh library projects
-
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
-
-  # **** ~/.kit/sh feature projects
-
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
-
   # *** ~/.kit/git projects
 
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
@@ -148,6 +128,26 @@ infuse_create_symlinks_core () {
   # *** ~/.kit/py projects
 
   link_deep "${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper"
+
+  # *** ~/.kit/sh aka shoilerplate projects
+
+  # **** ~/.kit/sh library projects
+
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
+
+  # **** ~/.kit/sh feature projects
+
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
 
   # *** ~/.kit/txt projects
 
