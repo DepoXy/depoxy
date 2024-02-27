@@ -196,6 +196,12 @@ infuse_easy_as_pypi_gh_repo_set_default () {
   local gh_org="${INFUSE_GH_ORG:-doblabs}"
   local gh_repo="${gh_org}/$(basename "$(git rev-parse --show-toplevel)")"
 
+  # Caller can skip this task, e.g.,
+  #   INFUSE_GH_ORG=- infuse_easy_as_pypi_follower
+  if [ "${gh_org}" = "-" ]; then
+    return 0
+  fi
+
   # Prints, e.g.,
   #   ✓ Set doblabs/easy-as-pypi as the default repository for the current directory
   # unless pipelined, then prints nothing.
