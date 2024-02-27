@@ -125,6 +125,7 @@ install = PREFIX="${HOME}/.local" make link
 # - Used post-rebase to remake hard links.
 # SAVYY: Call link_hard from infusePostRebase, not infuse.
 infusePostRebase =
+  # SAVVY/2024-02-26 16:10: This Makefile not used by any other project.
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/assets/Makefile" "Makefile"
   #
   link_hard_dep_sh_colors
