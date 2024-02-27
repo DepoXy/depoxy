@@ -145,6 +145,10 @@ infuse_create_symlinks_core () {
   link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
   link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
 
+  # *** ~/.kit/py projects
+
+  link_deep "${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper"
+
   # *** ~/.kit/txt projects
 
   link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
