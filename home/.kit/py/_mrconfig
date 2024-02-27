@@ -176,6 +176,53 @@ infuse =
                        "${HOME}/.local/bin/virtualenvwrapper.sh"
   symlink_overlay_file "${MR_REPO}/virtualenvwrapper_lazy.sh" \
                        "${HOME}/.local/bin/virtualenvwrapper_lazy.sh"
+# SAVVY/2024-02-27: After editing virtualenvwrapper.sh, re-install it, and restart shell.
+echoInstallHelp =
+  echoInstallHelp 'os_all' 'dxy_all'
+  #
+  echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
+    mr -d \"${MR_REPO}\" -n installpythons
+ "
+install =
+  # Ensure `pyenv` not in effect.
+  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  #
+  # Note there's a `make develop` option, but a few problems:
+  # - On stock Ubuntu 22.04/Mint 21.3, you won't find /usr/bin/python
+  #   - The 'python3.10-minimal' apt package installs /usr/bin/python3
+  # - You could call what `make develop` calls:
+  #     python3 setup.py develop
+  #   But setup.py is deprecated in the latest Python versions, e.g.,
+  #     $ python3 setup.py develop
+  #     ...
+  #     /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158:
+  #       EasyInstallDeprecationWarning: easy_install command is deprecated.
+  #       Use build and pip and other standards-based tools.
+  #     ...
+  #     /usr/lib/python3/dist-packages/setuptools/command/install.py:34:
+  #       SetuptoolsDeprecationWarning: setup.py install is deprecated.
+  #       Use build and pip and other standards-based tools.
+  #     ...
+  # - So we could grab what's on PyPI.
+  #     pip install virtualenvwrapper 
+  #   (Note our local changes would still work.)
+  # - Or we could pip-install the path, which uses pyproject.toml.
+  #
+  # SAVVY/2024-02-27: `pip` is no longer install systemwide, just to venv's.
+  # - Also, this is the only DepoXy task that needs pip, so isolating here.
+  # - Note, too, `sudo apt install python3-pip` installs an outdated pip,
+  #   and will cause `py3 -m pip install .` to create and install a package
+  #   name "UNKNOWN".
+  #     https://github.com/pypa/setuptools/issues/3269
+  # - See also `python -m ensurepip`, but Ubuntu system python (from
+  #   python3-minimal) does not include this module (though pip docs
+  #   suggest it's always available from Python).
+  if [ ! -e "${HOME}/.local/bin/pip" ]; then
+    wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py
+    python3 get-pip.py
+  fi
+  #
+  python3 -m pip install ${MR_REPO}
 
 # ========================================================================
 # ------------------------------------------------------------------------
