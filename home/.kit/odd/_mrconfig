@@ -168,18 +168,34 @@ install =
     #
     # We could just call the download `wally` (its default name), but for
     # version readability, we'll add the version to its name.
-    # - The wget redirects look like this:
+    # - The wget Location lines look like this:
     #       Location: https://configure.zsa.io/wally/linux [following]
     #     * Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally [following]
     #       Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/...
+    # SAVVY/2024-02-26: The wget download is named simply "linux".
     echo "Downloading latest release..."
-    location="$(wget "${latest_wally_url_debian}" 2>&1 | grep "Location:" | head -2 | tail -1)"
+    # SAVVY/2024-02-26: I no longer see the first Location, so this doesn't work:
+    #     local location="$( \
+    #       wget "${latest_wally_url_debian}" 2>&1 | grep "Location:" | head -2 | tail -1
+    #     )"
+    # - So look for the GH addy instead, e.g.:
+    #     Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally
+    local location="$( \
+      wget "${latest_wally_url_debian}" 2>&1 \
+      | grep "Location: https://github.com/zsa/wally/releases/download/"
+    )"
     # vers_url is * Location, above, with prefix and suffix stripped.
-    vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
+    local vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
     # Make the app_name, e.g., "wally-2.1.3-linux".
     local url_name="$(basename "${vers_url}")"
     local app_vers="$(basename "$(dirname "${vers_url}")")"
     app_name="${url_name}-${app_vers}"
+    #
+    echo "- location: ${location}"
+    echo "- vers_url: ${vers_url}"
+    echo "- url_name: ${url_name}"
+    echo "- app_vers: ${app_vers}"
+    #
     /bin/mv "$(basename "${latest_wally_url_debian}")" "${app_name}"
     chmod +x "${app_name}"
     ln -sf "${MR_REPO}/${app_name}" "${HOME}/.local/bin/${url_name}"
