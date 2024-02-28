@@ -225,6 +225,10 @@ install =
   fi
   #
   python3 -m pip install ${MR_REPO}
+  #
+  echo
+  echo "YOU: Restart your shells to re-source virtualenvwrapper, if previously loaded"
+  echo
 
 # You need to install virtualenvwrapper systemwide for the basics
 # to work, e.g., `workon`. But you also need to install it to the
