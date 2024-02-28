@@ -111,12 +111,10 @@ install =
   # - E.g. coc-pyright "requires coc.nvim >= >=0.0.80":
   #   git checkout refs/tags/v0.0.80
   #
+  #    pull_latest "starter" "Release" "v0.0.82"
+  #
   # https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
   #
-  # 2022-11-22: The release tag is not part of default branch history...
-  #   $ git tags
-  #   2022-08-01 1d3c525e tag: v0.0.82
-  #   ...
   # There's some weird release branch that has commits with messages
   # like "commit <SHA>", like they're mirroring, but manually,
   # revisions from the main branch. Strange.
@@ -127,8 +125,7 @@ install =
   #     - Now I wonder if my terminology is misleading... I use
   #       'release' branches like 'main' branches... well, both,
   #       I support, so 'release' is fine, it still applies.
-  git checkout release
-  git pull
+  pull_latest "starter" "release"
   #
   # ***
   #
