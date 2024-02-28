@@ -238,18 +238,32 @@ pull =
   git rebase ${remote_branch_default}
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'NERD Commenter'
 install =
-  # Implied: cd "${MR_REPO}"
-  local branch_name=$(git rev-parse --abbrev-ref HEAD)
-  [[ "${branch_name}" = tip/* ]] && info "NERD Commenter already TIPped (“${branch_name}”)" && return
-  [ "${branch_name}" != "master" ] && warn "NERD Commenter on non-default branch “${branch_name}”" && return
-  local tipped_branch="tip/load-after--$(date "+%Y-%m-%d")"
-  git co -b "${tipped_branch}" "master"
+  # 2024-02-27: Latest version tag: 2.7.0, 2022-11-05
+  # - But plenty of commits since, so let's live on the edge.
+  local remote_name="starter"
+  local remote_branch="master"
+  local local_branch="main"
+  git fetch "${remote_name}" --prune
+  #
+  . ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh
+  local remote_sha="$(git_sha_shorten "$(git_remote_branch_object_name "starter" "master")")"
+  # SKIPD: Don't use $(date +%Y-%m-%d) in the name, so we can detect when up to date.
+  local install_branch="tip/load-after/${remote_name}/${remote_branch}/${remote_sha}"
+  #
+  if ! git checkout -b ${install_branch} "${remote_name}/${remote_branch}" 2> /dev/null; then
+    info "NERD Commenter already TIPped (“${install_branch}”)"
+    #
+    return 0
+  fi
+  git branch -u ${remote_name}/${remote_branch}
+  #
+  # Note I see this on my @macOS machine but not @linux machine,
+  # perhaps there's a race condition that causes this to happen.
   mkdir -p after/
   git mv plugin/ after/plugin/
-  # Note I see this on my @macOS machine but not @linux machine,
-  # meaning there's a race condition that causes this to happen.
-  git ci -m "Bugfix: Load plugin 'after' so user's Vimrc able to set globals."
-  info "NERD Commenter branch-TIPped and ready! (“${tipped_branch}”)"
+  git commit -m "Bugfix: Load plugin 'after' so user's Vimrc able to set globals"
+  #
+  info "NERD Commenter branch-TIPped and ready! (“${install_branch}”)"
 
 # See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-javascript]
 # See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-typescript]
