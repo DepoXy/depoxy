@@ -300,6 +300,7 @@ ${notif_subby}"
 
   # notify-send from libnotify-bin, standard (AFAIK) on Desktop distros.
   if [ -n "${notif_title}" ]; then
+    # REFER: See random_notif_image_name_linux for --icon ideas.
     notify-send -i "${notif_image}" "${notif_title}" "${notif_messg}"
   else
     notify-send -i "${notif_image}" "${notif_messg}"
@@ -349,15 +350,45 @@ No .ogg files: ${alert_dir}"
 
 # ***
 
+# REFER: You'll find `notify-send -i/--icon` images in the icon-theme dir,
+# /usr/share/icons/<icon-theme>/, e.g., /usr/share/icons/mate/48x48 [LM 21.3].
+# See also /usr/share/notify-osd/icons/... (though likely initially absent).
+#   https://askubuntu.com/a/189262
+# - SAVVY: Browse the larger 256x256 icons when looking for icon names.
+#   - And note that the <num>-pixel icon sub-directory paths take one of
+#     two forms in the themes, e.g.,
+#       /usr/share/icons/mate/48x48
+#     Vs.
+#       /usr/share/icons/Mint-L/categories/48
+#       # And even twice 48-pixel-sized variants:
+#       /usr/share/icons/Mint-L/categories/48@2x
+
+__CPYST__="$(
+cat <<'EOF'
+  icon_theme="$( \
+    gsettings get org.mate.interface icon-theme \
+    | sed "s/^'//" | sed "s/'\$//"
+  )"
+  # Open gthumb, then look for *48/ directories.
+  gthumb /usr/share/icons/${icon_theme}/ &
+  # ALTLY: (BWARE: Don't run similar using gthumb):
+  eog $(find /usr/share/icons/${icon_theme} -path *48/*.png)
+EOF
+)"
+
 # Not sure what path(s) are searched, but you'll find icons,
 # e.g., "face-wink", under /usr/share/icons/, e.g.,
 #   /usr/share/icons/mate/48x48/emotes/face-wink.png
 random_notif_image_name_linux () {
-  local image_dir="/usr/share/icons/mate/48x48/emotes"
+  local icon_theme="$( \
+    gsettings get org.mate.interface icon-theme \
+    | sed "s/^'//" | sed "s/'\$//"
+  )"
+  local image_dir="/usr/share/icons/${icon_theme}/"
 
-  # ***
+  local random_icon="$(find "${image_dir}" -path *48/*.png | shuf -n 1)"
 
-  if [ ! -d "${image_dir}" ]; then
+  if [ ${PIPESTATUS[0]} -ne 0 ]; then
     notify-send "FIXME: Unable to locate icon images
 
 No such directory: ${image_dir}"
@@ -365,7 +396,9 @@ No such directory: ${image_dir}"
     return 1
   fi
 
-  if [ -z "$(/bin/ls -1 "${image_dir}"/*.png 2> /dev/null)" ]; then
+  # ***
+
+  if [ -z "${random_icon}" ]; then
     notify-send "FIXME: Icon images directory is empty, wha??!
 
 No .png files: ${image_dir}"
@@ -375,7 +408,7 @@ No .png files: ${image_dir}"
 
   # ***
 
-  basename "$(/bin/ls -1 "${image_dir}"/*.png | shuf -n 1)" | sed 's/\.png$//'
+  basename "${random_icon}" | sed 's/\.png$//'
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
