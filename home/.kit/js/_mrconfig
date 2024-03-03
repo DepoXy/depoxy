@@ -103,8 +103,7 @@ checkout = git_clone_giturl -o starter "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-install =
-  pull_latest "starter" "master"
+install = pull_latest "starter" "master" "" "main"
   # ISOFF/2023-04-25: I think ./install.sh is unnecessary.
   # - Homefries Bashrc sources nvm from repo location, which should be
   #   equivalent (./install.sh downloads sources and probably wires to

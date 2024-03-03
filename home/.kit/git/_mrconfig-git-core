@@ -440,7 +440,7 @@ installLinux =
   # - Or you can call git-smart commands similarly, e.g.:
   #     GITSMART_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" git-latest-version-normal
   GITSMART_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" \
-    pull_latest "starter" "master"
+    pull_latest "starter" "master" "" "main"
   #
   # Ensure deps available.
   # - SAVVY: Stack Overflowers suggest you cannot determine the
