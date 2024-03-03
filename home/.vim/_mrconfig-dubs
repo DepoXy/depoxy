@@ -120,7 +120,7 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_web_hatc
 [pack/landonb/start/QFEnter]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/QFEnter.git'
 wireupstream = remote_add starter 'https://github.com/yssl/QFEnter.git'
-p = rebase_tip starter/master
+p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
 
 # ------------------------------------------------------------------------
 
