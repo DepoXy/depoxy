@@ -35,6 +35,8 @@ updateDeps =
 lib = MR_REPO_REMOTE_URL="https://github.com/landonb/git-bump-version-tag.git"
 checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
 skip = mr_exclusive "!entrusted"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install = pipx install dunamai
 infusePostRebase =
   link_hard_dep_sh_ask_yesnoskip
   link_hard_dep_sh_git_nubs
