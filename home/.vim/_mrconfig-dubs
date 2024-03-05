@@ -146,6 +146,11 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-classic-t
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-command-line-clock.git'
 
 # Original project.
+# display-aware gVim/MacVim fullsizer
+[pack/landonb/start/vim-fullscreen-toggle]
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-fullscreen-toggle.git'
+
+# Original project.
 [pack/landonb/start/vim-lcd-project-root]
 checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-lcd-project-root.git'
 
