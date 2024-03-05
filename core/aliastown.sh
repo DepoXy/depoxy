@@ -209,7 +209,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
 
   # Are you a Vim plugin author? Here's a convenient pushd to your plugs.
   # - Just set the environ from your private Bashrc, e.g.,
-  #     DEPOXY_CVS_VIM_PLUG_PACKAGE_NAME=yourusername
+  #     export DEPOXY_CVS_VIM_PLUG_PACKAGE_NAME=yourusername
   local cvs_alias="cvs"
   if [ -n "${DEPOXY_CVS_VIM_PLUG_PACKAGE_NAME}" ]; then
     pushd_alias_or_warn "${cvs_alias}" "${HOME}/.vim/pack/${DEPOXY_CVS_VIM_PLUG_PACKAGE_NAME}/start"
