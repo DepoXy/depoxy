@@ -220,8 +220,12 @@ install =
   #   python3-minimal) does not include this module (though pip docs
   #   suggest it's always available from Python).
   if [ ! -e "${HOME}/.local/bin/pip" ]; then
-    wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py
-    python3 get-pip.py
+    # SAVVY: build/ is ignored by both .gitignore and .ignore, so put
+    # get-pip.py there, to be ignored but kept for reference (just in
+    # case downloaded ever misbehaves and you need to inspect source).
+    mkdir -p build/
+    wget -O build/get-pip.py https://bootstrap.pypa.io/get-pip.py
+    python3 build/get-pip.py
   fi
   #
   python3 -m pip install ${MR_REPO}
