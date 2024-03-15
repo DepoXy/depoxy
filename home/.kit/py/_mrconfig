@@ -84,6 +84,24 @@ installpythons =
   # Pre-release Python only installable by full version.
   # This installs the non-dev version, e.g., '3.13.0a1', not '3.13-dev'.
   pyenv install -s $(pyenv install -l | grep '^ \+3\.13\.' | tail -1)
+  #
+  mr -d "${MR_REPO}" -n installVirtualenvwrapper
+# WIRET: Support `workon` from all pyenv envs.
+# - REFER: https://github.com/landonb/virtualenvwrapper
+installVirtualenvwrapper =
+  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  for pyvers in $(pyenv versions | sed 's/^[^ ]* *\([^ ]\+\)*.*/\1/'); do
+    pyenv shell ${pyvers}
+    #
+    pip install --upgrade pip
+    #
+    vew_fork="${VENV_WRAP:-${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper}"
+    if [ -d "${vew_fork}" ]; then
+      pip install ${vew_fork}
+    else
+      pip install virtualenvwrapper
+    fi
+  done
 infuse =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     return 0
