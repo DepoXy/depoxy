@@ -49,7 +49,7 @@ main () {
   infuse_brew_shellenv
 }
 
-if [ "$(basename $0)" = "brewskies.sh" ]; then
+if [ "$(basename -- "$0")" = "brewskies.sh" ]; then
   >&2 echo "ERROR: Trying sourcing the file instead: . $0" && exit 1
 else
   main "$@"
