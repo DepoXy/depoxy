@@ -364,7 +364,7 @@ onboard_easy_as_pypi_follower_2023 () {
 
   mv_trustme_to_subdir_local () {
     if ls ./.trustme.* > /dev/null 2>&1; then
-      command mkdir -p ./.trustme
+      mkdir -p ./.trustme
 
       command mv ./.trustme.* ./.trustme 2> /dev/null \
         && echo "MOVED: → .trustme/ files" \
@@ -379,7 +379,7 @@ onboard_easy_as_pypi_follower_2023 () {
     if [ -d "${mrinfuse_dir}" ]; then
       cd "${mrinfuse_dir}"
 
-      command mkdir -p ./.trustme
+      mkdir -p ./.trustme
 
       git mv ./.trustme.* ./.trustme 2> /dev/null \
         && echo "MOVED: → .mrinfuse/'s .trustme.* files" \

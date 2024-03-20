@@ -23,10 +23,10 @@ lib =
       return 1
     fi
     if [ ! -e "${opn_js}-ORIG" ]; then
-      /bin/cp "${opn_js}" "${opn_js}-ORIG"
+      command cp -- "${opn_js}" "${opn_js}-ORIG"
     fi
     # If you need to recover:
-    #  /bin/cp node_modules/opn/index.js-ORIG node_modules/opn/index.js
+    #  command cp -- node_modules/opn/index.js-ORIG node_modules/opn/index.js
     sed -i -E "s#^\t\tcmd = 'open';\$#\t\tcmd = 'sensible-open';#" "${opn_js}"
     # This line just for ref., but return true to not fail OMR.
     diff "${opn_js}-ORIG" "${opn_js}" || true

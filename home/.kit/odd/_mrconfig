@@ -120,7 +120,7 @@ install =
     vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
     app_name="$(basename -- "${vers_url}")"
     #
-    /bin/mv -f "$(basename -- "${latest_wally_url_macos}")" "${app_name}"
+    command mv -f -- "$(basename -- "${latest_wally_url_macos}")" "${app_name}"
     #
     # Alternatively, see `hdiutil attach <dmg>` for automated install,
     # but slower and requires sudo, so preferring manual intervention.
@@ -158,7 +158,8 @@ install =
     sudo apt install -y libusb-1.0-0-dev
     #
     local udevd_rules_path="etc/udev/rules.d/50-zsa.rules"
-    sudo /bin/cp -f "${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}/${udevd_rules_path}" \
+    sudo /usr/bin/env cp -f -- \
+      "${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}/${udevd_rules_path}" \
       "/${udevd_rules_path}"
     #
     # Ensure user is part of plugdev group.
@@ -196,7 +197,7 @@ install =
     echo "- url_name: ${url_name}"
     echo "- app_vers: ${app_vers}"
     #
-    /bin/mv "$(basename -- "${latest_wally_url_debian}")" "${app_name}"
+    command mv -- "$(basename -- "${latest_wally_url_debian}")" "${app_name}"
     chmod +x "${app_name}"
     ln -sf "${MR_REPO}/${app_name}" "${HOME}/.local/bin/${url_name}"
     #

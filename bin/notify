@@ -335,7 +335,7 @@ No such directory: ${alert_dir}"
     return 1
   fi
 
-  if [ -z "$(/bin/ls -1 "${alert_dir}"/*.ogg 2> /dev/null)" ]; then
+  if [ -z "$(command ls -1 "${alert_dir}"/*.ogg 2> /dev/null)" ]; then
     notify-send "FIXME: Alert sounds directory is empty, wha??!
 
 No .ogg files: ${alert_dir}"
@@ -345,7 +345,7 @@ No .ogg files: ${alert_dir}"
 
   # ***
 
-  /bin/ls -1 "${alert_dir}/"*.ogg | shuf -n 1
+  command ls -1 "${alert_dir}/"*.ogg | shuf -n 1
 }
 
 # ***

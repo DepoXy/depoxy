@@ -114,8 +114,8 @@ infuse =
   # Effectively:
   #  symlink_overlay_file "${MR_REPO}/libexec/pyenv" "${HOME}/.local/bin/pyenv"
   # Copy pyenv manual.
-  #  /bin/cp -f man/man1/pyenv.1 ${HOME}/.local/share/man/man1
-  #  echo "/bin/cp -f man/man1/pyenv.1 ${HOME}/.local/share/man/man1"
+  #  command cp -f -- man/man1/pyenv.1 ${HOME}/.local/share/man/man1
+  #  echo "command cp -f -- man/man1/pyenv.1 ${HOME}/.local/share/man/man1"
   symlink_overlay_file "${MR_REPO}/man/man1/pyenv.1" "${HOME}/.local/share/man/man1/pyenv.1"
   # Wire the completions file (Homefries-specific).
   if [ -d "${HOME}/.homefries/bin/completions" ]; then

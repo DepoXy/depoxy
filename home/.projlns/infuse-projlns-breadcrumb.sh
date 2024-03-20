@@ -66,7 +66,7 @@ main () {
 
   local before_cd="$(pwd -L)"
 
-  /bin/mkdir -p "${DEPOXY_PROJLNS}"
+  mkdir -p "${DEPOXY_PROJLNS}"
 
   cd "${DEPOXY_PROJLNS}"
 

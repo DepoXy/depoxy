@@ -79,23 +79,23 @@ install =
   if [ ! -e "${HOME}/.bash_completion" ]; then
     info "Creating $(fg_lightorange)~/.bash_completion$(attr_reset)"
     #
-    /bin/mv ".bash_completion" "${HOME}/.bash_completion"
+    command mv -- ".bash_completion" "${HOME}/.bash_completion"
   elif diff -q ".bash_completion" "${HOME}/.bash_completion" > /dev/null; then
     info "Verified $(fg_lightorange)~/.bash_completion$(attr_reset)"
     #
-    /bin/rm ".bash_completion"
+    command rm -- ".bash_completion"
   else
     # Fail if ~/.bash_completion exists but has different content than expected.
     # - In author's experience, ~/.bash_completion does not exist until this
     #   install task runs.
     error "Unexpected $(fg_lightorange)~/.bash_completion$(attr_reset)"
-    /bin/rm ".bash_completion"
+    command rm -- ".bash_completion"
     #
     return 1
   fi
   #
   info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"
-  /bin/cp "complete_alias" "${HOME}/.complete_alias"
+  command cp -- "complete_alias" "${HOME}/.complete_alias"
   #
   # Completion Aliases:
   # - tig alias completions, e.g., `t <tab>`

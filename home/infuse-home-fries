@@ -127,7 +127,7 @@ setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
   local renamed="${brew_bin}/jpeg-xl--benchmark_xl"
 
   if [ -f "${conflict}" ]; then
-    /bin/mv "${conflict}" "${renamed}"
+    command mv -- "${conflict}" "${renamed}"
 
     info " Renamed $(font_highlight "${conflict}") → $(font_highlight "${renamed}")" \
       "to avoid completion competition"
