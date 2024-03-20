@@ -294,7 +294,7 @@ main () {
 
   source_deps
 
-  [ "$(basename $0)" != "infuse-dubs-vim" ] || LOG_LEVEL=0
+  [ "$(basename -- "$0")" != "infuse-dubs-vim" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   infuser_prepare "${HOME}/.vim" "$@"

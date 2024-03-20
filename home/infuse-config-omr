@@ -66,7 +66,7 @@ setup_myrepos_generated_mrtrust () {
   # source exists or not, we want to call symlink_mrinfuse_file, so
   # that its nicely formatted output is included in the output log.
   # As such, give the source a little poke to ensure it exists.
-  touch "${ambers_home}/.mrtrust"
+  touch -- "${ambers_home}/.mrtrust"
   symlink_mrinfuse_file ".mrtrust"
 
   m4 \
@@ -86,7 +86,7 @@ main () {
 
   source_deps
 
-  [ "$(basename $0)" != "infuse-config-omr" ] || LOG_LEVEL=0
+  [ "$(basename -- "$0")" != "infuse-config-omr" ] || LOG_LEVEL=0
 
   local ambers_path="${depoxy_root}"
   local ambers_home="${depoxy_root}/home"

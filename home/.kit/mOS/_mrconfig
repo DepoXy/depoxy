@@ -22,7 +22,7 @@ order = 690
 #        yourself.
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
-checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_maybe' 'if that‘s something you‘ll use'

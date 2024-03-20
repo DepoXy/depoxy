@@ -22,7 +22,7 @@ checkout =
     git_clone_giturl -o starter 'git@github.com:pyenv/pyenv.git' 'pyenv'
   else
     mkdir -p "${MR_REPO}"
-    touch "${MR_REPO}/.omr-placeholder"
+    touch -- "${MR_REPO}/.omr-placeholder"
   fi
 echoInstallHelp =
   echoInstallHelp 'os_linux' 'dxy_all'
@@ -134,7 +134,7 @@ checkout =
     git_clone_giturl -o "starter" "pyenv/pyenv-virtualenv.git"
   else
     mkdir -p "${MR_REPO}"
-    touch "${MR_REPO}/.omr-placeholder"
+    touch -- "${MR_REPO}/.omr-placeholder"
   fi
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
@@ -304,7 +304,7 @@ install =
     #
     exit 1
   fi
-  touch -t "$(date -d "today 0" +"%C%y%m%d%H%M.%S")" "${midnight_file}"
+  touch -t "$(date -d "today 0" +"%C%y%m%d%H%M.%S")" -- "${midnight_file}"
   local do_continue
   [ "${midnight_file}" -ot "${awscli_pkg}" ] && do_continue="-C -"
   curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "${awscli_pkg}" ${do_continue}

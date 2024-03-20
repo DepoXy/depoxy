@@ -194,7 +194,7 @@ infuse_easy_as_pypi_gh_configure () {
 # REFER: gh help environment | less
 infuse_easy_as_pypi_gh_repo_set_default () {
   local gh_org="${INFUSE_GH_ORG:-doblabs}"
-  local gh_repo="${gh_org}/$(basename "$(git rev-parse --show-toplevel)")"
+  local gh_repo="${gh_org}/$(basename -- "$(git rev-parse --show-toplevel)")"
 
   # Caller can skip this task, e.g.,
   #   INFUSE_GH_ORG=- infuse_easy_as_pypi_follower
@@ -248,7 +248,7 @@ onboard_easy_as_pypi_follower_2023 () {
   # ***
 
   is_canon () {
-    [ "$(basename "$(realpath "$(pwd)")")" = "easy-as-pypi" ]
+    [ "$(basename -- "$(realpath -- "$(pwd)")")" = "easy-as-pypi" ]
   }
 
   # ***
@@ -373,7 +373,7 @@ onboard_easy_as_pypi_follower_2023 () {
   }
 
   mv_trustme_to_subdir_mrinfuse () {
-    local project_name="$(basename "${MR_REPO}")"
+    local project_name="$(basename -- "${MR_REPO}")"
     local mrinfuse_dir="../.mrinfuse/${project_name}"
 
     if [ -d "${mrinfuse_dir}" ]; then

@@ -89,7 +89,7 @@ infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local user_inputrc="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.inputrc"
   if [ -f "${inputrc_path}" ]; then
-    inputrc_path="$(realpath "${user_inputrc}")"
+    inputrc_path="$(realpath -- "${user_inputrc}")"
   fi
   #
   if os_is_macos; then

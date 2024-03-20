@@ -18,7 +18,7 @@ order = 795
 #       https://github.com/the-via/app
 # - On @linux, web app won't connect, so using AppImage.
 [${DOPP_KIT:-${HOME}/.kit}/odd/via-nativia]
-checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
 ffssh = true
 travel = true
 unpack = true
@@ -48,7 +48,7 @@ install =
     local app_image_base="https://github.com/the-via/releases/releases/download"
     local app_image_url="${app_image_base}/v${via_version}/via-${via_version}-linux.AppImage"
     #
-    app_name_local="$(basename "${app_image_url}")"
+    app_name_local="$(basename -- "${app_image_url}")"
     #
     if [ ! -f "${app_name_local}" ]; then
       wget "${app_image_url}"
@@ -99,7 +99,7 @@ install =
 #     https://github.com/zsa/wally/releases/
 #   - Note that OS X, Linux, and Windows releases are released separately.
 [${DOPP_KIT:-${HOME}/.kit}/odd/wally]
-checkout = mkdir "${MR_REPO}" && touch "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
 ffssh = true
 travel = true
 unpack = true
@@ -118,9 +118,9 @@ install =
     #     Location: https://github.com/zsa/wally/releases/download/2.1.0-osx/wally-osx-2.1.0.dmg [following]
     location="$(wget "${latest_wally_url_macos}" 2>&1 | grep "Location:" | head -1)"
     vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
-    app_name="$(basename "${vers_url}")"
+    app_name="$(basename -- "${vers_url}")"
     #
-    /bin/mv -f "$(basename "${latest_wally_url_macos}")" "${app_name}"
+    /bin/mv -f "$(basename -- "${latest_wally_url_macos}")" "${app_name}"
     #
     # Alternatively, see `hdiutil attach <dmg>` for automated install,
     # but slower and requires sudo, so preferring manual intervention.
@@ -147,7 +147,7 @@ install =
     echo
     echo "Or more conveniently:"
     echo
-    echo "  $(basename "${local_bin_shim}")"
+    echo "  $(basename -- "${local_bin_shim}")"
   else
     echo "Enter sudo password to install wally:"
     sudo -v
@@ -187,8 +187,8 @@ install =
     # vers_url is * Location, above, with prefix and suffix stripped.
     local vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
     # Make the app_name, e.g., "wally-2.1.3-linux".
-    local url_name="$(basename "${vers_url}")"
-    local app_vers="$(basename "$(dirname "${vers_url}")")"
+    local url_name="$(basename -- "${vers_url}")"
+    local app_vers="$(basename -- "$(dirname -- "${vers_url}")")"
     app_name="${url_name}-${app_vers}"
     #
     echo "- location: ${location}"
@@ -196,7 +196,7 @@ install =
     echo "- url_name: ${url_name}"
     echo "- app_vers: ${app_vers}"
     #
-    /bin/mv "$(basename "${latest_wally_url_debian}")" "${app_name}"
+    /bin/mv "$(basename -- "${latest_wally_url_debian}")" "${app_name}"
     chmod +x "${app_name}"
     ln -sf "${MR_REPO}/${app_name}" "${HOME}/.local/bin/${url_name}"
     #

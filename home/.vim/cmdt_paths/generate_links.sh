@@ -46,7 +46,7 @@ remove_existing_links () {
 
 dubs_vim_file_finder_cmdt_path_generate_links () {
   # Tell .vimprojects not to descend into the links directory.
-  touch .dubs_project.vim-ignore
+  touch -- ".dubs_project.vim-ignore"
 
   remove_existing_links
 

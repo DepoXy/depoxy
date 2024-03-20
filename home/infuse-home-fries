@@ -121,7 +121,7 @@ setup_public_fries_dot_files () {
 #     /opt/homebrew/bin/benchmark_xl ->
 #       /opt/homebrew/Cellar/jpeg-xl/0.7.0_1/bin/benchmark_xl
 setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
-  local brew_bin="$(dirname "$(_depoxy_print_homebrew_path)")"
+  local brew_bin="$(dirname -- "$(_depoxy_print_homebrew_path)")"
 
   local conflict="${brew_bin}/benchmark_xl"
   local renamed="${brew_bin}/jpeg-xl--benchmark_xl"
@@ -141,7 +141,7 @@ main () {
 
   source_deps
 
-  [ "$(basename $0)" != "infuse-home-fries" ] || LOG_LEVEL=0
+  [ "$(basename -- "$0")" != "infuse-home-fries" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   infuser_prepare "${HOME}" "$@"

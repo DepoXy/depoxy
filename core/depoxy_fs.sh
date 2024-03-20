@@ -301,7 +301,7 @@ _vendorfs_current_client_find_directory_and_print () {
       -maxdepth 1 \
       -type d \
       -regex '.*/[0-9]+' \
-      -exec bash -c 'basename {}' \; \
+      -exec bash -c 'basename -- "{}"' \; \
       | sort -n \
       | tail -1
   )"

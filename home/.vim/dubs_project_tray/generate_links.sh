@@ -66,9 +66,9 @@ dubs_cuts_generate_links () {
       echo "FOUND: ${fpath}"
     fi
     if [ "${fpath}" != ' ' ]; then
-      filename=$(basename -- "${fpath}")
-      rpath=$(dirname -- "${fpath}")
-      proj_name=$(basename -- $(dirname $(dirname -- "${fpath}")))
+      filename="$(basename -- "${fpath}")"
+      rpath="$(dirname -- "${fpath}")"
+      proj_name="$(basename -- "$(dirname -- "$(dirname -- "${fpath}")")")"
       path_abbrevd=''
       if    [ "${proj_name}" = '' ] \
          || [ "${proj_name}" = 'start' ] \

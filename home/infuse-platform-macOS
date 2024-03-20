@@ -193,11 +193,11 @@ infuse_symlink_macOS_MacVim_latest_version_symlink () {
 
   local latest_version
   latest_version="$(
-    basename $(
+    basename -- "$(
       find . -maxdepth 1 -mindepth 1 -type d |
         sort |
         head -1
-    )
+    )"
   )"
 
   debug " MacVim: Latest vers: ${latest_version}"
@@ -216,7 +216,7 @@ main () {
 
   source_deps
 
-  [ "$(basename $0)" != "infuse-platform-macOS" ] || LOG_LEVEL=0
+  [ "$(basename -- "$0")" != "infuse-platform-macOS" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"

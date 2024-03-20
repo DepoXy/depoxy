@@ -408,7 +408,7 @@ No .png files: ${image_dir}"
 
   # ***
 
-  basename "${random_icon}" | sed 's/\.png$//'
+  basename -- "${random_icon}" | sed 's/\.png$//'
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

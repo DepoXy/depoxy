@@ -135,7 +135,7 @@ _depoxy_python_lazy_load_virtualenvwrapper () {
 # Note that `activate` exports two vars we could use:
 # VIRTUAL_ENV, and VIRTUAL_ENV_PROMPT.
 # - The `activate` script sets the latter to the former:
-#     VIRTUAL_ENV_PROMPT="($(basename "${VIRTUAL_ENV}") "
+#     VIRTUAL_ENV_PROMPT="($(basename -- "${VIRTUAL_ENV}") "
 # - (Or using pure Bash):
 #     VIRTUAL_ENV_PROMPT="${VIRTUAL_ENV##*/}"
 # So unless we want to customize the prompt (e.g., use something other
@@ -165,7 +165,7 @@ _depoxy_python_prefix_PS1_with_venv_name () {
       #     (.venv) user@host:dir ⚓ $
       #  printf "%s" "${VIRTUAL_ENV_PROMPT}"
       # - Format: <.venv> user@host:dir ⚓ $
-      printf "<%s> " "$(basename "${VIRTUAL_ENV}")"
+      printf "<%s> " "$(basename -- "${VIRTUAL_ENV}")"
     fi
   }
 

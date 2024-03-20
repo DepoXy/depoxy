@@ -153,8 +153,8 @@ lib =
       #
       git -c init.defaultBranch="${init_branch}" init .
       #
-      touch .gitisempty
-      git add .gitisempty
+      touch -- ".gitisempty"
+      git add ".gitisempty"
       #
       git -c user.email="${user_email}" commit -m \
         "💂Guard💂Repo💂 — 🚧 This is an unmanaged (🚫💼) facility 🚧"
@@ -202,12 +202,12 @@ infuse =
   # Create an empty file, not only because all good repos deserve a README,
   # but because `gvim-open-kindness` defaults to this file when its called
   # without a path (otherwise, gvim's `--servername {name}` will not work).
-  touch ${HOME}/README.rst
+  touch -- "${HOME}/README.rst"
   #
   # Ensure ~/.mrconfig and ~/.mrtrust symlinked (should be redundant, because
   # how else can you run this 'infuse' task?), and ensure ~/.mrinfuse/ wired.
   LOG_LEVEL=10 \
-    ${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-config-omr \
+    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-config-omr" \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}" "$@"
 
 # ========================================================================

@@ -73,9 +73,9 @@ clone_myrepos () {
 }
 
 clone_ohmyrepos () {
-  local omr_path="$(dirname "${OHMYREPOS_LIB}")"
-  local omr_name="$(basename "${omr_path}")"
-  local omr_root="$(dirname "${omr_path}")"
+  local omr_path="$(dirname -- "${OHMYREPOS_LIB}")"
+  local omr_name="$(basename -- "${omr_path}")"
+  local omr_root="$(dirname -- "${omr_path}")"
 
   if [ -d "${omr_path}/.git" ]; then
     echo "Clone: OH MY REPOS is already cloned"
@@ -193,7 +193,7 @@ parse_command () {
       >&2 echo "ERROR: Unexpected command: $1"
       >&2 echo
       >&2 echo "HINT: If that's really the command you want, run:"
-      >&2 echo "        $(basename $0) echo"
+      >&2 echo "        $(basename -- "$0") echo"
       >&2 echo "      then copy-paste that output to your terminal"
       >&2 echo "      and then you can run any command you want."
       >&2 echo
@@ -208,7 +208,7 @@ print_help () {
   echo "This script can run \`mr\` before it's wired into your environment,"
   echo "but it only recognizes a subset of available \`mr\` commands."
   echo
-  echo "USAGE: $(basename $0) {command} [{directory}]"
+  echo "USAGE: $(basename -- "$0") {command} [{directory}]"
   echo
   echo "You can specify one of the following commands:"
   echo
@@ -255,9 +255,9 @@ main () {
 
   # Determine this script's repo root (up two levels from bin/macOS).
   # - Note that `realpath` is not available until Homebrew Bash installed.
-  #    local repo_base="$(dirname "$(realpath "$0")")"
-  local basedir_relative="$(dirname "$(readlink -f "$0")")/../.."
-  local DEPOXYAMBERS_DIR="$(readlink -f "${basedir_relative}")"
+  #    local repo_base="$(dirname -- "$(realpath "$0")")"
+  local basedir_relative="$(dirname -- "$(readlink -f "$0")")/../.."
+  local DEPOXYAMBERS_DIR="$(readlink -f -- "${basedir_relative}")"
 
   init_homebrew_or_exit
 

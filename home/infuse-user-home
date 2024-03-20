@@ -62,7 +62,7 @@ infuse_symlinks_user_home_tigconfig () {
     # Note the <(find ...) is not POSIX (dash would complain,
     # "Syntax error: redirection unexpected").
     while read -r tconf; do
-      local fname="$(basename "${tconf}")"
+      local fname="$(basename -- "${tconf}")"
 
       symlink_overlay_file "${tnewtons_tig}/${fname}" \
         ".mrinfuse/.config/tig/cfg-tgn-${fname}"
@@ -240,7 +240,7 @@ infuse_symlinks_user_home_gitsmart () {
 
     local rel_bin="$(which tig)"
     local tig_bin="$(realpath -- "${rel_bin}")"
-    local tig_base="$(dirname "$(dirname "${tig_bin}")")"
+    local tig_base="$(dirname -- "$(dirname -- "${tig_bin}")")"
     local tig_bash="${tig_base}/etc/bash_completion.d/tig-completion.bash"
 
     # Ensure Bash file found.
@@ -373,7 +373,7 @@ main () {
 
   source_deps
 
-  [ "$(basename $0)" != "infuse-user-home" ] || LOG_LEVEL=0
+  [ "$(basename -- "$0")" != "infuse-user-home" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   infuser_prepare "${HOME}" "${@}"

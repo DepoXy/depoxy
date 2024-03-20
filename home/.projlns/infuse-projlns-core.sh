@@ -23,7 +23,7 @@ source_deps () {
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Load: _vendorfs_path_stints_basedir_print
-  . "$(dirname "$(realpath "$0")")/../../core/depoxy_fs.sh"
+  . "$(dirname -- "$(realpath -- "$0")")/../../core/depoxy_fs.sh"
 
   # Load: link_deep, and remove_symlink_hierarchy_safe.
   # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
@@ -177,7 +177,7 @@ infuse_create_symlinks_docs () {
   find "${clients_path}" -mindepth 1 -maxdepth 1 -type d \
     | while read subdir_path; \
   do
-    local subdir_name="$(basename "${subdir_path}")"
+    local subdir_name="$(basename -- "${subdir_path}")"
 
     if [ "${subdir_name#.syml--}" != "${subdir_name}" ]; then
       # Ignore `.syml--XXXX' dirs (DXY_MAKE_LNS_NAME).
