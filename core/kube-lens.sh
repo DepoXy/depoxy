@@ -63,7 +63,11 @@ _depoxy_run_or_front_electron_lens () {
   # Note that we don't check
   #   "lens/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron"
   # which continues to run after you quit OpenLensDev.
-  if ps aux | grep -q -e "/Library/Application Support/OpenLensDev" | grep -q -v " grep "; then
+  if \
+    ps aux \
+    | grep -q -e "/Library/Application Support/OpenLensDev" \
+    | grep -q -v " grep " \
+  ; then
     osascript \
       -e 'tell application "Electron" to reopen' \
       -e 'tell application "Electron" to activate'

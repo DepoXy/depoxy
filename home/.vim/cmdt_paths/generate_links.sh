@@ -41,7 +41,7 @@ remove_existing_links () {
   # - We could instead GNU `ln -sfn` or BSD `ln -sfh` to avoid adding links
   #   to the previously linked directories; but we also want to start fresh,
   #   in case previously linked targets were (re)moved.
-  find . -maxdepth 1 -type l -exec /bin/rm {} +
+  find . -maxdepth 1 -type l -exec rm {} +
 }
 
 dubs_vim_file_finder_cmdt_path_generate_links () {

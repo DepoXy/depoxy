@@ -44,8 +44,8 @@ install =
   local no_zshrc=false
   [ ! -e "${HOME}/.zshrc" ] && no_zshrc=true
   printf 'no\nno\nno\n' | ./install
-  /bin/rm "${HOME}/.fzf.bash" "${HOME}/.fzf.zsh"
-  ${no_zshrc} && /bin/rm "${HOME}/.zshrc"
+  command rm -- "${HOME}/.fzf.bash" "${HOME}/.fzf.zsh"
+  ${no_zshrc} && command rm -- "${HOME}/.zshrc"
   mr -d "${MR_REPO}" -n infuse
   printf '\n%s\n\n%b%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s%b\n\n' \
     "YOU: Undo FZF changes to ~/.bashrc:" \
@@ -59,7 +59,7 @@ install =
     "  && git checkout -- .profile \\" \
     "  && cd \${HOME} \\" \
     "  && ([ \"\$(cat .zshenv)\" = \"\$(echo -e \". \\\"\\\$HOME/.cargo/env\\\"\\\n\")\" ] \\" \
-    "    && /bin/rm \${HOME}/.zshenv \\" \
+    "    && command rm -- \"\${HOME}/.zshenv\" \\" \
     "    || echo \"YOU: Check ~/.zshenv yourself (and remove the last line)\") \\" \
     "  && popd" \
     "\033[0m"

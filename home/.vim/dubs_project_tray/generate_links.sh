@@ -13,7 +13,7 @@ DUBS_PROJECT_TRAY_DUBS_CUTS="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 remove_existing_links () {
-  find . -maxdepth 1 -type l -exec /bin/rm {} +
+  find . -maxdepth 1 -type l -exec rm {} +
 }
 
 dubs_cuts_generate_links () {
