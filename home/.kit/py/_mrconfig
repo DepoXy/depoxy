@@ -50,6 +50,13 @@ installLinux =
   #   Nov 13 00:46 libexec/pyenv
   #   ...
   #   Sep 29  2022 libexec/pyenv-realpath.dylib
+  # TRACK/2024-03-20 22:26: Again!
+  #   Mar 20 21:54 man/index.db
+  # - I ran `PREFIX=~/.local make install` at that time (per ~/.bash_history)
+  #   from a separate shell project, don't see how that wouldn't caused it...
+  #   - Though I wonder if it could've been this command:
+  #       2024-03-20 21:54:26 PREFIX=~/.local make installMan
+  #     Nope, rerunning that didn't recreate man/index.db. Huh...
   # - So keep an eye out for it. If it is make related, since there's
   #   no `make clean`, do it yourself, e.g.,
   #     command rm -f -- "man/index.db"
