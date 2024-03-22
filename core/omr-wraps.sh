@@ -72,6 +72,7 @@ aci () {
 # Local directory `aci.` and `infuse.`.
 _dxy_aliases_wire_omr_wraps () {
   claim_alias_or_warn "aci." "mr -d . -n autocommit -y"
+  # CALSO: `infuse .` works similarly.
   claim_alias_or_warn "infuse." "mr -d . -n infuse"
 }
 
