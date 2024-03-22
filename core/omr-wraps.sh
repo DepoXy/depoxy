@@ -78,6 +78,32 @@ _dxy_aliases_wire_omr_wraps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF: ~/.ohmyrepos/bin/omr-report
+
+function omr-is-registered () {
+  (
+    . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
+
+    omr_is_registered "$@"
+  )  
+}
+
+function omr-report () {
+  (
+    . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
+
+    omr_report \
+      "${HOME}" \
+      "/TBD-*" -prune \
+      "/*-TBD" -prune \
+      "${HOME}/.downloads" -prune \
+      "${HOME}/.gopath" -prune \
+      "${HOME}/.trash*" -prune \
+  )  
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_unset_f_omr_wraps () {
   unset -f main
   unset -f _dxy_aliases_wire_omr_wraps
