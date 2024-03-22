@@ -39,6 +39,10 @@
 # whereas when run from a local terminal, neither of those environs are set.
 
 aci () {
+  local proj_path="${1:-/}"
+
+  # ***
+
   local the_choice
 
   if [ -n "${SSH_CLIENT}" ] || [ -n "${SSH_TTY}" ]; then
@@ -53,7 +57,14 @@ aci () {
     return 1
   fi
 
-  mr -d / autocommit -y "$@"
+  # ***
+
+  local no_recurse=""
+  if [ "${proj_path}" != "/" ]; then
+    no_recurse="-n"
+  fi
+
+  mr -d "${proj_path}" ${no_recurse} autocommit -y "$@"
 }
 
 # ***
