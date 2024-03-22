@@ -34,6 +34,10 @@
 # Symlink to private (client) infuser.
 /home/.kit/_git
 
+# Symlink to private Vim mrconfig.
+# - E.g., -> /home/user/.depoxy/running/home/.vim/_mrconfig-private
+/home/.vim/_mrconfig-private
+
 # Ignore generated directory. See:
 #   ~/.depoxy/ambers/home/.vim/cmdt_paths/generate_links.sh
 /home/.vim/cmdt_paths/symlinks/
