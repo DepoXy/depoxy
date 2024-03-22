@@ -40,6 +40,7 @@ befinance
 cd'd
 dep
 deps
+dialogs
 dir
 dir's
 dirs
@@ -63,6 +64,7 @@ nav
 notif
 notifs
 pinentry
+popups
 proj
 py3
 pyproject
