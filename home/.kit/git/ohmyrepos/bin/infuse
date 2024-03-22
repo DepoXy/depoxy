@@ -4,9 +4,16 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-if [ -z "$1" ]; then
-  mr -d / infuse
-else
-  mr -d "$1" -n infuse
-fi
+_infuse () {
+  local proj_path="${1:-/}"
+
+  local no_recurse=""
+  if [ "${proj_path}" != "/" ]; then
+    no_recurse="-n"
+  fi
+
+  mr -d "${proj_path}" ${no_recurse} infuse
+}
+
+_infuse "$@"
 
