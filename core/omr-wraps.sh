@@ -83,7 +83,7 @@ function omr-is-registered () {
     # CXREF: ~/.ohmyrepos/bin/omr-report
     . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
 
-    omr_is_registered "$@"
+    OMR_VERBOSE=true omr_is_registered "$@"
   )  
 }
 
