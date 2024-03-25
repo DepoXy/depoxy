@@ -78,10 +78,9 @@ _dxy_aliases_wire_omr_wraps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# CXREF: ~/.ohmyrepos/bin/omr-report
-
 function omr-is-registered () {
   (
+    # CXREF: ~/.ohmyrepos/bin/omr-report
     . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
 
     omr_is_registered "$@"
@@ -90,6 +89,7 @@ function omr-is-registered () {
 
 function omr-report () {
   (
+    # CXREF: ~/.ohmyrepos/bin/omr-report
     . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
 
     omr_report \
