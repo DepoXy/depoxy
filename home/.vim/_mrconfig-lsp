@@ -34,26 +34,26 @@ order = 780
 
 [pack/prabirshrestha/opt/vim-lsp]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/vim-lsp.git'
+lib = MR_REPO_REMOTES="starter https://github.com/prabirshrestha/vim-lsp.git"
 
 # Medium.com: "so that vim doesn’t freeze while waiting for the LSP server to start"
 [pack/prabirshrestha/opt/async.vim]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/async.vim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/prabirshrestha/async.vim.git"
 
 # Clever language server installer, e.g., open file, run ``:LspInstallServer``.
 [pack/mattn/opt/vim-lsp-settings]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/mattn/vim-lsp-settings.git'
+lib = MR_REPO_REMOTES="starter https://github.com/mattn/vim-lsp-settings.git"
 
 [pack/prabirshrestha/opt/asyncomplete.vim]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/asyncomplete.vim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/prabirshrestha/asyncomplete.vim.git"
 
 # Medium.com: "glue between asyncomplete.vim and vim-lsp"
 [pack/prabirshrestha/opt/asyncomplete-lsp.vim]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/asyncomplete-lsp.vim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/asyncomplete-lsp.vim.git"
 
 # ------------------------------------------------------------------------
 
@@ -71,14 +71,14 @@ checkout = git_clone_giturl -o starter 'https://github.com/prabirshrestha/asynco
 #     npm install typescript typescript-language-server
 [pack/ryanolsonx/opt/vim-lsp-typescript]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/ryanolsonx/vim-lsp-typescript.git'
+lib = MR_REPO_REMOTES="starter https://github.com/ryanolsonx/vim-lsp-typescript.git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_off'
 install = cd ${HOME}/.local && npm install typescript typescript-language-server
 infuse = link_private_exclude "$@"
 
 [pack/ryanolsonx/opt/vim-lsp-javascript]
 skip = true
-checkout = git_clone_giturl -o starter 'https://github.com/ryanolsonx/vim-lsp-javascript.git'
+lib = MR_REPO_REMOTES="starter https://github.com/ryanolsonx/vim-lsp-javascript.git"
 # install = See vim-lsp-typescript's install.
 infuse = link_private_exclude "$@"
 
@@ -92,7 +92,7 @@ infuse = link_private_exclude "$@"
 
 # https://github.com/neoclide/coc.nvim
 [pack/neoclide/start/coc.nvim]
-checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc.nvim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/neoclide/coc.nvim.git"
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_all' 'CoC'
   #
@@ -178,11 +178,11 @@ update =
 
 # https://github.com/neoclide/coc-tsserver
 [pack/neoclide/start/coc-tsserver]
-checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc-tsserver.git'
+lib = MR_REPO_REMOTES="starter https://github.com/neoclide/coc-tsserver.git"
 
 # https://github.com/neoclide/coc-json
 [pack/neoclide/start/coc-json]
-checkout = git_clone_giturl -o starter 'https://github.com/neoclide/coc-json.git'
+lib = MR_REPO_REMOTES="starter https://github.com/neoclide/coc-json.git"
 
 # ========================================================================
 # ------------------------------------------------------------------------

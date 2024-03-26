@@ -44,14 +44,14 @@ order = 750
 # Copy file path 👣 to system clipboard [Original project]
 # https://github.com/DepoXy/vim-clip-expand-path#👣
 [pack/DepoXy/start/vim-clip-expand-path]
-checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/vim-clip-expand-path.git'
+lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/vim-clip-expand-path.git"
 
 # Original project.
 # to relieve 🥥 this bellyache
 # Opinionated CoC defaults 🥥
 # https://github.com/DepoXy/vim-depoxy-coc-defaults#🥥
 [pack/DepoXy/start/vim-depoxy-coc-defaults]
-checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/vim-depoxy-coc-defaults.git'
+lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/vim-depoxy-coc-defaults.git"
 
 # Symlink to private plugin for DepoXy Client @biz-specific features.
 #  [pack/DepoXy/start/vim-trap]
@@ -71,50 +71,50 @@ lib = MR_REPO_REMOTES="
 
 # "Vibrant negative polarity Vim color scheme. Turn off the lights and dance"
 [pack/landonb/start/dubs_after_dark]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_after_dark.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_after_dark.git"
 
 [pack/landonb/start/dubs_appearance]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_appearance.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_appearance.git"
 
 [pack/landonb/start/dubs_buffer_fun]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_buffer_fun.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_buffer_fun.git"
 
 [pack/landonb/start/dubs_edit_juice]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_edit_juice.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_edit_juice.git"
 
 [pack/landonb/start/dubs_file_finder]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_file_finder.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_file_finder.git"
 
 [pack/landonb/start/dubs_ftype_mess]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_ftype_mess.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_ftype_mess.git"
 
 [pack/landonb/start/dubs_grep_steady]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_grep_steady.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_grep_steady.git"
 
 [pack/landonb/start/dubs_html_entities]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_html_entities.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_html_entities.git"
 
 # "Spirited Vim Status Line"
 [pack/landonb/start/dubs_mescaline]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_mescaline.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_mescaline.git"
 
 [pack/landonb/start/dubs_project_tray]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_project_tray.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_project_tray.git"
 
 [pack/landonb/start/dubs_quickfix_wrap]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_quickfix_wrap.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_quickfix_wrap.git"
 
 [pack/landonb/start/dubs_style_guard]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_style_guard.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_style_guard.git"
 
 [pack/landonb/start/dubs_syntastic_wrap]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_syntastic_wrap.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_syntastic_wrap.git"
 
 [pack/landonb/start/dubs_toggle_textwrap]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_toggle_textwrap.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_toggle_textwrap.git"
 
 [pack/landonb/start/dubs_web_hatch]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_web_hatch.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_web_hatch.git"
 
 # ------------------------------------------------------------------------
 
@@ -143,20 +143,20 @@ lib = MR_REPO_REMOTES="
 
 # Forked project.
 [pack/landonb/start/vim-classic-taglist]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-classic-taglist.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-classic-taglist.git"
 
 # Original project.
 [pack/landonb/start/vim-command-line-clock]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-command-line-clock.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-command-line-clock.git"
 
 # Original project.
 # display-aware gVim/MacVim fullsizer
 [pack/landonb/start/vim-fullscreen-toggle]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-fullscreen-toggle.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-fullscreen-toggle.git"
 
 # Original project.
 [pack/landonb/start/vim-lcd-project-root]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-lcd-project-root.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-lcd-project-root.git"
 
 # 2017-03-16: vim-markdown forked to fix issue of "white on white".
 [pack/landonb/start/vim-markdown]
@@ -168,58 +168,58 @@ lib = MR_REPO_REMOTES="
 
 # Original project.
 [pack/landonb/start/vim-netrw-cfg-split-explorer]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-netrw-cfg-split-explorer.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-netrw-cfg-split-explorer.git"
 
 # Original project.
 [pack/landonb/start/vim-netrw-link-resolve]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-netrw-link-resolve.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-netrw-link-resolve.git"
 
 # Original project.
 # "Streamline the File Changed prompt behavior"
 [pack/landonb/start/vim-nicer-file-changed-prompt]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-nicer-file-changed-prompt.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-nicer-file-changed-prompt.git"
 
 # Original project.
 # "Escape from Insert Mode with `kj` or `jk`"
 [pack/landonb/start/vim-ovm-easyescape-kj-jk]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-ovm-easyescape-kj-jk.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-ovm-easyescape-kj-jk.git"
 
 # Original project.
 # "Insert Seven Dashes and Two Newlines on <Ctrl-Shift-->"
 [pack/landonb/start/vim-ovm-seven-of-spines]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-ovm-seven-of-spines.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-ovm-seven-of-spines.git"
 
 # Original project.
 # "Innovative reStructuredText section folder for Vim"
 # "Level-aware, Performance-conscious reST Section Folding for Vim"
 [pack/landonb/start/vim-reSTfold]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reSTfold.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-reSTfold.git"
 
 # Original project.
 # "Nonstandard syntax highlights so you can manage notes in Vim with reST"
 [pack/landonb/start/vim-reST-highdefs]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highdefs.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-reST-highdefs.git"
 
 # Original project.
 # "Innovative reStructuredText five-letter word highlighter"
 [pack/landonb/start/vim-reST-highfive]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highfive.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-reST-highfive.git"
 # 2022-10-05: So I can search-find the file via Project Tray, b/c I update this file often.
 infuse = symlink_mrinfuse_file "${MR_REPO}/after/syntax/rst.vim" "FIVERs.vim"
 
 # Original project.
 # "Highlight arbitrary horizontal rule lines in reST docs"
 [pack/landonb/start/vim-reST-highline]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highline.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-reST-highline.git"
 
 # Original project.
 # "Build selections cleverly with Ctrl-Shift-Left/-Right"
 [pack/landonb/start/vim-select-mode-stopped-down]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-select-mode-stopped-down.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-select-mode-stopped-down.git"
 
 # Original project.
 [pack/landonb/start/vim-source-reloader]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-source-reloader.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-source-reloader.git"
 
 # Tipless fork, i.e., I've made zero changes. Just want to be cool, I guess.
 # - Forked vim-surround... but haven't actually tipped the code.
@@ -231,7 +231,7 @@ lib = MR_REPO_REMOTES="
 
 # Original project.
 [pack/landonb/start/vim-title-bar-time-of-day]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-title-bar-time-of-day.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-title-bar-time-of-day.git"
 
 # 2020-02-08: Forked vim-tmux-navigator to add C-S-Up/-Down navigation.
 # 2020-02-08: vim-tmux-nav. forked to add Dubs' C-S-Up/-Down +/- pane mappings.

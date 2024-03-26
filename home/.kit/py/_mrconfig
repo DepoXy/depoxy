@@ -296,7 +296,7 @@ installpythons =
 # https://github.com/aws/aws-cli.git
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 [${DOPP_KIT:-${HOME}/.kit}/py/aws-cli]
-checkout = git_clone_giturl -o starter 'https://github.com/aws/aws-cli.git' 'aws-cli'
+lib = MR_REPO_REMOTES="starter https://github.com/aws/aws-cli.git"
 echoInstallHelp = echoInstallHelp 'os_maybe' 'dxy_limit' 'if that‘s something you‘ll use'
 install =
   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
