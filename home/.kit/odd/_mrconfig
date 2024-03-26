@@ -18,7 +18,7 @@ order = 795
 #       https://github.com/the-via/app
 # - On @linux, web app won't connect, so using AppImage.
 [${DOPP_KIT:-${HOME}/.kit}/odd/via-nativia]
-checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = stub_checkout_directory
 ffssh = true
 travel = true
 unpack = true
@@ -99,7 +99,7 @@ install =
 #     https://github.com/zsa/wally/releases/
 #   - Note that OS X, Linux, and Windows releases are released separately.
 [${DOPP_KIT:-${HOME}/.kit}/odd/wally]
-checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = stub_checkout_directory
 ffssh = true
 travel = true
 unpack = true

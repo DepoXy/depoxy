@@ -22,7 +22,7 @@ order = 690
 #        yourself.
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
-checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = stub_checkout_directory
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_maybe' 'if that‘s something you‘ll use'
@@ -63,7 +63,7 @@ install =
 
 # https://github.com/johnste/finicky
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
-checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = stub_checkout_directory
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
 echoInstallHelp =
@@ -93,7 +93,7 @@ infuse =
 
 # https://www.tynsoe.org/geektool/
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
-checkout = mkdir -- "${MR_REPO}" && touch -- "${MR_REPO}/EMPTY--omr-install-ghost"
+checkout = stub_checkout_directory
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
 echoInstallHelp =
