@@ -71,50 +71,50 @@ lib = MR_REPO_REMOTES="
 
 # "Vibrant negative polarity Vim color scheme. Turn off the lights and dance"
 [pack/landonb/start/dubs_after_dark]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_after_dark'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_after_dark.git'
 
 [pack/landonb/start/dubs_appearance]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_appearance'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_appearance.git'
 
 [pack/landonb/start/dubs_buffer_fun]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_buffer_fun'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_buffer_fun.git'
 
 [pack/landonb/start/dubs_edit_juice]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_edit_juice'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_edit_juice.git'
 
 [pack/landonb/start/dubs_file_finder]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_file_finder'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_file_finder.git'
 
 [pack/landonb/start/dubs_ftype_mess]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_ftype_mess'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_ftype_mess.git'
 
 [pack/landonb/start/dubs_grep_steady]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_grep_steady'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_grep_steady.git'
 
 [pack/landonb/start/dubs_html_entities]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_html_entities'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_html_entities.git'
 
 # "Spirited Vim Status Line"
 [pack/landonb/start/dubs_mescaline]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_mescaline'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_mescaline.git'
 
 [pack/landonb/start/dubs_project_tray]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_project_tray'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_project_tray.git'
 
 [pack/landonb/start/dubs_quickfix_wrap]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_quickfix_wrap'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_quickfix_wrap.git'
 
 [pack/landonb/start/dubs_style_guard]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_style_guard'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_style_guard.git'
 
 [pack/landonb/start/dubs_syntastic_wrap]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_syntastic_wrap'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_syntastic_wrap.git'
 
 [pack/landonb/start/dubs_toggle_textwrap]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_toggle_textwrap'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_toggle_textwrap.git'
 
 [pack/landonb/start/dubs_web_hatch]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_web_hatch'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_web_hatch.git'
 
 # ------------------------------------------------------------------------
 
@@ -193,24 +193,24 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-ovm-seven
 # "Innovative reStructuredText section folder for Vim"
 # "Level-aware, Performance-conscious reST Section Folding for Vim"
 [pack/landonb/start/vim-reSTfold]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reSTfold'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reSTfold.git'
 
 # Original project.
 # "Nonstandard syntax highlights so you can manage notes in Vim with reST"
 [pack/landonb/start/vim-reST-highdefs]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highdefs'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highdefs.git'
 
 # Original project.
 # "Innovative reStructuredText five-letter word highlighter"
 [pack/landonb/start/vim-reST-highfive]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highfive'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highfive.git'
 # 2022-10-05: So I can search-find the file via Project Tray, b/c I update this file often.
 infuse = symlink_mrinfuse_file "${MR_REPO}/after/syntax/rst.vim" "FIVERs.vim"
 
 # Original project.
 # "Highlight arbitrary horizontal rule lines in reST docs"
 [pack/landonb/start/vim-reST-highline]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highline'
+checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-reST-highline.git'
 
 # Original project.
 # "Build selections cleverly with Ctrl-Shift-Left/-Right"
