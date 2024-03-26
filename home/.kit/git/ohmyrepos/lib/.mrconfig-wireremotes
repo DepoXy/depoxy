@@ -23,8 +23,7 @@
 #     MR_REPO_ENTRUST_USER_NAME="userX"
 #
 #   [/path/to/some/project]
-#   lib = MR_REPO_REMOTE_URL="https://github.com/some/project.git"
-#   checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+#   lib = remote_set publish https://github.com/some/project.git
 #
 # - Wire single project via `mr`:
 #
