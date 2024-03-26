@@ -28,13 +28,13 @@ order = 780
 # checkout = git clone -o starter 'git@github.com:AndrewRadev/bufferize.vim.git'
 
 [pack/arcticicestudio/start/nord-vim]
-checkout = git_clone_giturl -o starter 'https://github.com/arcticicestudio/nord-vim'
+lib = MR_REPO_REMOTES="starter https://github.com/arcticicestudio/nord-vim.git"
 
 [pack/cespare/start/vim-toml]
-checkout = git_clone_giturl -o starter 'https://github.com/cespare/vim-toml'
+lib = MR_REPO_REMOTES="starter https://github.com/cespare/vim-toml.git"
 
 [pack/chrisbra/start/improvedft]
-checkout = git_clone_giturl -o starter 'https://github.com/chrisbra/improvedft.git'
+lib = MR_REPO_REMOTES="starter https://github.com/chrisbra/improvedft.git"
 infuse = link_private_exclude "$@"
 
 # 2021-08-18: matchit Refs:
@@ -45,10 +45,10 @@ infuse = link_private_exclude "$@"
 #   - v1.18, https://github.com/chrisbra/matchit (and vimscript-4)
 # - See also: vim-python-matchit
 [pack/chrisbra/start/matchit]
-checkout = git_clone_giturl -o starter 'https://github.com/chrisbra/matchit.git'
+lib = MR_REPO_REMOTES="starter https://github.com/chrisbra/matchit.git"
 
 [pack/ctrlpvim/start/ctrlp.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/ctrlpvim/ctrlp.vim'
+lib = MR_REPO_REMOTES="starter https://github.com/ctrlpvim/ctrlp.vim.git"
 
 # *** 'DepoXy': See .mrconfig-dubs
 #
@@ -69,14 +69,14 @@ checkout = git_clone_giturl -o starter 'https://github.com/ctrlpvim/ctrlp.vim'
 checkout = git clone -o starter 'git@github.com:fatih/vim-go.git'
 
 [pack/editorconfig/start/editorconfig-vim]
-checkout = git_clone_giturl -o starter 'https://github.com/editorconfig/editorconfig-vim'
+lib = MR_REPO_REMOTES="starter https://github.com/editorconfig/editorconfig-vim.git"
 
 # ISOFF/2017-11-02: Aka GONE-BNF.
 # - Removed from .vimrc: `let g:miniBufExplAutoStart = 0`
 #  [pack/fholgado/opt/minibufexpl.vim]
 
 [pack/flazz/start/vim-colorschemes]
-checkout = git_clone_giturl -o starter 'https://github.com/flazz/vim-colorschemes'
+lib = MR_REPO_REMOTES="starter https://github.com/flazz/vim-colorschemes.git"
 
 # ISOFF/2020-05-10: I demoed vim-open-url, but prefer dubs_web_hatch.
 # CXREF: https://github.com/henrik/vim-open-url
@@ -84,23 +84,23 @@ checkout = git_clone_giturl -o starter 'https://github.com/flazz/vim-colorscheme
 #  checkout = git clone -o starter 'git@github.com:henrik/vim-open-url.git'
 
 [pack/HerringtonDarkholme/start/yats.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/HerringtonDarkholme/yats.vim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/HerringtonDarkholme/yats.vim.git"
 
 [pack/jamessan/start/vim-gnupg]
-checkout = git_clone_giturl -o starter 'https://github.com/jamessan/vim-gnupg'
+lib = MR_REPO_REMOTES="starter https://github.com/jamessan/vim-gnupg.git"
 infuse = link_private_exclude "$@"
 
 [pack/juanpabloaj/start/vim-istanbul]
-checkout = git_clone_giturl -o starter 'https://github.com/juanpabloaj/vim-istanbul'
+lib = MR_REPO_REMOTES="starter https://github.com/juanpabloaj/vim-istanbul.git"
 
 [pack/junegunn/start/fzf.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/junegunn/fzf.vim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/junegunn/fzf.vim.git"
 
 [pack/junegunn/start/goyo.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/junegunn/goyo.vim'
+lib = MR_REPO_REMOTES="starter https://github.com/junegunn/goyo.vim.git"
 
 [pack/junegunn/start/limelight.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/junegunn/limelight.vim'
+lib = MR_REPO_REMOTES="starter https://github.com/junegunn/limelight.vim.git"
 
 # ------------------------------------------------------------------------
 
@@ -168,10 +168,10 @@ checkout = git_clone_giturl -o starter 'https://github.com/junegunn/limelight.vi
 #   I also hate being frustrated but *the little things*. I prefer a smoove
 #   editor eXperience. At all costs).
 [pack/leafgarland/start/typescript-vim]
-checkout = git_clone_giturl -o starter 'https://github.com/leafgarland/typescript-vim.git'
+lib = MR_REPO_REMOTES="starter https://github.com/leafgarland/typescript-vim.git"
 
 [pack/majutsushi/start/tagbar]
-checkout = git_clone_giturl -o starter 'https://github.com/majutsushi/tagbar'
+lib = MR_REPO_REMOTES="starter https://github.com/majutsushi/tagbar.git"
 
 # ISOFF/2020-02-13: #HadIssuz:
 #  [pack/marshallward/start/vim-restructuredtext]
@@ -181,19 +181,19 @@ checkout = git_clone_giturl -o starter 'https://github.com/majutsushi/tagbar'
 #   and you see "xx matches on xx lines" message like you would
 #   with \S find-replace-multi-files command. So weird. So disabled!
 [pack/marshallward/opt/vim-restructuredtext]
-checkout = git_clone_giturl -o starter 'https://github.com/marshallward/vim-restructuredtext.git'
+lib = MR_REPO_REMOTES="starter https://github.com/marshallward/vim-restructuredtext.git"
 skip = true
 
 # See .mrconfig-lsp: [pack/mattn/start/vim-lsp-settings]
 
 [pack/MaxMEllon/start/vim-jsx-pretty]
-checkout = git_clone_giturl -o starter 'https://github.com/MaxMEllon/vim-jsx-pretty'
+lib = MR_REPO_REMOTES="starter https://github.com/MaxMEllon/vim-jsx-pretty.git"
 
 [pack/nanotech/start/jellybeans.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/nanotech/jellybeans.vim'
+lib = MR_REPO_REMOTES="starter https://github.com/nanotech/jellybeans.vim.git"
 
 [pack/pangloss/start/vim-javascript]
-checkout = git_clone_giturl -o starter 'https://github.com/pangloss/vim-javascript'
+lib = MR_REPO_REMOTES="starter https://github.com/pangloss/vim-javascript.git"
 
 # See .mrconfig-lsp: [pack/prabirshrestha/start/async.vim]
 # See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete.vim]
@@ -231,7 +231,7 @@ checkout = git_clone_giturl -o starter 'https://github.com/pangloss/vim-javascri
 #   in the core ~/.vim project, NERD Commenter works without user running this
 #   install task.
 [pack/preservim/start/nerdcommenter]
-checkout = git_clone_giturl -o starter 'https://github.com/preservim/nerdcommenter.git'
+lib = MR_REPO_REMOTES="starter https://github.com/preservim/nerdcommenter.git"
 pull =
   local remote_branch_default="$(git symbolic-ref refs/remotes/starter/HEAD)"
   cd "${MR_REPO}"
@@ -260,87 +260,87 @@ install =
 # See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-typescript]
 
 [pack/samoshkin/start/vim-mergetool]
-checkout = git_clone_giturl -o starter 'https://github.com/samoshkin/vim-mergetool.git'
+lib = MR_REPO_REMOTES="starter https://github.com/samoshkin/vim-mergetool.git"
 
 [pack/scrooloose/opt/nerdtree]
-checkout = git_clone_giturl -o starter 'https://github.com/scrooloose/nerdtree'
+lib = MR_REPO_REMOTES="starter https://github.com/scrooloose/nerdtree.git"
 
 [pack/scrooloose/start/syntastic]
-checkout = git_clone_giturl -o starter 'https://github.com/scrooloose/syntastic'
+lib = MR_REPO_REMOTES="starter https://github.com/scrooloose/syntastic.git"
 
 [pack/tomtom/start/tlib_vim]
-checkout = git_clone_giturl -o starter 'https://github.com/tomtom/tlib_vim'
+lib = MR_REPO_REMOTES="starter https://github.com/tomtom/tlib_vim.git"
 
 [pack/tomtom/start/viki_vim]
-checkout = git_clone_giturl -o starter 'https://github.com/tomtom/viki_vim'
+lib = MR_REPO_REMOTES="starter https://github.com/tomtom/viki_vim.git"
 
 # *** tpope [retired]
 
 # - 2021-01-23: See instead: github.com/preservim/nerdcommenter
 [pack/tpope/opt/vim-commentary]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-commentary'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-commentary.git"
 
 # - 2019-03-19: Disabled vim-endwise: it's frustrating me.
 [pack/tpope/opt/vim-endwise]
 order = 790
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-endwise.git'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-endwise.git"
 # FIXME/2020-02-13: Uncomment (and skip) someday:
 #  skip = true
 
 [pack/tpope/opt/vim-pathogen]
 order = 790
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-pathogen.git'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-pathogen.git"
 
 # - The scriptease package is quite esoteric. It's basically Tim Pope's
 #   Vim dev commands. And the last thing I need to do is spend time more
 #   time developing Vim, especially core Vim!! Pass.
 [pack/tpope/opt/vim-scriptease]
 order = 790
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-scriptease'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-scriptease.git"
 
 # - 2018-12-13: A colorscheme I looked at, for inspiration, but ultimately
 #               dubs_after_dark is too hot.
 [pack/tpope/opt/vim-vividchalk]
 order = 790
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-vividchalk.git'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-vividchalk.git"
 
 # *** tpope [active]
 
 [pack/tpope/start/vim-abolish]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-abolish'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-abolish.git"
 
 [pack/tpope/start/vim-fugitive]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-fugitive'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-fugitive.git"
 
 [pack/tpope/start/vim-jdaddy]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-jdaddy'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-jdaddy.git"
 
 [pack/tpope/start/vim-rails]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-rails'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-rails.git"
 
 [pack/tpope/start/vim-speeddating]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-speeddating'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-speeddating.git"
 
 [pack/tpope/start/vim-vinegar]
-checkout = git_clone_giturl -o starter 'https://github.com/tpope/vim-vinegar'
+lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-vinegar.git"
 
 # *** vim-scripts
 
 [pack/vim-scripts/start/AutoAdapt]
-checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/AutoAdapt'
+lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/AutoAdapt.git"
 infuse = link_private_exclude "$@"
 
 [pack/vim-scripts/start/ingo-library]
-checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/ingo-library'
+lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/ingo-library.git"
 infuse = link_private_exclude "$@"
 
 # In -core: [pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
 
 [pack/vim-scripts/start/TeTrIs.vim]
-checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/TeTrIs.vim'
+lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/TeTrIs.vim.git"
 
 [pack/vim-scripts/start/ZoomWin]
-checkout = git_clone_giturl -o starter 'https://github.com/vim-scripts/ZoomWin.git'
+lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/ZoomWin.git"
 infuse = link_private_exclude "$@"
 
 # 2021-08-18: python_matchit Refs:
@@ -350,23 +350,23 @@ infuse = link_private_exclude "$@"
 #   - v0.5: https://github.com/voithos/vim-python-matchit
 # - See also: matchit
 [pack/voithos/start/vim-python-matchit]
-checkout = git_clone_giturl -o starter 'https://github.com/voithos/vim-python-matchit.git'
+lib = MR_REPO_REMOTES="starter https://github.com/voithos/vim-python-matchit.git"
 
 # *** From 'w' to 'z'
 
 [pack/wincent/start/command-t]
-checkout = git_clone_giturl -o starter 'https://github.com/wincent/command-t'
+lib = MR_REPO_REMOTES="starter https://github.com/wincent/command-t.git"
 
 # GONE-BNF: [pack/xolox/start/vim-easytags]  # 2016-11-13 or earlier: Removed.
 
 [pack/xolox/start/vim-misc]
-checkout = git_clone_giturl -o starter 'https://github.com/xolox/vim-misc'
+lib = MR_REPO_REMOTES="starter https://github.com/xolox/vim-misc.git"
 
 [pack/yuezk/start/vim-js]
-checkout = git_clone_giturl -o starter 'https://github.com/yuezk/vim-js'
+lib = MR_REPO_REMOTES="starter https://github.com/yuezk/vim-js.git"
 
 [pack/zhou13/start/vim-easyescape]
-checkout = git_clone_giturl -o starter 'https://github.com/zhou13/vim-easyescape'
+lib = MR_REPO_REMOTES="starter https://github.com/zhou13/vim-easyescape.git"
 
 # ========================================================================
 # ------------------------------------------------------------------------

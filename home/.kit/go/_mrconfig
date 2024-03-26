@@ -13,7 +13,7 @@ order = 690
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/go/fzf]
-checkout = git_clone_giturl -o starter 'https://github.com/junegunn/fzf.git'
+lib = MR_REPO_REMOTES="starter https://github.com/junegunn/fzf.git"
 infuse =
   link_private_exclude "${@}"
   if [ -e "${MR_REPO}/bin/fzf" ]; then
@@ -72,7 +72,7 @@ install =
 #   $ /opt/homebrew/bin/tag
 #   Segmentation fault: 11
 [${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag]
-checkout = git_clone_giturl -o starter 'https://github.com/aykamko/tag.git' 'aykamko-tag'
+lib = MR_REPO_REMOTES="starter 'https://github.com/aykamko/tag.git' 'aykamko-tag'"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
 install =
   # Installs to ~/.gopath/bin/tag
@@ -84,8 +84,10 @@ install =
 # ISOFF/2021-01-20: A nifty tool I used for a short spell but not anymore.
 #
 # [${DOPP_KIT:-${HOME}/.kit}/go/direnv]
-# checkout = git_clone_giturl -o publish 'https://github.com/landonb/direnv.git'
-# wireupstream = remote_add starter 'https://github.com/direnv/direnv.git'
+# lib = MR_REPO_REMOTES="
+#   publish https://github.com/landonb/direnv.git
+#   starter https://github.com/direnv/direnv.git
+#   "
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -95,7 +97,7 @@ install =
 # # "The Kubernetes Package Manager" / "Helm is a tool for managing Charts"
 # # - "Think of it like apt/yum/homebrew for Kubernetes"
 # [${DOPP_KIT:-${HOME}/.kit}/go/helm]
-# checkout = git_clone_giturl -o starter 'https://github.com/helm/helm.git'
+# lib = MR_REPO_REMOTES="starter https://github.com/helm/helm.git"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -105,7 +107,7 @@ install =
 # # 2018-05-16: To use `python -m timeit` on any app, requires shelling out.
 # # - But here's a Go project of same name that works on any executable.
 # [${DOPP_KIT:-${HOME}/.kit}/go/timeit]
-# checkout = git_clone_giturl -o starter 'https://github.com/choksheak/timeit.git'
+# lib = MR_REPO_REMOTES="starter https://github.com/choksheak/timeit.git"
 # echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 # # 2021-08-19: Tested on @macOS, but not on @Linux.
 # install = go build timeit.go

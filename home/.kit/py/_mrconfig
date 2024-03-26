@@ -192,9 +192,10 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper]
-checkout = git_clone_giturl -o "release" "landonb/virtualenvwrapper.git" \
-  && mr -d "${MR_REPO}" -n wireupstream
-wireupstream = remote_add starter 'python-virtualenvwrapper/virtualenvwrapper.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/virtualenvwrapper.git
+  starter https://github.com/python-virtualenvwrapper/virtualenvwrapper.git
+  "
 infuse =
   link_private_exclude "$@"
   symlink_mrinfuse_file ".editorconfig"

@@ -15,19 +15,19 @@ order = 480
 # *** Author's *shoilerplate* projects (modular shell programs).
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-ask-yesnoskip.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-ask-yesnoskip.git"
 skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-colors.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-colors.git"
 skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-git-nubs.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-git-nubs.git"
 skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-logger.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-logger.git"
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
@@ -37,15 +37,15 @@ updateDeps =
   update_deps_shoilerplate
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-pather.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-pather.git"
 skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-print-nanos-now.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-print-nanos-now.git"
 skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-rm_safe.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-rm_safe.git"
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
@@ -70,7 +70,7 @@ updateDeps =
 #
 # `sensible-browser` for Linux and macOS with new-window default
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/sh-sensible-open.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/sh-sensible-open.git"
 skip = mr_exclusive "!entrusted"
 
 # ========================================================================
@@ -79,7 +79,7 @@ skip = mr_exclusive "!entrusted"
 # heavily annotated `.inputrc` 🎛️
 # https://github.com/DepoXy/dot-inputrc#🎛️
 [${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc]
-checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/dot-inputrc.git'
+lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/dot-inputrc.git"
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   local inputrc_path=".inputrc"
@@ -115,8 +115,7 @@ infuse =
 [${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report]
 # AWAIT/2023-03-06: DepoXy/feature-coverage-report not yet released.
 # - Eventually (or never?) it'll be published to DepoXy:
-lib = MR_REPO_REMOTE_URL="https://github.com/DepoXy/feature-coverage-report.git"
-checkout = git_clone_giturl -o publish "${MR_REPO_REMOTE_URL}"
+lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/feature-coverage-report"
 # FIXME/2022-10-10: Not yet published.
 skip = [ ! -d "${MR_REPO}" ]
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
@@ -141,7 +140,7 @@ updateDeps =
 
 # 2023-01-01: Not that I ever use fries-findup.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/fries-findup.git'
+lib = MR_REPO_REMOTES="publish https://github.com/landonb/fries-findup.git"
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = PREFIX="${HOME}/.local" make link
@@ -152,7 +151,7 @@ install = PREFIX="${HOME}/.local" make link
 # Kindly file opener positions cursor, too 🐬
 # https://github.com/DepoXy/gvim-open-kindness#🐬
 [${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
-checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/gvim-open-kindness.git'
+lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/gvim-open-kindness.git"
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =

@@ -60,8 +60,10 @@ checkout = git_clone_giturl -o publish 'https://github.com/DepoXy/vim-depoxy-coc
 
 # 2018-12-17: ansible-vim forked to tweak Yaml syntax engine.
 [pack/landonb/start/ansible-vim]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/ansible-vim.git'
-wireupstream = remote_add starter 'https://github.com/pearofducks/ansible-vim.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/ansible-vim.git
+  starter https://github.com/pearofducks/ansible-vim.git
+  "
 
 # ------------------------------------------------------------------------
 
@@ -118,8 +120,10 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/dubs_web_hatc
 
 # 2021-02-18: QFEnter forked to restore cursor position in QuickFix after jumping (:cc).
 [pack/landonb/start/QFEnter]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/QFEnter.git'
-wireupstream = remote_add starter 'https://github.com/yssl/QFEnter.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/QFEnter.git
+  starter https://github.com/yssl/QFEnter.git
+  "
 p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
 
 # ------------------------------------------------------------------------
@@ -129,13 +133,13 @@ p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
 #     and some forked projects that I tweaked.
 
 # Forked project but heavily developed since.
-# MEH/2020-03-19: You don't need wireupstream if you just use checkout...
-#                       except then changing remotes is not as easy, is it?
 # 2020-03-19: Forked, to keep .vimprojects and netrw out of BufSurf w:history queue.
 # GHSLUGLINE: "Like vim-bufsurf, but 1) includes buffers only once, and 2) wraps around the list"
 [pack/landonb/start/vim-buffer-ring]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-buffer-ring.git'
-wireupstream = remote_add starter 'https://github.com/ton/vim-bufsurf.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/vim-buffer-ring.git
+  starter https://github.com/ton/vim-bufsurf.git
+  "
 
 # Forked project.
 [pack/landonb/start/vim-classic-taglist]
@@ -156,8 +160,10 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-lcd-proje
 
 # 2017-03-16: vim-markdown forked to fix issue of "white on white".
 [pack/landonb/start/vim-markdown]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-markdown'
-wireupstream = remote_add starter 'https://github.com/gabrielelana/vim-markdown.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/vim-markdown.git
+  starter https://github.com/gabrielelana/vim-markdown.git
+  "
 # Alt. repo: https://github.com/plasticboy/vim-markdown.git
 
 # Original project.
@@ -218,8 +224,10 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-source-re
 # Tipless fork, i.e., I've made zero changes. Just want to be cool, I guess.
 # - Forked vim-surround... but haven't actually tipped the code.
 [pack/landonb/start/vim-surround]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-surround'
-wireupstream = remote_add starter 'https://github.com/tpope/vim-surround.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/vim-surround.git
+  starter https://github.com/tpope/vim-surround.git
+  "
 
 # Original project.
 [pack/landonb/start/vim-title-bar-time-of-day]
@@ -229,13 +237,17 @@ checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-title-bar
 # 2020-02-08: vim-tmux-nav. forked to add Dubs' C-S-Up/-Down +/- pane mappings.
 # - (lb): I forked vim-tmux-nav. to add C-S-Up/-Down +/- pane motions
 [pack/landonb/start/vim-tmux-navigator]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-tmux-navigator.git'
-wireupstream = remote_add starter 'https://github.com/christoomey/vim-tmux-navigator.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/vim-tmux-navigator.git
+  starter https://github.com/christoomey/vim-tmux-navigator.git
+  "
 
 # Forked project.
 [pack/landonb/start/vim-unimpaired]
-checkout = git_clone_giturl -o publish 'https://github.com/landonb/vim-unimpaired'
-wireupstream = remote_add starter 'https://github.com/tpope/vim-unimpaired.git'
+lib = MR_REPO_REMOTES="
+  publish https://github.com/landonb/vim-unimpaired.git
+  starter https://github.com/tpope/vim-unimpaired.git
+  "
 
 # ------------------------------------------------------------------------
 

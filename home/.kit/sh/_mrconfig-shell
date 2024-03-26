@@ -19,7 +19,7 @@ order = 690
 
 # Dubs Vim support tool.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
-checkout = git_clone_giturl -o publish "http://github.com/landonb/parT.git"
+lib = MR_REPO_REMOTES="publish http://github.com/landonb/parT.git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   make -f protoMakefile clean
@@ -33,16 +33,16 @@ install =
 # *** Tmux
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/.tmux]
-checkout = git_clone_giturl -o starter "http://github.com/gpakosz/.tmux.git"
+lib = MR_REPO_REMOTES="starter http://github.com/gpakosz/.tmux.git"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-sensible]
-checkout = git_clone_giturl -o starter "http://github.com/tmux-plugins/tmux-sensible.git"
+lib = MR_REPO_REMOTES="starter http://github.com/tmux-plugins/tmux-sensible.git"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tpm]
-checkout = git_clone_giturl -o starter "http://github.com/tmux-plugins/tpm.git"
+lib = MR_REPO_REMOTES="starter http://github.com/tmux-plugins/tpm.git"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion]
-checkout = git_clone_giturl -o starter "http://github.com/imomaliev/tmux-bash-completion.git"
+lib = MR_REPO_REMOTES="starter http://github.com/imomaliev/tmux-bash-completion.git"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -60,7 +60,7 @@ checkout = git_clone_giturl -o starter "http://github.com/imomaliev/tmux-bash-co
 #   https://github.com/rupa/v
 #   https://github.com/clvv/fasd
 [${SHOILERPLATE:-${HOME}/.kit/sh}/commacd]
-checkout = git_clone_giturl -o starter "http://github.com/shyiko/commacd.git"
+lib = MR_REPO_REMOTES="starter http://github.com/shyiko/commacd.git"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ checkout = git_clone_giturl -o starter "http://github.com/shyiko/commacd.git"
 # https://github.com/cykerway/complete-alias
 # "automagical shell alias completion;"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias]
-checkout = git_clone_giturl -o starter "http://github.com/cykerway/complete-alias.git"
+lib = MR_REPO_REMOTES="starter http://github.com/cykerway/complete-alias.git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   # CXREF/2023-05-14: ~/.bash_completion is sourced by /etc/base_completion
