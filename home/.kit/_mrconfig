@@ -29,6 +29,13 @@ include =
      [ "${MR_INCLUDE}" = "git" ] ||
      [ "${MR_INCLUDE}" = "kit-git" ] ||
      [ "${MR_INCLUDE}" = "entrusted" ] ||
+     [ "${MR_INCLUDE}" = "git-smart" ] ||
+     [ "${MR_INCLUDE}" = "working" ] ||
+     [ "${MR_INCLUDE}" = "working-git" ] ||
+     [ "${MR_INCLUDE}" = "working-git-smart" ] ||
+     [ "${MR_INCLUDE}" = "home" ] ||
+     [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
       # CXREF: ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-core

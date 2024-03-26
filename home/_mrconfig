@@ -487,6 +487,7 @@ include =
     [ "${MR_INCLUDE}" = "kit-txt" ] ||
     \
     [ "${MR_INCLUDE}" = "entrusted" ] ||
+    [ "${MR_INCLUDE}" = "git-nubs" ] ||
     \
   false; then
     load_kit_mrconfig
