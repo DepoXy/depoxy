@@ -218,7 +218,7 @@ infuse =
 
 [${HOMEFRIES_DIR:-${MR_HOME:-${HOME}}/.homefries}]
 order = 120
-lib = MR_REPO_REMOTES="publish 'https://github.com/landonb/home-fries.git' '.homefries'"
+lib = remote_set publish "https://github.com/landonb/home-fries.git" ".homefries"
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
@@ -269,7 +269,7 @@ skip = mr_exclusive "bash" "sh" "home"
 # https://github.com/DepoXy/depoxy#🍯
 [${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers}]
 order = 131
-lib = MR_REPO_REMOTES="publish 'https://github.com/DepoXy/depoxy.git' 'ambers'"
+lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   local ambers_path="${MR_REPO}"
@@ -317,7 +317,7 @@ installLinux =
 # https://github.com/DepoXy/depoxy-archetype#🏹
 [${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
 order = 132
-lib = MR_REPO_REMOTES="publish 'https://github.com/DepoXy/depoxy-archetype.git' 'archetype'"
+lib = remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted"
 infuse =
   link_private_exclude "$@"
@@ -334,7 +334,7 @@ order = 140
 # SAVVY/2019-10-21: I tried a [.] section in ~/.depoxy/ambers/home/.vim/_mrconfig,
 #   but then the repo gets listed twice (because of this entry).
 # SKIPPING: GIT_REPO_SEEDS_0: See: once/setup_ubuntu.sh, once/vendor_dubs-vim.sh
-lib = MR_REPO_REMOTES="publish 'https://github.com/landonb/dubs-vim.git' '.vim'"
+lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
 chain = true
 # CXREF: setup_vim_generate_helptags calls :Helptags.
 echoInstallHelp =

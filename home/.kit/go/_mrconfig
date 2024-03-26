@@ -72,7 +72,7 @@ install =
 #   $ /opt/homebrew/bin/tag
 #   Segmentation fault: 11
 [${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag]
-lib = MR_REPO_REMOTES="starter 'https://github.com/aykamko/tag.git' 'aykamko-tag'"
+lib = remote_set starter "https://github.com/aykamko/tag.git" "aykamko-tag"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
 install =
   # Installs to ~/.gopath/bin/tag

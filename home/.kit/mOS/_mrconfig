@@ -243,7 +243,7 @@ lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
 # ========================================================================
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
-lib = MR_REPO_REMOTES="starter 'https://github.com/ttscoff/KeyBindings.git' 'DefaultKeybindings.dict'"
+lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
 skip = ! os_is_macos
 
 # ========================================================================
