@@ -60,10 +60,9 @@ lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/vim-depoxy-coc-defaults
 
 # 2018-12-17: ansible-vim forked to tweak Yaml syntax engine.
 [pack/landonb/start/ansible-vim]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/ansible-vim.git
-  starter https://github.com/pearofducks/ansible-vim.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/ansible-vim.git
+  remote_set starter https://github.com/pearofducks/ansible-vim.git
 
 # ------------------------------------------------------------------------
 
@@ -120,10 +119,9 @@ lib = MR_REPO_REMOTES="publish https://github.com/landonb/dubs_web_hatch.git"
 
 # 2021-02-18: QFEnter forked to restore cursor position in QuickFix after jumping (:cc).
 [pack/landonb/start/QFEnter]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/QFEnter.git
-  starter https://github.com/yssl/QFEnter.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/QFEnter.git
+  remote_set starter https://github.com/yssl/QFEnter.git
 p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
 
 # ------------------------------------------------------------------------
@@ -136,10 +134,9 @@ p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
 # 2020-03-19: Forked, to keep .vimprojects and netrw out of BufSurf w:history queue.
 # GHSLUGLINE: "Like vim-bufsurf, but 1) includes buffers only once, and 2) wraps around the list"
 [pack/landonb/start/vim-buffer-ring]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/vim-buffer-ring.git
-  starter https://github.com/ton/vim-bufsurf.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/vim-buffer-ring.git
+  remote_set starter https://github.com/ton/vim-bufsurf.git
 
 # Forked project.
 [pack/landonb/start/vim-classic-taglist]
@@ -160,10 +157,9 @@ lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-lcd-project-root.g
 
 # 2017-03-16: vim-markdown forked to fix issue of "white on white".
 [pack/landonb/start/vim-markdown]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/vim-markdown.git
-  starter https://github.com/gabrielelana/vim-markdown.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/vim-markdown.git
+  remote_set starter https://github.com/gabrielelana/vim-markdown.git
 # Alt. repo: https://github.com/plasticboy/vim-markdown.git
 
 # Original project.
@@ -224,10 +220,9 @@ lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-source-reloader.gi
 # Tipless fork, i.e., I've made zero changes. Just want to be cool, I guess.
 # - Forked vim-surround... but haven't actually tipped the code.
 [pack/landonb/start/vim-surround]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/vim-surround.git
-  starter https://github.com/tpope/vim-surround.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/vim-surround.git
+  remote_set starter https://github.com/tpope/vim-surround.git
 
 # Original project.
 [pack/landonb/start/vim-title-bar-time-of-day]
@@ -237,17 +232,15 @@ lib = MR_REPO_REMOTES="publish https://github.com/landonb/vim-title-bar-time-of-
 # 2020-02-08: vim-tmux-nav. forked to add Dubs' C-S-Up/-Down +/- pane mappings.
 # - (lb): I forked vim-tmux-nav. to add C-S-Up/-Down +/- pane motions
 [pack/landonb/start/vim-tmux-navigator]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/vim-tmux-navigator.git
-  starter https://github.com/christoomey/vim-tmux-navigator.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/vim-tmux-navigator.git
+  remote_set starter https://github.com/christoomey/vim-tmux-navigator.git
 
 # Forked project.
 [pack/landonb/start/vim-unimpaired]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/vim-unimpaired.git
-  starter https://github.com/tpope/vim-unimpaired.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/vim-unimpaired.git
+  remote_set starter https://github.com/tpope/vim-unimpaired.git
 
 # ------------------------------------------------------------------------
 

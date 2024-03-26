@@ -197,10 +197,9 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper]
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/virtualenvwrapper.git
-  starter https://github.com/python-virtualenvwrapper/virtualenvwrapper.git
-  "
+lib =
+  remote_set publish https://github.com/landonb/virtualenvwrapper.git
+  remote_set starter https://github.com/python-virtualenvwrapper/virtualenvwrapper.git
 infuse =
   link_private_exclude "$@"
   symlink_mrinfuse_file ".editorconfig"

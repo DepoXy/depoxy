@@ -84,10 +84,9 @@ install =
 # ISOFF/2021-01-20: A nifty tool I used for a short spell but not anymore.
 #
 # [${DOPP_KIT:-${HOME}/.kit}/go/direnv]
-# lib = MR_REPO_REMOTES="
-#   publish https://github.com/landonb/direnv.git
-#   starter https://github.com/direnv/direnv.git
-#   "
+# lib =
+#   remote_set publish https://github.com/landonb/direnv.git
+#   remote_set starter https://github.com/direnv/direnv.git
 
 # ========================================================================
 # ------------------------------------------------------------------------

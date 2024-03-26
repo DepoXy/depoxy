@@ -364,10 +364,9 @@ order = 470
 # Note that 'checkout' on this project is pretty much impossible: You can't clone the cloner!
 # - Well, not unless you previously cloned it elsewhere and can run it.
 # - At least you can still run `wireRemotes`, though.
-lib = MR_REPO_REMOTES="
-  publish https://github.com/landonb/myrepos.git
-  starter git://myrepos.branchable.com/
-  "
+lib =
+  remote_set publish https://github.com/landonb/myrepos.git
+  remote_set starter git://myrepos.branchable.com/
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   infuser_prepare "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos" "${@}"
@@ -416,10 +415,9 @@ updateDeps = update_deps_shoilerplate
 lib = MR_REPO_REMOTES="starter https://github.com/jonas/tig.git"
 # 2021-08-04: Old remote wiring in case I need to fork tig again.
 #
-#  lib = MR_REPO_REMOTES="
-#    publish https://github.com/landonb/tig.git
-#    starter https://github.com/jonas/tig.git"
-#    "
+#  lib =
+#    remote_set publish https://github.com/landonb/tig.git
+#    remote_set starter https://github.com/jonas/tig.git"
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific

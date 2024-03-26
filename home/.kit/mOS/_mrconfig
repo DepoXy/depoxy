@@ -165,10 +165,9 @@ install =
 #   Warning: No remote 'origin' in /opt/homebrew/Library/Taps/homebrew/homebrew-autoupdate, skipping update!
 #   Running `brew update --auto-update`...
 # - Or maybe that has nothing to do with this repo...
-lib = MR_REPO_REMOTES="
-  origin https://github.com/landonb/homebrew-autoupdate.git
-  starter https://github.com/Homebrew/homebrew-autoupdate.git
-  "
+lib =
+  remote_set origin https://github.com/landonb/homebrew-autoupdate.git
+  remote_set starter https://github.com/Homebrew/homebrew-autoupdate.git
 echoInstallHelp =
   echoInstallHelp 'os_macos' 'dxy_all'
   #
