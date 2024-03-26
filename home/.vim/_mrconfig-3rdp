@@ -25,7 +25,7 @@ order = 780
 # # CXREF: https://github.com/AndrewRadev/bufferize.vim
 # # ALTLY/2021-02-01: Similar to :TabMessage
 # [pack/AndrewRadev/start/bufferize.vim]
-# checkout = git clone -o starter 'git@github.com:AndrewRadev/bufferize.vim.git'
+# lib = MR_REPO_REMOTES="starter https://github.com/AndrewRadev/bufferize.vim.git"
 
 [pack/arcticicestudio/start/nord-vim]
 lib = MR_REPO_REMOTES="starter https://github.com/arcticicestudio/nord-vim.git"
@@ -66,7 +66,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/ctrlpvim/ctrlp.vim.git"
 #   and enabled, relegated to opt/.
 # CXREF: https://github.com/fatih/vim-go
 [pack/editorconfig/opt/vim-go]
-checkout = git clone -o starter 'git@github.com:fatih/vim-go.git'
+lib = MR_REPO_REMOTES="starter https://github.com/fatih/vim-go.git"
 
 [pack/editorconfig/start/editorconfig-vim]
 lib = MR_REPO_REMOTES="starter https://github.com/editorconfig/editorconfig-vim.git"
@@ -81,7 +81,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/flazz/vim-colorschemes.git"
 # ISOFF/2020-05-10: I demoed vim-open-url, but prefer dubs_web_hatch.
 # CXREF: https://github.com/henrik/vim-open-url
 #  [pack/henrik/opt/vim-open-url]
-#  checkout = git clone -o starter 'git@github.com:henrik/vim-open-url.git'
+#  lib = MR_REPO_REMOTES="starter https://github.com/henrik/vim-open-url.git"
 
 [pack/HerringtonDarkholme/start/yats.vim]
 lib = MR_REPO_REMOTES="starter https://github.com/HerringtonDarkholme/yats.vim.git"
