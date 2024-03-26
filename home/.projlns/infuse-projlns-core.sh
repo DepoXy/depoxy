@@ -207,6 +207,8 @@ infuse_projects_links_sh_lib () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# SAVVY: If any sh-*/bin dirs contain same-named file, you'll see, e.g.,
+#   ln: failed to create symbolic link './print-nanos-now.sh': File exists
 infuse_create_symlinks_core_sh_lib () {
   find ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-*/bin/ -type f -exec ln -s {} \;
 }

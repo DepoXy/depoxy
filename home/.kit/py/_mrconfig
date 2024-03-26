@@ -93,6 +93,11 @@ installpythons =
   pyenv install -s $(pyenv install -l | grep '^ \+3\.13\.' | tail -1)
   #
   mr -d "${MR_REPO}" -n installVirtualenvwrapper
+  #
+  # Latest EOL Pythons:
+  #  pyenv install -s 3.5.10
+  #  pyenv install -s 3.6.15
+  #
 # WIRET: Support `workon` from all pyenv envs.
 # - REFER: https://github.com/landonb/virtualenvwrapper
 installVirtualenvwrapper =
