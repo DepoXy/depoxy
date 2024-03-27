@@ -1,4 +1,6 @@
 /.git/
 /.bashrc
 /bin/completions/
+# ziew -> zview
+/bin/ziew
 
