@@ -13,7 +13,7 @@ order = 690
 # ------------------------------------------------------------------------
 
 [${GITREPOSPATH:-${HOME}/.kit/git}/git]
-lib = MR_REPO_REMOTES="starter https://github.com/git/git.git"
+lib = remote_set starter https://github.com/git/git.git
 skip = mr_exclusive "kit" "git" "kit-git"
 # REFER: https://github.com/git/git/blob/master/Documentation/SubmittingPatches
 # - Git uses four branches: maint > master > next > seen
@@ -93,7 +93,7 @@ installLinux =
 # projects into git-smart, but this project has a number of unique useful
 # commands, so pulling it all in.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-extras]
-lib = MR_REPO_REMOTES="starter https://github.com/tj/git-extras.git"
+lib = remote_set starter https://github.com/tj/git-extras.git
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
 install =
@@ -166,7 +166,7 @@ install =
 # Git history rewriter (filter-branch/BFG/git-obliterate replacement).
 # CXREF: https://github.com/newren/git-filter-repo
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo]
-lib = MR_REPO_REMOTES="starter https://github.com/newren/git-filter-repo.git"
+lib = remote_set starter https://github.com/newren/git-filter-repo.git
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   symlink_overlay_file \
@@ -181,7 +181,7 @@ update = git pull --ff-only
 #   https://github.com/seschwar/git-heads.git
 # SAVVY/2024-02-18: Not updated since 2010-10-11.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-heads]
-lib = MR_REPO_REMOTES="starter https://github.com/seschwar/git-heads.git"
+lib = remote_set starter https://github.com/seschwar/git-heads.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -195,7 +195,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/seschwar/git-heads.git"
 # See also:
 # - Node clone: https://github.com/sjurba/rebase-editor
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-interactive-rebase-tool]
-lib = MR_REPO_REMOTES="starter https://github.com/MitMaro/git-interactive-rebase-tool.git"
+lib = remote_set starter https://github.com/MitMaro/git-interactive-rebase-tool.git
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   link_private_exclude "$@"
@@ -294,7 +294,7 @@ skip = true
 
 # 2020-01-17: Like `cloc`, but for git code authors.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats]
-lib = MR_REPO_REMOTES="starter https://github.com/arzzen/git-quick-stats.git"
+lib = remote_set starter https://github.com/arzzen/git-quick-stats.git
 skip = mr_exclusive "kit" "git" "kit-git"
 infuse =
   symlink_overlay_file \
@@ -321,7 +321,7 @@ update = git pull --ff-only
 #     --config fetch.fsckobjects=false \
 #     https://github.com/github/hub.git
 # - But per `man git-config`, these all default 'false' already.
-lib = MR_REPO_REMOTES="starter https://github.com/github/hub.git"
+lib = remote_set starter https://github.com/github/hub.git
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'Very Probably unnecessary for any development environment; see `gh` instead'
@@ -334,7 +334,7 @@ install =
 
 # 2021-01-30: The `hub` competitor, the "official" 'cli'. Er, `gh`.
 [${GITREPOSPATH:-${HOME}/.kit/git}/cli]
-lib = MR_REPO_REMOTES="starter https://github.com/cli/cli.git"
+lib = remote_set starter https://github.com/cli/cli.git
 skip = mr_exclusive "kit" "git" "kit-git"
 # Build requires Go 1.13+.
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
@@ -389,7 +389,7 @@ infuse =
 # SLUGL: Oh, My Repos! supercharged `myrepos` multiple repository management
 [${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}]
 order = 150
-lib = MR_REPO_REMOTES="publish https://github.com/landonb/ohmyrepos.git"
+lib = remote_set publish https://github.com/landonb/ohmyrepos.git
 skip = mr_exclusive "kit" "git" "kit-git"
 infusePostRebase =
   link_hard_dep_sh_logger_and_colors
@@ -412,7 +412,7 @@ updateDeps = update_deps_shoilerplate
 #                  T IG
 #                   TIG!
 [${GITREPOSPATH:-${HOME}/.kit/git}/tig]
-lib = MR_REPO_REMOTES="starter https://github.com/jonas/tig.git"
+lib = remote_set starter https://github.com/jonas/tig.git
 # 2021-08-04: Old remote wiring in case I need to fork tig again.
 #
 #  lib =

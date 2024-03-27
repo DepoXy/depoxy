@@ -15,7 +15,7 @@ order = 470
 # https://github.com/landonb/git-smart#💡
 # "Clever Git Config & Commands"
 [${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}]
-lib = MR_REPO_REMOTES="publish https://github.com/landonb/git-smart.git"
+lib = remote_set publish https://github.com/landonb/git-smart.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_git_nubs
@@ -31,7 +31,7 @@ updateDeps =
 
 # "Pure Bash Git version tag increment and push"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag]
-lib = MR_REPO_REMOTES="publish https://github.com/landonb/git-bump-version-tag.git"
+lib = remote_set publish https://github.com/landonb/git-bump-version-tag.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = pipx install dunamai
@@ -46,7 +46,7 @@ updateDeps =
 # GH Slugln.:
 #   "Fancy, information-dense, multiple-remote workflow-aware git-status for the sophisticated dev in you"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-my-merge-status]
-lib = MR_REPO_REMOTES="publish https://github.com/landonb/git-my-merge-status.git"
+lib = remote_set publish https://github.com/landonb/git-my-merge-status.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_git_nubs
@@ -62,7 +62,7 @@ updateDeps =
 # enigmatic encrypted repo conveyance 🥨
 # https://github.com/DepoXy/git-put-wise#🥨
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-put-wise]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/git-put-wise.git"
+lib = remote_set publish https://github.com/DepoXy/git-put-wise.git
 skip = false  # i.e., mr_exclusive "entrusted" "..."...
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = PREFIX=~/.local make install
@@ -88,7 +88,7 @@ updateDeps =
 # Brilliantly-hacky cross-project same-filesystem dependency-maintainer.
 # "The undependency dependency maintainer"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful]
-lib = MR_REPO_REMOTES="publish https://github.com/thegittinsgood/git-update-faithful.git"
+lib = remote_set publish https://github.com/thegittinsgood/git-update-faithful.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_logger_and_colors
@@ -101,7 +101,7 @@ updateDeps =
 
 # Interactive Git patch injector.
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-veggie-patch]
-lib = MR_REPO_REMOTES="publish https://github.com/landonb/git-veggie-patch.git"
+lib = remote_set publish https://github.com/landonb/git-veggie-patch.git
 skip = mr_exclusive "!entrusted"
 
 # ========================================================================
@@ -110,7 +110,7 @@ skip = mr_exclusive "!entrusted"
 # Locate and edit myrepos config fastly 🧜
 # https://github.com/DepoXy/myrepos-mredit-command#🧜
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/myrepos-mredit-command.git"
+lib = remote_set publish https://github.com/DepoXy/myrepos-mredit-command.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = PREFIX="${HOME}/.local" make install
@@ -128,7 +128,7 @@ updateDeps =
 # Supercharged `tig` config 🍎
 # https://github.com/DepoXy/tig-newtons#🍎
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/tig-newtons.git"
+lib = remote_set publish https://github.com/DepoXy/tig-newtons.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_git_smart_git_fup

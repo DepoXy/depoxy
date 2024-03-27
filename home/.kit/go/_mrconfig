@@ -13,7 +13,7 @@ order = 690
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/go/fzf]
-lib = MR_REPO_REMOTES="starter https://github.com/junegunn/fzf.git"
+lib = remote_set starter https://github.com/junegunn/fzf.git
 infuse =
   link_private_exclude "${@}"
   if [ -e "${MR_REPO}/bin/fzf" ]; then
@@ -96,7 +96,7 @@ install =
 # # "The Kubernetes Package Manager" / "Helm is a tool for managing Charts"
 # # - "Think of it like apt/yum/homebrew for Kubernetes"
 # [${DOPP_KIT:-${HOME}/.kit}/go/helm]
-# lib = MR_REPO_REMOTES="starter https://github.com/helm/helm.git"
+# lib = remote_set starter https://github.com/helm/helm.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -106,7 +106,7 @@ install =
 # # 2018-05-16: To use `python -m timeit` on any app, requires shelling out.
 # # - But here's a Go project of same name that works on any executable.
 # [${DOPP_KIT:-${HOME}/.kit}/go/timeit]
-# lib = MR_REPO_REMOTES="starter https://github.com/choksheak/timeit.git"
+# lib = remote_set starter https://github.com/choksheak/timeit.git
 # echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 # # 2021-08-19: Tested on @macOS, but not on @Linux.
 # install = go build timeit.go

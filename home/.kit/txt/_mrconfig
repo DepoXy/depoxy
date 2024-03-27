@@ -17,7 +17,7 @@ order = 195
 # Textual Emoji v15.0 ref — for your editor 🙄
 # https://github.com/DepoXy/emoji-lookup#🙄
 [${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/emoji-lookup.git"
+lib = remote_set publish https://github.com/DepoXy/emoji-lookup.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -28,7 +28,7 @@ lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/emoji-lookup.git"
 # Vim spell file builder from public, private parts 🧙
 # https://github.com/DepoXy/spellfile.txt#🧙
 [${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/spellfile.txt.git"
+lib = remote_set publish https://github.com/DepoXy/spellfile.txt.git
 infuse =
   link_private_exclude "$@"
 autocommit =

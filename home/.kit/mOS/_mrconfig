@@ -227,7 +227,7 @@ update =
 # ========================================================================
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
-lib = MR_REPO_REMOTES="starter https://github.com/pqrs-org/Karabiner-Elements.git"
+lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
 skip = ! os_is_macos
 
 # ========================================================================
@@ -237,7 +237,7 @@ skip = ! os_is_macos
 # Linux-like macOS keybindings 🐘
 # https://github.com/DepoXy/Karabiner-Elephants#🐘
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/Karabiner-Elephants.git"
+lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
 
 # ------------------------------------------------------------------------
 # ========================================================================
@@ -253,7 +253,7 @@ skip = ! os_is_macos
 # Opinionated `brew install` and `defaults` commands 🏂
 # https://github.com/DepoXy/macOS-onboarder#🏂
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/macOS-onboarder.git"
+lib = remote_set publish https://github.com/DepoXy/macOS-onboarder.git
 
 # ========================================================================
 # ------------------------------------------------------------------------

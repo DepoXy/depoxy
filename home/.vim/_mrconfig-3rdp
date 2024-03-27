@@ -25,16 +25,16 @@ order = 780
 # # CXREF: https://github.com/AndrewRadev/bufferize.vim
 # # ALTLY/2021-02-01: Similar to :TabMessage
 # [pack/AndrewRadev/start/bufferize.vim]
-# lib = MR_REPO_REMOTES="starter https://github.com/AndrewRadev/bufferize.vim.git"
+# lib = remote_set starter https://github.com/AndrewRadev/bufferize.vim.git
 
 [pack/arcticicestudio/start/nord-vim]
-lib = MR_REPO_REMOTES="starter https://github.com/arcticicestudio/nord-vim.git"
+lib = remote_set starter https://github.com/arcticicestudio/nord-vim.git
 
 [pack/cespare/start/vim-toml]
-lib = MR_REPO_REMOTES="starter https://github.com/cespare/vim-toml.git"
+lib = remote_set starter https://github.com/cespare/vim-toml.git
 
 [pack/chrisbra/start/improvedft]
-lib = MR_REPO_REMOTES="starter https://github.com/chrisbra/improvedft.git"
+lib = remote_set starter https://github.com/chrisbra/improvedft.git
 infuse = link_private_exclude "$@"
 
 # 2021-08-18: matchit Refs:
@@ -45,10 +45,10 @@ infuse = link_private_exclude "$@"
 #   - v1.18, https://github.com/chrisbra/matchit (and vimscript-4)
 # - See also: vim-python-matchit
 [pack/chrisbra/start/matchit]
-lib = MR_REPO_REMOTES="starter https://github.com/chrisbra/matchit.git"
+lib = remote_set starter https://github.com/chrisbra/matchit.git
 
 [pack/ctrlpvim/start/ctrlp.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/ctrlpvim/ctrlp.vim.git"
+lib = remote_set starter https://github.com/ctrlpvim/ctrlp.vim.git
 
 # *** 'DepoXy': See .mrconfig-dubs
 #
@@ -66,41 +66,41 @@ lib = MR_REPO_REMOTES="starter https://github.com/ctrlpvim/ctrlp.vim.git"
 #   and enabled, relegated to opt/.
 # CXREF: https://github.com/fatih/vim-go
 [pack/editorconfig/opt/vim-go]
-lib = MR_REPO_REMOTES="starter https://github.com/fatih/vim-go.git"
+lib = remote_set starter https://github.com/fatih/vim-go.git
 
 [pack/editorconfig/start/editorconfig-vim]
-lib = MR_REPO_REMOTES="starter https://github.com/editorconfig/editorconfig-vim.git"
+lib = remote_set starter https://github.com/editorconfig/editorconfig-vim.git
 
 # ISOFF/2017-11-02: Aka GONE-BNF.
 # - Removed from .vimrc: `let g:miniBufExplAutoStart = 0`
 #  [pack/fholgado/opt/minibufexpl.vim]
 
 [pack/flazz/start/vim-colorschemes]
-lib = MR_REPO_REMOTES="starter https://github.com/flazz/vim-colorschemes.git"
+lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 
 # ISOFF/2020-05-10: I demoed vim-open-url, but prefer dubs_web_hatch.
 # CXREF: https://github.com/henrik/vim-open-url
 #  [pack/henrik/opt/vim-open-url]
-#  lib = MR_REPO_REMOTES="starter https://github.com/henrik/vim-open-url.git"
+#  lib = remote_set starter https://github.com/henrik/vim-open-url.git
 
 [pack/HerringtonDarkholme/start/yats.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/HerringtonDarkholme/yats.vim.git"
+lib = remote_set starter https://github.com/HerringtonDarkholme/yats.vim.git
 
 [pack/jamessan/start/vim-gnupg]
-lib = MR_REPO_REMOTES="starter https://github.com/jamessan/vim-gnupg.git"
+lib = remote_set starter https://github.com/jamessan/vim-gnupg.git
 infuse = link_private_exclude "$@"
 
 [pack/juanpabloaj/start/vim-istanbul]
-lib = MR_REPO_REMOTES="starter https://github.com/juanpabloaj/vim-istanbul.git"
+lib = remote_set starter https://github.com/juanpabloaj/vim-istanbul.git
 
 [pack/junegunn/start/fzf.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/junegunn/fzf.vim.git"
+lib = remote_set starter https://github.com/junegunn/fzf.vim.git
 
 [pack/junegunn/start/goyo.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/junegunn/goyo.vim.git"
+lib = remote_set starter https://github.com/junegunn/goyo.vim.git
 
 [pack/junegunn/start/limelight.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/junegunn/limelight.vim.git"
+lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 
 # ------------------------------------------------------------------------
 
@@ -168,10 +168,10 @@ lib = MR_REPO_REMOTES="starter https://github.com/junegunn/limelight.vim.git"
 #   I also hate being frustrated but *the little things*. I prefer a smoove
 #   editor eXperience. At all costs).
 [pack/leafgarland/start/typescript-vim]
-lib = MR_REPO_REMOTES="starter https://github.com/leafgarland/typescript-vim.git"
+lib = remote_set starter https://github.com/leafgarland/typescript-vim.git
 
 [pack/majutsushi/start/tagbar]
-lib = MR_REPO_REMOTES="starter https://github.com/majutsushi/tagbar.git"
+lib = remote_set starter https://github.com/majutsushi/tagbar.git
 
 # ISOFF/2020-02-13: #HadIssuz:
 #  [pack/marshallward/start/vim-restructuredtext]
@@ -181,19 +181,19 @@ lib = MR_REPO_REMOTES="starter https://github.com/majutsushi/tagbar.git"
 #   and you see "xx matches on xx lines" message like you would
 #   with \S find-replace-multi-files command. So weird. So disabled!
 [pack/marshallward/opt/vim-restructuredtext]
-lib = MR_REPO_REMOTES="starter https://github.com/marshallward/vim-restructuredtext.git"
+lib = remote_set starter https://github.com/marshallward/vim-restructuredtext.git
 skip = true
 
 # See .mrconfig-lsp: [pack/mattn/start/vim-lsp-settings]
 
 [pack/MaxMEllon/start/vim-jsx-pretty]
-lib = MR_REPO_REMOTES="starter https://github.com/MaxMEllon/vim-jsx-pretty.git"
+lib = remote_set starter https://github.com/MaxMEllon/vim-jsx-pretty.git
 
 [pack/nanotech/start/jellybeans.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/nanotech/jellybeans.vim.git"
+lib = remote_set starter https://github.com/nanotech/jellybeans.vim.git
 
 [pack/pangloss/start/vim-javascript]
-lib = MR_REPO_REMOTES="starter https://github.com/pangloss/vim-javascript.git"
+lib = remote_set starter https://github.com/pangloss/vim-javascript.git
 
 # See .mrconfig-lsp: [pack/prabirshrestha/start/async.vim]
 # See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete.vim]
@@ -231,7 +231,7 @@ lib = MR_REPO_REMOTES="starter https://github.com/pangloss/vim-javascript.git"
 #   in the core ~/.vim project, NERD Commenter works without user running this
 #   install task.
 [pack/preservim/start/nerdcommenter]
-lib = MR_REPO_REMOTES="starter https://github.com/preservim/nerdcommenter.git"
+lib = remote_set starter https://github.com/preservim/nerdcommenter.git
 pull =
   local remote_branch_default="$(git symbolic-ref refs/remotes/starter/HEAD)"
   cd "${MR_REPO}"
@@ -260,87 +260,87 @@ install =
 # See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-typescript]
 
 [pack/samoshkin/start/vim-mergetool]
-lib = MR_REPO_REMOTES="starter https://github.com/samoshkin/vim-mergetool.git"
+lib = remote_set starter https://github.com/samoshkin/vim-mergetool.git
 
 [pack/scrooloose/opt/nerdtree]
-lib = MR_REPO_REMOTES="starter https://github.com/scrooloose/nerdtree.git"
+lib = remote_set starter https://github.com/scrooloose/nerdtree.git
 
 [pack/scrooloose/start/syntastic]
-lib = MR_REPO_REMOTES="starter https://github.com/scrooloose/syntastic.git"
+lib = remote_set starter https://github.com/scrooloose/syntastic.git
 
 [pack/tomtom/start/tlib_vim]
-lib = MR_REPO_REMOTES="starter https://github.com/tomtom/tlib_vim.git"
+lib = remote_set starter https://github.com/tomtom/tlib_vim.git
 
 [pack/tomtom/start/viki_vim]
-lib = MR_REPO_REMOTES="starter https://github.com/tomtom/viki_vim.git"
+lib = remote_set starter https://github.com/tomtom/viki_vim.git
 
 # *** tpope [retired]
 
 # - 2021-01-23: See instead: github.com/preservim/nerdcommenter
 [pack/tpope/opt/vim-commentary]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-commentary.git"
+lib = remote_set starter https://github.com/tpope/vim-commentary.git
 
 # - 2019-03-19: Disabled vim-endwise: it's frustrating me.
 [pack/tpope/opt/vim-endwise]
 order = 790
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-endwise.git"
+lib = remote_set starter https://github.com/tpope/vim-endwise.git
 # FIXME/2020-02-13: Uncomment (and skip) someday:
 #  skip = true
 
 [pack/tpope/opt/vim-pathogen]
 order = 790
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-pathogen.git"
+lib = remote_set starter https://github.com/tpope/vim-pathogen.git
 
 # - The scriptease package is quite esoteric. It's basically Tim Pope's
 #   Vim dev commands. And the last thing I need to do is spend time more
 #   time developing Vim, especially core Vim!! Pass.
 [pack/tpope/opt/vim-scriptease]
 order = 790
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-scriptease.git"
+lib = remote_set starter https://github.com/tpope/vim-scriptease.git
 
 # - 2018-12-13: A colorscheme I looked at, for inspiration, but ultimately
 #               dubs_after_dark is too hot.
 [pack/tpope/opt/vim-vividchalk]
 order = 790
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-vividchalk.git"
+lib = remote_set starter https://github.com/tpope/vim-vividchalk.git
 
 # *** tpope [active]
 
 [pack/tpope/start/vim-abolish]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-abolish.git"
+lib = remote_set starter https://github.com/tpope/vim-abolish.git
 
 [pack/tpope/start/vim-fugitive]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-fugitive.git"
+lib = remote_set starter https://github.com/tpope/vim-fugitive.git
 
 [pack/tpope/start/vim-jdaddy]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-jdaddy.git"
+lib = remote_set starter https://github.com/tpope/vim-jdaddy.git
 
 [pack/tpope/start/vim-rails]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-rails.git"
+lib = remote_set starter https://github.com/tpope/vim-rails.git
 
 [pack/tpope/start/vim-speeddating]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-speeddating.git"
+lib = remote_set starter https://github.com/tpope/vim-speeddating.git
 
 [pack/tpope/start/vim-vinegar]
-lib = MR_REPO_REMOTES="starter https://github.com/tpope/vim-vinegar.git"
+lib = remote_set starter https://github.com/tpope/vim-vinegar.git
 
 # *** vim-scripts
 
 [pack/vim-scripts/start/AutoAdapt]
-lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/AutoAdapt.git"
+lib = remote_set starter https://github.com/vim-scripts/AutoAdapt.git
 infuse = link_private_exclude "$@"
 
 [pack/vim-scripts/start/ingo-library]
-lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/ingo-library.git"
+lib = remote_set starter https://github.com/vim-scripts/ingo-library.git
 infuse = link_private_exclude "$@"
 
 # In -core: [pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
 
 [pack/vim-scripts/start/TeTrIs.vim]
-lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/TeTrIs.vim.git"
+lib = remote_set starter https://github.com/vim-scripts/TeTrIs.vim.git
 
 [pack/vim-scripts/start/ZoomWin]
-lib = MR_REPO_REMOTES="starter https://github.com/vim-scripts/ZoomWin.git"
+lib = remote_set starter https://github.com/vim-scripts/ZoomWin.git
 infuse = link_private_exclude "$@"
 
 # 2021-08-18: python_matchit Refs:
@@ -350,23 +350,23 @@ infuse = link_private_exclude "$@"
 #   - v0.5: https://github.com/voithos/vim-python-matchit
 # - See also: matchit
 [pack/voithos/start/vim-python-matchit]
-lib = MR_REPO_REMOTES="starter https://github.com/voithos/vim-python-matchit.git"
+lib = remote_set starter https://github.com/voithos/vim-python-matchit.git
 
 # *** From 'w' to 'z'
 
 [pack/wincent/start/command-t]
-lib = MR_REPO_REMOTES="starter https://github.com/wincent/command-t.git"
+lib = remote_set starter https://github.com/wincent/command-t.git
 
 # GONE-BNF: [pack/xolox/start/vim-easytags]  # 2016-11-13 or earlier: Removed.
 
 [pack/xolox/start/vim-misc]
-lib = MR_REPO_REMOTES="starter https://github.com/xolox/vim-misc.git"
+lib = remote_set starter https://github.com/xolox/vim-misc.git
 
 [pack/yuezk/start/vim-js]
-lib = MR_REPO_REMOTES="starter https://github.com/yuezk/vim-js.git"
+lib = remote_set starter https://github.com/yuezk/vim-js.git
 
 [pack/zhou13/start/vim-easyescape]
-lib = MR_REPO_REMOTES="starter https://github.com/zhou13/vim-easyescape.git"
+lib = remote_set starter https://github.com/zhou13/vim-easyescape.git
 
 # ========================================================================
 # ------------------------------------------------------------------------

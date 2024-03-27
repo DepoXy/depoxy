@@ -16,7 +16,7 @@ order = 690
 # - 2021-06-02: That, or just wire it to the projects you want to use it on.
 
 [${DOPP_KIT:-${HOME}/.kit}/js/Jest-Coverage-Diff]
-lib = MR_REPO_REMOTES="starter https://github.com/anuraag016/Jest-Coverage-Diff.git"
+lib = remote_set starter https://github.com/anuraag016/Jest-Coverage-Diff.git
 skip = mr_exclusive "!entrusted"
 
 # ========================================================================
@@ -24,7 +24,7 @@ skip = mr_exclusive "!entrusted"
 
 # Lens aka OpenLens aka Electron Lens.
 [${DOPP_KIT:-${HOME}/.kit}/js/lens]
-lib = MR_REPO_REMOTES="starter https://github.com/lensapp/lens.git"
+lib = remote_set starter https://github.com/lensapp/lens.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_maybe'
@@ -96,7 +96,7 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/js/nvm]
-lib = MR_REPO_REMOTES="starter https://github.com/nvm-sh/nvm.git"
+lib = remote_set starter https://github.com/nvm-sh/nvm.git
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
@@ -146,7 +146,7 @@ installNVMNodes =
 # vim-lsp-javascript (at least that's my understanding).
 #   ~/.vim/pack/ryanolsonx/start/vim-lsp-javascript
 [${DOPP_KIT:-${HOME}/.kit}/js/typescript-language-server]
-lib = MR_REPO_REMOTES="starter https://github.com/theia-ide/typescript-language-server.git"
+lib = remote_set starter https://github.com/theia-ide/typescript-language-server.git
 skip = mr_exclusive "!entrusted"
 
 # ========================================================================
@@ -156,7 +156,7 @@ skip = mr_exclusive "!entrusted"
 # Tampermonkey macOS motion scripts 💆
 # https://github.com/DepoXy/pampermonkey#💆
 [${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey]
-lib = MR_REPO_REMOTES="publish https://github.com/DepoXy/pampermonkey.git"
+lib = remote_set publish https://github.com/DepoXy/pampermonkey.git
 skip = false  # i.e., mr_exclusive "entrusted" "..."...
 
 # ========================================================================

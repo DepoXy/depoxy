@@ -19,7 +19,7 @@ order = 690
 
 # Dubs Vim support tool.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
-lib = MR_REPO_REMOTES="publish http://github.com/landonb/parT.git"
+lib = remote_set publish http://github.com/landonb/parT.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   make -f protoMakefile clean
@@ -33,16 +33,16 @@ install =
 # *** Tmux
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/.tmux]
-lib = MR_REPO_REMOTES="starter http://github.com/gpakosz/.tmux.git"
+lib = remote_set starter http://github.com/gpakosz/.tmux.git
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-sensible]
-lib = MR_REPO_REMOTES="starter http://github.com/tmux-plugins/tmux-sensible.git"
+lib = remote_set starter http://github.com/tmux-plugins/tmux-sensible.git
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tpm]
-lib = MR_REPO_REMOTES="starter http://github.com/tmux-plugins/tpm.git"
+lib = remote_set starter http://github.com/tmux-plugins/tpm.git
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion]
-lib = MR_REPO_REMOTES="starter http://github.com/imomaliev/tmux-bash-completion.git"
+lib = remote_set starter http://github.com/imomaliev/tmux-bash-completion.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -60,7 +60,7 @@ lib = MR_REPO_REMOTES="starter http://github.com/imomaliev/tmux-bash-completion.
 #   https://github.com/rupa/v
 #   https://github.com/clvv/fasd
 [${SHOILERPLATE:-${HOME}/.kit/sh}/commacd]
-lib = MR_REPO_REMOTES="starter http://github.com/shyiko/commacd.git"
+lib = remote_set starter http://github.com/shyiko/commacd.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ lib = MR_REPO_REMOTES="starter http://github.com/shyiko/commacd.git"
 # https://github.com/cykerway/complete-alias
 # "automagical shell alias completion;"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias]
-lib = MR_REPO_REMOTES="starter http://github.com/cykerway/complete-alias.git"
+lib = remote_set starter http://github.com/cykerway/complete-alias.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   # CXREF/2023-05-14: ~/.bash_completion is sourced by /etc/base_completion
