@@ -13,16 +13,17 @@ order = 695
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv]
+# Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
+#   ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
+# Otherwise might be, e.g., author's Linux env. (where I don't (or
+# haven't started to) use Homebrew).
+lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ] ||
+  remote_set starter https://github.com/pyenv/pyenv.git
 checkout =
-  # Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
-  #   ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
-  # Otherwise might be, e.g., author's Linux env. (where I don't (or
-  # haven't started to) use Homebrew).
-  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
-    git_clone_giturl -o starter 'git@github.com:pyenv/pyenv.git' 'pyenv'
+  if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    stub_checkout_directory
   else
-    mkdir -p "${MR_REPO}"
-    touch -- "${MR_REPO}/.omr-placeholder"
+    mr_repo_checkout
   fi
 echoInstallHelp =
   echoInstallHelp 'os_linux' 'dxy_all'
@@ -141,12 +142,13 @@ infuse =
 # I don't use this copy of pyenv-virtualenv; see brew-install version instead.
 # - CXREF: ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv]
+lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ] ||
+  remote_set starter https://github.com/pyenv/pyenv-virtualenv.git
 checkout =
-  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ]; then
-    git_clone_giturl -o "starter" "pyenv/pyenv-virtualenv.git"
+  if [ -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ]; then
+    stub_checkout_directory
   else
-    mkdir -p "${MR_REPO}"
-    touch -- "${MR_REPO}/.omr-placeholder"
+    mr_repo_checkout
   fi
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
