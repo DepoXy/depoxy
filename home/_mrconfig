@@ -34,28 +34,6 @@ lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib
 
 [DEFAULT]
 # CXREF:
-#   remotes_add_publish_entrust:
-#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/.mrconfig-wireremotes
-#
-# USAGE:
-#   $ MR_INCLUDE=entrusted mr -d / -n run remotes_add_publish_entrust
-include =
-  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/.mrconfig-wireremotes"
-
-# CXREF: These environs for:
-#   remotes_add_publish_entrust:
-#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/.mrconfig-wireremotes:42
-lib =
-  MR_REPO_PUBLISH_USER_URL="git@github.com:"
-  #
-  MR_REPO_ENTRUST_USER_URL="git@github_XXXXXXXXXXXXX:"
-  MR_REPO_ENTRUST_USER_NAME="XXXXXXXXXXXXX"
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-[DEFAULT]
-# CXREF:
 #   update_faithful_file et al:
 #     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/update-faithful
 include =
