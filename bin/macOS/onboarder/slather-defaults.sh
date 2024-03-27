@@ -47,6 +47,10 @@ depoxy_configure () {
 
   # ***
 
+  depoxy_configure_remind_task_infuse_and_wireRemotes
+
+  # ***
+
   # USAGE: See next note abote how to add your own (private) reminders.
   depoxy_configure_private
 }
@@ -241,6 +245,23 @@ depoxy_configure_remind_task_install_omr_projects_print_all () {
   # DUNNO: Even though the final `echoInstallHelp` includes a blank line,
   # it's not printed. So add one here.
   print_at_end+=("")
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+depoxy_configure_remind_task_infuse_and_wireRemotes () {
+  print_at_end+=("\
+🔳 DepoXy: OMR: Run 'infuse' and 'wireRemotes' actions to complete OMR setup::
+
+    # Verify the set of repos:
+    MR_INCLUDE=entrusted mr -d / run /bin/bash -c 'echo "${MR_REPO}"'
+
+    # Setup all the repo remotes:
+    MR_INCLUDE=entrusted mr -d / wireRemotes
+
+    # Infuse all the project wiring:
+    MR_INCLUDE=entrusted mr -d / infuse
+")
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
