@@ -53,6 +53,7 @@ fcn
 fcns
 filesystems
 fixup
+globbing
 hostname
 i11l
 inputrc
@@ -75,6 +76,7 @@ python3
 rsync
 rsynced
 spellfile
+sudo
 tig
 tig's
 tix
