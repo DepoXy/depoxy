@@ -58,11 +58,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to cli project directory.
   pushd_alias_or_warn "cdgl" "${GITREPOSPATH:-${HOME}/.kit/git}/cli"
 
-  # Change to tig project directory.
-  pushd_alias_or_warn "cdgt" "${GITREPOSPATH:-${HOME}/.kit/git}/tig"
+  # ** ~/.kit/git — Git commands
 
-  # Change to Git-Smart project directory.
-  pushd_alias_or_warn "cdgs" "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
+  pushd_alias_or_warn "cdgb" "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
 
   # Change to git-my-merge-status project directory.
   pushd_alias_or_warn "cdgm" "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
@@ -70,15 +68,13 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Change to git-update-faithful project directory.
   pushd_alias_or_warn "cdgu" "${GITREPOSPATH:-${HOME}/.kit/git}/git-update-faithful"
 
-  # Change to tig-newtons project directory.
-  pushd_alias_or_warn "cdtn" "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
+  # *** ~/.kit/git — Git collections/lib
 
   # Change to Git-Extras project directory (not my project, but overlaps).
   pushd_alias_or_warn "cdge" "${GITREPOSPATH:-${HOME}/.kit/git}/git-extras"
 
-  pushd_alias_or_warn "cdgb" "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
-
-  # *** ~/.kit/git — Git lib
+  # Change to Git-Smart project directory.
+  pushd_alias_or_warn "cdgs" "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
 
   # Change to sh-git-nubs project directory.
   pushd_alias_or_warn "cdgn" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs}"
@@ -104,6 +100,14 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # Change to myrepos-mredit-command project directory, aka mister-mister.
   pushd_alias_or_warn "cdmm" "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command"
+
+  # *** ~/.kit/git — TGN
+
+  # Change to tig project directory.
+  pushd_alias_or_warn "cdgt" "${GITREPOSPATH:-${HOME}/.kit/git}/tig"
+
+  # Change to tig-newtons project directory.
+  pushd_alias_or_warn "cdtn" "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
 
   # *** ~/.kit/go — Golang
 

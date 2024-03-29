@@ -21,12 +21,12 @@
 /git/git-extras/
 # Powerful history rewriter.
 /git/git-filter-repo/
+# Set up the rebase a little quicker.
+/git/git-interactive-rebase-tool/
 # Explosively consise Git status.
 /git/git-my-merge-status/
 # Pull up a monolith, let me explain how this works
 /git/git-put-wise/
-# Set up the rebase a little quicker.
-/git/git-interactive-rebase-tool/
 # Show various stats about the project.
 /git/git-quick-stats/
 # Lots of small, smart Git tweaks.
