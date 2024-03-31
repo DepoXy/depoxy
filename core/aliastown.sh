@@ -61,9 +61,15 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # ** ~/.kit/git — Git commands
 
   pushd_alias_or_warn "cdgb" "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
+  pushd_alias_or_warn "cdbu" "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
 
   # Change to git-my-merge-status project directory.
   pushd_alias_or_warn "cdgm" "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
+  pushd_alias_or_warn "cdmy" "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
+
+  # Change to git-rebase-tip project directory.
+  pushd_alias_or_warn "cdgr" "${GITREPOSPATH:-${HOME}/.kit/git}/git-rebase-tip"
+  pushd_alias_or_warn "cdrt" "${GITREPOSPATH:-${HOME}/.kit/git}/git-rebase-tip"
 
   # Change to git-update-faithful project directory.
   pushd_alias_or_warn "cdgu" "${GITREPOSPATH:-${HOME}/.kit/git}/git-update-faithful"
