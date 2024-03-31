@@ -116,8 +116,8 @@ update_deps_shoilerplate () {
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
 
     update_faithful_file \
-      "deps/sh-git-nubs/bin/git-nubs.sh" \
-      "bin/git-nubs.sh"
+      "deps/sh-git-nubs/lib/git-nubs.sh" \
+      "lib/git-nubs.sh"
 
     update_faithful_finish_signed
   }
@@ -240,8 +240,8 @@ link_hard_dep_sh_colors () {
 }
 
 link_hard_dep_sh_git_nubs () {
-  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/bin/git-nubs.sh" \
-    "deps/sh-git-nubs/bin/git-nubs.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh" \
+    "deps/sh-git-nubs/lib/git-nubs.sh"
 }
 
 link_hard_dep_sh_logger () {
