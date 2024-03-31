@@ -22,6 +22,7 @@ skip = mr_exclusive "!entrusted"
 lib = remote_set publish https://github.com/landonb/sh-colors.git
 skip = mr_exclusive "!entrusted"
 
+# CXREF: link_hard_dep_sh_git_nubs
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs]
 lib = remote_set publish https://github.com/landonb/sh-git-nubs.git
 skip = mr_exclusive "!entrusted"
