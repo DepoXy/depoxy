@@ -433,11 +433,13 @@ installDarwin = false
 installLinux =
   # SAVVY/2024-02-26: tig uses an alternative version tag prefix.
   # - To demo git-nubs.sh comamnds directly, run, e.g.:
-  #     GITSMART_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" git-nubs-load
+  #     GITNUBS_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" git-nubs-load
   #     git_latest_version_norma
   # - Or you can call git-smart commands similarly, e.g.:
-  #     GITSMART_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" git-latest-version-normal
-  GITSMART_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" \
+  #     GITNUBS_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" git-latest-version-normal
+  # - So set environ for
+  #     git latest-version-normal
+  GITNUBS_RE_VERSPARTS__OPTIONAL_PREFIX="tig-" \
     pull_latest "starter" "master" "" "main"
   #
   # Ensure deps available.
