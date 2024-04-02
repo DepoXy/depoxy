@@ -87,6 +87,7 @@ updateDeps =
 
 # Brilliantly-hacky cross-project same-filesystem dependency-maintainer.
 # "The undependency dependency maintainer"
+# CXREF: link_hard_dep_git_update_faithful
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful]
 lib = remote_set publish https://github.com/thegittinsgood/git-update-faithful.git
 skip = mr_exclusive "!entrusted"
