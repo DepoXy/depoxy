@@ -104,6 +104,7 @@ infuse_create_symlinks_core () {
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise"
+  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-rebase-tip"
   link_deep "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-update-faithful"
   link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch"

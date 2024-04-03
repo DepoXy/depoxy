@@ -27,6 +27,8 @@
 /git/git-my-merge-status/
 # Pull up a monolith, let me explain how this works
 /git/git-put-wise/
+# Esoteric fork management
+/git/git-rebase-tip/
 # Show various stats about the project.
 /git/git-quick-stats/
 # Lots of small, smart Git tweaks.

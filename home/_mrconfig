@@ -27,6 +27,8 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/rebase-tip.sh"
+
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/stub-checkout.sh"
 
 # ========================================================================

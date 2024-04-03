@@ -53,6 +53,10 @@ user_path_add_git_mr_merge_status () {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status/bin"
 }
 
+user_path_add_git_rebase_tip () {
+  path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-rebase-tip/bin"
+}
+
 user_path_add_git_veggie_patch () {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch/bin"
 }
@@ -132,6 +136,9 @@ user_path_extend () {
   #
   user_path_add_git_mr_merge_status
   unset -f user_path_add_git_mr_merge_status
+  #
+  user_path_add_git_rebase_tip
+  unset -f user_path_add_git_rebase_tip
   #
   user_path_add_git_veggie_patch
   unset -f user_path_add_git_veggie_patch

@@ -85,6 +85,17 @@ infuse =
 updateDeps =
   update_deps_shoilerplate
 
+# SLUGL: "Esoteric fork management"
+[${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-rebase-tip]
+lib = remote_set publish https://github.com/landonb/git-rebase-tip.git
+infusePostRebase =
+  link_hard_dep_sh_git_nubs
+  link_hard_dep_sh_logger_and_colors
+infuse =
+  mr -d . -n infusePostRebase
+updateDeps =
+  update_deps_shoilerplate
+
 # Brilliantly-hacky cross-project same-filesystem dependency-maintainer.
 # "The undependency dependency maintainer"
 # CXREF: link_hard_dep_git_update_faithful
