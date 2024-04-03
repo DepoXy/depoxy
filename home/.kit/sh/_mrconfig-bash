@@ -14,10 +14,12 @@ order = 480
 
 # *** Author's *shoilerplate* projects (modular shell programs).
 
+# CXREF: link_hard_dep_sh_ask_yesnoskip
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip]
 lib = remote_set publish https://github.com/landonb/sh-ask-yesnoskip.git
 skip = mr_exclusive "!entrusted"
 
+# CXREF: link_hard_dep_sh_colors
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors]
 lib = remote_set publish https://github.com/landonb/sh-colors.git
 skip = mr_exclusive "!entrusted"
@@ -27,6 +29,7 @@ skip = mr_exclusive "!entrusted"
 lib = remote_set publish https://github.com/landonb/sh-git-nubs.git
 skip = mr_exclusive "!entrusted"
 
+# CXREF: link_hard_dep_sh_logger
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
 lib = remote_set publish https://github.com/landonb/sh-logger.git
 skip = mr_exclusive "!entrusted"
