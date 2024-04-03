@@ -217,6 +217,17 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
     mr -d \"${MR_REPO}\" -n installpythons
  "
+merge =
+  rebase_tip_merge_release "${_resume_cmd:-$1}" "starter/main" \
+    "${_add_version_tag:-true}" "$@"
+rebase =
+  local resume_cmd="$1"
+  #
+  rebase_tip "${resume_cmd}" "project-local-venv" "starter/main" \
+    "publish/liminal" "${_local_name:--}" "${_add_version_tag:-true}" \
+    "${_skip_rebase:-false}"
+push =
+  rebase_tip_push_liminal_tag
 install =
   # Ensure `pyenv` not in effect.
   command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
