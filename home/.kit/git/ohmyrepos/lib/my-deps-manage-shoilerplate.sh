@@ -198,6 +198,9 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
+  # Ensure symlinks exist.
+  mr -d . -n infusePostRebase
+
   update_deps_git_smart_git_abort
   update_deps_git_smart_git_fup
   update_deps_git_update_faithful
