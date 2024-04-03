@@ -205,7 +205,6 @@ lib =
 infuse =
   link_private_exclude "$@"
   symlink_mrinfuse_file ".editorconfig"
-  symlink_overlay_file "README.txt" "README.rst"
   symlink_overlay_file "${MR_REPO}/virtualenvwrapper.sh" \
                        "${HOME}/.local/bin/virtualenvwrapper.sh"
   symlink_overlay_file "${MR_REPO}/virtualenvwrapper_lazy.sh" \
