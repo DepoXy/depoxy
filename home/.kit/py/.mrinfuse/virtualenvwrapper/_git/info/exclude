@@ -1,6 +1,8 @@
 /.editorconfig
 /.gitignore.local
-/README.rst
+# DUNNO/2024-04-02: README.rst removed upstream, but still sometimes
+# shows up again after rebase. Or maybe something else was amiss.
+#  /README.rst
 
 # For `python3 -m pip install ${MR_REPO}`,
 # via `mr -d /kit/working/py/virtualenvwrapper -n install`.
