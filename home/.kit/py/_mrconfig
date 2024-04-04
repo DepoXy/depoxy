@@ -12,6 +12,143 @@ order = 695
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# https://github.com/pypa/pipx
+# USAGE: E.g., `pipx install 2048`
+# - SAVVY: `pipx` installs apps using the Python version you use to install
+#   pipx (DEPOXY_PYENV_PYVERS, below), regardless of whatever the current
+#   version is in your shell when you install and app or run it.
+[${DOPP_KIT:-${HOME}/.kit}/py/pipx]
+lib = remote_set starter https://github.com/pypa/pipx.git
+echoInstallHelp =
+  echoInstallHelp 'os_all' 'dxy_all'
+  #
+  echo "🔳 DepoXy: Install \`pipx\` applications::
+    mr -d \"${MR_REPO}\" -n installPips
+ "
+install =
+  eval "$(pyenv init -)"
+  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  # pip install --upgrade pip
+  python3 -m pip install --upgrade pip
+  python3 -m pip install --user pipx
+installPips =
+  for package in \
+    "asciinema" \
+    "glances" \
+    "grip" \
+  ; do
+    info "pipx install ${package}"
+    #
+    pipx install "${package}"
+  done
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# https://github.com/python-poetry/poetry
+[${DOPP_KIT:-${HOME}/.kit}/py/poetry]
+lib = remote_set starter https://github.com/python-poetry/poetry.git
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install =
+  pull_latest "starter" "master" "" "main"
+  #
+  command -v deactivate >/dev/null 2>&1 && deactivate
+  eval "$(pyenv init -)"
+  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  #
+  mr -d "${DOPP_KIT:-${HOME}/.kit}/py/install.python-poetry.org" -n update
+  # https://install.python-poetry.org/
+  python3 "${DOPP_KIT:-${HOME}/.kit}/py/install.python-poetry.org/install-poetry.py"
+# SPIKE/2022-09-30: I assume this updates to latest version, regardless of local checkout.
+update = poetry self update
+infuse =
+  # https://python-poetry.org/docs/#enable-tab-completion-for-bash-fish-or-zsh
+  if type poetry > /dev/null 2>&1; then
+    if [ -d "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions" ]; then
+      poetry_comp="${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions/poetry-completion.bash"
+      if [ -e "${poetry_comp}" ]; then
+        # AVOID/2022-10-13: Don't overwrite the completion file on every infuse,
+        # otherwise ~/.homefries changes, and the user is forced to `git co -- ...`
+        # to reset the file.
+        # - INERT: If you wanted to take the time, you could keep a copy of the generated
+        #          file somewhere, then on infuse, regenerate completion and compare the
+        #          new output against the old output, and then only write the new output
+        #          to ~/.homefries if something changed. But that seems like unnecessarily
+        #          tedious work without much payback!
+        info "Sidestepped $(attr_emphasis)completion$(attr_reset) $(fg_lightorange)poetry$(attr_reset)"
+      else
+        poetry completions bash > "${poetry_comp}"
+        # I'll leave it as an exercise for YOU to manually commit any changes.
+        info "Generated $(attr_emphasis)completion$(attr_reset) $(fg_lightorange)poetry$(attr_reset)"
+      fi
+    fi
+  fi
+
+# https://install.python-poetry.org/
+# https://github.com/python-poetry/install.python-poetry.org
+[${DOPP_KIT:-${HOME}/.kit}/py/install.python-poetry.org]
+lib = remote_set starter https://github.com/python-poetry/install.python-poetry.org.git
+update =
+  git fetch starter --prune
+  git pull
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# Another project I don't need locally, but I like having the install command.
+[${DOPP_KIT:-${HOME}/.kit}/py/poetry-dynamic-versioning]
+lib = remote_set starter https://github.com/mtkennerly/poetry-dynamic-versioning.git
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+# FIXME/2024-02-26: Does this only work from activate venv?
+install =
+  pull_latest "starter" "master" "" "main"
+  #
+  cat <<[EOF--poetry-dynamic-versioning]
+  
+  YOU: Install poetry-dynamic-versioning to your venv's as necessary, e.g.:
+  
+    venv_pyver=3.12.2
+    venv_name=.venv-myapp
+  
+    command -v deactivate >/dev/null 2>&1 && deactivate
+    eval "\$(~/.local/bin/pyenv init -)"
+  
+    pyenv install -s \${venv_pyver}
+  
+    pyenv shell \${venv_pyver}
+  
+    pip install virtualenvwrapper
+  
+    python3 -m venv \${venv_name}
+  
+    # CXREF: https://github.com/landonb/virtualenvwrapper
+    #
+    # Set crumb used by \`cdproject\` command.
+    echo "\$(pwd)" > "\${venv_name}/.project"
+    #
+    # So that bare \`workon\` picks the new virtualenv.
+    touch -- "\${venv_name}/bin/activate"
+  
+    . "${venv_name}/bin/activate"
+    # ALTLY: Just call \`workon\`
+  
+    pip install -U pip setuptools
+  
+    pip install poetry
+  
+    poetry self add "poetry-dynamic-versioning[plugin]"
+  
+ [EOF--poetry-dynamic-versioning]
+#↓↓↓ So ft=bash stops highlighting the Heredoc.
+[EOF--poetry-dynamic-versioning]
+skip = true
+#↑↑↑ So ft=bash stops highlighting the Heredoc.
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv]
 # Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
 #   ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
