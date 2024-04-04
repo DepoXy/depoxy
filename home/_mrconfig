@@ -281,12 +281,14 @@ autocommit =
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
 installLinux =
-  # 2023-02-09 00:03: Meh, not sure where else to put this...
-  # I mean, I guess *installing* @linux is really a Zoidy Pooh
-  # task. But I also want to migrate Anisble to OMR as much as
-  # I can (or at least prefer OMR for new tasks than Ansible).
-  # Furthermore, *fussy* is currently a Waffle/DepoXy asset, so
-  # at least makes sense that Waffle/DepoXy would install it.
+  # DUNNO/2023-02-09: Meh, not sure where else to put this...
+  # - *fussy* is a Linux version of `finicky`:
+  #     https://github.com/johnste/finicky
+  # - This is mostly so Slack opens links in a new browser
+  #   window, rather than fronting an existing window. (It's
+  #   just one <Alt-w> to close the new window, vs. <Alt-w>
+  #   only closing one tab and then needing to <Alt-space n>
+  #   to minimize the window.)
   xdg-settings set default-web-browser "fussy.desktop"
 
 # ========================================================================
