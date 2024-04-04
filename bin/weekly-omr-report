@@ -1,0 +1,36 @@
+#!/bin/bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+
+# USAGE: If diff fails, update the cache reference: CXREF:
+#
+#   ~/.local/share/weekly-omr-report/omr-report--localhost
+#   # Aka:
+#   ~/.local/share/weekly-omr-report/omr-report-$(hostname)
+
+# CXREF:
+#
+#   ~/.kit/git/ohmyrepos/bin/weekly-omr-report
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+weekly_omr_report () {
+  # CXREF: ~/.depoxy/ambers/core/omr-wraps.sh
+  . "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/core/omr-wraps.sh"
+
+  export -f omr-report
+
+  # CXREF: ~/.ohmyrepos/bin/weekly-omr-report
+  #   ~/.ohmyrepos/bin/omr-report
+  "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/weekly-omr-report"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  weekly_omr_report "$@"
+}
+
+main "$@"
+
+unset -f main
+
