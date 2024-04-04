@@ -73,26 +73,7 @@ lib = remote_set starter http://github.com/shyiko/commacd.git
 lib = remote_set starter http://github.com/cykerway/complete-alias.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
-  # CXREF/2023-05-14: ~/.bash_completion is sourced by /etc/base_completion
-  #   /etc/bash_completion -> /usr/share/bash-completion/bash_completion
-  echo ". ~/.complete_alias" > ".bash_completion"
-  if [ ! -e "${HOME}/.bash_completion" ]; then
-    info "Creating $(fg_lightorange)~/.bash_completion$(attr_reset)"
-    #
-    command mv -- ".bash_completion" "${HOME}/.bash_completion"
-  elif diff -q ".bash_completion" "${HOME}/.bash_completion" > /dev/null; then
-    info "Verified $(fg_lightorange)~/.bash_completion$(attr_reset)"
-    #
-    command rm -- ".bash_completion"
-  else
-    # Fail if ~/.bash_completion exists but has different content than expected.
-    # - In author's experience, ~/.bash_completion does not exist until this
-    #   install task runs.
-    error "Unexpected $(fg_lightorange)~/.bash_completion$(attr_reset)"
-    command rm -- ".bash_completion"
-    #
-    return 1
-  fi
+  append_bash_completion ". ~/.complete_alias"
   #
   info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"
   command cp -- "complete_alias" "${HOME}/.complete_alias"
