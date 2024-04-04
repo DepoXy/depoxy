@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2022-2024 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE:
+#
+# - E.g.,
+#
+#     ./test-as-cron "${HOME}/.kit/git/ohmyrepos/bin/weekly-omr-report.sh"
+
+# This script sorta mocks running a script as cron, by running the
+# script from a similar environment. (Though one thing this script
+# won't do is send cron emails with any output.)
+#
+# - To setup/capture the environment variables that we use below:
+#
+#   - Add to ~/.depoxy/ambers/home/.anacron/crontab.$USER momentarily:
+#
+#       * * * * * /usr/bin/env > /tmp/cron-env
+#
+#   - Wire crontab:
+#
+#       crontab -u $USER ~/.depoxy/ambers/home/.anacron/crontab.$USER && crontab -l
+#
+#   - Then, after the next minute starts:
+#
+#       cat /tmp/cron-env
+#
+#     et voilà.
+#
+#   - To cleanup, reset crontab to previous state.
+#
+#   - REFER:
+#
+#     https://unix.stackexchange.com/questions/42715/
+#       how-can-i-make-cron-run-a-job-right-now-for-testing-debugging-without-changing
+
+/usr/bin/env -i $(echo " \
+  HOME=${HOME} \
+  LOGNAME=${LOGNAME} \
+  PATH=/usr/bin:/bin \
+  LANG=en_US.UTF-8 \
+  SHELL=/bin/sh \
+  PWD=${HOME}" \
+) "$@"
+
