@@ -33,6 +33,34 @@ install =
   python3 -m pip install --upgrade pip
   python3 -m pip install --user pipx
 installPips =
+  # asciinema — Terminal session recorder
+  #   https://pypi.org/project/asciinema/
+  #   https://asciinema.org/
+  # argcomplete — Bash tab completion for argparse
+  #   https://pypi.org/project/argcomplete/
+  #   https://kislyuk.github.io/argcomplete/
+  # glances — monitoring tool, like htop, incl. sensor temps
+  #   https://pypi.org/project/glances/
+  # grip — "Render local readme files before sending off to GitHub"
+  #   https://pypi.org/project/grip/
+  # MAYBE/2024-04-03: Add more pkgs:
+  #   # I haven't use AWS in a spell.
+  #   awscli
+  #   # Meh.
+  #   cookiecutter
+  #   # One of mine, not a bad idea to dogfood.
+  #   human-friendly_pedantic-timedelta
+  #   # 2017-04-19: sha512_crypt wrapper [mkpasshash.py]
+  #   passlib
+  #   # 2020-02-04: "Pexpect is a pure Python module for spawning child applications;
+  #   # controlling them; and responding to expected patterns in their output."
+  #   pexpect
+  #   # reStructured Text file2html server
+  #   # - CXREF: mr -d "${DOPP_KIT:-${HOME}/.kit}/py/restview" -n install
+  #   #  restview
+  #   # # virtualenvwrapper
+  #   # - CXREF: mr -d "${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper" -n install
+  #   # # virtualenvwrapper
   for package in \
     "asciinema" \
     "argcomplete" \
