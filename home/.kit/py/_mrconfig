@@ -43,6 +43,8 @@ installPips =
   #   https://pypi.org/project/glances/
   # grip — "Render local readme files before sending off to GitHub"
   #   https://pypi.org/project/grip/
+  # CXREF/2024-04-04: `grip-pass` command to inject GH key:
+  #   ~/.depoxy/ambers/core/grip-pass.sh
   # MAYBE/2024-04-03: Add more pkgs:
   #   # I haven't use AWS in a spell.
   #   awscli

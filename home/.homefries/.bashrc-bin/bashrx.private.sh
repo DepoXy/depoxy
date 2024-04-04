@@ -107,6 +107,9 @@ _source_scripts_following_homefries_dxy () {
   # Git command funky patch.
   _dxy_source "git-smart.sh"
 
+  # grip wired to GH token.
+  _dxy_source "grip-pass.sh"
+
   # Easy linting, you jest.
   _dxy_source "js-dev-up.sh"
 
