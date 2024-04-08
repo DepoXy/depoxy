@@ -20,6 +20,7 @@ rebase_tip () {
   local rebase_tip_cmd="git-rebase-tip"
 
   if ! command -v "${rebase_tip_cmd}" > /dev/null; then
+    # CXREF: ~/.kit/git/git-rebase-tip/bin/git-rebase-tip
     rebase_tip_cmd="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-rebase-tip/bin/${rebase_tip_cmd}"
   fi
 
@@ -82,6 +83,7 @@ rebase_tip_merge_release () {
   local rebase_tip_cmd="git-rebase-tip-merge"
 
   if ! command -v "${rebase_tip_cmd}" > /dev/null; then
+    # CXREF: ~/.kit/git/git-rebase-tip/bin/git-rebase-tip-merge
     rebase_tip_cmd="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-rebase-tip/bin/${rebase_tip_cmd}"
   fi
 
