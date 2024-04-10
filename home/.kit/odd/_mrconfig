@@ -22,7 +22,8 @@ checkout = stub_checkout_directory
 ffssh = true
 travel = true
 unpack = true
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' 'for you mechanical keyboard lubbers'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
+  'for you mechanical keyboard lubbers' 'VIA'
 install =
   # CXREF: Find latest version:
   #   https://github.com/the-via/releases/releases
@@ -103,7 +104,8 @@ checkout = stub_checkout_directory
 ffssh = true
 travel = true
 unpack = true
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' 'for you ZSA mechanical keyboard owners'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
+  'for you ZSA mechanical keyboard owners' 'Wally'
 install =
   local latest_wally_url_macos="https://configure.zsa.io/wally/osx"
   local latest_wally_url_debian="https://configure.ergodox-ez.com/wally/linux"
