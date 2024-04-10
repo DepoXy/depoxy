@@ -16,15 +16,14 @@
 
 # USAGE:
 #
-#   # On fresh macOS, run it:
 #   cd ~/.depoxy/ambers/bin/macOS/onboarder
+#
+#   # On fresh macOS, run it:
 #   ./slather-defaults.sh
 #
 #   # To see list of reminders, and to test script runs, dry-run it
-#   # (works from Linux, too):
+#   # (works from Linux: to print OMR 'echoInstallHelp' checklist):
 #   ./slather-defaults.sh --dry-run
-#   # Or:
-#   ./bin/macOS/onboarder/slather-defaults.sh --dry-run
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
