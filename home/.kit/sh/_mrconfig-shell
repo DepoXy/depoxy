@@ -87,3 +87,24 @@ install =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# *** OpSec (OPSEC)
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/password-store]
+order = 470
+lib =
+  remote_set publish https://github.com/landonb/password-store.git
+  remote_set starter https://git.zx2c4.com/password-store
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+rebase =
+  local resume_cmd="$1"
+  #
+  local liminal_ref="-"
+  rebase_tip "${resume_cmd}" "edit-ext-and-version-bump" "starter/master" \
+    "${liminal_ref}" "main" "${_add_version_tag:-false}" \
+    "${_skip_rebase-false}"
+install =
+  PREFIX="${HOME}/.local" make install
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
