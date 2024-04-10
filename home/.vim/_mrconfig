@@ -6,13 +6,69 @@
 # ========================================================================
 # ------------------------------------------------------------------------
 
-[DEFAULT]
-order = 250
+[/kit/working/Clang/vim]
+order = 690
+lib =
+  remote_set publish https://github.com/landonb/vim.git
+  remote_set starter https://github.com/vim/vim.git
+
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install = install_os_specific
+installLinux =
+  # In lieu of rebase_tip, the following.
+  pull_latest "starter" "master" "" "main"
+  #
+  . ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh
+  local base_branch="$(git_branch_name)"
+  local tip_branch="tip/${base_branch}/custom-icons"
+  #
+  git branch -D ${tip_branch} || true
+  git checkout -b ${tip_branch} \
+    --track starter/master
+  #
+  # REFER: Custom icon (Burglar Bender): b5783d1
+  git cherry-pick b5783d1ac871ca0f5b1020a57c61c0224f971c3e
+  #
+  mr -d ${MR_REPO} installVim
+
+installVim =
+  # Ensure `pyenv` not in effect.
+  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  #
+  # Suss the --with-python3-config-dir=<path>.
+  # - SAVVY/2023-04-20: `pyenv root` is, e.g., ~/.pyenv
+  #   - Note that ~/.pyenv -> ~/.kit/py/pyenv/
+  local pyenv_root="$(pyenv root)"
+  # - Version is, e.g., 3.10.6
+  local py_version="$(python3 -c "import platform; print(platform.python_version())")"
+  # - Major.minor version is, e.g., 3.10
+  local ver_mminor="$(
+    python3 -c "import platform; print('{0}.{1}'.format(
+      platform.python_version_tuple()[0],
+      platform.python_version_tuple()[1])
+    )")"
+  # - Config dir is, e.g.,
+  #     ~/pyenv/versions/3.10.6/lib/python3.10/config-3.10-x86_64-linux-gnu
+  local config_dir="${pyenv_root}/versions/${py_version}/lib/python${ver_mminor}/config-${ver_mminor}-x86_64-linux-gnu"
+  #
+  make clean
+  make distclean
+  ./configure \
+    --enable-luainterp=yes \
+    --enable-perlinterp=yes \
+    --enable-python3interp=yes \
+    --with-python3-command=python${ver_mminor} \
+    --with-python3-config-dir="${config_dir}" \
+    --enable-rubyinterp=yes \
+    --prefix=${HOME}/.local
+  make -j 3
+  make install
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
 [DEFAULT]
+order = 250
 
 # NOTE: Because include, [SECTION] changes to final one in file being read aloud.
 # NOTE: For skip to work, these includes must come after.
