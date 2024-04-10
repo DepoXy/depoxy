@@ -67,7 +67,10 @@ checkout = stub_checkout_directory
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
 echoInstallHelp =
-  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure *Finicky*:
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Verify *Finicky* ready::
+    mr -d \"${MR_REPO}\" -n infuse
+  
+ $(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure *Finicky*:
     Systems Preferences... > General > Default web browser: *👇 Finicky.app*
  "
 infuse =
