@@ -79,7 +79,12 @@ depoxy_configure_remind_task_create_depoxy_client () {
 ")
 }
 
+# A simple shim, to enable downstream override,
 depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel () {
+  _depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel
+}
+
+_depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel () {
   local dxc_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
 
   print_at_end+=("\
