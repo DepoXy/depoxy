@@ -99,7 +99,12 @@ install =
 lib = remote_set starter https://github.com/nvm-sh/nvm.git
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+echoInstallHelp =
+  echoInstallHelp 'os_all' 'dxy_all'
+  #
+  echo "🔳 DepoXy: Install current and active Node versions::
+    mr -d \"${MR_REPO}\" -n installNVMNodes
+ "
 install = pull_latest "starter" "master" "" "main"
   # ISOFF/2023-04-25: I think ./install.sh is unnecessary.
   # - Homefries Bashrc sources nvm from repo location, which should be
@@ -109,24 +114,15 @@ install = pull_latest "starter" "master" "" "main"
   #   because ./install.sh downloads files.
   #  ./install.sh
 
-# CXREF/2023-04-25: Actively supported (non-EOL) node versions:
+# Install current and active/maintenance Node versions.
 #
-#     https://nodejs.org/en/download/releases
-#
-#     https://nodejs.dev/en/about/releases/
-#
-#   Rel  --Status--  Codename  -Init Rel-  Active LTS  Maint LTS-  End O Life
-#   V20   Pending              2023-04-18  2023-10-24  2024-10-22  2026-04-30
-#   V19   Current              2022-10-18              2023-04-01  2023-06-01
-#   V18  Active LTS  Hydrogen  2022-04-19  2022-10-25  2023-10-18  2025-04-30
-#   V16   Maint LTS   Gallium  2021-04-20  2021-10-26  2022-10-18  2023-09-11
-#   V14   Maint LTS   Fermium  2020-04-21  2020-10-27  2021-10-19  2023-04-30
-#
+# - CXREF/2024-04-09::
+#   https://nodejs.org/en/about/previous-releases
 installNVMNodes =
   for node_ver in \
-    18.16.0 \
-    16.20.0 \
-    14.21.3 \
+    18.20.1 \
+    20.12.2 \
+    21.7.2 \
   ; do
     echo
     echo "Installing Node v${node_ver}..."
