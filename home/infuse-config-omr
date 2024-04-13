@@ -69,12 +69,19 @@ setup_myrepos_generated_mrtrust () {
   touch -- "${ambers_home}/.mrtrust"
   symlink_mrinfuse_file ".mrtrust"
 
-  m4 \
+  $(m4_kludge) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
     --define=GITREPOSPATH=${GITREPOSPATH:-${HOME}/.kit/git} \
     "${ambers_home}/.mrtrust.m4" \
     > "${HOME}/.mrtrust"
+}
+
+# ***
+
+# Kluge: macOS Xcode `m4` broken; defer `gm4` if present.
+m4_kludge () {
+  command -v gm4 || command -v m4
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

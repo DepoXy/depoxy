@@ -120,7 +120,7 @@ prepare_mrconfig () {
   cd "${HOME}"
 
   # Generate the myrepos trust file.
-  m4 \
+  $(m4_kludge) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT} \
     --define=GITREPOSPATH=${GITREPOSPATH} \
@@ -138,6 +138,52 @@ prepare_mrconfig () {
   # Make a symlink for ~/.mrtrust before we generate the file, so
   # that the generated file is saved to ~/.depoxy/ambers/home.
   ln -sf "${DEPOXYAMBERS_DIR}/home/.mrtrust" ".mrtrust"
+}
+
+# ***
+
+# BUGGY/2024-04-13: I'm skeptical that I really found a bug in Xcode,
+# but it seems that way!:
+#
+# - After `xcode-select --install`, running `m4` brings up familiar
+#   popup to request Xcode install, e.g.,:
+#
+#     The “m4” command requires the command line developer tools.
+#     Would you like to install the tools now?
+#
+#   And on the command line you'll see, e.g.,:
+#
+#     xcode-select: Failed to locate 'm4', requesting installation of command line developer tools.
+#
+# - If you run `xcode-select --install`, it reports already installed.
+#
+# - If you click the popup's <Install> button, it'll happily download and
+#   install Xcode again, on top of itself.
+#
+# - Note that `type -a m4` prints `/usr/bin/m4`, and that file is just a shim.
+#   In the author's case (Ventura 14.4.1), there are 76 `/usr/bin/<cmd>` files
+#   that share the same inode. They appear to shim to the actual files under
+#   the Xcode directory, e.g., at
+#
+#     /Library/Developer/CommandLineTools/usr/bin
+#
+# - However, the `m4` file is missing!:
+#
+#     /Library/Developer/CommandLineTools/usr/bin/m4  # Missing!
+#
+# - There is, fortunately, `gm4`, which is the `m4` command.
+#
+#   - (DUNNO: This may or may not be similar to the Homebrew convention
+#      that uses a `g`-prefix to avoid breaking the user's environment.
+#      But I don't know if that's the case here, because there are no
+#      other `g`-prefixed Xcode commands.)
+#
+# NLGTN: Assumes if `gm4` exists, to use that (there is no `gm4`
+# Aptitude package (Debian), nor any common `gm4` Linux command
+# that the author knows).
+
+m4_kludge () {
+  command -v gm4 || command -v m4
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
