@@ -245,7 +245,7 @@ installLinux =
 #
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
-#     file://~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults.sh @ 421
+#     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
 installpythons =
   # Install all supported Pythons so they're at the ready.
   #   -s: --skip-existing
@@ -326,7 +326,7 @@ checkout =
   fi
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
-#     file://~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults.sh @ 428
+#     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 428
 echoInstallHelp =
   local install_scope='os_all'
   local addendum=''

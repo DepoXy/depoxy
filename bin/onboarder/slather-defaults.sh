@@ -16,7 +16,7 @@
 
 # USAGE:
 #
-#   cd ~/.depoxy/ambers/bin/macOS/onboarder
+#   cd ~/.depoxy/ambers/bin/onboarder
 #
 #   # On fresh macOS, run it:
 #   ./slather-defaults.sh
@@ -55,7 +55,7 @@ depoxy_configure () {
 }
 
 # USAGE: If you'd like to add your own private reminders, add this file:
-#   ~/.depoxy/ambers/bin/macOS/onboarder/slather-defaults--PRIVATE.sh
+#   ~/.depoxy/ambers/bin/onboarder/slather-defaults--PRIVATE.sh
 # and create this function:
 #   depoxy_configure_private
 depoxy_configure_private () {
@@ -312,7 +312,7 @@ main () {
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
   # USAGE: See note atop depoxy_configure_private if you'd like to
   # supply your private reminders, which you'll add to this file.
-  local private_slather_defaults="${ambers_root}/bin/macOS/onboarder/slather-defaults--PRIVATE.sh"
+  local private_slather_defaults="${ambers_root}/bin/onboarder/slather-defaults--PRIVATE.sh"
 
   if [ -f "${private_slather_defaults}" ]; then
     . "${private_slather_defaults}"

@@ -90,7 +90,7 @@
 #
 #   cd ~/.projlns/depoxy-deeplinks && fd -L "deps$" | sort
 
-# /home/user/.depoxy/ambers/bin/macOS/onboarder/deps/
+# /home/user/.depoxy/ambers/bin/onboarder/deps/
 #   ↪ See rule in ~/.depoxy/ambers/.ignore
 
 # /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/

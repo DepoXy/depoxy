@@ -314,9 +314,9 @@ DEPOXYAMBERS_DIR=${DEPOXYAMBERS_DIR} \\
 main () {
   set -e
 
-  # This script's repo root is up three levels from bin/macOS/onboarder.
-  # - USYNC: <repo-root>/bin/macOS/onboarder/install-ohmyrepos.sh
-  local basedir_relative="$(dirname -- "$(realpath "$0")")/../../.."
+  # This script's repo root is up two levels from bin/onboarder/
+  # - USYNC: <repo-root>/bin/onboarder/install-ohmyrepos.sh
+  local basedir_relative="$(dirname -- "$(realpath "$0")")/../.."
   local DEPOXYAMBERS_DIR="$(realpath -- "${basedir_relative}")"
 
   init_homebrew_or_exit_unless_not_macos
