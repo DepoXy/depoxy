@@ -253,10 +253,10 @@ DEPOXYAMBERS_DIR=${DEPOXYAMBERS_DIR} \\
 main () {
   set -e
 
-  # Determine this script's repo root (up two levels from bin/macOS).
+  # This script's repo root is up three levels from bin/macOS/onboarder.
   # - Note that `realpath` is not available until Homebrew Bash installed.
   #    local repo_base="$(dirname -- "$(realpath "$0")")"
-  local basedir_relative="$(dirname -- "$(readlink -f "$0")")/../.."
+  local basedir_relative="$(dirname -- "$(readlink -f "$0")")/../../.."
   local DEPOXYAMBERS_DIR="$(readlink -f -- "${basedir_relative}")"
 
   init_homebrew_or_exit
