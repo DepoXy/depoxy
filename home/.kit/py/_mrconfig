@@ -188,7 +188,7 @@ skip = true
 
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv]
 # Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
-#   ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
+#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 # Otherwise might be, e.g., author's Linux env. (where I don't (or
 # haven't started to) use Homebrew).
 lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ] ||
@@ -314,7 +314,7 @@ infuse =
 # ------------------------------------------------------------------------
 
 # I don't use this copy of pyenv-virtualenv; see brew-install version instead.
-# - CXREF: ~/.kit/mOS/macOS-onboarder/install-homebrew.sh
+# - CXREF: ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv]
 lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ] ||
   remote_set starter https://github.com/pyenv/pyenv-virtualenv.git

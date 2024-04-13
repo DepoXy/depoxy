@@ -10,7 +10,7 @@
 
 # CXREF:
 #
-#   ~/.kit/mOS/macOS-onboarder/slather-defaults.sh
+#   ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -277,8 +277,8 @@ slather_macos_defaults () {
 
   # Run the core `defaults` slatherer.
   #
-  # CXREF: ~/.kit/mOS/macOS-onboarder/slather-defaults.sh
-  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/slather-defaults.sh" "$@" \
+  # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
+  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@" \
     || exit 1
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
