@@ -42,12 +42,23 @@ BREW_PATH="/opt/homebrew/bin/brew"
 
 init_homebrew_or_exit () {
   if [ ! -e "${BREW_PATH}" ]; then
-    >&2 echo "ERROR: Missing Homebrew."
+    >&2 echo "ERROR: Where's Homebrew?"
 
     exit 1
   fi
 
   eval "$(${BREW_PATH} shellenv)"
+}
+
+# ***
+
+# HSTRY/2024-04-13: This check archaic; `realpath` added to macOS 13 (Ventura).
+insist_realpath_or_exit () {
+  if ! command -v realpath > /dev/null; then
+    >&2 echo "ERROR: Where's realpath?"
+
+    exit 1
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -259,6 +270,7 @@ main () {
   local DEPOXYAMBERS_DIR="$(realpath -- "${basedir_relative}")"
 
   init_homebrew_or_exit
+  insist_realpath_or_exit
 
   local mr_command
   local single_dir
