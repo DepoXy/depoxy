@@ -254,6 +254,7 @@ main () {
   set -e
 
   # This script's repo root is up three levels from bin/macOS/onboarder.
+  # - USYNC: <repo-root>/bin/macOS/onboarder/install-ohmyrepos.sh
   # - Note that `realpath` is not available until Homebrew Bash installed.
   #    local repo_base="$(dirname -- "$(realpath "$0")")"
   local basedir_relative="$(dirname -- "$(readlink -f "$0")")/../../.."
