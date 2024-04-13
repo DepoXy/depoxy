@@ -10,7 +10,7 @@
 
 # CXREF:
 #
-#   ~/.kit/mOS/macOS-onboarder/slather-defaults.sh
+#   ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -19,11 +19,11 @@
 #   cd ~/.depoxy/ambers/bin/macOS/onboarder
 #
 #   # On fresh macOS, run it:
-#   ./slather-defaults.sh
+#   ./bin/slather-defaults.sh
 #
 #   # To see list of reminders, and to test script runs, dry-run it
 #   # (works from Linux: to print OMR 'echoInstallHelp' checklist):
-#   ./slather-defaults.sh --dry-run
+#   ./bin/slather-defaults.sh --dry-run
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -277,8 +277,8 @@ slather_macos_defaults () {
 
   # Run the core `defaults` slatherer.
   #
-  # CXREF: ~/.kit/mOS/macOS-onboarder/slather-defaults.sh
-  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/slather-defaults.sh" "$@" \
+  # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
+  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@" \
     || exit 1
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
