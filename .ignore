@@ -1,7 +1,5 @@
 /.git/
 
-/bin/macOS/onboarder/deps/Homebrew/install/install.sh
-
 # Symlink -> ../home/.homefries/.bashrc-bin/bashrx.private.sh
 /core/wire-bash.sh
 
