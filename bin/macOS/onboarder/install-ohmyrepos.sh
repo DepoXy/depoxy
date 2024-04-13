@@ -261,15 +261,17 @@ main () {
 
   init_homebrew_or_exit
 
+  local mr_command
+  local single_dir
+  parse_command "$@"
+
   clone_myrepos
   clone_ohmyrepos
   echo
 
   prepare_mrconfig
 
-  local mr_command
-  local single_dir
-  parse_command "$@"
+  # Caller uses mr_command, single_dir
   run_mr_command
 }
 
