@@ -33,14 +33,14 @@ MR="${GITREPOSPATH}/myrepos/mr"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# FIXME/2022-10-15: Make script Linux-usable, too.
-# - The only reason this is at bin/macOS/install-ohmyrepos.sh
-#   is because of the brew setup.
-#   - Otherwise this script should work when onboarding a Linux machine.
-
 BREW_PATH="/opt/homebrew/bin/brew"
 
-init_homebrew_or_exit () {
+init_homebrew_or_exit_unless_not_macos () {
+  if ! os_is_macos; then
+
+    return 0
+  fi
+
   if [ ! -e "${BREW_PATH}" ]; then
     >&2 echo "ERROR: Where's Homebrew?"
 
@@ -48,6 +48,10 @@ init_homebrew_or_exit () {
   fi
 
   eval "$(${BREW_PATH} shellenv)"
+}
+
+os_is_macos () {
+  [ "$(uname)" = 'Darwin' ]
 }
 
 # ***
@@ -269,7 +273,7 @@ main () {
   local basedir_relative="$(dirname -- "$(realpath "$0")")/../../.."
   local DEPOXYAMBERS_DIR="$(realpath -- "${basedir_relative}")"
 
-  init_homebrew_or_exit
+  init_homebrew_or_exit_unless_not_macos
   insist_realpath_or_exit
 
   local mr_command
