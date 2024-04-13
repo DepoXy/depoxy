@@ -543,7 +543,7 @@ include =
   #
   include_client_mrconfig () {
     local client_mrconfig="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/_mrconfig"
-
+    #
     # `mr_exclusive` should really be named `should_skip` b/c that's
     # the value it returns, true if MR_INCLUDE is non-empty and does
     # not include matching tag.
@@ -552,7 +552,7 @@ include =
     if [ -e "${client_mrconfig}" ] && ! mr_exclusive "client" "work"; then
       cat "${client_mrconfig}"
     fi
-
+    #
     return 0
   }
   include_client_mrconfig
