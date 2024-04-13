@@ -138,7 +138,7 @@ parse_command () {
 
       exit
       ;;
-    help)
+    help|--help)
       print_help
       shift
 
