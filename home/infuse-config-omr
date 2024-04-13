@@ -30,7 +30,7 @@ setup_myrepos_mrconfig_and_mrinfuse () {
   # that many projects use.
   symlink_overlay_dir "${ambers_home}" ".mrinfuse"
 
-  # The ~/.depoxy/ambers/bin/macOS/install-ohmyrepos.sh installer
+  # The ~/.depoxy/ambers/bin/onboarder/install-ohmyrepos.sh installer
   # was probably the first to seed ~/.mrconfig, but just in case
   # the user skipped that script and is calling this script directly
   # (which I don't even know if that would work), or if that symlink
