@@ -144,9 +144,22 @@ infuse_this_infuser () {
 populate_run_generator () {
   local symldir="$1"
 
-  info " Running symlink generator: $(font_highlight "${symldir}"/)…"
+  # E.g., pack/landonb/start/dubs_file_finder/cmdt_paths/generate_links.sh
+  local generator="${symldir}/generate_links.sh"
 
-  ${symldir}/generate_links.sh > /dev/null
+  if ! [ -f "${generator}" ]; then
+    # Possible on very first infuse, before ~/.vim/.mrconfig* wired (that
+    # is, user must `mr clone`-`mr infuse`-`mr clone`-`mr infuse`!).
+
+    warn "Missing symlink generator: $(font_highlight "${generator}")"
+    warn "- Please run \`mr -d / clone\` again, then re-infuse"
+
+    return 0
+  fi
+
+  info " Running symlink generator: $(font_highlight "${generator}")…"
+
+  ${generator} > /dev/null
 
   info " ${MSG_PREFIX_ADDED_SYMLINKS_DIR} $(font_highlight "${symldir}/")"
 }
