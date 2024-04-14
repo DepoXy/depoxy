@@ -92,7 +92,7 @@ infusePostRebase =
   # ~/.depoxy/ambers/home/.inputrc — Otherwise installs dot-inputrc's.
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local user_inputrc="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.inputrc"
-  if [ -f "${inputrc_path}" ]; then
+  if [ -f "${user_inputrc}" ]; then
     inputrc_path="$(realpath -- "${user_inputrc}")"
   fi
   #
