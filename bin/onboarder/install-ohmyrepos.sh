@@ -312,6 +312,9 @@ print_help () {
 run_mr_command () {
   local work_on_dir
 
+  # So that OMR actions can call `mr`
+  PATH="${PATH}:$(dirname -- "${MR}")"
+
   [ -z "${single_dir}" ] || work_on_dir="-d ${single_dir} -n "
 
   local the_cmd="\
