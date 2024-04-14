@@ -185,11 +185,15 @@ install =
   # Nothing to install on Linux, but previous keeps branch up to date.
   os_is_macos || return 0
   #
+  # OMR/lib already on PATH, but explicit is descriptive.
+  . "${OHMYREPOS_LIB:-${HOME}/.ohmyrepos/lib}/print-homebrew-prefix.sh"
+  local inject_path
+  # Side-effect: Triggers errexit if print_homebrew_prefix cannot suss.
+  inject_path="$(print_homebrew_prefix)/Library/Taps/homebrew/homebrew-autoupdate"
   # The `brew autoupdate` command uses Homebrew's `cli/parser` Ruby library
   # to run as external command. It works like git-foo commands: name the
   # executable with the `brew-` prefix, and stick it on path.
-  symlink_overlay_dir "${DOPP_KIT:-${HOME}/.kit}/mOS/homebrew-autoupdate" \
-    "${HOMEBREW_PREFIX:-/usr/local/Homebrew}/Library/Taps/homebrew/homebrew-autoupdate"
+  symlink_overlay_dir "${DOPP_KIT:-${HOME}/.kit}/mOS/homebrew-autoupdate" "${inject_path}"
   #
   # USAGE: brew autoupdate <subcommand> [<interval>] [<options>]
   # HELP: brew autoupdate.rb --help
