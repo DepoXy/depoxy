@@ -33,12 +33,18 @@ MR="${GITREPOSPATH}/myrepos/mr"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-BREW_PATH="/opt/homebrew/bin/brew"
+BREW_PATH=""
 
 init_homebrew_or_exit_unless_not_macos () {
   if ! os_is_macos; then
 
     return 0
+  fi
+
+  # E.g., /opt/homebrew/bin/brew
+  if ! BREW_PATH="$(print_homebrew_prefix)/bin/brew"; then
+
+    exit 1
   fi
 
   if [ ! -e "${BREW_PATH}" ]; then
@@ -48,6 +54,24 @@ init_homebrew_or_exit_unless_not_macos () {
   fi
 
   eval "$(${BREW_PATH} shellenv)"
+}
+
+print_homebrew_prefix () {
+  local brew_prefix="${HOMEBREW_PREFIX}"
+
+  # Apple Silicon (arm64) brew path is /opt/homebrew
+  [ -d "${brew_prefix}" ] || brew_prefix="/opt/homebrew"
+
+  # Otherwise on Intel Macs it's under /usr/local
+  [ -d "${brew_prefix}" ] || brew_prefix="/usr/local/Homebrew"
+
+  if [ ! -d "${brew_prefix}" ]; then
+    >&2 echo "ERROR: Where's HOMEBREW_PREFIX?"
+
+    exit 1
+  fi
+
+  printf "%s" "${brew_prefix}"
 }
 
 os_is_macos () {
@@ -319,6 +343,7 @@ main () {
   local basedir_relative="$(dirname -- "$(realpath "$0")")/../.."
   local DEPOXYAMBERS_DIR="$(realpath -- "${basedir_relative}")"
 
+  # Sets BREW_PATH
   init_homebrew_or_exit_unless_not_macos
   insist_realpath_or_exit
 
