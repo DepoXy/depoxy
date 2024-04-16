@@ -79,8 +79,14 @@ infuse_symlinks_user_home_tigconfig () {
     warn "ALERT: See previous error; we'll allow, but fix and re-infuse"
   fi
 
+  # ***
+
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+
+  # Add a convenience symlink, so all configs discoverable
+  #   from ~/.depoxy/ambers/config/tig/
+
   symlink_overlay_file \
     "${DEPOXYARCHETYPE_DIR:-${ambers_root}/archetype}/home/.config/tig/config.EVAL" \
     ".mrinfuse/.config/tig/tigconfig.EVAL"
