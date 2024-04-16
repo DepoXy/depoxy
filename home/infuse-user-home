@@ -78,12 +78,17 @@ infuse_symlinks_user_home_tigconfig () {
   #   . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/depoxy_fs.sh"
   #   client_basedir="$(_vendorfs_path_running_client_print)"
   local dxc_root="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}"
-  if ! ( \
+
+  # Wire ~/.depoxy/ambers/home/config/tig/tigconfig-client
+  #   → ~/.depoxy/running/home/.config/tig/config
+  if [ -f "${dxc_root}/home/.config/tig/config" ]; then
     symlink_overlay_file \
       "${dxc_root}/home/.config/tig/config" \
-      ".mrinfuse/.config/tig/tigconfig-client" \
-  ); then
-    warn "ALERT: See previous error; we'll allow, but fix and re-infuse"
+      ".mrinfuse/.config/tig/tigconfig-client"
+  else
+    warn "ALERT: Missing DepoXy Client tig/config"
+    warn "- Hint: Create and infuse DXC, then confirm:"
+    warn "    ${dxc_root}/home/.config/tig/config"
   fi
 
   # ***
