@@ -71,7 +71,7 @@ infuse_symlinks_user_home_tigconfig () {
 
   # ***
 
-  # Wire the main DepoXy Client tig/config entry point.
+  # Wire convenience symlink to main DepoXy Client tig/config entry point.
 
   # ALTLY: 
   #   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
