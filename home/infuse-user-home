@@ -141,6 +141,12 @@ infuse_symlinks_user_home_gitconfig () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local mrinfuse_real="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
+  infuse_symlinks_user_home_gitconfig_from_base "${mrinfuse_real}"
+}
+
+infuse_symlinks_user_home_gitconfig_from_base () {
+  local mrinfuse_real="$1"
+
   # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig:
   #   - See now instead:
   #       /kit/working/git/git-smart/.gitconfig
