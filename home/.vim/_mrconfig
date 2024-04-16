@@ -6,7 +6,7 @@
 # ========================================================================
 # ------------------------------------------------------------------------
 
-[/kit/working/Clang/vim]
+[${DOPP_KIT:-${HOME}/.kit}/clang/vim]
 order = 690
 lib =
   remote_set publish https://github.com/landonb/vim.git
