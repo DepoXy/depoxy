@@ -3,10 +3,34 @@
 # Symlink -> ../home/.homefries/.bashrc-bin/bashrx.private.sh
 /core/wire-bash.sh
 
-# home/.config/tig/config-client -> ~/.depoxy/running/home/.config/tig/config
-/home/.config/tig/config-client
-# home/.config/tig/config-newtons -> ~/.kit/git/tig-newtons/tig/config
-/home/.config/tig/config-newtons
+# Symlinks: home/.config/tig/* -> :
+#   cfg-tgn-*         -> ~/.kit/git/tig-newtons/tig/*
+#   config-*          -> ~/.depoxy/ambers/home/.config/tig/config-*
+#   tigconfig-client  -> ~/.depoxy/running/home/.config/tig/config
+#   tigconfig.EVAL    -> ~/.depoxy/ambers/archetype/home/.config/tig/config.EVAL
+#   tiggies           -> ~/.depoxy/ambers/home/.config/tig/README--Keybindings
+/home/.config/tig/cfg-tgn-bind-clip-path
+/home/.config/tig/cfg-tgn-bind-clip-sha
+/home/.config/tig/cfg-tgn-bind-commit
+/home/.config/tig/cfg-tgn-bind-commit--minimal-editor
+/home/.config/tig/cfg-tgn-bind-commit-wip
+/home/.config/tig/cfg-tgn-bind-file-edit
+/home/.config/tig/cfg-tgn-bind-rebase
+/home/.config/tig/cfg-tgn-bind-rebase--minimal-editor
+/home/.config/tig/cfg-tgn-bind-rebase-range--diff
+/home/.config/tig/cfg-tgn-bind-rebase-range--main
+/home/.config/tig/cfg-tgn-bind-shell-out
+/home/.config/tig/cfg-tgn-config-color
+/home/.config/tig/cfg-tgn-config.customize
+/home/.config/tig/cfg-tgn-config-dates
+/home/.config/tig/cfg-tgn-config.notes
+/home/.config/tig/cfg-tgn-config-opinionated
+/home/.config/tig/config-depoxy
+/home/.config/tig/config-depoxy-diff
+/home/.config/tig/config-depoxy-main
+/home/.config/tig/tigconfig-client
+/home/.config/tig/tigconfig.EVAL
+/home/.config/tig/tiggies
 
 # Symlink -> ~/.kit/git/git-smart/.gitconfig
 # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
