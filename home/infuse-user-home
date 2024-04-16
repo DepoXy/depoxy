@@ -93,12 +93,38 @@ infuse_symlinks_user_home_tigconfig () {
 
   # ***
 
-  infuse_symlinks_home_mrinfuse_tigconfig
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+
+  # ***
+
+  # Generate ~/.depoxy/ambers/home/.config/tig/config
+  tigconfig_generate_depoxy_tig_config "${ambers_root}"
+
+  # So long as OMR config order is valid, DXC runs after this script,
+  # and will replace this ~/.config/tig/config symlink with its own
+  # (so that user tig is included; the symlink here is a fallback in
+  # case there's no DXC).
+  # - infuse-user-home (this script) called by [~/.homefries] config:
+  #     ~/.depoxy/ambers/home/_mrconfig
+  #   Currently 'order = 120'
+  # - DepoXy Client [~/.depoxy/runnings/XXXX]
+  #     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr
+  #   Currently 'order = 191'
+  #
+  # Wire ~/.config/tig/config → ~/.depoxy/ambers/home/.config/tig/config
+  mkdir -p "${HOME}/.config/tig"
+  symlink_overlay_file \
+    "${ambers_root}/home/.config/tig/config" \
+    "${HOME}/.config/tig/config"
+
+  # ***
+
+  infuse_symlinks_home_mrinfuse_tigconfig "${ambers_root}"
 }
 
 infuse_symlinks_home_mrinfuse_tigconfig () {
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+  local ambers_root="$1"
 
   # Add a convenience symlink, so all configs discoverable
   #   from ~/.depoxy/ambers/config/tig/
@@ -106,6 +132,35 @@ infuse_symlinks_home_mrinfuse_tigconfig () {
   symlink_overlay_file \
     "${DEPOXYARCHETYPE_DIR:-${ambers_root}/archetype}/home/.config/tig/config.EVAL" \
     ".mrinfuse/.config/tig/tigconfig.EVAL"
+}
+
+# - m4_shim uses DXY_DEPOXY_CLIENT_FULL for target base,
+#   which deploy-archetype.sh would set ~/.depoxy/stints/XXXX
+#   but we'll set to target ~/.depoxy/ambers/home/.config/tig
+# - The template eval sets DXY_TIG_NEWTONS_PATH (copied here)
+#   and expects DXY_DEPOXYAMBERS_DIR (which we'll supply).
+# - Beware the exit, use (subprocess).
+tigconfig_generate_depoxy_tig_config () {
+  local ambers_root="$1"
+
+  # CXREF: ~/.depoxy/ambers/archetype/deploy-archetype.sh
+  local archetype_path="${DEPOXYARCHETYPE_DIR:-${ambers_root}/archetype}"
+  . "${archetype_path}/deploy-archetype.sh"
+
+  local git_base="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}"
+  local tnewtons="${git_base}/tig-newtons/tig"
+
+  ( \
+    DXY_DEPOXY_CLIENT_FULL="${ambers_root}" \
+    m4_shim \
+      "+12" "${archetype_path}/home/.config/tig/config.EVAL" \
+      "home/.config/tig/config" \
+      "DXY_TIG_NEWTONS_PATH" "${tnewtons}" \
+      "DXY_DEPOXYAMBERS_DIR" "${ambers_root}" \
+      "DXY_HEADER_AUTHOR" "Author: Landon Bouma <https://tallybark.com/>" \
+      "DXY_HEADER_PROJECT" "Project: https://github.com/DepoXy/depoxy#🍯" \
+      "DXY_HEADER_LICENSE" "License: MIT"        
+  )
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
