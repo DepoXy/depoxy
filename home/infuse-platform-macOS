@@ -220,6 +220,11 @@ main () {
 
   source_deps
 
+  if ! os_is_macos; then
+
+    return 0
+  fi
+
   [ "$(basename -- "$0")" != "infuse-platform-macOS" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
