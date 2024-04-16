@@ -58,12 +58,19 @@ symlink_kbmods_using_file_symlinks () {
   local cmplxmods="complex_modifications"
   local target_assets="${target_root}/${kb_assets}"
 
-  check_target_moddir_exists "${target_assets}" || return 0
+  if [ ! -d "${target_assets}" ]; then
+    # TRACK/2024-04-16: This path unlikely, because ${target_assets}
+    #   is ~/.depoxy/ambers/home/.config/karabiner/assets
+    warn "ERROR: Unexpected: No such directory:"
+    warn "  ${target_assets}"
+
+    return 0
+  fi
 
   local target_moddir="${target_assets}/${cmplxmods}"
 
-  mkdir -p "${target_moddir}"
-  cd "${target_moddir}"
+  mkdir -p -- "${target_moddir}"
+  cd -- "${target_moddir}"
 
   # This fcn. used to reset and remove symlinks first,
   # but DepoXy Client also symlinks its files to DXY's
@@ -92,19 +99,6 @@ symlink_kbmods_using_file_symlinks () {
   cd "${before_cd}"
 }
 
-check_target_moddir_exists () {
-  local target_moddir="$1"
-
-  [ ! -d "${target_moddir}" ] || return 0
-
-  if os_is_macos; then
-    warn "Skipping complex_modifications overlay: No such directory:"
-    warn "  ${target_moddir}"
-  fi
-
-  return 1
-}
-
 # ***
 
 # TRACK/2020-11-22: After reboot, the symlink is missing!
@@ -126,7 +120,17 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
 
   local home_assets="${HOME}/${kb_assets}"
 
-  check_target_moddir_exists "${home_assets}" || return 0
+  ensure_target_moddir_exists () {
+    local target_moddir="$1"
+
+    if [ ! -d "${target_moddir}" ]; then
+      info "Creating KB assets directory:"
+      info "  ${target_moddir}"
+
+      mkdir -p -- "${target_moddir}"
+    fi
+  }
+  ensure_target_moddir_exists "${home_assets}"
 
   cd "${home_assets}"
 
