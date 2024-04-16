@@ -394,7 +394,10 @@ main () {
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   # Being executed.
   main "$@"
+else
+  source_deps
 fi
 
 unset -f main
+unset -f source_deps
 
