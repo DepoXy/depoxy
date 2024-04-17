@@ -74,7 +74,7 @@ setup_myrepos_generated_mrtrust () {
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
     --define=GITREPOSPATH=${GITREPOSPATH:-${HOME}/.kit/git} \
     "${ambers_home}/.mrtrust.m4" \
-    > "${HOME}/.mrtrust"
+    > "${ambers_home}/.mrtrust"
 }
 
 # ***
