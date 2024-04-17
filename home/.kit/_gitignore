@@ -9,6 +9,10 @@
 /.gitignore
 /README.md
 
+# *** Clang
+
+/clang/vim/
+
 # *** Git
 
 # GitHub's official CLI.
@@ -21,6 +25,8 @@
 /git/git-extras/
 # Powerful history rewriter.
 /git/git-filter-repo/
+# Show branches w/o child commits w/ git-log.
+/git/git-heads/
 # Set up the rebase a little quicker.
 /git/git-interactive-rebase-tool/
 # Explosively consise Git status.
@@ -33,6 +39,8 @@
 /git/git-quick-stats/
 # Lots of small, smart Git tweaks.
 /git/git-smart/
+# Shell file dependency automation.
+/git/git-update-faithful/
 # Garden variety interactive rebase.
 /git/git-veggie-patch/
 # Community CLI (that I find more powerful than official `gh`).
@@ -56,6 +64,8 @@
 /go/fzf/
 # Helm charts... @biz-specific, sorta more appropriate for .git/info/exclude.
 /go/helm/
+# Alex Waulk's got a secret to share.
+/go/secretshare/
 
 # golang -> go/
 /golang
@@ -84,6 +94,9 @@
 # For digging into internals when you Need To Know.
 /js/nvm/
 
+# My favorite flavor of La Croix.
+/js/pampermonkey/
+
 # An awesome JS LS that blew my mind.
 # - And settles any question of whether I need to learn VS Code.
 #   (*Nope!*)
@@ -91,11 +104,15 @@
 
 # *** macOS
 
+/mOS/DefaultKeybindings.dict/
+
 /mOS/Docker-Desktop-OMR-install/
 
 /mOS/GeekTool/
 
 /mOS/Karabiner-Elements/
+
+/mOS/Karabiner-Elephants/
 
 /mOS/finicky/
 
@@ -124,6 +141,8 @@
 # the third is. Whatever, I'm already and TMI.)
 /mOS/homebrew-autoupdate/
 
+/mOS/macOS-onboarder/
+
 # macOS -> mOS/
 /macOS
 
@@ -137,7 +156,14 @@
 # *** Python
 
 /py/aws-cli/
+/py/install.python-poetry.org/
+/py/pipx/
+/py/poetry-dynamic-versioning/
+/py/poetry/
 /py/pyenv-virtualenv/
+/py/virtualenvwrapper/
+
+/py/pyenv/.keep--omr-stub
 
 # python -> py/
 /python
@@ -147,10 +173,13 @@
 /sh/.tmux/
 /sh/EvanHagn-dotfiles
 /sh/commacd/
+/sh/complete-alias/
+/sh/dot-inputrc/
 /sh/feature-coverage-report/
 /sh/gvim-open-kindness/
 /sh/fries-findup/
 /sh/parT
+/sh/password-store/
 /sh/sh-ask-yesnoskip/
 /sh/sh-colors/
 /sh/sh-git-nubs/
@@ -162,6 +191,11 @@
 /sh/tmux-bash-completion
 /sh/tmux-sensible/
 /sh/tpm/
+
+# *** [T]e[xt]ualism
+
+/txt/emoji-lookup/
+/txt/spellfile.txt/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
