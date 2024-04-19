@@ -111,110 +111,107 @@ travel = true
 unpack = true
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you ZSA mechanical keyboard owners' 'Wally'
-install =
+install = install_os_specific
+installDarwin =
   local latest_wally_url_macos="https://configure.zsa.io/wally/osx"
+  #
+  # We could pin version, but can also download latest and somewhat easily
+  # suss its version.
+  # - The redirect line is, e.g.,
+  #     Location: https://github.com/zsa/wally/releases/download/2.1.0-osx/wally-osx-2.1.0.dmg [following]
+  local location="$(wget "${latest_wally_url_macos}" 2>&1 | grep "Location:" | head -1)"
+  local vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
+  local app_name="$(basename -- "${vers_url}")"
+  #
+  command mv -f -- "$(basename -- "${latest_wally_url_macos}")" "${app_name}"
+  #
+  # Alternatively, see `hdiutil attach <dmg>` for automated install,
+  # but slower and requires sudo, so preferring manual intervention.
+  #
+  # FIXME: I'm unsure the app name, as having no MacBook no more.
+  echo && echo "FIXME/2023-02-11: Verify remaining steps:" && echo
+  #
+  echo && echo "YOU: Drag-drop Wally to Applications to install Wally." && echo
+  open "${app_name}"
+  echo
+  # Sit in sleep-loop polling until user completes their action.
+  while [ ! -d "/Applications/Wally.app" ]; do
+    sleep 1
+  done
+  #
+  local local_bin_shim="${HOME}/.local/bin/wally"
+  if [ ! -e "${local_bin_shim}" ]; then
+    echo -e "#!/bin/sh\nopen /Applications/Wally.app" > "${local_bin_shim}"
+  fi
+  #
+  echo "Wally is now installed. You can run it thusly:"
+  echo
+  echo "  open /Applications/Wally.app"
+  echo
+  echo "Or more conveniently:"
+  echo
+  echo "  $(basename -- "${local_bin_shim}")"
+installLinux =
   local latest_wally_url_debian="https://configure.ergodox-ez.com/wally/linux"
   #
-  local location=""
-  local vers_url=""
-  local app_name=""
-  if os_is_macos; then
-    # We could pin version, but can also download latest and somewhat easily
-    # suss its version.
-    # - The redirect line is, e.g.,
-    #     Location: https://github.com/zsa/wally/releases/download/2.1.0-osx/wally-osx-2.1.0.dmg [following]
-    location="$(wget "${latest_wally_url_macos}" 2>&1 | grep "Location:" | head -1)"
-    vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
-    app_name="$(basename -- "${vers_url}")"
-    #
-    command mv -f -- "$(basename -- "${latest_wally_url_macos}")" "${app_name}"
-    #
-    # Alternatively, see `hdiutil attach <dmg>` for automated install,
-    # but slower and requires sudo, so preferring manual intervention.
-    #
-    # FIXME: I'm unsure the app name, as having no MacBook no more.
-    echo && echo "FIXME/2023-02-11: Verify remaining steps:" && echo
-    #
-    echo && echo "YOU: Drag-drop Wally to Applications to install Wally." && echo
-    open "${app_name}"
-    echo
-    # Sit in sleep-loop polling until user completes their action.
-    while [ ! -d "/Applications/Wally.app" ]; do
-      sleep 1
-    done
-    #
-    local local_bin_shim="${HOME}/.local/bin/wally"
-    if [ ! -e "${local_bin_shim}" ]; then
-      echo -e "#!/bin/sh\nopen /Applications/Wally.app" > "${local_bin_shim}"
-    fi
-    #
-    echo "Wally is now installed. You can run it thusly:"
-    echo
-    echo "  open /Applications/Wally.app"
-    echo
-    echo "Or more conveniently:"
-    echo
-    echo "  $(basename -- "${local_bin_shim}")"
-  else
-    echo "Enter sudo password to install wally:"
-    sudo -v
-    #
-    # Prereqs: gtk3 (should be installed, though not sure specifically what
-    # the Aptitude package name is); webkit2gtk (possibly specifically
-    # libwebkit2gtk-4.0-dev), and libusb.
-    sudo apt install -y libusb-1.0-0-dev
-    #
-    local udevd_rules_path="etc/udev/rules.d/50-zsa.rules"
-    sudo /usr/bin/env cp -f -- \
-      "${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}/${udevd_rules_path}" \
-      "/${udevd_rules_path}"
-    #
-    # Ensure user is part of plugdev group.
-    sudo groupadd -f "plugdev"
-    # Note that [ $(id -un) = ${USER} ]
-    sudo usermod -aG "plugdev" "$(id -un)"
-    #
-    # We could just call the download `wally` (its default name), but for
-    # version readability, we'll add the version to its name.
-    # - The wget Location lines look like this:
-    #       Location: https://configure.zsa.io/wally/linux [following]
-    #     * Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally [following]
-    #       Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/...
-    # SAVVY/2024-02-26: The wget download is named simply "linux".
-    echo "Downloading latest release..."
-    # SAVVY/2024-02-26: I no longer see the first Location, so this doesn't work:
-    #     local location="$( \
-    #       wget "${latest_wally_url_debian}" 2>&1 | grep "Location:" | head -2 | tail -1
-    #     )"
-    # - So look for the GH addy instead, e.g.:
-    #     Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally
-    local location="$( \
-      wget "${latest_wally_url_debian}" 2>&1 \
-      | grep "Location: https://github.com/zsa/wally/releases/download/"
-    )"
-    # vers_url is * Location, above, with prefix and suffix stripped.
-    local vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
-    # Make the app_name, e.g., "wally-2.1.3-linux".
-    local url_name="$(basename -- "${vers_url}")"
-    local app_vers="$(basename -- "$(dirname -- "${vers_url}")")"
-    app_name="${url_name}-${app_vers}"
-    #
-    echo "- location: ${location}"
-    echo "- vers_url: ${vers_url}"
-    echo "- url_name: ${url_name}"
-    echo "- app_vers: ${app_vers}"
-    #
-    command mv -- "$(basename -- "${latest_wally_url_debian}")" "${app_name}"
-    chmod +x "${app_name}"
-    ln -sf "${MR_REPO}/${app_name}" "${HOME}/.local/bin/${url_name}"
-    #
-    echo
-    echo "Wally is now installed. You can run it thusly:"
-    echo
-    echo "  ${url_name}"
-    echo
-    echo "YOU: You may need to logoff or reboot to realize ZSA udev rules"
-  fi
+  echo "Enter sudo password to install wally:"
+  sudo -v
+  #
+  # Prereqs: gtk3 (should be installed, though not sure specifically what
+  # the Aptitude package name is); webkit2gtk (possibly specifically
+  # libwebkit2gtk-4.0-dev), and libusb.
+  sudo apt install -y libusb-1.0-0-dev
+  #
+  local udevd_rules_path="etc/udev/rules.d/50-zsa.rules"
+  sudo /usr/bin/env cp -f -- \
+    "${DEPOXYAMBERS_DIR:-${AMBERS_PATH}}/${udevd_rules_path}" \
+    "/${udevd_rules_path}"
+  #
+  # Ensure user is part of plugdev group.
+  sudo groupadd -f "plugdev"
+  # Note that [ $(id -un) = ${USER} ]
+  sudo usermod -aG "plugdev" "$(id -un)"
+  #
+  # We could just call the download `wally` (its default name), but for
+  # version readability, we'll add the version to its name.
+  # - The wget Location lines look like this:
+  #       Location: https://configure.zsa.io/wally/linux [following]
+  #     * Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally [following]
+  #       Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/...
+  # SAVVY/2024-02-26: The wget download is named simply "linux".
+  echo "Downloading latest release..."
+  # SAVVY/2024-02-26: I no longer see the first Location, so this doesn't work:
+  #     local location="$( \
+  #       wget "${latest_wally_url_debian}" 2>&1 | grep "Location:" | head -2 | tail -1
+  #     )"
+  # - So look for the GH addy instead, e.g.:
+  #     Location: https://github.com/zsa/wally/releases/download/2.1.3-linux/wally
+  local location="$( \
+    wget "${latest_wally_url_debian}" 2>&1 \
+    | grep "Location: https://github.com/zsa/wally/releases/download/"
+  )"
+  # vers_url is * Location, above, with prefix and suffix stripped.
+  local vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
+  # Make the app_name, e.g., "wally-2.1.3-linux".
+  local url_name="$(basename -- "${vers_url}")"
+  local app_vers="$(basename -- "$(dirname -- "${vers_url}")")"
+  local app_name="${url_name}-${app_vers}"
+  #
+  echo "- location: ${location}"
+  echo "- vers_url: ${vers_url}"
+  echo "- url_name: ${url_name}"
+  echo "- app_vers: ${app_vers}"
+  #
+  command mv -- "$(basename -- "${latest_wally_url_debian}")" "${app_name}"
+  chmod +x "${app_name}"
+  ln -sf "${MR_REPO}/${app_name}" "${HOME}/.local/bin/${url_name}"
+  #
+  echo
+  echo "Wally is now installed. You can run it thusly:"
+  echo
+  echo "  ${url_name}"
+  echo
+  echo "YOU: You may need to logoff or reboot to realize ZSA udev rules"
 
 # ========================================================================
 # ------------------------------------------------------------------------
