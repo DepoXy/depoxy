@@ -250,6 +250,7 @@ _dxy_wire_aliases_pushd_paths_kit () {
   pushd_alias_or_warn "cdkj" "${DOPP_KIT:-${HOME}/.kit}/js"
   #  pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/ml"
   pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/mOS"
+  pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
   pushd_alias_or_warn "cdks" "${DOPP_KIT:-${HOME}/.kit}/sh"
