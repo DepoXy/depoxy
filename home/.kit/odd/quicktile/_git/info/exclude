@@ -1,0 +1,4 @@
+/.gitignore.local
+# venv_name=".venv-quicktile"
+/.venv-quicktile/
+

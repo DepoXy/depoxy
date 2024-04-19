@@ -1,0 +1,75 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# REFER:
+#   https://wiki.archlinux.org/title/systemd/User
+#   https://www.baeldung.com/linux/systemd-create-user-services
+# COPYD:
+#   https://github.com/landonb/zoidy_panelsweet/blob/release/templates/user/quicktile.service
+#     ~/.kit/ansible/roles/zoidy_panelsweet/templates/user/quicktile.service
+# - Install the service file:
+#     cp ~/.kit/odd/.mrinfuse/quicktile/quicktile.service \
+#       ~/.config/systemd/user/quicktile.service
+# - Register the service:
+#     systemctl --user daemon-reload
+# - Start the service on logon:
+#     systemctl --user enable quicktile.service
+#     # OUTPUT
+#     # Created symlink
+#     #   /home/user/.config/systemd/user/default.target.wants/quicktile.service
+#     #   → /home/user/.config/systemd/user/quicktile.service.
+# - Check the service status (inactive):
+#     systemctl --user status quicktile.service
+#     # OUTPUT
+#     # ○ quicktile.service - Daemon repairs mate-panel layout on (screensaver) unlock
+#     #      Loaded: loaded (/home/user/.config/systemd/user/quicktile.service;
+#     #        enabled; vendor preset: enabled)
+#     #      Active: inactive (dead)
+# - Start the service immediately:
+#     systemctl --user start quicktile.service
+#   - ALTLY:
+#     systemctl --user daemon-reload
+#     systemctl --user enable --now quicktile.service
+# - Check the service status (running):
+#   systemctl --user status quicktile.service
+#   # ● quicktile.service - Daemon repairs mate-panel layout on (screensaver) unlock
+#   #      Loaded: loaded (/home/user/.config/systemd/user/quicktile.service;
+#   #                enabled; vendor preset: enabled)
+#   #      Active: active (running) since Fri 2024-02-16 22:10:19 CST; 1s ago
+#   #    Main PID: 2860080 (restore-mate-pa)
+#   #       Tasks: 3 (limit: 38229)
+#   #      Memory: 760.0K
+#   #         CPU: 93ms
+#   #      CGroup: /user.slice/user-1000.slice/user@1000.service/app.slice/quicktile.service
+#   #              ├─2860080 /bin/sh /home/user/.config/systemd/user/quicktile.sh
+#   #              ├─2860091 dbus-monitor --address unix:path=/run/user/1000/bus
+#   #                         type=signal,interface=org.mate.ScreenSaver
+#   #              └─2860092 /bin/sh /home/user/.config/systemd/user/quicktile.sh
+#   #
+#   # Feb 16 22:10:19 lethe systemd[1194]: Started Daemon repairs mate-panel layout on (screensaver) unlock.
+# - Restart the service:
+#   systemctl --user restart quicktile.service
+# - SKIPD: We could make this service for all users, but don't need to do so:
+#     sudo cp ~/.config/systemd/user/quicktile.service /etc/systemd/user/
+
+[Unit]
+Description=QuickTile daemon
+
+[Service]
+Type=simple
+# Neither User nor Group apply to user services.
+#  User=
+#  Group=
+# Note that %h is the user home directory.
+ExecStart=%h/.local/bin/quicktile.sh --daemon
+Restart=on-failure
+# StandardOutput=file:%h/log_file
+StandardOutput=file:/tmp/quicktile.service.log
+
+[Install]
+WantedBy=default.target
+

@@ -12,6 +12,95 @@ order = 795
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# "Adds window-tiling hotkeys to any X11 desktop. (An analogue to
+#  WinSplit Revolution for people who don't want to use Compiz Grid)"
+[${DOPP_KIT:-${HOME}/.kit}/odd/quicktile]
+lib = remote_set starter https://github.com/ssokolow/quicktile.git
+skip = os_is_macos
+# KLUGE: So @Linux doesn't try to fetch from @macOS host.
+ffssh = true
+travel = true
+unpack = true
+#
+infuse = link_private_exclude "$@"
+# This 'install' requires packages, but unsure which (on DepoXy Linux,
+# what's required is already installed). If you haven't installed
+# DepoXy, you might need to install deps, e.g., from quicktile docs:
+#   sudo apt install -y \
+#     python3 \
+#     python3-pip \
+#     python3-setuptools \
+#     python3-gi \
+#     python3-xlib \
+#     python3-dbus \
+#     gir1.2-glib-2.0 \
+#     gir1.2-gtk-3.0 \
+#     gir1.2-wnck-3.0
+# - Except you don't need all these packages if you install from
+#   source, and you probably don't want them installed system-
+#   wide, anyway, but should use a venv; also DepoXy omits these:
+#     python3-pip python3-setuptools python3-wheel
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+install = install_os_specific
+installLinux =
+  pyenv_shell_unset
+  #
+  local venv_name=".venv-quicktile"
+  if ! [ -d "${venv_name}" ]; then
+    info "Creating venv..."
+    python3 -m venv --system-site-packages "${venv_name}"
+    #
+    info "Activating venv..."
+    . "${venv_name}/bin/activate"
+    #
+    (
+      cd "${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper"
+      #
+      info "Installing virtualenvwrapper..."
+      python3 -m pip install .
+    )
+    #
+    info "Installing python-xlib..."
+    python3 -m pip install python-xlib
+  fi
+  #
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+  #
+  # # CXREF: ~/.kit/odd/quicktile/quicktile.sh
+  # # symlink_overlay_file "${MR_REPO}/quicktile.sh" "${HOME}/.local/bin/quicktile.sh"
+  # CXREF: ~/.depoxy/ambers/home/.kit/odd/quicktile/quicktile.sh
+  symlink_overlay_file \
+    "${ambers_root}/home/.kit/odd/quicktile/quicktile.sh" \
+    "${HOME}/.local/bin/quicktile.sh"
+  #
+  # Install the service
+  # CXREF: ~/.depoxy/ambers/home/.kit/odd/quicktile/quicktile.service
+  cp "${ambers_root}/home/.kit/odd/quicktile/quicktile.service" \
+    "${HOME}/.config/systemd/user/quicktile.service"
+  systemctl --user daemon-reload
+  systemctl --user enable quicktile.service
+  systemctl --user start quicktile.service
+  systemctl --user status quicktile.service
+  #
+  # CXREF: ~/.config/quicktile.cfg
+  info "QuickTile installed, set to start and boot, and now running"
+  #
+  # USAGE: Called without args, `quicktile` silently exits immediately.
+  # - Try:
+  #     cd ~/.kit/odd/quicktile
+  #     workon
+  #     py3 -m quicktile --help
+  #     py3 -m quicktile --show-bindings
+  #     py3 -m quicktile --show-actions
+  #     # Run the daemon
+  #     py3 -m quicktile -d
+  #     # Edit the config
+  #     vim ~/.config/quicktile.cfg
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # Installs a VIA keyboard customizer command.
 # - On @macOS, opens browser window to online app.
 #   - CXREF: https://usevia.app/ TypeScript sources:
