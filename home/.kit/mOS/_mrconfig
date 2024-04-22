@@ -177,6 +177,13 @@ echoInstallHelp =
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure \`homebrew-autoupdate\`:
     System Preferences... > Notifications & Focus > Notifications > *brew-autoupdate*: ✓ Allow Notifications
  "
+update =
+  git fetch --all --prune
+  #
+  git checkout landonb--custom--call-omr-infuse-after-update
+  #
+  git branch -u starter/master
+  git pull -r
 install =
   git fetch --all --prune
   git checkout landonb--custom--call-omr-infuse-after-update
@@ -213,14 +220,6 @@ install =
 #  `SUDO_ASKPASS`.
 #
 #    https://github.com/Homebrew/homebrew-autoupdate/issues/40
-#
-update =
-  git fetch --all --prune
-  #
-  git checkout landonb--custom--call-omr-infuse-after-update
-  #
-  git br -u starter/master
-  git pull -r
 
 # WARNING:  You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
 #   gem executables will not run.
