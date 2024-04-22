@@ -412,9 +412,6 @@ infuse =
   mkdir -p "${MR_REPO}/mOS"
   mkdir -p "${MR_REPO}/py"
   mkdir -p "${MR_REPO}/sh"
-# In lieu of creating placeholder .gitisempty, we could just
-# set Git ops true, but then we'd have to list them all.
-# - We'll at least list these, for readability.
 fetch = true
 update = true
 pull = true
