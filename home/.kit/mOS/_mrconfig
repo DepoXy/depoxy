@@ -216,11 +216,9 @@ install =
 #
 update =
   git fetch --all --prune
-  # git pull --rebase --autostash
   #
   git checkout landonb--custom--call-omr-infuse-after-update
   #
-  # git rebase starter/master
   git br -u starter/master
   git pull -r
 
