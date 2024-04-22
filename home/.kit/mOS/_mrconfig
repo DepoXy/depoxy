@@ -26,9 +26,8 @@ checkout = stub_checkout_directory
 # Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_maybe' 'if that‘s something you‘ll use'
-install =
-  os_is_macos || return 0
-  #
+install = install_os_specific
+installDarwin =
   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
   mkdir -p "${downloads_dir}"
   cd "${downloads_dir}"
@@ -134,10 +133,8 @@ echoInstallHelp =
   
     - SAVVY: Use the eyedropper to match the second widget font color to the first widget.
  "
-install =
-  #
-  os_is_macos || return 0
-  #
+install = install_os_specific
+installDarwin =
   local geektool_vers="331.014"
   local dist_root="1470733752"
   #
@@ -184,10 +181,8 @@ update =
   #
   git branch -u starter/master
   git pull -r
-install =
-  # Nothing to install on Linux, but previous keeps branch up to date.
-  os_is_macos || return 0
-  #
+install = install_os_specific
+installDarwin =
   # OMR/lib already on PATH, but explicit is descriptive.
   . "${OHMYREPOS_LIB:-${HOME}/.ohmyrepos/lib}/print-homebrew-prefix.sh"
   local inject_path
