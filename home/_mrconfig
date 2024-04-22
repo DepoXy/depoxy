@@ -388,6 +388,7 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
 
 [${MR_HOME:-${HOME}}/.kit]
 order = 133
+checkout = true
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   #
