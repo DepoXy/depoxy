@@ -185,10 +185,6 @@ update =
   git branch -u starter/master
   git pull -r
 install =
-  git fetch --all --prune
-  git checkout landonb--custom--call-omr-infuse-after-update
-  git branch -u starter/master
-  #
   # Nothing to install on Linux, but previous keeps branch up to date.
   os_is_macos || return 0
   #
