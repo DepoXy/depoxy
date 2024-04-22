@@ -9,6 +9,29 @@ order = 690
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# SAVVY: Some projects below are not installed on @Linux hosts.
+#
+# - Look for the skip:
+#
+#     skip = ! os_is_macos
+#
+# - These projects also need to disable the travel mechanism:
+#
+#     ffssh = true
+#     travel = true
+#     unpack = true
+#
+#   - This is because @Linux hosts might not have these projects cloned.
+#
+# - Note this is a janky kludge. A better solution would be something
+#   like `ffssh = ! remote_is_macos`, but the author has no intention
+#   of adding something like that; or maybe even something more generic,
+#   like, `ffssh = ffssh_allow_missing_remote`, where the config
+#   indicates not to complain (too loudy) if the remote repo is absent.
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # - Q: Why not use the Docker Desktop Homebrew cask?
 #
 #      - Author had issues with the cask, so prefers DMG install.
@@ -23,8 +46,12 @@ order = 690
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
 checkout = stub_checkout_directory
-# Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
+# KLUGE: So @macOS doesn't try to fetch from @Linux host.
+ffssh = true
+travel = true
+unpack = true
+#
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_maybe' 'if that‘s something you‘ll use'
 install = install_os_specific
 installDarwin =
@@ -63,8 +90,12 @@ installDarwin =
 # https://github.com/johnste/finicky
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
 checkout = stub_checkout_directory
-# Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
+# KLUGE: So @macOS doesn't try to fetch from @Linux host.
+ffssh = true
+travel = true
+unpack = true
+#
 echoInstallHelp =
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Verify *Finicky* ready::
     mr -d \"${MR_REPO}\" -n infuse
@@ -96,8 +127,12 @@ infuse =
 # https://www.tynsoe.org/geektool/
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
 checkout = stub_checkout_directory
-# Set skip (Or: ffssh = true / travel = true / unpack = true)
 skip = ! os_is_macos
+# KLUGE: So @macOS doesn't try to fetch from @Linux host.
+ffssh = true
+travel = true
+unpack = true
+#
 echoInstallHelp =
   echoInstallHelp 'os_macos' 'dxy_all'
   #
@@ -221,6 +256,10 @@ installDarwin =
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
 lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
 skip = ! os_is_macos
+# KLUGE: So @macOS doesn't try to fetch from @Linux host.
+ffssh = true
+travel = true
+unpack = true
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -237,6 +276,10 @@ lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
 skip = ! os_is_macos
+# KLUGE: So @macOS doesn't try to fetch from @Linux host.
+ffssh = true
+travel = true
+unpack = true
 
 # ========================================================================
 # ------------------------------------------------------------------------
