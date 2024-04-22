@@ -421,6 +421,9 @@ infuse =
 fetch = true
 update = true
 pull = true
+ffssh = true
+travel = true
+unpack = true
 
 # NOTE: Rather than using the .mrconfig chain feature, e.g.,
 #         chain = true
