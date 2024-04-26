@@ -115,18 +115,36 @@ echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you mechanical keyboard lubbers' 'VIA'
 install = install_os_specific
 installDarwin =
-  # Use https://usevia.app/ on macOS
-  local via_app_url="https://usevia.app/"
-  #
-  local app_name_local="sensible-open-usevia.app"
-  #
-  # If more browsers were supported, we could open user's preferred BROWSER:
-  #   echo "sensible-open ${via_app_url}" > "${MR_REPO}/${app_name_local}"
-  # But UseVia.app only runs on Chrome.
-  echo "open -na \"Google Chrome\" --args --new-window \"${via_app_url}\"" \
-    > "${MR_REPO}/${app_name_local}"
-  #
-  install_via_nativia "${app_name_local}"
+  install_using_web_app () {
+    # Use https://usevia.app/ on macOS
+    local via_app_url="https://usevia.app/"
+    #
+    local app_name_local="sensible-open-usevia.app"
+    #
+    # If more browsers were supported, we could open user's preferred BROWSER:
+    #   echo "sensible-open ${via_app_url}" > "${MR_REPO}/${app_name_local}"
+    # But UseVia.app only runs on Chrome.
+    echo "open -na \"Google Chrome\" --args --new-window \"${via_app_url}\"" \
+      > "${MR_REPO}/${app_name_local}"
+    #
+    install_via_nativia "${app_name_local}"
+  }
+  install_using_dmg_image () {
+    # CXREF: Find latest version:
+    #   https://github.com/the-via/releases/releases
+    #
+    local via_version="3.0.0"
+    #
+    # E.g., https://github.com/the-via/releases/releases/download/v3.0.0/via-3.0.0-mac.dmg
+    local app_image_base="https://github.com/the-via/releases/releases/download"
+    # FIXME/2024-04-23 23:22: DRY: Only diff from installLinux is linux.AppImage vs. mac.dmg
+    local app_image_url="${app_image_base}/v${via_version}/via-${via_version}-mac.dmg"
+    #
+    install_dmg_with_download_user_prompt_and_symlink \
+      "${app_image_url}" "" "Via.app" "via-nativia"
+  }
+  # install_using_web_app
+  install_using_dmg_image
 installLinux =
   # CXREF: Find latest version:
   #   https://github.com/the-via/releases/releases
