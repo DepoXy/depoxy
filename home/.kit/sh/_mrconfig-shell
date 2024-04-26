@@ -73,6 +73,7 @@ lib = remote_set starter http://github.com/shyiko/commacd.git
 lib = remote_set starter http://github.com/cykerway/complete-alias.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
+  # Uses line_in_file to update/verify ~/.bash_completion
   append_bash_completion ". ~/.complete_alias"
   #
   info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"
