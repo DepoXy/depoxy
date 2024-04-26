@@ -293,6 +293,7 @@ installLinux =
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
 #     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
 installpythons =
+  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
   # Install all supported Pythons so they're at the ready.
   #   -s: --skip-existing
   # USYNC: pyenv-install-pys
