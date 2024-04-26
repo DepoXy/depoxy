@@ -144,11 +144,21 @@ infuse_create_symlinks_core () {
   # **** ~/.kit/sh feature projects
 
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
+  # FTREQ/2024-04-26: Publish this project. Currently private:
+  if [ -d "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report" ]; then
+    link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
+  fi
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
+
+  # MAYBE/2024-04-26: Add any of these?
+  #   parT/
+  #   reputed-tiler/
+  #   salvage-fiefdom/
+  #   sh-spinners/
+  #   trust_me/
 
   # *** ~/.kit/txt projects
 
