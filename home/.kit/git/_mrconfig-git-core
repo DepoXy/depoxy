@@ -113,7 +113,7 @@ install =
   . ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh
   local base_branch="$(git_branch_name)"
   local tip_branch="tip/${base_branch}/rename-commands-that-conflict-with-git-smart-commands"
-  git branch -D ${tip_branch} || true
+  git branch -D ${tip_branch} 2> /dev/null || true
   git checkout -b ${tip_branch} \
     --track starter/master
   #
