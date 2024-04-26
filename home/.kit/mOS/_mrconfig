@@ -82,9 +82,8 @@ installDarwin =
       "${downloads_dir}/${docker_dmg}" \
       "/Volumes/Docker/Docker.app"
   else
-    echo "YOU: Drag-and-drop the app folder to the Applications/ folder."
-    echo "THEN: Open Finder and click Unmount ⏏ symbol to unmount the DMG."
-    open "${docker_dmg}"
+    install_dmg_with_download_user_prompt_and_symlink \
+      "${_app_image_url:-}" "${docker_dmg}" "Docker.app" "docker.app"
   fi
 
 # ------------------------------------------------------------------------
