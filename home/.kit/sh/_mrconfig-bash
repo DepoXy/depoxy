@@ -159,7 +159,9 @@ lib = remote_set publish https://github.com/DepoXy/gvim-open-kindness.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
-  symlink_overlay_file "${MR_REPO}/bin/gvim-open-kindness" "${HOME}/.local/bin/gvim-open-kindness"
+  symlink_overlay_file \
+    "${MR_REPO}/bin/gvim-open-kindness" \
+    "${HOME}/.local/bin/gvim-open-kindness"
 
 # ========================================================================
 # ------------------------------------------------------------------------
