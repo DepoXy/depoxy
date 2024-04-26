@@ -102,13 +102,22 @@ install =
   # Make and place man pages.
   # - Prereq.: Requires `ronn`: "tool to build manuals from Markdown".
   # FIXME/2024-02-18 01:21: Make OMR lib fcn. for this?
-  for package in ronn; do
-    if ! dpkg -l "${package}" | tail -1 | grep -q "^ii"; then
-      echo "RAISE: You need to install ${package} first:"
-      echo "  sudo apt-get -y install ${package}"
-      sudo apt-get -y install ${package}
+  local cmd_n_pkg=ronn
+  if ! command -v "${cmd_n_pkg}" > /dev/null; then
+    echo
+    if os_is_macos; then
+      echo "SAVVY: We must install ${cmd_n_pkg} first:"
+      echo "  brew install ${cmd_n_pkg}"
+      brew install "${cmd_n_pkg}"
+    else
+      # E.g.,
+      #   ! dpkg -l "${cmd_n_pkg}" | tail -1 | grep -q "^ii"
+      echo "RAISE: We must install ${cmd_n_pkg} first:"
+      echo "  sudo apt-get -y install ${cmd_n_pkg}"
+      sudo apt-get -y install "${cmd_n_pkg}"
     fi
-  done
+    echo
+  fi
   #
   . ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh
   local base_branch="$(git_branch_name)"
