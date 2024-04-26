@@ -38,6 +38,8 @@ skip = mr_exclusive "!entrusted"
 order = 470
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -h "${HOME}/.local/bin/dunamai"
+# SAVVY: Note that DepoXy appends git-bump-version-tag/bin to PATH —
+#        Otherwise this 'install' would add symlink to ~/.local/bin
 install = pipx install dunamai
 infusePostRebase =
   link_hard_dep_sh_ask_yesnoskip
