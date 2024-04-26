@@ -34,7 +34,6 @@
 /home/.config/tig/cfg-tgn-*
 /home/.config/tig/tigconfig-client
 /home/.config/tig/tigconfig.EVAL
-/home/.config/tig/tiggies
 
 # The complex_modifications/ symlinks are managed by 'infuse' tasks.
 /home/.config/karabiner/assets/complex_modifications/

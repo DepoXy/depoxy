@@ -8,7 +8,6 @@
 #   config-*          -> ~/.depoxy/ambers/home/.config/tig/config-*
 #   tigconfig-client  -> ~/.depoxy/running/home/.config/tig/config
 #   tigconfig.EVAL    -> ~/.depoxy/ambers/archetype/home/.config/tig/config.EVAL
-#   tiggies           -> ~/.depoxy/ambers/home/.config/tig/README--Keybindings
 /home/.config/tig/cfg-tgn-bind-clip-path
 /home/.config/tig/cfg-tgn-bind-clip-sha
 /home/.config/tig/cfg-tgn-bind-commit
@@ -30,7 +29,6 @@
 /home/.config/tig/config-depoxy-main
 /home/.config/tig/tigconfig-client
 /home/.config/tig/tigconfig.EVAL
-/home/.config/tig/tiggies
 
 # Symlink -> ~/.kit/git/git-smart/.gitconfig
 # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
