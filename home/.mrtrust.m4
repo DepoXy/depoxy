@@ -60,6 +60,10 @@ DOPP_KIT/sh/_mrconfig-bash
 DOPP_KIT/sh/_mrconfig-shell
 DOPP_KIT/txt/_mrconfig
 
+# *** Trust DepoXy Client config.
+
+USER_HOME/.depoxy/running/_mrconfig
+
 # *** Private client mrconfig can be appended, but not necessary,
 #     as cat files are inherently trusted. But also listing here
 #     could be helpful if you want a complete list of all mrconfig.
