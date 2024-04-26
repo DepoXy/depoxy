@@ -210,36 +210,16 @@ installDarwin =
   #     Location: https://github.com/zsa/wally/releases/download/2.1.0-osx/wally-osx-2.1.0.dmg [following]
   local location="$(wget "${latest_wally_url_macos}" 2>&1 | grep "Location:" | head -1)"
   local vers_url="$(echo "${location}" | sed "s/^Location: \([^ ]\+\) \[following\]$/\1/")"
-  local app_name="$(basename -- "${vers_url}")"
+  # E.g., wally-osx-2.1.0.dmg
+  local dmg_name="$(basename -- "${vers_url}")"
   #
-  command mv -f -- "$(basename -- "${latest_wally_url_macos}")" "${app_name}"
+  command mv -f -- "$(basename -- "${latest_wally_url_macos}")" "${dmg_name}"
   #
   # Alternatively, see `hdiutil attach <dmg>` for automated install,
   # but slower and requires sudo, so preferring manual intervention.
   #
-  # FIXME: I'm unsure the app name, as having no MacBook no more.
-  echo && echo "FIXME/2023-02-11: Verify remaining steps:" && echo
-  #
-  echo && echo "YOU: Drag-drop Wally to Applications to install Wally." && echo
-  open "${app_name}"
-  echo
-  # Sit in sleep-loop polling until user completes their action.
-  while [ ! -d "/Applications/Wally.app" ]; do
-    sleep 1
-  done
-  #
-  local local_bin_shim="${HOME}/.local/bin/wally"
-  if [ ! -e "${local_bin_shim}" ]; then
-    echo -e "#!/bin/sh\nopen /Applications/Wally.app" > "${local_bin_shim}"
-  fi
-  #
-  echo "Wally is now installed. You can run it thusly:"
-  echo
-  echo "  open /Applications/Wally.app"
-  echo
-  echo "Or more conveniently:"
-  echo
-  echo "  $(basename -- "${local_bin_shim}")"
+  install_dmg_with_download_user_prompt_and_symlink \
+    "" "${dmg_name}" "Wally.app" "wally"
 installLinux =
   local latest_wally_url_debian="https://configure.ergodox-ez.com/wally/linux"
   #
