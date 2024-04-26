@@ -292,8 +292,7 @@ slather_macos_defaults () {
   # Run the core `defaults` slatherer, and reminder-printer.
   #
   # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
-  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@" \
-    || exit 1
+  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@"
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
