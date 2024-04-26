@@ -473,7 +473,7 @@ install =
   #   (Note our local changes would still work.)
   # - Or we could pip-install the path, which uses pyproject.toml.
   #
-  # SAVVY/2024-02-27: `pip` is no longer install systemwide, just to venv's.
+  # SAVVY/2024-02-27: `pip` is no longer installed systemwide, just to venv's.
   # - Also, this is the only DepoXy task that needs pip, so isolating here.
   # - Note, too, `sudo apt install python3-pip` installs an outdated pip,
   #   and will cause `py3 -m pip install .` to create and install a package
