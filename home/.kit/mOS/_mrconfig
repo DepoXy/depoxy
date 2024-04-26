@@ -79,7 +79,8 @@ installDarwin =
   sudo -v
   if sudo -nv 2> /dev/null; then
     hdiutil attach "${downloads_dir}/${docker_dmg}"
-    sudo cp -rf /Volumes/Docker.app /Applications
+    # SAVVY: Use -p to keep user permissions.
+    sudo cp -prf /Volumes/Docker/Docker.app /Applications
     sudo hdiutil detach /Volumes/Docker
   else
     echo "YOU: Drag-and-drop the app folder to the Applications/ folder."
