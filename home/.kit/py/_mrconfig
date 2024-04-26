@@ -478,9 +478,10 @@ infuse =
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_all'
   #
-  echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
-    mr -d \"${MR_REPO}\" -n installpythons
- "
+  # ISOFF/2024-04-23: Now part of pyenv 'install':
+  #   echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
+  #     mr -d \"${MR_REPO}\" -n installpythons
+  #   "
 merge =
   rebase_tip_merge_release "${_resume_cmd:-$1}" "starter/main" \
     "${_add_version_tag:-true}" "$@"
@@ -566,21 +567,25 @@ install =
 #   virtualenvwrapper.sh: Failed to run ‘post_activate’ hook
 #   $ off
 #   virtualenvwrapper.sh: Failed to run ‘pre_deactivate’ hook
-installpythons =
-  eval "$(pyenv init -)"
-  #
-  # USYNC: See pyenv installpythons versions, above.
-  for pyver in \
-    3.8 \
-    3.9 \
-    3.10 \
-    3.11 \
-    3.12 \
-    3.13.0a3 \
-  ; do
-    pyenv shell ${pyver}
-    python3 -m pip install ${MR_REPO}
-  done
+#
+# ISOFF/2024-04-23: Added to pyenv project. See:
+#   mr -d "${DOPP_KIT:-${HOME}/.kit}/py/pyenv" -n installVirtualenvwrapper
+#
+#   installpythons =
+#     eval "$(pyenv init -)"
+#     #
+#     # USYNC: See pyenv installpythons versions, above.
+#     for pyver in \
+#       3.8 \
+#       3.9 \
+#       3.10 \
+#       3.11 \
+#       3.12 \
+#       3.13.0a3 \
+#     ; do
+#       pyenv shell ${pyver}
+#       python3 -m pip install ${MR_REPO}
+#     done
 
 # ========================================================================
 # ------------------------------------------------------------------------
