@@ -294,27 +294,26 @@ slather_macos_defaults () {
   # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
   "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@"
 
+  # Unless @Linux, previous call generated output. Distance ourselves 1 line.
+  ! os_is_macos || echo
+
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
   depoxy_configure
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-  os_is_macos () {
-    [ "$(uname)" = 'Darwin' ]
-  }
-
   [ -z "${print_at_end}" ] || (
-    # If macOS-onboarder ran, it printed a bunch of stuff, so add blank line.
-    ! os_is_macos \
-      || echo
-
     echo "CPYST: Please perform the following tasks manually (DepoXy):"
 
     for print_ln in "${print_at_end[@]}"; do
       echo -e "${print_ln}"
     done
   )
+}
+
+os_is_macos () {
+  [ "$(uname)" = 'Darwin' ]
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
