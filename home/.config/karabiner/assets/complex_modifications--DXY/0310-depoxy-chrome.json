@@ -1,9 +1,9 @@
 {
-  "title": "#0310 — Google Chrome — Global Hotkeys, and Wire Ctrl-Click and F5 like Linux",
+  "title": "#1310 — Google Chrome — Global Hotkeys, and Wire Ctrl-Click and F5 like Linux",
   "rules": [
 
     {
-      "description": "#0311.y — Google Chrome — New Window (Cmd-y)",
+      "description": "#1311.y — Google Chrome — New Window (Cmd-y)",
       "manipulators": [
         {
           "from": {
@@ -25,7 +25,7 @@
     },
 
     {
-      "description": "#0313 — Google Chrome — Systemwide — *Inspect* Window Foreground (Cmd-r) *ALT MAPPING*",
+      "description": "#1313 — Google Chrome — Systemwide — *Inspect* Window Foreground (Cmd-r) *ALT MAPPING*",
       "manipulators": [
         {
           "from": {
@@ -47,7 +47,7 @@
     },
 
     {
-      "description": "#0318 — Google Chrome — Customize Ctrl-PageUp/PageDown (originally cycles tabs, just like Ctrl-Tab/Ctrl-Shift-Tab; but we want textarea motion userscript to process)",
+      "description": "#1318 — Google Chrome — Customize Ctrl-PageUp/PageDown (originallay cycles tabs, just like Ctrl-Tab/Ctrl-Shift-Tab; but we want textarea motion userscript to process)",
       "manipulators": [
         {
           "from": {
