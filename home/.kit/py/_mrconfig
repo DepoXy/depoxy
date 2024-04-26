@@ -75,6 +75,8 @@ install =
   python3 -m pip install --upgrade pip
   python3 -m pip install --user pipx
 installPips =
+  eval "$(pyenv init -)"
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
   for package in \
     "asciinema" \
     "argcomplete" \
