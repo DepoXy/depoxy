@@ -130,7 +130,8 @@ installDarwin =
   warn "- Run *Finicky* once to set as default browser:"
   warn "    open /Applications/Finicky.app/"
   warn "  - Click notification drop-down and choose *Allow*."
-  warn "- OR: Systems Preferences... > General > Default web browser: *👇 Finicky.app*"
+  warn "- ALTLY:"
+  warn "  Systems Settings... > Desktop & Dock > Default web browser: *👇 Finicky.app*"
   #
   exit 1
 
@@ -150,11 +151,11 @@ echoInstallHelp =
   echoInstallHelp 'os_macos' 'dxy_all'
   #
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') Configure GeekTool:
-    System Preferences... > GeekTool > ✓ Automatically launch at login
+    GeekTool > ✓ Automatically launch at login
  "
   #
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') Configure GeekTool:
-    System Preferences... > GeekTool > Check for updates: ✓ Automatic
+    GeekTool > Check for updates: ✓ Automatic
  "
   #
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Create GeekTool *geeklets*:
