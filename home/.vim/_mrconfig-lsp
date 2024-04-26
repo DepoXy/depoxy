@@ -142,20 +142,14 @@ install =
   # 2022-11-22:
   #   npm WARN deprecated tslint@6.1.3: TSLint has been deprecated in favor of ESLint.
   npm install
+  #
   # The install changes package.json, which makes the repo look changed.
   debug "Restore package.json"
   git checkout -- package.json
-  # Update Vim help.
-  debug "Calling :Helptags"
-  vim -u NONE -c "helptags ./doc" -c q
   #
-  # Install Language Server plugins.
-  # FIXME/2021-03-11: Maybe add ~/.depoxyrc environ to control which
-  #   LSPs are installed, which is developer- (and client-) specific.
-  debug " Calling :CocInstall coc-json coc-tsserver"
-  vim -u NONE -c "CocInstall coc-json coc-tsserver" -c q
-  debug " Calling :CocInstall coc-pyright"
-  vim -u NONE -c "CocInstall coc-pyright" -c q
+  # Update Vim help.
+  debug "Calling :helptags"
+  vim -c "helptags ./doc" -c q
   #
   # Wire ~/.vim/coc-settings.json
   # - See also:
@@ -164,14 +158,35 @@ install =
   #     ~/.depoxy/ambers/home/infuse-dubs-vim
   #   which calls:
   #     setup_private_coc_config
-  #   This is the equivalent, for the 1 file we want planted:
-  # Run in subshell because callee sets MR_REPO.
+  #   This is the equivalent, for the 1 file we want planted.
+  # - Runs in subshell because callee sets MR_REPO.
   ( MR_REPO="${HOME}/.vim" symlink_mrinfuse_file 'coc-settings.json' )
   # This also works, but then the symlink is an absolute path
   # (and `command ls -l` is more likely to wrap when printing it):
   #  symlink_overlay_file \
   #    "${HOME}/.depoxy/ambers/home/.vim/coc-settings.json" \
   #    "${HOME}/.vim/coc-settings.json"
+  #
+  info
+  info "Installing Language Server plugins..."
+  # - SAVVY/2024-04-26: This call cannot be automated, e.g.,
+  #     $ vim -c "CocInstall coc-json coc-tsserver" -c q
+  #   will run-quit Vim quickly, but doesn't invoke :CocInstall
+  #   (or kills it immediately; not sure what's happening).
+  # - As such, run Vim, and have user close the window manually.
+  echo "HEY — Your help is needed:"
+  echo "- After Vim opens, wait for CoC to complete, then quit Vim"
+  printf -- "- Press any key to open Vim [.] "
+  local ignored_key
+  read -e -n 1 ignored_key
+  [ -z "${ignored_key}" ] || echo
+  #
+  info
+  info "STEPS: Quit Vim after Coc finishes..."
+  info
+  info "Calling :CocInstall coc-json coc-tsserver coc-pyright..."
+  #
+  vim -c "CocInstall coc-json coc-tsserver coc-pyright"
 #
 infuse =
   # 2020-12-26: Ignore package-lock.json.
