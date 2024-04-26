@@ -38,7 +38,8 @@ infuse =
   symlink_overlay_file "${MR_REPO}/man/man1/fzf-tmux.1" "${HOME}/.local/man/man1/fzf-tmux.1"
 # On @macOS, installed via Homebrew.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
-install =
+install = install_os_specific
+installLinux =
   pull_latest "starter" "master"
   # I don't use Z shell, so if fzf creates a Z startup script, remove it.
   local no_zshrc=false
