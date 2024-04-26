@@ -265,12 +265,14 @@ installDarwin =
   # FIXME/2021-08-04: Is this sticky across reboots?
   #
   brew autoupdate start 86400 --upgrade
-# FIXME/2022-12-04: Will this affect me?:
-#  Warning: Please note if you use Casks that require `sudo` to upgrade there
-#  are known issues with that use case and this command unless using
-#  `SUDO_ASKPASS`.
+# FIXME/2022-12-04: Will this affect me? [sic]:
+#   Warning: Please note if you use Casks that require `sudo` to upgrade there
+#   are known issues with that use case and this command unless using
+#   `SUDO_ASKPASS`.
 #
-#    https://github.com/Homebrew/homebrew-autoupdate/issues/40
+#     https://github.com/Homebrew/homebrew-autoupdate/issues/40
+#
+#   Homebrew will now automatically update every 24 hours, or on system boot.
 
 # WARNING:  You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
 #   gem executables will not run.
