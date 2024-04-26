@@ -16,7 +16,7 @@
           },
           "to": [
             {
-              "shell_command": "open -na \"Google Chrome\" --args --new-window && sleep 1 && osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/resize--curapp--1920x1052.app"
+              "shell_command": "open -na \"Google Chrome\" --args --new-window"
             }
           ],
           "type": "basic"
