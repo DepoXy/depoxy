@@ -12,7 +12,7 @@ lib =
   remote_set publish https://github.com/landonb/vim.git
   remote_set starter https://github.com/vim/vim.git
 
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
 installLinux =
   # In lieu of rebase_tip, the following.
