@@ -155,8 +155,13 @@ install =
   #
   # Wire the completions file (Homefries-specific).
   if [ -d "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions" ]; then
-    cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
-    symlink_overlay_file "${MR_REPO}/etc/bash_completion.sh" "git-extras-bash_completion.sh"
+    (
+      cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+      #
+      symlink_overlay_file \
+        "${MR_REPO}/etc/bash_completion.sh" \
+        "git-extras-bash_completion.sh"
+    )
   fi
 
 # ========================================================================
