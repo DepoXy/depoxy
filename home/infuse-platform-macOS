@@ -21,6 +21,33 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+infuse_symlinks_depoxy_Karabiner_Elements_symlinks () {
+  (
+    # I.e., ~/.depoxy/ambers/home/.config/karabiner/assets
+    cd "home/.config/karabiner/assets"
+
+    # ***
+
+    local kit_mos="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}"
+    local ke_mods="${kit_mos}/Karabiner-Elephants/complex_modifications"
+
+    if [ -d "${ke_mods}" ]; then
+      symlink_overlay_dir "${ke_mods}" "complex_modifications--KBE"
+    fi
+
+    # ***
+
+    local active_dxc="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/running"
+    local dxc_mods="${active_dxc}/home/.config/karabiner/assets/complex_modifications"
+
+    if [ -d "${dxc_mods}" ]; then
+      symlink_overlay_dir "${dxc_mods}" "complex_modifications--DXC"
+    fi
+  )
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 infuse_symlinks_macOS_Karabiner_Elements_complex_modifications () {
   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_prepare
   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply
@@ -220,29 +247,29 @@ main () {
 
   source_deps
 
-  if ! os_is_macos; then
-
-    return 0
-  fi
-
   [ "$(basename -- "$0")" != "infuse-platform-macOS" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
   infuser_prepare "${ambers_dir}" "$@"
 
-  local before_cd="$(pwd -L)"
-  cd ${MR_REPO}
+  (
+    cd "${MR_REPO}"
 
-  # ***
+    infuse_symlinks_depoxy_Karabiner_Elements_symlinks
 
-  infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
+    if ! os_is_macos; then
 
-  infuse_symlink_macOS_MacVim_latest_version_symlink
+      # More of a (break)
+      return 0
+    fi
 
-  # ***
+    # ***
 
-  cd "${before_cd}"
+    infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
+
+    infuse_symlink_macOS_MacVim_latest_version_symlink
+  )
 }
 
 
