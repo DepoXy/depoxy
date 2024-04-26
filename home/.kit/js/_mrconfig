@@ -22,30 +22,48 @@ skip = mr_exclusive "!entrusted"
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# ISDED/2024-04-26: Deprecated:
+#   "The Lens Desktop product by Mirantis is still actively developed and
+#    supported by Mirantis, but contributions are now made through extensions
+#    using the Lens extension API, rather than directly to the core product.
+#
+#   "The legacy source code for the open source version is still available
+#    in the repository's 'master'-branch."
+#
+#   https://github.com/lensapp/lens?tab=readme-ov-file#history-of-this-repository
+
 # Lens aka OpenLens aka Electron Lens.
 [${DOPP_KIT:-${HOME}/.kit}/js/lens]
 lib = remote_set starter https://github.com/lensapp/lens.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp =
-  echoInstallHelp 'os_all' 'dxy_maybe'
+  echoInstallHelp 'os_off' 'dxy_off'
   #
-  echo "$(echoInstallHelpWidget 'os_all' 'dxy_maybe') DepoXy: Configure OpenLens icons::
+  echo "$(echoInstallHelpWidget 'os_off' 'dxy_off') DepoXy: Configure OpenLens icons::
     # Pick an icon for each cluster.
     ll ~/.depoxy/ambers/home/.kube/*.png
     # See the README.rst if you want to generate more icons
     fs ~/.depoxy/ambers/home/.kube/README.rst
  "
 install =
+  local version_tag="$(git rev-parse HEAD)"
+  pull_latest "starter" "master" "${version_tag}" "main"
+  #
+  install_os_specific
+installLinux =
+  >&2 echo "INERT: FTREQ: Plumb @Linux OpenLens 'install'"
+  #
+  exit 1
+installDarwin =
+  >&2 echo "FIXME: OpenLens stopped publishing community build"
+  #
+  exit 1
+  #
   # Alternatively to building and installing, you could run from sources:
   #   $ _depoxy_run_or_front_electron_lens
   # Just be sure to kill `lens` and `node` if you run from source and later
   # decide to build and install Lens (else `open /Applications/OpenLens.app`
   # will beach-ball the cursor but not open Lens).
-  if ! os_is_macos; then
-    >&2 echo "ERROR: Only macOS Lens install currently plumbed."
-    #
-    exit 1
-  fi
   #
   echo "Building OpenLens..."
   echo "- This installer known to work on:"
@@ -55,10 +73,13 @@ install =
   echo "  - node version: $(node -v)"
   echo "    yean version: $(yarn -v)"
   #
-  #
   local node_vers="v16.18.1"
   echo "- Using node version: ${node_vers}"
   echo "  - YOU: Periodically bump Node version as appropriate."
+  #
+  NVM_DIR="${DOPP_KIT:-${HOME}/.kit}/js/nvm"
+  . "${NVM_DIR}/nvm.sh"
+  #
   nvm install ${node_vers}
   nvm use ${node_vers}
   #
@@ -69,11 +90,14 @@ install =
   echo "- HINT: If build fails, try it again."
   #
   build_lens () {
-    env ELECTRON_BUILDER_EXTRA_ARGS="--arm64 --x64 --config.dmg.sign=false" make build
+    env ELECTRON_BUILDER_EXTRA_ARGS="--arm64 --x64 --config.dmg.sign=false" \
+      make build
   }
+  #
   build_lens
   if [ $? -ne 0 ]; then
     echo && echo "Build failed. Trying again!" && echo
+    #
     build_lens
   fi
   if [ $? -ne 0 ]; then
