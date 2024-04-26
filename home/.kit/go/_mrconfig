@@ -41,6 +41,8 @@ infuse =
   symlink_overlay_file "${MR_REPO}/man/man1/fzf-tmux.1" "${HOME}/.local/man/man1/fzf-tmux.1"
 # On @macOS, installed via Homebrew.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+# Either -> ~/.kit/go/fzf/bin/fzf OR -> /opt/homebrew/bin/fzf
+isInstalled = test -h "${HOME}/.local/bin/fzf"
 install = install_os_specific
 installLinux =
   pull_latest "starter" "master"
@@ -81,6 +83,8 @@ lib = remote_set starter "https://github.com/aykamko/tag.git" "aykamko-tag"
 order = 310
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
   echo "- SAVVY: Restart your shell to pickup \`~/go/bin\`|\`~/.gopath/bin\` on \`PATH\`\n"
+# Looser: isInstalled = command -v tag > /dev/null
+isInstalled = test -x "${GOPATH}/bin/tag"
 install =
   # Installs to ~/.gopath/bin/tag @Linux or ~/go/bin/tag @macOS
   go install github.com/aykamko/tag@latest

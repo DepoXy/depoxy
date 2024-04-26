@@ -74,6 +74,12 @@ clone = checkout
 # ------------------------------------------------------------------------
 
 [DEFAULT]
+isInstalled = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
 # Default order is 10.
 order = 100
 
@@ -289,6 +295,8 @@ autocommit =
 
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all' \
   'set fussy.desktop as default browser'
+isInstalled = os_is_macos \
+  || [ "$(xdg-settings get default-web-browser)" = "fussy.desktop" ]
 install = install_os_specific
 installLinux =
   # DUNNO/2023-02-09: Meh, not sure where else to put this...
@@ -357,6 +365,7 @@ echoInstallHelp =
       :Helptags
  "
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'run :Helptags'
+isInstalled = true
 install = vim -u NONE -c "Helptags" -c q
 infusePostRebase =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim

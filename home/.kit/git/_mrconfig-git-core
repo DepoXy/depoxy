@@ -96,6 +96,8 @@ installLinux =
 lib = remote_set starter https://github.com/tj/git-extras.git
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
+# SAVVY: We'll suss installed by the last 'install' command.
+isInstalled = test -h "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions/git-extras-bash_completion.sh"
 install =
   pull_latest "starter" "main"
   #
@@ -216,6 +218,7 @@ infuse =
   link_private_ignore_ "$@"
 # On @macOS, installed via Homebrew.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+isInstalled = command -v interactive-rebase-tool > /dev/null
 install = install_os_specific
 # 2021-06-01: Both Brew and sources are at v2.1.0. I think maintainers update
 # Brew when tagging new versions, so no need to worry about falling behind.
@@ -341,6 +344,7 @@ lib = remote_set starter https://github.com/github/hub.git
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'Very Probably unnecessary for any development environment; see `gh` instead'
+isInstalled = test -x "${HOME}/.local/bin/hub"
 install =
   # SKPID/2024-02-26: Not calling `pull_latest "starter" "master" because
   # latest version, v2.14.2, tagged 3 years, but lots of code since then.
@@ -355,6 +359,8 @@ skip = mr_exclusive "kit" "git" "kit-git"
 # Build requires Go 1.13+.
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'aka `gh` — may or may not be necessary for your @biz client'
+isInstalled =
+  test -x "${HOME}/.local/bin/gh"
 install =
   pull_latest "starter" "trunk"
   # Go install wrapper.

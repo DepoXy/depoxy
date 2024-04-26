@@ -131,6 +131,11 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install current and active Node versions::
     mr -d \"${MR_REPO}\" -n installNVMNodes
  "
+# USYNC: nvm_versions
+isInstalled =
+  nvm version 18.20.2 > /dev/null
+  nvm version 20.12.2 > /dev/null
+  nvm version 21.7.3 > /dev/null
 install =
   pull_latest "starter" "master" "" "main"
   #

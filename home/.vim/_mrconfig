@@ -13,6 +13,13 @@ lib =
   remote_set starter https://github.com/vim/vim.git
 
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+# On @Linux, `vim --version` reports:
+#   Compiled by ${USERNAME}@$(hostname)
+# but on @macOS, reports:
+#   Compiled by root@$(hostname)
+isInstalled =
+  test -x "${HOME}/.local/bin/vim" \
+    && vim --version | grep -q -e "^Compiled by [^@]\+@$(hostname)$"
 install = install_os_specific
 installLinux =
   # In lieu of rebase_tip, the following.

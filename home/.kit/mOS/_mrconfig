@@ -53,6 +53,7 @@ travel = true
 unpack = true
 #
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all' 'if that‘s something you‘ll use'
+isInstalled = test -d /Applications/Docker.app
 install = install_os_specific
 installDarwin =
   # ISOFF/2024-04-24: Might as well use the placeholder project directory
@@ -103,6 +104,9 @@ echoInstallHelp =
     mr -d \"${MR_REPO}\" -n infuse
  "
 # CXREF: ~/.homefries/lib/distro/default-browser.sh
+isInstalled =
+  test "net.kassett.finicky" = \
+    "$(/usr/bin/env bash "${HOME}/.homefries/lib/distro/default-browser.sh")"
 install = install_os_specific
 installDarwin =
   #
@@ -110,8 +114,7 @@ installDarwin =
   # - HUH: Cannot simply source default-browser.sh and call default-browser
   #        because shell OMR uses does not allow train-case function names,
   #        didn't realize that wasn't POSIX'y. So run via Bash.
-  [ "$(/bin/bash "${HOME}/.homefries/lib/distro/default-browser.sh")" \
-    = "net.kassett.finicky" ] && return 0
+  mr -d "${MR_REPO}" -n isInstalled && return 0
   #
   warn "Finicky is not the default browser."
   warn "- Run *Finicky* once to set as default browser:"
@@ -178,6 +181,7 @@ echoInstallHelp =
   
     - SAVVY: On Quit, choose \"No, Never Ask\" when asked if GeekTool should disable itself.
  "
+isInstalled = test -d "${HOME}/Applications/GeekTool.app"
 install = install_os_specific
 installDarwin =
   # REFER/2024-04-24: Still the latest (for last year at least):
@@ -228,6 +232,10 @@ update =
   #
   git branch -u starter/master
   git pull -r
+isInstalled =
+  brew autoupdate status 2>/dev/null \
+    | head -n 1 \
+    | grep -q -e "^Autoupdate is installed and running.$"
 install = install_os_specific
 installDarwin =
   # OMR/lib already on PATH, but explicit is descriptive.

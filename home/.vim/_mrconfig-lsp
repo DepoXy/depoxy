@@ -96,6 +96,13 @@ infuse = link_private_exclude "$@"
 [pack/neoclide/start/coc.nvim]
 lib = remote_set starter https://github.com/neoclide/coc.nvim.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'also LSPs' 'CoC'
+isInstalled =
+  true \
+    && test -d "${HOME}/.config/coc/extensions/node_modules/coc-json" \
+    && test -d "${HOME}/.config/coc/extensions/node_modules/coc-pyright" \
+    && test -d "${HOME}/.config/coc/extensions/node_modules/coc-tsserver" \
+    && true
+  # test -f "${HOME}/.vim/coc-settings.json"
 #
 # NOTED/2024-02-18: This is part of the 'install' task.
 # - INERT: You could still print something like this, for other LSPs.

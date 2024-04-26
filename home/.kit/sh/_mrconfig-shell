@@ -21,6 +21,7 @@ order = 710
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
 lib = remote_set publish http://github.com/landonb/parT.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -h "${HOME}/.local/bin/parT"
 install =
   make -f protoMakefile clean
   # What ./build.sh calls:
@@ -72,6 +73,8 @@ lib = remote_set starter http://github.com/shyiko/commacd.git
 [${SHOILERPLATE:-${HOME}/.kit/sh}/complete-alias]
 lib = remote_set starter http://github.com/cykerway/complete-alias.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled =
+  grep -q -e "^complete -F _complete_alias t$" "${HOME}/.complete_alias"
 install =
   # Uses line_in_file to update/verify ~/.bash_completion
   append_bash_completion ". ~/.complete_alias"
@@ -96,6 +99,7 @@ lib =
   remote_set publish https://github.com/landonb/password-store.git
   remote_set starter https://git.zx2c4.com/password-store
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -x "${HOME}/.local/bin/pass"
 install =
   PREFIX="${HOME}/.local" make install
 rebase =

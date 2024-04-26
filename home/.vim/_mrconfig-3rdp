@@ -238,6 +238,10 @@ pull =
   git fetch starter
   git rebase ${remote_branch_default}
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'NERD Commenter'
+isInstalled =
+  true \
+  && test "$(git log -1 --format=%an)" = "$(git config user.name)" \
+  && test "$(git log -1 --format=%ae)" = "$(git config user.email)"
 install =
   # 2024-02-27: Latest version tag: 2.7.0, 2022-11-05
   # - But plenty of commits since, so let's live on the edge.

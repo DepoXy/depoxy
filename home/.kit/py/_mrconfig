@@ -67,6 +67,18 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install \`pipx\` applications::
     mr -d \"${MR_REPO}\" -n installPips
  "
+isInstalled =
+  for app in "pipx" "asciinema" "glances" "grip"; do
+    test -h "${HOME}/.local/bin/${app}"
+  done
+  # For `argcomplete`:
+  for app in \
+    "activate-global-python-argcomplete" \
+    "python-argcomplete-check-easy-install-script" \
+    "register-python-argcomplete" \
+  ; do
+    test -x "${HOME}/.local/bin/${app}"
+  done
 install =
   eval "$(pyenv init -)"
   pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
@@ -103,6 +115,7 @@ lib = remote_set starter https://github.com/python-poetry/poetry.git
 # SAVVY: Ensure order precedes poetry plugin(s).
 order = 695
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -h "${HOME}/.local/bin/poetry"
 install =
   pull_latest "starter" "main"
   # Check for `deactivate` command (ignore if on PATH).
@@ -156,7 +169,7 @@ lib = remote_set starter https://github.com/mtkennerly/poetry-dynamic-versioning
 # Decrease the order so follows poetry (order = 470).
 order = 696
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-# FIXME/2024-02-26: Does this only work from activate venv?
+isInstalled = true
 install =
   pull_latest "starter" "master" "" "main"
   #
@@ -272,6 +285,9 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install \`pyenv\` Python versions::
     mr -d \"${MR_REPO}\" -n installpythons
  "
+# Similarly:
+#  isInstalled = ( unset -f pyenv && test "$(type -t pyenv)" = "file" )
+isInstalled = ( unset -f pyenv && test -n "$(type -p pyenv)" )
 install = install_os_specific
 installDarwin =
   if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
@@ -405,6 +421,8 @@ echoInstallHelp =
     addendum='or not, really, it’s disabled'
   fi
   echoInstallHelp "${install_scope}" "dxy_all" "${addendum}"
+isInstalled = ! ${DXC_OMR_ENABLE_PYENV_VIRTUALENV:-false} \
+  || command -v pyenv-virtualenv > /dev/null
 install =
   # 2022-11-20: So far I just want `po shell` @home [on Linux, which is this path]
   # - SPOKE/SPIKE: Is there a diff. btw. pyenv-virtualenv (which uses py -m venv)
@@ -471,6 +489,11 @@ rebase =
     "${_skip_rebase:-false}"
 push =
   rebase_tip_push_liminal_tag
+isInstalled =
+  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  #
+  python3 -c "import importlib.util, sys;" \
+    "importlib.util.find_spec('virtualenvwrapper') is None and sys.exit(1)"
 install =
   # Ensure `pyenv` not in effect.
   command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
@@ -566,6 +589,7 @@ installpythons =
 lib = remote_set starter https://github.com/aws/aws-cli.git
 # ISOFF/2024-04-23: I haven't used this tool in years.
 echoInstallHelp = echoInstallHelp 'os_off' 'dxy_limit' 'if that‘s something you‘ll use'
+isInstalled = test -h "${HOME}/.local/bin/aws"
 install =
   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
   mkdir -p "${downloads_dir}"

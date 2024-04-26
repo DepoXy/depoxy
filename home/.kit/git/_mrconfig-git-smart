@@ -37,6 +37,7 @@ skip = mr_exclusive "!entrusted"
 #   ~/.depoxy/ambers/home/.kit/py/_mrconfig @ 24
 order = 470
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -h "${HOME}/.local/bin/dunamai"
 install = pipx install dunamai
 infusePostRebase =
   link_hard_dep_sh_ask_yesnoskip
@@ -68,6 +69,7 @@ updateDeps =
 lib = remote_set publish https://github.com/DepoXy/git-put-wise.git
 skip = false  # i.e., mr_exclusive "entrusted" "..."...
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -h "${HOME}/.local/bin/git-put-wise"
 install = PREFIX=~/.local make install
 infusePostRebase =
   link_hard_dep_git_smart_git_abort
@@ -132,6 +134,7 @@ skip = mr_exclusive "!entrusted"
 order = 370
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
   echo "- SAVVY: Restart your shell so \`MREDIT_CONFIGS=~/.projlns/mymrconfigs\`\n"
+isInstalled = test -h "${HOME}/.local/bin/mredit"
 install = PREFIX="${HOME}/.local" make install
 infusePostRebase =
   link_hard_dep_sh_colors
