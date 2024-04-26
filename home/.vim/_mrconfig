@@ -47,17 +47,41 @@ installVim =
       platform.python_version_tuple()[0],
       platform.python_version_tuple()[1])
     )")"
+  local ver_major="$(
+    python3 -c "import platform; print('{0}'.format(
+      platform.python_version_tuple()[0])
+    )")"
+  # - E.g., python3
+  local py3_command="python${ver_major}"
   # - Config dir is, e.g.,
   #     ~/pyenv/versions/3.10.6/lib/python3.10/config-3.10-x86_64-linux-gnu
-  local config_dir="${pyenv_root}/versions/${py_version}/lib/python${ver_mminor}/config-${ver_mminor}-x86_64-linux-gnu"
+  #
+  local config_dir
+  if ! os_is_macos; then
+    config_dir="${pyenv_root}/versions/${py_version}/lib/python${ver_mminor}/config-${ver_mminor}-x86_64-linux-gnu"
+  else
+    py3_command="/usr/bin/python3"
+    # DUNNO/2024-04-23 23:53: Found via `locate python-config.py`
+    # /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Headers/Python.h
+    # config_dir="/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/${ver_mminor}/lib/python${ver_mminor}/config-${ver_mminor}-darwin/"
+    config_dir="/opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/config-3.9-darwin"
+    export vi_cv_path_python3_include="/opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/"
+    export vi_cv_path_python3_platinclude="/opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/"
+  fi
   #
   make clean
   make distclean
+  # SAVVY/2024-04-26: Using major.minor did not work on @macOS, e.g.,:
+  #     --with-python3-command=python3.10
+  #   - Which is what's worked previously on @Linux.
+  # - FIXME: You'll want to test that the new line, e.g.,
+  #     --with-python3-command=python3
+  #   works on @Linux.
   ./configure \
     --enable-luainterp=yes \
     --enable-perlinterp=yes \
     --enable-python3interp=yes \
-    --with-python3-command=python${ver_mminor} \
+    --with-python3-command=${py3_command} \
     --with-python3-config-dir="${config_dir}" \
     --enable-rubyinterp=yes \
     --prefix=${HOME}/.local
