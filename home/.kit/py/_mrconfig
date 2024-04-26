@@ -142,9 +142,47 @@ echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   pull_latest "starter" "master" "" "main"
   #
+  example_install_poetry_dynamic_versioning () {
+    test "$(command -v deactivate)" = "deactivate" && deactivate
+    eval "$(pyenv init -)"
+    # USYNC: DEPOXY_PYENV_PYVERS
+    pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
+    pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+    #
+    # E.g., `pip install virtualenvwrapper`
+    vew_fork="${VENV_WRAP:-${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper}"
+    vew_name="virtualenvwrapper"
+    if [ -d "${vew_fork}" ]; then
+      vew_name="${vew_fork}"
+    fi
+    pip install "${vew_name}"
+    #
+    local venv_name=".venv-myapp"
+    python3 -m venv ${venv_name}
+    #
+    # CXREF: https://github.com/landonb/virtualenvwrapper
+    #
+    # Set crumb used by \`cdpraoject\` command.
+    pwd > "${venv_name}/.project"
+    #
+    # So that bare \`workon\` picks the new virtualenv.
+    touch -- "${venv_name}/bin/activate"
+    #
+    . "${venv_name}/bin/activate"
+    # ALTLY: Just call \`workon\`
+    #
+    pip install -U pip setuptools
+    #
+    pip install poetry
+    #
+    poetry self add "poetry-dynamic-versioning[plugin]"
+  }
+  # WORKS/2024-04-23: Confirmed on @macOS:
+  #   example_install_poetry_dynamic_versioning
+  #
   cat <<[EOF--poetry-dynamic-versioning]
   
-  YOU: Install poetry-dynamic-versioning to your venv's as necessary, e.g.:
+  USAGE: Install poetry-dynamic-versioning to your venv's as necessary, e.g.:
   
     venv_pyver=3.12.2
     venv_name=.venv-myapp
@@ -156,19 +194,25 @@ install =
   
     pyenv shell \${venv_pyver}
   
-    pip install virtualenvwrapper
+    # E.g., \`pip install virtualenvwrapper\`
+    vew_fork="\${VENV_WRAP:-\${DOPP_KIT:-\${HOME}/.kit}/py/virtualenvwrapper}"
+    vew_name="virtualenvwrapper"
+    if [ -d "\${vew_fork}" ]; then
+      vew_name="\${vew_fork}"
+    fi
+    pip install "\${vew_name}"
   
     python3 -m venv \${venv_name}
   
     # CXREF: https://github.com/landonb/virtualenvwrapper
     #
     # Set crumb used by \`cdproject\` command.
-    echo "\$(pwd)" > "\${venv_name}/.project"
+    pwd > "\${venv_name}/.project"
     #
     # So that bare \`workon\` picks the new virtualenv.
     touch -- "\${venv_name}/bin/activate"
   
-    . "${venv_name}/bin/activate"
+    . "\${venv_name}/bin/activate"
     # ALTLY: Just call \`workon\`
   
     pip install -U pip setuptools
@@ -176,6 +220,8 @@ install =
     pip install poetry
   
     poetry self add "poetry-dynamic-versioning[plugin]"
+  
+  REFER: Uncomment \`example_install_poetry_dynamic_versioning\` to test
   
  [EOF--poetry-dynamic-versioning]
 #↓↓↓ So ft=bash stops highlighting the Heredoc.
