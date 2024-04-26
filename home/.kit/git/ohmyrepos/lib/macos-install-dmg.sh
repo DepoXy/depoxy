@@ -58,3 +58,30 @@ install_dmg_with_download_user_prompt_and_symlink () {
   open /Volumes
 }
 
+# ***
+
+install_from_dmg_without_interaction () {
+  local dmg_path="$1"
+  local app_path="$2"
+
+  local volume_root="$(dirname -- "${app_path}")"
+
+  # DUNNO: Is there a quicker way to mount? This runs slow
+  # "Checksumming" routines. (Though faster on 2nd mount.)
+  echo
+  echo "hdiutil attach ${dmg_path}"
+  hdiutil attach "${dmg_path}"
+
+  # E.g., /Volumes/Docker/Docker.app
+  # - SAVVY: Use -p to keep user permissions.
+  # - TIMED: This takes a moment (on 500MB).
+  echo
+  echo "sudo cp -prf ${app_path} /Applications"
+  sudo cp -prf "${app_path}" /Applications
+
+  # E.g., /Volumes/Docker
+  echo
+  echo "sudo hdiutil detach ${volume_root}"
+  sudo hdiutil detach "${volume_root}"
+}
+
