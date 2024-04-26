@@ -309,7 +309,7 @@ installLinux =
   # SAVVY: We don't also install Python versions now, which takes a while, e.g.,
   #   mr -d ${MR_REPO} -n installpythons
   # - Have the user call that deliberately, on their own time.
-#
+
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
 #     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
@@ -345,6 +345,7 @@ installpythons =
 # - REFER: https://github.com/landonb/virtualenvwrapper
 installVirtualenvwrapper =
   command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  #
   for pyvers in $(pyenv versions | sed 's/^[^ ]* *\([^ ]\+\)*.*/\1/'); do
     pyenv shell ${pyvers}
     #
@@ -357,6 +358,7 @@ installVirtualenvwrapper =
     fi
     python3 -m pip install "${vew_name}"
   done
+
 infuse =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     return 0
