@@ -77,7 +77,7 @@ lib = remote_set starter "https://github.com/aykamko/tag.git" "aykamko-tag"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
   echo "- SAVVY: Restart your shell to pickup \`~/go/bin\`|\`~/.gopath/bin\` on \`PATH\`\n"
 install =
-  # Installs to ~/.gopath/bin/tag
+  # Installs to ~/.gopath/bin/tag @Linux or ~/go/bin/tag @macOS
   go install github.com/aykamko/tag@latest
 
 # ========================================================================
