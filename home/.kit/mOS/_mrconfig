@@ -159,28 +159,37 @@ echoInstallHelp =
  "
   #
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Create GeekTool *geeklets*:
-    - Create new *Shell* geeklet to stand in for menu bar clock when menu bar is hidden:
-      - Name: CTRDATE
+    - Create 2 *Shell* geeklets, one to stand in for the menu bar clock
+      when the menu bar is hidden, and another centered on the desktop:
+  
+      - Name: MENU_DATE | CTRD_DATE
+  
       - Command::
   
            date '+%a %Y-%m-%d %H:%M'
   
       - Refresh every: 1 s.
-      - Font: *Herculanum* 36pt Green (GUI doesn't show Hex code, just picker).
-        - To set, click *Click here to set font & color...*.
-      - I set text center-aligned, and then positioned the window.
-         - I tried right-aligned, but even with spaces at the end, the last
-           character from the clock was clipped by the *GeekTool* window.
   
-    - Create new *Shell* geeklet to be visible on desktop on show-desktop:
-      - Use case: You wanna know the time but can't see it.
+      - Font and style:
+        - MENU_DATE: Font: *Skia* 18pt White. Should fit under auto-hiding menu bar.
+        - CTRD_DATE: Font: *Herculanum* 36pt Green (GUI doesn't show Hex code, just picker).
+          - To set, click *Click here to set font & color...*.
+        - I set text center-aligned, and then positioned the window.
+           - I tried right-aligned, but even with spaces at the end, the last
+             character from the clock was clipped by the *GeekTool* window.
+  
+      - Setup: MENU_DATE: Position upper-right, where macOS menubar clock appears when showing.
+  
+      - Setup: CTRD_DATE: You wanna know the time but can't see it.
         - The geeklet lets you show-desktop, read time, and un-show desktop to resume work.
-      - Configure similarly to menu bar clock, but center this widget on the desktop,
-        so that you can see if when you look straight ahead.
+        - Configure similarly to menu bar clock, but center this widget on the desktop,
+          so that you can see if when you look straight ahead.
   
     - SAVVY: You can Ctrl-Alt-D show-desktop to more easily move geeklet widgets around.
   
     - SAVVY: Use the eyedropper to match the second widget font color to the first widget.
+  
+    - SAVVY: On Quit, choose \"No, Never Ask\" when asked if GeekTool should disable itself.
  "
 install = install_os_specific
 installDarwin =
