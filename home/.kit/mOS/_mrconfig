@@ -222,9 +222,13 @@ lib =
 echoInstallHelp =
   echoInstallHelp 'os_macos' 'dxy_all'
   #
-  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure \`homebrew-autoupdate\`:
-    System Preferences... > Notifications & Focus > Notifications > *brew-autoupdate*: ✓ Allow Notifications
- "
+  # DUNNO/2024-04-23: Not sure in macOS Sonoma 14.4.1 if we need to allow
+  # notifications, but I don't see brew-autoupdate at
+  #   Systems Settings... > Notifications > Application Notifications
+  # - HSRTY: On previous macOS, you could find the setting here:
+  #   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure \`homebrew-autoupdate\`:
+  #     System Preferences... > Notifications & Focus > Notifications > *brew-autoupdate*: ✓ Allow Notifications
+  #   "
 update =
   git fetch --all --prune
   #
