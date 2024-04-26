@@ -318,8 +318,41 @@ os_is_macos () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_NORMAL_EXIT=false
+
+exit_1 () { _NORMAL_EXIT=true; exit 1; }
+exit_0 () { _NORMAL_EXIT=true; exit 0; }
+
+exit_cleanup () {
+  if ! ${_NORMAL_EXIT}; then
+    # USAGE: Alert on unexpected error path, so you can add happy path.
+    >&2 echo "ALERT: "$(basename -- "$0")" exited abnormally!"
+    >&2 echo "- Hint: Enable \`set -x\` and run again..."
+  fi
+
+  trap - EXIT INT
+
+  ${_NORMAL_EXIT} && exit 0 || exit 1
+}
+
+int_cleanup () {
+  _NORMAL_EXIT=true
+
+  exit_cleanup
+}
+
+# ***
 
 main () {
+  set -e
+
+  trap -- exit_cleanup EXIT
+  trap -- int_cleanup INT
+
+  # ***
+
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
   # USAGE: See note atop depoxy_configure_private if you'd like to
@@ -333,6 +366,10 @@ main () {
   # ***
 
   slather_macos_defaults "$@"
+
+  # ***
+
+  trap - EXIT INT
 }
 
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
