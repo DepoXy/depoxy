@@ -26,6 +26,10 @@ meld () {
     || [ -d "/var/lib/flatpak/app/org.gnome.meld" ] \
   ; then
     flatpak run org.gnome.meld "$@"
+  elif [ -d "/Applications/Meld.app/" ]; then
+    # ALTLY: `open` could work, but fails on relative paths.
+    #   open /Applications/Meld.app/ --args "$@"
+    /Applications/Meld.app/Contents/MacOS/Meld "$@"
   elif type -f "meld" > /dev/null 2>&1; then
     # `type -f` ignores functions, i.e., don't match the function we're in.
 
