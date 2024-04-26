@@ -148,7 +148,7 @@ installDarwin =
 installLinux =
   # CXREF: Find latest version:
   #   https://github.com/the-via/releases/releases
-  #   
+  #
   # local via_version="2.1.0"
   local via_version="3.0.0"
   #
