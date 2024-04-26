@@ -114,12 +114,10 @@ unpack = true
 echoInstallHelp =
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Verify *Finicky* ready::
     mr -d \"${MR_REPO}\" -n infuse
-  
- $(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Configure *Finicky*:
-    Systems Preferences... > General > Default web browser: *👇 Finicky.app*
  "
-infuse =
-  os_is_macos || return 0
+# CXREF: ~/.homefries/lib/distro/default-browser.sh
+install = install_os_specific
+installDarwin =
   #
   # Guard clause.
   # - HUH: Cannot simply source default-browser.sh and call default-browser
