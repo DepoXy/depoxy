@@ -21,9 +21,23 @@
 #      size:1921, 1052,
 #     ...
 #
+#   ALTLY:
+#
+#     osascript -e 'tell application "System Events" to get properties of window 1 of application process "Google Chrome"'
+#
+#   Or for just the 'size':
+#
+#     osascript \
+#       -e 'tell application "System Events" to tell process "Google Chrome"' \
+#       -e "size of window 1" \
+#       -e "end tell"
+#
 # - And then plug the values into set-the-bounds:
 #
 #     set the bounds ... to {x-posit, y-posit, width, height}
+
+# SAVVY: Note You're settings *bounds*,
+# not x,y,w,h, but the corners.
 
 # Ugh, it sometimes seems like everything requires a work-around.
 #
