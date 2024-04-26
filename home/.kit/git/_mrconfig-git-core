@@ -435,17 +435,53 @@ lib = remote_set starter https://github.com/jonas/tig.git
 #    remote_set publish https://github.com/landonb/tig.git
 #    remote_set starter https://github.com/jonas/tig.git"
 skip = mr_exclusive "kit" "git" "kit-git"
-echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
-install = install_os_specific
-# Prefer Homebrew tig on macOS, which is generally up to date, otherwise
-# you need a slightly more complicated installer (and need to install
-# prerequisites).
-# - SAVVY/2023-02-12: I don't always keep my Linux Mint current,
-#   e.g., Linux Mint 19.3 installs tig 2.3.0, but 2.5.3 is latest
-#   (and has features I want). So add 'install' action.
-# - MAYBE/2024-02-09: I might start hacking on tig, in which case
-#   I'll want to figure out the macOS build. So separate installs.
-installDarwin = false
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -x "${HOME}/.local/bin/tig"
+# UCASE: Linux distro tig aren't kept up to date like Homebrew.
+# - E.g., Linux Mint 19.3 was not EOL'd until early 2023, and
+#   it shipped with tig 2.3.0, while 2.5.3 was the latest.
+# UCASE: So you can dev on tig. (The best reason to install from source.)
+install =
+  # Ensure/Install deps.
+  install_os_specific
+  #
+  make clean
+  make configure
+  ./configure
+  make prefix=${HOME}/.local
+  make install prefix=${HOME}/.local
+  make install-doc prefix=${HOME}/.local
+  #
+  type -a tig
+  tig --version
+installDarwin =
+  # REFER: /opt/homebrew/lib/libssl.a
+  #
+  # REFER: /opt/homebrew/opt/ncurses/
+  #
+  # REFER: /opt/homebrew/opt/libiconv/bin
+  # - For compilers to find libiconv you may need to set:
+  #     export LDFLAGS="-L/opt/homebrew/opt/libiconv/lib"
+  #     export CPPFLAGS="-I/opt/homebrew/opt/libiconv/include"
+  brew install libiconv
+  #
+  # REFER: /opt/homebrew/opt/readline/
+  #
+  # REFER: /opt/homebrew/opt/pcre2/
+  # - Already installed (pcregrep)
+  brew install pcre2
+  #
+  # - Already installed (autoconf)
+  brew install autoconf
+  #
+  # - REFER: `man 1 xmllint`
+  #   export XML_CATALOG_FILES=/opt/homebrew/etc/xml/catalog
+  brew install asciidoc
+  #
+  # /opt/homebrew/etc/xml/
+  brew install xmlto
+  #
+  brew install docbook-xsl
 installLinux =
   # SAVVY/2024-02-26: tig uses an alternative version tag prefix.
   # - To demo git-nubs.sh comamnds directly, run, e.g.:
@@ -511,13 +547,6 @@ installLinux =
                                       # DocBook (DSSL/Jade) tools  # gen's XML → PDF  [for why?]
     sudo apt install -y ${pkgs}
   fi
-  #
-  make clean
-  make configure
-  ./configure
-  make prefix=${HOME}/.local
-  make install prefix=${HOME}/.local
-  make install-doc prefix=${HOME}/.local
 
 # ========================================================================
 # ------------------------------------------------------------------------
