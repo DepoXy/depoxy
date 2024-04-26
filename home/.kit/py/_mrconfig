@@ -330,11 +330,11 @@ installVirtualenvwrapper =
     pip install --upgrade pip
     #
     vew_fork="${VENV_WRAP:-${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper}"
+    vew_name="$(basename -- "${vew_fork}")"
     if [ -d "${vew_fork}" ]; then
-      pip install ${vew_fork}
-    else
-      pip install virtualenvwrapper
+      vew_name="${vew_fork}"
     fi
+    python3 -m pip install "${vew_name}"
   done
 infuse =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
