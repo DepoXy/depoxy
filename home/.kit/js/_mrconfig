@@ -129,7 +129,11 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install current and active Node versions::
     mr -d \"${MR_REPO}\" -n installNVMNodes
  "
-install = pull_latest "starter" "master" "" "main"
+install =
+  pull_latest "starter" "master" "" "main"
+  #
+  mr -d "${MR_REPO}" -n installNVMNodes
+  #
   # ISOFF/2023-04-25: I think ./install.sh is unnecessary.
   # - Homefries Bashrc sources nvm from repo location, which should be
   #   equivalent (./install.sh downloads sources and probably wires to
