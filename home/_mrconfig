@@ -352,7 +352,7 @@ lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
 chain = true
 # CXREF: setup_vim_generate_helptags calls :Helptags.
 echoInstallHelp =
-  echo "$(echoInstallHelpWidget 'os_all' 'dxy_maybe') \
+  echo "$(echoInstallHelpWidget 'os_all' 'dxy_all') \
  DepoXy: Generate Vim help docs (also runs on \`infuse\`): Run Vim, then::
       :Helptags
  "
