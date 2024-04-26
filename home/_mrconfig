@@ -356,6 +356,8 @@ echoInstallHelp =
  DepoXy: Generate Vim help docs (also runs on \`infuse\`): Run Vim, then::
       :Helptags
  "
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'run :Helptags'
+install = vim -u NONE -c "Helptags" -c q
 infusePostRebase =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
