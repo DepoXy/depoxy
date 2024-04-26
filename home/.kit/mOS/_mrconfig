@@ -55,9 +55,12 @@ unpack = true
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all' 'if that‘s something you‘ll use'
 install = install_os_specific
 installDarwin =
-  local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
-  mkdir -p "${downloads_dir}"
-  cd "${downloads_dir}"
+  # ISOFF/2024-04-24: Might as well use the placeholder project directory
+  #   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
+  #   mkdir -p "${downloads_dir}"
+  #   cd "${downloads_dir}"
+  local downloads_dir="."
+  #
   # BWARE: Targets arm64/AArch64/Apple Silicon/M1 Macs.
   # - If you're encouraged to add a dynamic h/w check, please do so!
   #   - For now, hard-coded to author's latest machine architecture.
