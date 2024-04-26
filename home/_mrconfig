@@ -287,7 +287,8 @@ autocommit =
   git_auto_commit_parse_args "$@"
   git_auto_commit_one 'home/.vim/spell/en.utf-8.add--personal' -m "Update: Spells"
 
-echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all' \
+  'set fussy.desktop as default browser'
 install = install_os_specific
 installLinux =
   # DUNNO/2023-02-09: Meh, not sure where else to put this...
