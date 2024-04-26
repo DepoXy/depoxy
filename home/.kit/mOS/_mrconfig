@@ -52,7 +52,7 @@ ffssh = true
 travel = true
 unpack = true
 #
-echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_maybe' 'if that‘s something you‘ll use'
+echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all' 'if that‘s something you‘ll use'
 install = install_os_specific
 installDarwin =
   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
