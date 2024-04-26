@@ -125,6 +125,7 @@ skip = mr_exclusive "!entrusted"
 lib = remote_set publish https://github.com/DepoXy/myrepos-mredit-command.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+  echo "- SAVVY: Restart your shell so \`MREDIT_CONFIGS=~/.projlns/mymrconfigs\`\n"
 install = PREFIX="${HOME}/.local" make install
 infusePostRebase =
   link_hard_dep_sh_colors
