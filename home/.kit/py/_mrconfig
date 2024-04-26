@@ -88,9 +88,9 @@ installPips =
 lib = remote_set starter https://github.com/python-poetry/poetry.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
-  #
-  command -v deactivate >/dev/null 2>&1 && deactivate
   pull_latest "starter" "main"
+  # Check for `deactivate` command (ignore if on PATH).
+  test "$(command -v deactivate)" = "deactivate" && deactivate
   eval "$(pyenv init -)"
   pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
   pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
@@ -149,7 +149,7 @@ install =
     venv_pyver=3.12.2
     venv_name=.venv-myapp
   
-    command -v deactivate >/dev/null 2>&1 && deactivate
+    test "\$(command -v deactivate)" = "deactivate" && deactivate
     eval "\$(~/.local/bin/pyenv init -)"
   
     pyenv install -s \${venv_pyver}
