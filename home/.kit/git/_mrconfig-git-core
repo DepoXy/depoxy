@@ -221,14 +221,16 @@ install = install_os_specific
 # Brew when tagging new versions, so no need to worry about falling behind.
 installDarwin =
   if [ -e "/opt/homebrew/bin/interactive-rebase-tool" ]; then
+    echo "git-interactive-rebase-tool is already installed"
+    #
     # $ /opt/homebrew/bin/interactive-rebase-tool --version
     # interactive-rebase-tool 2.2.1 (2022-10-14)
-    echo "git-interactive-rebase-tool is already installed"
     /opt/homebrew/bin/interactive-rebase-tool --version
   else
     echo "Installing git-interactive-rebase-tool from Homebrew"
+    #
+    brew install git-interactive-rebase-tool
   fi
-  brew install git-interactive-rebase-tool
 installLinux =
   # Requires Rust!
   #   https://www.rust-lang.org/tools/install
