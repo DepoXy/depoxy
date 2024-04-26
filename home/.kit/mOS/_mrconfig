@@ -193,13 +193,15 @@ echoInstallHelp =
  "
 install = install_os_specific
 installDarwin =
+  # REFER/2024-04-24: Still the latest (for last year at least):
+  #   https://dl.devmate.com/org.tynsoe.GeekTool/331.014/1470733752/GeekTool-331.014.zip
   local geektool_vers="331.014"
   local dist_root="1470733752"
   #
   echo "Installing GeekTool:"
   echo "- Version: ${geektool_vers}"
   echo
-  echo "YOU: Update GeekTool to latest version as appropriate."
+  echo "STEPS: Update GeekTool to latest version as appropriate"
   echo "- Visit:"
   echo
   echo "    https://www.tynsoe.org/geektool/"
