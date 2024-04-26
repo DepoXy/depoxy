@@ -97,7 +97,7 @@ lib = remote_set starter https://github.com/tj/git-extras.git
 skip = mr_exclusive "kit" "git" "kit-git"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
 install =
-  pull_latest "starter" "master"
+  pull_latest "starter" "main"
   #
   # Make and place man pages.
   # - Prereq.: Requires `ronn`: "tool to build manuals from Markdown".

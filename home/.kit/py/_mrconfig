@@ -88,9 +88,9 @@ installPips =
 lib = remote_set starter https://github.com/python-poetry/poetry.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
-  pull_latest "starter" "master" "" "main"
   #
   command -v deactivate >/dev/null 2>&1 && deactivate
+  pull_latest "starter" "main"
   eval "$(pyenv init -)"
   pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
   pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
