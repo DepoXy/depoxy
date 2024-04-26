@@ -81,6 +81,7 @@ isInstalled =
   done
 install =
   eval "$(pyenv init -)"
+  # USYNC: DEPOXY_PYENV_PYVERS
   pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
   pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
   # pip install --upgrade pip
@@ -88,6 +89,7 @@ install =
   python3 -m pip install --user pipx
 installPips =
   eval "$(pyenv init -)"
+  # USYNC: DEPOXY_PYENV_PYVERS
   pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
   for package in \
     "asciinema" \
@@ -121,6 +123,7 @@ install =
   # Check for `deactivate` command (ignore if on PATH).
   test "$(command -v deactivate)" = "deactivate" && deactivate
   eval "$(pyenv init -)"
+  # USYNC: DEPOXY_PYENV_PYVERS
   pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
   pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
   #
