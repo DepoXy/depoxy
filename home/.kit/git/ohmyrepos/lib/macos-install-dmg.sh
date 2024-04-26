@@ -51,5 +51,10 @@ install_dmg_with_download_user_prompt_and_symlink () {
   echo "Or more conveniently:"
   echo
   echo "  $(basename -- "${local_bin_shim}")"
+
+  # DUNNO/2024-04-26: This might be annoying....
+  echo
+  echo "STEPS: Open Finder and click Unmount ⏏ symbol to unmount the install image"
+  open /Volumes
 }
 
