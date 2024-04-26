@@ -209,10 +209,10 @@ installDarwin =
   #
   local geektool_base="GeekTool-${geektool_vers}"
   #
-  cd ~/.downloads
   wget "https://dl.devmate.com/org.tynsoe.GeekTool/${geektool_vers}/${dist_root}/${geektool_base}.zip"
-  unzip -d "${geektool_base}" "${geektool_base}.zip"
-  mv "${geektool_base}/GeekTool.app/" "${HOME}/Applications/"
+  unzip -q -d "${geektool_base}" "${geektool_base}.zip"
+  command mv -- "${geektool_base}/GeekTool.app/" "${HOME}/Applications/"
+  rmdir -- "${geektool_base}"
   echo "GeekTool copied to ~/Applications"
   echo "... please wait a few seconds until Spotlight knows it."
 
