@@ -50,6 +50,10 @@ depoxy_configure () {
 
   # ***
 
+  depoxy_configure_remind_task_reopen_terminals_and_vim
+
+  # ***
+
   # USAGE: See next note abote how to add your own (private) reminders.
   depoxy_configure_private
 }
@@ -265,6 +269,16 @@ depoxy_configure_remind_task_infuse_and_wireRemotes () {
 
     # Infuse all the project wiring:
     MR_INCLUDE=entrusted mr -d / infuse
+")
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+depoxy_configure_remind_task_reopen_terminals_and_vim () {
+  print_at_end+=("\
+🔳 DepoXy: Restart shells and Vims to realize changes
+   (e.g., restart shells so myrepos-mredit-command picks up new MREDIT_CONFIGS environ,
+    etc.)
 ")
 }
 
