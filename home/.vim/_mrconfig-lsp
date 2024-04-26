@@ -136,10 +136,10 @@ install =
   #   npm WARN deprecated tslint@6.1.3: TSLint has been deprecated in favor of ESLint.
   npm install
   # The install changes package.json, which makes the repo look changed.
-  debug " Restore package.json"
+  debug "Restore package.json"
   git checkout -- package.json
   # Update Vim help.
-  debug " Calling :Helptags"
+  debug "Calling :Helptags"
   vim -u NONE -c "helptags ./doc" -c q
   #
   # Install Language Server plugins.
