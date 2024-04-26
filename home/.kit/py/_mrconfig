@@ -541,7 +541,8 @@ installpythons =
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 [${DOPP_KIT:-${HOME}/.kit}/py/aws-cli]
 lib = remote_set starter https://github.com/aws/aws-cli.git
-echoInstallHelp = echoInstallHelp 'os_maybe' 'dxy_limit' 'if that‘s something you‘ll use'
+# ISOFF/2024-04-23: I haven't used this tool in years.
+echoInstallHelp = echoInstallHelp 'os_off' 'dxy_limit' 'if that‘s something you‘ll use'
 install =
   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
   mkdir -p "${downloads_dir}"
