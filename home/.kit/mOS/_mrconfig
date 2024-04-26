@@ -78,9 +78,20 @@ installDarwin =
   sudo -k
   sudo -v
   if sudo -nv 2> /dev/null; then
+    # DUNNO: Is there a quicker way to mount? This runs slow
+    # "Checksumming" routines. (Though faster on 2nd mount.)
+    echo
+    echo "hdiutil attach \"${downloads_dir}/${docker_dmg}\""
     hdiutil attach "${downloads_dir}/${docker_dmg}"
+    # 
     # SAVVY: Use -p to keep user permissions.
+    # TIMED: This takes a moment (500MB).
+    echo
+    echo "sudo cp -prf /Volumes/Docker/Docker.app /Applications"
     sudo cp -prf /Volumes/Docker/Docker.app /Applications
+    #
+    echo
+    echo "sudo hdiutil detach /Volumes/Docker"
     sudo hdiutil detach /Volumes/Docker
   else
     echo "YOU: Drag-and-drop the app folder to the Applications/ folder."
