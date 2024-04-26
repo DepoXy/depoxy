@@ -7,13 +7,16 @@
 # ------------------------------------------------------------------------
 
 [DEFAULT]
-order = 690
+order = 999
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/go/fzf]
 lib = remote_set starter https://github.com/junegunn/fzf.git
+# DEPCY: Relies on nvm being ordered (installed) earlier / CXREF:
+#   ~/.depoxy/ambers/home/.kit/js/_mrconfig @ 105 (order = 690).
+order = 691
 infuse =
   link_private_exclude "${@}"
   if [ -e "${MR_REPO}/bin/fzf" ]; then
@@ -74,6 +77,8 @@ installLinux =
 #   Segmentation fault: 11
 [${DOPP_KIT:-${HOME}/.kit}/go/aykamko-tag]
 lib = remote_set starter "https://github.com/aykamko/tag.git" "aykamko-tag"
+# Bump the order so earlier in echoInstallHelp list
+order = 310
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'tag'
   echo "- SAVVY: Restart your shell to pickup \`~/go/bin\`|\`~/.gopath/bin\` on \`PATH\`\n"
 install =

@@ -33,6 +33,9 @@ updateDeps =
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag]
 lib = remote_set publish https://github.com/landonb/git-bump-version-tag.git
 skip = mr_exclusive "!entrusted"
+# DEPCY: Relies on pipx being ordered (installed) earlier / CXREF:
+#   ~/.depoxy/ambers/home/.kit/py/_mrconfig @ 24
+order = 470
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install = pipx install dunamai
 infusePostRebase =
@@ -124,6 +127,9 @@ skip = mr_exclusive "!entrusted"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command]
 lib = remote_set publish https://github.com/DepoXy/myrepos-mredit-command.git
 skip = mr_exclusive "!entrusted"
+# Bump the order so first in echoInstallHelp list (b/c author finds
+# this command that useful).
+order = 370
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
   echo "- SAVVY: Restart your shell so \`MREDIT_CONFIGS=~/.projlns/mymrconfigs\`\n"
 install = PREFIX="${HOME}/.local" make install

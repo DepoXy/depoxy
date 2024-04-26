@@ -7,7 +7,7 @@
 # ------------------------------------------------------------------------
 
 [DEFAULT]
-order = 780
+order = 830
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -282,26 +282,26 @@ lib = remote_set starter https://github.com/tpope/vim-commentary.git
 
 # - 2019-03-19: Disabled vim-endwise: it's frustrating me.
 [pack/tpope/opt/vim-endwise]
-order = 790
+order = 840
 lib = remote_set starter https://github.com/tpope/vim-endwise.git
 # FIXME/2020-02-13: Uncomment (and skip) someday:
 #  skip = true
 
 [pack/tpope/opt/vim-pathogen]
-order = 790
+order = 840
 lib = remote_set starter https://github.com/tpope/vim-pathogen.git
 
 # - The scriptease package is quite esoteric. It's basically Tim Pope's
 #   Vim dev commands. And the last thing I need to do is spend time more
 #   time developing Vim, especially core Vim!! Pass.
 [pack/tpope/opt/vim-scriptease]
-order = 790
+order = 840
 lib = remote_set starter https://github.com/tpope/vim-scriptease.git
 
 # - 2018-12-13: A colorscheme I looked at, for inspiration, but ultimately
 #               dubs_after_dark is too hot.
 [pack/tpope/opt/vim-vividchalk]
-order = 790
+order = 840
 lib = remote_set starter https://github.com/tpope/vim-vividchalk.git
 
 # *** tpope [active]

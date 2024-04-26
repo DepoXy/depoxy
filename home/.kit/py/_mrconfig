@@ -19,6 +19,9 @@ order = 695
 #   version is in your shell when you install and app or run it.
 [${DOPP_KIT:-${HOME}/.kit}/py/pipx]
 lib = remote_set starter https://github.com/pypa/pipx.git
+# Bump the order so before projects that need pipx in the echoInstallHelp list
+# (lowest-order project is git-bump-version-tag, order = 470).
+order = 469
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_all'
   #
@@ -86,6 +89,8 @@ installPips =
 # https://github.com/python-poetry/poetry
 [${DOPP_KIT:-${HOME}/.kit}/py/poetry]
 lib = remote_set starter https://github.com/python-poetry/poetry.git
+# SAVVY: Ensure order precedes poetry plugin(s).
+order = 695
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   pull_latest "starter" "main"
@@ -137,6 +142,8 @@ update =
 # Another project I don't need locally, but I like having the install command.
 [${DOPP_KIT:-${HOME}/.kit}/py/poetry-dynamic-versioning]
 lib = remote_set starter https://github.com/mtkennerly/poetry-dynamic-versioning.git
+# Decrease the order so follows poetry (order = 470).
+order = 696
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 # FIXME/2024-02-26: Does this only work from activate venv?
 install =
@@ -245,6 +252,9 @@ checkout =
   else
     mr_repo_checkout
   fi
+# Should be ordered lower than anything that uses `pyenv init`
+# (lowest-order project is pipx, order = 469).
+order = 468
 echoInstallHelp =
   echoInstallHelp 'os_linux' 'dxy_all'
   #

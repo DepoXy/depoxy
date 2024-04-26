@@ -121,6 +121,8 @@ installDarwin =
 
 [${DOPP_KIT:-${HOME}/.kit}/js/nvm]
 lib = remote_set starter https://github.com/nvm-sh/nvm.git
+# Bump the order so before projects that need nvm (like fzf, OpenLens).
+order = 689
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 echoInstallHelp =
