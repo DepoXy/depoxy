@@ -10,8 +10,11 @@ source_deps () {
   #    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
   # Load: symlink_*, infuser_prepare.
-  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+  # - CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
+  # Update PATH, in case this file run directly by user, because OMR
+  # expects all its deps to be on PATH.
+  export PATH="${PATH}:${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  . "overlay-symlink.sh"
 
   # Required by distro_util.sh: tweak_errexit
   . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/process_util.sh"
