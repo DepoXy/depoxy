@@ -49,6 +49,8 @@ init_spellssh () {
 #   below) is first arg passed to upstream compile-spells.
 
 compile_spells () {
+  local homeish_path="$1"
+
   local client_homeish=""
   local client_basedir="$(_print_client_basedir)"
   if [ -n "${client_basedir}" ]; then
@@ -56,7 +58,7 @@ compile_spells () {
     client_homeish="${client_basedir}/home"
   fi
 
-  "${SPF_SPELLS}" compile-spells "$@" "${client_homeish}" "${DEPOXY_SPELLS}"
+  "${SPF_SPELLS}" compile-spells "${homeish_path}" "${DEPOXY_SPELLS}" "${client_homeish}" "$@"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
