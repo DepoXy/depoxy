@@ -89,6 +89,10 @@ infuse =
   # Too much?
   symlink_overlay_file "${MR_REPO}/bin/putwisely" \
     "${HOME}/.local/bin/putwisely"
+  #
+  # Not so much a "convenience" symlink as a reminder it exists.
+  local ambers_root="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
+  symlink_overlay_file "${ambers_root}/core/putwisely.sh" "${MR_REPO}/bin/putwisely.sh"
 updateDeps =
   update_deps_shoilerplate
 
