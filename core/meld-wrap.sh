@@ -38,7 +38,9 @@ meld () {
 
     /usr/bin/env meld "$@"
   else
-    echo "ERROR: Cannot locate meld (via flatpak or on PATH)"
+    >&2 echo "ERROR: Cannot locate meld (via flatpak or on PATH)"
+
+    return 1
   fi
 }
 
