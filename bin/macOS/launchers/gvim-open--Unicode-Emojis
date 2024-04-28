@@ -9,6 +9,7 @@ main () {
   [ -f "${HOME}/.config/depoxy/depoxyrc" ] && . "${HOME}/.config/depoxy/depoxyrc"
 
   # Open, e.g., ~/.kit/txt/emoji-lookup/emoji-lookup.rst
+  # - CXREF: ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
   "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
     "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst"
 }

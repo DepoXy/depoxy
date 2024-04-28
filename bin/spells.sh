@@ -22,6 +22,7 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 init_spellssh () {
+  # CXREF: ~/.kit/txt/spellfile.txt/bin/spells.sh
   SPF_SPELLS="${SPELLFILE_DIR:-${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt}/bin/spells.sh"
 
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
