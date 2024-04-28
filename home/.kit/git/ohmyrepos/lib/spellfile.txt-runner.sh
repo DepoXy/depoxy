@@ -29,6 +29,16 @@ commit_sorted_spells_and_alert_if_conflicts () {
   debug "$(fg_mintgreen)$(attr_emphasis)cast spellfile$(attr_reset)" \
     "$(fg_lightblue)${compiled_spells}$(attr_reset)"
 
+  # If Vim's spell file is empty, assume user is standing up a new
+  # Vim install. The compiled file was made from existing sources,
+  # so there are no new words to commit. We can copy the compiled
+  # file to the active file, and commit it.
+  if [ ! -s "${active_spell}" ]; then
+    command cp -- "${compiled_spells}" "${active_spell}"
+
+    git_auto_commit_one "${active_spell}"
+  fi
+
   local n_lines_diff=0
   n_lines_diff="$(spells.sh print-num-unsynced-changes "${homeish_path}")"
 
