@@ -26,7 +26,7 @@ init_spellssh () {
 
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   # E.g., ~/.depoxy/ambers/home/.vim/spell/en.utf-8.add--private
-  DXY_PRIVATE_SPELL="${ambers_path}/home/.vim/spell/en.utf-8.add--personal"
+  DEPOXY_SPELLS="${ambers_path}/home/.vim/spell/en.utf-8.add--personal"
 }
 
 # ***
@@ -55,7 +55,7 @@ compile_spells () {
     client_homeish="${client_basedir}/home"
   fi
 
-  "${SPF_SPELLS}" compile-spells "$@" "${client_homeish}" "${DXY_PRIVATE_SPELL}"
+  "${SPF_SPELLS}" compile-spells "$@" "${client_homeish}" "${DEPOXY_SPELLS}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
