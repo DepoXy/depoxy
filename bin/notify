@@ -271,7 +271,7 @@ say_it_and_spray_it_macos () {
 # (irrespective of type of English, e.g., find all "English (*)" matches),
 # will make the experience feel more worldly and sophisticated.
 random_voice_macos () {
-  IFS=$'\r\n' GLOBIGNORE='*' command eval "VOICES=(\$(say -v ? | grep en_ | awk '{ print \$1 }'))"
+  IFS=$'\r\n' GLOBIGNORE='*' command eval "VOICES=(\$(say -v ? | grep en_ | awk '{ print \$1 }' | uniq))"
 
   local n_voices=${#VOICES[@]}
 
