@@ -577,7 +577,7 @@ include =
     # not include matching tag.
     # - I.e., `&& ! mr_exclusive` really means 'and don't skip'.
     # - Another way to think of the current var name: 'exclusive of'.
-    if [ -e "${client_mrconfig}" ] && ! mr_exclusive "client" "work"; then
+    if [ -f "${client_mrconfig}" ] && ! mr_exclusive "client" "work"; then
       cat "${client_mrconfig}"
     fi
     #
