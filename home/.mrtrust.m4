@@ -63,6 +63,9 @@ DOPP_KIT/txt/_mrconfig
 # *** Trust DepoXy Client config.
 
 USER_HOME/.depoxy/running/_mrconfig
+# Reserveable short-term trusted path, used
+# by deploy-archetype.sh during standup.
+USER_HOME/.depoxy/.adscititious/_mrconfig
 
 # *** Private client mrconfig can be appended, but not necessary,
 #     as cat files are inherently trusted. But also listing here

@@ -570,6 +570,11 @@ include =
   . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
   #
   include_client_mrconfig () {
+    # Note this doesn't use DEPOXY_CLIENT_ID because depoxyrc might not
+    # be wired yet, nor does it use depoxy_fs.sh, which defaults to the
+    # largest-number client under ~/.depoxy/stints. It uses instead the
+    # special "running" symlink, whose main purpose is this mechanism,
+    # to tell us which DXC config to load.
     local client_mrconfig="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/_mrconfig"
     #
     # `mr_exclusive` should really be named `should_skip` b/c that's
@@ -584,6 +589,22 @@ include =
     return 0
   }
   include_client_mrconfig
+
+include =
+  # "Reservable" path, for temporarily injecting project(s), running OMR
+  # actions, and releasing the reservable path. Essentially lets the
+  # deploy-archetype.sh script standup an out-of-band DepoXy Client
+  # (without needing to edit ~/.mrtrust or wire its path into mrconfig).
+  include_reservable_mrconfig () {
+    local reservable_mrconfig="${DEPOXYDIR_RESERVABLE_FULL:-${HOME}/.depoxy/.adscititious}/_mrconfig"
+    #
+    if [ -f "${reservable_mrconfig}" ]; then
+      cat "${reservable_mrconfig}"
+    fi
+    #
+    return 0
+  }
+  include_reservable_mrconfig
 
 # ========================================================================
 # ------------------------------------------------------------------------
