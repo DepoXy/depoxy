@@ -69,6 +69,7 @@ setup_myrepos_generated_mrtrust () {
   touch -- "${ambers_home}/.mrtrust"
   symlink_mrinfuse_file ".mrtrust"
 
+  # USYNC: mrtrust_generators
   $(m4_kludge) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \

@@ -143,13 +143,7 @@ clone_ohmyrepos () {
 prepare_mrconfig () {
   cd "${HOME}"
 
-  # Generate the myrepos trust file.
-  $(m4_kludge) \
-    --define=USER_HOME=${HOME} \
-    --define=DOPP_KIT=${DOPP_KIT} \
-    --define=GITREPOSPATH=${GITREPOSPATH} \
-    ${DEPOXYAMBERS_DIR}/home/.mrtrust.m4 \
-    > ${DEPOXYAMBERS_DIR}/home/.mrtrust
+  prepare_mrtrust
 
   # Wire the main mrconfig (~/.mrconfig) and its allowlist (~/.mrtrust).
   #
@@ -164,7 +158,16 @@ prepare_mrconfig () {
   ln -sf "${DEPOXYAMBERS_DIR}/home/.mrtrust" ".mrtrust"
 }
 
-# ***
+# Generate the myrepos trust file.
+# - USYNC: mrtrust_generators
+prepare_mrtrust () {
+  $(m4_kludge) \
+    --define=USER_HOME=${HOME} \
+    --define=DOPP_KIT=${DOPP_KIT} \
+    --define=GITREPOSPATH=${GITREPOSPATH} \
+    ${DEPOXYAMBERS_DIR}/home/.mrtrust.m4 \
+    > ${DEPOXYAMBERS_DIR}/home/.mrtrust
+}
 
 # BUGGY/2024-04-13: I'm skeptical that I really found a bug in Xcode,
 # but it seems that way!:
