@@ -298,6 +298,9 @@ echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all' \
 isInstalled = os_is_macos \
   || [ "$(xdg-settings get default-web-browser)" = "fussy.desktop" ]
 install = install_os_specific
+installDarwin =
+  # Trigger popup so user can enable terminal toasts.
+  terminal-notifier -message "✓ Allow terminal notifications"
 installLinux =
   # DUNNO/2023-02-09: Meh, not sure where else to put this...
   # - *fussy* is a Linux version of `finicky`:
