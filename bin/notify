@@ -373,7 +373,7 @@ cat <<'EOF'
   )"
   # Open gthumb, then look for *48/ directories.
   gthumb /usr/share/icons/${icon_theme}/ &
-  # ALTLY: (BWARE: Don't run similar using gthumb):
+  # ALTLY: (BWARE: Do not run similar using gthumb):
   eog $(find /usr/share/icons/${icon_theme} -path *48/*.png)
 EOF
 )"
