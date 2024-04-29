@@ -261,8 +261,10 @@ say_it_and_spray_it_macos () {
   # disliked any particular voices, so that I could compile a favorites list.
   # But either way, I might keep this additional `say`, so long as it keeps
   # assuming me.
-  sleep 0.42
-  say -r 255 "Thank you ${voice}.... shoo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
+  # - Rate -r in words per minute, defaults sounds around ~165.
+  sleep 0.22
+  say -r 187 "Thank you, Voice of, ${voice}"
+  say -r 255 "shoo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
 }
 
 # `say -v '?'` prints table of voices, which we parse for English voice names
