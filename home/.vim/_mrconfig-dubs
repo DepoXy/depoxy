@@ -88,6 +88,7 @@ lib = remote_set publish https://github.com/landonb/dubs_file_finder.git
 
 [pack/landonb/start/dubs_ftype_mess]
 lib = remote_set publish https://github.com/landonb/dubs_ftype_mess.git
+infuse = link_private_exclude "$@"
 
 [pack/landonb/start/dubs_grep_steady]
 lib = remote_set publish https://github.com/landonb/dubs_grep_steady.git
