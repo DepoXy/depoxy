@@ -17,6 +17,12 @@
 commit_sorted_spells_and_alert_if_conflicts () {
   local active_spell="home/.vim/spell/en.utf-8.add"
 
+  # If user standing up a new DXC, or if ~/.vim/spell/en.utf-8.add
+  # not linked back to this project, the spell file might be absent.
+  if [ ! -f "${active_spell}" ]; then
+    touch -- "${active_spell}"
+  fi
+
   sort_file_then_commit "${active_spell}"
 
   # E.g., ~/.depoxy/ambers/home, or ~/.depoxy/running/home
