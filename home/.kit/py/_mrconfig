@@ -260,7 +260,6 @@ install =
  [EOF--poetry-dynamic-versioning]
 #↓↓↓ So ft=bash stops highlighting the Heredoc.
 [EOF--poetry-dynamic-versioning]
-skip = true
 #↑↑↑ So ft=bash stops highlighting the Heredoc.
 
 # ========================================================================

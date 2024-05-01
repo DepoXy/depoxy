@@ -308,7 +308,6 @@ installLinux =
  [EOF--git-interactive-rebase-tool]
 #↓↓↓ So ft=bash stops highlighting the Heredoc.
 [EOF--git-interactive-rebase-tool]
-skip = true
 #↑↑↑ So ft=bash stops highlighting the Heredoc.
 
 # ========================================================================
