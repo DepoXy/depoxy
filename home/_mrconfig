@@ -404,7 +404,7 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
 #  Dev Dopp Kit/ (wherein you'll find Shell- and Git-related projects).
 
 [${MR_HOME:-${HOME}}/.kit]
-order = 133
+order = 204
 checkout = true
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
