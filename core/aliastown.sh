@@ -135,7 +135,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # *** ~/.kit/mOS — macOS
 
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
-  pushd_alias_or_warn "cdma" "${DOPP_KIT:-${HOME}/.kit}/mOS"
+  pushd_alias_or_warn "cdm" "${DOPP_KIT:-${HOME}/.kit}/mOS"
+  pushd_alias_or_warn "cdmO" "${DOPP_KIT:-${HOME}/.kit}/mOS"
+  pushd_alias_or_warn "cdmos" "${DOPP_KIT:-${HOME}/.kit}/mOS"
 
   pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
 
