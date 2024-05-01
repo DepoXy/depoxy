@@ -71,6 +71,7 @@ include =
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "mOS" ] ||
      [ "${MR_INCLUDE}" = "kit-mOS" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig
     cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig
@@ -81,6 +82,7 @@ include =
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "odd" ] ||
      [ "${MR_INCLUDE}" = "kit-odd" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/odd/_mrconfig
     cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/_mrconfig
