@@ -281,7 +281,9 @@ installDarwin =
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
 lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
-skip = ! os_is_macos
+# Skip on @Linux except to 'checkout' (make stub directory).
+checkout = os_is_macos && mr_repo_checkout || stub_checkout_directory
+skip = ! os_is_macos && ! test "${MR_ACTION}" = "checkout"
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true
@@ -301,7 +303,9 @@ lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
-skip = ! os_is_macos
+# Skip on @Linux except to 'checkout' (make stub directory).
+checkout = os_is_macos && mr_repo_checkout || stub_checkout_directory
+skip = ! os_is_macos && ! test "${MR_ACTION}" = "checkout"
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true
