@@ -214,7 +214,7 @@ install =
   # WORKS/2024-04-23: Confirmed on @macOS:
   #   example_install_poetry_dynamic_versioning
   #
-  cat <<[EOF--poetry-dynamic-versioning]
+  cat <<[DEFAULT]
   
   USAGE: Install poetry-dynamic-versioning to your venv's as necessary, e.g.:
   
@@ -257,9 +257,9 @@ install =
   
   REFER: Uncomment \`example_install_poetry_dynamic_versioning\` to test
   
- [EOF--poetry-dynamic-versioning]
+ [DEFAULT]
 #↓↓↓ So ft=bash stops highlighting the Heredoc.
-[EOF--poetry-dynamic-versioning]
+[DEFAULT]
 #↑↑↑ So ft=bash stops highlighting the Heredoc.
 
 # ========================================================================

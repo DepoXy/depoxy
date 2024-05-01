@@ -256,7 +256,7 @@ installLinux =
   # characters for holding line breaks.
   #
   # INERT/2024-02-18: I use tig-newtons to rebase, otherwise I'd automate this.
-  cat <<[EOF--git-interactive-rebase-tool]
+  cat <<[DEFAULT]
     *** Install git-interactive-rebase-tool
     #
     These instructions are current as of 2024-02-26 version 2.3.0@ea756cf.
@@ -305,9 +305,9 @@ installLinux =
       #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.3.0-1_amd64.deb
       sudo dpkg -i target/debian/git-interactive-rebase-tool_\${version}*_amd64.deb
     #
- [EOF--git-interactive-rebase-tool]
+ [DEFAULT]
 #↓↓↓ So ft=bash stops highlighting the Heredoc.
-[EOF--git-interactive-rebase-tool]
+[DEFAULT]
 #↑↑↑ So ft=bash stops highlighting the Heredoc.
 
 # ========================================================================
