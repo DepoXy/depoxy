@@ -159,7 +159,6 @@ include =
      [ "${MR_INCLUDE}" = "vim" ] ||
      [ "${MR_INCLUDE}" = "dubs-vim" ] ||
      [ "${MR_INCLUDE}" = "vim-private" ] ||
-     [ "${MR_INCLUDE}" = "DXC" ] ||
      [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
   false; then
     if [ -f "${HOME}/.vim/.mrconfig-private" ]; then

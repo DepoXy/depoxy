@@ -273,6 +273,8 @@ skip = true
 # haven't started to) use Homebrew).
 lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ] ||
   remote_set starter https://github.com/pyenv/pyenv.git
+# Report *missing🤷* not *fetchfail* and don't die if `ffssh` fails.
+lib = export MR_REMOTE_PATH_ABSENCE_EXCUSED=true
 checkout =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
     stub_checkout_directory
@@ -414,6 +416,8 @@ infuse =
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv-virtualenv]
 lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ] ||
   remote_set starter https://github.com/pyenv/pyenv-virtualenv.git
+# Report *missing🤷* not *fetchfail* and don't die if `ffssh` fails.
+lib = export MR_REMOTE_PATH_ABSENCE_EXCUSED=true
 checkout =
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ]; then
     stub_checkout_directory

@@ -120,8 +120,12 @@ infuse =
 # AWAIT/2023-03-06: DepoXy/feature-coverage-report not yet released.
 # - Eventually (or never?) it'll be published to DepoXy:
 lib = remote_set publish https://github.com/DepoXy/feature-coverage-report.git
+
 # FIXME/2022-10-10: Not yet published.
 skip = [ ! -d "${MR_REPO}" ]
+# Report *missing🤷* not *fetchfail* and don't die if `ffssh` fails.
+lib = export MR_REMOTE_PATH_ABSENCE_EXCUSED=true
+
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -h "${HOME}/.local/bin/feature-coverage-report"
 install = PREFIX="${HOME}/.local" make link
