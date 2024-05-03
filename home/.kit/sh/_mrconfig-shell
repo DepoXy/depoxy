@@ -40,7 +40,11 @@ lib = remote_set starter http://github.com/gpakosz/.tmux.git
 lib = remote_set starter http://github.com/tmux-plugins/tmux-sensible.git
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tpm]
-lib = remote_set starter http://github.com/tmux-plugins/tpm.git
+lib =
+  remote_set starter http://github.com/tmux-plugins/tpm.git
+  # REFER/2024-05-03: ~/.tmux.conf loads origin/master: l. 1584:
+  #   (cd "$TMUX_PLUGIN_MANAGER_PATH/tpm" ... && git reset -q --hard origin/master)
+  remote_set origin http://github.com/tmux-plugins/tpm.git
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion]
 lib = remote_set starter http://github.com/imomaliev/tmux-bash-completion.git
