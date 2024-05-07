@@ -240,10 +240,19 @@ say_it_and_spray_it_macos () {
   local _notif_title="$2"
   local _notif_subby="$3"
   local _notif_sound="$4"
+  # Linux-only `notify` option.
+  local _notif_image="$5"
+  # At this point, w/ so many args, ENVIRON= might be better way;
+  # but for now, more args...
+  local speech_opts_macOS="$6"
+  local _speech_opts_linux="$7"
 
   # ***
 
-  local voice="$(random_voice)"
+  local voice="${speech_opts_macOS:-${NOTIFY_VOICE}}"
+  if [ -z "${voice}" ]; then
+    voice="$(random_voice "${speech_opts_macOS}")"
+  fi
 
   local say_said=""
   say_said="$(say -v "${voice}" "${notif_messg}" 2>&1)"
@@ -431,6 +440,12 @@ say_it_and_spray_it_linux () {
   local _notif_title="$2"
   local _notif_subby="$3"
   local _notif_sound="$4"
+  # Linux-only `notify` option.
+  local _notif_image="$5"
+  # At this point, w/ so many args, ENVIRON= might be better way;
+  # but for now, more args...
+  local _speech_opts_macOS="$6"
+  local speech_opts_linux="$7"
 
   # ***
 
@@ -442,9 +457,12 @@ say_it_and_spray_it_linux () {
 
   # ***
 
-  local voice="$(random_voice)"
+  local voice="${NOTIFY_VOICE}"
+  if [ -z "${voice}" ]; then
+    voice="$(random_voice)"
+  fi
 
-  espeak -v "${voice}" "${notif_messg}"
+  espeak -v "${voice}" ${speech_opts_linux} "${notif_messg}"
 
   # On MATE, I only see voices for dialects, not for personalities, so I
   # am not interested to know which voice was just used for speaking (unlike
@@ -474,7 +492,15 @@ say_it_and_spray_it_linux () {
 #       en-scottish
 #       english-north
 #       english_wmids
+# - REFER/2024-05-03: *Text to speech voice is horrible*
+#   https://forums.linuxmint.com/viewtopic.php?t=348355
+#   - You can alter the voice significantly with options,
+#     e.g.,
+#       espeak "Get Coffee Before Lunch Today" -ven-sc -a 25 -s 140
+#       espeak "Get Coffee Before Lunch Today" -ven+f3 -s 140 -g 5
 random_voice_linux () {
+  local speech_opts="$1"
+
   # First line is header:
   #   Pty Language Age/Gender VoiceName          File          Other Languages
   # Voice is 4th field, e.g.,
