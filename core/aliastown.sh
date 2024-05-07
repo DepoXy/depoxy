@@ -185,6 +185,10 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # but it's nice to quickly jump there when I notice a gap in
   # an .ignore file, i.e., to resolve duplicate search results.)
   pushd_alias_or_warn "cdpj" "${DEPOXY_PROJLNS:-${HOME}/.projlns}"
+
+  # *** ~/Documents/screencaps
+
+  pushd_alias_or_warn "cdsc" "${DEPOXY_SCREENCAPS_DIR:-${HOME}/Documents/screencaps}"
 }
 
 _dxy_wire_aliases_pushd_paths_vim () {
