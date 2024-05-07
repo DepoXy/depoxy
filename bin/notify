@@ -116,6 +116,8 @@ display_notification_macos () {
   local notif_title="$2"
   local notif_subby="$3"
   local notif_sound="$4"
+  # Linux-only `notify` option.
+  local _notif_image="$5"
 
   if [ -z "${notif_sound}" ]; then
     notif_sound="$(random_notif_sound_name)"
@@ -235,9 +237,9 @@ random_notif_sound_name_from_all () {
 
 say_it_and_spray_it_macos () {
   local notif_messg="$1"
-  local notif_title="$2"
-  local notif_subby="$3"
-  local notif_sound="$4"
+  local _notif_title="$2"
+  local _notif_subby="$3"
+  local _notif_sound="$4"
 
   # ***
 
@@ -426,9 +428,9 @@ No .png files: ${image_dir}"
 
 say_it_and_spray_it_linux () {
   local notif_messg="$1"
-  local notif_title="$2"
-  local notif_subby="$3"
-  local notif_sound="$4"
+  local _notif_title="$2"
+  local _notif_subby="$3"
+  local _notif_sound="$4"
 
   # ***
 
