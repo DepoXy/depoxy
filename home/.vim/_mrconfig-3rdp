@@ -370,6 +370,35 @@ lib = remote_set starter https://github.com/voithos/vim-python-matchit.git
 
 [pack/wincent/start/command-t]
 lib = remote_set starter https://github.com/wincent/command-t.git
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'Command-T/cmdT'
+isInstalled = test -x "ruby/command-t/ext/command-t/ext.so"
+install =
+  # ALTLY: :call pathogen#helptags()
+  vim -u NONE -c "call pathogen#helptags()" -c q
+  #
+  # REFER: :help command-t-ruby (previous implementation using Ruby)
+  # REFER: :help command-t      (latest   implementation using Lua)
+  # - HINT: Use <C-f> in Command-T prompt to clear file list cache.
+  ruby_make () {
+    # Opt-in:
+    #   let g:CommandTPreferredImplementation='ruby'
+    cd "ruby/command-t/ext/command-t"
+    # SAVVY: Vim and System Ruby should match:
+    #   $ ruby -e 'puts "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"'
+    # Vs.
+    #   :ruby puts "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"
+    ruby extconf.rb
+    make
+  }
+  lua_make () {
+    # LATER: See :help command-t-upgrading
+    #   for all you need to do to opt-in Lua rewrite.
+    cd "lua/wincent/commandt/lib/"
+    make
+  }
+  # - Lua only works on NeoVim and is not feature-complete, and
+  #   Ruby implementation is still supported. So sticking with Ruby.
+  ( ruby_make )
 
 # GONE-BNF: [pack/xolox/start/vim-easytags]  # 2016-11-13 or earlier: Removed.
 
