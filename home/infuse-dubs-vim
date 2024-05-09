@@ -166,6 +166,8 @@ populate_run_generator () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF:
+#   ~/.vim/pack/landonb/start/dubs_file_finder/plugin/dubs_file_finder.vim
 setup_private_plug_file_dubs_file_finder () {
   [ -d "${HOME}/.vim/pack/landonb/start/dubs_file_finder" ] || return 0
 
@@ -173,16 +175,22 @@ setup_private_plug_file_dubs_file_finder () {
 
   cd "${HOME}/.vim/pack/landonb/start/dubs_file_finder"
 
-  symlink_overlay_dir "${HOME}/.vim/.mrinfuse/cmdt_paths"
+  # HSTRY/2024-05-08: Previously used generate_links.sh at
+  #   ~/.depoxy/ambers/home/.vim/cmdt_paths/
+  # to populate a custom find-file project, and infuse would
+  # symlink that path:
+  #
+  #   symlink_overlay_dir "${HOME}/.vim/.mrinfuse/cmdt_paths"
+  #
+  # But now we just use the uber project under ~/.projlns
+
+  # CXREF:
+  #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+  local dxy_projlns="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
+  local dxy_deeplns="${DEPOXY_PROJLNS_DEPOXY:-${dxy_projlns}/depoxy-deeplinks}"
+  symlink_overlay_dir "${dxy_deeplns}" "cmdt_paths"
 
   cd "${before_cd}"
-}
-
-# ***
-
-# Populate ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths for cmdT.
-populate_cmdt_paths () {
-  populate_run_generator "pack/landonb/start/dubs_file_finder/cmdt_paths"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -338,7 +346,6 @@ main () {
   # ***
 
   setup_private_plug_file_dubs_file_finder
-  populate_cmdt_paths
 
   # ***
 
