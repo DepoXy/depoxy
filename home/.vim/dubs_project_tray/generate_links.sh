@@ -25,9 +25,9 @@ dubs_cuts_generate_links () {
   fi
 
   # Remove existing links, before recreating anew.
-  # - We could instead GNU `ln -sfn` or BSD `ln -sfh` to avoid adding links
-  #   to the previously linked directories; but we also want to start fresh,
-  #   in case previously linked targets were (re)moved.
+  # - We could instead `ln -sfn` to avoid adding links to the
+  #   previously linked directories; but we also want to start
+  #   fresh, in case previously linked targets were (re)moved.
   remove_existing_links
 
   # Ignore searching subdirectories symlinked herein.
