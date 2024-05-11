@@ -50,6 +50,8 @@ infuse_projects_links_omr_config () {
 
   infuse_create_symlinks_omr_client
 
+  infuse_create_symlinks_omr_stints
+
   cd "${before_cd}"
 }
 
@@ -140,6 +142,22 @@ infuse_create_symlinks_omr_client () {
   while read -r mrconfig_path; do
     link_deep "${mrconfig_path}"
   done < <(find "${client_basedir}" -type f -regex '.*mrconfig.*')
+}
+
+# ***
+
+# Optional ~/.depoxy/stints/_mrconfig
+infuse_create_symlinks_omr_stints () {
+  local stints_basedir
+  stints_basedir="$(_vendorfs_path_stints_basedir_print)" || return 0
+  # ALTLY:
+  #   client_basedir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}"
+
+  local mrconfig_path="${stints_basedir}/_mrconfig"
+
+  if [ -f "${mrconfig_path}" ]; then
+    link_deep "${mrconfig_path}"
+  fi
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
