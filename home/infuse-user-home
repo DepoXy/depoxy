@@ -423,6 +423,7 @@ infuse_symlinks_home_projlns () {
 
   # There's a template for running private/machine-specific infusers:
   #  .mrinfuse/.projlns/infuse-projlns-work.example.sh
+  #    ~/.depoxy/ambers/home/.projlns/infuse-projlns-work.example.sh
   # but you might find it easier to just use the 'infuse' task from
   # the client-specific ${HOME}/client/_mrconfig file.
   info " ${MSG_PREFIX_ADDED_SYMLINKS_DIR} $(font_highlight "~/.projlns/")"
