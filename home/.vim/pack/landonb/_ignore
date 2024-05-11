@@ -5,6 +5,9 @@ start/*/doc/tags
 
 # Ignore symlinks to user's private files.
 start/dubs_file_finder/cmdt_paths
+# 2024-05-09: The symlink is within this ignore path now,
+# to avoid "rg: File system loop found" warning.
+start/dubs_file_finder/_cmdt_paths
 start/dubs_grep_steady/dubs_projects.vim
 start/dubs_project_tray/dubs_cuts
 start/dubs_project_tray/.vimprojects

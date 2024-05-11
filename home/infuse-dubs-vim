@@ -188,6 +188,18 @@ setup_private_plug_file_dubs_file_finder () {
   #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
   local dxy_projlns="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
   local dxy_deeplns="${DEPOXY_PROJLNS_DEPOXY:-${dxy_projlns}/depoxy-deeplinks}"
+
+  # SAVVY: rg ignores .ignore rule from same directory as target if
+  # that target would create a file system loop, e.g.,:
+  #
+  #   rg: File system loop found:
+  #     /home/user/.projlns/depoxy-deeplinks/home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths
+  #   points to an ancestor /home/user/.projlns/depoxy-deeplinks
+  #
+  # So put cmdt_paths 1 deep.
+  mkdir -p "_cmdt_paths"
+  cd "_cmdt_paths"
+
   symlink_overlay_dir "${dxy_deeplns}" "cmdt_paths"
 
   cd "${before_cd}"

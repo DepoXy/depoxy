@@ -132,13 +132,6 @@ dubs_cuts_generate_links () {
   /bin/ln -s ~/.vim/doc/readme-using.pt1.rst dubs_vim--readme-using.pt1.rst
   /bin/ln -s ~/.vim/doc/readme-using.pt2.rst dubs_vim--readme-using.pt2.rst
   /bin/ln -s ~/.vim/doc/readme-using.make.sh dubs_vim--readme-using.make.sh
-
-  # MAYBE/2020-02-25: Revisit cmdt_paths -- I have not used recently.
-  # - And now I've migrated to builtin Vim packages, have not tested.
-  # 2017-02-25: Huh? I wonder if the `ln -sf` in the loop overwrites it...
-  /bin/ln -sf \
-    ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths/generate_links.sh \
-    cmdt_path-generate_links.sh
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
