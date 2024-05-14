@@ -83,6 +83,7 @@ main () {
   # Key bindings
   # ------------
   fzf_wire_key_bindings () {
+    # CXREF: ~/.kit/go/fzf/shell/key-bindings.bash
     . "${fzf_path}/shell/key-bindings.bash"
   }
 
