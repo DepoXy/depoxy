@@ -79,8 +79,12 @@
 
 notify () {
   display_notification "$@"
-  sleep 0.620
-  say_it_and_spray_it "$@"
+
+  if ! ${NOTIFY_SILENT:-false} && ! ${NOTIFY_NO_SAY:-false}; then
+    sleep 0.620
+
+    say_it_and_spray_it "$@"
+  fi
 }
 
 # ***
@@ -119,14 +123,17 @@ display_notification_macos () {
   # Linux-only `notify` option.
   local _notif_image="$5"
 
-  if [ -z "${notif_sound}" ]; then
+  if ! ${NOTIFY_SILENT:-false} && [ -z "${notif_sound}" ]; then
     notif_sound="$(random_notif_sound_name)"
   fi
 
   local opt_messg="\"${notif_messg}\""
   local opt_title="with title \"${notif_title}\""
   local opt_subby="subtitle \"${notif_subby}\""
-  local opt_sound="sound name \"${notif_sound}\""
+  local opt_sound=""
+  if [ -n "${notif_sound}" ]; then
+    opt_sound="sound name \"${notif_sound}\""
+  fi
 
   /usr/bin/osascript -e "display notification ${opt_messg} ${opt_title} ${opt_subby} ${opt_sound}"
 }
@@ -273,9 +280,12 @@ say_it_and_spray_it_macos () {
   # But either way, I might keep this additional `say`, so long as it keeps
   # assuming me.
   # - Rate -r in words per minute, defaults sounds around ~165.
-  sleep 0.22
-  say -r 187 "Thank you, Voice of, ${voice}"
-  say -r 255 "shoo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
+  if ${ANNOUNCE_VOICE:-false}; then
+    sleep 0.22
+    say -r 187 "Thank you, Voice of, ${voice}"
+    say -r 255 "shoo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo" \
+                    "oo oo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
+  fi
 }
 
 # `say -v '?'` prints table of voices, which we parse for English voice names
@@ -301,7 +311,7 @@ display_notification_linux () {
   # Linux-only `notify` option.
   local notif_image="$5"
 
-  if [ -z "${notif_sound}" ]; then
+  if ! ${NOTIFY_SILENT:-false} && [ -z "${notif_sound}" ]; then
     notif_sound="$(random_notif_sound_name)"
   fi
 
