@@ -549,7 +549,16 @@ en-westindies" | shuf -n 1
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # ================================================================= #
 
+source_deps () {
+  # Put Homebrew bin/ on PATH, for `shuf`.
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 main () {
+  source_deps
+
   notify "$@"
 }
 
