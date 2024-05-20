@@ -143,7 +143,9 @@ display_notification_macos () {
 
 random_notif_sound_name_macos () {
   # I sampled all the sounds but really I only like a few on them.
-  random_notif_sound_name_from_favorites
+  #  random_notif_sound_name_from_favorites
+  # - ORNOT: Actually, they're not *that* bad. And variety is nice.
+  random_notif_sound_name_from_all
 }
 
 # So hard to choose which I like best, perhaps Hero or Submarine.
@@ -291,6 +293,13 @@ say_it_and_spray_it_macos () {
 # `say -v '?'` prints table of voices, which we parse for English voice names
 # (irrespective of type of English, e.g., find all "English (*)" matches),
 # will make the experience feel more worldly and sophisticated.
+#
+# - REFER/2024-05-20: macOS 14.4.1:
+#     Albert, Bad, Bahh, Bells, Boing, Bubbles, Cellos, Daniel, Wobble, Eddy,
+#     Fiona, Flo, Fred, Good, Grandma, Grandpa, Jester, Junior, Karen, Kathy,
+#     Matilda, Moira, Organ, Superstar, Ralph, Reed, Rishi, Rocko, Samantha,
+#     Sandy, Shelley, Tessa, Trinoids, Whisper, Zarvox
+# 
 random_voice_macos () {
   IFS=$'\r\n' GLOBIGNORE='*' command eval "VOICES=(\$(say -v ? | grep en_ | awk '{ print \$1 }' | uniq))"
 
