@@ -293,6 +293,15 @@ _dxy_wire_aliases_miscellaneous () {
   # Include .hidden files by default on `tree`.
   # Also include .git/ subdirectories.
   alias tree="tree -a -I '.git'"
+
+  # On macOS, for `brew install --cask libreoffice` app.
+  # - soffice -> /opt/homebrew/Caskroom/libreoffice/<version>/soffice.wrapper.sh
+  # - Note on LM 21.3, both exists (and symlink the same target).
+  if ! command -v libreoffice > /dev/null \
+    && command -v soffice > /dev/null \
+  ; then
+    claim_alias_or_warn "libreoffice" "soffice"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
