@@ -35,18 +35,23 @@ vimprojects_create_copy_without_work_projects () {
 
   local vimpg="${DUBS_PROJECT_TRAY_PATH}/.vimprojects--purged"
 
+  # -A 8:
+  #   # BEG: CLIENT_WORKS ############
+  #   #
+  #   # 🟥🟧🟨🟩🟦🟪🟫⬛🟫🟪🟦🟩🟨🟧🟥
+  #   # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  #   # ┃ ▓▓▓▓▓  WORK PROJECTS  ▓▓▓▓▓ ┃
+  #   # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+  #   # ⬛🟫🟪🟦🟩🟨🟧🟥🟧🟨🟩🟦🟪🟫⬛
   vimprojects_sans_CLIENT_PROJECTS_header_jumpers |
-    grep -B 99999 -A 8 "# BEG: CLIENT_WORKS ############" \
+    grep -B 99999 -A 7 "# BEG: CLIENT_WORKS ############" \
     > "${vimpg}"
 
-  printf '%s\n\n...\n\n%s\n%s\n' \
-    "# ░░ BEG: <COMING SOON> ░░░░░░░░" \
-    "CLIENT_PROJECTS" \
-    "# <INSERT FIRST PROJECT HERE>" \
-    >> "${vimpg}"
+  printf '%s\n' "[REDACTED]" >> "${vimpg}"
 
+  # -B 1: A blank line
   vimprojects_sans_CLIENT_PROJECTS_header_jumpers |
-      grep -B 6 -A 99999 "# ░░ BEG: <COMING SOON> ░░░░░░░░" \
+      grep -B 1 -A 99999 "### END: CLIENT_WORKS ##########" \
     >> "${vimpg}"
 
   # less home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--purged
