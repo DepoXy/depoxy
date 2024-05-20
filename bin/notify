@@ -260,7 +260,11 @@ say_it_and_spray_it_macos () {
 
   local voice="${speech_opts_macOS:-${NOTIFY_VOICE}}"
   if [ -z "${voice}" ]; then
-    voice="$(random_voice "${speech_opts_macOS}")"
+    if [ -n "${NOTIFY_VOICES}" ]; then
+      voice="$(echo ${NOTIFY_VOICES} | sed -E 's/ +/\n/g' | shuf -n 1)"
+    else
+      voice="$(random_voice "${speech_opts_macOS}")"
+    fi
   fi
 
   local say_said=""
@@ -478,7 +482,11 @@ say_it_and_spray_it_linux () {
 
   local voice="${NOTIFY_VOICE}"
   if [ -z "${voice}" ]; then
-    voice="$(random_voice)"
+    if [ -n "${NOTIFY_VOICES}" ]; then
+      voice="$(echo ${NOTIFY_VOICES} | sed 's/ \+/\n/g' | shuf -n 1)"
+    else
+      voice="$(random_voice)"
+    fi
   fi
 
   espeak -v "${voice}" ${speech_opts_linux} "${notif_messg}"
