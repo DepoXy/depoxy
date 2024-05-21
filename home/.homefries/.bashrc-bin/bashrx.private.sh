@@ -60,6 +60,9 @@ _source_scripts_preceding_homefries_dxy () {
   # on PATH, so that pyenv `python3` is used, and not brew's.
   _dxy_source "brewskies.sh"
 
+  # Setup MacPorts on PATH.
+  _dxy_source "portskies.sh"
+
   LOG_LEVEL=0
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
   # LOG_LEVEL=${LOG_LEVEL_VERBOSE}
@@ -135,6 +138,9 @@ _source_scripts_following_homefries_dxy () {
 
   # Sourced earlier:
   #          "path_vars.sh"
+
+  # Sourced earlier:
+  #          "portskies.sh"
 
   # pw.
   _dxy_source "putwisely.sh"
