@@ -162,8 +162,11 @@ echoInstallHelp =
   
       - Font and style:
         - MENU_DATE: Font: *Skia* 18pt White. Should fit under auto-hiding menu bar.
-        - CTRD_DATE: Font: *Herculanum* 36pt Green (GUI doesn't show Hex code, just picker).
-          - To set, click *Click here to set font & color...*.
+          - Or maybe light gray, e.g., #D9D9D9.
+          - To set, click where it says *Click here to set font & color...*.
+          - To set hex, click the color square, then click the Sliders icon,
+            then choose *RGB Sliders* from the dropdown.
+        - CTRD_DATE: Font: *Herculanum* 36pt mid-Green, #007F00.
         - I set text center-aligned, and then positioned the window.
            - I tried right-aligned, but even with spaces at the end, the last
              character from the clock was clipped by the *GeekTool* window.
@@ -180,6 +183,9 @@ echoInstallHelp =
     - SAVVY: Use the eyedropper to match the second widget font color to the first widget.
   
     - SAVVY: On Quit, choose \"No, Never Ask\" when asked if GeekTool should disable itself.
+  
+    - BWARE: I think GeekTool geeklets disappear after OS update (at least hours after
+             updating 14.4.1 -> 14.5 author notices geeklets are missing)
  "
 isInstalled = test -d "${HOME}/Applications/GeekTool.app"
 install = install_os_specific
