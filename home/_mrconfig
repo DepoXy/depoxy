@@ -264,6 +264,30 @@ infuse =
 updateDeps =
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
   update_deps_shoilerplate
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install =
+  install_bash_history_to_noise () {
+    local orig_file="${HOME}/.bash_history"
+    if [ -f "${orig_file}" ] && [ ! -h "${orig_file}" ]; then
+      local noise_home="${NOISE_DUMP:-${HOME}/.noise}/home"
+      local noise_hist="${noise_home}/.bash_history"
+      #
+      if [ -f "${noise_hist}" ]; then
+        error "ERROR: Target already exists: ${noise_hist}"
+        #
+        return 1
+      fi
+      mkdir -p "${noise_home}"
+      command mv -- "${orig_file}" "${noise_hist}"
+      #
+      local relative_hist="$( \
+        echo "${noise_hist}" \
+        | sed -E "s@^${HOME}/@@"
+      )"
+      command ln -s -- "${relative_hist}" "${orig_file}"
+    fi
+  }
+  install_bash_history_to_noise
 #
 skip = mr_exclusive "bash" "sh" "home"
 
