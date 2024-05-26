@@ -320,27 +320,41 @@ os_is_macos () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_NORMAL_EXIT=false
-
-exit_1 () { _NORMAL_EXIT=true; exit 1; }
-exit_0 () { _NORMAL_EXIT=true; exit 0; }
-
-exit_cleanup () {
-  if ! ${_NORMAL_EXIT}; then
-    # USAGE: Alert on unexpected error path, so you can add happy path.
-    >&2 echo "ALERT: "$(basename -- "$0")" exited abnormally!"
-    >&2 echo "- Hint: Enable \`set -x\` and run again..."
-  fi
-
+clear_traps () {
   trap - EXIT INT
-
-  ${_NORMAL_EXIT} && exit 0 || exit 1
 }
 
-int_cleanup () {
-  _NORMAL_EXIT=true
+set_traps () {
+  trap -- trap_exit EXIT
+  trap -- trap_int INT
+}
 
-  exit_cleanup
+exit_0 () {
+  clear_traps
+
+  exit 0
+}
+
+exit_1 () {
+  clear_traps
+
+  exit 1
+}
+
+trap_exit () {
+  clear_traps
+
+  # USAGE: Alert on unexpected error path, so you can add happy path.
+  >&2 echo "ALERT: "$(basename -- "$0")" exited abnormally!"
+  >&2 echo "- Hint: Enable \`set -x\` and run again..."
+
+  exit 2
+}
+
+trap_int () {
+  clear_traps
+
+  exit 3
 }
 
 # ***
@@ -348,8 +362,7 @@ int_cleanup () {
 main () {
   set -e
 
-  trap -- exit_cleanup EXIT
-  trap -- int_cleanup INT
+  set_traps
 
   # ***
 
@@ -369,7 +382,7 @@ main () {
 
   # ***
 
-  trap - EXIT INT
+  clear_traps
 }
 
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
