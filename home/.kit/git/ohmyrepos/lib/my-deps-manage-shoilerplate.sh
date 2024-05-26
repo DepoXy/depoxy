@@ -39,7 +39,7 @@
 #       - MAYBE: Perhaps `updateDeps` shell command can do the sandwich,
 #         but I wonder if the infusePostRebase might fail where updateDeps
 #         wouldn't (because updateDeps understands GPW scoped commits, but
-#         OMR's hard_link only knows HEAD).
+#         OMR's link_hard only knows HEAD).
 
 update_deps_shoilerplate () {
   local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"
