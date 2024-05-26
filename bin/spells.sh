@@ -103,7 +103,7 @@ main () {
 }
 
 # Only run when executed; no-op when sourced.
-if [ "$0" = "${BASH_SOURCE}" ]; then
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
 
