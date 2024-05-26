@@ -249,6 +249,7 @@ infuse =
   # CXREF: ~/.depoxy/ambers/home/infuse-user-home
   LOG_LEVEL=10 "${infuse_user_home}" "${@}"
 updateDeps =
+  # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
   update_deps_shoilerplate
 #
 skip = mr_exclusive "bash" "sh" "home"
