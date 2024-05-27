@@ -343,7 +343,7 @@ installpythons =
   #   ~/kit/.py/easy-as-pypi/tox.ini
   # USYNC: DEPOXY_PYENV_PYVERS
   #   ~/.config/depoxy/depoxyrc
-  #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL.sh
+  #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL
   # USYNC: Other 'installpythons' task(s):
   #   See virtualenvwrapper project, below
   pyenv install -s 3.8
