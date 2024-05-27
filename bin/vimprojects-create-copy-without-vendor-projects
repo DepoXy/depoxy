@@ -102,5 +102,8 @@ main () {
   clear_traps
 }
 
-main "$@"
+# Only run when executed.
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
 
