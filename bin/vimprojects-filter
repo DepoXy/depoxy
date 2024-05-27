@@ -24,7 +24,7 @@ vimprojects_sans_VENDOR_PROJS_header_jumpers () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-vimprojects_create_copy_without_work_projects () {
+vimprojects_create_copy_without_vendor_projects () {
   cd "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/${DEPOXYDIR_RUNNING_NAME:-running}}"
 
   local vimpg="${DUBS_PROJECT_TRAY_PATH}/.vimprojects--purged"
@@ -97,7 +97,7 @@ main () {
 
   set_traps
 
-  vimprojects_create_copy_without_work_projects
+  vimprojects_create_copy_without_vendor_projects
 
   clear_traps
 }
