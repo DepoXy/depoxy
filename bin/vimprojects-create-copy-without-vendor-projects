@@ -12,10 +12,6 @@ CUT_HEAD_UNTIL_DELIM="^#░░▒░░▒░░▒░░#"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
-  :
-}
-
 DUBS_PROJECT_TRAY_PATH="home/.vim/pack/landonb/start/dubs_project_tray"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -60,8 +56,6 @@ vimprojects_create_copy_without_work_projects () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
-  source_deps
-
   vimprojects_create_copy_without_work_projects
 }
 
