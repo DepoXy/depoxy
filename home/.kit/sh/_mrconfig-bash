@@ -58,6 +58,9 @@ infuse =
 updateDeps =
   update_deps_shoilerplate
 
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # Sense and Sensibility; *By A Lady* (1st edit. author; aka Jane Austen)
 #   https://www.gutenberg.org/files/161/161-h/161-h.htm
 #       https://en.wikipedia.org/wiki/Jane_Austen
@@ -126,7 +129,8 @@ infusePostRebase =
 infuse =
   mr -d . -n infusePostRebase
 
-# ***
+# ========================================================================
+# ------------------------------------------------------------------------
 
 # FIXME/2022-10-10: This is not yet published.
 #
@@ -160,7 +164,8 @@ infuse =
 updateDeps =
   update_deps_shoilerplate
 
-# ***
+# ========================================================================
+# ------------------------------------------------------------------------
 
 # 2023-01-01: Not that I ever use fries-findup.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
