@@ -77,6 +77,21 @@ updateDeps =
 lib = remote_set publish https://github.com/landonb/sh-sensible-open.git
 skip = mr_exclusive "!entrusted"
 
+# ***
+
+# Similar as previous, but for GVim.
+# Kindly file opener positions cursor, too 🐬
+# https://github.com/DepoXy/gvim-open-kindness#🐬
+[${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
+lib = remote_set publish https://github.com/DepoXy/gvim-open-kindness.git
+skip = mr_exclusive "!entrusted"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled = test -h "${HOME}/.local/bin/gvim-open-kindness"
+install =
+  symlink_overlay_file \
+    "${MR_REPO}/bin/gvim-open-kindness" \
+    "${HOME}/.local/bin/gvim-open-kindness"
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
@@ -154,21 +169,6 @@ skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -h "${HOME}/.local/bin/fries-findup"
 install = PREFIX="${HOME}/.local" make link
-
-# ***
-
-# Similar as previous, but for GVim.
-# Kindly file opener positions cursor, too 🐬
-# https://github.com/DepoXy/gvim-open-kindness#🐬
-[${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
-lib = remote_set publish https://github.com/DepoXy/gvim-open-kindness.git
-skip = mr_exclusive "!entrusted"
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/gvim-open-kindness"
-install =
-  symlink_overlay_file \
-    "${MR_REPO}/bin/gvim-open-kindness" \
-    "${HOME}/.local/bin/gvim-open-kindness"
 
 # ========================================================================
 # ------------------------------------------------------------------------
