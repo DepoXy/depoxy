@@ -32,6 +32,27 @@ order = 761
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# Simple encrypted APFS Volume and DMG Disk Image management
+#   (`diskutil` and `hdiutil` wrappers)
+# https://github.com/DepoXy/macOS-disktools#⚰️
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools]
+lib = remote_set publish https://github.com/DepoXy/macOS-disktools.git#⚱️
+order = 481
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install =
+  # CALSO: `make install` copies to ~/.local/bin; there's no `make link`:
+  #   PREFIX="${HOME}/.local" make install
+  symlink_overlay_file "${MR_REPO}/bin/apfs-mount" "${HOME}/.local/bin/apfs-mount"
+  symlink_overlay_file "${MR_REPO}/bin/dmg-mount" "${HOME}/.local/bin/dmg-mount"
+# CXREF: link_hard_dep_sh_err_trap, update_deps_shoilerplate:
+#   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh
+infuse = mr -d . -n infusePostRebase
+infusePostRebase = link_hard_dep_sh_err_trap
+updateDeps = update_deps_shoilerplate
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # https://github.com/johnste/finicky
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
 checkout = stub_checkout_directory

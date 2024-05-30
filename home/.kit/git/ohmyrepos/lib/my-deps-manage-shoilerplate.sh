@@ -86,6 +86,21 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
+  update_deps_macOS_disktools () {
+    [ -d "deps/macOS-disktools" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools"
+
+    update_faithful_file \
+      "deps/macOS-disktools/bin/apfs-mount" \
+      "bin/apfs-mount"
+    update_faithful_file \
+      "deps/macOS-disktools/bin/dmg-mount" \
+      "bin/dmg-mount"
+
+    update_faithful_finish_signed
+  }
+
   update_deps_sh_ask_yesnoskip () {
     [ -d "deps/sh-ask-yesnoskip" ] || return 0
 
@@ -106,6 +121,18 @@ update_deps_shoilerplate () {
     update_faithful_file \
       "deps/sh-colors/bin/colors.sh" \
       "bin/colors.sh"
+
+    update_faithful_finish_signed
+  }
+
+  update_deps_sh_err_trap () {
+    [ -d "deps/sh-err-trap" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
+
+    update_faithful_file \
+      "deps/sh-err-trap/lib/err-trap.sh" \
+      "lib/err-trap.sh"
 
     update_faithful_finish_signed
   }
@@ -204,8 +231,10 @@ update_deps_shoilerplate () {
   update_deps_git_smart_git_abort
   update_deps_git_smart_git_fup
   update_deps_git_update_faithful
+  update_deps_macOS_disktools
   update_deps_sh_ask_yesnoskip
   update_deps_sh_colors
+  update_deps_sh_err_trap
   update_deps_sh_git_nubs
   update_deps_sh_logger_and_colors
   update_deps_sh_logger
@@ -232,6 +261,13 @@ link_hard_dep_git_update_faithful () {
     "deps/git-update-faithful/lib/update-faithful.sh"
 }
 
+link_hard_dep_macOS_disktools () {
+  link_hard "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools/bin/apfs-mount" \
+    "deps/macOS-disktools/bin/apfs-mount"
+  link_hard "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools/bin/dmg-mount" \
+    "deps/macOS-disktools/bin/dmg-mount"
+}
+
 link_hard_dep_sh_ask_yesnoskip () {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
     "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh"
@@ -240,6 +276,11 @@ link_hard_dep_sh_ask_yesnoskip () {
 link_hard_dep_sh_colors () {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
     "deps/sh-colors/bin/colors.sh"
+}
+
+link_hard_dep_sh_err_trap () {
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib/err-trap.sh" \
+    "deps/sh-err-trap/lib/err-trap.sh"
 }
 
 link_hard_dep_sh_git_nubs () {

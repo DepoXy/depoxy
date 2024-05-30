@@ -124,7 +124,12 @@ infuse_create_symlinks_core () {
   # *** ~/.kit/mOS projects
 
   link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
+  link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools"
   link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
+
+  # *** ~/.kit/odd projects
+
+  link_deep "${DOPP_KIT:-${HOME}/.kit}/odd/321open"
 
   # *** ~/.kit/py projects
 
@@ -136,6 +141,7 @@ infuse_create_symlinks_core () {
 
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
+  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
   link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"

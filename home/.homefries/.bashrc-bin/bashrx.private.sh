@@ -148,6 +148,9 @@ _source_scripts_following_homefries_dxy () {
   # Py py, py, py py py py.
   _dxy_source "pydevelop.sh"
 
+  # ssh-agent-kill `ssh-agent -k` shim.
+  _dxy_source "ssh_agent.sh"
+
   # Start those apps that don't start themselves.
   _dxy_source "startapps.sh"
 

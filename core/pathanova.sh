@@ -90,6 +90,7 @@ user_path_add_omr_lib () {
 user_path_add_sh_bins () {
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin"
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin"
+  #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib"
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin"

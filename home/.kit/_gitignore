@@ -134,6 +134,7 @@
 # 3.) (Now I've spent too much time griping about the first 2 items, I forgot what
 # the third is. Whatever, I'm already and TMI.)
 /mOS/homebrew-autoupdate/
+/mOS/macOS-disktools/
 /mOS/macOS-onboarder/
 
 # macOS -> mOS/
@@ -143,6 +144,7 @@
 
 # CXREF: ~/.depoxy/ambers/home/.kit/odd/_mrconfig
 
+/odd/321open/
 /odd/via-nativia/
 /odd/wally/
 
@@ -175,6 +177,7 @@
 /sh/password-store/
 /sh/sh-ask-yesnoskip/
 /sh/sh-colors/
+/sh/sh-err-trap/
 /sh/sh-git-nubs/
 /sh/sh-logger/
 /sh/sh-pather/

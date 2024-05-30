@@ -139,9 +139,15 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdmO" "${DOPP_KIT:-${HOME}/.kit}/mOS"
   pushd_alias_or_warn "cdmos" "${DOPP_KIT:-${HOME}/.kit}/mOS"
 
+  pushd_alias_or_warn "cdmd" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools"
+
   pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
 
   pushd_alias_or_warn "cdke" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
+
+  # *** ~/.kit/odd — Odd
+
+  pushd_alias_or_warn "cdop" "${DOPP_KIT:-${HOME}/.kit}/odd/321open"
 
   # *** ~/.kit/py — Python
 
@@ -161,6 +167,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cddi" "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
 
   pushd_alias_or_warn "cdok" "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
+
+  pushd_alias_or_warn "cdet" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
 
   # *** ~/.kit/txt — Text
 

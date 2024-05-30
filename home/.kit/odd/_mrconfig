@@ -12,6 +12,33 @@ order = 771
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# Multiple encfs mounter, unmounter, and burn-down-the-house panicker
+# https://github.com/DepoXy/321open#👐
+[${DOPP_KIT:-${HOME}/.kit}/odd/321open]
+lib = remote_set publish https://github.com/DepoXy/321open.git#👐
+order = 481
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install =
+  # CALSO: `make install` copies to ~/.local/bin; there's no `make link`:
+  #   PREFIX="${HOME}/.local" make install
+  symlink_overlay_file "${MR_REPO}/bin/321open" "${HOME}/.local/bin/321open"
+  symlink_overlay_file "${MR_REPO}/bin/23skidoo" "${HOME}/.local/bin/23skidoo"
+  # I rarely use these, but no reason not to.
+  symlink_overlay_file "${MR_REPO}/bin/ssh-agent-kick" "${HOME}/.local/bin/ssh-agent-kick"
+  symlink_overlay_file "${MR_REPO}/bin/ssh-agent-kill" "${HOME}/.local/bin/ssh-agent-kill"
+# CXREF: link_hard_dep_macOS_disktools, update_deps_shoilerplate:
+#   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh
+infuse = mr -d . -n infusePostRebase
+infusePostRebase =
+  link_hard_dep_macOS_disktools
+  link_hard_dep_sh_err_trap
+  link_hard_dep_sh_logger_and_colors
+  link_hard_dep_sh_print_nanos_now
+updateDeps = update_deps_shoilerplate
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # "Adds window-tiling hotkeys to any X11 desktop. (An analogue to
 #  WinSplit Revolution for people who don't want to use Compiz Grid)"
 [${DOPP_KIT:-${HOME}/.kit}/odd/quicktile]
