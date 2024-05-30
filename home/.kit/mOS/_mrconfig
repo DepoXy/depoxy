@@ -67,8 +67,8 @@ installDarwin =
   #
   exit 1
 
-# ------------------------------------------------------------------------
 # ========================================================================
+# ------------------------------------------------------------------------
 
 # https://www.tynsoe.org/geektool/
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
@@ -155,8 +155,8 @@ installDarwin =
   echo "GeekTool copied to ~/Applications"
   echo "... please wait a few seconds until Spotlight knows it."
 
-# ------------------------------------------------------------------------
 # ========================================================================
+# ------------------------------------------------------------------------
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/homebrew-autoupdate]
 # Use 'origin' remote specifically, otherwise:
@@ -224,8 +224,13 @@ installDarwin =
 # WARNING:  You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
 #   gem executables will not run.
 
-# ------------------------------------------------------------------------
 # ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Keybinding-related.
+
+# ========================================================================
+# ------------------------------------------------------------------------
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
 lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
@@ -237,8 +242,7 @@ ffssh = true
 travel = true
 unpack = true
 
-# ========================================================================
-# ------------------------------------------------------------------------
+# ***
 
 # working 🐘 for peanuts
 # Linux-like macOS keybindings 🐘
@@ -246,9 +250,9 @@ unpack = true
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants]
 lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
 
-# ------------------------------------------------------------------------
-# ========================================================================
+# ***
 
+# Old school magical file (magically undocumented).
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
 # Skip on @Linux except to 'checkout' (make stub directory).
