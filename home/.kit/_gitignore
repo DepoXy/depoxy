@@ -105,17 +105,11 @@
 # *** macOS
 
 /mOS/DefaultKeybindings.dict/
-
 /mOS/Docker-Desktop-OMR-install/
-
 /mOS/GeekTool/
-
 /mOS/Karabiner-Elements/
-
 /mOS/Karabiner-Elephants/
-
 /mOS/finicky/
-
 # 2021-08-06: This project opened a whole can o' worms. Or at least a trifecta:
 # 1.) Homebrew no longer supports `gocryptfs` because it switched from `osxfuse` to
 # closed-source MacFuse, but also `brew update` fails because of its refusal, which
@@ -140,7 +134,6 @@
 # 3.) (Now I've spent too much time griping about the first 2 items, I forgot what
 # the third is. Whatever, I'm already and TMI.)
 /mOS/homebrew-autoupdate/
-
 /mOS/macOS-onboarder/
 
 # macOS -> mOS/
