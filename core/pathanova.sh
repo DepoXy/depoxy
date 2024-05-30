@@ -61,6 +61,7 @@ user_path_add_git_veggie_patch () {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch/bin"
 }
 
+# https://github.com/tj/git-extras
 user_path_add_tj_git_extras () {
   # Append, so comes last and doesn't conflict with git-smart.
   path_suffix "${GITREPOSPATH:-${HOME}/.kit/git}/git-extras/bin"
