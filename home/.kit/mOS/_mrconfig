@@ -263,6 +263,19 @@ ffssh = true
 travel = true
 unpack = true
 
+# ***
+
+# Hammerspoon: *Powerful* keyboard customization
+#   https://www.hammerspoon.org/
+#   https://www.hammerspoon.org/Spoons/
+#   https://github.com/Hammerspoon/hammerspoon
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/hammerspoon]
+lib = remote_set starter https://github.com/Hammerspoon/hammerspoon.git
+# Unskip if you want to fiddle with sources, otherwise Hammerspoon
+# executable installed via Brew:
+#   brew install --cask hammerspoon
+skip = true
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
