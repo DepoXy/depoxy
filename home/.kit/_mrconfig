@@ -75,6 +75,10 @@ include =
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig
     cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig
+    if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
+      # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig-excess
+      cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig-excess
+    fi
   fi
 
 include =

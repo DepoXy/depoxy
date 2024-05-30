@@ -108,6 +108,7 @@ infuse_create_symlinks_omr_kit_projects () {
   link_deep "${kit_cfg_root}/go/_mrconfig"
   link_deep "${kit_cfg_root}/js/_mrconfig"
   link_deep "${kit_cfg_root}/mOS/_mrconfig"
+  link_deep "${kit_cfg_root}/mOS/_mrconfig-excess"
   link_deep "${kit_cfg_root}/odd/_mrconfig"
   link_deep "${kit_cfg_root}/py/_mrconfig"
   link_deep "${kit_cfg_root}/sh/_mrconfig-bash"

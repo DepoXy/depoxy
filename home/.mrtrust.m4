@@ -54,6 +54,7 @@ DOPP_KIT/git/_mrconfig-git-smart
 DOPP_KIT/go/_mrconfig
 DOPP_KIT/js/_mrconfig
 DOPP_KIT/mOS/_mrconfig
+DOPP_KIT/mOS/_mrconfig-excess
 DOPP_KIT/odd/_mrconfig
 DOPP_KIT/py/_mrconfig
 DOPP_KIT/sh/_mrconfig-bash

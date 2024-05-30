@@ -1,0 +1,69 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+[DEFAULT]
+order = 761
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# - Q: Why not use the Docker Desktop Homebrew cask?
+#
+#      - Author had issues with the cask, so prefers DMG install.
+#
+# - Q: Why not automate this install?
+#
+#      - Author demoed automated install to Applications/, but
+#        mounting DMG with `hdiutil attach` is slow. Also, the
+#        copy operation requires sudo. So the automated operation
+#        isn‘t necessarily more convenient than just doing this
+#        yourself.
+
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
+checkout = stub_checkout_directory
+skip = ! os_is_macos
+# KLUGE: So @macOS doesn't try to fetch from @Linux host.
+ffssh = true
+travel = true
+unpack = true
+#
+echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all' 'if that‘s something you‘ll use'
+isInstalled = test -d /Applications/Docker.app
+install = install_os_specific
+installDarwin =
+  # ISOFF/2024-04-24: Might as well use the placeholder project directory
+  #   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
+  #   mkdir -p "${downloads_dir}"
+  #   cd "${downloads_dir}"
+  local downloads_dir="."
+  #
+  # BWARE: Targets arm64/AArch64/Apple Silicon/M1 Macs.
+  # - If you're encouraged to add a dynamic h/w check, please do so!
+  #   - For now, hard-coded to author's latest machine architecture.
+  local arch="arm64"
+  local docker_dmg="Docker.dmg"
+  local download_url="https://desktop.docker.com/mac/main/${arch}/${docker_dmg}"
+  if [ ! -e "${docker_dmg}" ]; then
+    wget "${download_url}"
+  else
+    echo "Skipping: Already downloaded: $(pwd)/${docker_dmg}"
+  fi
+  # Not quite "automatic", still prompting user for password.
+  echo "YOU: Enter admin password for slower automatic install."
+  echo " OR: Ctrl-c prompt and then you drag-drop install."
+  sudo -k
+  sudo -v
+  if sudo -nv 2> /dev/null; then
+    install_from_dmg_without_interaction \
+      "${downloads_dir}/${docker_dmg}" \
+      "/Volumes/Docker/Docker.app"
+  else
+    install_dmg_with_download_user_prompt_and_symlink \
+      "${_app_image_url:-}" "${docker_dmg}" "Docker.app" "docker.app"
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
