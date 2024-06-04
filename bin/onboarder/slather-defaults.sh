@@ -163,12 +163,12 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
         cd stints/XXXX/
         cp -ar private/docs/* ../../running/private/docs/
         git rm -f private/docs
-        git ci -m \"Docs: Relocate private/docs/ to new stint ${DEPOXY_CLIENT_ID}.\"
+        git commit -m \"Docs: Relocate private/docs/ to new stint ${DEPOXY_CLIENT_ID}.\"
 
         # Install to the new client and complete the pretzel.
         cxc
         git add private/docs
-        git ci -m \"Confide: Docs: Move private/docs from old stint XXXX.\"
+        git commit -m \"Confide: Docs: Move private/docs from old stint XXXX.\"
 
         # Keep twisting:
         cxc
