@@ -298,6 +298,9 @@ _dxy_wire_alias_new_window_sensible_open () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_aliases_miscellaneous () {
+  # Include ASCII.
+  alias hexdump="hexdump -C"
+
   # Include .hidden files by default on `tree`.
   # Also include .git/ subdirectories.
   alias tree="tree -a -I '.git'"
