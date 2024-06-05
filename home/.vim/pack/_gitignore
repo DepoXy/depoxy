@@ -65,6 +65,9 @@
 # Unpublished plugin playground, either for testing out new features,
 # or for @biz-specific features.
 /DepoXy/start/vim-trap
+# If you've got multiple Clients wired, --append the IDs, e.g.,
+#   /DepoXy/start/vim-trap--1234
+/DepoXy/start/vim-trap--*
 
 # *** landonb
 
