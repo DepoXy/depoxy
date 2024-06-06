@@ -145,6 +145,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/vim-fullscreen-toggle#💯]
 # mine: [pack/landonb/start/vim-lcd-project-root#🥔]
 # fork: [pack/landonb/start/vim-markdown#👇]
+# mine: [pack/landonb/start/vim-mkspell-when-stale#🥖]
 # mine: [pack/landonb/start/vim-netrw-cfg-split-explorer#🌐]
 # mine: [pack/landonb/start/vim-netrw-link-resolve#🧩]
 # mine: [pack/landonb/start/vim-nicer-file-changed-prompt#🗯]

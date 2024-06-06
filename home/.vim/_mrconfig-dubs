@@ -166,6 +166,11 @@ lib =
 # Alt. repo: https://github.com/plasticboy/vim-markdown.git
 
 # Original project.
+# `mkspell` wrapper
+[pack/landonb/start/vim-mkspell-when-stale]
+lib = remote_set publish https://github.com/landonb/vim-mkspell-when-stale.git
+
+# Original project.
 [pack/landonb/start/vim-netrw-cfg-split-explorer]
 lib = remote_set publish https://github.com/landonb/vim-netrw-cfg-split-explorer.git
 
