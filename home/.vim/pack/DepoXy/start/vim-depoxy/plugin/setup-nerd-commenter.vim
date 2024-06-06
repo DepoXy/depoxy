@@ -1,6 +1,6 @@
-" GVim Fullscreen Toggle. Most useful on macOS.
+" NERD Commenter settings
 " Author: Landon Bouma <https://tallybark.com/>
-" Online: https://github.com/landonb/vim-fullscreen-toggle
+" Project: https://github.com/DepoXy/depoxy#🍯
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 "  vim:tw=0:ts=2:sw=2:et:norl:ft=vim
 " Copyright © 2011-2021 Landon Bouma.
