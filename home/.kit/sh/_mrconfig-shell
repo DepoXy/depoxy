@@ -45,6 +45,18 @@ lib =
   # REFER/2024-05-03: ~/.tmux.conf loads origin/master: l. 1584:
   #   (cd "$TMUX_PLUGIN_MANAGER_PATH/tpm" ... && git reset -q --hard origin/master)
   remote_set origin http://github.com/tmux-plugins/tpm.git
+# DUNNO/2024-06-06: The tpm plugin itself appears to be modifying the repo?
+# Or something, not quite sure what's up, but if you reset HEAD and run
+# tmux, the changes reappear.
+#
+#   $ git status --porcelain
+#    M scripts/install_plugins.sh
+#    M scripts/source_plugins.sh
+#    M scripts/update_plugin.sh
+mystatus = true
+ffssh = true
+# travel = true
+# unpack = true
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/tmux-bash-completion]
 lib = remote_set starter http://github.com/imomaliev/tmux-bash-completion.git
