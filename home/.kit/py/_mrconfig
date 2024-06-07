@@ -280,6 +280,10 @@ checkout =
   else
     mr_repo_checkout
   fi
+ffssh =
+  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    git_merge_ffonly_ssh_mirror "$@"
+  fi
 # Should be ordered lower than anything that uses `pyenv init`
 # (lowest-order project is pipx, order = 469).
 order = 468
@@ -422,6 +426,10 @@ checkout =
     stub_checkout_directory
   else
     mr_repo_checkout
+  fi
+ffssh =
+  if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ]; then
+    git_merge_ffonly_ssh_mirror "$@"
   fi
 # USYNC: 
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
