@@ -92,6 +92,8 @@ function omr-report () {
     # CXREF: ~/.kit/git/ohmyrepos/bin/omr-report
     . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
 
+    _omr_report_source_deps
+
     omr_report \
       "${HOME}" \
       "/TBD-*" -prune \
