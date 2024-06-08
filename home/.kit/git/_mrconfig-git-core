@@ -416,6 +416,7 @@ order = 150
 lib = remote_set publish https://github.com/landonb/ohmyrepos.git
 skip = mr_exclusive_git_core
 infusePostRebase =
+  link_hard_dep_sh_err_trap
   link_hard_dep_sh_logger_and_colors
   link_hard_dep_sh_print_nanos_now
 infuse =
