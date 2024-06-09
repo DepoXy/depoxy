@@ -29,6 +29,8 @@ include =
 
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/append-bash-completion.sh"
 
+lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/is-remote-depoxy-client-same.sh"
+
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/macos-install-dmg.sh"
 
 # On-demand:
@@ -210,6 +212,17 @@ infuse =
   LOG_LEVEL=10 \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-config-omr" \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}" "$@"
+
+# User home is DXC-specific, but MR_REMOTE_DXC_HOME lets us choose a different
+# remote path if the remote is running a different client.
+# - Sets `ffssh`, `travel`, and `unpack` to use alternative path if not same
+#   Client ID, e.g.,
+#     MR_REMOTE_HOME/.depoxy/stints/DEPOXY_CLIENT_ID/home/.home
+#   Otherwise, if Client IDs match, uses normal project path (MR_REMOTE_HOME).
+# - CXREF:
+#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/depoxy-client-home-travel-wiring
+include =
+  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/depoxy-client-home-travel-wiring"
 
 # ========================================================================
 # ------------------------------------------------------------------------

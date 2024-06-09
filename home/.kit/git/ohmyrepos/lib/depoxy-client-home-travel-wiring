@@ -1,0 +1,39 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# If you have a different DepoXy Client on another host, you can backup
+# this host's ${HOME} to the other host by using a custom MR_REMOTE_PATH.
+# - The customizable MR_REMOTE_DXC_ROOT and MR_DXC_HOME_SHADOW vars default
+#   to home/.home under the client, e.g., ~/.depoxy/stints/XXXX/home/.home
+# - You'll also need to add a special project to the remote OMR config to
+#   also manage MR_REMOTE_PATH on the other host (e.g., it'll have to pull
+#   from this host's $HOME, and not from ~/.depoxy/stints/XXXX/home/.home,
+#   which doesn't exist on this host.
+
+lib =
+  set_environ_remote_dxc_home () {
+    local dxc_root="${MR_REMOTE_DXC_ROOT:-${MR_REMOTE_HOME:-${HOME}}/.depoxy/stints}"
+    MR_REMOTE_DXC_HOME="${dxc_root}/${DEPOXY_CLIENT_ID}/${MR_DXC_HOME_SHADOW:-home/.home}"
+  }
+  set_environ_remote_dxc_home
+  #
+  redirect_mr_repo_unless_depoxy_client_same () {
+    local ret
+    if ! ret=$(is_remote_depoxy_client_same "${DEPOXY_CLIENT_ID}") && ${ret}; then
+      MR_REMOTE_PATH="${MR_REMOTE_DXC_HOME}"
+    fi
+    # errexit if is_remote_depoxy_client_same encountered error.
+    ${ret}
+  }
+
+ffssh =
+  redirect_mr_repo_unless_depoxy_client_same
+  debug "MR_REMOTE_PATH: ${MR_REMOTE_PATH}"
+  git_merge_ffonly_ssh_mirror "$@"
+
+travel = MR_REMOTE_PATH="${MR_REMOTE_DXC_HOME}" git_update_device_fetch_from_local "$@"
+
+unpack = MR_REMOTE_PATH="${MR_REMOTE_DXC_HOME}" git_update_local_fetch_from_device "$@"
+
