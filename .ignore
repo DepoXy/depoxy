@@ -30,6 +30,9 @@
 /home/.config/tig/tigconfig-client
 /home/.config/tig/tigconfig.EVAL
 
+# Symlink -> /Users/user/.depoxy/stints/XXXX/home/_git/
+/home/_git
+
 # Symlink -> ~/.kit/git/git-smart/.gitconfig
 # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
 /home/.gitconfig
