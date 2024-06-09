@@ -3,7 +3,7 @@
 # License: MIT
 
 # NOTE: Git 2.32.0+ does not allow `.gitignore` symlinks; so now a hard link.
-# - LINKD: ~/.gitignore ↔ ~/.depoxy/ambers/home/.kit/_gitignore
+# - LINKD: ~/.kit/.gitignore ↔ ~/.depoxy/ambers/home/.kit/_gitignore
 
 # Symlinks to ~/.depoxy/ambers/home/.kit/ files.
 /.gitignore
