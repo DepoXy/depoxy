@@ -334,7 +334,7 @@ installLinux =
   #   mr -d ${MR_REPO} -n installpythons
   # - Have the user call that deliberately, on their own time.
 
-# USYNC: 
+# USYNC:
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
 #     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
 installpythons =
@@ -431,7 +431,7 @@ ffssh =
   if [ ! -e "${HOMEBREW_PREFIX}/bin/pyenv-virtualenv" ]; then
     git_merge_ffonly_ssh_mirror "$@"
   fi
-# USYNC: 
+# USYNC:
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
 #     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 428
 echoInstallHelp =
@@ -537,7 +537,7 @@ install =
   #       Use build and pip and other standards-based tools.
   #     ...
   # - So we could grab what's on PyPI.
-  #     pip install virtualenvwrapper 
+  #     pip install virtualenvwrapper
   #   (Note our local changes would still work.)
   # - Or we could pip-install the path, which uses pyproject.toml.
   #
