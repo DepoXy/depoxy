@@ -410,7 +410,7 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
   "github.com/landonb" "vim-lsp" "vim-private" "DXC" "${LOGNAME}"
 
 # NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
-#   is within ~/.depoxy/running/_mrconfig
+#   is within ~/.depoxy/running/.mrconfigs/_mrconfig
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -590,7 +590,7 @@ include =
     # largest-number client under ~/.depoxy/stints. It uses instead the
     # special "running" symlink, whose main purpose is this mechanism,
     # to tell us which DXC config to load.
-    local client_mrconfig="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/_mrconfig"
+    local client_mrconfig="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/.mrconfigs/_mrconfig"
     #
     # `mr_exclusive` should really be named `should_skip` b/c that's
     # the value it returns, true if MR_INCLUDE is non-empty and does
@@ -611,7 +611,7 @@ include =
   # deploy-archetype.sh script standup an out-of-band DepoXy Client
   # (without needing to edit ~/.mrtrust or wire its path into mrconfig).
   include_reservable_mrconfig () {
-    local reservable_mrconfig="${DEPOXYDIR_RESERVABLE_FULL:-${HOME}/.depoxy/.adscititious}/_mrconfig"
+    local reservable_mrconfig="${DEPOXYDIR_RESERVABLE_FULL:-${HOME}/.depoxy/.adscititious}/.mrconfigs/_mrconfig"
     #
     if [ -f "${reservable_mrconfig}" ]; then
       cat "${reservable_mrconfig}"

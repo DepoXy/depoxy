@@ -49,7 +49,7 @@
 #   is populated with symlinks by symlink_kbmods_using_file_symlinks in
 #     ~/.depoxy/ambers/home/infuse-platform-macOS:47
 #   and DXC's depoxy_client_id_infuse_karabiner_elements_complex_modifications
-#     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr:751
+#     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr:751
 #   that serve as canon for ~/.projlns
 /home/.config/karabiner/assets/complex_modifications/
 # --DXC symlink -> ../../../../../running/home/.config/karabiner/assets/complex_modifications/

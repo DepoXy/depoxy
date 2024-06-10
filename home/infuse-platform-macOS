@@ -141,7 +141,7 @@ symlink_kbmods_using_file_symlinks () {
 #              (see comment below).
 # CXREF: DepoXy Client KB infuser:
 #   depoxy_client_id_infuse_karabiner_elements_complex_modifications
-#     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr:751
+#     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr:751
 infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
   local before_cd="$(pwd -L)"
 
