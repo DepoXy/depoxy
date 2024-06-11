@@ -142,10 +142,13 @@ lib =
     mkdir -p "${reppath}"
     #
     if [ ! -e "${reppath}/.git" ]; then
-      # Do a return-to-sender on the email, such that whatever is currently
-      # the email address gets used, even if it's not set (which stops Git
-      # from otherwise complain-failing).
+      # Specify email, even if it's not set yet (because later-order
+      # 'infuse' might have yet to wire user's .gitconfig) to stop
+      # Git from otherwise complain-failing.
       local user_email="$(git config user.email)"
+      if [ -z "${user_email}" ]; then
+        user_email="too-soon"
+      fi
       #
       # Tell Git init how to name the initial branch, otherwise it prints a
       # long hint about how the default branch name is subject to change.
