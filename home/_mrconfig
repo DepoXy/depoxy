@@ -158,10 +158,7 @@ lib =
       #
       git -c init.defaultBranch="${init_branch}" init .
       #
-      touch -- ".gitisempty"
-      git add ".gitisempty"
-      #
-      git -c user.email="${user_email}" commit -m \
+      git -c user.email="${user_email}" commit --allow-empty -m \
         "💂Guard💂Repo💂 — 🚧 This is an unmanaged (🚫💼) facility 🚧"
     fi
   }
