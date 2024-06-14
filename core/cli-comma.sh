@@ -20,10 +20,28 @@
 #   https://github.com/shyiko/commacd
 #   http://shyiko.com/2014/10/10/commacd/
 wire_commacd () {
+  COMMACD_CD="_dxy_command_cd"
+
+  # CXREF: ~/.kit/sh/commacd/commacd.sh
+  #        ~/.kit/sh/commacd/commacd.bash
   if [ -e ${SHOILERPLATE:-${HOME}/.kit/sh}/commacd/commacd.sh ]; then
     . ${SHOILERPLATE:-${HOME}/.kit/sh}/commacd/commacd.sh
   elif [ -e ${SHOILERPLATE:-${HOME}/.kit/sh}/commacd/commacd.bash ]; then
     . ${SHOILERPLATE:-${HOME}/.kit/sh}/commacd/commacd.bash
+  fi
+}
+
+# ***
+
+# COMMACD_CD override, to use `pushd` not `cd`
+_dxy_command_cd () {
+  local dir=$1 IFS=$' \t\n'
+
+  if [[ "$PWD" != "$dir" ]]; then
+    builtin pushd "$dir" > /dev/null && pwd
+  else
+    echo "_dxy_command_cd: no matches found" >&2
+    return 1
   fi
 }
 
