@@ -117,7 +117,7 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     if [ -f "${HOME}/.vim/.mrconfig-3rdp" ]; then
-      cat ${HOME}/.vim/.mrconfig-3rdp
+      mr_cat ${HOME}/.vim/.mrconfig-3rdp
     fi
   fi
 
@@ -130,7 +130,7 @@ include =
      [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
   false; then
     if [ -f "${HOME}/.vim/.mrconfig-dubs" ]; then
-      cat ${HOME}/.vim/.mrconfig-dubs
+      mr_cat ${HOME}/.vim/.mrconfig-dubs
     fi
   fi
 
@@ -142,7 +142,7 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     if [ -f "${HOME}/.vim/.mrconfig-lsp" ]; then
-      cat ${HOME}/.vim/.mrconfig-lsp
+      mr_cat ${HOME}/.vim/.mrconfig-lsp
     fi
   fi
 
@@ -162,7 +162,7 @@ include =
      [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
   false; then
     if [ -f "${HOME}/.vim/.mrconfig-private" ]; then
-      cat ${HOME}/.vim/.mrconfig-private
+      mr_cat ${HOME}/.vim/.mrconfig-private
     fi
   fi
 

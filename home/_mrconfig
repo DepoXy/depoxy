@@ -497,7 +497,7 @@ include =
     # more tedious to alter from an `include`: you have to `. logger`, and
     # then `>&2 warn`. Also why warn so much: User eventually `infuse`'s.)
     if [ -f "${kit_mrconfig}" ]; then
-      cat "${kit_mrconfig}"
+      mr_cat "${kit_mrconfig}"
     fi
   }
   # USYNC: MR_INCLUDE keywords used in both files:
@@ -598,7 +598,7 @@ include =
     # - I.e., `&& ! mr_exclusive` really means 'and don't skip'.
     # - Another way to think of the current var name: 'exclusive of'.
     if [ -f "${client_mrconfig}" ] && ! mr_exclusive "client" "work"; then
-      cat "${client_mrconfig}"
+      mr_cat "${client_mrconfig}"
     fi
     #
     return 0
@@ -614,7 +614,7 @@ include =
     local reservable_mrconfig="${DEPOXYDIR_RESERVABLE_FULL:-${HOME}/.depoxy/.adscititious}/.mrconfigs/_mrconfig"
     #
     if [ -f "${reservable_mrconfig}" ]; then
-      cat "${reservable_mrconfig}"
+      mr_cat "${reservable_mrconfig}"
     fi
     #
     return 0
