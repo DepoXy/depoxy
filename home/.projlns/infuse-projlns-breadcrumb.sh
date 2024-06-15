@@ -37,7 +37,7 @@ source_deps () {
 #          so I could run Bash scripts on macOS before installing Homebrew,
 #          but I realized there's no need. Just require Homebrew first.)
 infuse_script_suss_fullpath () {
-  local script_fullpath=$(realpath -- "${0}")
+  local script_fullpath=$(realpath -- "$0")
 
   if [ ! -f "${script_fullpath}" ]; then
     >&2 echo "UNEXPECTED: ‘$0’ not a file: ‘${script_fullpath}’"
