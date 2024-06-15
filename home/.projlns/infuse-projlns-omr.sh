@@ -16,11 +16,11 @@ MREDIT_CONFIGS="${MREDIT_CONFIGS:-${DEPOXY_PROJLNS:-${HOME}/.projlns}/mymrconfig
 
 source_deps () {
   # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
-  #                        for this file, and for link_deep).
+  #                        used by this file, and dep upon by link_deep).
   # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
-  # Load: link_deep, and remove_symlink_hierarchy_safe.
+  # Load: link_deep, and remove_symlink_hierarchy_safe. Requires logger.sh.
   # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
   . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
 
