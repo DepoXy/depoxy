@@ -4,6 +4,10 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# USAGE: Called by infuse_symlinks_home_projlns:
+#
+#   ~/.depoxy/ambers/home/infuse-user-home
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
