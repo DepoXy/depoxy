@@ -409,17 +409,30 @@ infuse_symlinks_home_tmux_completion () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Populate ~/.projlns for Vim dubs_grep_steady path #9.
 infuse_symlinks_home_projlns () {
-  # Populate ~/.projlns for Dubs Vim grep path #9.
-
+  # Drop:
+  #
+  #   ~/.projlns/XCRUMB.depoxy
+  #
   # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-breadcrumb.sh
-  ./.mrinfuse/.projlns/infuse-projlns-breadcrumb.sh
+  ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/infuse-projlns-breadcrumb.sh
 
+  # Populate
+  #
+  #   ~/.projlns/depoxy-deeplinks/
+  #   ~/.projlns/docs-and-backlog/
+  #   ~/.projlns/sh-lib/
+  #
   # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
-  ./.mrinfuse/.projlns/infuse-projlns-core.sh
+  ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/infuse-projlns-core.sh
 
+  # Populate:
+  #
+  #   ~/.projlns/mymrconfigs/
+  #
   # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
-  ./.mrinfuse/.projlns/infuse-projlns-omr.sh
+  ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/infuse-projlns-omr.sh
 
   # There's a template for running private/machine-specific infusers:
   #  .mrinfuse/.projlns/infuse-projlns-work.example.sh
