@@ -326,7 +326,6 @@ order = 131
 lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
-  local ambers_path="${MR_REPO}"
   #
   # FIXME/2022-11-01: Did I forget to remove this infuse task?
   #                   Or did I forget to add the source file?
