@@ -339,8 +339,8 @@ autocommit =
   git_auto_commit_parse_args "$@"
   git_auto_commit_one 'home/.vim/spell/en.utf-8.add--personal' -m "Update: Spells"
 
-echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all' \
-  'set fussy.desktop as default browser'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' \
+  "Linux: fussy.desktop def't browser / macOS: allow term. notifs"
 isInstalled = os_is_macos \
   || [ "$(xdg-settings get default-web-browser)" = "fussy.desktop" ]
 install = install_os_specific
