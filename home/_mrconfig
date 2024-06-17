@@ -210,7 +210,7 @@ infuse =
   # your home directory that you might want to know about.
   prepare_guard_repo
   #
-  ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   #
   symlink_overlay_file \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/_ignore-macOS" \
