@@ -425,6 +425,7 @@ isInstalled = true
 install = vim -u NONE -c "Helptags" -c q
 infusePostRebase =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
   . "${infuse_dubs_vim}"
