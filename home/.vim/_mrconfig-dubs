@@ -85,6 +85,9 @@ lib = remote_set publish https://github.com/landonb/dubs_edit_juice.git
 
 [pack/landonb/start/dubs_file_finder]
 lib = remote_set publish https://github.com/landonb/dubs_file_finder.git
+infuse =
+  link_private_exclude "$@"
+  link_private_ignore_ "$@"
 
 [pack/landonb/start/dubs_ftype_mess]
 lib = remote_set publish https://github.com/landonb/dubs_ftype_mess.git
