@@ -398,15 +398,6 @@ order = 140
 # SKIPPING: GIT_REPO_SEEDS_0: See: once/setup_ubuntu.sh, once/vendor_dubs-vim.sh
 lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
 chain = true
-# CXREF: setup_vim_generate_helptags calls :Helptags.
-echoInstallHelp =
-  echo "$(echoInstallHelpWidget 'os_all' 'dxy_all') \
- DepoXy: Generate Vim help docs (also runs on \`infuse\`): Run Vim, then::
-      :Helptags
- "
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'run :Helptags'
-isInstalled = true
-install = vim -u NONE -c "Helptags" -c q
 infusePostRebase =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
