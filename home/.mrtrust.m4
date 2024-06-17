@@ -18,6 +18,11 @@
 #     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
 #     --define=GITREPOSPATH=${GITREPOSPATH:-${HOME}/.kit/git} \
 #     .mrtrust.m4 > ~/.mrtrust
+#
+# Use changecom, otherwise m4 ignores lines with leading `#` characters.
+changecom()dnl
+# Let user ref template vars in comments with super-quotes.
+changequote('[[[', ']]]')dnl
 
 # *** Trust OMR behavior profile.
 
