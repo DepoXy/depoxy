@@ -164,7 +164,6 @@ prepare_mrtrust () {
   $(m4_kludge) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT} \
-    --define=GITREPOSPATH=${GITREPOSPATH} \
     ${DEPOXYAMBERS_DIR}/home/.mrtrust.m4 \
     > ${DEPOXYAMBERS_DIR}/home/.mrtrust
 }

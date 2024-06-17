@@ -73,7 +73,6 @@ setup_myrepos_generated_mrtrust () {
   $(m4_kludge) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
-    --define=GITREPOSPATH=${GITREPOSPATH:-${HOME}/.kit/git} \
     "${ambers_home}/.mrtrust.m4" \
     > "${ambers_home}/.mrtrust"
 }
