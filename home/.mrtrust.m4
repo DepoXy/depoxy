@@ -5,6 +5,12 @@
 
 # ====================================================================
 
+# BWARE: Make sure you're editing the template / USYNC:
+#
+#   meld ~/.depoxy/ambers/home/.mrtrust.m4 ~/.depoxy/ambers/home/.mrtrust &
+
+# ====================================================================
+
 # SETUP/WIRING:
 #
 #   m4 \
