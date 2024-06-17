@@ -1,7 +1,5 @@
 # vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=config
 
-# SYNC_ME: See KIT_MRCONFIGS in .vimprojects.
-
 # SETUP/WIRING:
 #
 #   m4 \
