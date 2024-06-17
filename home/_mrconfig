@@ -200,7 +200,7 @@ lib =
 [${MR_HOME:-${HOME}}]
 order = 1
 checkout = true
-skip = mr_exclusive "home"
+skip = mr_exclusive "home" "${LOGNAME}"
 # We create a new Git repo in user home, but it's just a trap (using
 # the .gitignore symlink we wire in) to let us know if new files pop
 # up under $HOME.
@@ -279,6 +279,9 @@ infuse =
 updateDeps =
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
   update_deps_shoilerplate
+#
+skip = mr_exclusive "bash" "sh" "home" "${LOGNAME}" "DXC"
+#
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
   install_bash_history_to_noise () {
@@ -303,8 +306,6 @@ install =
     fi
   }
   install_bash_history_to_noise
-#
-skip = mr_exclusive "bash" "sh" "home"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -371,7 +372,7 @@ installLinux =
 [${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
 order = 132
 lib = remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
-skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted"
+skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
