@@ -265,7 +265,7 @@ infuse_symlinks_user_home_gitconfig_from_base () {
 #     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr
 infuse_symlinks_user_home_gitignore_local () {
   if [ -f "${HOME}/.mrinfuse/_git/info/exclude" ]; then
-    link_private_exclude "${@}"
+    link_private_exclude "$@"
   fi
 }
 
@@ -478,7 +478,7 @@ main () {
   [ "$(basename -- "$0")" != "infuse-user-home" ] || LOG_LEVEL=0
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
-  infuser_prepare "${HOME}" "${@}"
+  infuser_prepare "${HOME}" "$@"
 
   local before_cd="$(pwd -L)"
   cd ${MR_REPO}

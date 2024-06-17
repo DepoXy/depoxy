@@ -251,16 +251,16 @@ infuse =
   #
   # Most of the symlinks are installed via the infuse scripts, but we wire
   # the exclude and ignore file here. (Though really for no good reason.)
-  link_private_exclude "${@}"
-  link_private_ignore "${@}"
+  link_private_exclude "$@"
+  link_private_ignore "$@"
   #
   # Rely on external infuser scripts for the rest of the setup.
   #
   # CXREF: ~/.depoxy/ambers/home/infuse-home-fries
-  LOG_LEVEL=10 "${infuse_home_fries}" "${@}"
+  LOG_LEVEL=10 "${infuse_home_fries}" "$@"
   #
   # CXREF: ~/.depoxy/ambers/home/infuse-user-home
-  LOG_LEVEL=10 "${infuse_user_home}" "${@}"
+  LOG_LEVEL=10 "${infuse_user_home}" "$@"
 updateDeps =
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
   update_deps_shoilerplate
@@ -321,7 +321,7 @@ infuse =
   #  "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/.gitignore"
   #
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
-  LOG_LEVEL=10 ${MR_REPO}/home/infuse-platform-macOS "${@}"
+  LOG_LEVEL=10 ${MR_REPO}/home/infuse-platform-macOS "$@"
   #
   local kit_mrconfig="${MR_REPO}/home/.kit/_mrconfig"
   if [ ! -f "${kit_mrconfig}" ]; then
