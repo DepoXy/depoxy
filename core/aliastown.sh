@@ -249,25 +249,25 @@ _dxy_wire_aliases_pushd_paths_vim () {
 # 2021-07-31: Extrapolating...
 _dxy_wire_aliases_pushd_paths_kit () {
   pushd_alias_or_warn "cdkcl" "${DOPP_KIT:-${HOME}/.kit}/clang"
-  pushd_alias_or_warn "cdkgit" "${DOPP_KIT:-${HOME}/.kit}/git"
+  pushd_alias_or_warn "cdkgit" "${GITREPOSPATH:-${HOME}/.kit/git}"
   pushd_alias_or_warn "cdkgo" "${DOPP_KIT:-${HOME}/.kit}/go"
   pushd_alias_or_warn "cdkjs" "${DOPP_KIT:-${HOME}/.kit}/js"
   pushd_alias_or_warn "cdkml" "${DOPP_KIT:-${HOME}/.kit}/ml"
-  pushd_alias_or_warn "cdkmos" "${DOPP_KIT:-${HOME}/.kit}/mOS"
+  pushd_alias_or_warn "cdkmos" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
   pushd_alias_or_warn "cdkpy" "${DOPP_KIT:-${HOME}/.kit}/py"
-  pushd_alias_or_warn "cdksh" "${DOPP_KIT:-${HOME}/.kit}/sh"
+  pushd_alias_or_warn "cdksh" "${SHOILERPLATE:-${HOME}/.kit/sh}"
 
   # See also: GITREPOSPATH
   #  pushd_alias_or_warn "cdka" "${DOPP_KIT:-${HOME}/.kit}/ansible"
-  pushd_alias_or_warn "cdkg" "${DOPP_KIT:-${HOME}/.kit}/git"
+  pushd_alias_or_warn "cdkg" "${GITREPOSPATH:-${HOME}/.kit/git}"
   # pushd_alias_or_warn "cdkg" "${DOPP_KIT:-${HOME}/.kit}/golang"
   pushd_alias_or_warn "cdkj" "${DOPP_KIT:-${HOME}/.kit}/js"
   #  pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/ml"
-  pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/mOS"
+  pushd_alias_or_warn "cdkm" "${MOSREPOSPATH:-${HOME}/mOS}"
   pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
-  pushd_alias_or_warn "cdks" "${DOPP_KIT:-${HOME}/.kit}/sh"
+  pushd_alias_or_warn "cdks" "${SHOILERPLATE:-${HOME}/.kit/sh}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
