@@ -326,14 +326,6 @@ order = 131
 lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
-  #
-  # FIXME/2022-11-01: Did I forget to remove this infuse task?
-  #                   Or did I forget to add the source file?
-  #                   - I think this is @home only,
-  #                     and @work I have stints/.gitignore ??
-  #symlink_overlay_file "home/.depoxy/_gitignore" \
-  #  "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/.gitignore"
-  #
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
   LOG_LEVEL=10 ${MR_REPO}/home/infuse-platform-macOS "$@"
   #
