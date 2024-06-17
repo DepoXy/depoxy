@@ -389,23 +389,6 @@ infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_pr
 # ------------------------------------------------------------------------
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  DepoXy patch transfer repo, used by git-put-wise.
-
-[${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/patchr]
-# USAGE: Setup `Host github_user_key` section in ~/.ssh/config and
-# make a private GH repository for transferring files, then configure
-# the remote here, e.g.,
-#
-#  lib = remote_set entrust "git@github_user_key:user/patchr.git"
-
-# This repo is managed by git-put-wise, not by OMR, but we'll include
-# it for completeness, and so `omr-report` doesn't complain.
-skip = true
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 #  Dubs Vim (~/.vim foundation and lightweight ~/.vimrc)
 
 [${MR_HOME:-${HOME}}/.vim]
