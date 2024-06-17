@@ -395,6 +395,7 @@ skip = mr_exclusive_git_core
 infuse =
   infuser_prepare "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos" "${@}"
   symlink_overlay_file "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos/mr" "${HOME}/.local/bin/mr"
+infuseProjlns = infuse_projlns_if_personal_project "mr" "README.rst"
 # DEBAR: There's no 'install' or 'update' action because myrepos doesn't
 # budge much, and the landonb/myrepos fork is a versioned TIP. So we want
 # to be deliberate about merging upstream changes (and to avoid requiring

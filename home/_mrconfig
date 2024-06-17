@@ -29,6 +29,9 @@ include =
 
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/append-bash-completion.sh"
 
+# CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
+
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/is-remote-depoxy-client-same.sh"
 
 lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/macos-install-dmg.sh"
@@ -71,6 +74,18 @@ lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib
 # line. Internally, myrepos projects still use the `checkout` command to wire
 # their git-clone operations.
 clone = checkout
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+infuseProjlns = infuse_projlns_if_personal_project
+
+# Do not print action or directory header line.
+no_print_action_infuseProjlns = true
+no_print_dir_infuseProjlns = true
+# Do not print if repo fails (action will do it).
+#  no_print_failed_infuseProjlns = true
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -183,7 +198,7 @@ lib =
 #       For the sake of readability, let's use the env. var.
 #
 [${MR_HOME:-${HOME}}]
-order = 110
+order = 1
 checkout = true
 skip = mr_exclusive "home"
 # We create a new Git repo in user home, but it's just a trap (using
@@ -327,6 +342,11 @@ infuse =
   if [ ! -f "${kit_mrconfig}" ]; then
     warn "WARNING: Missing .mrconfig: ${kit_mrconfig}"
   fi
+# Force a single root deep-link, otherwise the infuser would detect the
+# embedded archetype/.git repo and fallback to ls-files deep-links. But
+# we also want archetype/ deep-linked. So ambers can be a root deep-link.
+# - USYNC: See below: archetype/ must use TOGGLE_OFF=true because of this.
+infuseProjlns = OMR_INFUSE_PROJLNS_ROOT=true infuse_projlns_if_personal_project
 
 autocommit =
   git_auto_commit_parse_args "$@"
@@ -369,6 +389,14 @@ skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted"
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
+# Deep-linked inherently via ~/.depoxy/ambers, i.e., because
+#     ~/.projlns/depoxy-deeplinks/home/user/.depoxy/ambers
+#   is a root deep-link.
+# - SAVVY: Instead of just skipping this action, e.g.,:
+#     infuseProjlns = true
+#   Run in the "off" position to emit a trace message.
+# - USYNC: See above: ambers/ uses ROOT=true to include archetype/.
+infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_project
 
 # ========================================================================
 # ------------------------------------------------------------------------

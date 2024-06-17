@@ -12,8 +12,6 @@
 
 DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
 
-DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
-
 DEPOXY_PROJLNS_USRDOC="${DEPOXY_PROJLNS_USRDOC:-${DEPOXY_PROJLNS}/docs-and-backlog}"
 
 DEPOXY_PROJLNS_SH_LIB="${DEPOXY_PROJLNS_SH_LIB:-${DEPOXY_PROJLNS}/sh-lib}"
@@ -60,123 +58,18 @@ populate_links_directory () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
+# CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+
 infuse_projects_links_core () {
-  populate_links_directory \
-    "${DEPOXY_PROJLNS_DEPOXY}" \
-    "infuse_create_symlinks_core"
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-infuse_create_symlinks_core () {
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-
-  # 2020-03-01: Top-level file data ignore rules.
-  /bin/ln -s \
-    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.projlns/depoxy-deeplinks/_ignore" \
-    ".ignore"
-
-  link_deep "${HOMEFRIES_DIR:-${HOME}/.homefries}"
-
-  link_deep "${HOME}/.vim"
-  # Note that ~/.vim/.ignore skips ~/.vim/pack, so that search
-  # doesn't include third-party plugs.
-  # - As such, we cannot simply call:
-  #     link_deep "${HOME}/.vim/pack/landonb"
-  #   because ${DEPOXY_PROJLNS_DEPOXY}/home/user/.vim -> ~/.vim,
-  #   meaning ${DEPOXY_PROJLNS_DEPOXY}/home/user/.vim/pack/landonb is
-  #   actual ~/.vim/pack/landonb. So specify a different target path.
-  # - Note that deep_link sub's "${HOME}" for user-agnostic "/home/user",
-  #   so that ~/.projlns/depoxy-deeplinks/.ignore doesn't have to be
-  #   customized with the active user name (nor have to care if macOS
-  #   /Users/<user> or Linux /home/<user>).
-  link_deep "${HOME}/.vim/pack/landonb" "home/user/_vim/pack/landonb"
-
-  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}"
-
-  if [ -d "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/stints" ]; then
-    link_deep "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/stints"
-  fi
-
-  # *** ~/.kit/ Dopp Kit Git scaffolding.
-
-  # 2020-12-16: Unnecessary: There's a symlink at:
-  #   ${DEPOXY_PROJLNS_DEPOXY}/depoxy-ambers -> ~/.depoxy/ambers
+  # HSTRY/2024-06-16: This replicates historic behavior, but it's
+  # a titch slow, and only needs to run when projects are added or
+  # removed, or if user edits a project's infuseProjlns action.
+  # - So we'll skip this, but leave a breadcrumb.
   #
-  #  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/.gitignore"
-  #  link_deep "${DEPOXYAMBERS_DIR:-${ambers_path}}}/home/.kit/README.md"
+  # MAYBE/2024-06-16: Enable this short-circuit:
+  #  return 0
 
-  # *** ~/.kit/git projects
-
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-rebase-tip"
-  link_deep "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-update-faithful"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/tig-newtons"
-  #
-  # **** (oh)myrepos
-  #
-  # 2023-10-26/2020-02-13/2019-10-23: Not my project, but also never seen hit on #9 grep.
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos"
-  link_deep "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command"
-  link_deep "${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}"
-
-  # *** ~/.kit/js projects
-
-  link_deep "${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey"
-
-  # *** ~/.kit/mOS projects
-
-  link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
-  link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools"
-  link_deep "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
-
-  # *** ~/.kit/odd projects
-
-  link_deep "${DOPP_KIT:-${HOME}/.kit}/odd/321open"
-
-  # *** ~/.kit/py projects
-
-  link_deep "${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper"
-
-  # *** ~/.kit/sh aka shoilerplate projects
-
-  # **** ~/.kit/sh library projects
-
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
-
-  # **** ~/.kit/sh feature projects
-
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
-  # FTREQ/2024-04-26: Publish this project. Currently private:
-  if [ -d "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report" ]; then
-    link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
-  fi
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
-  link_deep "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
-
-  # MAYBE/2024-04-26: Add any of these?
-  #   parT/
-  #   reputed-tiler/
-  #   salvage-fiefdom/
-  #   sh-spinners/
-  #   trust_me/
-
-  # *** ~/.kit/txt projects
-
-  link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
-  link_deep "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
+  mr -d / infuseProjlns
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #

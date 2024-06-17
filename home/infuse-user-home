@@ -418,9 +418,13 @@ infuse_symlinks_home_projlns () {
   # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-breadcrumb.sh
   ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/infuse-projlns-breadcrumb.sh
 
+  # CXREF:
+  #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+  # Populates:
+  #   ~/.projlns/depoxy-deeplinks/
+
   # Populate
   #
-  #   ~/.projlns/depoxy-deeplinks/
   #   ~/.projlns/docs-and-backlog/
   #   ~/.projlns/sh-lib/
   #

@@ -88,6 +88,10 @@ lib = remote_set publish https://github.com/landonb/dubs_file_finder.git
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
+# Because _cmdt_paths/cmdt_paths -> ~/.projlns/depoxy-deeplinks
+# deep-link only the specific repo files.
+# - Tho with new .ignore file this is unnecessary.
+#  infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project
 
 [pack/landonb/start/dubs_ftype_mess]
 lib = remote_set publish https://github.com/landonb/dubs_ftype_mess.git
