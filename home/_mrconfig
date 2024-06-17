@@ -324,7 +324,8 @@ install =
 # https://github.com/DepoXy/depoxy#🍯
 [${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers}]
 order = 131
-lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
+lib =
+  remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
@@ -371,7 +372,8 @@ installLinux =
 # https://github.com/DepoXy/depoxy-archetype#🏹
 [${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
 order = 132
-lib = remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
+lib =
+  remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   link_private_exclude "$@"
@@ -411,8 +413,8 @@ infuse =
   #  mr -d . -n infusePostRebase
   # B/c infuse-dubs-vim calls setup_vim_pack_git_exclude and setup_vim_pack_grep_ignore.
   #
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
   LOG_LEVEL=10 "${infuse_dubs_vim}" "$@"
