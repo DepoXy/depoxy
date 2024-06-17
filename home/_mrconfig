@@ -328,11 +328,6 @@ skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
   LOG_LEVEL=10 ${MR_REPO}/home/infuse-platform-macOS "$@"
-  #
-  local kit_mrconfig="${MR_REPO}/home/.kit/_mrconfig"
-  if [ ! -f "${kit_mrconfig}" ]; then
-    warn "WARNING: Missing .mrconfig: ${kit_mrconfig}"
-  fi
 # Force a single root deep-link, otherwise the infuser would detect the
 # embedded archetype/.git repo and fallback to ls-files deep-links. But
 # we also want archetype/ deep-linked. So ambers can be a root deep-link.
@@ -536,12 +531,8 @@ include =
     local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
     # CXREF: ~/.depoxy/ambers/home/.kit/_mrconfig
     local kit_mrconfig="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/_mrconfig"
-    # If there's no ~/.kit mrconfig, alert the user during `infuse`. (It's
-    # more tedious to alter from an `include`: you have to `. logger`, and
-    # then `>&2 warn`. Also why warn so much: User eventually `infuse`'s.)
-    if [ -f "${kit_mrconfig}" ]; then
-      mr_cat "${kit_mrconfig}"
-    fi
+    #
+    mr_cat "${kit_mrconfig}"
   }
   # USYNC: MR_INCLUDE keywords used in both files:
   #   ~/.depoxy/ambers/home/_mrconfig
