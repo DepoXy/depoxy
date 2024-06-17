@@ -15,6 +15,9 @@ DEPOXY_PROJLNS="${DEPOXY_PROJLNS:-${HOME}/.projlns}"
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
+  # B/c overlay-symlink.sh expects its root on PATH (I know, right).
+  local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  PATH="${PATH}:${omr_lib}"
   # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
   #                        for this file, and for link_deep).
   # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
