@@ -30,7 +30,7 @@ lib =
 
 ffssh =
   redirect_mr_repo_unless_depoxy_client_same
-  debug "MR_REMOTE_PATH: ${MR_REMOTE_PATH}"
+  debug "MR_REMOTE_PATH: ${MR_REMOTE_PATH} [depoxy-client-home-travel-wiring]"
   git_merge_ffonly_ssh_mirror "$@"
 
 travel = MR_REMOTE_PATH="${MR_REMOTE_DXC_HOME}" git_update_device_fetch_from_local "$@"
