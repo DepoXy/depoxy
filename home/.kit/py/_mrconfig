@@ -344,7 +344,7 @@ installpythons =
   # USYNC: pyenv-install-pys
   #   ~/.kit/py/easy-as-pypi/Makefile
   # USYNC: envlist
-  #   ~/kit/.py/easy-as-pypi/tox.ini
+  #   ~/.kit/.py/easy-as-pypi/tox.ini
   # USYNC: DEPOXY_PYENV_PYVERS
   #   ~/.config/depoxy/depoxyrc
   #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL
