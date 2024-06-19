@@ -41,7 +41,7 @@ updateDeps = update_deps_shoilerplate
 
 # "Adds window-tiling hotkeys to any X11 desktop. (An analogue to
 #  WinSplit Revolution for people who don't want to use Compiz Grid)"
-[${DOPP_KIT:-${HOME}/.kit}/odd/quicktile]
+[${DOPP_KIT:-${HOME}/.kit}/odd/x11/quicktile]
 lib = remote_set starter https://github.com/ssokolow/quicktile.git
 skip = os_is_macos
 # KLUGE: So @Linux doesn't try to fetch from @macOS host.
@@ -133,7 +133,7 @@ installLinux =
 #   - CXREF: https://usevia.app/ TypeScript sources:
 #       https://github.com/the-via/app
 # - On @linux, web app won't connect, so using AppImage.
-[${DOPP_KIT:-${HOME}/.kit}/odd/via-nativia]
+[${DOPP_KIT:-${HOME}/.kit}/odd/keyboard/via-nativia]
 checkout = stub_checkout_directory
 ffssh = true
 travel = true
@@ -238,7 +238,7 @@ lib =
 # - You'll also find the same download assets on the GH release page:
 #     https://github.com/zsa/wally/releases/
 #   - Note that OS X, Linux, and Windows releases are released separately.
-[${DOPP_KIT:-${HOME}/.kit}/odd/wally]
+[${DOPP_KIT:-${HOME}/.kit}/odd/keyboard/wally]
 checkout = stub_checkout_directory
 ffssh = true
 travel = true
