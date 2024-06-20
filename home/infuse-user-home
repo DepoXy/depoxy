@@ -181,6 +181,13 @@ infuse_symlinks_user_home_dotfiles () {
 
   # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
 
+  # Historical ~/.homefries path (that someday maybe we'll remove).
+  local rel_path="$( \
+    echo "${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}" \
+    | sed -E "s@^${HOME}/@@"
+  )"
+  symlink_overlay_file "${rel_path}" "${HOME}/.homefries"
+
   # CXREF/2023-02-28: See dot-inputrc#🎛️:
   #   ~/.kit/sh/dot-inputrc/.inputrc
   # - Infused by .kit/sh OMR config (using link_hard on @macOS):

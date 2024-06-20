@@ -43,7 +43,8 @@ source_deps () {
 #     - The truly private DepoXy Client Bashrc is created from a template:
 #         ~/.depoxy/ambers/archetype/home/bashrx.private.DXY_USERNAME.EVAL.sh.example
 setup_private_fries_bashrc () {
-  local private_bashrc=".homefries/.bashrc-bin/bashrx.private.sh"
+  # REFER: ${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}
+  local private_bashrc=".kit/sh/home-fries/.bashrc-bin/bashrx.private.sh"
 
   # This check solely because author uses a custom ~/.mrinfuse @home,
   # where they have a "bashrx.private.${LOGNAME}.sh" file instead of

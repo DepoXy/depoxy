@@ -245,7 +245,8 @@ include =
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 #  Home Fries (robust dotfiles)
 
-[${HOMEFRIES_DIR:-${MR_HOME:-${HOME}}/.homefries}]
+# MOVED/2024-06-19: Was [${HOMEFRIES_DIR:-${MR_HOME:-${HOME}}/.homefries}]
+[${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}]
 order = 120
 lib = remote_set publish "https://github.com/landonb/home-fries.git" ".homefries"
 infusePostRebase =
