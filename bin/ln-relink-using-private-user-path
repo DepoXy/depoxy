@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2024 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE: Recreates all symlinks committed to the local repo using an
+#        "OS-agnostic" user home path (sorta).
+#
+# - Use case: You want to use absolete symlinks in your private repos
+#   that will work in either Linux or macOS.
+#
+#   - One solution: On Linux, you generally have full control over the
+#     root directory.
+#
+#     So you could, e.g., create a /Users directory on Linux, and make
+#     a symlink /Users/user -> /home/user, thereby any absolute symlink
+#     made on macOS (to a file under user's home) will work on Linux.
+#
+#   - The problem is the reverse: On macOS, the root directory is
+#     mounted read-only (and while you could jump through hoops to
+#     enable write access, it's not trivial, it's potentially
+#     insecure, and I don't want to assume that any laptop that a
+#     Vendor sends me will let me do this).
+#
+#     That limits us to the few read-write root-level directories,
+#     which includes /private: On macOS, create the /private/user
+#     symlink to /Users/user, and on Linux, create the root-level
+#     /private directory, and make a similar symlink, /private/user
+#     targeting /home/user.
+#
+#   - Note that because you can make /Users/user on Linux, it really
+#     doesn't matter which prefix you choose. In fact, using /Users
+#     means you don't need the /private/user symlink on macOS.
+#
+#     But I like to use the prefix as documentation:
+#
+#     - For symlinks committed to Git, I like to see the /private/user
+#       prefix to tell me that I expect the repo to work on either
+#       macOS or Linux.
+#
+#     - But for symlinks created otherwise, especially those created
+#       by the OMR 'infuse' action, I like to see the native user path,
+#       so that I know that the symlink is generated.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+SYNTHETIC_HOME_PREFIX="${SYNTHETIC_HOME_PREFIX:-/private/user}"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+ln_relink_using_private_user_path () {
+  local rel_root
+  # Dies on "Not a git repo!" if not a Git repo.
+  rel_root="$(git root -r)"
+
+  local before_cd="$(pwd -L)"
+
+  if [ -n "${rel_root}" ]; then
+    # Not sure it matters, *but why not*.
+    cd "${rel_root}"
+  fi
+
+  local stats_files=0
+  local stats_symlinks=0
+  local stats_replaced=0
+
+  replace_working_file_links_using_os_agnostic_user_home_path
+
+  cd "${before_cd}"
+
+  report_stats
+}
+
+replace_working_file_links_using_os_agnostic_user_home_path () {
+  while IFS= read -r -d $'\0' fname; do
+    process_file "${fname}"
+  done < <(git ls-files -z)
+}
+
+process_file () {
+  local fname="$1"
+
+  let 'stats_files += 1'
+
+  if [ ! -h "${fname}" ]; then
+
+    return 0
+  fi
+
+  let 'stats_symlinks += 1'
+
+  # Note we want the symlink as created, and not the
+  # canonicalized path.
+  local target="$(readlink -- "${fname}")"
+
+  local synthetic_path="$( \
+    echo "${target}" \
+    | sed -E "s#^${HOME}#${SYNTHETIC_HOME_PREFIX}#"
+  )"
+
+  if [ "${synthetic_path}" != "${target}" ]; then
+    command rm -- "${fname}"
+
+    echo "ln -sfn \"${synthetic_path}\" \"${fname}\""
+    command ln -sfn "${synthetic_path}" "${fname}"
+
+    let 'stats_replaced += 1'
+  fi
+}
+
+report_stats () {
+  echo "Complete! — ${stats_files} file(s)" \
+    "/ ${stats_symlinks} symlink(s)" \
+    "/ ${stats_replaced} change(s)" 
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  set -e
+
+  # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib/err-trap.sh"
+
+  set_traps
+
+  # ***
+
+  ln_relink_using_private_user_path
+
+  # ***
+
+  clear_traps
+}
+
+# ***
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
+
