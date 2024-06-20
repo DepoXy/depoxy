@@ -111,6 +111,7 @@ infuse_create_symlinks_omr_scattered () {
         -o -name ".whilom" \
         \
         -o -name "myrepos" \
+        -o -path "*.example" \
       \) -prune -o \
       -name "*mrconfig*" \
       -type f \
