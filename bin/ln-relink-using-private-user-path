@@ -46,6 +46,16 @@
 #     - But for symlinks created otherwise, especially those created
 #       by the OMR 'infuse' action, I like to see the native user path,
 #       so that I know that the symlink is generated.
+#
+# USAGE: You can specify alternative old and new prefixes, too.
+#
+# - E.g., the default command:
+#
+#     ln-relink-using-private-user-path
+#
+#  Is the same as:
+#
+#     ln-relink-using-private-user-path "${HOME}" "/private/user"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -69,7 +79,7 @@ ln_relink_using_private_user_path () {
   local stats_symlinks=0
   local stats_replaced=0
 
-  replace_working_file_links_using_os_agnostic_user_home_path
+  replace_working_file_links_using_os_agnostic_user_home_path "$@"
 
   cd "${before_cd}"
 
@@ -78,12 +88,14 @@ ln_relink_using_private_user_path () {
 
 replace_working_file_links_using_os_agnostic_user_home_path () {
   while IFS= read -r -d $'\0' fname; do
-    process_file "${fname}"
+    process_file "${fname}" "$@"
   done < <(git ls-files -z)
 }
 
 process_file () {
   local fname="$1"
+  local old_prefix="${2:-${HOME}}"
+  local new_prefix="${3:-${SYNTHETIC_HOME_PREFIX}}"
 
   let 'stats_files += 1'
 
@@ -100,7 +112,7 @@ process_file () {
 
   local synthetic_path="$( \
     echo "${target}" \
-    | sed -E "s#^${HOME}#${SYNTHETIC_HOME_PREFIX}#"
+    | sed -E "s#^${old_prefix}#${new_prefix}#"
   )"
 
   if [ "${synthetic_path}" != "${target}" ]; then
@@ -131,7 +143,7 @@ main () {
 
   # ***
 
-  ln_relink_using_private_user_path
+  ln_relink_using_private_user_path "$@"
 
   # ***
 
