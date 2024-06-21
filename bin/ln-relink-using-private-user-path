@@ -56,6 +56,11 @@
 #  Is the same as:
 #
 #     ln-relink-using-private-user-path "${HOME}" "/private/user"
+#
+# USAGE: To echo the `ln` commands but not run them, enable dry-run:
+#
+#     RELINK_DRY_RUN=echo ln-relink-using-private-user-path
+#
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -116,10 +121,11 @@ process_file () {
   )"
 
   if [ "${synthetic_path}" != "${target}" ]; then
-    command rm -- "${fname}"
+    ${RELINK_DRY_RUN} command rm -- "${fname}"
 
     echo "ln -sfn \"${synthetic_path}\" \"${fname}\""
-    command ln -sfn "${synthetic_path}" "${fname}"
+    # Set RELINK_DRY_RUN=echo to run a dry run.
+    ${RELINK_DRY_RUN} command ln -sfn "${synthetic_path}" "${fname}"
 
     let 'stats_replaced += 1'
   fi
