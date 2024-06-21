@@ -1,0 +1,25 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/landonb/waffle-fries#🥞
+# License: PROPRIETARY AND CONFIDENTIAL.
+
+# -> .git/info/exclude
+/.gitignore.local
+
+# -> /.mrinfuse/easy-as-pypi/_git/info/exclude-private
+/.mrinfuse/ansi-escape-room/_git/info/exclude
+/.mrinfuse/ansiwrap-hotoffthehamster/_git/info/exclude
+/.mrinfuse/click-hotoffthehamster/_git/info/exclude
+/.mrinfuse/click-hotoffthehamster-alias/_git/info/exclude
+# Orig.: /.mrinfuse/easy-as-pypi/_git/info/exclude-private
+/.mrinfuse/python-prompt-toolkit/_git/info/exclude
+/.mrinfuse/sqlalchemy-migrate-hotoffthehamster/_git/info/exclude
+
+# From proj
+#   -> ../../.mrinfuse/<proj>/.trustme/.trustme.sh
+# From mrinfuse
+#   -> ../../../../sh/trust_me/.trustme.sh
+.trustme.sh
+
+/easy-as-pypi/bin/.whilom-circa2020/
+

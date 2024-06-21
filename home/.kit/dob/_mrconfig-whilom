@@ -1,0 +1,195 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 600
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-huey/mobile]
+order = 540
+lib = remote_set_private
+skip = true &&
+  mr_exclusive "kit" &&
+  mr_exclusive "HOTH" &&
+  mr_exclusive "kit-HOTH" &&
+  mr_exclusive "hotoffthehamster" &&
+  mr_exclusive "kit-hotoffthehamster"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-applet]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/hamster-applet.git
+  remote_set starter https://github.com/projecthamster/hamster.git
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-lib]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/hamster-lib.git
+  remote_set starter https://github.com/projecthamster/hamster-lib.git
+  remote_set doctormo https://github.com/doctormo/hamster-lib.git
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-cli]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/hamster-cli.git
+  remote_set starter https://github.com/projecthamster/hamster-cli.git
+  remote_set scientificsteve https://github.com/scientificsteve/hamster-cli.git
+  remote_set bth https://github.com/bth/hamster-cli.git
+  remote_set gffbss https://github.com/gffbss/hamster_cli.git
+# 2018-04-22: develop branch is stale but requires-io-develop gets updated, ug.
+#
+# scientificsteve branches:
+#   mr_custom
+# I cannot tell on GitHub Insights tab
+#
+# bth branches:
+#   fix-makefile-requirements ==> hahaha! 2018-04-22: Fixes same problem I found.
+#
+# gffbss branches:
+#   84-Provide_basic_integration_tests
+#   removetravisyml
+# which were not merged. Maybe not PRed?
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-gtk]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/hamster-gtk.git
+  remote_set starter https://github.com/projecthamster/hamster-gtk.git
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-dbus]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/hamster-dbus.git
+  remote_set starter https://github.com/projecthamster/hamster-dbus.git
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster-shell-extension]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/hamster-shell-extension.git
+  remote_set starter https://github.com/projecthamster/hamster-shell-extension.git
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/project-docs]
+skip = skip_unless_archiving
+lib =
+  remote_set proving https://github.com/landonb/project-docs.git
+  remote_set starter https://github.com/projecthamster/project-docs.git
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Only "whilom" to me; still an active project AFAIK.
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/projecthamster/hamster]
+skip = skip_unless_archiving
+lib = remote_set starter https://github.com/projecthamster/hamster.git
+# lib =
+#   remote_set proving https://github.com/landonb/hamster.git
+#   remote_set starter https://github.com/projecthamster/hamster.git
+
+# ------------------------------------------------------------------------
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ------------------------------------------------------------------------
+
+# Glug: "Your favorite codified release tool. Publish with confidence!"
+# Was: "One dev's tool to codify their release process."
+[${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/release-ghub-pypi]
+lib = remote_set publish https://github.com/doblabs/release-ghub-pypi.git
+# # Exclude from MR_INCLUDE=eapp, etc.
+# skip = mr_exclusive "!dob" || mr_exclusive "!eapp" || mr_exclusive "!eapp-test"
+skip = skip_unless_archiving
+infusePostRebase =
+  link_hard_dep_sh_ask_yesnoskip
+  link_hard_dep_sh_colors
+  link_hard_dep_sh_git_nubs
+  link_hard_dep_sh_logger
+infuse =
+  mr -d . -n infusePostRebase
+  #
+  link_private_exclude "${@}"
+  link_private_ignore "${@}"
+  #
+  symlink_mrinfuse_file ".trustme.sh"
+  symlink_mrinfuse_file ".trustme.vim"
+  symlink_mrinfuse_file ".trustme.plugin"
+  symlink_overlay_file "${DOPP_KIT:-${HOME}/.kit}/docs/source/retrosoft/Backlog_Release_Ghub_PyPI.rst"
+updateDeps =
+  update_deps_shoilerplate
+
+# ------------------------------------------------------------------------
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ------------------------------------------------------------------------
+
+# CXREF/2023-05-17 13:16: Guessing this was before easy-as-pypi
+#                         (or was its genesis).
+# 2018-06-13 02:13: `dob` placeholder. (A/k/a PyPI Boilerplate)
+# 2018-06-13 02:14: PyPI Boilerplate!
+# NOTE: The ~/.ssh/config HOST alias: github_hotoffthehamster.
+[${DOPP_KIT:-${HOME}/.kit}/py/.whilom/dob-placeholder]
+lib = remote_set_private
+# SAVVY/2023-05-17: This posterity remote will only be retained if you
+# set up a new machine using Zoidy's rsync CPYST. Similar to retaining
+# ~/.kit/work/mediasacks, which is synced between machines, but not to
+# travel devices.
+skip = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# CXREF/2024-06-14: Next 2 projects are prompts but you want PPT:
+#
+#   [${DOB_OMR_DIR:-${HOME}/.kit/dob}/python-prompt-toolkit]
+
+# 2018-06-14: Not using 'python-inquirer' nor 'whaaaaat'; I love me some PPT instead!!
+
+# 2018-06-10: Not using python-inquirer; was evaluated for `dob` before I found PPT.
+# 2023-05-17: Deleted github.com/landonb/python-inquirer
+[${DOPP_KIT:-${HOME}/.kit}/py/.whilom/python-inquirer]
+lib = remote_set starter https://github.com/magmax/python-inquirer.git
+skip = true
+
+# 2018-06-10: Not using whaaaaat; was evaluated for `dob` before I found PPT.
+# 2023-05-17: Deleted github.com/landonb/whaaaaat
+[${DOPP_KIT:-${HOME}/.kit}/py/.whilom/whaaaaat]
+lib = remote_set starter https://github.com/finklabs/whaaaaat.git
+skip = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# 2019-02-22: Added flit, then decided not to use.
+[${DOPP_KIT:-${HOME}/.kit}/py/.whilom/flit]
+lib = remote_set starter https://github.com/takluyver/flit.git
+skip = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

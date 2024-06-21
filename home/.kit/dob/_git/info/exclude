@@ -1,0 +1,62 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# CXREF: ~/.kit/.gitignore
+#        ~/.kit/dob/.gitignore
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+/.gitignore.local
+
+# CXREF: 'infuse'd by:
+#   ~/.depoxy/ambers/home/.kit/py/_mrconfig
+# Sources:
+#   ~/.waffle/home/.kit/dob/_mrconfig-client
+#   ~/.waffle/home/.kit/dob/_mrconfig-whilom
+/.mrconfigs/_mrconfig-client
+/.mrconfigs/_mrconfig-whilom
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+/.whilom/projecthamster/applet-history/hamster-3.x/
+/.whilom/projecthamster/hamster/
+/.whilom/projecthamster/hamster-applet/
+/.whilom/projecthamster/hamster-cli/
+/.whilom/projecthamster/hamster-dbus/
+/.whilom/projecthamster/hamster-gtk/
+/.whilom/projecthamster/hamster-huey/
+/.whilom/projecthamster/hamster-lib/
+/.whilom/projecthamster/hamster-shell-extension/
+/.whilom/projecthamster/project-docs/
+/.whilom/pyoiler-timedelta/
+/.whilom/release-ghub-pypi/
+# Build Docker images for (defunct) https://rootnroll.com/
+#   https://github.com/rootnroll/library
+/.whilom/rootnroll-library/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Uncommitted... and don't really care.
+# - And now it's documented here.
+
+# -> ansi-escape-room/
+/dob-and-ansi-love-kills
+# -> ../work/tallybark.com/tbllc-oss-ip/2019-02-15--human-friendly_pedantic-timedelta__assets/
+/human-friendly_pedantic-timedelta__assets
+# -> human-friendly_pedantic-timedelta/
+/pedantic_timedelta
+# -> pep440-version-compare-cli/
+/pep440cmp
+
+# -> ~/.waffle/.whilom/retired/home/.kit/dob/projecthamster/hamster-2.x/
+/.whilom/projecthamster/applet-history/hamster-2.x
+/.whilom/projecthamster/applet-history/hamster-3.x/
+# -> ~/.waffle/.whilom/retired/home/.kit/dob/projecthamster/why_I_do_not_like_hamster--v3_screenshots/
+/.whilom/projecthamster/applet-history/why_I_do_not_like_hamster--v3_screenshots
+# -> hamster
+/.whilom/projecthamster/legacy-hamster
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+

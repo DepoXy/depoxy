@@ -679,6 +679,21 @@ install =
 
 [${DOB_OMR_DIR:-${HOME}/.kit/dob}]
 lib = remote_set publish https://github.com/doblabs/mrconfig-dob.git
+infuse =
+  link_private_exclude "$@"
+  link_private_ignore_ "$@"
+  #
+  symlink_overlay_file \
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/dob/_mrconfig-client" \
+    ".mrconfigs/_mrconfig-client"
+  symlink_overlay_file \
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/dob/_mrconfig-whilom" \
+    ".mrconfigs/_mrconfig-whilom"
+infuseProjlns =
+  # In addition to regular `git ls-files` files, also add '.ignore'
+  # (which is outside the repo, and not reported by git-ls-files).
+  OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project \
+    ".ignore"
 
 # ========================================================================
 # ------------------------------------------------------------------------
