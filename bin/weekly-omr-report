@@ -30,7 +30,12 @@ weekly_omr_report () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main () {
-  weekly_omr_report "$@"
+  # - Be verbose: Print a line for every project (includes registered
+  #   projects; without verbose, the report only lists unregistered dirs).
+  # - Also use the more concise path-first format.
+  OMR_VERBOSE=true \
+  OMR_FORMAT_CONCISE=true \
+    weekly_omr_report "$@"
 }
 
 main "$@"
