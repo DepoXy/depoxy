@@ -318,7 +318,11 @@ add_project_deep_links () {
       | while IFS= read -r fname; do
         # NOTED: Can we assume symlinks are duplicates?
         # - IFNOT: We'll change this if necessary.
-        if [ -h "${MR_REPO}/${fname}" ]; then
+        # - XCEPT: Keep .ignore files in place (since those aren't
+        #   searched by `rg`, but rather serve to config `rg`).
+        if [ -h "${MR_REPO}/${fname}" ] \
+          && [ "$(basename -- "${fname}")" != ".ignore" ] \
+        ; then
 
           continue
         fi
