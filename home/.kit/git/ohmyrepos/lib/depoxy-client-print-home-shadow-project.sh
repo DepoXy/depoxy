@@ -46,11 +46,15 @@ order = ${mr_order}
 skip = mr_exclusive "home"
 lib =
   use_remote_home_if_depoxy_client_matches "${client_id}"
-  debug "MR_REMOTE_PATH: \${MR_REMOTE_PATH} [lib:depoxy-client-print-home-shadow-project.sh]"
+  if [ -n "\${MR_REMOTE_PATH}" ]; then
+    debug "MR_REMOTE_PATH: \${MR_REMOTE_PATH} [lib:depoxy-client-print-home-shadow-project.sh]"
+  fi
   remote_set_private "\$(basename -- "\${MR_DXC_HOME_SHADOW:-home/.home}")"
 ffssh =
   use_remote_home_if_depoxy_client_matches "${client_id}"
-  debug "MR_REMOTE_PATH: \${MR_REMOTE_PATH} [ffssh:depoxy-client-print-home-shadow-project.sh]"
+  if [ -n "\${MR_REMOTE_PATH}" ]; then
+    debug "MR_REMOTE_PATH: \${MR_REMOTE_PATH} [ffssh:depoxy-client-print-home-shadow-project.sh]"
+  fi
   git_merge_ffonly_ssh_mirror "\$@"
 
 [DEFAULT]
