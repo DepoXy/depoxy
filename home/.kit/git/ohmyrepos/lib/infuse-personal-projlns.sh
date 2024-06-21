@@ -265,15 +265,18 @@ add_project_deep_links () {
   local infuse_root=false
   local infuse_files=false
 
-  local first_git_path="$(find_one_git_directory)"
-  if [ -z "${first_git_path}" ]; then
-    infuse_root=true
-  else
-    # This repo contains other repos/projects we don't know about,
-    # and might not be personal (e.g., the top-level $HOME repo,
-    # or sometimes the ~/.kit repo if you made one), so we deep-link
-    # individual files versus just the root directory.
-    infuse_files=true
+  if [ $# -eq 0 ]; then
+    local first_git_path="$(find_one_git_directory)"
+
+    if [ -z "${first_git_path}" ]; then
+      infuse_root=true
+    else
+      # This repo contains other repos/projects we don't know about,
+      # and might not be personal (e.g., the top-level $HOME repo,
+      # or sometimes the ~/.kit repo if you made one), so we deep-link
+      # individual files versus just the root directory.
+      infuse_files=true
+    fi
   fi
 
   if ${OMR_INFUSE_PROJLNS_ROOT:-false}; then
@@ -296,7 +299,9 @@ add_project_deep_links () {
       for fname in "$@"; do
         ${TRACE} link_deep "${MR_REPO}/${fname}"
       done
-    elif ${infuse_root}; then
+    fi
+
+    if ${infuse_root}; then
       ${TRACE} link_deep "${MR_REPO}"
     elif ${infuse_files}; then
       local n_files="$(cd "${MR_REPO}" && git ls-files | wc -l)"
