@@ -61,6 +61,9 @@
 #
 #     RELINK_DRY_RUN=echo ln-relink-using-private-user-path
 #
+# CPYST: Run this to see a list of a repo's absolute symlinks:
+#
+#     git ls-files -z | xargs -0 ls -la | grep -e "-> /"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
