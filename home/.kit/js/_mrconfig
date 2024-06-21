@@ -189,7 +189,6 @@ skip = mr_exclusive "!entrusted"
 # https://github.com/DepoXy/pampermonkey#💆
 [${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey]
 lib = remote_set publish https://github.com/DepoXy/pampermonkey.git
-skip = false  # i.e., mr_exclusive "entrusted" "..."...
 
 # ========================================================================
 # ------------------------------------------------------------------------
