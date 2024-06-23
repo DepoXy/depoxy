@@ -30,9 +30,7 @@ include =
      [ "${MR_INCLUDE}" = "eapp" ] ||
   false; then
     # CXREF: ~/.kit/dob/.mrconfigs/_mrconfig
-    local dob_conf="${DOB_OMR_DIR:-${HOME}/.kit/dob}/.mrconfigs/_mrconfig"
-
-    mr_cat "${dob_conf}"
+    mr_cat "${DOB_OMR_DIR:-${HOME}/.kit/dob}/.mrconfigs/_mrconfig"
   fi
 
 include =
