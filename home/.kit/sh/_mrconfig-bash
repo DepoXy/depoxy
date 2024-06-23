@@ -25,9 +25,10 @@ lib = remote_set publish https://github.com/landonb/sh-colors.git
 skip = mr_exclusive "!entrusted"
 
 # https://github.com/DepoXy/sh-err-trap#🪤
+# "Bash `trap` boilerplate"
 # CXREF: link_hard_dep_sh_err_trap
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap]
-lib = remote_set publish https://github.com/depoxy/sh-err-trap.git#🪤
+lib = remote_set publish https://github.com/depoxy/sh-err-trap.git
 skip = mr_exclusive "!entrusted"
 
 # CXREF: link_hard_dep_sh_git_nubs
