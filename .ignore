@@ -42,6 +42,10 @@
 # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
 /home/.gitconfig
 
+# Symlink for historical location:
+#  -> .kit/sh/home-fries/
+/home/.homefries
+
 # Generated file.
 /home/.vim/pack/DepoXy/start/vim-depoxy/doc/tags
 
