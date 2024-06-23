@@ -62,6 +62,7 @@ errexit
 fcn
 fcns
 filesystems
+firmlinks
 fixup
 globbing
 homefries
