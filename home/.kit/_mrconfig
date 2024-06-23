@@ -57,6 +57,11 @@ include =
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-smart
   fi
 
+# ***
+
+# ISOFF/2024-06-21: Don't add old ~/.gopath projects to ~/.projlns.
+lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true
+
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
@@ -66,6 +71,10 @@ include =
     # CXREF: ~/.depoxy/ambers/home/.kit/go/_mrconfig
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/go/_mrconfig
   fi
+
+lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=false
+
+# ***
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
