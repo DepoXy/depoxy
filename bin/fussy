@@ -43,7 +43,19 @@ fussy () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+os_is_macos () {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# ***
+
 main () {
+  if os_is_macos; then
+    >&2 echo "ERROR: Use finicky on macOS"
+
+    return 1
+  fi
+
   fussy "$@"
 }
 
