@@ -460,7 +460,49 @@ install =
   #
   make clean
   make configure
-  ./configure
+  #
+  # CXREF: Per https://github.com/jonas/tig/blob/master/INSTALL.adoc run just:
+  #   ./configure
+  # - Though on @macOS 'ncursesw' and 'readline' need special wiring.
+  #
+  # - FIXME: Submit tig INSTALL.adoc PR for unworking ncursesw support:
+  #     ./configure LDFLAGS=-L/usr/local/opt/ncurses/lib CPPFLAGS=-I/usr/local/opt/ncurses/include
+  #   - I had to use PKG_CONFIG_PATH instead.
+  #   - You could also add readline support (LDFLAGS, CPPFLAGS).
+  #
+  # THANX/2024-06-23 18:37: The PKG_CONFIG_PATH suggestion from:
+  #   https://www.linuxquestions.org/questions/programming-9/on-macos-10-15-configure-script-can
+  # THANX/2024-06-23 18:57: The LDFLAGS and CPPFLAGS sol'n from:
+  #   https://github.com/jonas/tig/issues/1072
+  #
+  # Probe if Homebrew installed.
+  # - ALTLY: We could use the DepoXy homebrew path printer, to distinguish
+  #   between Intel and Apple Silicone, e.g.,
+  #     . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
+  #     # Returns (prints) "/opt/homebrew/bin/brew", "/usr/local/bin/brew", or "".
+  #     local brew_path="$(_depoxy_print_homebrew_path)"
+  #   - However, author does not have Intel Mac, so not sure what the
+  #     equivalent /opt/homebrew/opt/ path is... so we'll just hardcode that.
+  if os_is_macos; then
+    local brew_prefix="/opt/homebrew/opt"
+    if [ -d "${brew_prefix}" ]; then
+      # SAVVY: For Darwin build:
+      # - Set PKG_CONFIG_PATH, lest:
+      #   "configure: WARNING: The found ncurses library does not support wide-char."
+      # - Set LDFLAGS and CPPFLAGS, lest:
+      #   "configure: WARNING: Could not test version of installed readline library."
+      PKG_CONFIG_PATH=${brew_prefix}/ncurses/lib/pkgconfig/ \
+        ./configure \
+          LDFLAGS=-L${brew_prefix}/readline/lib \
+          CPPFLAGS=-I${brew_prefix}/readline/include
+    else
+      error "ERROR: Where's Homebrew?"
+    fi
+  else
+    # Linux build.
+    ./configure
+  fi
+  #
   make prefix=${HOME}/.local
   make install prefix=${HOME}/.local
   make install-doc prefix=${HOME}/.local
