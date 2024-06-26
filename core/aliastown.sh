@@ -16,12 +16,12 @@
 
 # *** Change directory conveniences for common paths.
 
-# Note: See pushd_alias_or_warn in ~/.homefries/lib/path_util.sh.
+# Note: See pushd_alias_or_warn in ~/.kit/sh/home-fries/lib/path_util.sh.
 
 _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Convention: These aliases each start with `cd`.
 
-  # *** ~/.homefries — Homefries
+  # *** ~/.kit/sh/home-fries — Homefries
 
   # Change to Home Fries directory.
   pushd_alias_or_warn "cdh" "${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}"

@@ -99,7 +99,9 @@ lib = remote_set starter https://github.com/tj/git-extras.git
 skip = mr_exclusive_git_core
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
 # SAVVY: We'll suss installed by the last 'install' command.
-isInstalled = test -h "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions/git-extras-bash_completion.sh"
+isInstalled =
+  test -h \
+    "${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/completions/git-extras-bash_completion.sh"
 install =
   pull_latest "starter" "main"
   #
@@ -167,9 +169,10 @@ install =
   command cp -f -- man/git-*.1 "${man1_dir}"
   #
   # Wire the completions file (Homefries-specific).
-  if [ -d "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions" ]; then
+  local completions_dir="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/completions"
+  if [ -d "${completions_dir}" ]; then
     (
-      cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+      cd "${completions_dir}"
       #
       symlink_overlay_file \
         "${MR_REPO}/etc/bash_completion.sh" \
@@ -242,7 +245,7 @@ installLinux =
   #   https://www.rust-lang.org/tools/install
   # See installation instructions and a nifty on-demand (JIT) lazy-loader:
   #   https://github.com/landonb/home-fries/blob/release/lib/rust_util.sh
-  #     ~/.homefries/lib/rust_util.sh
+  #     ~/.kit/sh/home-fries/lib/rust_util.sh
   #
   # We could build and use the tool immediately, but it's a little more
   # tedious: you have to point it at the rebase todo file:

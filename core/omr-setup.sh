@@ -22,7 +22,7 @@ _dxy_wire_aliases_omr_status () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_omr_status_snip_cd () {
-  # MAYBE/2020-02-14: Reloacte to ~/.homefries/lib/alias/alias_???.sh
+  # MAYBE/2020-02-14: Reloacte to ~/.kit/sh/home-fries/lib/alias/alias_???.sh
   #   Near `alias dff`, in the *** Git section.
   #
   # 2020-02-13: gs is Ghostscript interpreter and previewer, which I never use.

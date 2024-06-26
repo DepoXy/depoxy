@@ -5,7 +5,7 @@
 
 /.git/
 
-# Symlink -> ../home/.homefries/.bashrc-bin/bashrx.private.sh
+# Symlink -> ../home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 /core/wire-bash.sh
 
 # Symlinks: home/.config/tig/* -> :

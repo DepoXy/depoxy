@@ -135,17 +135,18 @@ update = poetry self update
 infuse =
   # https://python-poetry.org/docs/#enable-tab-completion-for-bash-fish-or-zsh
   if type poetry > /dev/null 2>&1; then
-    if [ -d "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions" ]; then
-      poetry_comp="${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions/poetry-completion.bash"
+    local completions_dir="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/completions"
+    if [ -d "${completions_dir}" ]; then
+      local poetry_comp="${completions_dir}/poetry-completion.bash"
       if [ -e "${poetry_comp}" ]; then
         # AVOID/2022-10-13: Don't overwrite the completion file on every infuse,
-        # otherwise ~/.homefries changes, and the user is forced to `git co -- ...`
+        # otherwise ~/.kit/sh/home-fries changes, and the user is forced to `git co -- ...`
         # to reset the file.
         # - INERT: If you wanted to take the time, you could keep a copy of the generated
         #          file somewhere, then on infuse, regenerate completion and compare the
         #          new output against the old output, and then only write the new output
-        #          to ~/.homefries if something changed. But that seems like unnecessarily
-        #          tedious work without much payback!
+        #          to ~/.kit/sh/home-fries if something changed. But that seems like
+        #          unnecessarily tedious work without much payback!
         info "Sidestepped $(attr_emphasis)completion$(attr_reset) $(fg_lightorange)poetry$(attr_reset)"
       else
         poetry completions bash > "${poetry_comp}"
@@ -405,8 +406,9 @@ infuse =
   fi
   #
   # Wire the completions file (Homefries-specific).
-  if [ -d "${HOME}/.homefries/bin/completions" ]; then
-    cd "${HOME}/.homefries/bin/completions"
+  local completions_dir="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/completions"
+  if [ -d "${completions_dir}" ]; then
+    cd "${completions_dir}"
     #
     symlink_overlay_file "${pyenv_completions}" "pyenv.bash"
   fi

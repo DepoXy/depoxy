@@ -47,7 +47,7 @@ aci () {
 
   if [ -n "${SSH_CLIENT}" ] || [ -n "${SSH_TTY}" ]; then
     echo "This is an SSH connection. Really run autocommit on @$(hostname)?"
-    # CXREF: ~/.homefries/lib/ask_yes_no_default.sh
+    # CXREF: ~/.kit/sh/home-fries/lib/ask_yes_no_default.sh
     ask_yes_no_default 'n'
   else
     the_choice='Y'

@@ -197,7 +197,7 @@ _dxy_disable_git_completion_dwim_suggestions () {
 
 # I copied this from _git_branch and then removed the stuff dealing
 # with options. This turned out to be the simplest case.
-# Ref: ~/.homefries/bin/completions/git-completion.bash
+# Ref: ~/.kit/sh/home-fries/bin/completions/git-completion.bash
 _git_t_bag () {
   case "$cur" in
   --*)

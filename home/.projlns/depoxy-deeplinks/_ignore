@@ -39,14 +39,14 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# ~/.homefries/.bashrc-bin/bashrx.private.${USER}.sh is all over.
+# ~/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh is all over.
 #
 # Via `rg -uuu "<some unique text from bashrx.private.${USER}.sh>"`
 # from within ~/.projlns/depoxy-deeplinks:
 #
-#   /home/user/.depoxy/ambers/home/.homefries/.bashrc-bin/bashrx.private.sh
+#   /home/user/.depoxy/ambers/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 #   /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /home/user/.homefries/.bashrc-bin/bashrx.private.sh
+#   /home/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 #   /home/user/.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
 #   /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
 #   /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
@@ -54,21 +54,21 @@
 # But there's only one duplicate that's not .ignore'd by another .ignore.
 
 # Symlinks to private DepoXy Client Bashrc.
-# -> ../../.mrinfuse/.homefries/.bashrc-bin/bashrx.private.${USER}.sh
-# Aka: ~/.depoxy/running/home/.homefries/.bashrc-bin/bashrx.private.${USER}.sh
-/home/user/.homefries/.bashrc-bin/bashrx.private*.sh
+# -> ../../.mrinfuse/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
+# Aka: ~/.depoxy/running/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
+/home/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private*.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# See actuals under ~/.waffle/home/.homefries/
+# See actuals under ~/.waffle/home/.kit/sh/home-fries/
 
 # -> .git/info/exclude
-# Aka: ~/.depoxy/ambers/home/.homefries/_git/info/exclude
-/home/user/.homefries/.gitignore.local
+# Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/_git/info/exclude
+/home/user/.kit/sh/home-fries/.gitignore.local
 
-# -> ../.mrinfuse/.homefries/.ignore
-# Aka: ~/.depoxy/ambers/home/.homefries/.ignore
-/home/user/.homefries/.ignore
+# -> ../.mrinfuse/.kit/sh/home-fries/.ignore
+# Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/.ignore
+/home/user/.kit/sh/home-fries/.ignore
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -96,7 +96,7 @@
 # /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/
 #   ↪ See * rule in ~/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/.ignore
 
-/home/user/.homefries/deps/
+/home/user/.kit/sh/home-fries/deps/
 
 #  /.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/deps/
 #  /.vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/

@@ -8,12 +8,12 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # MAYBE/2020-09-14: Stand up using completion mechanism instead:
-# - Whatever is in ~/.homefries/bin/completions/ is sourced,
+# - Whatever is in ~/.kit/sh/home-fries/bin/completions/ is sourced,
 #   so we could create symlink from there to commacd.bash.
 #   - However, this command is technically *not* a completion, so...
 #     (well, if there were other instances of files being sourced
 #     from our bashrc, we could create another location, say,
-#     ~/.homefries/.bashrc-bin/start/, and auto-source its files
+#     ~/.kit/sh/home-fries/.bashrc-bin/start/, and auto-source its files
 #     on startup. Just a thought).
 
 # commacd enables directory nagivation with , ,, ,,, !!!

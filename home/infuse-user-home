@@ -30,12 +30,12 @@ source_deps () {
   # *** Homefries
 
   # Required by distro_util.sh: tweak_errexit
-  # CXREF: ~/.homefries/lib/process_util.sh
-  . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/process_util.sh"
+  # CXREF: ~/.kit/sh/home-fries/lib/process_util.sh
+  . "${HOMEFRIES_LIB:-${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}/lib}/process_util.sh"
 
   # Load: os_is_macos.
-  # CXREF: ~/.homefries/lib/distro_util.sh
-  . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/distro_util.sh"
+  # CXREF: ~/.kit/sh/home-fries/lib/distro_util.sh
+  . "${HOMEFRIES_LIB:-${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}/lib}/distro_util.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -181,7 +181,7 @@ infuse_symlinks_user_home_dotfiles () {
 
   # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
 
-  # Historical ~/.homefries path (that someday maybe we'll remove).
+  # 2024-06-23: Erstwhile ~/.homefries path (that someday maybe we'll remove).
   local rel_path="$( \
     echo "${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}" \
     | sed -E "s@^${HOME}/@@"
@@ -313,9 +313,9 @@ infuse_symlinks_user_home_gitsmart () {
     command cp -- "${git_smart_dir}/.config/git/template/HEAD" .
   fi
 
-  # *** ${HOME}/.homefries/bin/completions
+  # *** ${HOME}/.kit/sh/home-fries/bin/completions
 
-  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}/bin/completions"
+  cd "${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin/completions"
   symlink_overlay_file "${git_smart_dir}/bin/completions/git-completion.bash"
 
   # ***
@@ -405,7 +405,7 @@ infuse_symlinks_home_tmux_dotfiles () {
 
 infuse_symlinks_home_tmux_completion () {
   local before_cd="$(pwd -L)"
-  cd "${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.homefries}/bin}/completions"
+  cd "${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/completions"
 
   local tmux_bash_completion_dir="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/tmux-bash-completion/completions"
 

@@ -17,9 +17,9 @@ source_deps () {
   . "overlay-symlink.sh"
 
   # Required by distro_util.sh: tweak_errexit
-  . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/process_util.sh"
+  . "${HOMEFRIES_LIB:-${HOME}/.kit/sh/home-fries/lib}/process_util.sh"
   # Load: os_is_macos.
-  . "${HOMEFRIES_LIB:-${HOME}/.homefries/lib}/distro_util.sh"
+  . "${HOMEFRIES_LIB:-${HOME}/.kit/sh/home-fries/lib}/distro_util.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

@@ -78,7 +78,7 @@ infuse_create_symlinks_omr_scattered () {
   # USYNC: Similar ignore lists (in different DepoXy projects):
   #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
-  #   ~/.homefries/lib/alias/alias_fd.sh
+  #   ~/.kit/sh/home-fries/lib/alias/alias_fd.sh
   #   ~/.vim/pack/landonb/start/dubs_project_tray/plugin/dubs_project.vim
   # - MAYBE: DRY the -prune list.
   # - The prune below also includes the ~/.kit/git/mrepos project sources,

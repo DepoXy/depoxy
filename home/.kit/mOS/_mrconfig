@@ -66,10 +66,10 @@ echoInstallHelp =
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Verify *Finicky* ready::
     mr -d \"${MR_REPO}\" -n infuse
  "
-# CXREF: ~/.homefries/lib/distro/default-browser.sh
+# CXREF: ~/.kit/sh/home-fries/lib/distro/default-browser.sh
 isInstalled =
   test "net.kassett.finicky" = \
-    "$(/usr/bin/env bash "${HOME}/.homefries/lib/distro/default-browser.sh")"
+    "$(/usr/bin/env bash "${HOME}/.kit/sh/home-fries/lib/distro/default-browser.sh")"
 install = install_os_specific
 installDarwin =
   #

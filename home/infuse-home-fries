@@ -33,9 +33,9 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Create symlink to "private" DepoXy Bashrc:
-# - Symlink:         ~/.mrinfuse/.homefries/.bashrc-bin/bashrx.private.sh
-#   Which is really: ~/.depoxy/ambers/home/.homefries/.bashrc-bin/bashrx.private.sh
-#   From target:     ~/.homefries/.bashrc-bin/bashrx.private.sh
+# - Symlink:         ~/.mrinfuse/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
+#   Which is really: ~/.depoxy/ambers/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
+#   From target:     ~/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 # - It's not really "private", because it's publicly published from DepoXy,
 #   but Homefries considers it private.
 #   - But this "private" Bashrc will load your truly private Bashrc
@@ -60,7 +60,7 @@ link_hard_dep_shoilerplate () {
   # Local directory is $HOME, just FYI. Run from Homefries's directory.
   local before_cd="$(pwd -L)"
 
-  cd "${HOMEFRIES_DIR:-${HOME}/.homefries}"
+  cd "${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}"
 
   link_hard_dep_sh_colors
 
@@ -77,15 +77,15 @@ link_hard_dep_shoilerplate () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# Create user home dotfile symlinks to ~/.homefries/ files, currently
+# Create user home dotfile symlinks to ~/.kit/sh/home-fries/ files, currently
 # the following files:
 #
-#   ~/.gitmux.conf      -> .homefries/.gitmux.conf
-#   ~/.profile          -> .homefries/.profile
-#   ~/.tmux.conf.local  -> .homefries/.tmux.conf.local
+#   ~/.gitmux.conf      -> .kit/sh/home-fries/.gitmux.conf
+#   ~/.profile          -> .kit/sh/home-fries/.profile
+#   ~/.tmux.conf.local  -> .kit/sh/home-fries/.tmux.conf.local
 #
-# - To see just the top-level committed files in ~/.homefries, try:
-#     cd ~/.homefries
+# - To see just the top-level committed files in ~/.kit/sh/home-fries, try:
+#     cd ~/.kit/sh/home-fries
 #     git ls-files | sed -E 's,.*/.*,,' | sed -E '/^\s*$/d'
 #
 # - To see all symlinks in user home, try:
