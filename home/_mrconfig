@@ -248,7 +248,7 @@ include =
 # MOVED/2024-06-19: Was [${HOMEFRIES_DIR:-${MR_HOME:-${HOME}}/.homefries}]
 [${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}]
 order = 120
-lib = remote_set publish "https://github.com/landonb/home-fries.git" ".homefries"
+lib = remote_set publish "https://github.com/landonb/home-fries.git" "home-fries"
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
