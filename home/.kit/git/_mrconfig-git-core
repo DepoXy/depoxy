@@ -469,8 +469,12 @@ install =
   tig --version
 installDarwin =
   # REFER: /opt/homebrew/lib/libssl.a
+  # - Generally already installed
+  #  brew install openssl@3
   #
   # REFER: /opt/homebrew/opt/ncurses/
+  # - Generally already installed
+  brew install ncurses
   #
   # REFER: /opt/homebrew/opt/libiconv/bin
   # - For compilers to find libiconv you may need to set:
@@ -479,6 +483,8 @@ installDarwin =
   brew install libiconv
   #
   # REFER: /opt/homebrew/opt/readline/
+  # - Generally already installed
+  brew install readline
   #
   # REFER: /opt/homebrew/opt/pcre2/
   # - Already installed (pcregrep)
