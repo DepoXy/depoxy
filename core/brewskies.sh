@@ -51,10 +51,9 @@ main () {
   infuse_brew_shellenv
 }
 
-if [ "$(basename -- "$0")" = "brewskies.sh" ]; then
-  >&2 echo "ERROR: Trying sourcing the file instead: . $0" && exit 1
-else
+if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then
   main "$@"
+# else, being sourced, or executed by not Bash.
 fi
 
 unset -f main
