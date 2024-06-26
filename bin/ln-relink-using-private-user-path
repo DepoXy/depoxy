@@ -166,3 +166,5 @@ if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
 
+unset -f main
+
