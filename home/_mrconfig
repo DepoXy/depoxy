@@ -85,6 +85,7 @@ include =
 #   ~/.kit/sh/home-fries
 #   ~/.depoxy/ambers
 #   ~/.depoxy/ambers/archetype
+#   ~/.kit
 
 # CXREF: ~/.depoxy/ambers/home/_mrconfig-core
 include = mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
@@ -134,75 +135,6 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
 
 # NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
 #   is within ~/.depoxy/running/.mrconfigs/_mrconfig
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  Dev Dopp Kit/ (wherein you'll find Shell- and Git-related projects).
-
-[${MR_HOME:-${HOME}}/.kit]
-# Redundant (print_depoxy_client_alt_remote_path sets):
-#   order = 204
-#   lib = remote_set_private
-checkout = true
-infusePostRebase =
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  #
-  # NOTE: Use _gitignore, not .gitignore, so not read from within DepoXy Ambers.
-  # As of Git 2.32.0, symlinked .gitignore no longer allowed.
-  #  symlink_overlay_file "${HOME}/.depoxy/ambers/home/.kit/_gitignore" ".gitignore"
-  link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/_gitignore" ".gitignore"
-infuse =
-  mr -d . -n infusePostRebase
-  #
-  # The user is more than welcome to make their own repo at ~/.kit
-  # (use case: adding symlinks). We'll start them off with a so-
-  # called "guard repo" until they do.
-  create_guard_repo () {
-    local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-    #
-    mkdir -p "${MR_REPO}"
-    #
-    # .gitignore.local and .git/info/exclude symlinks are placed by DXC infuse.
-    symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/README.md" "README.md"
-    prepare_guard_repo
-    # myrepos checkout will fails `mr: failed to determine working directory`
-    # if the base path does not exist, so ensure repo parents directories exist.
-    mkdir -p "${MR_REPO}/git"
-    mkdir -p "${MR_REPO}/go"
-    mkdir -p "${MR_REPO}/js"
-    mkdir -p "${MR_REPO}/mOS"
-    mkdir -p "${MR_REPO}/py"
-    mkdir -p "${MR_REPO}/sh"
-  }
-  if ! test -d "${MR_REPO}/.git"; then
-    create_guard_repo
-  fi
-
-# USAGE: Override these action if you want to sync this repo between hosts.
-# - Create a file at ~/.depoxy/running/home/.kit/_mrconfig-kit-include
-#   - It should include the actions below you want to override (or none
-#     at all to accept the default action, e.g., if the same ~/.kit is
-#     cloned at ~/.kit on all your hosts).
-include =
-  include_client_kit_override () {
-    local sub_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.kit/_mrconfig-kit-include"
-    [ -f "${sub_cfg}" ] || return 1
-    mr_cat "${sub_cfg}"
-  }
-  if ! include_client_kit_override; then
-    cat <<[DEFAULT]
- fetch = true
- update = true
- pull = true
- ffssh = true
- travel = true
- unpack = true
- [DEFAULT]
-  fi
-[DEFAULT]
-# ↑ Trick syntax highlighting into ending Heredoc.
 
 # ========================================================================
 # ------------------------------------------------------------------------
