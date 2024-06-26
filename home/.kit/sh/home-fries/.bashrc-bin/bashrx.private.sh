@@ -27,8 +27,8 @@ _dxy_source_script () {
     fi
 
     local time_0=$(print_nanos_now)
-    ${HOMEFRIES_TRACE} && echo "   . ${ambers_name}: ${ambers_file}"
-    print_loading_dot
+
+    source_it_log_trace "${ambers_name}" "${ambers_file}"
 
     . "${ambers_file}"
     let 'SOURCE_CNT += 1'
@@ -41,6 +41,10 @@ _dxy_source_script () {
   cd "${before_cd}"
 }
 
+# Exposed so client can override.
+_DEPOXY_SOURCE_IT_BEGIN=true
+_DEPOXY_SOURCE_IT_FINIS=true
+
 _dxy_source () {
   _dxy_source_script "$@"
 }
@@ -52,6 +56,9 @@ _source_scripts_preceding_homefries_dxy () {
 
   # Use environment variables to store paths to other repos (Git, OMR,
   # sh libs, etc.) so user can easily use their own path layout.
+  # USYNC: Set _SOURCE_IT_BEGIN for first source_it from
+  #   _source_scripts_preceding_homefries_dxy
+  _SOURCE_IT_BEGIN=${_DEPOXY_SOURCE_IT_BEGIN} \
   _dxy_source "path_vars.sh"
 
   # Vendor encfs paths, and identify if DepoXy Client.
@@ -67,6 +74,9 @@ _source_scripts_preceding_homefries_dxy () {
   _dxy_source "brewskies.sh"
 
   # Setup MacPorts on PATH.
+  # USYNC: Set _SOURCE_IT_FINIS for final source_it from
+  #   _source_scripts_preceding_homefries_dxy
+  _SOURCE_IT_FINIS=${_DEPOXY_SOURCE_IT_FINIS} \
   _dxy_source "portskies.sh"
 
   LOG_LEVEL=0
@@ -87,6 +97,8 @@ _source_scripts_following_homefries_dxy () {
   # ${HOMEFRIES_TRACE} && echo "Depoxy Ambers Following Homefries"
 
   # GVim `fs` and `fa` commands.
+  # USYNC: For the last call
+  _SOURCE_IT_BEGIN=${_DEPOXY_SOURCE_IT_BEGIN} \
   _dxy_source "alias-vim.sh"
 
   # DepoXy Ambers aliases (lots of `cd /some/path` aliases).
@@ -161,6 +173,8 @@ _source_scripts_following_homefries_dxy () {
   _dxy_source "startapps.sh"
 
   # Run background tasks to keep desktop session active.
+  # USYNC: For the last call
+  _SOURCE_IT_FINIS=${_DEPOXY_SOURCE_IT_FINIS} \
   _dxy_source "stayalive.sh"
 
   # Just a symlink to this file:
@@ -171,6 +185,9 @@ _source_scripts_following_homefries_dxy () {
 source_scripts_following_homefries () {
   _source_scripts_following_homefries_dxy
   unset -f _source_scripts_following_homefries_dxy
+
+  unset -v _DEPOXY_SOURCE_IT_BEGIN
+  unset -v _DEPOXY_SOURCE_IT_FINIS
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -219,8 +236,14 @@ _dxy_unset_functions () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # The Homefries Private Bashrc loader calls this func. if it sees it.
-_homefries_private_main () {
+# - We use `_homefries_private_main_core` and not `_homefries_private_main`
+#   so that the DepoXy Client can monkey patch this file if it needs to
+#   before this function is invoked.
+_homefries_private_main_core () {
   _dxy_source_scripts
-  _dxy_unset_functions
+
+  if ! ${HOME_FRIES_PRELOAD:-false}; then
+    _dxy_unset_functions
+  fi
 }
 
