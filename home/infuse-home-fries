@@ -94,11 +94,18 @@ link_hard_dep_shoilerplate () {
 #     ll ~ | grep " -> "
 
 setup_public_fries_dot_files () {
-  symlink_overlay_file ".homefries/.bashrc"
+  local hf_dir="${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}"
+  local df_rel="$( \
+    echo "${hf_dir}" \
+    | sed "s@^${HOME}/@@"
+  )"
+
+  # I.e., .kit/sh/home-fries/.bashrc
+  symlink_overlay_file "${df_rel}/.bashrc"
 
   # Look for home-fries home file paths.
   for hfhfpath in $(
-    find "${HOMEFRIES_DIR:-${HOME}/.homefries}/" \
+    find "${hf_dir}/" \
       -maxdepth 1 \
       -type f \
       ! -name "LICENSE" \
