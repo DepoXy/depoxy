@@ -77,9 +77,6 @@
 # Alex Waulk's got a secret to share.
 /go/secretshare/
 
-# golang -> go/
-/golang
-
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** JavaScript
@@ -150,9 +147,6 @@
 /mOS/homebrew-autoupdate/
 /mOS/macOS-disktools/
 /mOS/macOS-onboarder/
-
-# macOS -> mOS/
-/macOS
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
