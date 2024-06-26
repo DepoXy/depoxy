@@ -186,7 +186,7 @@ infuse_symlinks_user_home_dotfiles () {
     echo "${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}" \
     | sed -E "s@^${HOME}/@@"
   )"
-  symlink_overlay_file "${rel_path}" "${HOME}/.homefries"
+  symlink_overlay_dir "${rel_path}" "${HOME}/.homefries"
 
   # CXREF/2023-02-28: See dot-inputrc#🎛️:
   #   ~/.kit/sh/dot-inputrc/.inputrc
