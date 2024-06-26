@@ -4,8 +4,13 @@
 # License: MIT
 
 /.git/
+
 /.bashrc
+/.bashrc-bin/bashrx.private.sh
+/.bashrc-bin/bashrx.private.*.sh
+
 /bin/completions/
+
 # ziew -> zview
 /bin/ziew
 
