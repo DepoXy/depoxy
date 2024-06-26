@@ -5,13 +5,21 @@
 # SAVVY: Git 2.32.0+ disallows `.gitignore` symlinks, so hard-linked:
 # - LINKD: ~/.kit/.gitignore ↔ ~/.depoxy/ambers/home/.kit/_gitignore
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** root
+
 # Symlinks to ~/.depoxy/ambers/home/.kit/ files.
 /.gitignore
 /README.md
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # *** Clang
 
 /clang/vim/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** Git
 
@@ -56,6 +64,8 @@
 # Git smarts walks into a tig.
 /git/tig-newtons/
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # *** Golang
 
 # Infamous `tag` command.
@@ -69,6 +79,8 @@
 
 # golang -> go/
 /golang
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** JavaScript
 
@@ -101,6 +113,8 @@
 # - And settles any question of whether I need to learn VS Code.
 #   (*Nope!*)
 /js/typescript-language-server/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** macOS
 
@@ -140,6 +154,8 @@
 # macOS -> mOS/
 /macOS
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # *** "Odd" [Currently: Mechanical Keyboard apps]
 
 # CXREF: ~/.depoxy/ambers/home/.kit/odd/_mrconfig
@@ -147,6 +163,8 @@
 /odd/321open/
 /odd/via-nativia/
 /odd/wally/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** Python
 
@@ -162,6 +180,8 @@
 
 # python -> py/
 /python
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** [Sh]oilerplate et al
 
@@ -187,6 +207,8 @@
 /sh/tmux-bash-completion
 /sh/tmux-sensible/
 /sh/tpm/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** [T]e[xt]ualism
 
