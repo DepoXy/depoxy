@@ -9,8 +9,7 @@
 
 _dxy_source_script () {
   local ambers_file="$1"
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  local ambers_core="${2:-${DEPOXYAMBERS_DIR:-${ambers_path}}/core}"
+  local ambers_core="${2:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core}"
   local ambers_name="${3:-AMBERS}"
   # So that sourced files don't see any args.
   shift $#
