@@ -30,15 +30,6 @@ user_path_add_home_local_node_modules_bin () {
 user_path_add_depoxyambers_bin () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   path_prefix "${DEPOXYAMBERS_DIR:-${ambers_path}}/bin"
-
-  # Add bin/client-bin/ after DXY/bin, so DepoXy Client has last
-  # say and can overrule any command.
-  # - Note there's also `_vendorfs_host_is_depoxy_client_id`,
-  #   but that reports an error, and prints the DepoXy Client ID.
-  # MAYBE: We could make a similar check in depoxy_fs.sh that
-  #        returns true or false; then remove DEPOXY_IS_CLIENT.
-  [ "${DEPOXY_IS_CLIENT}" = 'true' ] &&
-    path_prefix "${DEPOXYAMBERS_DIR:-${ambers_path}}/bin/client-bin"
 }
 
 # ***
