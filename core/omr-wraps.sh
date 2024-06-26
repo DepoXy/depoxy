@@ -165,8 +165,10 @@ function omr-list-projects () {
 
   # Sort alphabetically by path.
   # - Also reformat "mr run: failed to chdir to <path>/: ..."
+  # - Note that macOS `head` does not support `head -n -1`,
+  #   but we can use `sed '$d'` to print all but the last line.
 
-  head -n -1 "${tmpf}" \
+  sed '$d' "${tmpf}" \
     | sed 's/^mr run: failed to chdir to \(.*\)\/: No such file or directory$/\1 (absent)/' \
     | sort -k1,1 -t' '
 
