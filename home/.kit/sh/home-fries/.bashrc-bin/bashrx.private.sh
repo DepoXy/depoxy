@@ -20,15 +20,20 @@ _dxy_source_script () {
 
   _source_script () {
     local ambers_file="$1"
+
     if ! [ -f "${ambers_file}" ]; then
       >&2 echo "MISSING: Unable to locate: ‘${ambers_file}’"
+
       return 0
     fi
+
     local time_0=$(print_nanos_now)
     ${HOMEFRIES_TRACE} && echo "   . ${ambers_name}: ${ambers_file}"
     print_loading_dot
+
     . "${ambers_file}"
     let 'SOURCE_CNT += 1'
+
     print_elapsed_time "${time_0}" "Source: ${ambers_file}"
   }
 
