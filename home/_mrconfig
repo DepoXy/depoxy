@@ -268,7 +268,7 @@ infuse =
   # Most of the symlinks are installed via the infuse scripts, but we wire
   # the exclude and ignore file here. (Though really for no good reason.)
   link_private_exclude "$@"
-  link_private_ignore "$@"
+  link_private_ignore_ "$@"
   #
   # Rely on external infuser scripts for the rest of the setup.
   #
