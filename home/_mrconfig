@@ -440,7 +440,9 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
 #  Dev Dopp Kit/ (wherein you'll find Shell- and Git-related projects).
 
 [${MR_HOME:-${HOME}}/.kit]
-order = 204
+# Redundant (print_depoxy_client_alt_remote_path sets):
+#   order = 204
+#   lib = remote_set_private
 checkout = true
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
@@ -452,10 +454,14 @@ infusePostRebase =
 infuse =
   mr -d . -n infusePostRebase
   #
+  # The user is more than welcome to make their own repo at ~/.kit
+  # (use case: adding symlinks). We'll start them off with a so-
+  # called "guard repo" until they do.
   create_guard_repo () {
     local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
     #
     mkdir -p "${MR_REPO}"
+    #
     # .gitignore.local and .git/info/exclude symlinks are placed by DXC infuse.
     symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/README.md" "README.md"
     prepare_guard_repo
@@ -471,12 +477,36 @@ infuse =
   if ! test -d "${MR_REPO}/.git"; then
     create_guard_repo
   fi
-fetch = true
-update = true
-pull = true
-ffssh = true
-travel = true
-unpack = true
+
+# USAGE: Override these action if you want to sync this repo between hosts.
+# - Create a file at ~/.depoxy/running/home/.kit/_mrconfig-kit-include
+#   - It should include the actions below you want to override (or none
+#     at all to accept the default action, e.g., if the same ~/.kit is
+#     cloned at ~/.kit on all your hosts).
+include =
+  include_client_kit_override () {
+    local sub_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.kit/_mrconfig-kit-include"
+    [ -f "${sub_cfg}" ] || return 1
+    mr_cat "${sub_cfg}"
+  }
+  if ! include_client_kit_override; then
+    cat <<[DEFAULT]
+ fetch = true
+ update = true
+ pull = true
+ ffssh = true
+ travel = true
+ unpack = true
+ [DEFAULT]
+  fi
+[DEFAULT]
+# ↑ Trick syntax highlighting into ending Heredoc.
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  Dev Dopp Kit/ _mrconfig
 
 # NOTE: Rather than using the .mrconfig chain feature, e.g.,
 #         chain = true
