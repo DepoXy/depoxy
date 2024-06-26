@@ -74,9 +74,9 @@ user_path_add_omr_lib () {
 
 # ***
 
-# FIXME/2022-10-11: Remove these PATH hacks, and this function.
-# - Add OMR install commands for executables you want to call directly,
-#   like sensible-open.
+# ALTLY/2025-01-17: You could add OMR 'install' tasks to make ~/.local/bin
+# symlinks for the executables you care about. / Though this PATH approach
+# isn't too bad, either, and seems like less work for the user.
 
 user_path_add_sh_bins () {
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin"
@@ -84,10 +84,10 @@ user_path_add_sh_bins () {
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib"
-  # Contains: logger.sh
-  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
-  # Commands: path_prefix, path_suffix
-  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin"
+  #  # Contains: logger.sh
+  #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+  #  # Commands: path_prefix, path_suffix (generally useless unless sourced)
+  #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin"
   # Commands: So many: cp_safe, mv_safe, path_device, rmrm, rm_rotate, rm_safe
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin"
