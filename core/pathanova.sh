@@ -86,10 +86,7 @@ user_path_add_omr_lib () {
 # FIXME/2022-10-11: Remove these PATH hacks, and this function.
 # - Add OMR install commands for executables you want to call directly,
 #   like sensible-open.
-# - Ensure other commands that use these libraries also use `link_hard`
-#   so that all the different projects' same dependencies are the same
-#   filesystem file (refer to the same inode).
-#
+
 user_path_add_sh_bins () {
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin"
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin"
