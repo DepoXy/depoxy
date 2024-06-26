@@ -7,7 +7,10 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps_pather () {
+_dxy_source_deps_pather () {
+  # SAVVY: Homefries sources these (from its deps/):
+  #   ~/.kit/sh/home-fries/.bashrc-bin/bashrc.core.sh
+
   # Source both path function scripts, so that, e.g., `path_prefix`
   # runs the function and not the script, because latter cannot
   # change current environment's PATH.
@@ -117,11 +120,6 @@ _depoxy_path_condense_colons () {
 # Adds executable commands' directories to PATH.
 user_path_extend () {
 
-  # *** Load PATH prefix and suffix functions.
-
-  source_deps_pather
-  unset -f source_deps_pather
-
   # *** Update PATH environment variable.
 
   user_path_add_home_local_node_modules_bin
@@ -163,11 +161,24 @@ user_path_extend () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+_dxy_wire_path () {
   user_path_extend
   unset -f user_path_extend
 }
 
-main "$@"
+main () {
+  _dxy_source_deps_pather
+}
+
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  # Being executed, so ensure (or refresh) deps.
+  # - Otherwise when sourced, assume path_* cmds loaded.
+  main "$@"
+fi
+
+_dxy_wire_path
+
 unset -f main
+unset -f _dxy_source_deps_pather
+unset -f _dxy_wire_path
 
