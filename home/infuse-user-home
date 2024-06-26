@@ -105,7 +105,7 @@ infuse_symlinks_user_home_tigconfig () {
   # and will replace this ~/.config/tig/config symlink with its own
   # (so that user tig is included; the symlink here is a fallback in
   # case there's no DXC).
-  # - infuse-user-home (this script) called by [~/.homefries] config:
+  # - infuse-user-home (this script) called by main ~/.mrconfig:
   #     ~/.depoxy/ambers/home/_mrconfig
   #   Currently 'order = 120'
   # - DepoXy Client [~/.depoxy/runnings/XXXX]

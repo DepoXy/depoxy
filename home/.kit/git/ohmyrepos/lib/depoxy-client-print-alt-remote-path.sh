@@ -64,7 +64,7 @@ lib =
 order = ${mr_order}
 ${skip}
 lib =
-  # Clone to local name (e.g., ".home") and not remote name (e.g., "user")
+  # Clone to a different local name than the remote name
   # - For when MR_REMOTE_PATH set and ends in different basename than MR_REPO.
   remote_set_private "\$(basename -- "\${MR_REPO}")"
 EOF

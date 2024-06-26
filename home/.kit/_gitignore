@@ -2,7 +2,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-# NOTE: Git 2.32.0+ does not allow `.gitignore` symlinks; so now a hard link.
+# SAVVY: Git 2.32.0+ disallows `.gitignore` symlinks, so hard-linked:
 # - LINKD: ~/.kit/.gitignore ↔ ~/.depoxy/ambers/home/.kit/_gitignore
 
 # Symlinks to ~/.depoxy/ambers/home/.kit/ files.
