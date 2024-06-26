@@ -30,6 +30,14 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 fussy () {
+  local path="/usr/bin/google-chrome-stable"
+
+  if [ ! -d "${path}" ]; then
+    >&2 echo "ERROR: Where's Chrome? It's not at ${path}"
+
+    return 1
+  fi
+
   /usr/bin/google-chrome-stable --new-window "$@"
 }
 
