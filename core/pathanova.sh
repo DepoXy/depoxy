@@ -152,8 +152,8 @@ user_path_extend () {
   # *** Cleanup PATH: Remove repetitious colons.
 
   _depoxy_path_condense_colons
-  # Let caller unset this, in case they want to use it again:
-  #  unset -f _depoxy_path_condense_colons
+  # Leave defined until _dxy_unset_functions_dxy so caller can use it.
+  #   # unset -f _depoxy_path_condense_colons
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
