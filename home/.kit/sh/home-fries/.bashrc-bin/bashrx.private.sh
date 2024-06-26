@@ -220,7 +220,6 @@ _dxy_unset_functions () {
 
 # The Homefries Private Bashrc loader calls this func. if it sees it.
 _homefries_private_main () {
-  DEBUG_TRACE=${DEBUG_TRACE:-false}
   _dxy_source_scripts
   _dxy_unset_functions
 }
