@@ -419,7 +419,12 @@ infuse =
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
   LOG_LEVEL=10 "${infuse_dubs_vim}" "$@"
-#
+# Don't need/want ~/.vim/.ignore (it doesn't have any rules we want,
+# and one we don't want, ignoring .vim/pack).
+infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project \
+  "pack/.ignore" \
+  "pack/landonb/.ignore"
+
 # USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
 #   ~/.depoxy/ambers/home/.vim/_mrconfig
 skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
