@@ -30,7 +30,9 @@ _depoxy_print_homebrew_path () {
 
   local brew_path="${brew_bin}/brew"
 
-  printf "${brew_path}"
+  [ -x "${brew_path}" ] || brew_path=""
+
+  printf "%s" "${brew_path}"
 }
 
 # Set Homebrew environs: HOMEBREW_PREFIX, HOMEBREW_CELLAR,
