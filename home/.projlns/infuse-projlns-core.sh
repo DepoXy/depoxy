@@ -69,7 +69,13 @@ infuse_projects_links_core () {
   # MAYBE/2024-06-16: Enable this short-circuit:
   #  return 0
 
-  mr -d / infuseProjlns
+  if ! mr -d / infuseProjlns; then
+    warn
+    warn
+    warn "ALERT: \`mr -d / infuseProjlns\` failed"
+    warn
+    warn
+  fi
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
