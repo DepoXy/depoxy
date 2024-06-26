@@ -592,7 +592,7 @@ lib =
     export DEPOXYDIR_STINTS_FULL=${stints_basedir}
     export DEPOXY_CLIENT_ID=${client_name}
   }
-  # Expose VENDOFS environs so OMR projects can use in their paths.
+  # Expose VENDORFS environs so OMR projects can use in their paths.
   export_depoxy_fs_paths
 
 include =
