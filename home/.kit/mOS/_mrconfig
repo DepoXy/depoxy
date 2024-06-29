@@ -220,30 +220,34 @@ installDarwin =
   # to run as external command. It works like git-foo commands: name the
   # executable with the `brew-` prefix, and stick it on path.
   symlink_overlay_dir "${DOPP_KIT:-${HOME}/.kit}/mOS/homebrew-autoupdate" "${inject_path}"
-  #
   # USAGE: brew autoupdate <subcommand> [<interval>] [<options>]
-  # HELP: brew autoupdate.rb --help
-  # ASSETS: ll ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/
-  #       (after first run)
-  # Run immediately: brew autoupdate
-  # Runs via: launchctl
-  #       launchctl list | grep com.github.domt4.homebrew-autoupdate
-  # STOP: brew autoupdate delete
-  #
-  # FIXME/2021-08-04: Is this sticky across reboots?
-  #
+  # CPYST:
+  #     brew autoupdate.rb --help
+  #     # Run immediately:
+  #     brew autoupdate
+  #     # Run via launchctl
+  #     launchctl list | grep com.github.domt4.homebrew-autoupdate
+  #     # Remove launchctl
+  #     brew autoupdate delete
+  #     # See the brew_autoupdate executable
+  #     ll ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate
+  #     # View logs (though none for brew_autoupdate?)
+  #     ll ~/Library/Logs/Homebrew/**
+  # CXREF: LaunchAgents run on user logon:
+  #   ~/Library/LaunchAgents/com.github.domt4.homebrew-autoupdate.plist
+  # SAVVY: Your shell PATH when you run this command is used in the
+  # generated file, 'brew_autoupdate' (see CXREF below).
   brew autoupdate start 86400 --upgrade
-# FIXME/2022-12-04: Will this affect me? [sic]:
-#   Warning: Please note if you use Casks that require `sudo` to upgrade there
-#   are known issues with that use case and this command unless using
-#   `SUDO_ASKPASS`.
-#
-#     https://github.com/Homebrew/homebrew-autoupdate/issues/40
-#
-#   Homebrew will now automatically update every 24 hours, or on system boot.
-
-# WARNING:  You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
-#   gem executables will not run.
+  # NOTED/2024-06-27: This warning does not apply to us (no casks that are
+  # installed by macOS-onboarder/bin/install-homebrew.sh require sudo):
+  # - Be aware "if you use Casks that require `sudo` to upgrade." Something
+  #   something "known issues ... unless using `SUDO_ASKPASS`."
+  #     https://github.com/Homebrew/homebrew-autoupdate/issues/40
+  # NOTED: "Homebrew will now automatically update every 24 hours."
+  # - Note also the daemon starts on system boot.
+  # NOTED: Also never an issue with this:
+  # - "WARNING: You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
+  #    gem executables will not run."
 
 # ========================================================================
 # ------------------------------------------------------------------------
