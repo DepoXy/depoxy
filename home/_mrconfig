@@ -261,22 +261,16 @@ infuse =
   #
   #  mr -d . -n infusePostRebase
   #
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
-  local infuse_user_home="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-user-home"
-  #
-  # Most of the symlinks are installed via the infuse scripts, but we wire
-  # the exclude and ignore file here. (Though really for no good reason.)
   link_private_exclude "$@"
   link_private_ignore_ "$@"
+  #
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
   #
   # Rely on external infuser scripts for the rest of the setup.
   #
   # CXREF: ~/.depoxy/ambers/home/infuse-home-fries
   LOG_LEVEL=10 "${infuse_home_fries}" "$@"
-  #
-  # CXREF: ~/.depoxy/ambers/home/infuse-user-home
-  LOG_LEVEL=10 "${infuse_user_home}" "$@"
 updateDeps =
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
   update_deps_shoilerplate
@@ -329,6 +323,8 @@ lib =
   remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
+  # CXREF: ~/.depoxy/ambers/home/infuse-user-home
+  LOG_LEVEL=10 "${MR_REPO}/home/infuse-user-home" "$@"
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
   LOG_LEVEL=10 "${MR_REPO}/home/infuse-platform-macOS" "$@"
 # Force a single root deep-link, otherwise the infuser would detect the
