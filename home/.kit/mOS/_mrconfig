@@ -248,6 +248,14 @@ installDarwin =
   # NOTED: Also never an issue with this:
   # - "WARNING: You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
   #    gem executables will not run."
+# Add the one file we've edited to Vim grep-steady search path.
+# - CXREF:
+#     ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb
+#   Which creates:
+#     ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate
+infuseProjlns =
+  OMR_INFUSE_PROJLNS_TOGGLE_OFF=false \
+    infuse_projlns_if_personal_project "lib/autoupdate/start.rb"
 
 # ========================================================================
 # ------------------------------------------------------------------------
