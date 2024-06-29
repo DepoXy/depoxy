@@ -28,7 +28,20 @@ setup_myrepos_mrconfig_and_mrinfuse () {
   # First create the ~/.mrinfuse symlink, which is the basis for many
   # of the symlink_mrinfuse_file and symlink_mrinfuse_dir chores
   # that many projects use.
-  symlink_overlay_dir "${ambers_home}" ".mrinfuse"
+  # - So that the user can override DepoXy files, symlink the user's
+  #   DepoXy Client from user home, and then within that, ensure the
+  #   symlink to DepoXy (if the location doesn't already exist).
+  # - The `symlink_mrinfuse_*` commands will check the Client for the
+  #   file first, and if not found, it will fallback the DepoXy file.
+  local client_home="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home"
+  local client_mrinfuse="${client_home}/${MRT_INFUSE_DIR:-.mrinfuse}"
+  if [ ! -e "${client_mrinfuse}" ]; then
+    # Creates the fallback path:
+    #   ~/.depoxy/running/home/.mrinfuse -> ~/.depoxy/ambers/home
+    symlink_overlay_dir "${ambers_home}" "${client_mrinfuse}"
+  fi
+  # Creates ~/.mrinfuse -> ~/.depoxy/running/home
+  symlink_overlay_dir "${client_home}" "${MRT_INFUSE_DIR:-.mrinfuse}"
 
   # The ~/.depoxy/ambers/bin/onboarder/install-ohmyrepos.sh installer
   # was probably the first to seed ~/.mrconfig, but just in case
