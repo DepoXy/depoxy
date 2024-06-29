@@ -5,7 +5,7 @@
 
 /.git/
 
-# Symlink -> ../home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
+# -> ../home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 /core/wire-bash.sh
 
 # Symlinks: home/.config/tig/* -> :
@@ -35,16 +35,19 @@
 /home/.config/tig/tigconfig-client
 /home/.config/tig/tigconfig.EVAL
 
-# Symlink -> /Users/user/.depoxy/stints/XXXX/home/_git/
+# -> /Users/user/.depoxy/stints/XXXX/home/_git/
 /home/_git
 
-# Symlink -> ~/.kit/git/git-smart/.gitconfig
+# -> ~/.kit/git/git-smart/.gitconfig
 # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
 /home/.gitconfig
 
 # Symlink for historical location:
 #  -> .kit/sh/home-fries/
 /home/.homefries
+
+# -> /Users/puck/.depoxy/stints/XXXX/home/.kit/_git/
+/home/.kit/_git
 
 # Generated file.
 /home/.vim/pack/DepoXy/start/vim-depoxy/doc/tags
@@ -61,11 +64,11 @@
 #     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr:751
 #   that serve as canon for ~/.projlns
 /home/.config/karabiner/assets/complex_modifications/
-# --DXC symlink -> ../../../../../running/home/.config/karabiner/assets/complex_modifications/
+# --DXC -> ../../../../../running/home/.config/karabiner/assets/complex_modifications/
 /home/.config/karabiner/assets/complex_modifications--DXC/
-# --KBE symlink -> ~/.kit/mOS/Karabiner-Elephants/complex_modifications/
+# --KBE -> ~/.kit/mOS/Karabiner-Elephants/complex_modifications/
 /home/.config/karabiner/assets/complex_modifications--KBE/
 
-# Symlink -> ../../../../bin/macOS/launchers/
+# -> ../../../../bin/macOS/launchers/
 /home/.config/karabiner/assets/launchers
 
