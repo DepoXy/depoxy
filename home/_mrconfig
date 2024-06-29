@@ -422,6 +422,7 @@ infuse =
 # Don't need/want ~/.vim/.ignore (it doesn't have any rules we want,
 # and one we don't want, ignoring .vim/pack).
 infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project \
+  "pack/.fdignore" \
   "pack/.ignore" \
   "pack/landonb/.ignore"
 

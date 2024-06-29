@@ -87,6 +87,18 @@ setup_private_git_exclude () {
 
 # ***
 
+setup_vim_pack_fdignore () {
+  local before_cd="$(pwd -L)"
+
+  cd "${HOME}/.vim/pack"
+
+  symlink_mrinfuse_file "pack/_fdignore" "pack/.fdignore"
+
+  cd "${before_cd}"
+}
+
+# ***
+
 # Place ~/.vim/pack/.gitignore.
 setup_vim_pack_git_exclude () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
@@ -344,6 +356,8 @@ main () {
   seed_myrepos_mrinfuse_dubs_vim_pack
 
   setup_private_git_exclude
+
+  setup_vim_pack_fdignore
 
   setup_vim_pack_git_exclude
 
