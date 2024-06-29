@@ -186,7 +186,7 @@ installDarwin =
 #   Running `brew update --auto-update`...
 # - Or maybe that has nothing to do with this repo...
 lib =
-  remote_set origin https://github.com/landonb/homebrew-autoupdate.git
+  remote_set publish https://github.com/landonb/homebrew-autoupdate.git
   remote_set starter https://github.com/Homebrew/homebrew-autoupdate.git
 echoInstallHelp =
   echoInstallHelp 'os_macos' 'dxy_all'
