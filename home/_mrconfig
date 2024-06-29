@@ -330,7 +330,7 @@ lib =
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
-  LOG_LEVEL=10 ${MR_REPO}/home/infuse-platform-macOS "$@"
+  LOG_LEVEL=10 "${MR_REPO}/home/infuse-platform-macOS" "$@"
 # Force a single root deep-link, otherwise the infuser would detect the
 # embedded archetype/.git repo and fallback to ls-files deep-links. But
 # we also want archetype/ deep-linked. So ambers can be a root deep-link.
