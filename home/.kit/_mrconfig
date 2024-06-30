@@ -29,7 +29,11 @@ include =
      [ "${MR_INCLUDE}" = "dob" ] ||
      [ "${MR_INCLUDE}" = "eapp" ] ||
   false; then
+    # - omr-dob repo loads its own config
     # CXREF: ~/.kit/dob/.mrconfigs/_mrconfig
+    #   ~/.kit/dob/.mrconfigs/_mrconfig-dob
+    #   ~/.kit/dob/.mrconfigs/_mrconfig-eapp
+    #   ~/.kit/dob/.mrconfigs/_mrconfig-hamster
     mr_cat "${DOB_OMR_DIR:-${HOME}/.kit/dob}/.mrconfigs/_mrconfig"
   fi
 
