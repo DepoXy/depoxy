@@ -72,32 +72,86 @@ SYNTHETIC_HOME_PREFIX="${SYNTHETIC_HOME_PREFIX:-/private/user}"
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 ln_relink_using_private_user_path () {
-  local rel_root
-  # Dies on "Not a git repo!" if not a Git repo.
-  rel_root="$(git root -r)"
+  local old_prefix=""
+  local new_prefix=""
+  local root_dir=""
+
+  # Super simple args parse.
+  while [ $# -gt 0 ]; do
+    if [ "$1" = "-r" ] || [ "$1" = "--root" ]; then
+      root_dir="${2:-.}"
+
+      shift 2 || shift
+    elif [ -z "$1" ]; then
+      >&2 echo "ERROR: Unrecognized empty argument"
+
+      exit 1
+    elif [ -z "${old_prefix}" ]; then
+      old_prefix="$1"
+
+      shift
+    elif [ -z "${new_prefix}" ]; then
+      new_prefix="$1"
+
+      shift
+    else
+      >&2 echo "ERROR: Unrecognized argument: $1"
+
+      exit 1
+    fi
+  done
+
+  old_prefix="${old_prefix:-${HOME}}"
+  new_prefix="${new_prefix:-${SYNTHETIC_HOME_PREFIX}}"
+
+  # ***
 
   local before_cd="$(pwd -L)"
-
-  if [ -n "${rel_root}" ]; then
-    # Not sure it matters, *but why not*.
-    cd "${rel_root}"
-  fi
 
   local stats_files=0
   local stats_symlinks=0
   local stats_replaced=0
 
-  replace_working_file_links_using_os_agnostic_user_home_path "$@"
+  if [ -z "${root_dir}" ]; then
+    substitute_path_prefix_for_each_symlink_from_git_ls_files \
+      "${old_prefix}" "${new_prefix}"
+  else
+    substitute_path_prefix_for_each_symlink_from_all_files \
+      "${old_prefix}" "${new_prefix}" \
+      "${root_dir}"
+  fi
 
   cd "${before_cd}"
 
   report_stats
 }
 
-replace_working_file_links_using_os_agnostic_user_home_path () {
+substitute_path_prefix_for_each_symlink_from_git_ls_files () {
+  local old_prefix="$1"
+  local new_prefix="$2"
+
+  local rel_root
+  # Dies on "Not a git repo!" if not a Git repo.
+  rel_root="$(git root -r)"
+
+  if [ -n "${rel_root}" ]; then
+    # Not sure it matters, *but why not*.
+    cd "${rel_root}"
+  fi
+
   while IFS= read -r -d $'\0' fname; do
-    process_file "${fname}" "$@"
+    process_file "${fname}" "${old_prefix}" "${new_prefix}"
   done < <(git ls-files -z)
+}
+
+substitute_path_prefix_for_each_symlink_from_all_files () {
+  local old_prefix="$1"
+  local new_prefix="$2"
+  local root_dir="$3"
+
+  while IFS= read -r -d $'\0' fname; do
+    process_file "${fname}" "${old_prefix}" "${new_prefix}"
+  done < <(find "${root_dir}" -type l -print0)
 }
 
 process_file () {
