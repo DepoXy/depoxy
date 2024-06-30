@@ -81,6 +81,7 @@ infuse_create_symlinks_omr_scattered () {
   #   ~/.kit/sh/home-fries/lib/alias/alias_fd.sh
   #   ~/.vim/pack/landonb/start/dubs_project_tray/plugin/dubs_project.vim
   # - MAYBE: DRY the -prune list.
+  # - INERT: Remove *.EVAL files from DXA (though probably not an issue).
   # - The prune below also includes the ~/.kit/git/mrepos project sources,
   #   because a number of files therein include "mrconfig" in their name.
   while IFS= read -r path; do
