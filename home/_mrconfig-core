@@ -126,6 +126,17 @@ installLinux =
   #   to minimize the window.)
   xdg-settings set default-web-browser "fussy.desktop"
 
+# Let user override or extend the [~/.depoxy/ambers] config.
+include =
+  include_client_depoxy_config () {
+    local client_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.depoxy/ambers/_mrconfig-include"
+    if [ -f "${client_cfg}" ]; then
+      # CXREF: ~/.depoxy/running/home/.depoxy/ambers/_mrconfig-include
+      mr_cat "${client_cfg}"
+    fi
+  }
+  include_client_depoxy_config
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
