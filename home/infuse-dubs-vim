@@ -73,7 +73,7 @@ seed_myrepos_mrconfig_dubs_vim () {
 seed_myrepos_mrinfuse_dubs_vim_pack () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/.mrinfuse" "pack/.mrinfuse"
+  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack" "pack/.mrinfuse"
 }
 
 # ***
