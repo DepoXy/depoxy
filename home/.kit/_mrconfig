@@ -39,6 +39,12 @@ include =
     #   ~/.kit/dob/.mrconfigs/_mrconfig-eapp
     #   ~/.kit/dob/.mrconfigs/_mrconfig-hamster
     mr_cat "${DOB_OMR_DIR:-${HOME}/.kit/dob}/.mrconfigs/_mrconfig"
+    #
+    # *** Private config
+    #
+    # ~/.kit/dob/.mrconfigs/_mrconfig-client ->
+    #   ~/.depoxy/running/home/.kit/dob/_mrconfig-client
+    mr_cat "${DOB_OMR_DIR:-${HOME}/.kit/dob}/.mrconfigs/_mrconfig-client"
   fi
 
 # ========================================================================
