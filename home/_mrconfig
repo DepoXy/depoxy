@@ -84,37 +84,10 @@ include =
 #
 #   ~/.kit/sh/home-fries
 #   ~/.depoxy/ambers
+#   ~/.depoxy/ambers/archetype
 
 # CXREF: ~/.depoxy/ambers/home/_mrconfig-core
 include = mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  Depoxy Ambers's DepoXy Archetype DepoXy Client template
-
-# “We live with our archetypes 🏹 but can we live in them?”
-#   https://en.wikipedia.org/wiki/Poul_Anderson
-#   https://www.brainyquote.com/topics/archetypes-quotes
-# DepoXy template engine 🏹
-# https://github.com/DepoXy/depoxy-archetype#🏹
-[${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
-order = 132
-lib =
-  remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
-skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
-infuse =
-  link_private_exclude "$@"
-  link_private_ignore_ "$@"
-# Deep-linked inherently via ~/.depoxy/ambers, i.e., because
-#     ~/.projlns/depoxy-deeplinks/home/user/.depoxy/ambers
-#   is a root deep-link.
-# - SAVVY: Instead of just skipping this action, e.g.,:
-#     infuseProjlns = true
-#   Run in the "off" position to emit a trace message.
-# - USYNC: See above: ambers/ uses ROOT=true to include archetype/.
-infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_project
 
 # ========================================================================
 # ------------------------------------------------------------------------
