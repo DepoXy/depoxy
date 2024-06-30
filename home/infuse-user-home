@@ -170,16 +170,6 @@ tigconfig_generate_depoxy_tig_config () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_user_home_dotfiles () {
-  # Common dotfiles are symlinked below.
-  # Feel free to add to this list, but use
-  #  an isn't-there-don't-care policy (e.g.,
-  #  call symlink_mrinfuse_file_optional,
-  #  symlink_mrinfuse_file_first_optional, or
-  #  symlink_overlay_file_first_optional).
-
-  # 2018-12-23: Skip .anacron, because machine-specific!
-  # SKIP: symlink_mrinfuse_file '.anacron'
-
   # 2020-11-22: Ctags a bit obsolete, given Vim-CoC and LSPs.
   symlink_mrinfuse_file '.ctags'
 
