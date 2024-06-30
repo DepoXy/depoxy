@@ -23,6 +23,9 @@ autocommit = true
 #   ~/.depoxy/ambers/home/_mrconfig
 #   ~/.depoxy/ambers/home/.kit/_mrconfig
 
+# ========================================================================
+# ------------------------------------------------------------------------
+
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
@@ -37,6 +40,9 @@ include =
     #   ~/.kit/dob/.mrconfigs/_mrconfig-hamster
     mr_cat "${DOB_OMR_DIR:-${HOME}/.kit/dob}/.mrconfigs/_mrconfig"
   fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
@@ -55,7 +61,9 @@ include =
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-smart
   fi
 
-# ***
+# ========================================================================
+# ------------------------------------------------------------------------
+
 
 # ISOFF/2024-06-21: Don't add old ~/.gopath projects to ~/.projlns.
 lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true
@@ -73,7 +81,8 @@ include =
 
 lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=false
 
-# ***
+# ========================================================================
+# ------------------------------------------------------------------------
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
@@ -86,6 +95,9 @@ include =
     # CXREF: ~/.depoxy/ambers/home/.kit/js/_mrconfig
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/js/_mrconfig
   fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
@@ -102,6 +114,9 @@ include =
     fi
   fi
 
+# ========================================================================
+# ------------------------------------------------------------------------
+
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
@@ -113,6 +128,9 @@ include =
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/_mrconfig
   fi
 
+# ========================================================================
+# ------------------------------------------------------------------------
+
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
@@ -123,6 +141,9 @@ include =
     # CXREF: ~/.depoxy/ambers/home/.kit/py/_mrconfig
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig
   fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
@@ -140,6 +161,9 @@ include =
     fi
   fi
 
+# ========================================================================
+# ------------------------------------------------------------------------
+
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
@@ -150,6 +174,9 @@ include =
     # CXREF: ~/.depoxy/ambers/home/.kit/txt/_mrconfig
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/txt/_mrconfig
   fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
 
 # NOTE: Current [SECTION] is whatever last section of last cat'ted file is.
 # So be sure next line in this file is either another include, or a [section].
