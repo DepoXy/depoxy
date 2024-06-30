@@ -38,11 +38,8 @@ source_deps () {
 seed_myrepos_mrconfig_dubs_vim () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  # We could carnally link the config, e.g.,
-  #   symlink_file_clobber "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/.mrconfig"
-  # But I'd rather the symlink be figured out via .mrinfuse.
-  # - So the ~/.vim/.mrinfuse symlink, which symlink_mrinfuse_* expects.
-  # (Note that .mrinfuse references a subdirectory of the DepoXy Ambers infuse pasture.)
+  # This is usually redundant because ~/.mrinfuse, but makes for
+  # shorter symlinks.
   symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim" ".mrinfuse"
 
   symlink_mrinfuse_file "_mrconfig" ".mrconfig"
