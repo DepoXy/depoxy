@@ -50,10 +50,13 @@ infuse_symlinks_user_home_dotconfig () {
 
 # Collect all tig config/bindings under ~/.mrinfuse/.config/tig/
 infuse_symlinks_user_home_tigconfig () {
-  # Remove symlinks from .mrinfuse/.config/tig
-  find ".mrinfuse/.config/tig" -maxdepth 1 -type l -exec rm -- {} +
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
-  # Repopulate .mrinfuse/.config/tig/cfg-tgn-*
+  # Remove symlinks from ~/.depoxy/ambers/.config/tig
+  find "${ambers_root}/home/.config/tig" -maxdepth 1 -type l -exec rm -- {} +
+
+  # Repopulate ~/.depoxy/ambers/home/.config/tig/cfg-tgn-*
   local tnewtons_tig="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}/tig"
 
   if [ -d "${tnewtons_tig}" ]; then
@@ -65,7 +68,7 @@ infuse_symlinks_user_home_tigconfig () {
       local fname="$(basename -- "${tconf}")"
 
       symlink_overlay_file "${tnewtons_tig}/${fname}" \
-        ".mrinfuse/.config/tig/cfg-tgn-${fname}"
+        "${ambers_root}/home/.config/tig/cfg-tgn-${fname}"
     done < <(find "${tnewtons_tig}" -maxdepth 1 -type f)
   fi
 
@@ -84,7 +87,7 @@ infuse_symlinks_user_home_tigconfig () {
   if [ -f "${dxc_root}/home/.config/tig/config" ]; then
     symlink_overlay_file \
       "${dxc_root}/home/.config/tig/config" \
-      ".mrinfuse/.config/tig/tigconfig-client"
+      "${ambers_root}/home/.config/tig/tigconfig-client"
   else
     warn "ALERT: Missing DepoXy Client tig/config"
     warn "- Hint: Create and infuse DXC, then confirm:"
@@ -93,8 +96,6 @@ infuse_symlinks_user_home_tigconfig () {
 
   # ***
 
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
   # ***
 
@@ -131,7 +132,7 @@ infuse_symlinks_home_mrinfuse_tigconfig () {
 
   symlink_overlay_file \
     "${DEPOXYARCHETYPE_DIR:-${ambers_root}/archetype}/home/.config/tig/config.EVAL" \
-    ".mrinfuse/.config/tig/tigconfig.EVAL"
+    "${ambers_root}/home/.config/tig/tigconfig.EVAL"
 }
 
 # - m4_shim uses DXY_DEPOXY_CLIENT_FULL for target base,
@@ -149,6 +150,9 @@ tigconfig_generate_depoxy_tig_config () {
 
   local git_base="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}"
   local tnewtons="${git_base}/tig-newtons/tig"
+
+  # m4_shim adds DEPOXY_CLIENT_FULL/ prefix to target path,
+  # so creates ~/.depoxy/running/home/.config/tig/config
 
   ( \
     DXY_DEPOXY_CLIENT_FULL="${ambers_root}" \
