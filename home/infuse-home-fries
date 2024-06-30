@@ -46,12 +46,8 @@ setup_private_fries_bashrc () {
   # REFER: ${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}
   local private_bashrc=".kit/sh/home-fries/.bashrc-bin/bashrx.private.sh"
 
-  # This check solely because author uses a custom ~/.mrinfuse @home,
-  # where they have a "bashrx.private.${LOGNAME}.sh" file instead of
-  # the "bashrx.private.sh" file you'll find in DepoXy.
-  if [ -f "./.mrinfuse/${private_bashrc}" ]; then
-    symlink_mrinfuse_file "${private_bashrc}"
-  fi
+  # -> ~/.mrinfuse/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
+  symlink_mrinfuse_file "${private_bashrc}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
