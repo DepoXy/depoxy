@@ -85,56 +85,11 @@ include =
 #   ~/.kit/sh/home-fries
 #   ~/.depoxy/ambers
 #   ~/.depoxy/ambers/archetype
+#   ~/.vim
 #   ~/.kit
 
 # CXREF: ~/.depoxy/ambers/home/_mrconfig-core
 include = mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  Dubs Vim (~/.vim foundation and lightweight ~/.vimrc)
-
-[${MR_HOME:-${HOME}}/.vim]
-order = 140
-# SAVVY/2019-10-21: I tried a [.] section in ~/.depoxy/ambers/home/.vim/_mrconfig,
-#   but then the repo gets listed twice (because of this entry).
-# SKIPPING: GIT_REPO_SEEDS_0: See: once/setup_ubuntu.sh, once/vendor_dubs-vim.sh
-lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
-chain = true
-infusePostRebase =
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
-  #
-  . "${infuse_dubs_vim}"
-  setup_vim_pack_git_exclude
-  setup_vim_pack_grep_ignore
-infuse =
-  # SKIPD: Calling infusePostRebase from this infuser is redundant.
-  #  mr -d . -n infusePostRebase
-  # B/c infuse-dubs-vim calls setup_vim_pack_git_exclude and setup_vim_pack_grep_ignore.
-  #
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
-  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
-  #
-  LOG_LEVEL=10 "${infuse_dubs_vim}" "$@"
-# Don't need/want ~/.vim/.ignore (it doesn't have any rules we want,
-# and one we don't want, ignoring .vim/pack).
-infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project \
-  "pack/.fdignore" \
-  "pack/.ignore" \
-  "pack/landonb/.ignore"
-
-# USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
-#   ~/.depoxy/ambers/home/.vim/_mrconfig
-skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
-  "github.com/landonb" "vim-lsp" "vim-private" "DXC" "${LOGNAME}"
-
-# NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
-#   is within ~/.depoxy/running/.mrconfigs/_mrconfig
 
 # ========================================================================
 # ------------------------------------------------------------------------
