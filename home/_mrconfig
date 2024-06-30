@@ -83,63 +83,10 @@ include =
 # Load project config:
 #
 #   ~/.kit/sh/home-fries
+#   ~/.depoxy/ambers
 
 # CXREF: ~/.depoxy/ambers/home/_mrconfig-core
 include = mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  DepoXy Ambers (opinionated dev environment orchestrator)
-
-# Note again that absolute or relative works, so
-#   [${HOME}/.depoxy/ambers]
-# works, as does
-#   [.depoxy/ambers]
-# but again we'll choose readability over "portability",
-# or whatever advantage using a relative path would get us.
-
-# The Developmer Experience 🍯
-# https://github.com/DepoXy/depoxy#🍯
-[${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers}]
-order = 131
-lib =
-  remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
-skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
-infuse =
-  # CXREF: ~/.depoxy/ambers/home/infuse-user-home
-  LOG_LEVEL=10 "${MR_REPO}/home/infuse-user-home" "$@"
-  # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
-  LOG_LEVEL=10 "${MR_REPO}/home/infuse-platform-macOS" "$@"
-# Force a single root deep-link, otherwise the infuser would detect the
-# embedded archetype/.git repo and fallback to ls-files deep-links. But
-# we also want archetype/ deep-linked. So ambers can be a root deep-link.
-# - USYNC: See below: archetype/ must use TOGGLE_OFF=true because of this.
-infuseProjlns = OMR_INFUSE_PROJLNS_ROOT=true infuse_projlns_if_personal_project
-
-autocommit =
-  git_auto_commit_parse_args "$@"
-  git_auto_commit_one 'home/.vim/spell/en.utf-8.add--personal' -m "Update: Spells"
-
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' \
-  "Linux: fussy.desktop def't browser / macOS: allow term. notifs"
-isInstalled = os_is_macos \
-  || [ "$(xdg-settings get default-web-browser)" = "fussy.desktop" ]
-install = install_os_specific
-installDarwin =
-  # Trigger popup so user can enable terminal toasts.
-  terminal-notifier -message "✓ Allow terminal notifications"
-installLinux =
-  # DUNNO/2023-02-09: Meh, not sure where else to put this...
-  # - *fussy* is a Linux version of `finicky`:
-  #     https://github.com/johnste/finicky
-  # - This is mostly so Slack opens links in a new browser
-  #   window, rather than fronting an existing window. (It's
-  #   just one <Alt-w> to close the new window, vs. <Alt-w>
-  #   only closing one tab and then needing to <Alt-space n>
-  #   to minimize the window.)
-  xdg-settings set default-web-browser "fussy.desktop"
 
 # ========================================================================
 # ------------------------------------------------------------------------
