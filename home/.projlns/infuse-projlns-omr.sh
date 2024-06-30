@@ -84,10 +84,15 @@ infuse_create_symlinks_omr_scattered () {
   # - INERT: Remove *.EVAL files from DXA (though probably not an issue).
   # - The prune below also includes the ~/.kit/git/mrepos project sources,
   #   because a number of files therein include "mrconfig" in their name.
-  while IFS= read -r path; do
+  # - Note the -L so we traverse symlink directories, e.g.,
+  #     ~/.kit/private -> /private/some/mounted/device
+  #   but then we have to realpath, sort, and remove duplicates, and also
+  #   inhibit stderr (e.g., "find: File system loop detected; ...").
+  while IFS= read -r -d $'\0' path; do
     link_deep "${path}"
   done < <( \
     find \
+      -L \
       "${HOME}/.depoxy" \
       "${HOME}/.kit" \
       "$@" \
@@ -116,8 +121,13 @@ infuse_create_symlinks_omr_scattered () {
       \) -prune -o \
       -name "*mrconfig*" \
       -type f \
-      -print
+      -exec /bin/sh -c 'printf "%s\0" "$(realpath -- "{}")"' \; \
+    2> /dev/null | sort -z | $(gnu_uniq) -z
   )
+}
+
+gnu_uniq () {
+  command -v guniq || command -v uniq
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
