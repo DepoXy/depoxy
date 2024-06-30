@@ -40,6 +40,7 @@
 
 aci () {
   local proj_path="${1:-/}"
+  shift || true
 
   # ***
 
