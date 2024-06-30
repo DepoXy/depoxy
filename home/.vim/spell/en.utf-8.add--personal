@@ -58,6 +58,8 @@ dir's
 dirs
 doblabs
 dob's
+dotfile
+dotfiles
 dunamai
 envs
 errexit
@@ -66,6 +68,8 @@ fcns
 filesystems
 firmlinks
 fixup
+gitconfig
+gitignore
 globbing
 homefries
 hostname
