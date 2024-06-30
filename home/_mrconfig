@@ -80,64 +80,12 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  Home Fries (robust dotfiles)
+# Load project config:
+#
+#   ~/.kit/sh/home-fries
 
-[${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}]
-order = 120
-lib = remote_set publish "https://github.com/landonb/home-fries.git" "home-fries"
-infusePostRebase =
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
-  #
-  . "${infuse_home_fries}"
-  link_hard_dep_shoilerplate
-infuse =
-  # SKIPD: The 'infuse' action usually calls 'infusePostRebase', but that's
-  # redundant here, b/c infuse-home-fries calls link_hard_dep_shoilerplate.
-  #
-  #  mr -d . -n infusePostRebase
-  #
-  link_private_exclude "$@"
-  link_private_ignore_ "$@"
-  #
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
-  #
-  # Rely on external infuser scripts for the rest of the setup.
-  #
-  # CXREF: ~/.depoxy/ambers/home/infuse-home-fries
-  LOG_LEVEL=10 "${infuse_home_fries}" "$@"
-updateDeps =
-  # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
-  update_deps_shoilerplate
-#
-skip = mr_exclusive "bash" "sh" "home" "${LOGNAME}" "DXC"
-#
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-install =
-  install_bash_history_to_noise () {
-    local orig_file="${HOME}/.bash_history"
-    if [ -f "${orig_file}" ] && [ ! -h "${orig_file}" ]; then
-      local noise_home="${NOISE_DUMP:-${HOME}/.noise}/home"
-      local noise_hist="${noise_home}/.bash_history"
-      #
-      if [ -f "${noise_hist}" ]; then
-        error "ERROR: Target already exists: ${noise_hist}"
-        #
-        return 1
-      fi
-      mkdir -p "${noise_home}"
-      command mv -- "${orig_file}" "${noise_hist}"
-      #
-      local relative_hist="$( \
-        echo "${noise_hist}" \
-        | sed -E "s@^${HOME}/@@"
-      )"
-      command ln -s -- "${relative_hist}" "${orig_file}"
-    fi
-  }
-  install_bash_history_to_noise
+# CXREF: ~/.depoxy/ambers/home/_mrconfig-core
+include = mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
 
 # ========================================================================
 # ------------------------------------------------------------------------
