@@ -195,30 +195,6 @@ include =
 
 [DEFAULT]
 
-lib =
-  source_depoxy_fs () {
-    local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-    local ambers_core="${DEPOXYAMBERS_DIR:-${ambers_path}}/core"
-    . "${ambers_core}/depoxy_fs.sh"
-  }
-  #
-  export_depoxy_fs_paths () {
-    source_depoxy_fs
-    # This config only runs on the client underway, and never on the
-    # *primary host*, so this check should never return.
-    local stints_basedir
-    stints_basedir="$(_vendorfs_path_stints_basedir_print)"
-    local client_name
-    client_name="$(_VENDORFS_WARN_ON_ERROR=false _vendorfs_resolve_client_name_underway)" || return 0
-    #
-    # DUNNO/2022-10-13: Explain why you need to export these.
-    # - Is it for ${HOME}/work/_mrconfig, cat'ted below?
-    export DEPOXYDIR_STINTS_FULL=${stints_basedir}
-    export DEPOXY_CLIENT_ID=${client_name}
-  }
-  # Expose VENDORFS environs so OMR projects can use in their paths.
-  export_depoxy_fs_paths
-
 include =
   . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
   #
