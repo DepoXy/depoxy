@@ -39,6 +39,8 @@
 /home/.config/tig/cfg-tgn-*
 /home/.config/tig/tigconfig-client
 /home/.config/tig/tigconfig.EVAL
+# Let user create additional convenience symlinks.
+/home/.config/tig/tigconfig-*
 
 # The complex_modifications/ symlinks are managed by 'infuse' tasks.
 /home/.config/karabiner/assets/complex_modifications/
