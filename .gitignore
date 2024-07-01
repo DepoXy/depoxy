@@ -62,14 +62,14 @@
 #   ~/.depoxy/ambers/home/.vim/cmdt_paths/generate_links.sh
 /home/.vim/cmdt_paths/symlinks/
 
-# Ignore generated directory. See:
-#   ~/.depoxy/ambers/home/.vim/dubs_project_tray/generate_links.sh
-/home/.vim/dubs_project_tray/dubs_cuts/
-
 # From :Helptags.
 /home/.vim/pack/DepoXy/start/vim-depoxy/doc/tags
 # Symlink by infuse-dubs-vim's setup_project_plug_vim_depoxy.
 /home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf.vim
+
+# Ignore generated directory. See:
+#   ~/.depoxy/ambers/home/.vim/pack/landonb/start/dubs_project_tray/generate_links.sh
+/home/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts/
 
 # Vim spell file generated on 'infuse'.
 /home/.vim/spell/en.utf-8.add--compiled

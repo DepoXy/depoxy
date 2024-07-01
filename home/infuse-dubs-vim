@@ -38,9 +38,15 @@ source_deps () {
 seed_myrepos_mrconfig_dubs_vim () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  # This is usually redundant because ~/.mrinfuse, but makes for
-  # shorter symlinks.
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim" ".mrinfuse"
+  # CXREF: This is usually redundant because ~/.mrinfuse:
+  #   ~/.depoxy/ambers/home/infuse-config-omr
+  #     setup_myrepos_mrconfig_and_mrinfuse
+  # but it makes for shorter symlinks.
+  # - SAVVY: Create descendency link if you symlinked
+  #     ~/.mrinfuse -> ~/.depoxy/running/home
+  #   E.g.,
+  #     ln -sfn ~/.depoxy/ambers/home/.vim ~/.depoxy/running/home/.vim/.mrinfuse
+  symlink_overlay_dir "../${MRT_INFUSE_DIR:-.mrinfuse}/.vim" "${MRT_INFUSE_DIR:-.mrinfuse}"
 
   symlink_mrinfuse_file "_mrconfig" ".mrconfig"
   symlink_mrinfuse_file "_mrconfig-dubs" ".mrconfig-dubs"
@@ -151,10 +157,11 @@ infuse_this_infuser () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 populate_run_generator () {
-  local symldir="$1"
+  # E.g., .mrinfuse/pack/landonb/start/dubs_file_finder/cmdt_paths/generate_links.sh
+  local generator="$1"
 
-  # E.g., pack/landonb/start/dubs_file_finder/cmdt_paths/generate_links.sh
-  local generator="${symldir}/generate_links.sh"
+  local symldir
+  symldir="$(dirname -- "${generator}")"
 
   if ! [ -f "${generator}" ]; then
     # Possible on very first infuse, before ~/.vim/.mrconfig* wired (that
@@ -224,14 +231,16 @@ populate_dubs_cuts_generate () {
   # because of the for-loop on find with regex).
 
   # Run the Dubs Vim dubs_cuts infuser, i.e., execute:
-  #   ~/.depoxy/ambers/home/.vim/dubs_project_tray/generate_links.sh
+  #   ~/.depoxy/ambers/home/.vim/pack/landonb/start/dubs_project_tray/generate_links.sh
   # to populate:
-  #   ~/.depoxy/ambers/home/.vim/dubs_project_tray/dubs_cuts/
+  #   ~/.depoxy/ambers/home/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts/
   # aka:
-  #  "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
+  #  "${HOME}/.vim/.mrinfuse/pack/landonb/start/dubs_project_tray/dubs_cuts"
   # upon which setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
   # depends.
-  populate_run_generator ".mrinfuse/dubs_project_tray"
+  local generator
+  generator="$(path_to_mrinfuse_resolve "pack/landonb/start/dubs_project_tray/generate_links.sh")"
+  populate_run_generator "${generator}"
 }
 
 # ***
@@ -243,7 +252,8 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 
   cd "${HOME}/.vim/pack/landonb/start/dubs_project_tray"
 
-  symlink_overlay_dir "${HOME}/.vim/.mrinfuse/dubs_project_tray/dubs_cuts"
+  # symlink_overlay_dir "${HOME}/.vim/.mrinfuse/pack/landonb/start/dubs_project_tray/dubs_cuts"
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_dir "dubs_cuts"
 
   cd "${before_cd}"
 }
@@ -389,7 +399,7 @@ main () {
   # ***
 
   # It might take a few-ten secs to populate
-  #   ~/.depoxy/ambers/home/.vim/dubs_project_tray/dubs_cuts/
+  #   ~/.depoxy/ambers/home/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts/
   # so call last, to make debugging previous calls quicker.
   populate_dubs_cuts_generate
   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts

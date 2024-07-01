@@ -8,7 +8,7 @@
 # i.e., so you can have one project directory in your project
 # tray that is all the links to your Vim plugins and docs.
 
-DUBS_PROJECT_TRAY_DUBS_CUTS="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.vim/dubs_project_tray/dubs_cuts"
+DUBS_PROJECT_TRAY_DUBS_CUTS="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
