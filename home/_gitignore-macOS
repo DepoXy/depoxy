@@ -229,9 +229,8 @@
 # Password Store.
 /.password-store
 
-# Created when you install a Golang app, e.g., `aykamko-tag`.
-/go/bin/
-/go/pkg/
+# Created when you install a Golang app, e.g., `aykamko-tag`, or `cli`.
+/go/
 
 # Grip GitHub README.md viewer.
 /.grip/
