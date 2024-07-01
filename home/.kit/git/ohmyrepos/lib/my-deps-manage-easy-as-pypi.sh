@@ -157,13 +157,17 @@ infuse_easy_as_pypi_follower_links () {
   # BUILD: ".trustme/.trustme.kill/"
   # BUILD: ".trustme/.trustme.lock/"
   # BUILD: ".trustme/.trustme.log"
-  if ! (
-    symlink_mrinfuse_file ".trustme/.trustme.plugin"
-    symlink_mrinfuse_file ".trustme/.trustme.sh"
-    symlink_mrinfuse_file ".trustme/.trustme.vim"
-  ); then
-    warn "└→ Ignore the last warning, $(attr_emphasis)I'll allow this!$(attr_reset)"
-  fi
+  (
+    symlink_mrinfuse_file ".trustme/.trustme.plugin" \
+    && symlink_mrinfuse_file ".trustme/.trustme.sh" \
+    && symlink_mrinfuse_file ".trustme/.trustme.vim"
+  ) 2> /dev/null || true
+  # This used to warn, but those that care will figure it out if these
+  # are missing. It also nice not to warn during 'infuse' on something
+  # that's not that important, especially if 'infuse' takes a while to
+  # run and produces a lot of output, let's not catch the user's eye.
+  #
+  #   warn "└→ Ignore the last warning, $(attr_emphasis)I'll allow this!$(attr_reset)"
 }
 
 infuse_easy_as_pypi_git_aliases () {
