@@ -159,8 +159,7 @@ install =
   #   which calls:
   #     setup_private_coc_config
   #   This is the equivalent, for the 1 file we want planted.
-  # - Runs in subshell because callee sets MR_REPO.
-  ( MR_REPO="${HOME}/.vim" symlink_mrinfuse_file 'coc-settings.json' )
+  MR_REPO="${HOME}/.vim" symlink_mrinfuse_file 'coc-settings.json'
   # This also works, but then the symlink is an absolute path
   # (and `command ls -l` is more likely to wrap when printing it):
   #  symlink_overlay_file \
