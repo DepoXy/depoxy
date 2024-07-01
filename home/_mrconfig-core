@@ -283,6 +283,13 @@ infusePostRebase =
 infuse =
   mr -d . -n infusePostRebase
   #
+  local sourcep
+  if sourcep="$(path_to_mrinfuse_resolve "_git/info/exclude")" \
+    && [ -f "${sourcep}" ] \
+  ; then
+    link_private_exclude "$@"
+  fi
+  #
   # The user is more than welcome to make their own repo at ~/.kit
   # (use case: adding symlinks). We'll start them off with a so-
   # called "guard repo" until they do.
