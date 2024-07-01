@@ -177,7 +177,7 @@ include =
     local client_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.depoxy/ambers/_mrconfig-include"
     if [ -f "${client_cfg}" ]; then
       # CXREF: ~/.depoxy/running/home/.depoxy/ambers/_mrconfig-include
-      mr_cat "${client_cfg}"
+      cat "${client_cfg}"
     fi
   }
   include_client_depoxy_config
@@ -259,7 +259,7 @@ include =
     local client_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.vim/_mrconfig-vim-include"
     if [ -f "${client_cfg}" ]; then
       # CXREF: ~/.depoxy/running/home/.vim/_mrconfig-vim-include
-      mr_cat "${client_cfg}"
+      cat "${client_cfg}"
     fi
   }
   include_client_vim_config
@@ -316,7 +316,7 @@ include =
   include_client_kit_override () {
     local sub_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.kit/_mrconfig-kit-include"
     if [ -f "${sub_cfg}" ]; then
-      mr_cat "${sub_cfg}"
+      cat "${sub_cfg}"
     else
       return 1
     fi
