@@ -12,6 +12,27 @@ include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrep
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# Load projects:
+#
+#   ~/.kit/sh/home-fries
+#   ~/.depoxy/ambers
+#   ~/.depoxy/ambers/archetype
+#   ~/.vim
+#   ~/.kit
+#
+# Load environs:
+#
+#     ~/.config/depoxy/depoxyrc
+#     ~/.config/depoxy/321open.cfg
+
+[DEFAULT]
+include =
+  # CXREF: ~/.depoxy/ambers/home/_mrconfig-core
+  mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [DEFAULT]
 # Default order is 10.
 order = 100
@@ -76,20 +97,6 @@ infuse =
 #     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/depoxy-client-home-travel-wiring
 include =
   cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/depoxy-client-home-travel-wiring"
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# Load project config:
-#
-#   ~/.kit/sh/home-fries
-#   ~/.depoxy/ambers
-#   ~/.depoxy/ambers/archetype
-#   ~/.vim
-#   ~/.kit
-
-# CXREF: ~/.depoxy/ambers/home/_mrconfig-core
-include = mr_cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_mrconfig-core"
 
 # ========================================================================
 # ------------------------------------------------------------------------
