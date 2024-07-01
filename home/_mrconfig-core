@@ -40,6 +40,16 @@ lib =
   # - Also sources ~/.config/depoxy/depoxyrc
   export_depoxy_fs_paths
 
+lib =
+  # Expose ONEOPEN_KEYS_PADDOCK for projects to use.
+  source_321open_cfg () {
+    if [ -f "${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/321open.cfg" ]; then
+        # CXREF: ~/.config/depoxy/321open.cfg
+      . "${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/321open.cfg"
+    fi
+  }
+  source_321open_cfg
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
