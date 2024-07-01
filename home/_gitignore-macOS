@@ -1,0 +1,336 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Init state.
+#
+# Accumulated rules from Catalina circa Sep, 2020;
+# from Monterey/Ventura circa Oct, 2022; and from
+# Sonoma circa 2024.
+
+# Typical macOS folders.
+/Applications/
+/Desktop/
+/Documents/
+/Downloads/
+/Library/
+/Movies/
+/Music/
+/Pictures/
+/Public/
+
+# Basic "Hidden" paths.
+/.CFUserTextEncoding
+/.Trash/
+/.account
+/.adminBashHistory.txt
+/.adminInstallLog.txt
+/.adminLog.txt
+/.adminSystemLog.txt
+/.adminTime.txt
+/.bash_history
+/.bash_sessions/
+/.cache/
+/.config/
+/.ssh/
+/.zsh_history
+/.zsh_sessions/
+
+# macOS litter.
+/.DS_Store
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ----------------------------------------------------------------- #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** DepoXy & Homefries.
+
+# DepoXy: DepoXy (DXY), DepoXy Archetype (DXA), and DepoXy Client (DXC).
+# - Path depends on how user called deploy-archetype.sh but defaults to:
+#     /.depoxy/.gitignore
+#     /.depoxy/ambers/
+#     /.depoxy/running
+#     /.depoxy/stints/
+# - CXREF: See DXY_DEPOXYDIR_BASE_EXCLUDE_RULE rule:
+#   ~/.depoxy/ambers/archetype/home/_git/info/exclude.EVAL
+
+# Homefries: Bashrc experience.
+# - Path depends on how user called deploy-archetype.sh but defaults to:
+#     /.homefries
+# - CXREF: See DXY_HOMEFRIES_DIR_EXCLUDE_RULE rule:
+#   ~/.depoxy/ambers/archetype/home/_git/info/exclude.EVAL
+
+# DepoXy- and Homefries-infused files.
+/.bashrc
+/.ctags
+/.finicky.js
+/.gitconfig
+/.gitconfig.local
+/.gitignore
+/.gitmux.conf
+/.ignore
+/.inputrc
+/.mrconfig
+/.mrinfuse
+/.mrtrust
+/.multitail.conf
+/.netrc
+/.pdbrc
+/.profile
+/.tmux.conf
+/.tmux.conf.local
+/.vimrc
+
+# The (generally) empty ~/.README.rst stunt double is useful when calling
+# gvim-open-kindness without specifying a path, so that `--servername {name}`
+# works properly. (The author often opens GVim using the Homefries `fs` cmd,
+# which calls the ~/.kit/sh/home-fries/bin/gvim-open-kindness command.)
+/README.rst
+
+# Dev Kit: Curation of OMR-fetched software repos
+#   (of useful Git, Bash, macOS, and Vim variety).
+# - Path depends on how user called deploy-archetype.sh but defaults to:
+#     /.kit/
+# - CXREF: See DXY_DOPP_KIT_EXCLUDE_RULE rule:
+#   ~/.depoxy/ambers/archetype/home/_git/info/exclude.EVAL
+
+# For wget files, like .dmg, .tar.gz, .zip.
+/.downloads/
+# Contains PATH's ~/.local/bin, containing
+# symlinks to preferred Homebrew binaries
+# (like grep -> ggrep), and user-installed
+# applications that want to be found on PATH.
+/.local/
+# Opt-in keep-alive mechanism `nohup` side-effect files.
+# - CXREF: DEPOXY_ENABLE_KEEP_ALIVE.
+/.noise/caffeinate_history
+/.noise/pmset_history
+
+# RipGrep search groups. Assemble directories
+# of symlinks to deliberately search across
+# projects spread throughout the filesystem.
+# - Path depends on how user called deploy-archetype.sh but defaults to:
+#     /.projlns/
+# - CXREF: See DXY_DEPOXY_PROJLNS_EXCLUDE_RULE rule:
+#   ~/.depoxy/ambers/archetype/home/_git/info/exclude.EVAL
+
+# DepoXy sends screen captures to their own special folder,
+# so that the ~/Desktop does not get cluttered with files.
+#
+# - CXREF: This path is created by `screenshots_customize_location`
+#   and wired via `defaults` by:
+#     ~/.depoxy/ambers/bin/onboarder/slather-defaults.sh
+#   - CALSO: DEPOXY_SCREENCAPS_DIR
+# - Path depends on how user called deploy-archetype.sh but defaults to:
+#     /Documents/screencaps/
+# - CXREF: See DXY_DEPOXY_SCREENCAPS_EXCLUDE_RULE rule:
+#   ~/.depoxy/ambers/archetype/home/_git/info/exclude.EVAL
+
+# Created by `mr -d ~/.kit/sh/complete-alias/ install`.
+/.bash_completion
+/.complete_alias
+
+# If you play vim-scripts/TeTrIs.vim using \te command.
+/.tetris
+/.tetris_stat
+
+# CXREF: ~/.kit/py/virtualenvwrapper/virtualenvwrapper.sh
+/.virtualenvs/
+
+# CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_rotate
+/.Trash-TBD/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Gitconfig, 'splained.
+
+# Automatically change Git user/email between personal
+# and work depending on the directory context.
+/.gitconfig.user
+/.gitconfig.user-business
+/.gitconfig.user-personal
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Vim-related.
+
+/.vim/
+/.vim_backups/
+/.viminfo
+# 2022-11-04: I saw this 2021-07-09 but ne'er since.
+#  /.viminfo.tmp
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ----------------------------------------------------------------- #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Android-related
+
+# 2020-12-18: Ran Android emulator, this is what I saw:
+/.android/
+# Guessing related to Android.
+/.emulator_console_auth_token
+# Also Android. Guessing.
+/.gradle/
+# Obviously Android.
+/AndroidStudioProjects/MyApplication
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Container- and VM-related.
+
+# AWS CLI v2 `config` and `credentials`.
+/.aws/
+
+# "Colima means Containers in Lima." Container runtimes on macOS.
+/.colima/
+/.lima/
+
+# Docker.
+/.docker/
+
+# K8s.
+/.kube/
+
+/.vagrant.d/
+
+/.vmware/
+
+/VirtualBox VMs/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Other-related.
+
+# Robo-3T Mongo client.
+/.3T/robo-3t/
+
+# Cisco AnyConnect.
+/.anyconnect
+/.cisco/
+
+# Guessing these are because ~/.kit/mOS/homebrew-autoupdate. Ruby nonetheless.
+/.bundle/cache/compact_index/
+/.gem/
+
+# If you accidentally send a print job (because who prints?).
+/.cups/
+
+# OpenLens (an Electron app).
+/.electron-gyp/
+
+# `gpg -c` creates ~/.gnupg/pubring.kbx; `gpg --list` creates `~/.gnupg/trustdb.gpg`, etc.
+# YOU: Add these two paths to your private DepoXy Ambers client and infuser.
+#      (And so using `/.gnupg` and not `.gnupg/` because these will be symlinks.)
+/.gnupg
+# Password Store.
+/.password-store
+
+# Created when you install a Golang app, e.g., `aykamko-tag`.
+/go/bin/
+/go/pkg/
+
+# Grip GitHub README.md viewer.
+/.grip/
+
+# GTK file dialog favorites (shared by meld and GIMP).
+/.gtk-bookmarks
+
+# `less`'s history file.
+/.lesshst
+
+# User account mail, e.g., where your cron output goes.
+/mbox
+
+# "Nix, the purely functional package manager"
+#  https://github.com/NixOS/nix
+#  https://nixos.org/
+# - DEBAR/2022-11-04: I demoed Nix, to see if it's Bash v5 any faster than
+#   Brew's, but Nope. However, I'm not uninstalling NixOS, because I don't
+#   see clear uninstallation instructions on their web site. Also, I don't
+#   want to waste time or screw anything up. So I'll leave this installed
+#   on my current system, but I don't plan to install on future systems.
+/.nix-defexpr/
+/.nix-profile
+
+# "Node.js native addon build tool".
+/.node-gyp/
+# Node REPL history.
+/.node_repl_history
+# Née *Node Package Manager*, albeit "npm" is officially a "recursive
+# bacronymic abbreviation for 'npm is not an acronym'".
+/.npm/
+# npm Registry URL config.
+/.npmrc
+# Node Version Manager
+/.nvm/
+
+# JAVA JRE something.
+/.oracle_jre_usage/
+
+# pdbr: pdb debugger + rich inspection
+/.pdbr_history
+
+# "pex is short for “Python Executable”". A "general purpose Python
+# environment-virtualization solution similar to virtualenv."
+#  https://pex.readthedocs.io/en/v2.1.113/
+/.pex/
+
+# PostgreSQL history file.
+/.psql_history
+
+# pyenv cache, shims, and versions.
+/.pyenv/
+
+# Python history file.
+/.python_history
+
+# If you build and install tools, you might populate ~/share.
+# - E.g., here are two rules to specifically ignore tig assets:
+#
+#     /share/doc/tig/
+#     /share/man/man*/tig*
+
+# SonarQube linter.
+/.sonar/
+
+# sqlite3
+/.sqlite_history
+
+# DUNNO: Looks like Alacritty assets but unsure what I did to
+# create these.
+# - Subdir is numbered, e.g., ~/.terminfo/61/, but I doubt consistently.
+# ->  /opt/homebrew/Caskroom/alacritty/0.13.2/Alacritty.app/Contents/Resources/61/alacritty*
+/.terminfo/*/alacritty
+# -> /opt/homebrew/Caskroom/alacritty/0.13.2/Alacritty.app/Contents/Resources/61/alacritty-direct*
+/.terminfo/*/alacritty-direct
+
+# Tig Search history.
+/.tig_history
+# HEH?/2021-02-04: Tig config is ~/.config/tig/config, though maybe just on @macOS.
+# - So I'm disabling this, at least temporarily.
+#
+#  # .tigrc -> .mrinfuse/.tigrc
+#  /.tigrc
+
+# Tmux plugins, e.g., tmux-sensible, tpm.
+/.tmux/plugins/
+
+# Wget's HSTS database.
+/.wget-hsts
+
+# Auto-generated file. JS pkg mgr.
+/.yarnrc
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Anywhere files
+
+# Gripe
+.DS_Store
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
