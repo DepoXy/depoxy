@@ -133,11 +133,16 @@ lib =
   remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
-  # Note Git ≥2.32.0 ignores .gitignore if symlink.
-  link_hard \
-    "${MR_REPO}/home/_gitignore-macOS" \
-    "${HOME}/.gitignore"
-  #
+  # Test is ~/.gitignore is tracked or not. If it is, assume user is
+  # managing their own ~/.git repo. Otherwise, place our .gitignore.
+  if ( cd  && ! git ls-files --error-unmatch -- ".gitignore" > /dev/null 2>&1 ); then
+    if os_is_macos; then
+      # Note Git ≥2.32.0 ignores .gitignore if symlink.
+      link_hard \
+        "${MR_REPO}/home/_gitignore-macOS" \
+        "${HOME}/.gitignore"
+    fi
+  fi
   # CXREF: ~/.depoxy/ambers/home/infuse-user-home
   LOG_LEVEL=10 "${MR_REPO}/home/infuse-user-home" "$@"
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
