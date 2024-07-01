@@ -16,7 +16,9 @@ _vendorfs_define_environs () {
   # OPSEC: Is this a security risk we should care about,
   #        just blindly sourcing a file from user home?
   #        - I suppose this whole project is a secrisk.
-  [ -f "${HOME}/.config/depoxy/depoxyrc" ] && . ${HOME}/.config/depoxy/depoxyrc
+  if [ -f "${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc" ]; then
+    . "${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc"
+  fi
 
   # ***
 
