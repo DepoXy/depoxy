@@ -213,6 +213,17 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
 # NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
 #   is within ~/.depoxy/running/.mrconfigs/_mrconfig
 
+# Let user override or extend the [~/.vim] config.
+include =
+  include_client_vim_config () {
+    local client_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.vim/_mrconfig-vim-include"
+    if [ -f "${client_cfg}" ]; then
+      # CXREF: ~/.depoxy/running/home/.vim/_mrconfig-vim-include
+      mr_cat "${client_cfg}"
+    fi
+  }
+  include_client_vim_config
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
