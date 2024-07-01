@@ -60,8 +60,8 @@ seed_myrepos_mrconfig_dubs_vim () {
   #   Or at           ~/.depoxy/ambers/home/.vim/_mrconfig-private
   local private_conf
   for private_conf in \
-    "${DEPOXYDIR_STINTS_FULL}/${DEPOXY_CLIENT_ID}/${vim_conf_private}" \
     "${ambers_path}/${vim_conf_private}" \
+    "${DEPOXYDIR_STINTS_FULL}/${DEPOXY_CLIENT_ID}/${vim_conf_private}" \
   ; do
     if [ -f "${private_conf}" ]; then
       symlink_mrinfuse_file "${private_conf}" ".mrconfig-private"
