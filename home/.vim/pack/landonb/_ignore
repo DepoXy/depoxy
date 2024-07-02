@@ -5,6 +5,12 @@
 
 .git/
 
+# Self-ignore, ha
+# ~/.vim/pack/landonb/.ignore ->
+#   ~/.vim/pack/landonb/.ignore ->
+#     ~/.depoxy/ambers/home/.vim/pack/landonb/_ignore (this file)
+/.ignore
+
 /opt/*/doc/tags
 /start/*/doc/tags
 

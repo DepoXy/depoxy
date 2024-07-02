@@ -3,5 +3,10 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# ~/.vim/pack/.fdignore -> 
+#   ../.mrinfuse/*/pack/_fdignore ->
+#     ~/.depoxy/ambers/home/.vim/pack/_fdignore
+/.fdignore
+
 node_modules/
 
