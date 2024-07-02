@@ -41,9 +41,10 @@ commit_sorted_spells_and_alert_if_conflicts () {
   # file to the active file, and commit it.
   if [ ! -s "${active_spell}" ]; then
     command cp -- "${compiled_spells}" "${active_spell}"
-
-    git_auto_commit_one "${active_spell}"
   fi
+  # If compile-spells ran `mkspell`, it first replaced active_spell
+  # with compiled_spells, i.e., active_spell may have been changed.
+  git_auto_commit_one "${active_spell}"
 
   local n_lines_diff=0
   n_lines_diff="$(spells.sh print-num-unsynced-changes "${homeish_path}")"
