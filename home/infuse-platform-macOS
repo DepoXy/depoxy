@@ -248,7 +248,8 @@ infuse_symlink_macOS_MacVim_latest_version_symlink () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   [ "$(basename -- "$0")" != "infuse-platform-macOS" ] || LOG_LEVEL=0
 

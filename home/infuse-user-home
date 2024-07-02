@@ -479,7 +479,8 @@ infuse_all_the_symlinks () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   [ "$(basename -- "$0")" != "infuse-user-home" ] || LOG_LEVEL=0
 

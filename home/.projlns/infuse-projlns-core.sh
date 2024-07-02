@@ -141,7 +141,8 @@ infuse_create_symlinks_core_sh_lib () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   infuse_projects_links_core
   infuse_projects_links_docs

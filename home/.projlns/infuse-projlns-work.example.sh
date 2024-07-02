@@ -59,7 +59,8 @@ infuse_create_symlinks_work () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   infuser_prepare "${DEPOXY_PROJLNS_EXAMPLE}"
 

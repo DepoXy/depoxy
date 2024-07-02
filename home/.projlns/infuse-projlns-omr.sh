@@ -135,7 +135,8 @@ gnu_uniq () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   # ***
 

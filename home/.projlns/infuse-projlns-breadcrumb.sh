@@ -65,7 +65,8 @@ infuse_project_drop_breadcrumb_dxy () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   local script_fullpath
   script_fullpath="$(infuse_script_suss_fullpath)" \

@@ -143,7 +143,8 @@ setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
 main () {
   set -e
 
-  source_deps
+  # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
+  MR_CONFIG= source_deps
 
   [ "$(basename -- "$0")" != "infuse-home-fries" ] || LOG_LEVEL=0
 
