@@ -23,7 +23,7 @@ order = 761
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
 checkout = stub_checkout_directory
-skip = ! os_is_macos
+skip = skip_unless_macOS
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true

@@ -99,3 +99,29 @@ isInstalled = true
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[DEFAULT]
+
+lib =
+  skip_unless_macOS_or_checkout () {
+    if ! os_is_macos; then
+      test "${MR_ACTION}" != "checkout"
+    else
+      # Check MR_INCLUDE_REMOTE
+      mr_exclusive
+    fi
+  }
+
+lib =
+  skip_unless_macOS () {
+    ! os_is_macos || mr_exclusive
+  }
+
+# Usually callers would specify a list of tags, e.g.,
+#   skip = mr_exclusive "python"
+# but when called without args, check for special MR_INCLUDE_REMOTE
+# environ. If specified, skip unless indicated remote exists.
+skip = mr_exclusive
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

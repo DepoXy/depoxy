@@ -13,7 +13,7 @@ order = 761
 #
 # - Look for the skip:
 #
-#     skip = ! os_is_macos
+#     skip = skip_unless_macOS
 #
 # - These projects also need to disable the travel mechanism:
 #
@@ -56,7 +56,7 @@ updateDeps = update_deps_shoilerplate
 # https://github.com/johnste/finicky
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
 checkout = stub_checkout_directory
-skip = ! os_is_macos
+skip = skip_unless_macOS
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true
@@ -94,7 +94,7 @@ installDarwin =
 # https://www.tynsoe.org/geektool/
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
 checkout = stub_checkout_directory
-skip = ! os_is_macos
+skip = skip_unless_macOS
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true
@@ -269,7 +269,7 @@ infuseProjlns =
 lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
 # Skip on @Linux except to 'checkout' (make stub directory).
 checkout = os_is_macos && mr_repo_checkout || stub_checkout_directory
-skip = ! os_is_macos && ! test "${MR_ACTION}" = "checkout"
+skip = skip_unless_macOS_or_checkout
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true
@@ -290,7 +290,7 @@ lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
 # Skip on @Linux except to 'checkout' (make stub directory).
 checkout = os_is_macos && mr_repo_checkout || stub_checkout_directory
-skip = ! os_is_macos && ! test "${MR_ACTION}" = "checkout"
+skip = skip_unless_macOS_or_checkout
 # KLUGE: So @macOS doesn't try to fetch from @Linux host.
 ffssh = true
 travel = true
