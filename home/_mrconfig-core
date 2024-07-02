@@ -178,14 +178,9 @@ installLinux =
 
 # Let user override or extend the [~/.depoxy/ambers] config.
 include =
-  include_client_depoxy_config () {
-    local client_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.depoxy/ambers/_mrconfig-include"
-    if [ -f "${client_cfg}" ]; then
-      # CXREF: ~/.depoxy/running/home/.depoxy/ambers/_mrconfig-include
-      cat "${client_cfg}"
-    fi
-  }
-  include_client_depoxy_config
+  # CXREF: ~/.depoxy/running/home/.depoxy/ambers/_mrconfig-include
+  cat "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.depoxy/ambers/_mrconfig-include" \
+    2> /dev/null || true
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -260,14 +255,9 @@ skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
 
 # Let user override or extend the [~/.vim] config.
 include =
-  include_client_vim_config () {
-    local client_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.vim/_mrconfig-vim-include"
-    if [ -f "${client_cfg}" ]; then
-      # CXREF: ~/.depoxy/running/home/.vim/_mrconfig-vim-include
-      cat "${client_cfg}"
-    fi
-  }
-  include_client_vim_config
+  # CXREF: ~/.depoxy/running/home/.vim/_mrconfig-vim-include
+  cat "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.vim/_mrconfig-vim-include" \
+    2> /dev/null || true
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -320,15 +310,10 @@ infuse =
 #     at all to accept the default action, e.g., if the same ~/.kit is
 #     cloned at ~/.kit on all your hosts).
 include =
-  include_client_kit_override () {
-    local sub_cfg="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.kit/_mrconfig-kit-include"
-    if [ -f "${sub_cfg}" ]; then
-      cat "${sub_cfg}"
-    else
-      return 1
-    fi
-  }
-  if ! include_client_kit_override; then
+  # CXREF: ~/.depoxy/running/home/.kit/_mrconfig-kit-include
+  if ! cat "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.kit/_mrconfig-kit-include" \
+    2> /dev/null \
+  ; then
     cat <<[DEFAULT]
  checkout = mkdir -p "${MR_REPO}"
  fetch = true
