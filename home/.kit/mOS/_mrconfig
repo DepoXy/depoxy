@@ -282,6 +282,7 @@ unpack = true
 # https://github.com/DepoXy/Karabiner-Elephants#🐘
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants]
 lib = remote_set publish https://github.com/DepoXy/Karabiner-Elephants.git
+order = 481
 
 # ***
 
@@ -317,6 +318,7 @@ skip = true
 # https://github.com/DepoXy/macOS-onboarder#🏂
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder]
 lib = remote_set publish https://github.com/DepoXy/macOS-onboarder.git
+order = 481
 
 # ========================================================================
 # ------------------------------------------------------------------------
