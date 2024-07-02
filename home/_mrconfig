@@ -132,9 +132,6 @@ include =
 order = 205
 
 [DEFAULT]
-autocommit = true
-
-[DEFAULT]
 include =
   load_kit_mrconfig () {
     local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"

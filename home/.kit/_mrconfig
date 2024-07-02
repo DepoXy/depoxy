@@ -12,9 +12,6 @@ order = 590
 # ========================================================================
 # ------------------------------------------------------------------------
 
-[DEFAULT]
-autocommit = true
-
 # NOTE: Use _mrconfig, or any name that's not .mrconfig, so if you run `mr`
 #       from within one of these subdirectories, you do not see repos twice.
 [DEFAULT]
