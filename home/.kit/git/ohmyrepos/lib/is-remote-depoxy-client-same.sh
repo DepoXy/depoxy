@@ -5,6 +5,23 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# BWARE: The remote Client ID that's "cached" below won't be cached
+# between different repos, because `mr` loads a fresh environment for
+# each one.
+# - I.e., if you call this function for every repo, then `mr -d /`
+#   might poke along.
+# - INERT: We could use `mr` PID appended to /tmp file name to cache
+#   this between calls. But that's tricky, and there are better ways
+#   to discern the remote host Client ID.
+# - HELPY: One easy trick is to write a custom function with a MR_REMOTE
+#   lookup that returns the remote Client ID for each host.
+#   - I.e., encode a list of your host names and their Client IDs.
+#     Generally you wouldn't have that many hosts, so this approach
+#     (total business logic) isn't that bad.
+# - All that said, you might want to limit this call to just a few
+#   specific projects, but if you need it for many projects, consider
+#   an alternative solution.
+
 is_remote_depoxy_client_same () {
   local client_id="${1:-${DEPOXY_CLIENT_ID}}"
 
