@@ -50,7 +50,7 @@ commit_sorted_spells_and_alert_if_conflicts () {
 
   if [ "${n_lines_diff}" -gt 0 ]; then
     warn "Spell Work: There are ${n_lines_diff} spell changes to process"
-    warn "- HINT: See previous log message, and check for sync helpers:"
+    warn "- HINT: Run these sync helpers to put words where they belong:"
     warn "    \$ ls -la $(dirname -- "${compiled_spells}")/sync-spells--*"
 
     ls -la $(dirname -- "${compiled_spells}")/sync-spells--*
