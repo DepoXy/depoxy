@@ -429,7 +429,7 @@ _vendorfs_host_is_client_warn_no_auth () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_load_depoxy_fs () {
-  if ${HOME_FRIES_PRELOAD}; then
+  if ${HOME_FRIES_PRELOAD:-true}; then
     _vendorfs_define_environs
     # Leave _vendorfs_define_environs defined.
   else
