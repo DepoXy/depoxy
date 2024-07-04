@@ -23,11 +23,9 @@ order = 761
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
 checkout = stub_checkout_directory
-skip = skip_unless_macOS
-# KLUGE: So @macOS doesn't try to fetch from @Linux host.
-ffssh = true
-travel = true
-unpack = true
+# Not an actual repo
+skip = no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all' 'if that‘s something you‘ll use'
 isInstalled = test -d /Applications/Docker.app

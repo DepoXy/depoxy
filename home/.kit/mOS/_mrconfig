@@ -56,11 +56,9 @@ updateDeps = update_deps_shoilerplate
 # https://github.com/johnste/finicky
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
 checkout = stub_checkout_directory
-skip = skip_unless_macOS
-# KLUGE: So @macOS doesn't try to fetch from @Linux host.
-ffssh = true
-travel = true
-unpack = true
+# Not an actual repo
+skip = no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp =
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Verify *Finicky* ready::
@@ -94,11 +92,9 @@ installDarwin =
 # https://www.tynsoe.org/geektool/
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
 checkout = stub_checkout_directory
-skip = skip_unless_macOS
-# KLUGE: So @macOS doesn't try to fetch from @Linux host.
-ffssh = true
-travel = true
-unpack = true
+# Not an actual repo
+skip = no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp =
   echoInstallHelp 'os_macos' 'dxy_all'
@@ -267,13 +263,7 @@ infuseProjlns =
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
 lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
-# Skip on @Linux except to 'checkout' (make stub directory).
-checkout = os_is_macos && mr_repo_checkout || stub_checkout_directory
-skip = skip_unless_macOS_or_checkout
-# KLUGE: So @macOS doesn't try to fetch from @Linux host.
-ffssh = true
-travel = true
-unpack = true
+skip = no_travel
 
 # ***
 
@@ -289,13 +279,7 @@ order = 481
 # Old school magical file (magically undocumented).
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
-# Skip on @Linux except to 'checkout' (make stub directory).
-checkout = os_is_macos && mr_repo_checkout || stub_checkout_directory
-skip = skip_unless_macOS_or_checkout
-# KLUGE: So @macOS doesn't try to fetch from @Linux host.
-ffssh = true
-travel = true
-unpack = true
+skip = no_travel
 
 # ***
 
