@@ -320,9 +320,8 @@ include =
  fetch = true
  update = true
  pull = true
- ffssh = true
- travel = true
- unpack = true
+ skip = no_travel
+ ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "\$@"
  [DEFAULT]
   fi
 [DEFAULT]

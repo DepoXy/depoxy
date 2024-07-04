@@ -43,11 +43,8 @@ updateDeps = update_deps_shoilerplate
 #  WinSplit Revolution for people who don't want to use Compiz Grid)"
 [${DOPP_KIT:-${HOME}/.kit}/odd/x11/quicktile]
 lib = remote_set starter https://github.com/ssokolow/quicktile.git
-skip = os_is_macos
-# KLUGE: So @Linux doesn't try to fetch from @macOS host.
-ffssh = true
-travel = true
-unpack = true
+skip = os_is_macos || no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 infuse = link_private_exclude "$@"
 # This 'install' requires packages, but unsure which (on DepoXy Linux,
@@ -135,9 +132,8 @@ installLinux =
 # - On @linux, web app won't connect, so using AppImage.
 [${DOPP_KIT:-${HOME}/.kit}/odd/keyboard/via-nativia]
 checkout = stub_checkout_directory
-ffssh = true
-travel = true
-unpack = true
+skip = no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you mechanical keyboard lubbers' 'VIA'
 install = install_os_specific
@@ -240,9 +236,8 @@ lib =
 #   - Note that OS X, Linux, and Windows releases are released separately.
 [${DOPP_KIT:-${HOME}/.kit}/odd/keyboard/wally]
 checkout = stub_checkout_directory
-ffssh = true
-travel = true
-unpack = true
+skip = no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you ZSA mechanical keyboard owners' 'Wally'
 install = install_os_specific
