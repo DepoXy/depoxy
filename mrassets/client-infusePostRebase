@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:ai:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# CXREF: See GIT_POST_REBASE_EXEC usage.
+# - Used post-rebase to remake hard links.
+# SAVYY: Call link_hard from infusePostRebase, not infuse.
+
+_dxc_client_infusePostRebase () {
+
+  # *** DepoXy filespace
+
+  # Remember that Git doesn't allow symlinked .gitignore .nomore.
+  link_hard "${MR_REPO}/home/.depoxy/_gitignore" \
+    "${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/.gitignore"
+
+  # *** ~/.kube
+
+  # NOTE: If you create a new kubeconfig, copy to DXC manually, then infuse,
+  #       then aci, it'll get picked up.
+  for kubeconfig in "${MR_REPO}/home/.kube/"*.yaml; do
+    # If nothing globbed, ${kubeconfig} is the glob string,
+    #   "${MR_REPO}/home/.kube/"*.yaml
+    # so check that it actually exists.
+    if [ -f "${kubeconfig}" ]; then
+      mkdir -p "${HOME}/.kube"
+      #
+      link_hard \
+        "${kubeconfig}" \
+        "${HOME}/.kube/$(basename -- "${kubeconfig}")"
+    fi
+  done
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  set -e
+
+  # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
+  . "$(dirname -- "$(realpath -- "$0")")/../deps/sh-err-trap/lib/err-trap.sh"
+
+  set_traps
+
+  # ***
+
+  _dxc_client_infusePostRebase
+
+  # ***
+
+  clear_traps
+}
+
+# ***
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
+
