@@ -490,29 +490,3 @@ _dxc_client_infuse () {
   infuse_dob_config_if_exists
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-main () {
-  set -e
-
-  # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
-  . "$(dirname -- "$(realpath -- "$0")")/../deps/sh-err-trap/lib/err-trap.sh"
-
-  set_traps
-
-  # ***
-
-  _dxc_client_infuse
-
-  # ***
-
-  clear_traps
-}
-
-# ***
-
-# Only run when executed; no-op when sourced.
-if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
-  main "$@"
-fi
-
