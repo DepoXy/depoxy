@@ -53,8 +53,8 @@ lib =
 #    M scripts/install_plugins.sh
 #    M scripts/source_plugins.sh
 #    M scripts/update_plugin.sh
-mystatus = true
-ffssh = true
+mystatus = OMR_MYSTATUS_BLOCKLISTED=true git_my_merge_status
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 # travel = true
 # unpack = true
 
