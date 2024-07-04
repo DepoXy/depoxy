@@ -1,0 +1,515 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:ai:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxc_client_infuse () {
+  local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
+  local stints_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}"
+  #
+  # *** Guard clause
+  #
+  # Stop now if *not* the active DepoXy Client
+  #
+  #   (the tasks below will overwrite the active client's
+  #    symlinks and make this project the active client)
+  #
+  # Check if this is the active client, and stop now if not.
+  # - Normally, the active client is specified by DEPOXY_CLIENT_ID
+  #     hard-coded from ~/.config/depoxy/depoxyrc
+  #   Or it's the largest-numbered client under stints/
+  #     per default used by ~/.depoxy/ambers/core/depoxy_fs.sh
+  # - But in the context of OMR config, the active client is
+  #   the one specified by ~/.depoxy/running, because it's this
+  #   infuse action (see below) that wires ~/.config/depoxy/depoxyrc
+  #   - So deploy-archetype.sh (or the user) can point
+  #     ~/.depoxy/running at the client they want to activate,
+  #     and then run `mr -d ~/.depoxy/running infuse` to wire it.
+  #
+  local depoxydir_running_full="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}"
+  local running_now="$(realpath -- "${depoxydir_running_full}")"
+  local project_abs="$(realpath -- "${MR_REPO}")"
+  if [ "${project_abs}" != "${running_now}" ]; then
+    warn "ERROR: This is not the active client"
+    warn "- That honor goes to"
+    warn "    ${running_now}"
+    warn "- To make this project the active client, try"
+    warn "    command ln -sfn \\"
+    warn "      \"${MR_REPO}\" \\"
+    warn "      \"${depoxydir_running_full}\""
+    warn "    mr -d \"${MR_REPO}\" -n infuse"
+    #
+    return 1
+  fi
+  #
+  local project_client_id="$(basename -- "${MR_REPO}")"
+  if [ "${project_client_id}" != "${DEPOXY_CLIENT_ID}" ]; then
+    warn "ERROR: This project is incorrectly wired"
+    warn "- It *is* the project wired on via the “running” symlink:"
+    warn "    ${depoxydir_running_full}"
+    warn "- But it's name is *not* the active DEPOXY_CLIENT_ID"
+    warn "  - This project's name: ${project_client_id}"
+    warn "  - Vs DEPOXY_CLIENT_ID: ${DEPOXY_CLIENT_ID}"
+    warn "- The DEPOXY_CLIENT_ID likely read from the depoxyrc:"
+    warn "    ${DEPOXY_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc}"
+    warn "- How you want to fix this is up to you"
+    warn "  - You can either fix the “running” symlink"
+    warn "    to point to the other project:"
+    warn "      command ln -sfn \\"
+    warn "        \"${stints_dir}/${DEPOXY_CLIENT_ID}\" \\"
+    warn "        \"${depoxydir_running_full}\""
+    warn "  - Or maybe the wrong depoxyrc is installed,"
+    warn "    so you could try this:"
+    warn "      command cp \\"
+    warn "        \"${MR_REPO}/home/.config/depoxy/depoxyrc\" \\"
+    warn "        \"${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc\""
+    warn "Good luck!"
+    #
+    return 1
+  fi
+  #
+  # *** Hard links
+  #
+  mr -d . -n infusePostRebase
+  #
+  # *** DepoXy config
+  #
+  # "Install" the ~/.config/depoxy/depoxyrc config.
+  # - This lets 321open know which DEPOXY_CLIENT_ID to use, even if the
+  #   client is unmounted (if you chose to put the client on an encfs,
+  #   for instance).
+  # - The depoxyrc also defines all the paths to DepoXy resources,
+  #   which lets the user use different paths than the defaults.
+  #   (Note that it's easiest to set these paths when you run
+  #   deploy-archetype.sh, and that changing them afterwards
+  #   will require some busywork. Note also the author has not
+  #   tried using custom paths, but they *should* work, though
+  #   be prepared for unexpected results.)
+  # - SAVVY: This is not a symlink because repo might be offline.
+  #   - This is also the only file *copied* somewhere, and not symlinked.
+  update_depoxy_configs () {
+    # E.g., /Users/user/.config/depoxy
+    local dxy_conf="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy"
+    # E.g., .config/depoxy
+    local conf_base="$(echo "${dxy_conf}" | sed -E "s@^${HOME}/@@")"
+    #
+    mkdir -p "${dxy_conf}"
+    #
+    copy_depoxy_config () {
+      local file="$1"
+      #
+      local conf_source="${MR_REPO}/home/${conf_base}/${file}"
+      local conf_target="${dxy_conf}/${file}"
+      #
+      # Avoid being aggressively clobbery.
+      local conf_sha="${conf_target}.sha"
+      if [ -f "${conf_target}" ] \
+        && [ -f "${conf_sha}" ] \
+        && ! shasum -c "${conf_sha}" > /dev/null 2>&1 \
+      ; then
+        # Note that `\\ \n` works, but not `\\\n`: "Within double quotes,
+        # backslashes that are followed by one of these characters [including
+        # backslash] are removed."
+        >&2 error "ERROR: Did you edit the duplicate copy by mistake?\n" \
+          "meld \\\\\n  ${conf_source} \\\\\n  ${conf_target} &\n" \
+          "rm -- ${conf_target}"
+        return 1
+      fi
+      #
+      command cp -f -- "${conf_source}" "${conf_target}"
+      #
+      shasum "${conf_target}" > "${conf_sha}"
+      #
+      info "$(
+        font_info_updated " Copied "
+      ) $(
+        font_emphasize "conf") replica $(
+        font_highlight ${conf_target}
+      )"
+    }
+    #
+    copy_depoxy_config "depoxyrc"
+    copy_depoxy_config "321open.cfg"
+  }
+  update_depoxy_configs
+  #
+  # *** DepoXy filespace
+  #
+  # See 'infusePostRebase' task for ~/.depoxy/.gitignore hard link.
+  #
+  # Create the ~/.depoxy/running → ~/.depoxy/stints/XXXX symlink.
+  # - Note that ${DEPOXY_CLIENT_ID} is from user's environ, which depends on
+  #   this symlink probably having existed when ${DEPOXY_CLIENT_ID} was set.
+  #   - So generally the symlink probably already exists, but if it was
+  #     clobbered or changed you can repair it if you have a shell still
+  #     using the proper client ID.
+  #
+  # See guard clause above: This call is a no-op:
+  # - The symlink already exists and is correct.
+  symlink_overlay_dir "${MR_REPO}" "${depoxydir_running_full}"
+  #
+  # *** OMR
+  #
+  # .mrinfuse/ nesting
+  local dxy_home_work="${MR_REPO}/home/${DEPOXY_VENDOR_HOME_NAME:-work}"
+  local usr_home_work="${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}"
+  local home_work_hint=""
+  # These paths are part the Archetype boilerplate so exist initially,
+  # but user may have moved or removed them.
+  if [ ! -d "${dxy_home_work}" ]; then
+    home_work_hint="No $(font_highlight “${dxy_home_work}”) directory or symlink"
+  elif [ ! -d "${usr_home_work}" ]; then
+    home_work_hint="No $(font_highlight “${usr_home_work}”) directory or symlink"
+  fi
+  if [ -n "${home_work_hint}" ]; then
+    info "$( \
+      font_emphasize "Skipped overlay" \
+    ) ${dxy_home_work} ↯ ${usr_home_work}\n                             - ${home_work_hint}"
+  else
+    symlink_overlay_dir \
+      "${dxy_home_work}" \
+      "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}/.mrinfuse"
+    symlink_overlay_file \
+      "${dxy_home_work}/_ignore" \
+      "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}/.ignore"
+  fi
+  #
+  # Alert if missing business client mrconfig (because impossibly unlikely user won't want).
+  # - E.g., "/home/user/.depoxy/stints"
+  # - E.g., "/home/user/.depoxy/stints/XXXX/.mrconfigs/_mrconfig-acme"
+  local mr_business="${stints_dir}/${DEPOXY_CLIENT_ID}/.mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}"
+  if [ ! -f "${mr_business}" ]; then
+    info "$(font_emphasize ALERT): No biz config at $(repo_highlight ${mr_business})"
+  fi
+  #
+  # *** DEPOXY
+  #
+  symlink_overlay_file \
+    "${MR_REPO}/home/.depoxy/stints/_ignore" \
+    "${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/.ignore"
+  #
+  # *** BASH
+  #
+  # DepoXy's generated @biz-specific Bash files.
+  # - DEV: Here's where to add your custom @biz-specific Bash:
+  #     bashrx.private.${DEPOXY_USERNAME}.sh.
+  #     bashrx.private.${DEPOXY_HOSTNAME}.sh.
+  #   And wire more as you like.
+  #
+  local bashrx_host="${MR_REPO}/home/bashrx.private.${DEPOXY_HOSTNAME}.sh"
+  #
+  if [ -f "${bashrx_host}" ]; then
+    local hf_dir="${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}"
+    symlink_overlay_file \
+      "${bashrx_host}" \
+      "${hf_dir}/.bashrc-bin/bashrx.private.${DEPOXY_HOSTNAME}.sh"
+  else
+    info "$(font_emphasize ALERT): No DXC bashrc at" \
+      "$(repo_highlight ${bashrx_host})"
+  fi
+  # - ISOFF/2024-05-10: A filed named thusly would also be autoloaded by Homefries.
+  #   - But we only need one autoload, then it can load (source) our other files.
+  #
+  #     local bashrx_user="bashrx.private.$(id -un).sh"
+  #     local bashrx_full="${MR_REPO}/home/${bashrx_user}"
+  #     #
+  #     if [ -f "${bashrx_full}" ]; then
+  #       symlink_overlay_file \
+  #         "${bashrx_full}" \
+  #         "${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/.bashrc-bin/${bashrx_user}"
+  #     fi
+  #
+  # - At an previous client, in the beginning, $(hostname) would report
+  #   "HOST.DOMAIN.com". But then (months) later, $(hostname) started to
+  #   say "HOST.DOMAIN.com.", with a trailing period. I never figured out
+  #   why (or maybe I don't remember checking $(hostname), and really it
+  #   was my code that changed?)
+  #   - In any case, I doubt we need this version with two-dots:
+  #
+  #     symlink_overlay_file \
+  #       "${MR_REPO}/home/bashrx.private.${DEPOXY_HOSTNAME}.sh" \
+  #       "${hf_dir}/.bashrc-bin/bashrx.private.${DEPOXY_HOSTNAME}..sh"
+  #
+  # *** VIM
+  #
+  # Replace Vim spell file with symlink to user's version in DXC.
+  cast_private_spell () {
+    touch "${MR_REPO}/home/.vim/spell/en.utf-8.add"
+    mkdir -p "${HOME}/.vim/spell"
+    # DepoXy Ambers maintains ~/.mrinfuse, so currently cannot simply:
+    #   symlink_mrinfuse_file "spell/en.utf-8.add"
+    # but we could probably infuse the mrinfuse'r and then we could use
+    # symlink_mrinfuse_file. But seems like unnecessary lift with no big
+    # reward.
+    symlink_overlay_file \
+      "${MR_REPO}/home/.vim/spell/en.utf-8.add" \
+      "${HOME}/.vim/spell/en.utf-8.add"
+  }
+  cast_private_spell
+  #
+  # Developer Vim tray: Custom Project Tray (Shift-Alt-3) Paths file.
+  # - Add vendor-specific project listing to this file.
+  symlink_overlay_file \
+    "${MR_REPO}/home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects" \
+    "${HOME}/.vim/pack/landonb/start/dubs_project_tray/.vimprojects"
+  # For the convenience.
+  symlink_overlay_file \
+    "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects" \
+    "home/.vimprojects"
+  #
+  # Developer Vim grep: Custom Project Grep (\g) Paths list.
+  # - Add vendor-specific project paths to this file.
+  symlink_overlay_file \
+    "${MR_REPO}/home/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+    "${HOME}/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim"
+  # Reload <\g> search list.
+  # - If no such instance:
+  #     E247: No registered server named "SAMPI": Send failed.
+  gvim --servername "${GVIM_OPEN_SERVERNAME:-🦢}" \
+    --remote-send "<ESC>:GrepSteadyReload<CR>" \
+    2> /dev/null || true
+  # For the convenience.
+  symlink_overlay_file \
+    "home/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+    "home/dubs_projects.vim"
+  #
+  # Developer Vim plug: Custom plug at ~/.vim/pack/DepoXy/start/vim-trap
+  # - Use this plugin for vendor-specific Vim config and commands.
+  symlink_overlay_dir \
+    "${MR_REPO}/home/vim-trap" \
+    "${HOME}/.vim/pack/DepoXy/start/vim-trap"
+  #
+  # *** GIT
+  #
+  # Git user.name and user.email wirer.
+  # - Depending on project path, Git will load either your personal
+  #   user config, or it'll load your business user config.
+  if [ -f "${MR_REPO}/home/.gitconfig.user" ]; then
+    # BWARE: Ensure using @macOS `dash` not `/bin/bash --posix`
+    # otherwise this MR_REPO is sticky, unless ( subshelled ).
+    # - See commit comments for details: Search:
+    #     Update: OMR: @macOS ... /bin/dash avoids ENV= bleed
+    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user"
+  else
+    # This is a core DepoXy file, so would be unexpected if not found.
+    warn "$(font_emphasize "Skipped .gitconfig.user")" \
+      "/ See $(font_highlight “archetype/home/.gitconfig.user.EVAL”)"
+  fi
+  #
+  # Enterprise Git: Your vendor-specific user.name and user.email.
+  # - Used when committing work to vendor projects.
+  if [ -f "${MR_REPO}/home/.gitconfig.user-business" ]; then
+    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-business"
+  fi
+  #
+  # Your Personal Git: Your personal user.name and user.email.
+  # - Used when committing work to this project (${DEPOXY_CLIENT_ID})
+  #   or any of your other (open source) projects you might have.
+  if [ -f "${MR_REPO}/home/.gitconfig.user-personal" ]; then
+    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-personal"
+  fi
+  #
+  # Private Git: A 'username@hostname' name for unpublished work.
+  if [ -f "${MR_REPO}/home/.gitconfig.user-private" ]; then
+    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-private"
+  fi
+  #
+  # `gh` and `hub` apps enterprise Git token.
+  # - FIXME/2022-10-23: I removed ~/.github-token mechanism in favor
+  #   of storing token in git remote URL, but I didn't test `hub`
+  #   command (which I haven't used much recently).
+  #   - So I may need to add `. ~/.github-token` back to private Bashrc.
+  # - YOU: Make this manually. Don't need to keep in repo.
+  #        See: ~/.depoxy/running/home/bashrx.private.${DEPOXY_HOSTNAME}.sh
+  #  symlink_overlay_file \
+  #    "${MR_REPO}/home/.github-token" \
+  #    "${HOME}/.github-token"
+  #
+  # ~/.gitignore.local wiring
+  symlink_overlay_dir \
+    "${MR_REPO}/home/_git" \
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_git"
+  #
+  # See 'infusePostRebase' task for ~/.gitignore hard link.
+  #
+  # *** tig
+  #
+  # Note this overwrites DepoXy's ~/.depoxy/ambers/home/.config/tig/config
+  # fallback symlink.
+  mkdir -p "${HOME}/.config/tig"
+  symlink_overlay_file \
+    "${MR_REPO}/home/.config/tig/config" \
+    "${HOME}/.config/tig/config"
+  #
+  #
+  # *** NPM
+  #
+  # Enterprise NPM: Client-specific npm registry URL.
+  if [ -f "${MR_REPO}/home/.npmrc" ]; then
+    symlink_overlay_file \
+      "${MR_REPO}/home/.npmrc" \
+      "${HOME}/.npmrc"
+  fi
+  #
+  # *** Karabiner-Elements
+  #
+  # CXREF: DepoXy Ambers KB infuser:
+  #   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
+  depoxy_client_infuse_karabiner_elements_complex_modifications () {
+    local dxy_mrinfuse="${ambers_path}/home"
+    local cmplxmods=".config/karabiner/assets/complex_modifications"
+    # Symlink private KE cfg.
+    local cbinfuser="${MR_REPO}/home"
+    (
+      cd "${dxy_mrinfuse}/${cmplxmods}"
+      local jsonpath
+      # Use -regex to exclude the 3110-client-${DEPOXY_CLIENT_ID}-private.json.example file.
+      for jsonpath in $(find "${cbinfuser}/${cmplxmods}" -maxdepth 1 -type f -regex ".*\.json$"); do
+        symlink_overlay_file "${jsonpath}"
+      done
+    )
+  }
+  depoxy_client_infuse_karabiner_elements_complex_modifications
+  #
+  # *** GNU Inetutils auto-login credentials
+  #
+  if [ -f "${HOME}/.netrc" ] && [ ! -h "${HOME}/.netrc" ]; then
+    warn "Your ~/.netrc is not overseen by your DepoXy Client repo."
+    info "Considering moving ~/.netrc inside your DepoXy Client and\n" \
+      "                            letting DepoXy Client create a symlink for it at ~/.netrc."
+    info "Try: \`mv \"${HOME}/.netrc\" \"${MR_REPO}/home/.netrc\" && infuse\`"
+  elif [ -f "${MR_REPO}/home/.netrc" ]; then
+    symlink_overlay_file \
+      "${MR_REPO}/home/.netrc" \
+      "${HOME}/.netrc"
+  # else
+  #   info " $(font_emphasize "Skipped .netrc")"
+  fi
+  #
+  # *** ~/.finicky.js
+  #
+  symlink_overlay_file \
+    "${MR_REPO}/home/.finicky.js" \
+    "${HOME}/.finicky.js"
+  #
+  # *** ~/.kit
+  #
+  # What I call the Dopp Kit is where I clone most non-vendor projects,
+  # e.g., various Git projects, useful shell utilities, and more. Most
+  # of the projects are public/open source and installed by the public
+  # DepoXy Ambers project. But you'll probably add additional projects
+  # to pair with the vendor code you work on (you can add each project
+  # to the _mrconfig-vendor included at the end of this file). Here we
+  # install a ~/.kit/.git/info/exclude file (and I know, this function
+  # looks more complicated, but really that's all it does).
+  user_home_kit_link_private_exclude () {
+    # ~/.kit/.gitignore.local wiring.
+    #
+    # First wire the mrinfuse path.
+    symlink_overlay_dir \
+      "${MR_REPO}/home/.kit/_git" \
+      "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/_git"
+    #
+    # Next, call the internal that link_private_exclude calls, but skip
+    # link_private_exclude, because we need to kludge around ${MR_REPO}.
+    local kit_path="${DOPP_KIT:-${HOME}/.kit}"
+    local before_cd="$(pwd -L)"
+    local before_mr="${MR_REPO}"
+    # Such sneaky:
+    MR_REPO="${kit_path}"
+    cd "${MR_REPO}"
+    link_exclude_resolve_source_and_overlay
+    MR_REPO="${before_mr}"
+    cd "${before_cd}"
+  }
+  user_home_kit_link_private_exclude
+  #
+  # *** ~/.kube
+  #
+  # MAYBE/2022-12-14: Move this elsewhere, and keep core DepoXy infuse
+  # steps separate from steps associated with clients or specifically
+  # developing.
+  #
+  # OpenLens doesn't show any clusters when yaml symlinks used, so
+  # wiring yamls (and config, for parity) using hard links.
+  if [ -f "${MR_REPO}/home/.kube/config" ]; then
+    mkdir -p "${HOME}/.kube"
+    #
+    # NOPE: Docker Desktop edits main kube config, e.g., changing
+    #       `client-certificate-data` and `client-key-data`, and setting
+    #       and unsetting `namespace`.
+    #         link_hard \
+    #           "${MR_REPO}/home/.kube/config" \
+    #           "${HOME}/.kube/config"
+    # - We'll copy canon file and autocommit just to track it; see autocommit.
+  fi
+  #
+  # See 'infusePostRebase' task for ~/.kube hard links.
+  #
+  # Alert user if AWS config perhaps not configured appropriately.
+  if [ -n "$(ls ~/.kube/*.yaml 2> /dev/null)" ]; then
+    if command rg "command: aws" ~/.kube/*.yaml > /dev/null 2>&1; then
+      warn
+      warn "BWARE: You probably need to use an absolute path to AWS in your kubeconfig."
+      warn
+      warn "- Instead of using a relative path:"
+      warn
+      warn "    command: aws"
+      warn
+      warn "- You probably need to use an absolute path:"
+      warn
+      warn "    command: $(command -v aws)"
+      warn
+      warn "- See the following file(s):"
+      warn
+      command rg "command: aws" ~/.kube/*.yaml
+    fi
+  fi
+  #
+  # *** dob
+  #
+  infuse_dob_config_if_exists () {
+    (
+      cd "${HOME}"
+      # Install "${XDG_CONFIG_HOME:-${HOME}/.config}/dob"
+      MR_REPO="${HOME}"
+      local sourcep
+      if sourcep="$(path_to_mrinfuse_resolve ".config/dob")" \
+        && [ -d "${sourcep}" ] \
+      ; then
+        symlink_mrinfuse_dir '.config/dob'
+      fi
+    )
+  }
+  infuse_dob_config_if_exists
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  set -e
+
+  # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
+  . "$(dirname -- "$(realpath -- "$0")")/../deps/sh-err-trap/lib/err-trap.sh"
+
+  set_traps
+
+  # ***
+
+  _dxc_client_infuse
+
+  # ***
+
+  clear_traps
+}
+
+# ***
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
+
