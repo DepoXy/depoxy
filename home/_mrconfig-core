@@ -16,6 +16,7 @@ order = 100
 [DEFAULT]
 
 lib =
+  # Expose DEPOXY_CLIENT_ID, DEPOXYAMBERS_DIR, etc.
   source_depoxy_fs () {
     local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
     local ambers_core="${DEPOXYAMBERS_DIR:-${ambers_path}}/core"

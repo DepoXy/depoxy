@@ -30,8 +30,8 @@ _vendorfs_define_environs () {
   #   by looking in ${DEPOXYDIR_STINTS_FULL} (~/.depoxy/stints) and
   #   picking the largest numbers-only name.
 
-  # The depoxyrc should also enable DEPOXY_IS_CLIENT, if applicable.
-
+  # The depoxyrc should set DEPOXY_IS_CLIENT as appropriate,
+  # but here's an appropriate default.
   # E.g., "false"
   export DEPOXY_IS_CLIENT="${DEPOXY_IS_CLIENT:-false}"
 
