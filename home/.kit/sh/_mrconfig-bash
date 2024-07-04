@@ -33,6 +33,13 @@ skip = mr_exclusive "!entrusted"
 
 # CXREF: link_hard_dep_sh_git_nubs
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs]
+# BWARE: Order after its deps, so ffssh doesn't change hardlinks in repos
+# before they're updated (which causes ffssh to skip those repos).
+# - CXREF: update_deps_shoilerplate
+# - git-smart uses 'order = 470' as uses largest order value
+#   for update_deps_shoilerplate
+#     ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-smart
+order = 501
 lib = remote_set publish https://github.com/landonb/sh-git-nubs.git
 skip = mr_exclusive "!entrusted"
 
