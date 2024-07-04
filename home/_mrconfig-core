@@ -134,6 +134,8 @@ lib =
   remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
+  # Optional .gitignore.local
+  link_private_exclude "$@" 2> /dev/null || true
   # Test is ~/.gitignore is tracked or not. If it is, assume user is
   # managing their own ~/.git repo. Otherwise, place our .gitignore.
   if ( cd  && ! git ls-files --error-unmatch -- ".gitignore" > /dev/null 2>&1 ); then
