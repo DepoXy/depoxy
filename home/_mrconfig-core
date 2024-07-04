@@ -316,7 +316,7 @@ include =
     2> /dev/null \
   ; then
     cat <<[DEFAULT]
- checkout = mkdir -p "${MR_REPO}"
+ checkout = mkdir -p "\${MR_REPO}"
  fetch = true
  update = true
  pull = true
