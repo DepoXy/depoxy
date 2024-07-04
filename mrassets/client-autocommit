@@ -32,20 +32,25 @@ git_auto_commit_one_update () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# HSTRY/2024-07-03: This was originally an 'infuse =' block in the
+# client _mrconfig, hence it's just one big function. Feel free to
+# refactor into smaller functions if you're so inspired.
+
 _dxc_client_autocommit () {
   local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
-  # For completeness `git ls-files`, we ensure that all repo files are under
-  # autocommit (or documented why not). And for comparability for `ls-files`,
-  # we list files in the same order.
+
+  # SAVVY: This autocommit matches the order from `git ls-files` and
+  # auto-commits *all* repo files, or documents those that are skipped.
+  # 
   # - SAVVY: Don't spent time crafting more helpful commits for the DXC project.
   #   You can craft better commits if/when you merge back to the DXA template
   #   project, but the client itself is ephemeral (you'll abandon the project
   #   when you move on to the next Client), so you needn't bother maintaining
   #   a more ideal Git history (just shovel everything into the repo and move
   #   on).
-  #
+
   # ***
-  #
+
   # Ensure proper DEPOXY_CLIENT_ID, and other DEPOXY* environs, pertain to
   # this project, regardless if it's the active client or not.
   # - This lets the user still use autocommit on "previous" clients.
@@ -54,26 +59,26 @@ _dxc_client_autocommit () {
   # ALTLY:
   #   DEPOXY_CONFIG="${MR_REPO}/home/.config/depoxy" _vendorfs_define_environs
   DEPOXY_CONFIG="${MR_REPO}/home/.config/depoxy/depoxyrc" . "${ambers_path}/core/depoxy_fs.sh"
-  #
+
   # Prepare args, e.g., `autocommit -y`, or `autocommit -f`.
   git_auto_commit_parse_args "$@"
-  #
+
   # ***
-  #
+
   # NOTE: Many/all of the `find` calls below fail if any paths contain spaces.
-  #
+
   # ***
-  #
+
   git_auto_commit_one_update ".gitignore"
   git_auto_commit_one_update ".hostnames"
   git_auto_commit_one_update ".ignore"
   git_auto_commit_one_update "LICENSE"
-  #
+
   # ***
-  #
+
   git_auto_commit_one_omr ".mrconfigs/_mrconfig"
   git_auto_commit_one_omr ".mrconfigs/_mrconfig-${DEPOXY_USERNAME}"
-  #
+
   # - Auto-commit just ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}":
   #     git_auto_commit_one_omr ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" "" "${PRIVATE_ACI}"
   # - Auto-commit ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" and the project-specific configs:
@@ -86,12 +91,12 @@ _dxc_client_autocommit () {
     git_auto_commit_many ${bizconfs} \
       -m "${PRIVATE_ACI}: OMR: Update: .mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}[--*]"
   fi
-  #
+
   git_auto_commit_one ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" \
     -m "${CLEARED_ACI}: DXA: OMR: Update: .mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}"
-  #
+
   # ***
-  #
+
   for path in \
     "README"* \
     ".whilom/README"* \
@@ -100,9 +105,9 @@ _dxc_client_autocommit () {
       git_auto_commit_one_docs "${path}"
     fi
   done
-  #
+
   # ***
-  #
+
   # Ideally, .whilom/ files would be scoped the same as they'd be at the
   # same path under root DXC/. But this is a rarely-used, niche feature,
   # so follow this convention:
@@ -114,13 +119,13 @@ _dxc_client_autocommit () {
   fi
   git_auto_commit_many $(find .whilom/ -type f -o -type l) \
     -m "${CLEARED_ACI}: Update: .whilom/"
-  #
+
   # ***
-  #
+
   # Vendor-related reSTfold docs.
-  #
+
   git_auto_commit_one_update "docs/.ignore" "" "${PRIVATE_ACI}"
-  #
+
   # git_auto_commit_many \
   #   "docs/Backlog_Client_${DEPOXY_CLIENT_ID}.rst" \
   #   "docs/Donelog_Client_${DEPOXY_CLIENT_ID}.rst" \
@@ -128,28 +133,28 @@ _dxc_client_autocommit () {
   #   "docs/Worklog_Client_${DEPOXY_CLIENT_ID}.rst" \
   #   -m "PRIVATE: autoci: Docs: Work notes."
   #  #-m "PRIVATE: autoci: Update: Docs."
-  #
+
   # NOTE: Enable MRT_LINK_FORCE so ' T' git-status typechanges are included.
   MRT_LINK_FORCE=0 git_auto_commit_many $(find docs/ -type f -o -type l) \
     -m "${PRIVATE_ACI}: Docs: Work notes"
-  #
+
   # ***
-  #
+
   git_auto_commit_one_update "home/.config/depoxy/depoxyrc" "depoxyrc"
   git_auto_commit_one_update "home/.config/depoxy/321open.cfg" "321open.cfg"
-  #
+
   git_auto_commit_one_update "home/.config/karabiner/README.rst"
   git_auto_commit_one_update \
     "home/.config/karabiner/assets/complex_modifications/3110-client-${DEPOXY_CLIENT_ID}-private.json.example"
   git_auto_commit_one_update \
     "home/.config/karabiner/assets/complex_modifications/9210-privte-docs-launchers-private.json"
-  #
+
   git_auto_commit_one_update "home/.config/karabiner/karabiner.json"
-  #
+
   git_auto_commit_one_update "home/.config/tig/config"
-  #
+
   # *** Other home/.*
-  #
+
   if [ -d "${HOME}/.aws" ]; then
     mkdir -p "${MR_REPO}/home/.aws"
     command cp -- "${HOME}/.aws/config" "${MR_REPO}/home/.aws/config"
@@ -157,45 +162,45 @@ _dxc_client_autocommit () {
     git_auto_commit_many $(find home/.aws/ -type f -o -type l) \
       -m "${PRIVATE_ACI}: Update: home/.aws/ files"
   fi
-  #
+
   git_auto_commit_one_update "home/.depoxy/_gitignore"
   git_auto_commit_one_update "home/.depoxy/stints/_ignore"
-  #
+
   git_auto_commit_one_update "home/.depoxy/stints/running/${DEPOXY_VENDOR_DOTFILES_NAME:-flast.sh}/README.md"
-  #
+
   git_auto_commit_one_update "home/.finicky.js" "~/.finicky.js config."
-  #
+
   git_auto_commit_one_update "home/.gitconfig.user"
   git_auto_commit_one_update "home/.gitconfig.user-business" "" "${PRIVATE_ACI}"
   git_auto_commit_one_update "home/.gitconfig.user-personal"
-  #
+
   git_auto_commit_one_update "home/.kit/_git/info/exclude"
-  #
+
   # We track ~/.kube/config by copying it...
   if [ -f "${HOME}/.kube/config" ]; then
     command cp -- "${HOME}/.kube/config" "${MR_REPO}/home/.kube/config"
-    #
+
     git_auto_commit_many $(find home/.kube/ -type f -o -type l) \
       -m "${PRIVATE_ACI}: Update: home/.kube/ files"
   fi
   git_auto_commit_one_update "home/.kube/PRIVATE"
-  #
+
   git_auto_commit_one_update "home/.local/share/dob/dob.sqlite"
   # E.g., home/.local/share/dob/dob.sqlite-user-template
   # - BWARE: This call breaks if any found path contains spaces.
   git_auto_commit_many $(find home/.local/share/dob/ \( -type f -o -type l \) -a -name dob.sqlite-*) \
     -m "${CLEARED_ACI}: Update: home/.local/share/dob/dob.sqlite-* files"
-  #
+
   if [ -f "home/.netrc" ]; then
     git_auto_commit_one_update "home/.netrc" "" "${PRIVATE_ACI}"
   fi
-  #
+
   if [ -f "home/.npmrc" ]; then
     git_auto_commit_one_update "home/.npmrc" "" "${PRIVATE_ACI}"
   fi
-  #
+
   # *** Key Paddock backups
-  #
+
   # SAVVY: The "Key Paddock" is a specific path on an encrypted file system,
   # deliberately mounted by the user, used to persist security-related files.
   # - Specifically, the key paddock hosts ~/.gnupg/, ~/.password-store/, and
@@ -217,22 +222,22 @@ _dxc_client_autocommit () {
   #   And then you can sync the Client between the Vendor machine and your
   #   personal host like you normally would, and your personal keys will be
   #   captured.
-  #
+
   # *** GPG Keys
-  #
+
   aci_gnupg () {
     . "${DOPP_KIT:-${HOME}/.kit}/odd/321open/lib/biblio.321"
-    #
+
     local dxy_target="home/.gnupg"
-    #
+
     local bkup_public="${dxy_target}/public.gpg"
     local bkup_private="${dxy_target}/private.gpg"
     local bkup_trust="${dxy_target}/trust.gpg"
-    #
+
     local mru_private_key="${HOME}/.gnupg/$( \
       command ls -1t "${HOME}/.gnupg/private-keys-v1.d/" | head -n 1
     )"
-    #
+
     if true \
       && [ "${bkup_public}" -nt "${HOME}/.gnupg/pubring.gpg" ] \
       && [ "${bkup_private}" -nt "${mru_private_key}" ] \
@@ -240,12 +245,12 @@ _dxc_client_autocommit () {
     ; then
       debug "$(fg_mintgreen)$(attr_emphasis)bkups uptodate$(attr_reset)" \
         "$(fg_lavender)$(pwd -L)/${dxy_target}/*.gpg$(attr_reset)"
-      #
+
       return 0
     fi
-    #
+
     # ***
-    #
+
     # Assume if GPG dir or parent has .git/ that user doesn't need
     # GPG exports.
     if [ -f "${HOME}/.gnupg/.git/HEAD" ] \
@@ -253,22 +258,22 @@ _dxc_client_autocommit () {
     ; then
       debug "$(fg_mintgreen)$(attr_emphasis)already repoed$(attr_reset)" \
         "$(fg_lavender)${HOME}/.gnupg$(attr_reset)"
-      #
+
       return 0
     fi
-    #
+
     # ***
-    #
+
     # USAGE: List GPG key emails you want backed up, e.g.,
     #   key_emails="foo@bar baz@bat etc@and.so.forth"
     local key_emails="${ONEOPEN_PASSWORD_STORE_EMAIL}"
-    #
+
     if [ -z "${key_emails}" ]; then
       debug "SKIPD: Configure ONEOPEN_PASSWORD_STORE_EMAIL to back up ~/.gnupg"
     else
       # Load: probe_if_gpg_passphrase_cached
       . "${DOPP_KIT:-${HOME}/.kit}/odd/321open/lib/biblio-gpg"
-      #
+
       # Avoid prompting for passphrase during auto-commit.
       # - CPYST: Reload the agent to forget the cached password:
       #     gpg-connect-agent reloadagent /bye
@@ -293,7 +298,7 @@ _dxc_client_autocommit () {
         fi
       else
         mkdir -p -- "${dxy_target}"
-        #
+
         # REFER: Nice, consise backup-restore overview:
         #   https://www.howtogeek.com/816878/how-to-back-up-and-restore-gpg-keys-on-linux/
         command rm -f -- "${bkup_public}"
@@ -310,49 +315,49 @@ _dxc_client_autocommit () {
         #   gpg --import public.gpg
         #   gpg --import private.gpg
         #   gpg --import-ownertrust trust.gpg
-        #
+
         git_auto_commit_many $(find "${dxy_target}/" -type f 2> /dev/null) \
           -m "${CLEARED_ACI}: GPG backups"
       fi
     fi
   }
   aci_gnupg
-  #
+
   # *** SSH
-  #
+
   aci_ssh () {
     local dxy_target="home/.ssh"
-    #
+
     for ssh_path in \
       "${HOME}/.ssh/config" \
       "${HOME}/.ssh/id_"* \
     ; do
       local source="${ssh_path}"
       local target="${dxy_target}/$(basename -- "${ssh_path}")"
-      #
+
       # If source is a symlink, means user setup a seperate secrets repo,
       # so no need for us to backup the file.
       if [ ! -f "${source}" ] || [ -h "${source}" ]; then
-        #
+
         continue
       fi
-      #
+
       mkdir -p -- "${dxy_target}"
-      #
+
       command cp -- "${source}" "${target}"
     done
-    #
+
     git_auto_commit_many $(find "${dxy_target}/" -type f 2> /dev/null) \
       -m "${CLEARED_ACI}: SSH updates"
   }
   aci_ssh
-  #
+
   # *** Password Store
-  #
+
   aci_password_store () {
     # USAGE: Uncomment and customize if you want to backup
     #        part of ~/.password-store to the DepoXy Client.
-    #
+
     # Use case: `pass` maintains ~/.password-store as its own Git repo.
     # - This lets you easily sync it with other machines, and to back it up,
     #   at least on personal machines, where all the passwords are personal.
@@ -363,56 +368,56 @@ _dxc_client_autocommit () {
     # - So list the passwords here you want copied to the DepoXy Client, and
     #   then sync the Client between the Vendor machine and personal hosts,
     #   but not the ~/.password-store itself.
-    #
+
     # As an example, the following for-loop supposes you have a password,
     # "pass ${DEPOXY_VENDOR_NAME:-acme}/teams", which you might need on,
     # e.g., your smartphone if the Vendor expects you to have access to
     # chat from a personal device.
     local dxy_target="home/.password-store"
-    #
+
     for pass_path in \
       ".gpg-id" \
       "${DEPOXY_VENDOR_NAME:-acme}/teams.gpg" \
     ; do
       local source="${HOME}/.password-store/${pass_path}"
       local target="${dxy_target}/${pass_path}"
-      #
+
       if [ ! -f "${source}" ] || [ -h "${source}" ]; then
-        #
+
         continue
       fi
-      #
+
       mkdir -p -- "${dxy_target}"
-      #
+
       command cp -- "${source}" "${target}"
     done
-    #
+
     git_auto_commit_many $(find "${dxy_target}/" -type f) \
       -m "${CLEARED_ACI}: Password Store updates"
   }
   aci_password_store
-  #
+
   # *** VIM
-  #
+
   # User Vim config.
   depoxy_client_autocommit_vimprojects () {
     # CXREF: ~/.depoxy/ambers/bin/vimprojects-filter
     ${ambers_path}/bin/vimprojects-filter
-    #
+
     git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects" \
       -m "${PRIVATE_ACI}: Vimprojects         (Client project-tray drawer)"
     git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--purged" \
       -m "${CLEARED_ACI}: Vimprojects--purged (DepoXy projects only)"
-    #
+
     # Dob, easy-as-pypi, and related Python projects.
     git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--dob" \
       -m "${CLEARED_ACI}: Vimprojects--dob"
   }
   depoxy_client_autocommit_vimprojects
-  #
+
   git_auto_commit_one_update "home/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim" \
     "" "${PRIVATE_ACI}"
-  #
+
   # Manage the spell file, and alert if parts differ from the whole.
   #   🎩🪄🔮✨  🧙📚👧🦁🏰   ⊃━☆ﾟ
   debug "$(fg_mintgreen)$(attr_emphasis)conjure spells$(attr_reset)" \
@@ -429,9 +434,9 @@ _dxc_client_autocommit () {
   SHCOLORS_OFF=false \
   SPF_PRINT_SPELLS=false mr -d . -n -mM spells "$@" 2>&1 \
     | sed 's/^/  /'
-  #
+
   # ***
-  #
+
   # SAVVY/2024-04-28: The Chrome Bookmarks capture is not completely
   # automated, but it's fairly close.
   # - If the user updates the "Bookmarks" file, we'll assume it's a raw
@@ -439,19 +444,19 @@ _dxc_client_autocommit () {
   #   bookmarks (work org links), and we'll commit it PRIVATEly.
   # - If the user creates or updates any other file with a name that starts
   #   with "bookmarks" (case-insensitive), we'll commit that file unscoped.
-  #
+
   # - MAYBE/2020-12-18: Update "Bookmarks" automatically.
   # - Either copy on 'autocommit'; or Symlink the actual Chrome bookmarks
   #   file to the DepoXy Client copy (setup the symlink on 'infuse', then
   #   whenever it changes, 'autocommit' will capture the changes).
   #   - Because the file is committed PRIVATE, this is "safe".
   #   - MAYBE: Don't over-commit, maybe throttle to daily commit.
-  #
+
   # - MAYBE/2024-04-28: Use `jq` to "purify" a copy of the Bookmarks file.
   #   - You would need to omit PRIVATE bookmarks somehow.
   #     - One idea: Have user update environ or rules file to specifiy
   #       top-level BM Folder names to include in the "purged" copy.
-  #
+
   depoxy_client_autocommit_chrome_bookmarks () {
     local chrome_dir
     if [ "$(uname)" = "Darwin" ]; then
@@ -461,10 +466,10 @@ _dxc_client_autocommit () {
     else
       fatal "ERROR: Unsupported, Unknown Platform: “$(uname)”"
     fi
-    #
+
     local chrome_bms_json="${chrome_dir}/Bookmarks"
     mkdir -p "home/${chrome_dir}"
-    #
+
     # Chrome won't create this file until the user makes their first BM.
     # - MAYBE: As mentioned in comment above, symlink Chrome file to ours.
     if [ -f "${HOME}/${chrome_bms_json}" ]; then
@@ -476,7 +481,7 @@ _dxc_client_autocommit () {
       fi
     fi
     git_auto_commit_one "home/${chrome_bms_json}" -m "${PRIVATE_ACI}: Chrome BMs (orig JSON)"
-    #
+
     # We'll also assume any file named "bookmarks.html" is also private.
     local chrome_bms_html="${chrome_dir}/bookmarks.html"
     local its_been_awhile=false
@@ -498,14 +503,14 @@ _dxc_client_autocommit () {
         notice "and we'll capture a private copy for you"
       fi
     fi
-    #
+
     # MAYBE: See comment above re: Generated sanctified copy using `jq`, then, e.g.,
-    #
+
     #  git_auto_commit_one "home/${chrome_bms_json}--purged" -m "${CLEARED_ACI}: Chrome BMs (sanitized)."
-    #
+
     # - For now, user can generate such a file manually, and we'll happily
     #   auto-commit any other Bookmarks file here.
-    #
+
     local bms_file
     find "home/${chrome_dir}" -maxdepth 1 -name "Bookmarks" -prune -o -iname "bookmarks*" -print \
       | while IFS= read -r bms_file \
@@ -514,51 +519,51 @@ _dxc_client_autocommit () {
     done
   }
   depoxy_client_autocommit_chrome_bookmarks
-  #
+
   # ***
-  #
+
   depoxy_client_autocommit_dob_assets () {
     git_auto_commit_one_update "home/Library/Application Support/dob/dob.conf"
-    #
+
     if command -v dob > /dev/null; then
       dob --no-color export \
         -o "home/Library/Application Support/dob/dob.sqlite.export"
     else
       notice "ONBRD: 🔳 Install \`dob\`"
     fi
-    #
+
     git_auto_commit_one "home/Library/Application Support/dob/dob.sqlite.export" \
       -m "${CLEARED_ACI}: Latest \\\`dob export\\\`."
   }
   depoxy_client_autocommit_dob_assets
-  #
+
   # ***
-  #
+
   git_auto_commit_one "home/_git/info/exclude" \
     -m "${CLEARED_ACI}: DX: Update ~/.gitignore.local"
-  #
+
   # ***
-  #
+
   git_auto_commit_one_update "home/bashrc.${DEPOXY_USERNAME}.sh"
   git_auto_commit_one_update "home/bashrc.${DEPOXY_VENDOR_NAME:-acme}.sh" "" "${PRIVATE_ACI}"
   git_auto_commit_one_update "home/bashrx.private.${DEPOXY_HOSTNAME}.sh"
-  #
+
   git_auto_commit_one_update "home/crontab.${DEPOXY_USERNAME}" "" "${PRIVATE_ACI}"
-  #
+
   git_auto_commit_one "home/dubs_projects.vim" \
     -m "${PRIVATE_ACI}: home/dubs_projects.vim (grep-steady mappings)"
-  #
+
   # Symlink.
   git_auto_commit_one_update "home/.vimprojects"
-  #
+
   git_auto_commit_many $(find home/vim-trap/ -type f -o -type l) \
     -m "${CLEARED_ACI}: Update: home/vim-trap/"
-  #
+
   git_auto_commit_many $(find home/${DEPOXY_VENDOR_HOME_NAME:-work}/ -type f -o -type l) \
     -m "${PRIVATE_ACI}: Update: home/${DEPOXY_VENDOR_HOME_NAME:-work}/"
-  #
+
   # ***
-  #
+
   if [ -d "home/${DEPOXY_VENDOR_HOME_NAME:-work}" ]; then
     git_auto_commit_many $( \
       find home/${DEPOXY_VENDOR_HOME_NAME:-work}/ \
@@ -567,44 +572,44 @@ _dxc_client_autocommit () {
     ) \
       -m "${PRIVATE_ACI}: Update: home/${DEPOXY_VENDOR_HOME_NAME:-work}/"
   fi
-  #
+
   # ***
-  #
+
   # Personal reSTfold docs.
-  #
+
   git_auto_commit_many $(find private/docs/ -type f -o -type l) \
     -m "${CLEARED_ACI}: Docs: Personal notes"
-  #
+
   git_auto_commit_one_update "private/private.not-private" "" "${PRIVATE_ACI}"
-  #
+
   # ===
   # ***
   # ===
-  #
+
   # *** Extras not related to `git ls-files` files.
-  #
+
   # macOS Desktop file (delete).
   # - Toss the Desktop Services Store. It's created by Finder to store icon layout,
   #   background image, etc. But who uses Finder? Remove for less noisy `ls` output.
   command rm -f -- "./.DS_Store"
-  #
+
   # ===
   # ***
   # ===
-  #
+
   # *** Tree dumps. (Put this toward end, b/c some steps above create files.)
-  #
+
   # Preserving DXC file listings might be of no utility to you, but it's
   # also nice to have an audit trail sometimes. So long as these commits
   # are not too noisy. (INERT: Should they be, add a timeout period.)
-  #
+
   depoxy_client_autocommit_tree_dumps () {
     # Don't generate tree while spell changes outstanding,
     # because meld files come and go.
     if test -n "$(git status --porcelain -- home/.vim/spell)"; then
       return 0
     fi
-    #
+
     tree -n -a -I .git/ -I "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}" > "home/.config/${DEPOXY_CLIENT_ID}-tree.txt"
     tree -C -a -I .git/ -I "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}" > "home/.config/${DEPOXY_CLIENT_ID}-tree.col"
     git_auto_commit_many \
@@ -613,25 +618,25 @@ _dxc_client_autocommit () {
       -m "${CLEARED_ACI}: Client ${DEPOXY_CLIENT_ID} project \\\`tree\\\`"
   }
   depoxy_client_autocommit_tree_dumps
-  #
+
   # ===
   # ***
   # ===
-  #
+
   insist_nothing_not_committed () {
     local ignore_spell_melds="$(echo \
       ":!home/.vim/spell/sync-spells--*-new.sh" \
       ":!home/.vim/spell/en.utf-8.add--*" \
     )"
-    #
+
     if test -z "$(git status --porcelain -- ${ignore_spell_melds})"; then
-      #
+
       return 0
     fi
-    #
+
     >&2 error "ALERT: Found stray DXC files not registered with autocommit:"
     git status -s -- ${ignore_spell_melds} | >&2 sed 's/^.. /  /'
-    #
+
     return 1
   }
   insist_nothing_not_committed
