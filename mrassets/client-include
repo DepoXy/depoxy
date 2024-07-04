@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:ai:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# HSTRY/2024-07-03: This was originally an 'include =' block in the
+# client _mrconfig, hence it's just one big function. Feel free to
+# refactor into smaller functions if you're so inspired.
+
+_dxc_client_include () {
+  local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
+  local stints_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}"
+  local client_dir="${stints_dir}/${DEPOXY_CLIENT_ID}"
+
+  # Load task helpers (that higher-level OMR config doesn't load, because
+  # neither DepoXy Ambers nor Oh My Repos! uses this functionality).
+
+  # ***
+
+  include_git_hooks_rewire () {
+    cat "${OHMYREPOS_LIB:-${HOME}/.kit/git/ohmyrepos/lib}/git-hooks-rewire"
+  }
+  include_git_hooks_rewire
+
+  # ***
+
+  # Load lib fcn `hack_patch_opn_to_call_sensible_open`.
+  include_js_npm_patch_opn_sensible_open () {
+    # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/js-npm-patch-opn-sensible-open
+    cat "${ambers_path}/home/.kit/git/ohmyrepos/lib/js-npm-patch-opn-sensible-open"
+  }
+  include_js_npm_patch_opn_sensible_open
+
+  # ***
+
+  # Load vendor-specific OMR project config.
+  include_depoxy_client_mr_business () {
+    . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
+
+    # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}
+    #        ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig-VENDOR_NAME.EVAL
+    local mr_business="${client_dir}/.mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}"
+    if [ -f "${mr_business}" ] && ! (
+        mr_exclusive "business" "vendor" "${DEPOXY_VENDOR_HOME_NAME:-work}" &&
+        true
+      );
+    then
+      mr_cat "${mr_business}"
+    fi
+  }
+  include_depoxy_client_mr_business
+
+  # ***
+
+  # Load user-specific OMR project config.
+  include_depoxy_client_mr_personal () {
+    . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
+
+    # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-${DEPOXY_USERNAME:-${LOGNAME}}
+    #        ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig-USERNAME.EVAL
+    local mr_personal="${client_dir}/.mrconfigs/_mrconfig-${DEPOXY_USERNAME}"
+    if [ -f "${mr_personal}" ] && ! (
+        mr_exclusive "personal" "user" "${DEPOXY_USERNAME}" &&
+        true
+      );
+    then
+      mr_cat "${mr_personal}"
+    fi
+  }
+  include_depoxy_client_mr_personal
+
+  # ***
+
+  # SAVVY: Include this last so that its projects override previous config.
+  if echo "${MR_ACTION}" | grep -q "Remotes$"; then
+    # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-remotes
+    mr_cat "${client_dir}/.mrconfigs/_mrconfig-remotes"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  set -e
+
+  # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
+  . "$(dirname -- "$(realpath -- "$0")")/../deps/sh-err-trap/lib/err-trap.sh"
+
+  set_traps
+
+  # ***
+
+  _dxc_client_include
+
+  # ***
+
+  clear_traps
+}
+
+# ***
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
+
