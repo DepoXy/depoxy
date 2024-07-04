@@ -86,34 +86,36 @@
 # - All the deps/ are between DepoXy projects (shell script hard links),
 #   so all deps/ paths are (from our perspective) duplicate paths.
 
-# USYNC: To update, run:
+# # USYNC: To update, run:
+# #
+# #   cd ~/.projlns/depoxy-deeplinks && fd -L "deps$" | sort
 #
-#   cd ~/.projlns/depoxy-deeplinks && fd -L "deps$" | sort
+# # /home/user/.depoxy/ambers/bin/onboarder/deps/
+# #   ↪ See rule in ~/.depoxy/ambers/.ignore
+#
+# # /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/
+# #   ↪ See * rule in ~/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/.ignore
+#
+# /home/user/.kit/sh/home-fries/deps/
+#
+# #  /.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/deps/
+# #  /.vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
+# #  /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
+# #   ↪ See * rules in .vim/.mrinfuse/cmdt_paths/symlinks/.ignore
+# #                    .vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
+# #                    /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
+#
+# /home/user/.kit/git/git-bump-version-tag/deps/
+# /home/user/.kit/git/git-my-merge-status/deps/
+# /home/user/.kit/git/git-put-wise/deps/
+# /home/user/.kit/git/git-smart/deps/
+# /home/user/.kit/git/git-rebase-tip/deps/
+# /home/user/.kit/git/ohmyrepos/deps/
+# /home/user/.kit/sh/feature-coverage-report/deps/
+# /home/user/.kit/sh/sh-logger/deps/
+# /home/user/.kit/sh/sh-rm_safe/deps/
 
-# /home/user/.depoxy/ambers/bin/onboarder/deps/
-#   ↪ See rule in ~/.depoxy/ambers/.ignore
-
-# /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/
-#   ↪ See * rule in ~/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/.ignore
-
-/home/user/.kit/sh/home-fries/deps/
-
-#  /.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/deps/
-#  /.vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
-#  /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
-#   ↪ See * rules in .vim/.mrinfuse/cmdt_paths/symlinks/.ignore
-#                    .vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
-#                    /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
-
-/home/user/.kit/git/git-bump-version-tag/deps/
-/home/user/.kit/git/git-my-merge-status/deps/
-/home/user/.kit/git/git-put-wise/deps/
-/home/user/.kit/git/git-smart/deps/
-/home/user/.kit/git/git-rebase-tip/deps/
-/home/user/.kit/git/ohmyrepos/deps/
-/home/user/.kit/sh/feature-coverage-report/deps/
-/home/user/.kit/sh/sh-logger/deps/
-/home/user/.kit/sh/sh-rm_safe/deps/
+deps/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
