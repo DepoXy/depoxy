@@ -49,6 +49,8 @@ _dxc_client_include () {
       );
     then
       mr_cat "${mr_business}"
+    else
+      >&2 debug "Skipping absent client config: ${mr_business}"
     fi
   }
   include_depoxy_client_mr_business
@@ -68,6 +70,8 @@ _dxc_client_include () {
       );
     then
       mr_cat "${mr_personal}"
+    else
+      >&2 debug "Skipping absent client config: ${mr_personal}"
     fi
   }
   include_depoxy_client_mr_personal
