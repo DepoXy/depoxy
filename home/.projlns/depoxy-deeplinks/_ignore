@@ -36,6 +36,12 @@
 # at #13, to keep separate from (a) code and (b) open-source projects.
 # - As this ignore file is for tailoring search at #9, ignore Docs.
 /home/user/.depoxy/stints/*/docs/
+/Users/user/.depoxy/stints/*/private/docs/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# -> /Users/puck/.depoxy/ambers/core/putwisely.sh
+/Users/user/.kit/git/git-put-wise/bin/putwisely.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
