@@ -20,6 +20,26 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# SAVVY: The user home prefix used below — /Users/user — matches
+# the default specified by the depoxyrc:
+#
+#   export LINK_DEEP_SUB_HOME="/Users/user"
+#
+# From: ~/.depoxy/running/home/.config/depoxy/depoxyrc
+#
+# Which is used by `mr -d / infuseProjlns`
+# to populate ~/.projlns/depoxy-deeplinks
+#
+# - INERT: Should a user choose a different path, it breaks this
+#   .ignore (or at least none of the rules below will match).
+#   - One option is for user to install their own .ignore deeper
+#     in the path.
+#   - Another option would be to move this .ignore from DXY to DXA
+#     and to store in the DepoXy Client.
+#     - But author has zero motivation for that.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Note that this ignore file (*this file*):
 #   ~/.depoxy/ambers/home/.projlns/depoxy-deeplinks/_ignore
 # Appears twice under ~/.projlns/depoxy-deeplinks:
@@ -30,12 +50,12 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # 2021-08-04: Private KE JSON symlinked via private infuse function.
-/home/user/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications/*-private.json
+/Users/user/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications/*-private.json
 
 # DepoXy Client docs are stored under {client}/docs and wired to search
 # at #13, to keep separate from (a) code and (b) open-source projects.
 # - As this ignore file is for tailoring search at #9, ignore Docs.
-/home/user/.depoxy/stints/*/docs/
+/Users/user/.depoxy/stints/*/docs/
 /Users/user/.depoxy/stints/*/private/docs/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -50,19 +70,19 @@
 # Via `rg -uuu "<some unique text from bashrx.private.${USER}.sh>"`
 # from within ~/.projlns/depoxy-deeplinks:
 #
-#   /home/user/.depoxy/ambers/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
-#   /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /home/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
-#   /home/user/.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
+#   /Users/user/.depoxy/ambers/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
+#   /Users/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
+#   /Users/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
+#   /Users/user/.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
+#   /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
+#   /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
 #
 # But there's only one duplicate that's not .ignore'd by another .ignore.
 
 # Symlinks to private DepoXy Client Bashrc.
 # -> ../../.mrinfuse/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
 # Aka: ~/.depoxy/running/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
-/home/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private*.sh
+/Users/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private*.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -70,21 +90,21 @@
 
 # -> .git/info/exclude
 # Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/_git/info/exclude
-/home/user/.kit/sh/home-fries/.gitignore.local
+/Users/user/.kit/sh/home-fries/.gitignore.local
 
 # -> ../.mrinfuse/.kit/sh/home-fries/.ignore
 # Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/.ignore
-/home/user/.kit/sh/home-fries/.ignore
+/Users/user/.kit/sh/home-fries/.ignore
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # -> .git/info/exclude
 # Aka: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/_git/info/exclude
-/home/user/.kit/git/ohmyrepos/.gitignore.local
+/Users/user/.kit/git/ohmyrepos/.gitignore.local
 
 # -> ../../../.mrinfuse/.kit/git/ohmyrepos/_ignore
 # Aka: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/_ignore
-/home/user/.kit/git/ohmyrepos/.ignore
+/Users/user/.kit/git/ohmyrepos/.ignore
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -96,30 +116,30 @@
 # #
 # #   cd ~/.projlns/depoxy-deeplinks && fd -L "deps$" | sort
 #
-# # /home/user/.depoxy/ambers/bin/onboarder/deps/
+# # /Users/user/.depoxy/ambers/bin/onboarder/deps/
 # #   ↪ See rule in ~/.depoxy/ambers/.ignore
 #
-# # /home/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/
+# # /Users/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/
 # #   ↪ See * rule in ~/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/.ignore
 #
-# /home/user/.kit/sh/home-fries/deps/
+# /Users/user/.kit/sh/home-fries/deps/
 #
 # #  /.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/deps/
 # #  /.vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
-# #  /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
+# #  /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
 # #   ↪ See * rules in .vim/.mrinfuse/cmdt_paths/symlinks/.ignore
 # #                    .vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
-# #                    /home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
+# #                    /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
 #
-# /home/user/.kit/git/git-bump-version-tag/deps/
-# /home/user/.kit/git/git-my-merge-status/deps/
-# /home/user/.kit/git/git-put-wise/deps/
-# /home/user/.kit/git/git-smart/deps/
-# /home/user/.kit/git/git-rebase-tip/deps/
-# /home/user/.kit/git/ohmyrepos/deps/
-# /home/user/.kit/sh/feature-coverage-report/deps/
-# /home/user/.kit/sh/sh-logger/deps/
-# /home/user/.kit/sh/sh-rm_safe/deps/
+# /Users/user/.kit/git/git-bump-version-tag/deps/
+# /Users/user/.kit/git/git-my-merge-status/deps/
+# /Users/user/.kit/git/git-put-wise/deps/
+# /Users/user/.kit/git/git-smart/deps/
+# /Users/user/.kit/git/git-rebase-tip/deps/
+# /Users/user/.kit/git/ohmyrepos/deps/
+# /Users/user/.kit/sh/feature-coverage-report/deps/
+# /Users/user/.kit/sh/sh-logger/deps/
+# /Users/user/.kit/sh/sh-rm_safe/deps/
 
 deps/
 
