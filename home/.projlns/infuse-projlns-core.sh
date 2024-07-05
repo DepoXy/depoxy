@@ -110,6 +110,10 @@ infuse_create_symlinks_docs () {
     if [ -d "${subdir_path}/docs" ]; then
       link_deep "${subdir_path}/docs" "client-${subdir_name}-docs"
     fi
+
+    if [ -d "${subdir_path}/private/docs" ]; then
+      link_deep "${subdir_path}/private/docs" "client-${subdir_name}-private-docs"
+    fi
   done
 }
 
