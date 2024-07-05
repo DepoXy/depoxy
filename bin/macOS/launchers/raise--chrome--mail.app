@@ -1,5 +1,5 @@
 #!/usr/bin/osascript
-# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=applescript
 # Author: Landon Bouma <https://tallybark.com/>
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
