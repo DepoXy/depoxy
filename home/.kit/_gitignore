@@ -9,8 +9,12 @@
 
 # *** root
 
-# Symlinks to ~/.depoxy/ambers/home/.kit/ files.
+# Git requires hard-links, so if this breaks and you edited
+# the installed file:
+#   meld ~/.depoxy/ambers/home/.kit/_gitignore ~/.kit/.gitignore &
 /.gitignore
+
+# Symlinks to ~/.depoxy/ambers/home/.kit/ file(s)
 /README.md
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -114,6 +118,9 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** macOS
+
+# DUNNO/2024-07-05: Fine, you win, Apple, you win.
+.DS_Store
 
 /mOS/DefaultKeybindings.dict/
 /mOS/Docker-Desktop-OMR-install/
