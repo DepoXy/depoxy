@@ -219,6 +219,10 @@
 # If you accidentally send a print job (because who prints?).
 /.cups/
 
+# Dropbox
+/.dropbox/
+/Dropbox/
+
 # OpenLens (an Electron app).
 /.electron-gyp/
 
