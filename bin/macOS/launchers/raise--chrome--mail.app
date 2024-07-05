@@ -9,6 +9,20 @@
 tell application "Google Chrome"
   repeat with w in windows
     tell w
+      if title of w starts with "Inbox " then
+        set index to 1
+        tell application "System Events" to tell process "Google Chrome"
+          perform action "AXRaise" of window 1
+          set frontmost to true
+        end tell
+
+        return
+      end if
+    end tell
+  end repeat
+  # DUNNO/2024-07-04: Was this old Gmail browser title? I don't remember.
+  repeat with w in windows
+    tell w
       if title of w starts with "Mail - " then
         set index to 1
         tell application "System Events" to tell process "Google Chrome"
