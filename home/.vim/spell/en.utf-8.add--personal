@@ -71,6 +71,7 @@ filesystems
 firmlinks
 fixup
 foregrounder
+geeklet
 gitconfig
 gitignore
 globbing
@@ -98,6 +99,7 @@ pytest
 python3
 rsync
 rsynced
+skhdrc
 spellfile
 sudo
 tig
