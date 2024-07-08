@@ -41,6 +41,14 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_user_home_dotconfig () {
+  mkdir -p '.config/alacritty'
+  symlink_mrinfuse_file '.config/alacritty/alacritty.toml'
+
+  if os_is_macos; then
+    mkdir -p '.config/borders'
+    symlink_mrinfuse_file '.config/borders/bordersrc'
+  fi
+
   # CXREF: '.config/karabiner':
   #   ~/.depoxy/ambers/home/infuse-platform-macOS
 

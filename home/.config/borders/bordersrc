@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# USAGE: Update, then restart the service:
+#
+#   brew services restart borders
+
+# REFER: Defaults:
+#
+#   https://github.com/FelixKratz/JankyBorders/blob/main/src/main.c#L36
+#
+#     options=(
+#       style=round
+#       width=4.0
+#       hidpi=off
+#       active_color=0xffe2e2e3
+#       inactive_color=0x000000
+#     )
+
+options=(
+	style=round
+	width=3.0
+	hidpi=off
+	active_color=0xffe2e2e3
+	inactive_color=0xff414550
+)
+
+borders "${options[@]}"
+
