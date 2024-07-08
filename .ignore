@@ -29,9 +29,11 @@
 /home/.config/tig/cfg-tgn-config-dates
 /home/.config/tig/cfg-tgn-config.notes
 /home/.config/tig/cfg-tgn-config-opinionated
-/home/.config/tig/config-depoxy
-/home/.config/tig/config-depoxy-diff
-/home/.config/tig/config-depoxy-main
+# DepoXy files:
+#   /home/.config/tig/config-depoxy
+#   /home/.config/tig/config-depoxy-diff
+#   /home/.config/tig/config-depoxy-main
+#   /home/.config/tig/README--Keybindings
 /home/.config/tig/tigconfig-client
 /home/.config/tig/tigconfig.EVAL
 # Private user convenience symlinks.
