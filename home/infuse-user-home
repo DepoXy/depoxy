@@ -41,11 +41,19 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_user_home_dotconfig () {
+  # CXREF: '.config/karabiner':
+  #   ~/.depoxy/ambers/home/infuse-platform-macOS
+
   mkdir -p '.config/less'
   symlink_mrinfuse_file '.config/less/termcap'
 
   mkdir -p '.config/pdbr'
   symlink_mrinfuse_file '.config/pdbr/setup.cfg'
+
+  # CXREF: '.config/tig': Next function:
+  #   infuse_symlinks_user_home_tigconfig
+
+  # SKIPD: '.config/vagrant/Vagrantfile.template'
 }
 
 # Collect all tig config/bindings under ~/.mrinfuse/.config/tig/
