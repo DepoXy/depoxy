@@ -238,6 +238,41 @@ bind generic % >sh -c " \
     return ${retcode}; \
   }; git_sort_by_scope__rebase_________________"
 
+# ***
+
+# COPYD: Similar to '%' command, but adds `git rebase --gpg-sign`
+# if user's `git config put-wise.sign-before-push` is true.
+# - Note that signing each commit is significantly slower than not.
+bind generic <C-g> >sh -c " \
+  git_sort_by_scope__rebase_with_gpgSign____ () { \
+    ! git diff --cached --quiet \
+      && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
+      && return 1 || true; \
+    \
+    local retcode; \
+    \
+    git rebase-sort-by-scope-protected-private %(commit) \
+      ${_enable_gpg_sign:-true} ${_insist_signing_key:-true}; \
+    retcode=$?; \
+    \
+    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
+    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
+      local __comment__='♯ git-rebase-sort-by-scope-protected-private handles GIT_POST_REBASE_EXEC'; \
+      \
+      local also_why=''; \
+      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
+      \
+      >&2 echo; \
+      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
+      >&2 echo \"  🥩 🥩 chop chop\"; \
+      \
+      kill -s 9 $PPID; \
+    fi; \
+    \
+    return ${retcode}; \
+  }; git_sort_by_scope__rebase_with_gpgSign____"
+
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 bind main M >sh -c " \
