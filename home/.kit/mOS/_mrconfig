@@ -294,6 +294,13 @@ lib = remote_set starter https://github.com/Hammerspoon/hammerspoon.git
 #   brew install --cask hammerspoon
 skip = true
 
+# Opinionated `skhdrc` config
+# https://github.com/DepoXy/macOS-skhibidirc#👤
+# “Not your fav. skhd cfg., but a solid No.2 🚽”
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc]
+lib = remote_set publish https://github.com/DepoXy/macOS-skhibidirc.git
+order = 481
+
 # ========================================================================
 # ------------------------------------------------------------------------
 

@@ -41,6 +41,8 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_user_home_dotconfig () {
+  # Install ${XDG_CONFIG_HOME:-${HOME}/.config}/* symlinks
+
   mkdir -p '.config/alacritty'
   symlink_mrinfuse_file '.config/alacritty/alacritty.toml'
 
@@ -57,6 +59,20 @@ infuse_symlinks_user_home_dotconfig () {
 
   mkdir -p '.config/pdbr'
   symlink_mrinfuse_file '.config/pdbr/setup.cfg'
+
+  if os_is_macos; then
+    mkdir -p '.config/skhd'
+    symlink_mrinfuse_file '.config/skhd/skhdrc'
+
+    # Optional client config
+    #   ~/.depoxy/running/home/.config/skhd/skhdrc--client
+    local sourcep
+    if sourcep="$(path_to_mrinfuse_resolve ".config/skhd/skhdrc--client")" \
+      && [ -f "${sourcep}" ] \
+    ; then
+      symlink_mrinfuse_file '.config/skhd/skhdrc--client'
+    fi
+  fi
 
   # CXREF: '.config/tig': Next function:
   #   infuse_symlinks_user_home_tigconfig

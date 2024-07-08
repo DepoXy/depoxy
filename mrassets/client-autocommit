@@ -151,6 +151,8 @@ _dxc_client_autocommit () {
 
   git_auto_commit_one_update "home/.config/karabiner/karabiner.json"
 
+  git_auto_commit_one_update "home/.config/skhd/skhdrc--client"
+
   git_auto_commit_one_update "home/.config/tig/config"
 
   # *** Other home/.*
