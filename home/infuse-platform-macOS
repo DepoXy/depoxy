@@ -183,7 +183,9 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
       rmdir "${cmplxmods}"
     fi
 
-    symlink_overlay_dir "${HOME}/.mrinfuse/${kb_assets}/${cmplxmods}"
+    local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
+
+    symlink_overlay_dir "${ambers_dir}/home/${kb_assets}/${cmplxmods}"
   }
 
   # CXREF: See *TRACK/2020-11-22* comment, above.
