@@ -1,0 +1,51 @@
+{
+  "title": "#1310 — Google Chrome — Global Hotkeys",
+  "rules": [
+
+    {
+      "description": "#1311.y — Google Chrome — New Window (Cmd-y)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open -na \"Google Chrome\" --args --new-window"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#1313 — Google Chrome — Systemwide — *Inspect* Window Foreground (Cmd-r) *ALT MAPPING*",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript ${DOPP_KIT:-${HOME}/.kit}/mOS/macOS-skhibidirc/lib/raise--chrome--devtools-or-inspect-window.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}
+

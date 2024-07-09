@@ -144,10 +144,6 @@ _dxc_client_autocommit () {
   git_auto_commit_one_update "home/.config/depoxy/321open.cfg" "321open.cfg"
 
   git_auto_commit_one_update "home/.config/karabiner/README.rst"
-  git_auto_commit_one_update \
-    "home/.config/karabiner/assets/complex_modifications/3110-client-${DEPOXY_CLIENT_ID}-private.json.example"
-  git_auto_commit_one_update \
-    "home/.config/karabiner/assets/complex_modifications/9210-privte-docs-launchers-private.json"
 
   git_auto_commit_one_update "home/.config/karabiner/karabiner.json"
 

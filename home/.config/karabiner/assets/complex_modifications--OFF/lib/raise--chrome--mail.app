@@ -6,6 +6,9 @@
 
 # Copyright (c) © 2020-2022 Landon Bouma. All Rights Reserved.
 
+# GRIPE: Doesn't work when Gmail is on another Space, it fronts
+#        some other Chrome window instead (on the current Space).
+
 tell application "Google Chrome"
   repeat with w in windows
     tell w

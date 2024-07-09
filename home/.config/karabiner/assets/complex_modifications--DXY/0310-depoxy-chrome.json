@@ -3,50 +3,6 @@
   "rules": [
 
     {
-      "description": "#1311.y — Google Chrome — New Window (Cmd-y)",
-      "manipulators": [
-        {
-          "from": {
-            "key_code": "y",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open -na \"Google Chrome\" --args --new-window"
-            }
-          ],
-          "type": "basic"
-        }
-      ]
-    },
-
-    {
-      "description": "#1313 — Google Chrome — Systemwide — *Inspect* Window Foreground (Cmd-r) *ALT MAPPING*",
-      "manipulators": [
-        {
-          "from": {
-            "key_code": "r",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "osascript ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/bin/macOS/launchers/raise--chrome--devtools-or-inspect-window.app"
-            }
-          ],
-          "type": "basic"
-        }
-      ]
-    },
-
-    {
       "description": "#1318 — Google Chrome — Customize Ctrl-PageUp/PageDown (originallay cycles tabs, just like Ctrl-Tab/Ctrl-Shift-Tab; but we want textarea motion userscript to process)",
       "manipulators": [
         {
@@ -85,6 +41,7 @@
         }
       ]
     }
+
   ]
 }
 

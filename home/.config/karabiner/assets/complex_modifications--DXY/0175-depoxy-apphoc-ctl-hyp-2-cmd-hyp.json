@@ -1,0 +1,34 @@
+{
+  "title": "#0175 — DepoXy Ambers Launchers",
+  "rules": [
+
+    {
+      "description": "#0176 — Chrome, iTerm2, Alacritty — Remap Cmd-- (use Ctrl-- to Zoom Out; use skhdrc Cmd-- to clip date)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "hyphen",
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ]
+            }
+          },
+          "to": {
+            "key_code": "hyphen",
+            "modifiers": [ "left_command" ]
+          },
+          "conditions": [{
+            "type": "frontmost_application_if",
+            "bundle_identifiers": [
+              "^com\\.google\\.Chrome",
+              "^com\\.googlecode\\.iterm2"
+            ]
+          }],
+          "type": "basic"
+        }
+      ]
+    }
+
+  ]
+}

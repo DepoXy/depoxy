@@ -3,11 +3,11 @@
   "rules": [
 
     {
-      "description": "#0511.a — Teams/Webex/Zoom — Systemwide — Foreground (Shift-Ctrl-Cmd-W)",
+      "description": "#0511.a — Teams/Webex/Zoom — Systemwide — Foreground (Shift-Ctrl-Cmd-T)",
       "manipulators": [
         {
           "from": {
-            "key_code": "w",
+            "key_code": "t",
             "modifiers": {
               "mandatory": [
                 "left_shift",

@@ -67,33 +67,6 @@
         }
       ]
     },
-    {
-      "description": "#1214 — Chrome & iTerm2 — Remap Cmd-- (use Ctrl-- to Zoom Out; use Cmd-- to clip date)",
-      "manipulators": [
-        {
-          "from": {
-            "key_code": "hyphen",
-            "modifiers": {
-              "mandatory": [
-                "left_control"
-              ]
-            }
-          },
-          "to": {
-            "key_code": "hyphen",
-            "modifiers": [ "left_command" ]
-          },
-          "conditions": [{
-            "type": "frontmost_application_if",
-            "bundle_identifiers": [
-              "^com\\.google\\.Chrome",
-              "^com\\.googlecode\\.iterm2"
-            ]
-          }],
-          "type": "basic"
-        }
-      ]
-    },
 
     {
       "description": "#1215 — Chrome & iTerm2 & MacVim — Open PowerThesaurus (Cmd-p)",
@@ -124,5 +97,6 @@
         }
       ]
     }
+
   ]
 }
