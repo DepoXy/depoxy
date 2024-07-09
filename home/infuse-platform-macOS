@@ -20,6 +20,10 @@ source_deps () {
   . "${HOMEFRIES_LIB:-${HOME}/.kit/sh/home-fries/lib}/process_util.sh"
   # Load: os_is_macos.
   . "${HOMEFRIES_LIB:-${HOME}/.kit/sh/home-fries/lib}/distro_util.sh"
+
+  # Load: remove_symlink_hierarchy_safe
+  # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
+  . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -101,6 +105,8 @@ symlink_kbmods_using_file_symlinks () {
 
   mkdir -p -- "${target_moddir}"
   cd -- "${target_moddir}"
+
+  remove_symlink_hierarchy_safe
 
   # This fcn. used to reset and remove symlinks first,
   # but DepoXy Client also symlinks its files to DXY's
