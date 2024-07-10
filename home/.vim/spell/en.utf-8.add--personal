@@ -24,6 +24,7 @@ EditorConfig
 Flathub
 Flatpak
 Hammerspoon
+Heredoc
 JetBrains
 Jinja
 Jupyter
@@ -49,6 +50,7 @@ auth
 backoff
 befinance
 cd'd
+dedents
 dep
 depoxy
 depoxyrc
@@ -72,6 +74,7 @@ firmlinks
 fixup
 foregrounder
 geeklet
+geeklets
 gitconfig
 gitignore
 globbing
@@ -81,10 +84,12 @@ i11l
 init
 inputrc
 linters
+macFUSE
 monorepo
 monorepos
 mrconfig
 mrconfigs
+mrtrust
 msg
 myrepos
 nav
