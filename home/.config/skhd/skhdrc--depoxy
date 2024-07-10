@@ -23,3 +23,10 @@ cmd - d:
   && . ~/.config/depoxy/depoxyrc \
   && osascript "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/macOS/launchers/alacritty-front-window-dob.osa"
 
+# Very meta
+shift + cmd - r:
+  [ -f ~/.config/depoxy/depoxyrc ] \
+  && . ~/.config/depoxy/depoxyrc \
+  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
+      ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
+
