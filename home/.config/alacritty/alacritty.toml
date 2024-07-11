@@ -182,6 +182,8 @@ bindings = [
   #   https://docs.rs/winit/latest/winit/keyboard/enum.NamedKey.html
   #   https://docs.rs/winit/latest/winit/keyboard/enum.Key.html#variant.Dead
 
+  # ***
+
   # Remap <Shift-Ctrl-C/V> to Copy/Paste, which is how Linux mate-terminal
   # has done it, and how the author's brain is wired.
   # - SAVVY: This steals default Copy/Paste from <Cmd-c>/<Cmd-v>.
@@ -191,8 +193,12 @@ bindings = [
   { key = "C", mods = "Control|Shift", action = "Copy" },
   { key = "V", mods = "Control|Shift", action = "Paste" },
 
+  # ***
+
   { key = "PageUp", mods = "Control|Shift", action = "ScrollPageUp" },
   { key = "PageDown", mods = "Control|Shift", action = "ScrollPageDown" },
+
+  # ***
 
   # By default Alt-. enters "≥".
   # - We want readline to see it, for cycling through final argument history.
@@ -201,6 +207,8 @@ bindings = [
   { key = "Period", mods = "Alt", chars = "\u001b\u002e" },
   # ALTLY:
   #   { key = ".", mods = "Alt", chars = "\u001b\u002e" },
+
+  # ***
 
   # Remap: Cmd-0 -> Ctrl-0
   { key = "0", mods = "Control", action = "ResetFontSize" },
@@ -211,6 +219,8 @@ bindings = [
   # Remap: Cmd-- -> Ctrl--
   { key = "-", mods = "Control", action = "DecreaseFontSize" },
   { key = "-", mods = "Command", action = "None" },
+
+  # ***
 
   # TRYME:
   # @macOS exclusive:
