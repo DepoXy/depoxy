@@ -253,6 +253,79 @@ infuse_symlink_macOS_MacVim_latest_version_symlink () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Creates symlinks to user home that you can use when making full
+# path symlinks that you can then share between hosts running
+# different OSes or using different user names.
+# - For sharing between OSes, note that macOS uses /Users/<user>
+#   and Debian uses /home/<user>, but that on macOS, which uses
+#   a read-only root file system, you cannot create a similar
+#   /home directory. But you can create /Users/user -> <user>
+#   (and then likewise on Linux, create /Users/user -> ${HOME})
+# - For sharing between hosts with different user names, consider
+#   /Users/foo on one, and /Users/bar on another. If you use the
+#   /Users/user path when creating symlinks, they'll work on
+#   both hosts.
+#   - You could instead symlink /Users/bar -> foo on one host
+#     and /Users/foo -> bar on the other. But the author likes
+#     to use user-agnostic home paths. For one, they're copy-
+#     pasteable to documentation without you needing to change
+#     the username to something generic (if that's your thing).
+#
+# - UCASE/TL_DR: For sharing project symlinks between @macOS and
+#   @Linux hosts, and between hosts that use different user names.
+#
+# Or, if you prefer a home-agnostic path that's all lowercase,
+# consider that /private is writeable on macOS, so a symlink
+# is also made at /private/user (in addition to /Users/user).
+
+infuse_symlinks_macOS_create_agnostic_user_homes () {
+  local users_source="${LOGNAME}"
+  local users_target="/Users/user"
+
+  # Create symlink: /Users/user -> <user>
+  sudo_create_symlink_if_sudo_unlocked "${users_source}" "${users_target}" "${HOME}"
+
+  # ***
+
+  local privy_source="${HOME}"
+  local privy_target="/private/user"
+
+  # Create symlink: /private/user -> /Users/<user>
+  sudo_create_symlink_if_sudo_unlocked "${privy_source}" "${privy_target}" "${HOME}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+sudo_create_symlink_if_sudo_unlocked () {
+  local syml_source="$1"
+  local syml_target="$2"
+  local target_real="$3"
+
+  local srctype="file"
+  if [ -d "${target_real}" ]; then
+    srctype="dir"
+  fi
+
+  if [ "$(realpath -- "${syml_target}")" = "${target_real}" ]; then
+    info "$(symlink_get_msg_informative \
+      "$(font_info_checked "Verified")" "${srctype}" \
+      "${syml_target}" "${syml_source}" \
+    )"
+  elif ! sudo -nv 2> /dev/null; then
+    warn "STEPS: Please cache admin password (sudo -v) so we can create root symlink"
+    warn "$(symlink_get_msg_informative \
+      " $(font_highlight "Skipped")" "${srctype}" \
+      "${syml_target}" "${syml_source}" \
+    )"
+  elif [ -d "${target_real}" ]; then
+    MRT_SUDO=sudo symlink_overlay_dir "${syml_source}" "${syml_target}"
+  else
+    MRT_SUDO=sudo symlink_overlay_file "${syml_source}" "${syml_target}"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 main () {
   set -e
 
@@ -281,6 +354,8 @@ main () {
     infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
 
     infuse_symlink_macOS_MacVim_latest_version_symlink
+
+    infuse_symlinks_macOS_create_agnostic_user_homes
   )
 }
 
