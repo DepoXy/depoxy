@@ -60,40 +60,48 @@ infuse_symlinks_user_home_dotconfig () {
   mkdir -p '.config/pdbr'
   symlink_mrinfuse_file '.config/pdbr/setup.cfg'
 
-  if os_is_macos; then
-    local restart_skhd=false
-    if [ ! -e "${HOME}/.config/skhd/skhdrc" ]; then
-      restart_skhd=true
-    fi
-
-    mkdir -p '.config/skhd'
-    # This is a symlink ->
-    #   ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
-    symlink_mrinfuse_file '.config/skhd/skhdrc'
-    # This is the DepoXy-specific config
-    symlink_mrinfuse_file '.config/skhd/skhdrc--depoxy'
-
-    # Optional client config
-    #   ~/.depoxy/running/home/.config/skhd/skhdrc--client
-    local sourcep
-    if sourcep="$(path_to_mrinfuse_resolve ".config/skhd/skhdrc--client")" \
-      && [ -f "${sourcep}" ] \
-    ; then
-      symlink_mrinfuse_file '.config/skhd/skhdrc--client'
-    fi
-
-    if ${restart_skhd}; then
-      # Once ~/.config/skhd/skhdrc exists, it will
-      # be hot-reloaded whenever it's changed, but
-      # we need to manually restart when it's new.
-      skhd --restart-service
-    fi
-  fi
+  infuse_symlinks_user_home_dotconfig_skhd
 
   # CXREF: '.config/tig': Next function:
   #   infuse_symlinks_user_home_tigconfig
 
   # SKIPD: '.config/vagrant/Vagrantfile.template'
+}
+
+infuse_symlinks_user_home_dotconfig_skhd () {
+  if ! os_is_macos; then
+
+    return 0
+  fi
+  
+  local restart_skhd=false
+  if [ ! -e "${HOME}/.config/skhd/skhdrc" ]; then
+    restart_skhd=true
+  fi
+
+  mkdir -p ".config/skhd"
+
+  # This is a symlink ->
+  #   ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
+  symlink_mrinfuse_file ".config/skhd/skhdrc"
+  # This is the DepoXy-specific config
+  symlink_mrinfuse_file ".config/skhd/skhdrc--depoxy"
+
+  # Optional client config
+  #   ~/.depoxy/running/home/.config/skhd/skhdrc--client
+  local sourcep
+  if sourcep="$(path_to_mrinfuse_resolve ".config/skhd/skhdrc--client")" \
+    && [ -f "${sourcep}" ] \
+  ; then
+    symlink_mrinfuse_file ".config/skhd/skhdrc--client"
+  fi
+
+  if ${restart_skhd}; then
+    # Once ~/.config/skhd/skhdrc exists, it will
+    # be hot-reloaded whenever it's changed, but
+    # we need to manually restart when it's new.
+    skhd --restart-service
+  fi
 }
 
 # Collect all tig config/bindings under ~/.mrinfuse/.config/tig/
