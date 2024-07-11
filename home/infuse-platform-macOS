@@ -116,7 +116,7 @@ symlink_kbmods_using_file_symlinks () {
   # - Or we could just not remove links, which seems
   #   reasonable now that DXY's complex_modifications/
   #   is only symlinks.
-  # 
+  #
   #  # Remove existing links.
   #  find . -maxdepth 1 -type l -exec rm -- {} +
 
@@ -191,7 +191,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
   # CXREF: See *TRACK/2020-11-22* comment, above.
   #  # The ~/.mrinfuse path is equivalently:
   #  #   "${MR_REPO}/${kb_assets}/${cmplxmods}"
-  #  # aka 
+  #  # aka
   #  #   "${ambers_dir}/${kb_assets}/${cmplxmods}"
   #  symlink_kbmods_using_file_symlinks \
   #    "${HOME}" \
@@ -206,7 +206,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
 # OBSOLETE?/2021-08-22: This symlink probably not necessary anymore.
 # - This symlink was useful for a command I had plumbed to Karabiner-
 #   Elements launchers, but I've since found a better way to call
-#   MacVim from KE: Add /usr/local/bin to PATH, then call `gvim`. 
+#   MacVim from KE: Add /usr/local/bin to PATH, then call `gvim`.
 # FIXME/2021-08-22: Remove this function (reduce techincal debt!).
 # FIXME/2021-08-22: If that works, disable custom homebrew-autoupdate.
 
