@@ -15,7 +15,7 @@ order = 771
 # Multiple encfs mounter, unmounter, and burn-down-the-house panicker
 # https://github.com/DepoXy/321open#👐
 [${DOPP_KIT:-${HOME}/.kit}/odd/321open]
-lib = remote_set publish https://github.com/DepoXy/321open.git#👐
+lib = remote_set publish https://github.com/DepoXy/321open.git
 order = 481
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =

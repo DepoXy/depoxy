@@ -36,7 +36,7 @@ order = 761
 #   (`diskutil` and `hdiutil` wrappers)
 # https://github.com/DepoXy/macOS-disktools#⚰️
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools]
-lib = remote_set publish https://github.com/DepoXy/macOS-disktools.git#⚱️
+lib = remote_set publish https://github.com/DepoXy/macOS-disktools.git
 order = 481
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 install =
