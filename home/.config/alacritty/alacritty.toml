@@ -184,6 +184,25 @@ bindings = [
 
   # ***
 
+  # It's too easy to Quit accidentally, especially for such a simple,
+  # single-modifier keybinding (the author has at least once
+  # sloppy-fingered <Cmd-q> unintentionally).
+  # - Also, when you have multiple windows open, it can be very annoying.
+  # - SAVVY: You cannot block <Cmd-q> solely from here. It's a Menu item,
+  #   so you gotta change its macOS binding, either from System Settings,
+  #   or you can change it from the CLI, e.g., remap it to <Shift-Ctrl-Q>:
+  #       defaults write org.alacritty NSUserKeyEquivalents '{
+  #         "Quit alacritty" = "^$q";
+  #       }'
+  #   - Because we gotta change NSUserKeyEquivalents anyway, we won't
+  #     add the new mapping here, but we'll just rely on the menu item.
+  { key = "Q", mods = "Command", action = "None" },
+
+  # `exit` is the only Close for me. (Well, that, or Quit.)
+  { key = "W", mods = "Command", action = "None" },
+
+  # ***
+
   # Remap <Shift-Ctrl-C/V> to Copy/Paste, which is how Linux mate-terminal
   # has done it, and how the author's brain is wired.
   # - SAVVY: This steals default Copy/Paste from <Cmd-c>/<Cmd-v>.
