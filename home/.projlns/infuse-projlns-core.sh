@@ -81,6 +81,7 @@ infuse_projects_links_core () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
+# Infuse DEPOXY_PROJLNS_USRDOC, e.g., ~/.projlns/docs-and-backlog
 infuse_projects_links_docs () {
   populate_links_directory \
     "${DEPOXY_PROJLNS_USRDOC}" \
@@ -100,6 +101,8 @@ infuse_create_symlinks_docs () {
 
   populate_links_directory_optional_ignore
 
+  # For each DepoXy Client (~/.depoxy/stints/XXXX),
+  # symlink its docs/ and private/docs
   find "${clients_path}" -mindepth 1 -maxdepth 1 -type d \
     | while read subdir_path; \
   do
@@ -127,6 +130,7 @@ infuse_create_symlinks_docs () {
 # so we can show a short list of all shell scripts, and not
 # have to use multiple directory listings.
 
+# Infuse DEPOXY_PROJLNS_SH_LIB, e.g., ~/.projlns/sh-lib
 infuse_projects_links_sh_lib () {
   populate_links_directory \
     "${DEPOXY_PROJLNS_SH_LIB}" \
