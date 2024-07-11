@@ -61,6 +61,11 @@ infuse_symlinks_user_home_dotconfig () {
   symlink_mrinfuse_file '.config/pdbr/setup.cfg'
 
   if os_is_macos; then
+    local restart_skhd=false
+    if [ ! -e "${HOME}/.config/skhd/skhdrc" ]; then
+      restart_skhd=true
+    fi
+
     mkdir -p '.config/skhd'
     # This is a symlink ->
     #   ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
@@ -75,6 +80,13 @@ infuse_symlinks_user_home_dotconfig () {
       && [ -f "${sourcep}" ] \
     ; then
       symlink_mrinfuse_file '.config/skhd/skhdrc--client'
+    fi
+
+    if ${restart_skhd}; then
+      # Once ~/.config/skhd/skhdrc exists, it will
+      # be hot-reloaded whenever it's changed, but
+      # we need to manually restart when it's new.
+      skhd --restart-service
     fi
   fi
 
