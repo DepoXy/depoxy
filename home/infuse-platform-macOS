@@ -296,6 +296,28 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Set @macOS /var/select/sh -> /bin/dash to avoid Bash v3 issues,
+# including ENV= bleed after 'local' usage, e.g.,
+#
+#   /bin/bash --posix -c 'unset -v FOO; foo () { :; }; bar () {
+#     FOO=123 foo; echo FOO=$FOO; local baz; FOO=abc foo; echo FOO=$FOO;
+#   }; bar'
+#   FOO=
+#   FOO=abc
+
+infuse_symlinks_macOS_set_var_select_sh_to_dash () {
+  local preferred_sh="${DXY_PREFERRED_SH:-/bin/dash}"
+  local sh_chooser="/var/select/sh"
+
+  # Create symlink: /var/select/sh -> /bin/dash
+  sudo_create_symlink_if_sudo_unlocked \
+    "${preferred_sh}" \
+    "${sh_chooser}" \
+    "$(realpath -- "${preferred_sh}")"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 sudo_create_symlink_if_sudo_unlocked () {
   local syml_source="$1"
   local syml_target="$2"
@@ -356,6 +378,8 @@ main () {
     infuse_symlink_macOS_MacVim_latest_version_symlink
 
     infuse_symlinks_macOS_create_agnostic_user_homes
+
+    infuse_symlinks_macOS_set_var_select_sh_to_dash
   )
 }
 
