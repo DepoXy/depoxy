@@ -23,7 +23,8 @@ source_deps () {
   local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   PATH="${PATH}:${omr_lib}"
   # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
-  #                        for this file, and for link_deep).
+  #                        for this file, and for link_deep),
+  #       path_to_mrinfuse_resolve
   # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
@@ -97,6 +98,8 @@ infuse_create_symlinks_docs () {
     return
   fi
 
+  populate_links_directory_optional_ignore
+
   find "${clients_path}" -mindepth 1 -maxdepth 1 -type d \
     | while read subdir_path; \
   do
@@ -137,7 +140,22 @@ infuse_projects_links_sh_lib () {
 # SAVVY: If any sh-*/bin dirs contain same-named file, you'll see, e.g.,
 #   ln: failed to create symbolic link './print-nanos-now.sh': File exists
 infuse_create_symlinks_core_sh_lib () {
+  populate_links_directory_optional_ignore
+
   find ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-*/bin/ -type f -exec ln -s {} \;
+}
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+
+# Look for optional private ~/.projlns/<subdir>/.ignore asset
+# (using '_ignore' filename).
+populate_links_directory_optional_ignore () {
+  local sourcep
+  if sourcep="$(path_to_mrinfuse_resolve "_ignore")" \
+    && [ -f "${sourcep}" ] \
+  ; then
+    symlink_mrinfuse_file "_ignore" ".ignore"
+  fi
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
