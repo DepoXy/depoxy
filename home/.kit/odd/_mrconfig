@@ -12,6 +12,7 @@ order = 771
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# Mount encfs and wire ~/.gnupg, ~/.ssh, and ~/.password-store
 # Multiple encfs mounter, unmounter, and burn-down-the-house panicker
 # https://github.com/DepoXy/321open#👐
 [${DOPP_KIT:-${HOME}/.kit}/odd/321open]
