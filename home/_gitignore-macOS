@@ -291,6 +291,9 @@
 # Python history file.
 /.python_history
 
+# qutebrowser (keyboard-focused browser with a minimal GUI)
+/.qutebrowser/
+
 # If you build and install tools, you might populate ~/share.
 # - E.g., here are two rules to specifically ignore tig assets:
 #
