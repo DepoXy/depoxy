@@ -133,6 +133,44 @@ white = "#feffff"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# SAVVY/2024-07-10: Use an older-Linux-friendly `TERM`.
+# - Alacritty defaults to its own TERM value:
+#     TERM = "alacritty"
+#   - But this breaks older Linux Mint (circa 2019, but latest
+#     Linux Mint circa 2024 doesn't care).
+#     - E.g., `less` works, but gripes:
+#         @old-linux $ less README.rst
+#         WARNING: terminal is not fully functional
+#         README.rst  (press RETURN)
+#     - Meanwhile, `tig` won't even run:
+#         @old-linux $ tig
+#         Error opening terminal: alacritty.
+#     Which I'd bet is because it uses an old ncurses.
+# - REFER: The TERM value is really just a suggestion to some
+#   apps to help them display output correctly. (Which makes
+#   it weird that it outright breaks some apps, but whatever.)
+#   - See `man ncurses`, `man 5 terminfo`, maybe also this article:
+#     https://unix.stackexchange.com/questions/528323/what-uses-the-term-variable
+# - SOLNS: There are easy ways around this:
+#   - You could set the TERM when connecting to an old host:
+#       $ TERM=xterm-256color ssh old-linux
+#   - You could set the TERM when running an app that cares:
+#       $ TERM=xterm-256color tig
+#   - Or we could just set the TERM here, and forget about it.
+#     - The author doesn't know of any app that behaves specially
+#       when it sees 'TERM=alacritty', so we'll just make the
+#       blanket change here.
+#     - Note that different values will work for us, including:
+#         TERM = "screen-256color"
+#       But we'll pick the TERM value that iTerm uses:
+#         TERM = "xterm-256color"
+# - SAVVY: You must restart Alacritty for this setting to take
+#   effect (it's one of the few that are not hot-reloaded).
+[env]
+TERM = "xterm-256color"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 [keyboard]
 # REFER: Default bindings:
 #   https://alacritty.org/config-alacritty-bindings.html
