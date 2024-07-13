@@ -95,6 +95,9 @@ _dxc_client_autocommit () {
   git_auto_commit_one ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" \
     -m "${CLEARED_ACI}: DXA: OMR: Update: .mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}"
 
+  git_auto_commit_one ".mrconfigs/_mrconfig-remotes" \
+    -m "${CLEARED_ACI}: DXA: OMR: Update: .mrconfigs/_mrconfig-remotes"
+
   # ***
 
   for path in \
