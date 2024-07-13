@@ -2,7 +2,12 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-# REFER:
+# REFER: TOML configuration file format:
+#
+#   man 5 alacritty
+#
+# Also:
+#
 #   https://alacritty.org/config-alacritty.html
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
