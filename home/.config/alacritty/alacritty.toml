@@ -88,6 +88,8 @@ padding = { x = 1, y = 1 }
 # "Make Option key behave as Alt."
 option_as_alt = "Both"
 
+dimensions = { columns = 169, lines = 69 }
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Be like iTerm2
