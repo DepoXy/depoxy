@@ -140,8 +140,9 @@
 # CXREF: ~/.kit/py/virtualenvwrapper/virtualenvwrapper.sh
 /.virtualenvs/
 
-# CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_rotate
-/.Trash-TBD/
+# CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_safe
+#   ~/.kit/sh/sh-rm_safe/bin/rm_rotate
+/.Trash0/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
