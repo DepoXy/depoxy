@@ -173,6 +173,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   pushd_alias_or_warn "cdet" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
 
+  pushd_alias_or_warn "cdrm" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
+
   # *** ~/.kit/txt — Text
 
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
