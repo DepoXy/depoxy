@@ -183,8 +183,6 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdej" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
 
   pushd_alias_or_warn "cdsp" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
-  # Duplicate alias, in case you start typing `cdv` thinking vim-spellfile.
-  pushd_alias_or_warn "cdvs" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 
   # *** ~/.downloads
 
