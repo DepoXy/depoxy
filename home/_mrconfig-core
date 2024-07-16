@@ -129,7 +129,7 @@ install =
 
 # The Developmer Experience 🍯
 # https://github.com/DepoXy/depoxy#🍯
-[${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers}]
+[${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}]
 order = 131
 lib =
   remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
