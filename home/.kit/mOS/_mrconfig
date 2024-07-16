@@ -187,8 +187,10 @@ installDarwin =
   #     brew autoupdate.rb --help
   #     # Run immediately:
   #     brew autoupdate
-  #     # Run via launchctl
-  #     launchctl list | grep com.github.domt4.homebrew-autoupdate
+  #     # Chech launchd status
+  #     launchctl print gui/501/com.github.domt4.homebrew-autoupdate
+  #     # - ALTLY: Use "legacy" `launchctl list`:
+  #     #   launchctl list | head -1 ; launchctl list | grep com.github.domt4.homebrew-autoupdate
   #     # Remove launchctl
   #     brew autoupdate delete
   #     # See the brew_autoupdate executable
