@@ -335,10 +335,21 @@ setup_private_coc_config () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # REFER: Run Vim without vimrc, run :Helptags, run :quit:
-#          -u {vimrc}      Don't load the vimrc
 #          -c {command}    Execute {command}
+# - SAVVY: Uses pathogen plug's :Helptags command,
+#   so must load vimrc, i.e., not: `vim -u NONE ...`
+# - SAVVY: Vim complains when not wired for tty, e.g.,
+#     Vim: Warning: Output is not to a terminal
+#     Vim: Warning: Input is not from a terminal
+#   So ignore stderr.
+# - SAVVY: If there's an error with this call, we
+#   won't know, because it's `echom`'d within Vim
+#   and won't be captured on stdout.
 setup_vim_generate_helptags () {
-  vim -u NONE -c "Helptags" -c q
+  info "Rebuilding Vim helptags: $(font_highlight "call pathogen#helptags()")"
+  # ALTLY: `vim -c "Helptags" -c q`, but this call ensures you won't
+  # confuse pathogen's :Helptags with Vim's built-in :helptags <dir>
+  vim -c ":call pathogen#helptags()" -c q 2> /dev/null
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
