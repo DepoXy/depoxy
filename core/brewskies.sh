@@ -49,6 +49,7 @@ infuse_brew_shellenv () {
 
 main () {
   infuse_brew_shellenv
+  unset -f infuse_brew_shellenv
 }
 
 if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then

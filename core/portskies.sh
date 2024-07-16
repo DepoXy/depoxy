@@ -28,6 +28,7 @@ infuse_port_shellenv () {
 
 main () {
   infuse_port_shellenv
+  unset -f infuse_port_shellenv
 }
 
 if [ "$(basename -- "$0")" = "portskies.sh" ]; then
