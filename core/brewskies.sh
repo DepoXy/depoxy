@@ -52,8 +52,9 @@ main () {
 }
 
 if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then
+  # Being sourced into the caller's Bash shell.
   main "$@"
-# else, being sourced, or executed by not Bash.
+# else, being sourced by not Bash, or being executed.
 fi
 
 unset -f main
