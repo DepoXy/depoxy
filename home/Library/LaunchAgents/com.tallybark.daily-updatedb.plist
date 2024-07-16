@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.tallybark.daily-updatedb</string>
+
+  <key>Program</key>
+  <string>/Users/puck/.depoxy/ambers/bin/daily-updatedb</string>
+
+  <key>ProgramArguments</key>
+  <array>
+      <string>/Users/puck/.depoxy/ambers/bin/daily-updatedb</string>
+  </array>
+  
+  <key>StandardErrorPath</key>
+  <string>/Users/puck/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.err</string>
+
+  <key>StandardOutPath</key>
+  <string>/Users/puck/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.out</string>
+
+  <key>StartInterval</key>
+  <integer>86400</integer>
+
+  <key>LowPriorityBackgroundIO</key>
+  <true/>
+
+  <key>LowPriorityIO</key>
+  <true/>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>
+

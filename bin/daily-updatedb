@@ -1,0 +1,180 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Build custom `locate` db — index user home, and keep db private.
+#
+# - REFER: You'll find extensive notes in the README:
+#
+#     ~/.depoxy/ambers/home/Library/LaunchAgents/README.rst
+#
+# - CXREF: See also the `locate` alias:
+#
+#     ~/.depoxy/ambers/core/locate-db.sh
+#
+#   - Also the launchd plist:
+#
+#     ~/.depoxy/ambers/home/Library/LaunchAgents/com.tallybark.daily-updatedb.plist
+
+# ***
+
+# USAGE: Call periodically to build the locate.db.
+#
+# - On Linux, consider scheduling a daily anacron job.
+#
+# - On macOS, consider using launchd (see link above),
+#             otherwise cron (still) works (as of 2024).
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+load_brew () {
+  # `eval "$(brew shellenv)"`, essentially.
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
+}
+
+set_environs () {
+  # Load LOCATEDB_PATH, if user set it to an encfs path
+  local client_321opencfg="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/321open.cfg"
+  if [ -f "${client_321opencfg}" ]; then
+    . "${client_321opencfg}"
+  fi
+
+  # USYNC: Default path matches `locate` alias path (see: `_wf_locate`):
+  #   ~/.depoxy/ambers/core/locate-db.sh
+  LOCATEDB_PATH="${LOCATEDB_PATH:-${HOME}/.cache/locate/locate.db}"
+}
+
+run_everday_updatedb () {
+  # If the updatedb directory does not exist — and is not just
+  # a broken symlink — create the directory. (If the directory
+  # is a broken symlink, leave it; it might just be unmounted).
+  local locatedb_dir="$(dirname -- "${LOCATEDB_PATH}")"
+
+  if [ ! -e "${locatedb_dir}" ] && [ ! -L "${locatedb_dir}" ]; then
+    mkdir -p -- "${locatedb_dir}"
+  fi
+
+  # If the locatedb_dir path does not exist, it could mean it's
+  # stored on an (encrypted) filesystem that is not mounted.
+  # - So that this script runs from cron and won't bug you about such
+  #   an unimportant matter, silently just do nothing if the storage
+  #   path is absent. (The user will realize their db is offline if/
+  #   when then try to run `locate`.)
+  if [ -d "${locatedb_dir}" ]; then
+    generate_locatedb
+  fi
+}
+
+generate_locatedb () {
+  if ! os_is_macos; then
+    generate_locatedb_linux
+  else
+    generate_locatedb_macos
+  fi
+}
+
+# HSTRY/2024-07-14: I don't quite remember why I added `-l 0`...
+# - It was added 2019-04-11 when this script was in a private repo.
+# - `-l 0`: "outputs the database entries even if the user running
+#            locate(1) could not have read the directory necessary
+#            to find out the file described by the database entry."
+#   - Perhaps I used to run `sudo updatedb`?
+#   - Git commit messages from 2019 suggest `-l 0` is related to either
+#     indexing encfs paths, and/or storing the database on an encfs path.
+#   - Note that Brew's `gupdatedb` does not have this option.
+generate_locatedb_linux () {
+  LOCATEDB_PATH="${LOCATEDB_PATH}" \
+    updatedb \
+      -l 0 \
+      -o "${LOCATEDB_PATH}"
+}
+
+# HSTRY/2024-07-14: The Brew `updatedb` seems... somewhat *obnoxious*,
+# or at least the author doesn't totally understand all the nuances.
+# - There's the `mdfind` command, which uses the Spotlight database,
+#   e.g., `mdfind -name <path>`.
+#   - But it doesn't index user home.
+#     - And I didn't investigate enough to see how to index user home.
+#     - E.g., `mdfind -name ~/<path> won't find it. But if you try a path
+#       from the OS, e.g., `mdfind -name bash.1`, then it'll find it.
+#   - Nor does `mdfind` index hidden (dot) paths.
+# - So we'll use glocate and gupdatedb from `brew install findutils`.
+#   - But it's not super obvious about errors.
+#     - The most obvious call might be this:
+#         $ gupdatedb --localpaths="/" ...
+#       But it dies with an error I can't quite suss (the last line):
+#         $ gupdatedb --localpaths="/" ...
+#         gfind: '/usr/sbin/authserver': Permission denied
+#         ...
+#         gfind: '/System/Volumes/Data/Library/Caches/com.apple.aned': Operation not permitted
+#         gfind: failed to read file names from file system at or below '/': No such file or directory
+#       Like, it obviously read *some* files under '/',
+#       and it's not like '/' is not a file or directory!
+#       - So it feels like the error message is somewhat lacking.
+#     - But if you're really precise about *which* directories
+#       *not* to include, then it works.
+#       - Specifically, including '/System' makes it fail.
+#         - And including '/System/Volumes' makes it fail.
+#         - And including '/System/Volumes/Data' makes it fail.
+#       - Note that '/System/Volumes/Data' is an APFS Firmlink
+#         (that macOS Catalina introduced).
+#         - E.g., '/System/Volumes/Data/Users' is same as '/Users'.
+#         - REFER: See '/usr/share/firmlinks' for the list of Firmlinks.
+#           - Though the author can't quite figure out this file,
+#             and Apple is limited on explanation.
+#             - E.g., one line says:
+#                 /Users Users
+#               but it's /System/Volumes/Data/Users at /Users,
+#               and not everying in the 'firmlinks' file is from
+#               '/System/Volumes/Data'.
+#               - *Something magic this way Apple leaves undocumented.*
+#           - REFER: https://eclecticlight.co/2023/07/22/how-macos-depends-on-firmlinks/
+#             - Among other articles.
+#       - All that "said" (I can't write a line of code without 10 lines
+#         of comments, apparently), we'll use crafty `find` sub-commands
+#         to weed out these *inappropriate* paths:
+#         - Well, the *one* inappropriate path:
+#           - Don't index /Sustem/Volumes/Data
+#         - But we have to be a little creative to omit it, by indexing
+#           / paths individually, and /System paths, and /System/Volumes.
+generate_locatedb_macos () {
+  if [ -z "$(command -v gupdatedb)" ]; then
+    >&2 echo "ERROR: No \`gupdatedb\`: Please \`brew install findutils\`"
+
+    exit 1
+  fi
+
+  gupdatedb \
+    --localpaths="$( \
+      find /* -maxdepth 0 -type d -name System -prune -o -print | tr '\n' ' '
+    ) $( \
+      find /System/* -maxdepth 0 -type d -name Volumes -prune -o -print | tr '\n' ' '
+    ) $( \
+      find /System/Volumes/* -maxdepth 0 -type d -name Data -prune -o -print -type d | tr '\n' ' '
+    )" \
+    --prunepaths="${HOME}/.password-store ${HOME}/.gnupg ${HOME}/.ssh" \
+    --output="${LOCATEDB_PATH}"
+}
+
+os_is_macos () {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# ***
+
+main () {
+  set -e
+
+  load_brew
+
+  set_environs
+
+  run_everday_updatedb
+}
+
+main "$@"
+

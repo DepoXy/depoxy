@@ -62,6 +62,9 @@ _source_scripts_preceding_homefries_dxy () {
   _dxy_source "path_vars.sh"
 
   # Vendor encfs paths, and identify if DepoXy Client.
+  # - Also sources environs from two files:
+  #     ~/.config/depoxy/depoxyrc
+  #     ~/.config/depoxy/321open.cfg
   _dxy_source "depoxy_fs.sh"
 
   # Add paths to shoilerplate to PATH, otherwise Bashrc fails...
@@ -136,6 +139,9 @@ _source_scripts_following_homefries_dxy () {
 
   # Electron Lens k8s GUI.
   _dxy_source "kube-lens.sh"
+
+  # User-centric `locate`.
+  _dxy_source "locate-db.sh"
 
   # A single make convenience.
   _dxy_source "make-itso.sh"

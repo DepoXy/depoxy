@@ -21,6 +21,12 @@ _vendorfs_define_environs () {
     . "${client_dxyrc}"
   fi
 
+  # Also include `321open` config in user's shell.
+  local client_321rc="${DEPOXY_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/321open.cfg}"
+  if [ -f "${client_321rc}" ]; then
+    . "${client_321rc}"
+  fi
+
   # ***
 
   # The user can be explicit about the currently active client:
