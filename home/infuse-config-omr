@@ -107,7 +107,11 @@ main () {
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
 
-  [ "$(basename -- "$0")" != "infuse-config-omr" ] || LOG_LEVEL=0
+  if [ "$(basename -- "$0")" = "infuse-config-omr" ]; then
+    LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_VVVERBOSE:-0}}
+  else
+    LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}}
+  fi
 
   local ambers_path="${depoxy_root}"
   local ambers_home="${depoxy_root}/home"

@@ -354,7 +354,11 @@ main () {
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
 
-  [ "$(basename -- "$0")" != "infuse-platform-macOS" ] || LOG_LEVEL=0
+  if [ "$(basename -- "$0")" = "infuse-platform-macOS" ]; then
+    LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_VVVERBOSE:-0}}
+  else
+    LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}}
+  fi
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
   local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"

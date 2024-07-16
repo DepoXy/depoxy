@@ -81,7 +81,8 @@ infuse =
   # Rely on external infuser scripts for the rest of the setup.
   #
   # CXREF: ~/.depoxy/ambers/home/infuse-home-fries
-  LOG_LEVEL=10 "${infuse_home_fries}" "$@"
+  LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
+    "${infuse_home_fries}" "$@"
 updateDeps =
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
   update_deps_shoilerplate
@@ -147,9 +148,11 @@ infuse =
     fi
   fi
   # CXREF: ~/.depoxy/ambers/home/infuse-user-home
-  LOG_LEVEL=10 "${MR_REPO}/home/infuse-user-home" "$@"
+  LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
+    "${MR_REPO}/home/infuse-user-home" "$@"
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
-  LOG_LEVEL=10 "${MR_REPO}/home/infuse-platform-macOS" "$@"
+  LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
+    "${MR_REPO}/home/infuse-platform-macOS" "$@"
 # Force a single root deep-link, otherwise the infuser would detect the
 # embedded archetype/.git repo and fallback to ls-files deep-links. But
 # we also want archetype/ deep-linked. So ambers can be a root deep-link.
@@ -240,7 +243,8 @@ infuse =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
-  LOG_LEVEL=10 "${infuse_dubs_vim}" "$@"
+  LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
+    "${infuse_dubs_vim}" "$@"
 # Don't need/want ~/.vim/.ignore (it doesn't have any rules we want,
 # and one we don't want, ignoring .vim/pack).
 infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project \

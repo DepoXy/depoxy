@@ -83,7 +83,7 @@ infuse =
   # Ensure ~/.mrconfig and ~/.mrtrust symlinked (should be redundant, because
   # how else can you run this 'infuse' task?), and ensure ~/.mrinfuse/ wired.
   # CXREF: ~/.depoxy/ambers/home/infuse-config-omr
-  LOG_LEVEL=10 \
+  LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-config-omr" \
     "${DEPOXYAMBERS_DIR:-${ambers_path}}" "$@"
 
