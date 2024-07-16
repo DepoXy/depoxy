@@ -3,6 +3,9 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# J'accuse!
+.DS_Store
+
 # DepoXy Archetype is a separate repo, so YOU (yes, DEV you!) can
 # fork and customize, and then rebase on top of your new client.
 #  https://github.com/DepoXy/depoxy-archetype#🏹
