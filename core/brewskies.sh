@@ -42,7 +42,18 @@ infuse_brew_shellenv () {
 
   if [ -e "${brew_path}" ]; then
     eval "$(${brew_path} shellenv)"
+  elif os_is_macos; then
+    >&2 echo "ERROR: Could not suss Homebrew path"
+
+    return 1
   fi
+}
+
+# Defined by ~/.kit/sh/home-fries/lib/distro_util.sh
+# but (re-)defined here to support usage from outside
+# user's shell (e.g., via cron/launchd).
+os_is_macos () {
+  [ "$(uname)" = "Darwin" ]
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
