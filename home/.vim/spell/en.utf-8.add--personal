@@ -45,12 +45,15 @@ VBox
 Vimprojects
 Vimscript
 Visualping
+allowlisted
+allowlisting
 arg
 args
 auth
 backoff
 befinance
 blocklisted
+blocklisting
 cd'd
 conf
 dedents
