@@ -199,7 +199,13 @@ TERM = "xterm-256color"
 #
 # - Author's Vim hides mouse once you start typing...
 #   so why not the terminal, too.
-hide_when_typing = true
+#
+# ISOFF: While I like this behavior, it's inconsisten:
+# - When I <Alt-Tab> back to Alacritty, the mouse is
+#   sometimes hidden *until* I type something. Kinda
+#   annoying.
+#
+#  hide_when_typing = true
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
