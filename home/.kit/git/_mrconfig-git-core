@@ -487,14 +487,15 @@ install =
     local brew_prefix="/opt/homebrew/opt"
     if [ -d "${brew_prefix}" ]; then
       # SAVVY: For Darwin build:
-      # - Set PKG_CONFIG_PATH, lest:
+      # - Set ncurses PKG_CONFIG_PATH, lest:
       #   "configure: WARNING: The found ncurses library does not support wide-char."
-      # - Set LDFLAGS and CPPFLAGS, lest:
+      # - Set readline LDFLAGS and CPPFLAGS, lest:
       #   "configure: WARNING: Could not test version of installed readline library."
-      PKG_CONFIG_PATH=${brew_prefix}/ncurses/lib/pkgconfig/ \
+      # - Also include Perl regex (PCRE2) support using same environs.
+      PKG_CONFIG_PATH="${brew_prefix}/ncurses/lib/pkgconfig/:${brew_prefix}/pcre2/lib/pkgconfig/" \
         ./configure \
-          LDFLAGS=-L${brew_prefix}/readline/lib \
-          CPPFLAGS=-I${brew_prefix}/readline/include
+          LDFLAGS="-L${brew_prefix}/readline/lib -L${brew_prefix}/pcre2/lib" \
+          CPPFLAGS="-I${brew_prefix}/readline/include -I${brew_prefix}/pcre2/include"
     else
       error "ERROR: Where's Homebrew?"
     fi
