@@ -507,7 +507,7 @@ install =
   make install prefix=${HOME}/.local
   make install-doc prefix=${HOME}/.local
   #
-  type -a tig
+  bash -c "type -a tig"
   tig --version
 installDarwin =
   # REFER: /opt/homebrew/lib/libssl.a
