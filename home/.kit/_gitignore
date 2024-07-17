@@ -107,9 +107,6 @@
 # For digging into internals when you Need To Know.
 /js/nvm/
 
-# My favorite flavor of La Croix.
-/js/pampermonkey/
-
 # An awesome JS LS that blew my mind.
 # - And settles any question of whether I need to learn VS Code.
 #   (*Nope!*)

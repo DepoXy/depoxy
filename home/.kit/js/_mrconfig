@@ -184,12 +184,3 @@ skip = mr_exclusive "!entrusted"
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# pampering 💆 time
-# Tampermonkey macOS motion scripts 💆
-# https://github.com/DepoXy/pampermonkey#💆
-[${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey]
-lib = remote_set publish https://github.com/DepoXy/pampermonkey.git
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
