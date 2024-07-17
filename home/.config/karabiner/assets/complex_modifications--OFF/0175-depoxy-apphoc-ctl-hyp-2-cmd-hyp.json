@@ -3,7 +3,7 @@
   "rules": [
 
     {
-      "description": "#0176 — Chrome, iTerm2, Alacritty — Remap Cmd-- (use Ctrl-- to Zoom Out; use skhdrc Cmd-- to clip date)",
+      "description": "#0176 — Chrome, iTerm2 — Remap <Ctrl--> → <Cmd--> (to Zoom Out)",
       "manipulators": [
         {
           "from": {

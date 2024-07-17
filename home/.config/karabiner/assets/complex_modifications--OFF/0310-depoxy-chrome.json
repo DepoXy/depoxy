@@ -1,5 +1,5 @@
 {
-  "title": "#1310 — Google Chrome — Global Hotkeys",
+  "title": "#1310 — Google Chrome — Global Hotkeys, and Tampermonkey user script prep",
   "rules": [
 
     {
@@ -39,6 +39,46 @@
           "to": [
             {
               "shell_command": "osascript ${DOPP_KIT:-${HOME}/.kit}/mOS/macOS-skhibidirc/lib/raise--chrome--devtools-or-inspect-window.app"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+
+    {
+      "description": "#1318 — Google Chrome — Customize Ctrl-PageUp/PageDown (originallay cycles tabs, just like Ctrl-Tab/Ctrl-Shift-Tab; but we want textarea motion Tampermonkey userscript to process)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "page_up",
+            "modifiers": { "mandatory": [ "left_control" ] }
+          },
+          "to": {
+            "key_code": "page_up",
+            "modifiers": [ "left_option" ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [ "^com\\.google\\.Chrome" ]
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "page_down",
+            "modifiers": { "mandatory": [ "left_control" ] }
+          },
+          "to": {
+            "key_code": "page_down",
+            "modifiers": [ "left_option" ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [ "^com\\.google\\.Chrome" ]
             }
           ],
           "type": "basic"
