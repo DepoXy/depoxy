@@ -50,6 +50,7 @@ args
 auth
 backoff
 befinance
+blocklisted
 cd'd
 conf
 dedents
@@ -72,6 +73,7 @@ errexit
 fcn
 fcns
 filesystems
+findability
 firmlinks
 fixup
 foregrounder
