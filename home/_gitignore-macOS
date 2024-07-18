@@ -246,6 +246,9 @@
 # `less`'s history file.
 /.lesshst
 
+# `lldb` debugger.
+/.lldb
+
 # User account mail, e.g., where your cron output goes.
 /mbox
 
