@@ -19,6 +19,7 @@ Codecov
 Cython
 DBeaver
 DXY # aka "DepoXy Ambers"
+DepoXy's
 DisplayPort
 EditorConfig
 Firmlink
@@ -38,6 +39,8 @@ PRs
 Powerline
 QuickTile
 READMEs
+SSHd
+SSHing
 StubHub
 Timeshift
 Timeshift's
@@ -55,6 +58,7 @@ befinance
 blocklisted
 blocklisting
 cd'd
+columnarly
 conf
 dedents
 dep
@@ -91,6 +95,7 @@ hrule
 i11l
 init
 inputrc
+iterm
 launchd
 linters
 macFUSE
