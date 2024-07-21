@@ -371,7 +371,6 @@ main () {
 
     if ! os_is_macos; then
 
-      # More of a (break)
       return 0
     fi
 
