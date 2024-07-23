@@ -175,6 +175,8 @@ _dxc_client_autocommit () {
   git_auto_commit_one_update "home/.gitconfig.user-business" "" "${PRIVATE_ACI}"
   git_auto_commit_one_update "home/.gitconfig.user-personal"
 
+  git_auto_commit_one_update "home/.hammerspoon/client-hs.lua"
+
   git_auto_commit_one_update "home/.kit/_git/info/exclude"
 
   # We track ~/.kube/config by copying it...

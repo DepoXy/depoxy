@@ -141,6 +141,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   pushd_alias_or_warn "cdmd" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools"
 
+  pushd_alias_or_warn "cdmh" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony"
+
   pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
 
   # SOBVI/2024-06-25 02:49: Ha, BEGET: *urbandictionary skh* suggested *skibidi*

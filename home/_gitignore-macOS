@@ -243,6 +243,10 @@
 # GTK file dialog favorites (shared by meld and GIMP).
 /.gtk-bookmarks
 
+# Hammerspoon config.
+# -> ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
+/.hammerspoon/init.lua
+
 # `less`'s history file.
 /.lesshst
 

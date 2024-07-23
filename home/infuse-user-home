@@ -106,6 +106,18 @@ infuse_symlinks_user_home_dotconfig_skhd () {
   fi
 }
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+infuse_symlinks_user_home_dothammerspoon () {
+  mkdir -p '.hammerspoon'
+
+  # Symlink to a symlink ->
+  #   ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
+  symlink_mrinfuse_file ".hammerspoon/init.lua"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Collect all tig config/bindings under ~/.mrinfuse/.config/tig/
 infuse_symlinks_user_home_tigconfig () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
@@ -507,6 +519,8 @@ infuse_symlinks_home_projlns () {
 
 infuse_all_the_symlinks () {
   infuse_symlinks_user_home_dotconfig
+
+  infuse_symlinks_user_home_dothammerspoon
 
   infuse_symlinks_user_home_tigconfig
 

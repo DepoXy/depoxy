@@ -255,6 +255,15 @@ lib = remote_set starter https://github.com/Hammerspoon/hammerspoon.git
 #   brew install --cask hammerspoon
 skip = true
 
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/hammerspoons]
+lib = remote_set starter https://github.com/Hammerspoon/Spoons.git "hammerspoons"
+
+# “Opinionated `~/.hammerspoon/init.lua`”
+# https://github.com/DepoXy/macOS-Hammyspoony#🥄
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony]
+lib = remote_set publish https://github.com/DepoXy/macOS-Hammyspoony.git
+order = 481
+
 # ***
 
 # Opinionated `skhdrc` config
