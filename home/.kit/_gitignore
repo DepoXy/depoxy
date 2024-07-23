@@ -125,29 +125,6 @@
 /mOS/Karabiner-Elements/
 /mOS/Karabiner-Elephants/
 /mOS/finicky/
-# 2021-08-06: This project opened a whole can o' worms. Or at least a trifecta:
-# 1.) Homebrew no longer supports `gocryptfs` because it switched from `osxfuse` to
-# closed-source MacFuse, but also `brew update` fails because of its refusal, which
-# meant I couldn't update my other brews (or taps, or whatever they're called). This
-# led me to uninstalling `gocryptfs` to try the one from MacPorts, which seemed to
-# work at first (I could an encfs to mount). But I quickly found out that no apps
-# could get the current working directory from within its mounted paths, meaning it
-# wasn't working. And I couldn't find a solution (or even others having the same
-# problem) onlne, so then I had to uninstall it (though now that I write this,
-# perhaps it was because my encfs was created with version 1, and MacPorts installed
-# version 2, and projects are not backwards-compatible? who knows). So this led to an
-# hour or more figuring out how to install the *old* version with Homebrew (and Home-
-# brew makes it real tough; fortunately I found an article/walk-through, and was able
-# to guess at a few missing steps). Finally, I learned how to pin the old version so
-# that brew-update wouldn't complain about it and fail, like it was doing originally.
-# 2.) I hadn't updated Homebrew projects in a while, because I don't run the update
-# command regularly, nor do I run brew-install very often, which also updates all
-# installed brews as a side effect. And when I updated all my Homebrew apps, the
-# latest Git was installed, which no longer supports symlinked `.gitignore` files.
-# So I had to add an OMR hard link helper, and I update the mrconfig infuse tasks
-# to use hard links instead.
-# 3.) (Now I've spent too much time griping about the first 2 items, I forgot what
-# the third is. Whatever, I'm already and TMI.)
 /mOS/homebrew-autoupdate/
 /mOS/macOS-disktools/
 /mOS/macOS-onboarder/
