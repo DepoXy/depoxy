@@ -119,14 +119,17 @@
 # DUNNO/2024-07-05: Fine, you win, Apple, you win.
 .DS_Store
 
+# Most (all?) of these projects will only be cloned when DepoXy is running
+# on a macOS host. (Though on Linux their directories may be stubbed.)
 /mOS/Docker-Desktop-OMR-install/
+/mOS/finicky/
 /mOS/GeekTool/
+/mOS/homebrew-autoupdate/
 /mOS/Karabiner-Elements/
 /mOS/Karabiner-Elephants/
-/mOS/finicky/
-/mOS/homebrew-autoupdate/
 /mOS/macOS-disktools/
 /mOS/macOS-onboarder/
+/mOS/macOS-skhibidirc/
 /mOS/.whilom/DefaultKeybindings.dict/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
