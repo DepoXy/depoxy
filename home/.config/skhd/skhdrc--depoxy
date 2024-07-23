@@ -5,34 +5,13 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# MacVim Docs — Systemwide — Open Unicode One-Sheet (Cmd-u)
-# - CXREF:
-#   - Opens ~/.kit/txt/emoji-lookup/emoji-lookup.rst
-#   - Using ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
-# - The `. depoxyrc` lets us honor user environs.
-cmd - u:
-  [ -f ~/.config/depoxy/depoxyrc ] \
-  && . ~/.config/depoxy/depoxyrc \
-  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
-      "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst"
+# ISOFF/2024-07-23: These bindings were moved to the Hammerspoon config:
+#
+#   ~/.depoxy/ambers/home/.hammerspoon/depoxy-hs.lua
+#
+# - See the old skhdrc bindings in the .OFF file:
+#
+#   ~/.depoxy/ambers/home/.config/skhd/skhdrc--depoxy.OFF
 
-# Systemwide — Foreground “dob” window (Cmd-d)
-# - CXREF: ~/.depoxy/ambers/bin/macOS/launchers/alacritty-front-window-dob.osa
-cmd - d:
-  [ -f ~/.config/depoxy/depoxyrc ] \
-  && . ~/.config/depoxy/depoxyrc \
-  && osascript "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/macOS/launchers/alacritty-front-window-dob.osa"
-
-# Very meta
-shift + cmd - r:
-  [ -f ~/.config/depoxy/depoxyrc ] \
-  && . ~/.config/depoxy/depoxyrc \
-  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
-      ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
-
-shift + alt - r:
-  [ -f ~/.config/depoxy/depoxyrc ] \
-  && . ~/.config/depoxy/depoxyrc \
-  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
-      ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 

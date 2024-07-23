@@ -1,0 +1,50 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=conf
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ISOFF/2024-07-23: These bindgings were migrated to Hammerspoon:
+#
+#   ~/.depoxy/ambers/home/.hammerspoon/depoxy-hs.lua
+#
+# - LATER: This file is being kept for short-term reference (in case
+#   there are any issues with the Hammerspoon config, and so you can
+#   compare skhd and Hammerspoon), but it will eventually be removed.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# MacVim Docs — Systemwide — Open Unicode One-Sheet (Cmd-u)
+# - CXREF:
+#   - Opens ~/.kit/txt/emoji-lookup/emoji-lookup.rst
+#   - Using ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
+# - The `. depoxyrc` lets us honor user environs.
+cmd - u:
+  [ -f ~/.config/depoxy/depoxyrc ] \
+  && . ~/.config/depoxy/depoxyrc \
+  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
+      "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst"
+
+# Systemwide — Foreground “dob” window (Cmd-d)
+# - CXREF: ~/.depoxy/ambers/bin/macOS/launchers/alacritty-front-window-dob.osa
+cmd - d:
+  [ -f ~/.config/depoxy/depoxyrc ] \
+  && . ~/.config/depoxy/depoxyrc \
+  && osascript "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/macOS/launchers/alacritty-front-window-dob.osa"
+
+# Very meta
+shift + cmd - r:
+  [ -f ~/.config/depoxy/depoxyrc ] \
+  && . ~/.config/depoxy/depoxyrc \
+  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
+      "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc/.config/skhd/skhdrc"
+
+shift + alt - r:
+  [ -f ~/.config/depoxy/depoxyrc ] \
+  && . ~/.config/depoxy/depoxyrc \
+  && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
+      "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
