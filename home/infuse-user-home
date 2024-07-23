@@ -68,6 +68,8 @@ infuse_symlinks_user_home_dotconfig () {
   # SKIPD: '.config/vagrant/Vagrantfile.template'
 }
 
+# ***
+
 infuse_symlinks_user_home_dotconfig_skhd () {
   if ! os_is_macos; then
 
@@ -149,9 +151,6 @@ infuse_symlinks_user_home_tigconfig () {
     warn "- Hint: Create and infuse DXC, then confirm:"
     warn "    ${dxc_root}/home/.config/tig/config"
   fi
-
-  # ***
-
 
   # ***
 
