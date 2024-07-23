@@ -119,7 +119,6 @@
 # DUNNO/2024-07-05: Fine, you win, Apple, you win.
 .DS_Store
 
-/mOS/DefaultKeybindings.dict/
 /mOS/Docker-Desktop-OMR-install/
 /mOS/GeekTool/
 /mOS/Karabiner-Elements/
@@ -128,6 +127,7 @@
 /mOS/homebrew-autoupdate/
 /mOS/macOS-disktools/
 /mOS/macOS-onboarder/
+/mOS/.whilom/DefaultKeybindings.dict/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 

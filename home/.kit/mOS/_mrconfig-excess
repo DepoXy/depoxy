@@ -9,6 +9,18 @@ order = 761
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# Old school magical file (magically undocumented).
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/.whilom/DefaultKeybindings.dict]
+lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
+skip = no_travel
+
+# LATER/2024-07-22: Remove this after migrating dirs on all hosts
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
+deleted = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # - Q: Why not use the Docker Desktop Homebrew cask?
 #
 #      - Author had issues with the cask, so prefers DMG install.

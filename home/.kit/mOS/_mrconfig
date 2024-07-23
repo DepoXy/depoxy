@@ -244,13 +244,6 @@ order = 481
 
 # ***
 
-# Old school magical file (magically undocumented).
-[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
-lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
-skip = no_travel
-
-# ***
-
 # Hammerspoon: *Powerful* keyboard customization
 #   https://www.hammerspoon.org/
 #   https://www.hammerspoon.org/Spoons/
