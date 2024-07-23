@@ -250,13 +250,14 @@ order = 481
 #   https://github.com/Hammerspoon/hammerspoon
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/hammerspoon]
 lib = remote_set starter https://github.com/Hammerspoon/hammerspoon.git
-# Unskip if you want to fiddle with sources, otherwise Hammerspoon
-# executable installed via Brew:
+# Hammerspoon executable installed via Brew:
 #   brew install --cask hammerspoon
-skip = true
+# But we'll keep a local copy for reference.
+skip = no_travel
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/hammerspoons]
 lib = remote_set starter https://github.com/Hammerspoon/Spoons.git "hammerspoons"
+skip = no_travel
 
 # “Opinionated `~/.hammerspoon/init.lua`”
 # https://github.com/DepoXy/macOS-Hammyspoony#🥄
