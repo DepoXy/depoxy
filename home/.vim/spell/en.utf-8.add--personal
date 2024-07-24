@@ -26,11 +26,13 @@ Firmlink
 Flathub
 Flatpak
 Hammerspoon
+Hammyspoony
 Heredoc
 JetBrains
 Jinja
 Jupyter
 LM
+Lua
 Moonlander
 NERDCommenter
 Neovim
@@ -84,6 +86,7 @@ findability
 firmlinks
 fixup
 foregrounder
+frontmost
 geeklet
 geeklets
 gitconfig
