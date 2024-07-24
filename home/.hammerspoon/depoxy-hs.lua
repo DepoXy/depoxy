@@ -77,17 +77,36 @@ end)
 
 -- skhdrc config
 -- - CXREF: ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
+--
+-- ISOFF/2024-07-24: `skhdrc` is (mostly) deprecated.
+-- - It's useful for at least <Cmd-Tab> binding, which Hammerspoon won't let you hook.
+--
+--     hs.hotkey.bind({"shift", "cmd"}, "R", function()
+--       gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc/.config/skhd/skhdrc")
+--     end)
 
-hs.hotkey.bind({"shift", "cmd"}, "R", function()
-  gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc/.config/skhd/skhdrc")
-end)
-
--- Very meta
+-- Meta (main macOS-Hammyspoony config)
+--
 -- - CXREF: ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 
 hs.hotkey.bind({"shift", "alt"}, "R", function()
   gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua")
 end)
+
+-- More meta (this file)
+
+hs.hotkey.bind({"shift", "cmd"}, "R", function()
+  gvim_open_kindness("${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.hammerspoon/depoxy-hs.lua")
+end)
+
+-- Client config
+--
+-- - CXREF: ~/.depoxy/running/home/.hammerspoon/client-hs.lua
+
+hs.hotkey.bind({"shift", "ctrl"}, "R", function()
+  gvim_open_kindness("${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua")
+end)
+
 
 -------
 
