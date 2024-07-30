@@ -32,23 +32,25 @@ _hf_locate () {
   # USAGE: User can set custom db path any time before calling `locate`.
   local db_path="${LOCATEDB_PATH:-${HOME}/.cache/locate/locate.db}"
 
-  if [ -f "${db_path}" ]; then
-    if command -v plocate > /dev/null; then
-      # Linux
-      command plocate --database "${db_path}" "$@"
-    elif command -v glocate > /dev/null; then
-      # macOS
-      command glocate --database "${db_path}" "$@"
-    else
-      echo "CHORE: Please install \`plocate\` (Linux) or \`glocate\` (macOS)"
+  local locate_cmd="$(_hf_locate_command)"
 
-      command locate --database "${db_path}" "$@"
-    fi
+  if [ "${locate_cmd}" = "mlocate" ]; then
+    echo "CHORE: Please install \`plocate\` (Linux) or \`glocate\` (macOS)"
+  fi
+
+  if [ -f "${db_path}" ]; then
+    command ${locate_cmd} --database "${db_path}" "$@"
   else
     echo "CHORE: Please create (or mount) ${db_path} (or set LOCATEDB_PATH)"
 
-    command locate "$@"
+    command ${locate_cmd} "$@"
   fi
+}
+
+# Linux uses `plocate` (old Lunux uses `mlocate`); Brew installs `glocate`.
+# - Don't `command -v locate` which is the alias.
+_hf_locate_command () {
+  command -v plocate || command -v glocate || command -v mlocate || echo locate
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
