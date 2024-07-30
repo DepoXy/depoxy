@@ -42,7 +42,7 @@ _hf_locate () {
     else
       echo "CHORE: Please install \`plocate\` (Linux) or \`glocate\` (macOS)"
 
-      command locate "$@"
+      command locate --database "${db_path}" "$@"
     fi
   else
     echo "CHORE: Please create (or mount) ${db_path} (or set LOCATEDB_PATH)"
