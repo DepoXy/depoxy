@@ -54,6 +54,7 @@ end
 -- MacVim Docs — Systemwide — Open Unicode One-Sheet (Cmd-u)
 -- - CXREF: ~/.kit/txt/emoji-lookup/emoji-lookup.rst
 
+-- BNDNG: <Cmd-U>
 hs.hotkey.bind({"cmd"}, "U", function()
   gvim_open_kindness("${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst")
 end)
@@ -61,6 +62,7 @@ end)
 -- Systemwide — Foreground “dob” window (Cmd-d)
 -- - CXREF: ~/.depoxy/ambers/bin/macOS/launchers/alacritty-front-window-dob.osa
 
+-- BNDNG: <Cmd-D>
 hs.hotkey.bind({"cmd"}, "D", function()
   -- MAYBE: Write function like `gvim_open_kindness` that sources depoxyrc,
   -- so could honor user path environs, e.g.,
@@ -89,12 +91,14 @@ end)
 --
 -- - CXREF: ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 
+-- BNDNG: <Shift-Alt-R>
 hs.hotkey.bind({"shift", "alt"}, "R", function()
   gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua")
 end)
 
 -- More meta (this file)
 
+-- BNDNG: <Shift-Cmd-R>
 hs.hotkey.bind({"shift", "cmd"}, "R", function()
   gvim_open_kindness("${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.hammerspoon/depoxy-hs.lua")
 end)
@@ -103,6 +107,7 @@ end)
 --
 -- - CXREF: ~/.depoxy/running/home/.hammerspoon/client-hs.lua
 
+-- BNDNG: <Shift-Ctrl-R>
 hs.hotkey.bind({"shift", "ctrl"}, "R", function()
   gvim_open_kindness("${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua")
 end)
