@@ -49,7 +49,7 @@ lib =
 # Or something, not quite sure what's up, but if you reset HEAD and run
 # tmux, the changes reappear.
 #
-#   $ git status --porcelain
+#   $ git status --porcelain=v1
 #    M scripts/install_plugins.sh
 #    M scripts/source_plugins.sh
 #    M scripts/update_plugin.sh
