@@ -518,9 +518,11 @@ _dxc_client_infuse () {
 
         local dob_config_dir="${user_config_dir}/dob"
 
-        symlink_mrinfuse_dir ".config/dob" "${dob_config_dir}"
+        if ! os_is_macos; then
+          symlink_mrinfuse_dir ".config/dob" "${dob_config_dir}"
+        else
+          symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_config_dir}"
 
-        if os_is_macos; then
           # For parity with Linux, if that's what you're used to.
           symlink_overlay_dir "${dob_config_dir}" ".config/dob"
         fi
