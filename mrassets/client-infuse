@@ -502,24 +502,25 @@ _dxc_client_infuse () {
   #       ln -sn ~/.depoxy/running/home/.config/dob/styling
 
   infuse_dob_config_if_exists () {
+    local mrinfuse_path
+    local user_config_dir
+    if ! os_is_macos; then
+      mrinfuse_path=".config/dob"
+      user_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
+    else
+      mrinfuse_path="Library/Application Support/dob"
+      user_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}"
+    fi
+
     local sourcep
-    if sourcep="$(path_to_mrinfuse_resolve ".config/dob")" \
+    if sourcep="$(path_to_mrinfuse_resolve "${mrinfuse_path}")" \
       && [ -d "${sourcep}" ] \
     ; then
-      local user_config_dir
-      if ! os_is_macos; then
-        user_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
-      else
-        user_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}"
-      fi
-
       local dob_config_dir="${user_config_dir}/dob"
 
-      if ! os_is_macos; then
-        symlink_mrinfuse_dir ".config/dob" "${dob_config_dir}"
-      else
-        symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_config_dir}"
+      symlink_mrinfuse_dir "${mrinfuse_path}" "${dob_config_dir}"
 
+      if os_is_macos; then
         # For parity with Linux, if that's what you're used to.
         symlink_overlay_dir "${dob_config_dir}" "${HOME}/.config/dob"
       fi
