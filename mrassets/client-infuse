@@ -474,10 +474,36 @@ _dxc_client_infuse () {
 
   # *** dob
 
+  # Infuse the dob.conf, plugins/ and styling/ config.
+  #
+  # - Note on Linux, the config is stored under ~/.config/dob
+  #   and the database under ~/.local/share/dob
+  #   - But on macOS, both are stored under
+  #     ~/Library/Application Support/dob
+  #
+  # - Unless user configures their Client otherwise, the Dob database
+  #   will be located in the same Client directory (via symlink) as the
+  #   config files, and the database will be auto-committed.
+  # - If user wants to keep their Dob database in another project,
+  #   they can clobber this symlink.
+  #   - I.e., after calling _dxc_client_infuse (this script),
+  #     call symlink_overlay_dir with the Dob database project
+  #     path. E.g.,
+  #       symlink_overlay_dir /path/to/my/dob/db \
+  #         "${HOME}/Library/Application Support/dob"
+  #     Or:
+  #       symlink_overlay_dir /path/to/my/dob/db \
+  #         "${HOME}/.local/share/dob"
+  #   - On macOS, the user will also want to add symlinks to the Client
+  #     assets, e.g.,
+  #       cd /path/to/my/dob/db
+  #       ln -sn ~/.depoxy/running/home/.config/dob/dob.conf
+  #       ln -sn ~/.depoxy/running/home/.config/dob/plugins
+  #       ln -sn ~/.depoxy/running/home/.config/dob/styling
+
   infuse_dob_config_if_exists () {
     (
       cd "${HOME}"
-      # Install "${XDG_CONFIG_HOME:-${HOME}/.config}/dob"
       MR_REPO="${HOME}"
       local sourcep
       if sourcep="$(path_to_mrinfuse_resolve ".config/dob")" \
@@ -499,6 +525,27 @@ _dxc_client_infuse () {
       fi
     )
   }
-  infuse_dob_config_if_exists
+
+  # As noted above, on Linux, the data directory is a separate path.
+  infuse_dob_data_directory () {
+    if os_is_macos; then
+      # On macOS, this path is same as the config path
+
+      return 0
+    fi
+
+    local user_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}"
+
+    local dob_data_dir="${user_data_dir}/dob"
+
+    symlink_mrinfuse_dir ".config/dob" "${dob_data_dir}"
+  }
+
+  infuse_dob_assets () {
+    infuse_dob_config_if_exists
+    infuse_dob_data_directory
+  }
+
+  infuse_dob_assets
 }
 
