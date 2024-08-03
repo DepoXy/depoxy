@@ -14,6 +14,9 @@ lib =
 # Don't symlink under ~/.projlns
 infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_project
 
+# See also MR_INCLUDE usage gaiting mr_cat calls, below.
+skip = mr_exclusive "vim" "DXC"
+
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 # On @Linux, `vim --version` reports:
 #   Compiled by ${USERNAME}@$(hostname)
