@@ -118,10 +118,11 @@ lib =
     ! os_is_macos || mr_exclusive
   }
 
-# Usually callers would specify a list of tags, e.g.,
+# Usually a project would specify a list of tags, e.g.,
 #   skip = mr_exclusive "python"
-# but when called without args, check for special MR_INCLUDE_REMOTE
-# environ. If specified, skip unless indicated remote exists.
+# but for projects without an explicit 'skip' action, check for
+# special MR_INCLUDE_REMOTE environ. If specified, skip unless
+# indicated remote exists.
 skip = mr_exclusive
 
 # ========================================================================
