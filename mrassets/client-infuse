@@ -521,7 +521,7 @@ _dxc_client_infuse () {
       symlink_mrinfuse_dir "${mrinfuse_path}" "${dob_config_dir}"
 
       if os_is_macos; then
-        # For parity with Linux, if that's what you're used to.
+        # Convenience link (and parity with Linux).
         symlink_overlay_dir "${dob_config_dir}" "${HOME}/.config/dob"
       fi
     fi
@@ -546,8 +546,26 @@ _dxc_client_infuse () {
       #
       #   symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_data_dir}"
 
-      # For parity with Linux, if that's what you're used to.
+      # Convenience link (and parity with Linux).
       symlink_overlay_dir "${user_data_dir}" "${HOME}/.local/share/dob"
+    fi
+  }
+
+  infuse_dob_log_directory () {
+    local user_data_dir
+    local dob_log_dir
+    if ! os_is_macos; then
+      user_data_dir="${XDG_CACHE_HOME:-${HOME}/.cache/dob/log}"
+      dob_log_dir="${user_data_dir}/dob/log"
+    else
+      user_data_dir="${XDG_CACHE_HOME:-${HOME}/Library/Logs}"
+      dob_log_dir="${user_data_dir}/dob"
+    fi
+
+    if os_is_macos; then
+      # Convenience link (and parity with Linux).
+      # - Also enables 
+      symlink_overlay_dir "${dob_log_dir}" "${HOME}/.cache/dob/log"
     fi
   }
 
@@ -558,6 +576,7 @@ _dxc_client_infuse () {
 
       infuse_dob_config_if_exists
       infuse_dob_data_directory
+      infuse_dob_log_directory
     )
   }
 
