@@ -389,6 +389,7 @@ installVirtualenvwrapper =
 infuse =
   local pyenv_completions=""
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
+    # E.g., /opt/homebrew/Cellar/pyenv/2.4.8/completions/pyenv.bash
     pyenv_completions="$(command ls -- "${HOMEBREW_PREFIX}/Cellar/pyenv/"*"/completions/pyenv.bash")"
   else
     pyenv_completions="${MR_REPO}/completions/pyenv.bash"
