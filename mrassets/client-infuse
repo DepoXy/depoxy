@@ -483,7 +483,19 @@ _dxc_client_infuse () {
       if sourcep="$(path_to_mrinfuse_resolve ".config/dob")" \
         && [ -d "${sourcep}" ] \
       ; then
-        symlink_mrinfuse_dir '.config/dob'
+        local user_config_dir
+        if ! os_is_macos; then
+          user_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
+        else
+          user_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}"
+        fi
+
+        symlink_mrinfuse_dir ".config/dob" "${user_config_dir}/dob"
+
+        if os_is_macos; then
+          # For parity with Linux, if that's what you're used to.
+          symlink_overlay_dir "${user_config_dir}/dob" ".config/dob"
+        fi
       fi
     )
   }
