@@ -502,52 +502,62 @@ _dxc_client_infuse () {
   #       ln -sn ~/.depoxy/running/home/.config/dob/styling
 
   infuse_dob_config_if_exists () {
-    (
-      cd "${HOME}"
-      MR_REPO="${HOME}"
-      local sourcep
-      if sourcep="$(path_to_mrinfuse_resolve ".config/dob")" \
-        && [ -d "${sourcep}" ] \
-      ; then
-        local user_config_dir
-        if ! os_is_macos; then
-          user_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
-        else
-          user_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}"
-        fi
-
-        local dob_config_dir="${user_config_dir}/dob"
-
-        if ! os_is_macos; then
-          symlink_mrinfuse_dir ".config/dob" "${dob_config_dir}"
-        else
-          symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_config_dir}"
-
-          # For parity with Linux, if that's what you're used to.
-          symlink_overlay_dir "${dob_config_dir}" ".config/dob"
-        fi
+    local sourcep
+    if sourcep="$(path_to_mrinfuse_resolve ".config/dob")" \
+      && [ -d "${sourcep}" ] \
+    ; then
+      local user_config_dir
+      if ! os_is_macos; then
+        user_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
+      else
+        user_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}"
       fi
-    )
+
+      local dob_config_dir="${user_config_dir}/dob"
+
+      if ! os_is_macos; then
+        symlink_mrinfuse_dir ".config/dob" "${dob_config_dir}"
+      else
+        symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_config_dir}"
+
+        # For parity with Linux, if that's what you're used to.
+        symlink_overlay_dir "${dob_config_dir}" "${HOME}/.config/dob"
+      fi
+    fi
   }
 
   # As noted above, on Linux, the data directory is a separate path.
   infuse_dob_data_directory () {
-    if os_is_macos; then
-      # On macOS, this path is same as the config path
-
-      return 0
+    local user_data_dir
+    if ! os_is_macos; then
+      user_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}"
+    else
+      user_data_dir="${XDG_DATA_HOME:-${HOME}/Library/Application Support}"
     fi
-
-    local user_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}"
 
     local dob_data_dir="${user_data_dir}/dob"
 
-    symlink_mrinfuse_dir ".config/dob" "${dob_data_dir}"
+    if ! os_is_macos; then
+      symlink_mrinfuse_dir ".config/dob" "${dob_data_dir}"
+    else
+      # On macOS, this path is same as the config path, so this
+      # does same as what infuse_dob_config_if_exists just did:
+      #
+      #   symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_data_dir}"
+
+      # For parity with Linux, if that's what you're used to.
+      symlink_overlay_dir "${user_data_dir}" "${HOME}/.local/share/dob"
+    fi
   }
 
   infuse_dob_assets () {
-    infuse_dob_config_if_exists
-    infuse_dob_data_directory
+    (
+      cd "${HOME}"
+      MR_REPO="${HOME}"
+
+      infuse_dob_config_if_exists
+      infuse_dob_data_directory
+    )
   }
 
   infuse_dob_assets
