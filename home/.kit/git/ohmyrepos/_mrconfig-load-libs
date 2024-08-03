@@ -101,17 +101,17 @@ isInstalled = true
 
 [DEFAULT]
 
-lib =
-  skip_unless_macOS_or_checkout_or_ffssh () {
-    if ! os_is_macos; then
-      true \
-      && [ "${MR_ACTION}" != "checkout" ] \
-      && [ "${MR_ACTION}" != "ffssh" ]
-    else
-      # Check MR_INCLUDE_REMOTE
-      mr_exclusive
-    fi
-  }
+# lib =
+#   skip_unless_macOS_or_checkout_or_ffssh () {
+#     if ! os_is_macos; then
+#       true \
+#       && [ "${MR_ACTION}" != "checkout" ] \
+#       && [ "${MR_ACTION}" != "ffssh" ]
+#     else
+#       # Check MR_INCLUDE_REMOTE
+#       mr_exclusive
+#     fi
+#   }
 
 lib =
   skip_unless_macOS () {
