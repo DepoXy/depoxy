@@ -3,6 +3,13 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# CXREF: This file implicitly loaded by:
+#
+#   [${MR_HOME:-${HOME}}/.vim]
+#   chain = true
+#
+# ~/.depoxy/ambers/home/_mrconfig-core
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
