@@ -388,7 +388,8 @@ main () {
 
 
 # Run the infuser iff being executed.
-if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+SCRIPT_NAME="infuse-platform-macOS"
+if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
   main "$@"
 fi
 

@@ -1,3 +1,4 @@
+#/bin/sh
 # vim:tw=0:ts=2:sw=2:et:norl:ft=bash
 # Author: Landon Bouma <https://tallybark.com/>
 # Project: https://github.com/DepoXy/depoxy#🍯
@@ -367,7 +368,8 @@ main () {
 }
 
 # Run the installer iff being executed.
-if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+SCRIPT_NAME="install-ohmyrepos.sh"
+if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
   main "$@"
 fi
 

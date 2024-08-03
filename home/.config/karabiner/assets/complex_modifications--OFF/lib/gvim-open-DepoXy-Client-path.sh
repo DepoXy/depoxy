@@ -18,7 +18,8 @@ main () {
 }
 
 # Run the function iff being executed.
-if ! $(printf %s "$0" | grep -q -E '(^-?|\/)(ba|da|fi|z)?sh$' -); then
+SCRIPT_NAME="gvim-open-DepoXy-Client-path.sh"
+if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
   main "$@"
 fi
 
