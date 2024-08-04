@@ -99,9 +99,25 @@ _dxy_wire_alias_git_popX () {
 
   if git help popn > /dev/null 2>&1; then
     for ord in {1..9}; do
-      claim_alias_or_warn "p${ord}" "git pop${ord}"
+      claim_alias_or_warn "p${ord}" "_dxy_git_popX ${ord}"
     done
   fi
+}
+
+_dxy_git_popX () {
+  local ord="$1"
+
+  git pop${ord}
+
+  # Leave commented command in history, e.g.,
+  #   #p1
+  #   #p2
+  # etc. To keep egg of the user's face in case then <Up> and <Enter>
+  # too fast in their terminal, or otherwise accidently run a history
+  # item.
+  history -s "#$( \
+    history 1 | /usr/bin/env sed -E 's/^ *[0-9]+ +[-0-9]+ +[:0-9]+ //'
+  )"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
