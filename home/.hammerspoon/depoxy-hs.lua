@@ -64,17 +64,11 @@ end)
 
 -- BNDNG: <Cmd-D>
 hs.hotkey.bind({"cmd"}, "D", function()
-  -- MAYBE: Write function like `gvim_open_kindness` that sources depoxyrc,
-  -- so could honor user path environs, e.g.,
-  --
-  --   depoxy_applescript_runner(
-  --     "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/macOS/launchers/alacritty-front-window-dob.osa"
-  --   )
-  --
-  -- For now, the path is hard-coded.
-  hs.osascript.applescriptFromFile(
-    os.getenv("HOME") .. "/.depoxy/ambers/bin/macOS/launchers/alacritty-front-window-dob.osa"
-  )
+  local dob_window = hs.window.find('dob edit')
+
+  if dob_window then
+    dob_window:raise():focus()
+  end
 end)
 
 -- skhdrc config
