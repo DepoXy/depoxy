@@ -52,7 +52,7 @@ installLinux =
 
 installVim =
   # Ensure `pyenv` not in effect.
-  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  pyenv_shell_unset
   #
   # Suss the --with-python3-config-dir=<path>.
   # - SAVVY/2023-04-20: `pyenv root` is, e.g., ~/.pyenv

@@ -341,7 +341,7 @@ installLinux =
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
 #     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
 installpythons =
-  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  pyenv_shell_unset
   # Install all supported Pythons so they're at the ready.
   #   -s: --skip-existing
   # USYNC: pyenv-install-pys
@@ -371,7 +371,7 @@ installpythons =
 # WIRET: Support `workon` from all pyenv envs.
 # - REFER: https://github.com/landonb/virtualenvwrapper
 installVirtualenvwrapper =
-  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  pyenv_shell_unset
   #
   for pyvers in $(pyenv versions | sed 's/^[^ ]* *\([^ ]\+\)*.*/\1/'); do
     pyenv shell ${pyvers}
@@ -519,13 +519,13 @@ rebase =
 push =
   rebase_tip_push_liminal_tag
 isInstalled =
-  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  pyenv_shell_unset
   #
   python3 -c "import importlib.util, sys;" \
     "importlib.util.find_spec('virtualenvwrapper') is None and sys.exit(1)"
 install =
   # Ensure `pyenv` not in effect.
-  command -v pyenv > /dev/null && eval "$(pyenv init -)" && pyenv shell --unset
+  pyenv_shell_unset
   #
   # Note there's a `make develop` option, but a few problems:
   # - On stock Ubuntu 22.04/Mint 21.3, you won't find /usr/bin/python
