@@ -126,6 +126,7 @@ revive_or_die_placeholder_assets () {
 
     # Allow easy renaming: remove any file with same prefix (we'll recreate
     # it if necessary; or leave it removed if corresponding symlink exists).
+    find . -maxdepth 1 -type f -iname "${prefix}*" -exec git rm -- {} +
     find . -maxdepth 1 -type f -iname "${prefix}*" -exec rm -- {} +
 
     if test -n "$(find . -maxdepth 1 -type l -iname "${prefix}*")"; then
@@ -140,12 +141,49 @@ revive_or_die_placeholder_assets () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+insist_tidy () {
+  if ! git diff --cached --quiet; then
+    >&2 echo "ERROR: Please commit or cleanup staged changes first"
+
+    exit 1
+  fi
+
+  if [ -n "$(git_status_porcelain)" ]; then
+    >&2 echo "ERROR: Please commit or cleanup unstaged changes first"
+
+    exit 1
+  fi
+}
+
+
+git_status_porcelain () {
+  git status --porcelain=v1
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+commit_notable_notes_changes () {
+  # Commit files staged by `git-rm`
+  PRIVATE_ACI="${PRIVATE_ACI:-PRIVATE: autoci*}"
+  git commit -m "${PRIVATE_ACI}: Docs: Remove old notable-notes placeholder(s)"
+
+  # Commit new files
+  git add .
+  git commit -m "${PRIVATE_ACI}: Docs: Insert new notable-notes placeholder(s)"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 main () {
   local docs_dir="${1:-.}"
 
   cd "${docs_dir}"
 
+  insist_tidy
+
   manage_netrw_placeholders
+
+  commit_notable_notes_changes
 }
 
 # Run iff executed.
