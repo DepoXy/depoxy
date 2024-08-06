@@ -7,6 +7,13 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF: /opt/homebrew/etc/bash_completion.d/pass
+#   -> /opt/homebrew/Cellar/pass/1.7.4/etc/bash_completion.d/pass
+#
+# MAYBE/2024-08-06: Use the non-versioned path and avoid the silly glob.
+# - DUNNO: Did I not know about /opt/homebrew/etc/bash_completion.d/
+#   before, or is it new these past few years?
+
 _dxy_wire_completion_pass () {
   # In lieu of needing to update the path occassionally, e.g.,
   #     pass_complete="/usr/local/Cellar/pass/1.7.3/etc/bash_completion.d/pass"
