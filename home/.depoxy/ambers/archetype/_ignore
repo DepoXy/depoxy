@@ -8,5 +8,10 @@
 #   the --purged copy you have @home against the template.
 home/.vimprojects.EVAL
 
+# Convenience symlink -> "Application Support" so we can use
+# Vim `gf` command on paths thereunder, e.g.,
+#   ~/.depoxy/ambers/archetype/home/Library/Application_Support/dob/dob.EVAL.conf
+/home/Library/Application_Support
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
