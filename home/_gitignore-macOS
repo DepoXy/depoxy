@@ -217,6 +217,11 @@
 /.bundle/cache/compact_index/
 /.gem/
 
+# Perl `cpan` command
+/.cpan/
+# `cpan <module>` installed packages
+/perl5/
+
 # If you accidentally send a print job (because who prints?).
 /.cups/
 
