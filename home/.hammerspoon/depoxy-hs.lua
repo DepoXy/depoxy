@@ -66,6 +66,13 @@ end)
 hs.hotkey.bind({"cmd"}, "D", function()
   local dob_window = hs.window.find('dob edit')
 
+  if not dob_window then
+    -- SAVVY: The window title is controlled by Homefries:
+    --   tmux_conf_theme_terminal_title='#T ┇ #{=3:session_name}'
+    -- - CXREF: ~/.kit/sh/home-fries/.tmux.conf.local
+    dob_window = hs.window.find('┇ ham')
+  end
+
   if dob_window then
     dob_window:raise():focus()
   end
