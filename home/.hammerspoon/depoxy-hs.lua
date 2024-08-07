@@ -71,6 +71,8 @@ hs.hotkey.bind({"cmd"}, "D", function()
   end
 end)
 
+-------
+
 -- skhdrc config
 -- - CXREF: ~/.kit/mOS/macOS-skhibidirc/.config/skhd/skhdrc
 --
@@ -105,7 +107,6 @@ end)
 hs.hotkey.bind({"shift", "ctrl"}, "R", function()
   gvim_open_kindness("${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua")
 end)
-
 
 -------
 
