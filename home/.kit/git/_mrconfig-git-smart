@@ -18,6 +18,7 @@ order = 470
 lib = remote_set publish https://github.com/landonb/git-smart.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
+  link_hard_dep_tig_newtons
   link_hard_dep_sh_git_nubs
 # CXREF: For the infuser that places ~/.gitconfig, see:
 #   ~/.depoxy/ambers/home/infuse-user-home

@@ -86,6 +86,21 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
+  update_deps_git_tig_newtons () {
+    [ -d "deps/tig-newtons" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons"
+
+    update_faithful_file \
+      "deps/tig-newtons/bin/editor-vim-0-0-insert-minimal" \
+      "bin/editor-vim-0-0-insert-minimal"
+    update_faithful_file \
+      "deps/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc" \
+      "bin/editor-vim-0-0-insert-minimal.vimrc"
+
+    update_faithful_finish_signed
+  }
+
   update_deps_macOS_disktools () {
     [ -d "deps/macOS-disktools" ] || return 0
 
@@ -231,6 +246,7 @@ update_deps_shoilerplate () {
   update_deps_git_smart_git_abort
   update_deps_git_smart_git_fup
   update_deps_git_update_faithful
+  update_deps_git_tig_newtons
   update_deps_macOS_disktools
   update_deps_sh_ask_yesnoskip
   update_deps_sh_colors
@@ -259,6 +275,13 @@ link_hard_dep_git_smart_git_fup () {
 link_hard_dep_git_update_faithful () {
   link_hard "${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful/lib/update-faithful.sh" \
     "deps/git-update-faithful/lib/update-faithful.sh"
+}
+
+link_hard_dep_tig_newtons () {
+  link_hard "${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons/bin/editor-vim-0-0-insert-minimal" \
+    "deps/tig-newtons/bin/editor-vim-0-0-insert-minimal"
+  link_hard "${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc" \
+    "deps/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc"
 }
 
 link_hard_dep_macOS_disktools () {
