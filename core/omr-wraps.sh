@@ -60,12 +60,27 @@ aci () {
 
   # ***
 
-  local no_recurse=""
-  if [ "${proj_path}" != "/" ]; then
-    no_recurse="-n"
-  fi
+  # Because -n[o-recurse], fails if run from project subdirectory.
+  # - This check useful to ensure command is being run on the intended
+  #   repo (i.e., without user verifying MR_REPO themselves).
+  # - But autocommit command is harmless, so allow running from subdir.
+  #   - Note if run from a project that's not registered with OMR, runs
+  #     on parent project that is.
+  # SAVVY/2024-08-09: There's an issue running `mr -d` without `-n`
+  # from subdir: it identifies the project (MR_REPO) as the grand-parent
+  # project. So cd to root (and still use `-n`).
 
-  mr -d "${proj_path}" ${no_recurse} autocommit -y "$@"
+  if [ "${proj_path}" = "/" ]; then
+    mr -d / autocommit -y "$@"
+  else
+    local no_recurse="-n"
+
+    (
+      cd "$(git root)"
+
+      mr -d "${proj_path}" ${no_recurse} autocommit -y "$@"
+    )
+  fi
 }
 
 # ***
