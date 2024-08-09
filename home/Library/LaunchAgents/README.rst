@@ -80,7 +80,7 @@ assets whenever possible).
 - Note you'll see a popup telling you *Background Items Added*,
   and that you can manage the new agent from System Settings.
 
-  - The new agent should be mostly ready by default.
+  - The new agent should be ready to be enabled by default.
 
   - AFAIK, you don't (or at least the author didn't) need to
     ``bootstrap`` the item::
