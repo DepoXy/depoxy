@@ -89,6 +89,14 @@ infuse_create_symlinks_omr_scattered () {
   #   but then we have to realpath, sort, and remove duplicates, and also
   #   inhibit stderr (e.g., "find: File system loop detected; ...").
   while IFS= read -r -d $'\0' path; do
+    # USAGE: Create local opt-out file (author cannot think of another
+    # easy way to let projects opt-out of being symlinked).
+    # - Use case: DepoXy Client flast.sh/ vendor-publishable repo.
+    if has_mredit_optout_file "${path}"; then
+
+      continue
+    fi
+
     link_deep "${path}"
   done < <( \
     find \
@@ -128,6 +136,14 @@ infuse_create_symlinks_omr_scattered () {
 
 gnu_uniq () {
   command -v guniq || command -v uniq
+}
+
+has_mredit_optout_file () {
+  local path="$1"
+
+  local exclude_signal="$(dirname -- "${path}")/${MREDIT_OPTOUT_FILE:-.mredit-optout}"
+
+  [ -f "${exclude_signal}" ]
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
