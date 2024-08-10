@@ -328,7 +328,7 @@ infuse =
     create_guard_repo
   fi
 
-skip = mr_exclusive "kit" "depoxy" "entrusted" "DXC" "${LOGNAME}"
+skip = mr_exclusive "kit" "depoxy" "DXC" "${LOGNAME}"
 
 # USAGE: Override these action if you want to sync this repo between hosts.
 # - Create a file at ~/.depoxy/running/home/.kit/_mrconfig-kit-include

@@ -70,6 +70,7 @@ updateDeps =
 # https://github.com/DepoXy/git-put-wise#🥨
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-put-wise]
 lib = remote_set publish https://github.com/DepoXy/git-put-wise.git
+skip = mr_exclusive "entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -h "${HOME}/.local/bin/git-put-wise"
 install = PREFIX=~/.local make install
@@ -99,6 +100,7 @@ updateDeps =
 # SLUGL: "Esoteric fork management"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-rebase-tip]
 lib = remote_set publish https://github.com/landonb/git-rebase-tip.git
+skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_git_nubs
   link_hard_dep_sh_logger_and_colors
