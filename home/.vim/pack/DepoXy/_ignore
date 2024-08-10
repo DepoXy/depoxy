@@ -11,12 +11,15 @@ start/dubs_project_tray/.vimprojects
 
 # Ignore symlinks to chosen shell syntax file.
 start/dubs_ftype_mess/syntax/bash.vim
+# -> sh-Version_203-lb.vim
 start/dubs_ftype_mess/syntax/sh.vim
 # Ignore all but the currently wired shell syntax file.
 start/dubs_ftype_mess/syntax/sh-Version_131.vim
 start/dubs_ftype_mess/syntax/sh-Version_165.vim
 start/dubs_ftype_mess/syntax/sh-Version_185.vim
+start/dubs_ftype_mess/syntax/sh-Version_189-lb.vim
 start/dubs_ftype_mess/syntax/sh-Version_189.vim
-# This is the shell syntax file that's currently hot:
-#  start/dubs_ftype_mess/syntax/sh-Version_189-lb.vim
+start/dubs_ftype_mess/syntax/sh-Version_203.vim
+# The currently active (latest-ish) shell syntax file:
+#  start/dubs_ftype_mess/syntax/sh-Version_203-lb.vim
 
