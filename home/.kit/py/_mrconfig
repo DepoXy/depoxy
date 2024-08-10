@@ -376,6 +376,10 @@ installVirtualenvwrapper =
   pyenv_shell_unset
   #
   for pyvers in $(pyenv versions | sed 's/^[^ ]* *\([^ ]\+\)*.*/\1/'); do
+    echo
+    echo "Installing virtualenvwrapper to: ${pyvers}"
+    echo
+    #
     pyenv shell ${pyvers}
     #
     python3 -m pip install --upgrade pip
