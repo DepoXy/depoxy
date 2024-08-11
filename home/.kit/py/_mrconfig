@@ -373,6 +373,75 @@ installpythons =
 # Install virtualenvwrapper to all environments.
 # - UCASE: Support `workon` from all pyenv envs.
 # - REFER: https://github.com/landonb/virtualenvwrapper
+# - BWARE: On Linux, both system Python and the pyenv Python version
+#   of the same Major.Minor version include the same path on sys.path
+#   be default.
+#   - Because of this, if the module is installed to the system version
+#     first, and then to the pyenv version, then the second install will
+#     *uninstall* the system virtualenvwrapper (under ~/.local/lib/).
+#   - To avoid this, set PYTHONNOUSERSITE=true when working with the
+#     pyenv version.
+#   - Note this doesn't affect macOS because its USER_SITE for system
+#     Python (which is a "framework build") is under ~/Library/Python,
+#     and not under ~/.local/lib.
+#     - Although if you told pyenv to make framework builds, e.g.,
+#         PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.9.19
+#       then you might have the same problem on macOS [I didn't check].
+#   - REFER:
+#     - PEP 470, *Per user site-packages directory*:
+#         https://peps.python.org/pep-0370/
+#       - Says both Linux and macOS will use ~/local/lib for user site dir.
+#       - Also says Framework build will *add* ~/Library/Python as additional
+#         search path (but nothing about using a different USER_SITE).
+#         - This was sparked by python-dev discussion about adding
+#           ~/Library path for macOS Framework builds:
+#             https://mail.python.org/pipermail/python-dev/2008-January/076236.html
+#         - A "frameword build" includes macOS Cocoa bindings for Python GUI apps.
+#           macOS system Python is a framework build, but not the pyenv
+#           builds, unless you enable it.
+#     - The USER_SITE doc correctly defines the two different paths:
+#         https://docs.python.org/3/library/site.html#site.USER_SITE
+#     - Our solution is to set PYTHONNOUSERSITE to inhibit adding user
+#       site-packages to sys.path:
+#         https://docs.python.org/3.3/using/cmdline.html#envvar-PYTHONNOUSERSITE
+#       - Internally, this sets site.ENABLE_USER_SITE=False, and it
+#         keeps USER_SITE from being added to sys.path.
+#     - Also discussed in a pyenv issue, since closed with a *WFM* though
+#       I think it's still an issue (or at least, *doesn't work for me*):
+#         https://github.com/pyenv/pyenv/issues/1606
+#   - REFER: To show you what's up, let's compare system Python (3.10.12),
+#     pyenv 3.10.13, and pyenv 3.11.8:
+#         @linux $ pyenv shell system && python3 -m site   # Python 3.10.12
+#           sys.path = [
+#               ...
+#               '/home/user/.local/lib/python3.10/site-packages',
+#           ...
+#           USER_SITE: '/home/user/.local/lib/python3.10/site-packages' (exists)
+#         @linux $ pyenv shell 3.10 && python3 -m site     # Python 3.10.13
+#           sys.path = [
+#               ...
+#               '/home/user/.local/lib/python3.10/site-packages',  # Same as system Python!
+#           ...
+#           USER_SITE: '/home/user/.local/lib/python3.10/site-packages' (exists)
+#         @linux $ pyenv shell 3.11 && python3 -m site     # Python 3.11.8
+#           sys.path = [
+#               ...
+#               '/home/user/.pyenv/versions/3.11.8/lib/python3.11/site-packages',
+#           ...
+#           USER_SITE: '/home/landonb/.local/lib/python3.11/site-packages' (doesn't exist)
+#     - And for fun, this is why macOS does not have the problem:
+#         @macos $ pyenv shell system && python3 -m site  # Python 3.9.6
+#           sys.path = [
+#               ...
+#               '/Users/user/Library/Python/3.9/lib/python/site-packages',
+#           ...
+#           USER_SITE: '/Users/user/Library/Python/3.9/lib/python/site-packages' (exists)
+#         @macos $ pyenv shell 3.9.19 && python3 -m site  # Python 3.9.19
+#           sys.path = [
+#               ...
+#               '/Users/user/.pyenv/versions/3.9.19/lib/python3.9/site-packages',
+#           ...
+#           USER_SITE: '/Users/user/.local/lib/python3.9/site-packages' (doesn't exist)
 installVirtualenvwrapper =
   pyenv_shell_unset
   #
@@ -383,6 +452,12 @@ installVirtualenvwrapper =
     #
     pyenv shell ${pyvers}
     #
+    if [ "${pyvers}" = "system" ]; then
+      unset PYTHONNOUSERSITE
+    else
+      export PYTHONNOUSERSITE=true
+    fi
+    #
     python3 -m pip install --upgrade pip
     #
     vew_fork="${VENV_WRAP:-${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper}"
@@ -392,6 +467,8 @@ installVirtualenvwrapper =
     fi
     python3 -m pip install "${vew_name}"
   done
+  #
+  unset PYTHONNOUSERSITE
 
 infuse =
   local pyenv_completions=""
