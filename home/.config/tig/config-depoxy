@@ -209,6 +209,10 @@ bind generic <C-b> >sh -c " \
 #   when I demo the option, I don't see anything change.
 #     '%' -> :set file-filter [no|yes]
 # Here we "steal" % for resorting scoped commits.
+# - Note that "000..." is %(commit) for Unstaged and Staged changes.
+#   - Replace with HEAD; and along with magic_starting_ref=true tells
+#     git sort-by-scope to rebase since latest "published" commit, e.g.,
+#     upstream branch or pw/in tag marker.
 
 bind generic % >sh -c " \
   git_sort_by_scope__rebase_________________ () { \
@@ -216,9 +220,15 @@ bind generic % >sh -c " \
       && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
       && return 1 || true; \
     \
+    local starting_ref=\"%(commit)\"; \
+    if [ \"${starting_ref}\" = \"0000000000000000000000000000000000000000\" ]; then \
+      starting_ref=\"HEAD\"; \
+    fi; \
+    \
     local retcode; \
     \
-    git rebase-sort-by-scope-protected-private %(commit); \
+    git rebase-sort-by-scope-protected-private \
+      \"${starting_ref}\" \
       \"${_magic_starting_ref:-true}\" \
       \"${_enable_gpg_sign:-false}\" \
       \"${_insist_signing_key:-false}\"; \
@@ -252,9 +262,15 @@ bind generic <C-g> >sh -c " \
       && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
       && return 1 || true; \
     \
+    local starting_ref=\"%(commit)\"; \
+    if [ \"${starting_ref}\" = \"0000000000000000000000000000000000000000\" ]; then \
+      starting_ref=\"HEAD\"; \
+    fi; \
+    \
     local retcode; \
     \
-    git rebase-sort-by-scope-protected-private %(commit) \
+    git rebase-sort-by-scope-protected-private \
+      \"${starting_ref}\" \
       \"${_magic_starting_ref:-true}\" \
       \"${_enable_gpg_sign:-true}\" \
       \"${_insist_signing_key:-true}\"; \
