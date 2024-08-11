@@ -46,6 +46,9 @@
 # CODEP: GS_GITCFG_SPARE_SYMLN: ~/.gitconfig
 /home/.gitconfig
 
+# -> ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
+/home/.hammerspoon/init.lua
+
 # Symlink for historical location:
 #  -> .kit/sh/home-fries/
 /home/.homefries
