@@ -366,6 +366,15 @@ main () {
 
   # ***
 
+  # Add private (scoped) slather script:
+  # - Defines `depoxy_configure_private`
+  # USAGE: Fork DepoXy and add your own "PROTECTED: " commit
+  # that adds "slather-defaults--PRIVATE.sh"; then push to a
+  # private GH repo on the 'entrust' remote; setup a GH app
+  # password to access the 'entrust' remote from the vendor
+  # host; and finally pull DepoXy from 'entrust' remote onto
+  # the vendor host, and setup DepoXy.
+
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
   # USAGE: See note atop depoxy_configure_private if you'd like to
