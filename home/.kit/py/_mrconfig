@@ -370,7 +370,8 @@ installpythons =
   #  pyenv install -s 3.5.10
   #  pyenv install -s 3.6.15
   #
-# WIRET: Support `workon` from all pyenv envs.
+# Install virtualenvwrapper to all environments.
+# - UCASE: Support `workon` from all pyenv envs.
 # - REFER: https://github.com/landonb/virtualenvwrapper
 installVirtualenvwrapper =
   pyenv_shell_unset
