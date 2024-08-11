@@ -219,6 +219,9 @@ bind generic % >sh -c " \
     local retcode; \
     \
     git rebase-sort-by-scope-protected-private %(commit); \
+      \"${_magic_starting_ref:-true}\" \
+      \"${_enable_gpg_sign:-false}\" \
+      \"${_insist_signing_key:-false}\"; \
     retcode=$?; \
     \
     GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
@@ -252,7 +255,9 @@ bind generic <C-g> >sh -c " \
     local retcode; \
     \
     git rebase-sort-by-scope-protected-private %(commit) \
-      ${_enable_gpg_sign:-true} ${_insist_signing_key:-true}; \
+      \"${_magic_starting_ref:-true}\" \
+      \"${_enable_gpg_sign:-true}\" \
+      \"${_insist_signing_key:-true}\"; \
     retcode=$?; \
     \
     GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
