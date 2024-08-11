@@ -387,6 +387,18 @@ main () {
 
   # ***
 
+  # Hammyspoony uses `eventtap` to remap bindings for non-Cocoa apps
+  # that do not honor `defaults` NSUserKeyEquivalents changes.
+  # - But here we add NSUserKeyEquivalents changes so that the application
+  #   drop-down menus show the keybindings that Hammerspoon uses.
+  #   - I know, right! Convoluted sol'n A'F.
+
+  . "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/bin/slather-defaults.sh"
+
+  slather_macos_defaults_hammyspoony "$@"
+
+  # ***
+
   slather_macos_defaults "$@"
 
   # ***
