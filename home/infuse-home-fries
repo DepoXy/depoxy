@@ -116,30 +116,6 @@ setup_public_fries_dot_files () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# Homefries defines a `bexit` command when you run `bash` from within
-# a shell, so you can easily exit subshells but not the enclosing shell.
-# - Generally, you can `be<TAB>` to auto-complete `bexit`, except
-#   @macos Homebrew imagemagick installs `benchmark_xl`.
-#   So `bex<TAB>`? I don't think so. Rename the conflict that we don't use.
-# - At least I think it's from imagemagick:
-#     /opt/homebrew/bin/benchmark_xl ->
-#       /opt/homebrew/Cellar/jpeg-xl/0.7.0_1/bin/benchmark_xl
-setup_homefries_bexit_deconflict_imagemagick_benchmark_xl () {
-  local brew_bin="$(dirname -- "$(_depoxy_print_homebrew_path)")"
-
-  local conflict="${brew_bin}/benchmark_xl"
-  local renamed="${brew_bin}/jpeg-xl--benchmark_xl"
-
-  if [ -f "${conflict}" ]; then
-    command mv -- "${conflict}" "${renamed}"
-
-    info " Renamed $(font_highlight "${conflict}") → $(font_highlight "${renamed}")" \
-      "to avoid completion competition"
-  fi
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 main () {
   set -e
 
@@ -163,8 +139,6 @@ main () {
   link_hard_dep_shoilerplate
 
   setup_public_fries_dot_files
-
-  setup_homefries_bexit_deconflict_imagemagick_benchmark_xl
 
   cd "${before_cd}"
 }
