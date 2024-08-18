@@ -547,7 +547,7 @@ _dxc_client_infuse () {
       #   symlink_mrinfuse_dir "Library/Application Support/dob" "${dob_data_dir}"
 
       # Convenience link (and parity with Linux).
-      symlink_overlay_dir "${user_data_dir}" "${HOME}/.local/share/dob"
+      symlink_overlay_dir "${dob_data_dir}" "${HOME}/.local/share/dob"
     fi
   }
 
