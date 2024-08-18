@@ -95,25 +95,29 @@ end)
 -- - CXREF: ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 
 -- BNDNG: <Shift-Alt-R>
-hs.hotkey.bind({"shift", "alt"}, "R", function()
+shift_alt_r = hs.hotkey.bind({"shift", "alt"}, "R", function()
   gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua")
 end)
 
 -- More meta (this file)
 
 -- BNDNG: <Shift-Cmd-R>
-hs.hotkey.bind({"shift", "cmd"}, "R", function()
+shift_cmd_r = hs.hotkey.bind({"shift", "cmd"}, "R", function()
   gvim_open_kindness("${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.hammerspoon/depoxy-hs.lua")
 end)
+
+ignore_hotkey_slack(shift_cmd_r)
 
 -- Client config
 --
 -- - CXREF: ~/.depoxy/running/home/.hammerspoon/client-hs.lua
 
 -- BNDNG: <Shift-Ctrl-R>
-hs.hotkey.bind({"shift", "ctrl"}, "R", function()
+shift_ctrl_r = hs.hotkey.bind({"shift", "ctrl"}, "R", function()
   gvim_open_kindness("${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua")
 end)
+
+ignore_hotkey_slack(shift_ctrl_r)
 
 -------
 
