@@ -217,8 +217,10 @@
 /.bundle/cache/compact_index/
 /.gem/
 
-# Perl `cpan` command
+# Perl `cpan` command (e.g., `cpan Acme::Cow`)
 /.cpan/
+# Perl `cpanm` command (e.g., `cpanm --uninstall Acme::Cow`)
+/.cpanm
 # `cpan <module>` installed packages
 /perl5/
 
