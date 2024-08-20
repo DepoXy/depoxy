@@ -119,8 +119,21 @@ st () {
 #   fancy status like the `st` and `sf` reports show (where the spacing might
 #   look a little weird for a single line, when not appearing alongside others).
 stt () {
-  local exclusive="$1"
-  [ -n "${exclusive}" ] && exclusive="MR_INCLUDE=${exclusive}"
+  local exclusive_or_path="$1"
+
+  local exclusive=""
+  local proj_path="/"
+
+  if [ -d "${exclusive_or_path}" ]; then
+    local proj_path="${exclusive_or_path}"
+  elif [ -n "${exclusive_or_path}" ]; then
+    exclusive="MR_INCLUDE=${exclusive_or_path}"
+  fi
+
+  local no_recurse=""
+  if [ "${proj_path}" != "/" ]; then
+    no_recurse="-n"
+  fi
 
   local jobs="-j 10"
 
@@ -128,7 +141,7 @@ stt () {
     SHCOLORS_OFF=false \
     ${exclusive} \
     OMR_MYSTATUS_FANCY=${OMR_MYSTATUS_FANCY:-false} \
-    mr -d / ${jobs} mystatus
+    mr -d "${proj_path}" ${no_recurse} ${jobs} mystatus
   "
 
   true
