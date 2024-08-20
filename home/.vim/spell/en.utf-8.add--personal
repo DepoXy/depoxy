@@ -21,6 +21,7 @@ DBeaver
 DXY # aka "DepoXy Ambers"
 DepoXy's
 DisplayPort
+Dockerfile
 EditorConfig
 Firmlink
 Flathub
@@ -57,6 +58,7 @@ args
 auth
 backoff
 befinance
+bg
 blocklisted
 blocklisting
 cd'd
@@ -81,6 +83,7 @@ envs
 errexit
 fcn
 fcns
+fg
 filesystems
 findability
 firmlinks
@@ -123,6 +126,7 @@ python3
 repo's
 rsync
 rsynced
+sed
 sendmail
 skhdrc
 spellfile
