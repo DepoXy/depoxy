@@ -119,7 +119,7 @@ st () {
 #   fancy status like the `st` and `sf` reports show (where the spacing might
 #   look a little weird for a single line, when not appearing alongside others).
 stt () {
-  local exclusive="${1}"
+  local exclusive="$1"
   [ -n "${exclusive}" ] && exclusive="MR_INCLUDE=${exclusive}"
   eval "${exclusive} OMR_MYSTATUS_FANCY=${OMR_MYSTATUS_FANCY:-false} mr -d / mystatus"
   true
