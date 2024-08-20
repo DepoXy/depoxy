@@ -121,7 +121,16 @@ st () {
 stt () {
   local exclusive="$1"
   [ -n "${exclusive}" ] && exclusive="MR_INCLUDE=${exclusive}"
-  eval "${exclusive} OMR_MYSTATUS_FANCY=${OMR_MYSTATUS_FANCY:-false} mr -d / mystatus"
+
+  local jobs="-j 10"
+
+  eval " \
+    SHCOLORS_OFF=false \
+    ${exclusive} \
+    OMR_MYSTATUS_FANCY=${OMR_MYSTATUS_FANCY:-false} \
+    mr -d / ${jobs} mystatus
+  "
+
   true
 }
 
