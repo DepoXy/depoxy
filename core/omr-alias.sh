@@ -18,18 +18,6 @@ home_fries_aliases_wire_git () {
   #  claim_alias_or_warn "gb" "git br"
   #  claim_alias_or_warn "gr" "git r"
 
-  # 2023-01-13: I've come around on git-interactive-rebase-tool,
-  # after learning I can remap 'W' and 'Q' to just 'w' and 'q',
-  # which makes the tool much more friendly. So let's see if I
-  # can shake `git ria` and relearn a shorter alias...
-  # - LATER/2023-01-13: Settle on one/none of gr/ria/r.
-  claim_alias_or_warn "gr" "git ria"
-  # Or maybe it's ria I want...
-  claim_alias_or_warn "ria" "git ria"
-  # `ri` is 'Ruby API reference front end'.
-  # `r` is free... ha... heck, why not try it...
-  claim_alias_or_warn "r" "git ria"
-
   # 2022-11-14: Life used to be so simple back then:
   #   claim_alias_or_warn "g" "git r && git br && sf"
   claim_alias_or_warn "g" "_hf_git_print_summary_g"
