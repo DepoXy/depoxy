@@ -88,8 +88,6 @@ _dxy_start_background_apps_macos_keep_awake () {
   unset -f _dxy_start_background_apps_macos_caffeinate
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {

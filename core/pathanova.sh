@@ -147,12 +147,14 @@ user_path_extend () {
   #   # unset -f _depoxy_path_condense_colons
 }
 
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_path () {
   user_path_extend
   unset -f user_path_extend
 }
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
   _dxy_source_deps_pather

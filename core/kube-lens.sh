@@ -118,8 +118,6 @@ _depoxy_wire_alias_electron_lens () {
   claim_alias_or_warn "lens" "_depoxy_run_or_front_electron_lens"
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {

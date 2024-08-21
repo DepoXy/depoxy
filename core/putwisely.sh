@@ -15,7 +15,7 @@ _dxy_wire_aliases () {
     "${HOME}/.kit/git/git-put-wise/bin/putwisely --is-client ${DEPOXY_IS_CLIENT}"
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
   _dxy_wire_aliases
