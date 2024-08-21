@@ -40,7 +40,7 @@ let g:loaded_after_vim_minimal_sometimes = 1
 "   - We could write a dob() function in Bash to capture and
 "     preprocess calls to it.
 "
-"     - See `cis_pass` for a single wrapper that sets
+"     - See `pass_safe` for a single wrapper that sets
 "       VIM_EDIT_JUICE_EXIT_ON_SAVE=1 for the `pass edit` command:
 "
 "       ~/.depoxy/stints/1509/home/.kit/sh/home-fries/.bashrc-bin/bashrc.private.pass-edit.sh

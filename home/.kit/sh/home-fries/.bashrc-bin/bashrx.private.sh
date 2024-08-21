@@ -157,6 +157,9 @@ _source_scripts_following_homefries_dxy () {
   _dxy_source "omr-setup.sh"
   _dxy_source "omr-wraps.sh"
 
+  # `pass` alias wraps `edit`, adds `gen` cmd.
+  _dxy_source "passstore.sh"
+
   # Sourced earlier:
   #          "pathanova.sh"
 
