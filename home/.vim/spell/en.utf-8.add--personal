@@ -69,6 +69,7 @@ dep
 depoxy
 depoxyrc
 deps
+dia
 dialogs
 diffable
 dir
@@ -114,6 +115,7 @@ mrtrust
 msg
 myrepos
 nav
+neovim
 notif
 notifs
 pinentry
