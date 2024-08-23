@@ -288,38 +288,41 @@ _dxc_client_infuse () {
 
   # *** GIT
 
-  # Git user.name and user.email wirer.
-  # - Depending on project path, Git will load either your personal
-  #   user config, or it'll load your business user config.
-  if [ -f "${MR_REPO}/home/.gitconfig.user" ]; then
-    # BWARE: Ensure using @macOS `dash` not `/bin/bash --posix`
-    # otherwise this MR_REPO is sticky, unless ( subshelled ).
-    # - See commit comments for details: Search:
-    #     Update: OMR: @macOS ... /bin/dash avoids ENV= bleed
-    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user"
-  else
-    # This is a core DepoXy file, so would be unexpected if not found.
-    warn "$(font_emphasize "Skipped .gitconfig.user")" \
-      "/ See $(font_highlight “archetype/home/.gitconfig.user.EVAL”)"
-  fi
+  symlink_gitconfigs () {
+    # Git user.name and user.email wirer.
+    # - Depending on project path, Git will load either your personal
+    #   user config, or it'll load your business user config.
+    if [ -f "${MR_REPO}/home/.gitconfig.user" ]; then
+      # BWARE: Ensure using @macOS `dash` not `/bin/bash --posix`
+      # otherwise this MR_REPO is sticky, unless ( subshelled ).
+      # - See commit comments for details: Search:
+      #     Update: OMR: @macOS ... /bin/dash avoids ENV= bleed
+      MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user"
+    else
+      # This is a core DepoXy file, so would be unexpected if not found.
+      warn "$(font_emphasize "Skipped .gitconfig.user")" \
+        "/ See $(font_highlight “archetype/home/.gitconfig.user.EVAL”)"
+    fi
 
-  # Enterprise Git: Your vendor-specific user.name and user.email.
-  # - Used when committing work to vendor projects.
-  if [ -f "${MR_REPO}/home/.gitconfig.user-business" ]; then
-    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-business"
-  fi
+    # Enterprise Git: Your vendor-specific user.name and user.email.
+    # - Used when committing work to vendor projects.
+    if [ -f "${MR_REPO}/home/.gitconfig.user-business" ]; then
+      MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-business"
+    fi
 
-  # Your Personal Git: Your personal user.name and user.email.
-  # - Used when committing work to this project (${DEPOXY_CLIENT_ID})
-  #   or any of your other (open source) projects you might have.
-  if [ -f "${MR_REPO}/home/.gitconfig.user-personal" ]; then
-    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-personal"
-  fi
+    # Your Personal Git: Your personal user.name and user.email.
+    # - Used when committing work to this project (${DEPOXY_CLIENT_ID})
+    #   or any of your other (open source) projects you might have.
+    if [ -f "${MR_REPO}/home/.gitconfig.user-personal" ]; then
+      MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-personal"
+    fi
 
-  # Private Git: A 'username@hostname' name for unpublished work.
-  if [ -f "${MR_REPO}/home/.gitconfig.user-private" ]; then
-    MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-private"
-  fi
+    # Private Git: A 'username@hostname' name for unpublished work.
+    if [ -f "${MR_REPO}/home/.gitconfig.user-private" ]; then
+      MR_REPO="${HOME}" symlink_mrinfuse_file ".gitconfig.user-private"
+    fi
+  }
+  symlink_gitconfigs
 
   # `gh` and `hub` apps enterprise Git token.
   # - FIXME/2022-10-23: I removed ~/.github-token mechanism in favor
