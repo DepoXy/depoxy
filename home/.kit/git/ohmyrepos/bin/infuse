@@ -7,12 +7,15 @@
 _infuse () {
   local proj_path="${1:-/}"
 
+  local print_order="--print-order"
+
   local no_recurse=""
   if [ "${proj_path}" != "/" ]; then
     no_recurse="-n"
+    print_order=""
   fi
 
-  mr -d "${proj_path}" ${no_recurse} infuse
+  mr -d "${proj_path}" ${no_recurse} ${print_order} infuse
 }
 
 _infuse "$@"
