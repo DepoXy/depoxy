@@ -6,6 +6,7 @@
 
 source_deps () {
   # Load: warn, etc.
+  # ISOFF: Loaded by overlay-symlink.sh:
   #  command -v logger.sh > /dev/null && . logger.sh ||
   #    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
@@ -300,7 +301,7 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
   return ${retcode}
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ***
 
 # Set @macOS /var/select/sh -> /bin/dash to avoid Bash v3 issues,
 # including ENV= bleed after 'local' usage, e.g.,
@@ -338,7 +339,13 @@ infuse_symlinks_macOS_set_var_select_sh_to_dash () {
     "$(realpath -- "${preferred_sh}")"
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# ***
+
+# Checks if symlink exists and prints Verified if target matches;
+# otherwise creates or fixes symlink if user admin password cached
+# (so command can be elevated without prompting user), or prints
+# helpful message and returns nonzero if user should cache their
+# sudo password and run the script again.
 
 sudo_create_symlink_if_sudo_unlocked () {
   local syml_source="$1"
@@ -404,6 +411,7 @@ main () {
 
     if ! os_is_macos; then
 
+      # Breaks out of the sub-process, but doesn't return from main.
       return 0
     fi
 
