@@ -380,6 +380,50 @@ sudo_create_symlink_if_sudo_unlocked () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Per ~/.depoxy/ambers/docs/README-macOS-onboarding.rst:
+#   sudo sh -c "echo /opt/homebrew/bin/bash >> /etc/shells"
+#   chsh -s /opt/homebrew/bin/bash
+#
+# USAGE: Set DEPOXY_DEFAULT_LOGIN_SHELL to your preferred shell,
+#        or clear it to opt-out of the `chsh` service.
+
+infuse_macOS_verify_chsh () {
+  local default_shell
+  default_shell="$(dscl . -read ~/ UserShell | sed 's/UserShell: //')"
+
+  if [ -z "${DEPOXY_DEFAULT_LOGIN_SHELL}" ]; then
+    info "$(font_info_skipped "Opt-out!") chsh !$(font_emphasize "called")" \
+      "$(font_highlight "${default_shell}")"
+
+    return 0
+  elif [ "${default_shell}" = "${DEPOXY_DEFAULT_LOGIN_SHELL}" ]; then
+    info "$(font_info_checked "Verified") chsh $(font_emphasize "default")" \
+      "$(font_highlight "${default_shell}")"
+
+    return 0
+  fi
+
+  warn "Default user shell is not set correctly"
+  warn "- DEPOXY_DEFAULT_LOGIN_SHELL: ${DEPOXY_DEFAULT_LOGIN_SHELL}"
+  warn "- Actual default login shell: ${default_shell}"
+
+  if ! sudo_has_cached_credentials; then
+    warn "DO THIS: Please cache admin password (sudo -v) so we can set user shell:" \
+      "$(font_highlight "sudo sh -c chsh ${DEPOXY_DEFAULT_LOGIN_SHELL} ${LOGNAME}")"
+
+    return 1
+  fi
+
+  if ! grep -q -e "^/opt/homebrew/bin/bash$" /etc/shells; then
+    sudo sh -c "echo ${DEPOXY_DEFAULT_LOGIN_SHELL} >> /etc/shells"
+  fi
+
+  # Note that `chsh` prompts for user's password:
+  #   chsh -s ${DEPOXY_DEFAULT_LOGIN_SHELL}
+  # But we can call through sudo by adding the username.
+  sudo chsh -s ${DEPOXY_DEFAULT_LOGIN_SHELL} ${LOGNAME}
+}
+
 sudo_has_cached_credentials () {
   sudo -nv 2> /dev/null
 }
@@ -425,6 +469,9 @@ main () {
       || retcode=$?
 
     infuse_symlinks_macOS_set_var_select_sh_to_dash \
+      || retcode=$?
+
+    infuse_macOS_verify_chsh \
       || retcode=$?
 
     return ${retcode}
