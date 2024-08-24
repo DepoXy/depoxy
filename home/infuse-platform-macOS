@@ -334,11 +334,14 @@ sudo_create_symlink_if_sudo_unlocked () {
       "${syml_target}" "${syml_source}" \
     )"
   elif ! sudo_has_cached_credentials; then
-    warn "STEPS: Please cache admin password (sudo -v) so we can create root symlink"
     warn "$(symlink_get_msg_informative \
       " $(font_highlight "Skipped")" "${srctype}" \
       "${syml_target}" "${syml_source}" \
     )"
+    warn "DO THIS: Please cache admin password (sudo -v) so we can update symlink:" \
+      "$(font_highlight "${syml_target}")"
+
+    return 1
   elif [ -d "${target_real}" ]; then
     MRT_SUDO=sudo symlink_overlay_dir "${syml_source}" "${syml_target}"
   else
