@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# *** Check that macOS hasn't overwritten/reverted sshd_config.
+#
+# - REFER: You'll find extensive notes in the README:
+#
+#     ~/.depoxy/ambers/home/Library/LaunchAgents/README.rst
+#
+# - CXREF: See also the launchd plist:
+#
+#     ~/.depoxy/ambers/home/Library/LaunchAgents/com.tallybark.check-sshd_config.plist
+
+# ***
+
+# USAGE: Call periodically to check if macOS reset sshd_config.
+#
+# - AFAIK, this only happens after macOS upgrade.
+#
+#   - But I'm gonna monitor it nonetheless to see when else it happens.
+#
+#   - Note that `infuse` will also check this case, but who knows when
+#     the user might next call `infuse`. So this agent is just being
+#     proactive.
+#
+# - On macOS, consider using launchd (see link above),
+#             otherwise cron (still) works (as of 2024).
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+SEND_EMAIL_TO="${SEND_EMAIL_TO:-$(id -un)}"
+
+SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-sshd_config Probe <$(basename -- "$0")@$(hostname)>}"
+
+SEND_EMAIL_SUBJECT="The sshd_config file on @$(hostname) is not configured properly"
+
+# SAVVY: macOS Chrome doesn't recog. 'monospace' or "monospace".
+SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; font-size: 13px;\"";
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps () {
+  # Load: infuse_macOS_probe_sshd_config
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/infuse-platform-macOS"
+}
+
+run_everday_check_sshd_config () {
+  local cfg_errs
+  cfg_errs="$(infuse_macOS_probe_sshd_config > /dev/null)"
+
+  if [ -z "${cfg_errs}" ]; then
+
+    return 0
+  fi
+
+  sendmail -oi "${SEND_EMAIL_TO}" \
+<<EOF
+From: ${SEND_EMAIL_FROM}
+Subject: ${SEND_EMAIL_SUBJECT}
+Content-Type: text/html
+
+<p>
+<strong>${SEND_EMAIL_SUBJECT}</strong>
+</p>
+
+<p style="color:black">
+<pre ${SEND_EMAIL_PRE_STYLE}>${cfg_errs}</pre>
+</p>
+EOF
+}
+
+# ***
+
+main () {
+  set -e
+
+  source_deps
+
+  run_everday_check_sshd_config
+}
+
+main "$@"
+

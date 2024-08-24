@@ -42,9 +42,9 @@ Terminology: From the ``man`` pages:
 
 -------
 
-#######################
-DepoXy launchd agent(s)
-#######################
+#####################
+DepoXy launchd agents
+#####################
 
 This document describes the first (and currently only) DepoXy agent,
 a script that runs ``updatedb`` to index user files for the ``locate``
@@ -58,9 +58,9 @@ command.
 
 -------
 
-##################################
-Install custom ``updatedb`` caller
-##################################
+####################################################
+Setup launch agent to call custom ``updatedb`` daily
+####################################################
 
 USAGE: Create a symlink to install the DepoXy ``updatedb`` agent
 (you could also copy it, but DepoXy installs symlinks to its
@@ -103,9 +103,31 @@ USAGE: Enable the item::
 
 -------
 
-###############################
-Some other ``launchd`` Commands
-###############################
+#############################################################
+Setup launch agent to check ``sshd_config`` daily for changes
+#############################################################
+
+- Setup similar to ``updatedb``:
+
+  - You can link it::
+
+    ln -sfn \
+      ~/.depoxy/ambers/home/Library/LaunchAgents/com.tallybark.daily-check-sshd_config.plist \
+      ~/Library/LaunchAgents/com.tallybark.daily-check-sshd_config.plist
+
+  - Or you can call the DepoXy OMR 'install' action::
+
+    mr -d "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}" -n install
+
+  - Secondly, enable it::
+
+    launchctl enable gui/501/com.tallybark.daily-check-sshd_config
+
+-------
+
+#############################
+``launchd`` command reference
+#############################
 
 - Check ``launchd`` item status::
 
@@ -137,19 +159,25 @@ Some other ``launchd`` Commands
 
 -------
 
-#############################
-Debugging ``updatedb`` caller
-#############################
+########################################################################
+Debugging DepoXy launchd agents (``updatedb`` and ``check-sshd_config``)
+########################################################################
 
-CXREF: You'll find logs at the following location(s)::
+CXREF: You'll find ``daily-updatedb`` logs at the following location(s)::
 
   ~/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.out
 
   ~/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.err
 
-- The agent doesn't print to ``stdout``, so only the ``.err`` file
-  might have content, if something isn't wired correctly on your
-  host.
+- The ``daily-updatedb`` agent does not print to ``stdout``, so
+  only the ``.err`` file might have content (but then only if
+  something isn't wired correctly on the host).
+
+CXREF: The ``check-sshd_config`` logs are similarly located::
+
+  ~/Library/Logs/com.tallybark.daily-check-sshd_config/daily-check-sshd_config.out
+
+  ~/Library/Logs/com.tallybark.daily-check-sshd_config/daily-check-sshd_config.err
 
 -------
 

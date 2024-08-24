@@ -171,13 +171,16 @@ install = install_os_specific
 installDarwin =
   # Trigger popup so user can enable terminal toasts.
   terminal-notifier -message "✓ Allow terminal notifications"
-  # Install `updatedb` launchd background item.
+  # Install `updatedb` launchd background items.
+  MR_REPO="${HOME}/Library/LaunchAgents" \
+    symlink_mrinfuse_file "com.tallybark.daily-check-sshd_config.plist"
   MR_REPO="${HOME}/Library/LaunchAgents" \
     symlink_mrinfuse_file "com.tallybark.daily-updatedb.plist"
   # - AFAIK, you don't need to 'bootstrap'; creating the symlink does similar?
   #     launchctl bootstrap gui/501/ "${HOME}/Library/LaunchAgents/com.tallybark.daily-updatedb.plist"
-  # - Enable the service.
+  # - Enable the services.
   #   - Note that `launchctl enable` is the new `launchctl load`.
+  launchctl enable gui/501/daily-check-sshd_config.plist
   launchctl enable gui/501/com.tallybark.daily-updatedb
   # - Tell user what more they can/need to do:
   info "Installed \`daily-updatedb\` runner"

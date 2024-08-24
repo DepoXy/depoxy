@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.tallybark.daily-check-sshd_config</string>
+
+  <key>Program</key>
+  <string>/Users/puck/.depoxy/ambers/bin/daily-check-sshd_config</string>
+
+  <key>ProgramArguments</key>
+  <array>
+      <string>/Users/puck/.depoxy/ambers/bin/daily-check-sshd_config</string>
+  </array>
+  
+  <key>StandardErrorPath</key>
+  <string>/Users/puck/Library/Logs/com.tallybark.daily-check-sshd_config/daily-check-sshd_config.err</string>
+
+  <key>StandardOutPath</key>
+  <string>/Users/puck/Library/Logs/com.tallybark.daily-check-sshd_config/daily-check-sshd_config.out</string>
+
+  <key>StartInterval</key>
+  <integer>86400</integer>
+
+  <key>LowPriorityBackgroundIO</key>
+  <true/>
+
+  <key>LowPriorityIO</key>
+  <true/>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>
+
