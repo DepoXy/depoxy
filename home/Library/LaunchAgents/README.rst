@@ -340,7 +340,6 @@ use our custom ``locate.db`` stored at our chosen path.
 Caveats
 #######
 
-
 Note that ``launchd`` is more like ``cron`` than it is like ``anacron``:
 
 - If the host is off or sleeping, when it's booted or resumes again,
