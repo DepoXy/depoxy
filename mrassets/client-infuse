@@ -558,7 +558,7 @@ _dxc_client_infuse () {
     local user_data_dir
     local dob_log_dir
     if ! os_is_macos; then
-      user_data_dir="${XDG_CACHE_HOME:-${HOME}/.cache/dob/log}"
+      user_data_dir="${XDG_CACHE_HOME:-${HOME}/.cache}"
       dob_log_dir="${user_data_dir}/dob/log"
     else
       user_data_dir="${XDG_CACHE_HOME:-${HOME}/Library/Logs}"
