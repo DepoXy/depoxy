@@ -304,6 +304,14 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
 #   }; bar'
 #   FOO=
 #   FOO=abc
+#
+# - Vs.
+#
+#   /opt/homebrew/bin/bash --posix -c 'unset -v FOO; foo () { :; }; bar () {
+#     FOO=123 foo; echo FOO=$FOO; local baz; FOO=abc foo; echo FOO=$FOO;
+#   }; bar'
+#   FOO=
+#   FOO=
 
 infuse_symlinks_macOS_set_var_select_sh_to_dash () {
   local preferred_sh="${DEPOXY_DEFAULT_SELECT_SH:-/bin/dash}"
