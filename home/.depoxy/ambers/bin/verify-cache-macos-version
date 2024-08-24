@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2024 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+MACOS_VERSION_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}/depoxy/infuse-macos.version"
+
+verify_cache_macos_version () {
+  [ "$(cat "${MACOS_VERSION_CACHE}" 2> /dev/null)" = "$(macos_version)" ]
+}
+
+update_cache_macos_version () {
+  mkdir -p -- "$(dirname -- "${MACOS_VERSION_CACHE}")"
+
+  macos_version > "${MACOS_VERSION_CACHE}"
+}
+
+# CALSO: system_profiler SPSoftwareDataType
+macos_version () {
+  sw_vers -productVersion
+}
+
+# ***
+
+main () {
+  set -e
+
+  verify_cache_macos_version
+}
+
+# Only run when executed; no-op when sourced.
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
+

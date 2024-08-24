@@ -25,6 +25,10 @@ source_deps () {
   # Load: remove_symlink_hierarchy_safe
   # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
   . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
+
+  # Load: update_cache_macos_version
+  # CXREF: ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
+  . "$(dirname -- "$(realpath -- "$0")")/.depoxy/ambers/bin/verify-cache-macos-version"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -320,6 +324,12 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
 #   FOO=
 #   FOO=
 
+# TRACK/2024-08-23: Author updated to macOS Sonoma 14.6.1, and
+# after rebooting, /var/select/sh was reset and -> /bin/bash.
+# - SAVVY: DepoXy Bashrc alerts if `infuse` needs to be run after OS update.
+#   - CXREF: _dxy_check_if_omr_infuse_run_since_latest_macos_update
+#     ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
+
 infuse_symlinks_macOS_set_var_select_sh_to_dash () {
   local preferred_sh="${DEPOXY_DEFAULT_SELECT_SH:-/bin/dash}"
   local sh_chooser="/var/select/sh"
@@ -423,6 +433,14 @@ infuse_macOS_verify_chsh () {
   # But we can call through sudo by adding the username.
   sudo chsh -s ${DEPOXY_DEFAULT_LOGIN_SHELL} ${LOGNAME}
 }
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# TRACK/2024-08-23: Author updated to macOS Sonoma 14.6.1, and
+# after rebooting, /private/etc/ssh/sshd_config was reset.
+# - SAVVY: DepoXy Bashrc alerts if `infuse` needs to be run after OS update.
+#   - CXREF: _dxy_check_if_omr_infuse_run_since_latest_macos_update
+#     ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
 
 # REFER: *SSH Settings overwritten on every system update*
 #   https://discussions.apple.com/thread/252554155
@@ -613,6 +631,11 @@ main () {
 
     infuse_macOS_configure_sshd_config \
       || retcode=$?
+
+    if [ ${retcode} -eq 0 ]; then
+      # Cache the OS version, for Bash startup alerts.
+      update_cache_macos_version
+    fi
 
     return ${retcode}
   )

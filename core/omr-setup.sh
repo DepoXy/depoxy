@@ -64,6 +64,25 @@ _dxy_wire_omr_status_snip_cd () {
   export OMR_CPYST_CD='cdd'
 }
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_check_if_omr_infuse_run_since_latest_macos_update () {
+  local ambers_hidden_bin="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.depoxy/ambers/bin"
+  # CXREF: ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
+  local verify_cache_macos_version="${ambers_hidden_bin}/verify-cache-macos-version"
+
+  if ! "${verify_cache_macos_version}"; then
+    # Reset cursor in case HOMEFRIES_LOADINGDOTS.
+    printf '\r'
+    echo "$(attr_emphasis)Please run$(attr_reset)" \
+      "\`$(attr_bold)infuse$(attr_reset)\`" \
+      "$(attr_emphasis)because$(attr_reset)" \
+      "$(attr_underline)macOS recently updated$(attr_reset) 🔔"
+    echo "              三"
+    echo "              三                     ᕕ( ᐛ )ᕗ"
+  fi
+}
+
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
@@ -72,6 +91,9 @@ main () {
 
   _dxy_wire_omr_status_snip_cd
   unset -f _dxy_wire_omr_status_snip_cd
+
+  _dxy_check_if_omr_infuse_run_since_latest_macos_update
+  unset -f _dxy_check_if_omr_infuse_run_since_latest_macos_update
 }
 
 main "$@"
