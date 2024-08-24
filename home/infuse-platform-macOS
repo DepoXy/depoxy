@@ -279,11 +279,14 @@ infuse_symlink_macOS_MacVim_latest_version_symlink () {
 # is also made at /private/user (in addition to /Users/user).
 
 infuse_symlinks_macOS_create_agnostic_user_homes () {
+  local retcode=0
+
   local users_source="${LOGNAME}"
   local users_target="/Users/user"
 
   # Create symlink: /Users/user -> <user>
-  sudo_create_symlink_if_sudo_unlocked "${users_source}" "${users_target}" "${HOME}"
+  sudo_create_symlink_if_sudo_unlocked "${users_source}" "${users_target}" "${HOME}" \
+    || retcode=$?
 
   # ***
 
@@ -291,7 +294,10 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
   local privy_target="/private/user"
 
   # Create symlink: /private/user -> /Users/<user>
-  sudo_create_symlink_if_sudo_unlocked "${privy_source}" "${privy_target}" "${HOME}"
+  sudo_create_symlink_if_sudo_unlocked "${privy_source}" "${privy_target}" "${HOME}" \
+    || retcode=$?
+
+  return ${retcode}
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -392,6 +398,8 @@ main () {
   (
     cd "${MR_REPO}"
 
+    local retcode=0
+
     infuse_symlinks_depoxy_Karabiner_Elements_symlinks
 
     if ! os_is_macos; then
@@ -405,9 +413,13 @@ main () {
 
     infuse_symlink_macOS_MacVim_latest_version_symlink
 
-    infuse_symlinks_macOS_create_agnostic_user_homes
+    infuse_symlinks_macOS_create_agnostic_user_homes \
+      || retcode=$?
 
-    infuse_symlinks_macOS_set_var_select_sh_to_dash
+    infuse_symlinks_macOS_set_var_select_sh_to_dash \
+      || retcode=$?
+
+    return ${retcode}
   )
 }
 
