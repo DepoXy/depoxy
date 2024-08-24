@@ -306,8 +306,16 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
 #   FOO=abc
 
 infuse_symlinks_macOS_set_var_select_sh_to_dash () {
-  local preferred_sh="${DXY_PREFERRED_SH:-/bin/dash}"
+  local preferred_sh="${DEPOXY_DEFAULT_SELECT_SH:-/bin/dash}"
   local sh_chooser="/var/select/sh"
+
+  if [ -z "${DEPOXY_DEFAULT_SELECT_SH}" ]; then
+    info "$(font_info_skipped "Opt-out!") sh !$(font_emphasize "selected")" \
+      "$(font_highlight "${sh_chooser}") ->" \
+      "$(font_highlight "$(realpath -- "${sh_chooser}")")"
+
+    return 0
+  fi
 
   # Create symlink: /var/select/sh -> /bin/dash
   sudo_create_symlink_if_sudo_unlocked \
