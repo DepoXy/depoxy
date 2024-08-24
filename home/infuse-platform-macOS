@@ -333,7 +333,7 @@ sudo_create_symlink_if_sudo_unlocked () {
       "$(font_info_checked "Verified")" "${srctype}" \
       "${syml_target}" "${syml_source}" \
     )"
-  elif ! sudo -nv 2> /dev/null; then
+  elif ! sudo_has_cached_credentials; then
     warn "STEPS: Please cache admin password (sudo -v) so we can create root symlink"
     warn "$(symlink_get_msg_informative \
       " $(font_highlight "Skipped")" "${srctype}" \
@@ -344,6 +344,12 @@ sudo_create_symlink_if_sudo_unlocked () {
   else
     MRT_SUDO=sudo symlink_overlay_file "${syml_source}" "${syml_target}"
   fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+sudo_has_cached_credentials () {
+  sudo -nv 2> /dev/null
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
