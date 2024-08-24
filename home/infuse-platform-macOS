@@ -424,6 +424,143 @@ infuse_macOS_verify_chsh () {
   sudo chsh -s ${DEPOXY_DEFAULT_LOGIN_SHELL} ${LOGNAME}
 }
 
+# REFER: *SSH Settings overwritten on every system update*
+#   https://discussions.apple.com/thread/252554155
+# - *Updates keep overriding ssh security settings*
+#   https://discussions.apple.com/thread/7930677
+
+# USYNC: Generate checksum on fresh macOS install, or after OS update:
+#   sha256sum /private/etc/ssh/sshd_config
+# CALSO: b2sum is technically better than sha256sum, but its message digest
+# is twice as long and would likely line-wrap your editor here.
+_OMR_XSUM_SSHD_CONFIG_FRESH="5cdbdc5d766bd4d74fc68168b586bd370ccc011d4f422b5e13c6f3cf5020dfa8"
+
+# USYNC: After making changes to the `line_in_file` commands below and
+# editing the config, regenerate the edited config checksum:
+#   sha256sum /private/etc/ssh/sshd_config
+_OMR_XSUM_SSHD_CONFIG_EDITED="a52475c95e80b2497dc3c6ef735d8f4fd6c25ec01856dc1be5c94fc08de19d9a"
+
+_OMR_SSHD_CONFIG_PATH="/private/etc/ssh/sshd_config"
+
+infuse_macOS_configure_sshd_config () {
+  local config_f="${_OMR_SSHD_CONFIG_PATH}"
+
+  local probe_status=0
+  infuse_macOS_probe_sshd_config \
+    || probe_status=$?
+
+  if [ ${probe_status} -ne ${_OMR_SSHD_CONFIG_PROBE_DEFAULT:-2} ]; then
+
+    return ${probe_status}
+  fi
+
+  if ! sudo_has_cached_credentials; then
+    >&2 warn "DO THIS: Please cache admin password (sudo -v) so we can update cfgfile:" \
+      "$(font_highlight "${config_f}")"
+
+    return 1
+  fi
+
+  infuse_macOS_configure_sshd_config_update "${config_f}"
+}
+
+# Returns 0 if opt-out enabled, or if sshd_config changes verified.
+# Returns 1 if sshd_config missing or has unrecognized changes.
+# Returns 2 if default sshd_config detected.
+_OMR_SSHD_CONFIG_PROBE_VERIFIED=0
+_OMR_SSHD_CONFIG_PROBE_ABNORMAL=1
+_OMR_SSHD_CONFIG_PROBE_DEFAULT=2
+
+infuse_macOS_probe_sshd_config () {
+  local config_f="${_OMR_SSHD_CONFIG_PATH}"
+
+  if [ ! -f "${config_f}" ]; then
+    >&2 warn "ERROR: Where's sshd_config? It's not at: ${config_f}"
+
+    return ${_OMR_SSHD_CONFIG_PROBE_ABNORMAL:-1}
+  fi
+
+  if ! ${DEPOXY_ENABLE_HARDEN_SSHD_CONFIG:-false}; then
+    info "$(font_info_skipped "Opt-out!") conf !$(font_emphasize "harden")" \
+      "$(font_highlight "${config_f}")"
+
+    return ${_OMR_SSHD_CONFIG_PROBE_VERIFIED:-0}
+  fi
+
+  local xsum
+  xsum=$(sha256sum "${config_f}" | awk '{print $1}')
+
+  if [ "${xsum}" = "${_OMR_XSUM_SSHD_CONFIG_FRESH}" ]; then
+    >&2 warn "The default macOS sshd_config file is installed: ${config_f}"
+
+    return ${_OMR_SSHD_CONFIG_PROBE_DEFAULT:-2}
+  elif [ "${xsum}" = "${_OMR_XSUM_SSHD_CONFIG_EDITED}" ]; then
+    info "$(font_info_checked "Verified") conf $(font_emphasize "changes")" \
+      "$(font_highlight "${config_f}")"
+
+    return ${_OMR_SSHD_CONFIG_PROBE_VERIFIED:-0}
+  else
+    >&2 error "The sshd_config has unrecognized changes: ${config_f}"
+
+    return ${_OMR_SSHD_CONFIG_PROBE_ABNORMAL:-1}
+  fi
+}
+
+infuse_macOS_configure_sshd_config_update () {
+  local config_f="$1"
+
+  local backup_f
+  backup_f="$(infuse_macOS_configure_sshd_config_backup "${config_f}")"
+
+  # CXREF: ~/.kit/git/ohmyrepos/lib/line-in-file.sh
+
+  sudo_line_in_file () {
+    local add_line="$1"
+    local target_path="$2"
+
+    sudo bash -c "
+      . \"${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh\";
+      . \"${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/line-in-file.sh\";
+      line_in_file \"${add_line}\" \"${config_f}\""
+  }
+
+  # SAVVY: If `sshd` is running, changes take effect immediately.
+
+  sudo_line_in_file "PasswordAuthentication no"
+  sudo_line_in_file "ChallengeResponseAuthentication no"
+
+  # For good measure, add ITERM_SESSION_ID hook for window titling
+  sudo_line_in_file "AcceptEnv ITERM_SESSION_ID"
+
+  # ***
+
+  info "$(font_info_updated "Hardened") conf $(font_emphasize "options")" \
+    "$(font_highlight "${config_f}"):\n$( \
+      diff "${backup_f}" "${config_f}" \
+        | tail -n +2 \
+        | sed "s/^/                               /"
+    )"
+}
+
+infuse_macOS_configure_sshd_config_backup () {
+  local config_f="$1"
+
+  local backup_f="${config_f}--orig"
+
+  if ! diff -q "${config_f}" "${backup_f}" > /dev/null 2>&1; then
+    if [ -f "${backup_f}" ]; then
+      # Add a UUID fragment to generate a unique name.
+      backup_f="${backup_f}.$(date +%Y_%m_%d_%Hh%Mm%Ss)-$(uuidgen | head -c8)"
+    fi
+
+    sudo cp -- "${config_f}" "${backup_f}"
+  fi
+
+  printf "%s" "${backup_f}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 sudo_has_cached_credentials () {
   sudo -nv 2> /dev/null
 }
@@ -472,6 +609,9 @@ main () {
       || retcode=$?
 
     infuse_macOS_verify_chsh \
+      || retcode=$?
+
+    infuse_macOS_configure_sshd_config \
       || retcode=$?
 
     return ${retcode}
