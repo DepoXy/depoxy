@@ -2,6 +2,9 @@
 ``launchd`` Notes, and Using ``locate`` on macOS and Linux
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+.. contents:: T/O/C
+   :depth: 1
+
 #####################
 ``launchd`` Reference
 #####################
