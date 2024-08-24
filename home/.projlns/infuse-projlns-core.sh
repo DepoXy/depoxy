@@ -31,9 +31,15 @@ source_deps () {
   # Load: _vendorfs_path_stints_basedir_print
   . "$(dirname -- "$(realpath -- "$0")")/../../core/depoxy_fs.sh"
 
-  # Load: link_deep, and remove_symlink_hierarchy_safe.
-  # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
-  . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
+  # ISOFF: Loaded by infuse-personal-projlns.sh:
+  #
+  # # Load: link_deep, and remove_symlink_hierarchy_safe.
+  # # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
+  # . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
+
+  # Load: is_infuse_all, and link_deep.sh
+  # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+  . "$(dirname -- "$(realpath -- "$0")")/../.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -69,6 +75,13 @@ infuse_projects_links_core () {
   #
   # MAYBE/2024-06-16: Enable this short-circuit:
   #  return 0
+
+  # We can at least skip this when `mr -d ~/.depoxy/ambers -n infuse`
+  # is run (which calls this script), i.e., only run on `mr -d / infuse`.
+  if ! is_infuse_all; then
+
+    return 0
+  fi
 
   if ! mr -d / infuseProjlns; then
     warn

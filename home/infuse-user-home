@@ -36,6 +36,12 @@ source_deps () {
   # Load: os_is_macos.
   # CXREF: ~/.kit/sh/home-fries/lib/distro_util.sh
   . "${HOMEFRIES_LIB:-${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}/lib}/distro_util.sh"
+
+  # *** DXY
+
+  # Load: is_infuse_all
+  # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+  . "$(dirname -- "$(realpath -- "$0")")/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -480,6 +486,12 @@ infuse_symlinks_home_tmux_completion () {
 
 # Populate ~/.projlns for Vim dubs_grep_steady path #9.
 infuse_symlinks_home_projlns () {
+  if ! is_infuse_all; then
+    info " $(font_info_skipped "Skipped") bc ! mr -d / $(font_highlight "~/.projlns/")"
+
+    return 0
+  fi
+
   # Drop:
   #
   #   ~/.projlns/XCRUMB.depoxy
