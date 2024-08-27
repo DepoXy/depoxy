@@ -259,7 +259,7 @@ bind generic % >sh -c " \
 bind generic <C-g> >sh -c " \
   git_sort_by_scope__rebase_with_gpgSign____ () { \
     ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
+      && printf '%s\\n\\n' 'ERROR: <C-g> disabled while staging' \
       && return 1 || true; \
     \
     local starting_ref=\"%(commit)\"; \
