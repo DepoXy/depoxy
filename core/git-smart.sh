@@ -153,7 +153,7 @@ _dxy_wire_alias_just_t_for_tig () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# https://github.com/landonb/sh-git-nubs#🌰
+# REFER: https://github.com/landonb/sh-git-nubs#🌰
 _dxy_add_on_demand_source_git_nubs () {
   local git_nubs="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh"
   local common_pw="${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise/lib/common_put_wise.sh"
