@@ -126,6 +126,7 @@ _dxy_wire_aliases_pass () {
 
 _dxy_wire_aliases () {
   _dxy_wire_aliases_pass
+  unset -f _dxy_wire_aliases_pass
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
