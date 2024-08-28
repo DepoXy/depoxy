@@ -171,6 +171,19 @@ _dxy_add_on_demand_source_git_nubs () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# REFER: https://github.com/DepoXy/git-put-wise#🥨
+_dxy_add_on_demand_source_git_put_wise () {
+  # CXREF: ~/.kit/git/git-put-wise/bin/git-put-wise
+  git-put-wise-source-it () {
+    local gpw="$(realpath -- "$(command -v git-put-wise)")"
+    cd "$(dirname -- "$(dirname -- "${gpw}")")"
+    . "${gpw}"
+    cd - > /dev/null
+  }
+}  
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_configure_git_my_merge_status () {
   GITSMART_MYST_BRANCH_HIERARCHY="${GITSMART_MYST_BRANCH_HIERARCHY:-release develop proving}"
   GITSMART_MYST_REMOTE_HIERARCHY="${GITSMART_MYST_REMOTE_HIERARCHY:-release 👍 👆 protected 🌟 🌛}"
@@ -268,6 +281,9 @@ main () {
 
   _dxy_add_on_demand_source_git_nubs
   unset -f _dxy_add_on_demand_source_git_nubs
+
+  _dxy_add_on_demand_source_git_put_wise
+  unset -f _dxy_add_on_demand_source_git_put_wise
 
   _dxy_configure_git_my_merge_status
   unset -f _dxy_configure_git_my_merge_status
