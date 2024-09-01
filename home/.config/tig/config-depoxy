@@ -50,29 +50,9 @@
 
 bind generic <C-a> >sh -c " \
   git_put_wise__archive_____________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <Ctrl-a> disabled while staging' \
-      && return 1 || true; \
-    \
-    local retcode; \
-    \
-    git put-wise archive; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    else \
-      echo; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git put-wise archive; \
+    echo; \
   }; git_put_wise__archive_____________________"
 
 # MAYBE/2023-01-17: Just call 'pw out'?
@@ -89,111 +69,33 @@ bind generic <C-a> >sh -c " \
 # at least for now, though I might consolidate with a `pw out` call.
 bind generic <C-s> >sh -c " \
   git_put_wise__push________________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <Ctrl-s> disabled while staging' \
-      && return 1 || true; \
-    \
-    local retcode; \
-    \
-    git put-wise push; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    else \
-      echo; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git put-wise push; \
+    echo; \
   }; git_put_wise__push________________________"
 
 # Ctrl-f, for reals...
 bind generic <C-f> >sh -c " \
   git_put_wise__push__force_________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <Ctrl-f> disabled while staging' \
-      && return 1 || true; \
-    \
-    local retcode; \
-    \
-    git put-wise push -f; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    else \
-      echo; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git put-wise push -f; \
+    echo; \
   }; git_put_wise__push__force_________________"
 
 # MEH/2023-01-18: Ctrl-v and Ctrl-b are a few of still available bindings...
 # - I'd rather not use <C-v> (it's paste!) but also you'll get used to it.
 bind generic <C-v> >sh -c " \
   git_put_wise__pull________________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <Ctrl-v> disabled while staging' \
-      && return 1 || true; \
-    \
-    local retcode; \
-    \
-    git put-wise pull; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    else \
-      echo; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git put-wise pull; \
+    echo; \
   }; git_put_wise__pull________________________"
 
 bind generic <C-b> >sh -c " \
   git_put_wise__apply_______________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <Ctrl-b> disabled while staging' \
-      && return 1 || true; \
-    \
-    local retcode; \
-    \
-    git put-wise apply; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    else \
-      echo; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git put-wise apply; \
+    echo; \
   }; git_put_wise__apply_______________________"
 
 # ***
@@ -216,39 +118,14 @@ bind generic <C-b> >sh -c " \
 
 bind generic % >sh -c " \
   git_sort_by_scope__rebase_________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <%> disabled while staging' \
-      && return 1 || true; \
-    \
     local starting_ref=\"%(commit)\"; \
-    if [ \"${starting_ref}\" = \"0000000000000000000000000000000000000000\" ]; then \
-      starting_ref=\"HEAD\"; \
-    fi; \
     \
-    local retcode; \
-    \
-    git rebase-sort-by-scope-protected-private \
-      \"${starting_ref}\" \
-      \"${_magic_starting_ref:-true}\" \
-      \"${_enable_gpg_sign:-false}\" \
-      \"${_insist_signing_key:-false}\"; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      local __comment__='♯ git-rebase-sort-by-scope-protected-private handles GIT_POST_REBASE_EXEC'; \
-      \
-      local also_why=''; \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git rebase-sort-by-scope-protected-private \
+        \"${starting_ref}\" \
+        \"${_magic_starting_ref:-true}\" \
+        \"${_enable_gpg_sign:-false}\" \
+        \"${_insist_signing_key:-false}\"; \
   }; git_sort_by_scope__rebase_________________"
 
 # ***
@@ -258,39 +135,14 @@ bind generic % >sh -c " \
 # - Note that signing each commit is significantly slower than not.
 bind generic <C-g> >sh -c " \
   git_sort_by_scope__rebase_with_gpgSign____ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <C-g> disabled while staging' \
-      && return 1 || true; \
-    \
     local starting_ref=\"%(commit)\"; \
-    if [ \"${starting_ref}\" = \"0000000000000000000000000000000000000000\" ]; then \
-      starting_ref=\"HEAD\"; \
-    fi; \
     \
-    local retcode; \
-    \
-    git rebase-sort-by-scope-protected-private \
-      \"${starting_ref}\" \
-      \"${_magic_starting_ref:-true}\" \
-      \"${_enable_gpg_sign:-true}\" \
-      \"${_insist_signing_key:-true}\"; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      local __comment__='♯ git-rebase-sort-by-scope-protected-private handles GIT_POST_REBASE_EXEC'; \
-      \
-      local also_why=''; \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git rebase-sort-by-scope-protected-private \
+        \"${starting_ref}\" \
+        \"${_magic_starting_ref:-true}\" \
+        \"${_enable_gpg_sign:-true}\" \
+        \"${_insist_signing_key:-true}\"; \
   }; git_sort_by_scope__rebase_with_gpgSign____"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
