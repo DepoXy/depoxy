@@ -36,6 +36,34 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# REFER/2024-09-01: Tig binding usage map.
+#
+#   AVAIL: a w B E U Y Z <C-H> <C-Q> <C-Q> <C-W> <C-X> ` 0-9 ; ' ( ) _ } >
+#
+#   LEGND: ✗ Tig's, ! Mine, † Undocumented?, ▓ Available
+#
+#   LOWER: a b c d e f g h i j k l m n o p q r s t u v w x y z
+#   TAKEN: ▓ ✗ ✗ ✗ ! ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ! ! ▓ ! ✗ ✗
+#
+#   UPPER: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+#   TAKEN: ✗ ▓ ! ✗ ▓ ✗ ✗ ✗ ✗ ✗ ✗ ✗ ! ✗ ✗ ! ✗ ✗ ✗ ✗ ▓ ✗ ✗ ✗ ▓ ▓
+#
+#   CTRLS: A-B-C-D-E-F-G-H-I-J-K-L-M-N-O-P-Q-R-S-T-U-V-W-X-Y-Z
+#   TAKEN: ! ! ✗ ✗ ✗ ! ! ▓ † ✗ ✗ ✗ † ✗ ! ✗ ▓ ! ! ! ✗ ! ▓ ▓ ✗ † (C-z stops proc)
+#
+#   NUMRW: ` 1 2 3 4 5 6 7 8 9 0 - = [ ] \ ; ' , . /
+#   TAKEN: ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ✗ ! ! ! ! ▓ ▓ ✗ ! ✗
+#                                              (in help as ',')
+#
+#   SPECL: ~ ! @ # $ % ^ & * ( ) _ + { } | : " < > ?
+#   TAKEN: ✗ ! ✗ ✗ ✗ ! ! ! ✗ ▓ ▓ ▓ ✗ ! ▓ ✗ ✗ ✗ ✗ ▓ ✗
+#                                            (could not get '"' to work)
+#
+#   TAKEN: <Enter> <Down> <Up> <Tab> <F5> <PageUp> <PageDown> <Space> <Home> <End>
+#          <Insert> <Delete> <ScrollBack> <ScrollFwd> <Left> <Right>
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 bind generic <C-a> >sh -c " \
   git_put_wise__archive_____________________ () { \
     PW_PID_KILL_ON_ERROR=$PPID \
