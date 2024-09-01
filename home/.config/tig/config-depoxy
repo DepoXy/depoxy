@@ -7,46 +7,34 @@
 
 # *** git-put-wise commands
 
-# There are four project-centric GPW commands:
-# - apply/archive/pull/push
-# Also force-push.
-
-# MAYBE: Perhaps replace separate apply and pull commands with single `pw in`?
-#        Perhaps replace separate archive and push commands with single `pw out`?
-#        (There's also bare `pw` command, but it's not always smart enough,
-#         and it takes a little longer to run, because it has to suss more.)
-
-# MAYBE: I added retcode checks below, because functions that return nonzero
-# will cause `tig` to wait on *Press ENTER to continue* prompt, so that the
-# user can read the error message.
+# Below are bindings for the four main GPW commands:
 #
-# - But I might want to consider what tig-newtons sometimes does, which is
-#   to kill the parent `tig` process altogether so user can deal with an
-#   incomplete rebase.
+#   apply/archive/pull/push
 #
-#   E.g.,
+# Plus an extra binding for force-push.
 #
-#       if ! git rebase -i %(commit) || [ -f \".git/rebase-merge/git-rebase-todo\" ]; then \
-#         >&2 echo; \
-#         >&2 echo \"Killing \\`tig\\` because you got work to do\"; \
-#         >&2 echo \"  🥩 🥩 chop chop\"; \
-#         kill -s 9 $PPID; \
-#       fi; \
+# Also the
 #
+#   git-rebase-sort-by-scope-protected-private
 #
-#   But I need to investigate which failed put-wise commands might need
-#   such a mechanism (so really this MAYBE more like a SPIKE: Keep eye
-#   out for scenario where you want to kill `tig` after put-wise fail).
+# command, with and without gpg-signing.
 
-# ***
+# *** gut-bump-version-tag command
 
-# MAYBE/2023-01-17: Do I need to catch errors and kill tig?
-# - Probably, because archive or push could result in scoped-sort
-#   rebase conflicts...
+# And we'll throw in a `git bump` binding, too.
 
-# Note that none of the put-wise wrappers manage a WIP commit, nor
+# *** WIP commits and post-rebase exec
+
+# Note that none of the binding wrappers manage WIP commits, nor
 # process the optional post-rebase user hook, GIT_POST_REBASE_EXEC.
-# - git-put-wise handles both of these.
+#
+# - git-put-wise, git-rebase-sort-by-scope, and git-bump each
+#   handle all of this.
+#
+# Those commands will also kill `tig` for us on error, using the $PPID
+# passed in, so the user gets dumped from tig to the console on error.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 bind generic <C-a> >sh -c " \
   git_put_wise__archive_____________________ () { \
