@@ -44,6 +44,7 @@ isInstalled = test -h "${HOME}/.local/bin/dunamai"
 install = pipx install dunamai
 infusePostRebase =
   link_hard_dep_sh_ask_yesnoskip
+  link_hard_dep_sh_err_trap
   link_hard_dep_sh_git_nubs
 infuse =
   mr -d . -n infusePostRebase
@@ -76,6 +77,7 @@ isInstalled = test -h "${HOME}/.local/bin/git-put-wise"
 install = PREFIX=~/.local make install
 infusePostRebase =
   link_hard_dep_git_smart_git_abort
+  link_hard_dep_sh_err_trap
   link_hard_dep_sh_git_nubs
   link_hard_dep_sh_logger_and_colors
 infuse =
