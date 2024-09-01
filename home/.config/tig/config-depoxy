@@ -135,7 +135,13 @@ bind generic <C-g> >sh -c " \
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-bind generic B >sh -c " \
+# Mnemonic: B[u]mp. Or maybe version [u]p. Who knows.
+# - Obvi. binding might be 'b' (view-blame), or 'B' (available),
+#   or <Ctrl-B> (git_put_wise__apply_______________________), but
+#   this seems like a useful command that'll be utilized often, and
+#   binding to single keypress without modifiers is simplest option.
+
+bind generic u >sh -c " \
   git_bump_version_tag______________________ () { \
     local starting_ref=\"%(commit)\"; \
     \
