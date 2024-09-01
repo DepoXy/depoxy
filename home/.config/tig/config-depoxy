@@ -154,6 +154,7 @@ bind generic % >sh -c " \
         \"${_enable_gpg_sign:-false}\" \
         \"${_magic_starting_ref:-true}\" \
         \"${_insist_signing_key:-false}\"; \
+    echo; \
   }; git_sort_by_scope__rebase_________________"
 
 # ***
@@ -173,6 +174,7 @@ bind generic <C-g> >sh -c " \
         \"${_enable_gpg_sign:-true}\" \
         \"${_magic_starting_ref:-true}\" \
         \"${_insist_signing_key:-true}\"; \
+    echo; \
   }; git_sort_by_scope__rebase_with_gpgSign____"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -199,6 +201,7 @@ bind generic u >sh -c " \
     \
     PW_PID_KILL_ON_ERROR=$PPID \
       git bump-version-tag ${action} \"${starting_ref}\"; \
+    echo; \
   }; git_bump_version_tag______________________"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
