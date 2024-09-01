@@ -203,6 +203,8 @@ bind generic u >sh -c " \
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# MAYBE/2024-09-01: Remove this. I haven't used in ages.
+
 bind main M >sh -c " \
   make_lint_________________________________ () { \
     local retcode; \
