@@ -66,6 +66,8 @@
 
 bind generic <C-a> >sh -c " \
   git_put_wise__archive_____________________ () { \
+    echo \"🍎 git_put_wise__archive 🍎\"; \
+    \
     PW_PID_KILL_ON_ERROR=$PPID \
       git put-wise archive; \
     echo; \
@@ -85,6 +87,8 @@ bind generic <C-a> >sh -c " \
 # at least for now, though I might consolidate with a `pw out` call.
 bind generic <C-s> >sh -c " \
   git_put_wise__push________________________ () { \
+    echo \"🍎 git_put_wise__push 🍎\"; \
+    \
     PW_PID_KILL_ON_ERROR=$PPID \
       git put-wise push; \
     echo; \
@@ -93,6 +97,8 @@ bind generic <C-s> >sh -c " \
 # Ctrl-f, for reals...
 bind generic <C-f> >sh -c " \
   git_put_wise__push__force_________________ () { \
+    echo \"🍎 git_put_wise__push__force 🍎\"; \
+    \
     PW_PID_KILL_ON_ERROR=$PPID \
       git put-wise push -f; \
     echo; \
@@ -102,6 +108,8 @@ bind generic <C-f> >sh -c " \
 # - I'd rather not use <C-v> (it's paste!) but also you'll get used to it.
 bind generic <C-v> >sh -c " \
   git_put_wise__pull________________________ () { \
+    echo \"🍎 git_put_wise__pull 🍎\"; \
+    \
     PW_PID_KILL_ON_ERROR=$PPID \
       git put-wise pull; \
     echo; \
@@ -109,6 +117,8 @@ bind generic <C-v> >sh -c " \
 
 bind generic <C-b> >sh -c " \
   git_put_wise__apply_______________________ () { \
+    echo \"🍎 git_put_wise__apply 🍎\"; \
+    \
     PW_PID_KILL_ON_ERROR=$PPID \
       git put-wise apply; \
     echo; \
@@ -134,6 +144,8 @@ bind generic <C-b> >sh -c " \
 
 bind generic % >sh -c " \
   git_sort_by_scope__rebase_________________ () { \
+    echo \"🍎 git_sort_by_scope__rebase 🍎\"; \
+    \
     local starting_ref=\"%(commit)\"; \
     \
     PW_PID_KILL_ON_ERROR=$PPID \
@@ -151,6 +163,8 @@ bind generic % >sh -c " \
 # - Note that signing each commit is significantly slower than not.
 bind generic <C-g> >sh -c " \
   git_sort_by_scope__rebase_with_gpgSign____ () { \
+    echo \"🍎 git_sort_by_scope__rebase_with_gpgSign 🍎\"; \
+    \
     local starting_ref=\"%(commit)\"; \
     \
     PW_PID_KILL_ON_ERROR=$PPID \
@@ -171,6 +185,8 @@ bind generic <C-g> >sh -c " \
 
 bind generic u >sh -c " \
   git_bump_version_tag______________________ () { \
+    echo \"🍎 git_bump_version_tag 🍎\"; \
+    \
     local starting_ref=\"%(commit)\"; \
     \
     local action=\"%(prompt Part: [M]ajor|[m]inor|[p]atch|[a]lpha|[l]east|[s]ame|[c]urrent / Target: [A]utomatic|[h|H]ead|[S]elected / Default: lA / ? )\"; \
