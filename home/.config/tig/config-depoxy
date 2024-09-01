@@ -137,37 +137,18 @@ bind generic <C-g> >sh -c " \
 
 bind generic B >sh -c " \
   git_bump_version_tag______________________ () { \
-    ! git diff --cached --quiet \
-      && printf '%s\\n\\n' 'ERROR: <B> disabled while staging' \
-      && return 1 || true; \
-    \
-    local action=\"%(prompt Choose part: [M]ajor, [m]inor, [p]atch, [a]lpha, [l]east, [s]ame, or [c]urrent ? )\"; \
-    \
     local starting_ref=\"%(commit)\"; \
-    if [ \"${starting_ref}\" = \"0000000000000000000000000000000000000000\" ]; then \
-      starting_ref=\"HEAD\"; \
+    \
+    local action=\"%(prompt Part: [M]ajor|[m]inor|[p]atch|[a]lpha|[l]east|[s]ame|[c]urrent / Target: [A]utomatic|[h|H]ead|[S]elected / Default: lA / ? )\"; \
+    \
+    if [ -z \"${action}\" ]; then \
+      action=\"lA\"; \
+    elif ! echo \"${action}\" | grep -q -e \"\(A\|h\|H\|S\)\"; then \
+      action=\"${action} -A\"; \
     fi; \
     \
-    local retcode; \
-    \
-    git bump-version-tag ${action}; \
-    retcode=$?; \
-    \
-    GIT_REBASE_TODO_PATH=\".git/rebase-merge/git-rebase-todo\"; \
-    if [ ${retcode} -ne 0 ] || [ -f \"${GIT_REBASE_TODO_PATH}\" ]; then \
-      local __comment__='♯ git-rebase-sort-by-scope-protected-private handles GIT_POST_REBASE_EXEC'; \
-      \
-      local also_why=''; \
-      [ ${retcode} -ne 0 ] || also_why=\"\\n (says ${GIT_REBASE_TODO_PATH})\"; \
-      \
-      >&2 echo; \
-      >&2 echo \"Killing \\`tig\\` because you got work to do${also_why}\"; \
-      >&2 echo \"  🥩 🥩 chop chop\"; \
-      \
-      kill -s 9 $PPID; \
-    fi; \
-    \
-    return ${retcode}; \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git bump-version-tag ${action} \"${starting_ref}\"; \
   }; git_bump_version_tag______________________"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
