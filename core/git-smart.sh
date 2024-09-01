@@ -162,10 +162,13 @@ _dxy_add_on_demand_source_git_nubs () {
   # source_dep "lib/dep_tig_prompt.sh"
 
   if [ -f "${git_nubs}" ]; then
-    eval "git-nubs-load () {
+    eval "eval-git-nubs () {
       . '${git_nubs}';
       . '${common_pw}';
     }"
+
+    # LATER/2024-09-01: Remove this: Legacy binding:
+    alias git-nubs-load="eval-git-nubs"
   fi
 }
 
@@ -174,7 +177,7 @@ _dxy_add_on_demand_source_git_nubs () {
 # REFER: https://github.com/DepoXy/git-put-wise#🥨
 _dxy_add_on_demand_source_git_put_wise () {
   # CXREF: ~/.kit/git/git-put-wise/bin/git-put-wise
-  git-put-wise-source-it () {
+  eval-git-put-wise () {
     local gpw="$(realpath -- "$(command -v git-put-wise)")"
     cd "$(dirname -- "$(dirname -- "${gpw}")")"
     . "${gpw}"
