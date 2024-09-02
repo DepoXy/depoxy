@@ -45,6 +45,9 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
+  # For infuse-platform-macOS source to work
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+
   # Load: infuse_macOS_probe_sshd_config
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/infuse-platform-macOS"
 }
