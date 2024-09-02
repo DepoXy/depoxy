@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # vim:tw=0:ts=2:sw=2:et:norl:ft=bash
 # Author: Landon Bouma <https://tallybark.com/>
 # Project: https://github.com/DepoXy/depoxy#🍯
@@ -33,8 +33,9 @@ main () {
   verify_cache_macos_version
 }
 
-# Only run when executed; no-op when sourced.
-if [ "$0" = "${BASH_SOURCE[0]}" ]; then
+# Run the infuser iff being executed.
+SCRIPT_NAME="verify-cache-macos-version"
+if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
   main "$@"
 fi
 
