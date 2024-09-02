@@ -193,7 +193,7 @@ bind generic u >sh -c " \
     \
     if [ -z \"${action}\" ]; then \
       action=\"lA\"; \
-    elif ! echo \"${action}\" | grep -q -e \"\(A\|h\|H\|S\)\"; then \
+    elif ! echo \"${action}\" | grep -q -e \"\\(A\\|h\\|H\\|S\\)\"; then \
       action=\"${action} -A\"; \
     fi; \
     \
