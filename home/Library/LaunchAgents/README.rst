@@ -121,7 +121,22 @@ Setup launch agent to check ``sshd_config`` daily for changes
 
   - Secondly, enable it::
 
-    launchctl enable gui/501/com.tallybark.daily-check-sshd_config
+    # E.g.,
+    #
+    #  launchctl enable gui/501/com.tallybark.daily-check-sshd_config
+
+    launchctl enable gui/$(id -u)/com.tallybark.daily-check-sshd_config
+
+- Troubleshooting:
+
+  - Not sure what happened, but ``launchctl enable`` would return truthy
+    without output, yet neither ``launchctl list | grep com.tallybark``
+    nor ``launchctl print gui/501/com.tallybark.daily-check-sshd_config``
+    would show the agent.
+
+    I looked in Console.app but couldn't find anything.
+
+    But a reboot solved all.
 
 -------
 
