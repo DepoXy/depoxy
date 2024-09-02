@@ -55,7 +55,8 @@ source_deps () {
 
 run_everday_check_sshd_config () {
   local cfg_errs
-  cfg_errs="$(infuse_macOS_probe_sshd_config > /dev/null)"
+  cfg_errs="$(infuse_macOS_probe_sshd_config 2> /dev/null)" \
+    || true
 
   if [ -z "${cfg_errs}" ]; then
 
