@@ -67,6 +67,11 @@ _dxy_wire_omr_status_snip_cd () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_check_if_omr_infuse_run_since_latest_macos_update () {
+  if ! os_is_macos; then
+
+    return 0
+  fi
+
   local ambers_hidden_bin="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.depoxy/ambers/bin"
   # CXREF: ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
   local verify_cache_macos_version="${ambers_hidden_bin}/verify-cache-macos-version"
