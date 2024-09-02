@@ -49,6 +49,7 @@ source_deps () {
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
   # Load: infuse_macOS_probe_sshd_config
+  # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/infuse-platform-macOS"
 }
 
