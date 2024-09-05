@@ -35,6 +35,8 @@
 
 SEND_EMAIL_TO="${SEND_EMAIL_TO:-$(id -un)}"
 
+SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
+
 SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"SSHd_Config Probe\" <$(basename -- "$0")@$(hostname)>}"
 
 SEND_EMAIL_SUBJECT="The sshd_config file on @$(hostname) is not configured properly"
@@ -66,6 +68,7 @@ run_everday_check_sshd_config () {
   sendmail -oi "${SEND_EMAIL_TO}" \
 <<EOF
 From: ${SEND_EMAIL_FROM}
+To: ${SEND_EMAIL_TO_FRIENDLY}
 Subject: ${SEND_EMAIL_SUBJECT}
 Content-Type: text/html
 
