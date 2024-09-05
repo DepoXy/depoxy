@@ -35,7 +35,7 @@
 
 SEND_EMAIL_TO="${SEND_EMAIL_TO:-$(id -un)}"
 
-SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-sshd_config Probe <$(basename -- "$0")@$(hostname)>}"
+SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"SSHd_Config Probe\" <$(basename -- "$0")@$(hostname)>}"
 
 SEND_EMAIL_SUBJECT="The sshd_config file on @$(hostname) is not configured properly"
 
