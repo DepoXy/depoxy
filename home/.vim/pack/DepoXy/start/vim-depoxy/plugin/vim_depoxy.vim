@@ -1,4 +1,3 @@
-" <>.
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/DepoXy/depoxy#🍯
 " License: https://creativecommons.org/publicdomain/zero/1.0/
