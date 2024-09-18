@@ -10,6 +10,20 @@
 # client _mrconfig, hence it's just one big function. Feel free to
 # refactor into smaller functions if you're so inspired.
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps () {
+  # Load the logger library, from github.com/landonb/sh-logger.
+  # - Includes print commands: info, warn, error, debug.
+  if command -v "logger.sh" > /dev/null; then
+    . "logger.sh"
+  else
+    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxc_client_include () {
   local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
   local stints_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}"
@@ -84,4 +98,14 @@ _dxc_client_include () {
     mr_cat "${client_dir}/.mrconfigs/_mrconfig-remotes"
   fi
 }
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main () {
+  source_deps
+  unset -f source_deps
+}
+
+main
+unset -f main
 
