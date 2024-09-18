@@ -287,3 +287,25 @@ order = 481
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# For the Resilience
+
+# https://alt-tab-macos.netlify.app/
+# https://github.com/lwouis/alt-tab-macos
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/alt-tab-macos]
+lib = remote_set starter https://github.com/lwouis/alt-tab-macos
+skip = no_travel
+
+# https://github.com/dmarcotte/easy-move-resize
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/easy-move-resize]
+lib = remote_set starter https://github.com/dmarcotte/easy-move-resize
+skip = no_travel
+
+# https://rectangleapp.com/
+# https://github.com/rxhanson/Rectangle
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Rectangle]
+lib = remote_set starter https://github.com/rxhanson/Rectangle
+skip = no_travel
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

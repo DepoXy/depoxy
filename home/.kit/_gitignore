@@ -122,6 +122,8 @@
 # Most (all?) of these projects will only be cloned when DepoXy is running
 # on a macOS host. (Though on Linux their directories may be stubbed.)
 /mOS/Docker-Desktop-OMR-install/
+/mOS/alt-tab-macos/
+/mOS/easy-move-resize/
 /mOS/finicky/
 /mOS/GeekTool/
 /mOS/hammerspoon/
@@ -133,6 +135,7 @@
 /mOS/macOS-Hammyspoony/
 /mOS/macOS-onboarder/
 /mOS/macOS-skhibidirc/
+/mOS/Rectangle/
 /mOS/.whilom/DefaultKeybindings.dict/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
