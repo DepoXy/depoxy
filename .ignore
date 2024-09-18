@@ -8,6 +8,8 @@
 # -> ../home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 /core/wire-bash.sh
 
+/docs/README-macOS-onboarding.rst
+
 # Symlinks: home/.config/tig/* -> :
 #   cfg-tgn-*         -> ~/.kit/git/tig-newtons/tig/*
 #   config-*          -> ~/.depoxy/ambers/home/.config/tig/config-*
