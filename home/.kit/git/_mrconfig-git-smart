@@ -66,6 +66,29 @@ infuse =
   symlink_mrinfuse_file 'bin/.my-merge-status-nochores'
 updateDeps =
   update_deps_shoilerplate
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled =
+  eval "$(pyenv init -)"
+  # USYNC: DEPOXY_PYENV_PYVERS
+  pyenv shell ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}
+  python_get_distribution () {
+    local pkgname="$1"
+    # /usr/bin/env python3 -c \
+    #   "from pkg_resources import get_distribution; \
+    #    print(get_distribution('${pkgname}').version);"
+    /usr/bin/env python3 -c \
+      "from importlib.metadata import version; \
+       print(version('${pkgname}'));"
+  }
+  python_get_distribution "human-friendly_pedantic-timedelta" &> /dev/null
+install =
+  eval "$(pyenv init -)"
+  # USYNC: DEPOXY_PYENV_PYVERS
+  pyenv install -s ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}
+  pyenv shell ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}
+  # pip install --upgrade pip
+  python3 -m pip install --upgrade pip
+  python3 -m pip install human-friendly_pedantic-timedelta
 
 # enigmatic encrypted repo conveyance 🥨
 # https://github.com/DepoXy/git-put-wise#🥨
