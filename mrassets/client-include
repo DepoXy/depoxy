@@ -13,7 +13,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
-  # Load the logger library, from github.com/landonb/sh-logger.
+  # CXREF: https://github.com/landonb/sh-logger
   # - Includes print commands: info, warn, error, debug.
   if command -v "logger.sh" > /dev/null; then
     . "logger.sh"
