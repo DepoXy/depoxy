@@ -92,7 +92,7 @@ echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled =
   grep -q -e "^complete -F _complete_alias t$" "${HOME}/.complete_alias"
 install =
-  # Uses line_in_file to update/verify ~/.bash_completion
+  # Uses append_line_unless_exists to update/verify ~/.bash_completion
   append_bash_completion ". ~/.complete_alias"
   #
   info "Clobbering $(fg_lightorange)~/.complete_alias$(attr_reset)"

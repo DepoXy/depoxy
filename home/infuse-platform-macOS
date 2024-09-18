@@ -541,23 +541,22 @@ infuse_macOS_configure_sshd_config_update () {
 
   # CXREF: ~/.kit/git/ohmyrepos/lib/line-in-file.sh
 
-  sudo_line_in_file () {
-    local add_line="$1"
-    local target_path="$2"
-
-    sudo bash -c "
-      . \"${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh\";
-      . \"${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/line-in-file.sh\";
-      line_in_file \"${add_line}\" \"${config_f}\""
-  }
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/line-in-file.sh"
 
   # SAVVY: If `sshd` is running, changes take effect immediately.
 
-  sudo_line_in_file "PasswordAuthentication no"
-  sudo_line_in_file "ChallengeResponseAuthentication no"
+  OMR_BECOME=sudo line_in_file "${config_f}" \
+    "^PasswordAuthentication " \
+    "PasswordAuthentication no"
+
+  OMR_BECOME=sudo line_in_file "${config_f}" \
+    "^ChallengeResponseAuthentication " \
+    "ChallengeResponseAuthentication no"
 
   # For good measure, add ITERM_SESSION_ID hook for window titling
-  sudo_line_in_file "AcceptEnv ITERM_SESSION_ID"
+  OMR_BECOME=sudo line_in_file "${config_f}" \
+    "^AcceptEnv ITERM_SESSION_ID$" \
+    "AcceptEnv ITERM_SESSION_ID"
 
   # ***
 

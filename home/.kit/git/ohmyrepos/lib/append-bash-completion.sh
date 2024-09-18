@@ -15,6 +15,6 @@ append_bash_completion () {
 
   # CXREF/2024-04-03:
   #   ~/.kit/git/ohmyrepos/lib/line-in-file.sh
-  line_in_file "${add_line}" "${target_path}"
+  append_line_unless_exists "${target_path}" "${add_line}"
 }
 
