@@ -297,6 +297,10 @@
 #  https://pex.readthedocs.io/en/v2.1.113/
 /.pex/
 
+# Pencil "open-source GUI prototyping tool"
+# https://pencil.evolus.vn/
+/.pencil/
+
 # PostgreSQL history file.
 /.psql_history
 
