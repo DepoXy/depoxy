@@ -1,0 +1,285 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# CXREF: Loaded by:
+#   ~/.depoxy/ambers/home/.kit/_mrconfig
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 695
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/py/meld]
+
+lib =
+  remote_set starter "https://gitlab.gnome.org/GNOME/meld.git" "meld"
+  #
+  # HSTRY/2024-09-18: Homebrew is dropping meld at the end of the year,
+  # as the Brew package is no longer maintained.
+  # - It also appears the yousseb OSX fork is also inert (without
+  #   explicitly calling itself retired or unsupported).
+  #   - Fortunately, you can run meld from sources on modern hardware,
+  #     and it appears to be stable!
+  #   - Also, it looks like GNOME will eventually add OSX builds, or
+  #     at least you can find a macOS build image in the CI pipeline
+  #     assets. (Albeit when I tried the package, macOS said it was
+  #     corrupt and asked me to delete the file.)
+  # - So the next two remotes are not really necessary, but keeping
+  #   currently for reference.
+  #
+  # - yousseb maintained macOS builds for a while:
+  remote_set yousseb "https://github.com/yousseb/meld.git"
+  #
+  # - matthiasdiener has branch with Apple Silicon fixes for yousseb:
+  #   https://github.com/yousseb/meld/pull/148
+  remote_set matthiasdiener "https://github.com/matthiasdiener/meld.git"
+
+# ***
+
+# ISOFF/2024-09-18: Meh: We could restrict this to just macOS...
+# - But I also occasionally find myself running from source on
+#   Linux, or at least I have in the past, until I found that
+#   Flatpak is generally a reliable build.
+#
+#   checkout =
+#     if ! skip_unless_macOS; then
+#       # Checkout on macOS
+#       mr_repo_checkout
+#     else
+#       # Stub on Linux/other
+#       # 2022-10-01: See flatpak meld install instead.
+#       stub_checkout_directory
+#     fi
+#
+#   ffssh =
+#     if ! skip_unless_macOS; then
+#       # Sync on macOS
+#       git_merge_ffonly_ssh_mirror "$@"
+#     else
+#       # Skip (but report skipped) on Linux/other
+#       OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
+#     fi
+
+# ***
+
+merge =
+  local resume_cmd="$1"
+  #
+  rebase_tip_merge_release "${resume_cmd}" "starter/main" \
+    "${_add_version_tag:-false}" "$@"
+
+rebase =
+  local resume_cmd="$1"
+  #
+  local slug_name="control-key-accelerators"
+  local remote_ref="starter/main"
+  local local_name="main"
+  #
+  local TIP_BRANCH  # Set by rebase_tip
+  rebase_tip "${resume_cmd}" "${slug_name}" "${remote_ref}" \
+    "${_liminal_ref:--}" "${local_name}" \
+    "${_add_version_tag:-false}" "${_skip_rebase:-false}"
+  #
+  if [ -z "${TIP_BRANCH}" ]; then
+    # tip/ branch already exists.
+    #
+    return 0
+  fi
+  # else, new tip/ branch was created.
+
+# ***
+
+echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all'
+
+lib =
+  is_meld_flatpak_installed_deb () {
+    [ -d "${HOME}/.local/share/flatpak/app/org.gnome.meld" ] \
+      || [ -d "/var/lib/flatpak/app/org.gnome.meld" ]
+  }
+
+isInstalled =
+  if is_meld_flatpak_installed_deb; then
+    #
+    return true
+  fi
+  # FIXME/2024-09-18 13:10: Add check for what's installed below.....
+  false
+
+install = install_os_specific
+
+installLinux =
+  if ! is_meld_flatpak_installed_deb; then
+    >&2 warn "Please install \`meld\` from Flatpak. E.g.:"
+    >&2 warn "  flatpak install flathub org.gnome.meld"
+    >&2 warn "  # Test with:"
+    >&2 warn "  flatpak run org.gnome.meld"
+    #
+    return 1
+  fi
+
+# SAVVY: Pick a Python version that matches the brew-install'ed `gi` module
+# et at.
+# - I.e., run `python3` and try `import gi`, e.g.,
+#     $ /opt/homebrew/bin/python3.12
+#     >>> import gi
+#     >>>
+# - Circa 2024-09-18, we can pick 3.11 or 3.12:
+#     $ ls -ld /opt/homebrew/opt/pygobject3/lib/*/site-packages/
+#     /opt/homebrew/opt/pygobject3/lib/python3.11/site-packages/
+#     /opt/homebrew/opt/pygobject3/lib/python3.12/site-packages/
+#
+# SAVVY: The `meson` dependency expects to find `python3.pc`:
+#   dependency('python3', version : '>= 3.6')
+# - CXREF: ~/.kit/py/meld/meson.build
+# - Via `locate python3.pc | grep 3.12`, circa 2024-09-18, you might see:
+#     /Users/user/.pyenv/versions/3.12.2/lib/pkgconfig/python3.pc
+#     /opt/homebrew/Cellar/python@3.12/3.12.6/Frameworks/Python.framework/Versions/3.12/lib/pkgconfig/python3.pc
+#     /opt/homebrew/Cellar/python@3.12/3.12.6/lib/pkgconfig/python3.pc
+#     /opt/local/Library/Frameworks/Python.framework/Versions/3.12/lib/pkgconfig/python3.pc
+#     /opt/local/var/macports/software/python312/python312-3.12.5_0+lto+optimizations.darwin_23.arm64/
+#       opt/local/Library/Frameworks/Python.framework/Versions/3.12/lib/pkgconfig/python3.pc
+
+# TIMED/2024-09-18: Rebuild in 23.1 secs. (brew- and pip-installs prev. run).
+installDarwin =
+  # Similar to, e.g., `pull_latest "starter" "main"`, except we TIP a
+  # commit that changes <Command> accelerators to <Control> bindings.
+  mr -d "${MR_REPO}" -n rebase
+  #
+  # Build system
+  brew install meson ninja
+  #
+  # Build dependency: gtksourceview-4
+  brew install gtksourceview4
+  #
+  # Build dependency: pygobject-3.0
+  #   https://pygobject.gnome.org/
+  #   https://formulae.brew.sh/formula/pygobject3
+  brew install pygobject3
+  #
+  # Build dependency: py3cairo
+  brew install py3cairo
+  #
+  # (Optional?) Build dependency: gtk4-update-icon-cache
+  brew install gtk4
+  #
+  # Run-time dependency: Otherwise `meld` fails at
+  # `NameError: name 'GtkosxApplication' is not defined`
+  #   https://formulae.brew.sh/formula/gtk-mac-integration
+  #   https://gitlab.gnome.org/GNOME/gtk-mac-integration
+  #   https://gtk-osx.sourceforge.net/gtk-mac-integration/GtkosxApplication.html
+  #   https://wiki.gnome.org/Projects/GTK/OSX/Integration
+  brew install gtk-mac-integration
+  #
+  # Run-time dependency: GNOME icons. Otherwise console errors and
+  # dir. comparison doesn't render correctly (list items disappear).
+  #   https://formulae.brew.sh/formula/adwaita-icon-theme
+  brew install adwaita-icon-theme
+  #
+  # This `deactivate` in case you copy-paste this to a terminal.
+  # - Avoid same-named Homebrew executable with `command` preflight.
+  test "$(command -v deactivate)" = "deactivate" && deactivate
+  eval "$(pyenv init -)"
+  #
+  # USYNC: DEPOXY_PYENV_PYVERS
+  py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}"
+  pyenv install -s ${py_vers}
+  pyenv shell ${py_vers}
+  #
+  # Otherwise `meld` fails at `from Foundation import NSBundle`.
+  #   https://pyobjc.readthedocs.io/en/latest/install.html
+  python3 -m pip install -U pyobjc
+  #
+  # Aka ${HOMEBREW_PREFIX}
+  local brew_home="/opt/homebrew"
+  # Otherwise on Intel Macs it's under /usr/local.
+  [ -d "${brew_home}" ] || brew_home="/usr/local"
+  #
+  command rm -rf -- _build
+  #
+  pkgc_path=""
+  add_pkgc_path () {
+    local path="$1"
+    #
+    if [ ! -d "${path}" ]; then
+      >&2 error "ERROR: Unexpected: Missing path: ${path}"
+      #
+      return 1
+    fi
+    #
+    [ -z "${pkgc_path}" ] || pkgc_path="${pkgc_path}:"
+    #
+    pkgc_path="${pkgc_path}${path}"
+  }
+  add_pkgc_path "${HOME}/.pyenv/versions/${py_vers}/lib/pkgconfig"
+  add_pkgc_path "${brew_home}/opt/gtksourceview4/lib/pkgconfig"
+  add_pkgc_path "${brew_home}/opt/pygobject3/lib/pkgconfig"
+  add_pkgc_path "${brew_home}/opt/py3cairo/lib/pkgconfig"
+  #
+  PKG_CONFIG_PATH="${pkgc_path}" \
+    meson setup _build
+  #
+  cd _build
+  # These both run fast.
+  ninja
+  ninja install
+  #
+  # SAVVY: Installs to Homebrew, e.g.,
+  #   /opt/homebrew/lib/python3.12/site-packages/meld/
+  # and I haven't investigated why.
+  # - Considering that we're running pyenv Python, feels like we
+  #   should install to pyenv site-packages, e.g.,
+  #     ~/.pyenv/versions/3.12.1/lib/python3.12/site-packages/
+  # - Though consider `ninja install` also installs assets under
+  #   /opt/homebrew/share/, I wonder the install task is Homebrew-
+  #   specific... though seems unexpected for a cross-platform
+  #   project like Meld to have target a specific package manager,
+  #   at least not from the base project build. But what do I know,
+  #   I haven't dug into the build process at all (I only know what
+  #   I see in output, and from the ~/.kit/py/meld/meson.build file).
+  # - SAVVY: I don't see any "brew" text outside of the _build/
+  #   directory, so I wonder if the `ninja install` paths are coming
+  #   from my user's shell environment... maybe I *do* have more
+  #   control over this than I think...
+  #
+  # SAVVY: Note the `ninja install` places a Homebrew executable,
+  #   /opt/homebrew/bin/meld
+  # but you cannot run it, because it shebangs System Python, i.e.,
+  #   #!/usr/bin/python3
+  # whereas we want to run pyenv Python.
+  #
+  # USAGE: Specify the path to the meld module in the Homebrew
+  # installation target, and run via pyenv Python. Note you
+  # can run either the Homebrew meld, or the bin/meld from
+  # sources. The files are nearly identical, except bin/meld
+  # uses the more universal shebang, `#!/usr/bin/env python3`.
+  # (So if you run the latter, you can run it directly, and
+  #  don't have to run it through Python).
+  #
+  # - E.g.:
+  #
+  #     PYTHONPATH=/opt/homebrew/lib/python3.12/site-packages \
+  #       python3 /opt/homebrew/bin/meld \
+  #         path/to/dir1 path/to/dir2
+  #
+  # - Or:
+  #
+  #     PYTHONPATH=/opt/homebrew/lib/python3.12/site-packages \
+  #       ~/.kit/py/meld/bin/meld \
+  #         path/to/dir1 path/to/dir2
+  echo
+  echo "Installed Meld!"
+  echo
+  echo "USAGE:"
+  echo "  PYTHONPATH=/opt/homebrew/lib/python${py_vers%.*}/site-packages \\"
+  echo "    ${MR_REPO}/bin/meld \\"
+  echo "      path/to/dir1 path/to/dir2"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

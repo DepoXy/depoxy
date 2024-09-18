@@ -143,6 +143,8 @@ include =
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/py/_mrconfig
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig
+    # CXREF: ~/.depoxy/ambers/home/.kit/py/_mrconfig--meld
+    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig--meld
   fi
 
 # ========================================================================

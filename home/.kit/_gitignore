@@ -154,6 +154,7 @@
 
 /py/aws-cli/
 /py/install.python-poetry.org/
+/py/meld/
 /py/pipx/
 /py/poetry-dynamic-versioning/
 /py/poetry/
