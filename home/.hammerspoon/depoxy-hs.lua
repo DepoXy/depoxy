@@ -119,5 +119,60 @@ end)
 
 ignore_hotkey_slack(shift_ctrl_r)
 
--------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- KLUGE: Enable <Shift-Ctrl> MacVim bindings.
+-- - Aka: Hammerspoon substitutions for MacVim.
+-- - Normally MacVim, like most terminals, doesn't distinguish
+--   between <Ctrl-{key}> and <Shift-Ctrl-{key}>, but we can
+--   replace <Shift-Ctrl> bindings with special Unicode characters
+--   that we can then capture in Vim using `map` commands.
+-- - Super esoteric, but lets you map <Shift-Ctrl> keys, ha.
+-- - CXREF: See Alacritty substitutions for terminal `vim`:
+--     ~/.depoxy/ambers/home/.config/alacritty/alacritty.toml
+-- - CXREF: See associated Vim maps:
+--     ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
+
+local macvim_shift_ctrl_kludge_get_eventtap = function()
+  return hs.eventtap.new(
+    {hs.eventtap.event.types.keyDown},
+    function(e)
+      -- Returns true to delete original event, followed by the new event.
+      if e:getFlags():containExactly({"shift", "ctrl"}) then
+        if false then
+
+        -- Note that generating a new key event using the integer
+        -- character value doesn't work, e.g., where 0xE003 = 57347:
+        --    return true, {hs.eventtap.event.newKeyEvent(57347, true)}  -- WRONG
+        -- Fortunately we can setUnicodeString() on the current event
+        -- using the literal character, and then return it.
+
+        -- <Shift-Ctrl-D> Indent line
+        elseif e:getKeyCode() == hs.keycodes.map["d"] then
+          -- Use user Unicode character 0xE003
+          -- - Then in Vimrc, e.g.,
+          --    inoremap  <C-O>:call ...
+          return true, {e:setUnicodeString("")}
+
+        -- <Shift-Ctrl-W> Delete-to-beginning-of-line
+        elseif e:getKeyCode() == hs.keycodes.map["w"] then
+          -- Use user Unicode character 0xE016
+          -- - Then in Vimrc, e.g.,
+          --    inoremap  <C-O>:call ...
+          return true, {e:setUnicodeString("")}
+
+        end
+      end
+
+      -- Return false to propagate event.
+      return false
+    end
+  )
+end
+
+local macvim_filter = hs.window.filter.new("MacVim")
+
+filter_attach_eventtap(macvim_filter, macvim_shift_ctrl_kludge_get_eventtap)
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

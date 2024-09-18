@@ -279,6 +279,78 @@ bindings = [
 
   # ***
 
+  # KLUGE: Enable <Shift-Ctrl> Vim bindings.
+  # - Aka: Alacritty substitutions for terminal `vim`.
+  # - CXREF: Hammerspoon substitutions for MacVim:
+  #     ~/.depoxy/ambers/home/.hammerspoon/depoxy-hs.lua
+  # - CXREF: Associated Vim maps:
+  #     ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
+  # - SAVVY: You cannot map <C-S> bindings in Vim b/c the terminal ignores
+  #   the Shift modifier when it generates a Control binding escape code.
+  #   - E.g., <C-S-X> is interpreted as simply <C-X>.
+  #   - We hack around this by sustituting special Unicode characters
+  #     for the actual <Shift-Ctrl> keypresses.
+  #   - REFER: Use characters from the Unicode Private Use Area (PUA),
+  #     so they won't conflict with any characters user might generate.
+  #     - "Three private use areas are defined:
+  #        one in the Basic Multilingual Plane (U+E000–U+F8FF),
+  #        and one each in, and nearly covering,
+  #        planes 15 and 16 (U+F0000–U+FFFFD, U+100000–U+10FFFD)."
+  #       https://en.wikipedia.org/wiki/Private_Use_Areas
+  #   - "Informally, the range U+F000 through U+F8FF is known as the
+  #      Corporate Use Area."
+  #   - We'll start at the low end, E000, and assign the first 26 entries
+  #     to the 26 bindings, <Shift-Ctrl-A> through <Shift-Ctrl-Z>.
+  #     - Though for now we only care about the two bindings we want
+  #       to map in Vim:
+  #       - <Shift-Ctrl-W> — Backspace to start of line
+  #                          - Complements: <Ctrl-W> Delete back word
+  #       - <Shift-Ctrl-D> — Indent
+  #                          - Complements: <Ctrl-D> Dedent
+  # - SAVVY: To generate the character so you can copy it, add/edit/verify
+  #   the binding here, then press the associated keypress in the terminal.
+
+  # \uE000  \uE001  \uE002  \uE003  \uE004  \uE005  \uE006  \uE007
+  #   a      b      c      d      e      f      g      h 
+  # \uE008  \uE009  \uE00A  \uE00B  \uE00C  \uE00D  \uE00E  \uE00F
+  #   i      j      k      l      m      n      o      p 
+  # \uE010  \uE011  \uE012  \uE013  \uE014  \uE015  \uE016  \uE017
+  #   q      r      s      t      u      v      w      x 
+  # \uE018  \uE019
+  #   y      z  
+  { key = "A", mods = "Control|Shift", chars = "\uE000" },
+  { key = "B", mods = "Control|Shift", chars = "\uE001" },
+  # SKIPD: <Shift-Control-C> is copy (see above).
+  #  { key = "C", mods = "Control|Shift", chars = "\uE002" },
+  { key = "D", mods = "Control|Shift", chars = "\uE003" },
+  { key = "E", mods = "Control|Shift", chars = "\uE004" },
+  { key = "F", mods = "Control|Shift", chars = "\uE005" },
+  { key = "G", mods = "Control|Shift", chars = "\uE006" },
+  { key = "H", mods = "Control|Shift", chars = "\uE007" },
+  { key = "I", mods = "Control|Shift", chars = "\uE008" },
+  { key = "J", mods = "Control|Shift", chars = "\uE009" },
+  { key = "K", mods = "Control|Shift", chars = "\uE00A" },
+  { key = "L", mods = "Control|Shift", chars = "\uE00B" },
+  { key = "M", mods = "Control|Shift", chars = "\uE00C" },
+  { key = "N", mods = "Control|Shift", chars = "\uE00D" },
+  { key = "O", mods = "Control|Shift", chars = "\uE00E" },
+  { key = "P", mods = "Control|Shift", chars = "\uE00F" },
+  # SKIPD: <Shift-Ctrl-Q> immediately exits Alacritty.
+  #  { key = "Q", mods = "Control|Shift", chars = "\uE010" },
+  # SKIPD: <Shift-Ctrl-R> is DepoXy Client Hammerspoon config opener. 
+  #  { key = "R", mods = "Control|Shift", chars = "\uE011" },
+  { key = "S", mods = "Control|Shift", chars = "\uE012" },
+  { key = "T", mods = "Control|Shift", chars = "\uE013" },
+  { key = "U", mods = "Control|Shift", chars = "\uE014" },
+  # SKIPD: <Shift-Control-V> is paste (see above).
+  #  { key = "V", mods = "Control|Shift", chars = "\uE015" },
+  { key = "W", mods = "Control|Shift", chars = "\uE016" },
+  { key = "X", mods = "Control|Shift", chars = "\uE017" },
+  { key = "Y", mods = "Control|Shift", chars = "\uE018" },
+  { key = "Z", mods = "Control|Shift", chars = "\uE019" },
+
+  # ***
+
   # TRYME:
   # @macOS exclusive:
   # ToggleSimpleFullscreen
