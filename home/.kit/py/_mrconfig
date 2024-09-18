@@ -3,6 +3,9 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# CXREF: Loaded by:
+#   ~/.depoxy/ambers/home/.kit/_mrconfig
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
@@ -279,14 +282,18 @@ lib = [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ] ||
 lib = export MR_REMOTE_PATH_ABSENCE_EXCUSED=true
 checkout =
   if ! skip_unless_macOS; then
+    # Stub on macOS
     stub_checkout_directory
   else
+    # Checkout on Linux/other
     mr_repo_checkout
   fi
 ffssh =
   if skip_unless_macOS; then
+    # Sync on Linux/other
     git_merge_ffonly_ssh_mirror "$@"
   else
+    # Skip (but report skipped) on macOS
     OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
   fi
 # Should be ordered lower than anything that uses `pyenv init`
