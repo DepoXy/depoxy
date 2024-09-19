@@ -601,6 +601,27 @@ _dxc_client_autocommit () {
 
   git_auto_commit_one_update "private/private.not-private" "" "${PRIVATE_ACI}"
 
+  # ***
+
+  # More POSIX than `command -V`, perhaps. Note `type -t` is not.
+  is_function () {
+    type "$1" 2> /dev/null | head -n 1 | grep -qe ' function$'
+  }
+
+  # User can define _dxc_client_autocommit_user to run additional
+  # auto-commits before this script checks that everything is committed.
+  # - Note user can auto-commit before calling _dxc_client_autocommit,
+  #   but using callback here means git_auto_commit_parse_args has been
+  #   called, and it lets user use the git_auto_commit_* fcns.
+  #
+  # - CXREF: See file where user would likely define this function:
+  #     ~/.depoxy/running/.mrconfigs/_mrconfig
+  #     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr
+
+  if is_function "_dxc_client_autocommit_user"; then
+    _dxc_client_autocommit_user
+  fi
+
   # ===
   # ***
   # ===
