@@ -120,23 +120,35 @@ insist_not_not_dir_exists () {
 # ***
 
 revive_or_die_placeholder_assets () {
+  local created=""
+  local removed=""
+
   local line
   while read -r line; do
     local prefix="$(echo "${line}" | sed 's/^\([0-9]\+\).*/\1/')"
 
     # Allow easy renaming: remove any file with same prefix (we'll recreate
     # it if necessary; or leave it removed if corresponding symlink exists).
-    find . -maxdepth 1 -type f -iname "${prefix}*" -exec git rm -- {} +
+    find . -maxdepth 1 -type f -iname "${prefix}*" -exec git rm -q -- {} +
     find . -maxdepth 1 -type f -iname "${prefix}*" -exec rm -- {} +
 
     if test -n "$(find . -maxdepth 1 -type l -iname "${prefix}*")"; then
-      >&2 echo "${prefix}: Removed placeholder(s)"
+      [ -z "${removed}" ] || removed="${removed}, "
+      removed="${removed}${prefix}"
     else
       touch -- "${line}"
 
-      >&2 echo "${prefix}: Created placeholder"
+      [ -z "${created}" ] || created="${created}, "
+      created="${created}${prefix}"
     fi
   done
+
+  if [ -n "${removed}" ]; then
+    >&2 echo "Removed placeholder(s): ${removed}"
+  fi
+  if [ -n "${created}" ]; then
+    >&2 echo "Created placeholder(s): ${created}"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -165,11 +177,11 @@ git_status_porcelain () {
 commit_notable_notes_changes () {
   # Commit files staged by `git-rm`
   PRIVATE_ACI="${PRIVATE_ACI:-PRIVATE: autoci*}"
-  git commit -m "${PRIVATE_ACI}: Docs: Remove old notable-notes placeholder(s)"
+  git commit -q -m "${PRIVATE_ACI}: Docs: Remove old notable-notes placeholder(s)"
 
   # Commit new files
   git add .
-  git commit -m "${PRIVATE_ACI}: Docs: Insert new notable-notes placeholder(s)"
+  git commit -q -m "${PRIVATE_ACI}: Docs: Insert new notable-notes placeholder(s)"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
