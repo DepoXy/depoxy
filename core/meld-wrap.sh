@@ -103,6 +103,15 @@ meld () {
 
     return 1
   fi
+
+  # Overkill, but author doesn't like shell bleed, or stuff
+  # messing up my completion hints.
+  unset -f is_meld_flatpak_installed
+  unset -f meld_flatpak
+  unset -f is_meld_sources_installed
+  unset -f meld_sources
+  unset -f meld_application
+  unset -f meld_command
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
