@@ -3,7 +3,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-# Copyright (c) © 2015-2021 Landon Bouma. All Rights Reserved.
+# Copyright (c) © 2015-2024 Landon Bouma. All Rights Reserved.
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -16,6 +16,8 @@
 # - Or from sources, because there are no working Apple Silicon
 #   builds for macOS circa 2024-09-18.
 
+# USYNC: See print_meld_command:
+#   ~/.kit/txt/spellfile.txt/bin/spells.sh
 meld () {
   # SAVVY: Just check dir., as flatpak-info is slower. E.g., not:
   #
