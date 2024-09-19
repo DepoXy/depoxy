@@ -68,6 +68,10 @@ meld () {
 
   # ***
 
+  is_meld_application_installed () {
+    [ -d "/Applications/Meld.app/" ]
+  }
+
   # ALTLY: `open` could work, but fails on relative paths.
   #   open /Applications/Meld.app/ --args "$@"
   meld_application () {
@@ -89,7 +93,7 @@ meld () {
     meld_flatpak "$@"
   elif is_meld_sources_installed; then
     meld_sources "$@"
-  elif [ -d "/Applications/Meld.app/" ]; then
+  elif is_meld_application_installed; then
     meld_application "$@"
   elif type -f "meld" > /dev/null 2>&1; then
     # `type -f` ignores functions, i.e., don't match the function we're in.
@@ -110,6 +114,7 @@ meld () {
   unset -f meld_flatpak
   unset -f is_meld_sources_installed
   unset -f meld_sources
+  unset -f is_meld_application_installed
   unset -f meld_application
   unset -f meld_command
 }
