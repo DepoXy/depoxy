@@ -409,8 +409,11 @@ _dxc_client_autocommit () {
 
     git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects" \
       -m "${PRIVATE_ACI}: Vimprojects         (Client project-tray drawer)"
-    git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--purged" \
-      -m "${CLEARED_ACI}: Vimprojects--purged (DepoXy projects only)"
+    # The "purged" Vimprojects file is created by client-infuse, so file might be absent.
+    if [ -f "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--purged" ]; then
+      git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--purged" \
+        -m "${CLEARED_ACI}: Vimprojects--purged (DepoXy projects only)"
+    fi
 
     # Dob, easy-as-pypi, and related Python projects.
     git_auto_commit_one "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--dob" \
@@ -553,11 +556,16 @@ _dxc_client_autocommit () {
 
   git_auto_commit_one_update "home/crontab.${DEPOXY_USERNAME}" "" "${PRIVATE_ACI}"
 
-  git_auto_commit_one "home/dubs_projects.vim" \
-    -m "${PRIVATE_ACI}: home/dubs_projects.vim (grep-steady mappings)"
+  # Convenience symlink, created by client-infuse.
+  if [ -h "home/dubs_projects.vim" ]; then
+    git_auto_commit_one "home/dubs_projects.vim" \
+      -m "${PRIVATE_ACI}: home/dubs_projects.vim (grep-steady mappings)"
+  fi
 
-  # Symlink.
-  git_auto_commit_one_update "home/.vimprojects"
+  # Convenience symlink, created by client-infuse.
+  if [ -h "home/.vimprojects" ]; then
+    git_auto_commit_one_update "home/.vimprojects"
+  fi
 
   git_auto_commit_many $(find home/vim-trap/ -type f -o -type l) \
     -m "${CLEARED_ACI}: Update: home/vim-trap/"
