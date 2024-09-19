@@ -18,7 +18,9 @@ order = 695
 [${DOPP_KIT:-${HOME}/.kit}/py/meld]
 
 lib =
-  remote_set starter "https://gitlab.gnome.org/GNOME/meld.git" "meld"
+  # Forked from https://github.com/GNOME/meld
+  remote_set publish "https://github.com/landonb/meld.git" "meld"
+  remote_set starter "https://gitlab.gnome.org/GNOME/meld.git"
   #
   # HSTRY/2024-09-18: Homebrew is dropping meld at the end of the year,
   # as the Brew package is no longer maintained.
