@@ -124,8 +124,8 @@ isInstalled = test -h "${HOME}/.local/bin/poetry"
 install =
   pull_latest "starter" "main"
   # Call `deactivate` function (and ignore Brew command on PATH).
-  # - Note this never runs from `mr` context but here should you
-  #   copy-paste this to a terminal.
+  # - Note this never runs from `mr` context; it's here in case
+  #   you copy-paste this to a terminal.
   test "$(command -v deactivate)" = "deactivate" && deactivate
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
