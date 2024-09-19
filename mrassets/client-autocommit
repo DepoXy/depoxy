@@ -147,8 +147,9 @@ _dxc_client_autocommit () {
   git_auto_commit_one_update "home/.config/depoxy/321open.cfg" "321open.cfg"
 
   git_auto_commit_one_update "home/.config/karabiner/README.rst"
-
   git_auto_commit_one_update "home/.config/karabiner/karabiner.json"
+  # Absolutely silly.
+  git_auto_commit_one_update "home/.config/karabiner/assets/complex_modifications/__EMPTY__BUT_READY__"
 
   git_auto_commit_one_update "home/.config/skhd/skhdrc--client"
 
@@ -174,8 +175,11 @@ _dxc_client_autocommit () {
   git_auto_commit_one_update "home/.gitconfig.user"
   git_auto_commit_one_update "home/.gitconfig.user-business" "" "${PRIVATE_ACI}"
   git_auto_commit_one_update "home/.gitconfig.user-personal"
+  git_auto_commit_one_update "home/.gitconfig.user-private"
 
   git_auto_commit_one_update "home/.hammerspoon/client-hs.lua"
+
+  git_auto_commit_one_update "home/.ignore"
 
   git_auto_commit_one_update "home/.kit/_git/info/exclude"
 
@@ -542,6 +546,10 @@ _dxc_client_autocommit () {
       -m "${CLEARED_ACI}: Latest \\\`dob export\\\`."
   }
   depoxy_client_autocommit_dob_assets
+
+  # Convenience symlink, copied by deploy-archetype.sh.
+  # - UCASE: So you can `gf` paths from Vim.
+  git_auto_commit_one_update "home/Library/Application_Support"
 
   # ***
 
