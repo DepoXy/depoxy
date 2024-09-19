@@ -259,6 +259,7 @@ install =
   local skip_rebase=true
   rebase_tip "starter/master" "main" "load-after-user" ${skip_rebase}
   if [ -z "${TIP_BRANCH}" ]; then
+    #
     return 0
   fi
   #
