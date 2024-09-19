@@ -24,7 +24,11 @@ rebase_tip () {
     rebase_tip_cmd="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-rebase-tip/bin/${rebase_tip_cmd}"
   fi
 
-  TIP_RESUME_CMD="${resume_cmd}" "${rebase_tip_cmd}" "$@"
+  # TIP_BRANCH is "return" value, set if new tip/ branch,
+  # empty if branch already exists.
+  TIP_BRANCH="$( \
+    TIP_RESUME_CMD="${resume_cmd}" "${rebase_tip_cmd}" "$@"
+  )"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
