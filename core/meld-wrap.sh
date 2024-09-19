@@ -11,32 +11,55 @@
 # (which never updates Meld beyond the initial distro release, so
 #  oftentimes the distro's Meld breaks on later distro updates,
 #  ahem, Linux Mint 19).
+#
 # Fortunately you can stay current with Meld via flatpak.
-meld () {
-  # Prefer flatpak meld.
-  # - If you want your own meld, uninstall flatpak's.
 
-  # - SAVVY: Just check dir., as flatpak-info is slower. E.g., not:
+meld () {
+  # SAVVY: Just check dir., as flatpak-info is slower. E.g., not:
   #
-  #     if command -v "flatpak" > /dev/null 2>&1; then
-  #       # CXREF: ${HOME}/.local/share/flatpak/app/org.gnome.meld
-  #       if flatpak info org.gnome.meld > /dev/null 2>&1; then
-  #         ...
-  if [ -d "${HOME}/.local/share/flatpak/app/org.gnome.meld" ] \
-    || [ -d "/var/lib/flatpak/app/org.gnome.meld" ] \
-  ; then
+  #   if command -v "flatpak" > /dev/null 2>&1; then
+  #     # CXREF: ${HOME}/.local/share/flatpak/app/org.gnome.meld
+  #     if flatpak info org.gnome.meld > /dev/null 2>&1; then
+  #       ...
+  is_meld_flatpak_installed () {
+    [ -d "${HOME}/.local/share/flatpak/app/org.gnome.meld" ] \
+      || [ -d "/var/lib/flatpak/app/org.gnome.meld" ]
+  }
+
+  meld_flatpak () {
     flatpak run org.gnome.meld "$@"
-  elif [ -d "/Applications/Meld.app/" ]; then
-    # ALTLY: `open` could work, but fails on relative paths.
-    #   open /Applications/Meld.app/ --args "$@"
+  }
+
+  # ***
+
+  # ALTLY: `open` could work, but fails on relative paths.
+  #   open /Applications/Meld.app/ --args "$@"
+  meld_application () {
     /Applications/Meld.app/Contents/MacOS/Meld "$@"
+  }
+
+  # ***
+
+  meld_command () {
+    /usr/bin/env meld "$@"
+  }
+
+  # ***
+
+  # Prefer flatpak meld (Debian)
+  # or Meld from sources (macOS).
+
+  if is_meld_flatpak_installed; then
+    meld_flatpak "$@"
+  elif [ -d "/Applications/Meld.app/" ]; then
+    meld_application "$@"
   elif type -f "meld" > /dev/null 2>&1; then
     # `type -f` ignores functions, i.e., don't match the function we're in.
 
     # We don't need ourselves again.
     unset -f meld
 
-    /usr/bin/env meld "$@"
+    meld_command "$@"
   else
     >&2 echo "ERROR: Cannot locate meld (via flatpak or on PATH)"
 
