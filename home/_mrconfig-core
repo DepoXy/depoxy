@@ -333,7 +333,7 @@ infuse =
 
 skip = mr_exclusive "kit" "depoxy" "DXC" "${LOGNAME}"
 
-# USAGE: Override these action if you want to sync this repo between hosts.
+# USAGE: Override these actions if you want to sync this repo between hosts.
 # - Create a file at ~/.depoxy/running/home/.kit/_mrconfig-kit-include
 #   - It should include the actions below you want to override (or none
 #     at all to accept the default action, e.g., if the same ~/.kit is
