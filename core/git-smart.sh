@@ -230,11 +230,17 @@ _dxy_disable_git_completion_dwim_suggestions () {
 # recreates commits with the same SHAs as on the --archive host.
 #
 # USAGE: To update all commits:
-#   git_rebase_normalize_author_and_committerships --root
+#   git_rebase_set_committer_same_as_author --root
 # Or commits since a ref:
-#   git_rebase_normalize_author_and_committerships <gitref>
+#   git_rebase_set_committer_same_as_author <gitref>
 
-git_rebase_normalize_author_and_committerships () {
+# CPYST: See latest author and commit dates, names, and emails:
+#   gnp log --format="%ad %an <%ae>%n%cd %cn <%ce>" -1
+
+# MAYBE/2024-09-21: Prefer `git log -1` vs. `git log --no-walk`,
+#                           for readability.
+
+git_rebase_set_committer_same_as_author () {
   local gitref="$1"
 
   if [ -z "${gitref}" ]; then
@@ -249,32 +255,14 @@ git_rebase_normalize_author_and_committerships () {
     interactive="-i"
   fi
 
-  # SAVVY: There are two ways to reset the author:
-  # - Option 1:
-  #     GIT_AUTHOR_NAME="${author_name}" GIT_AUTHOR_DATE="<>" ... \
-  #       git commit ... --reset-author
-  #   - Note that GIT_AUTHOR_DATE is required, or resets to committer.
-  # - Option 2:
-  #     git commit ... --author="${author_name} <${author_email}>"
-  #   - Option 2 for the brevity win.
-
-  # CPYST: See latest author and commit dates:
-  #   gnp log --format="%ad%n%cd" -1
-
-  # MAYBE/2024-09-21: Prefer `git log -1` vs. `git log --no-walk`,
-  #                           for readability.
-
   git rebase ${interactive} \
     --exec "$( \
       echo '
-        author_email="$(git log --no-walk --format=%ae)"
-        && author_name="${author_email}"
-        && env
+        env
           GIT_COMMITTER_DATE="$(git log --no-walk --format=%ad)"
           GIT_COMMITTER_NAME="${author_name}"
           GIT_COMMITTER_EMAIL="${author_email}"
-            git commit --amend --allow-empty --no-edit --no-verify
-            --author="${author_name} <${author_email}>";
+            git commit --amend --allow-empty --no-edit --no-verify;
       ' | sed 's/^ \+/ /' | tr -d $'\n')" \
     ${gitref}
 }
