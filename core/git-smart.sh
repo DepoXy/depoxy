@@ -225,46 +225,14 @@ _dxy_disable_git_completion_dwim_suggestions () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# UCASE: For private-private GPW projects, set committer date, name and
-# email same as author date, name and email, so that put-wise --apply
-# recreates commits with the same SHAs as on the --archive host.
-#
-# USAGE: To update all commits:
-#   git_rebase_set_committer_same_as_author --root
-# Or commits since a ref:
-#   git_rebase_set_committer_same_as_author <gitref>
-
-# CPYST: See latest author and commit dates, names, and emails:
-#   gnp log --format="%ad %an <%ae>%n%cd %cn <%ce>" -1
-
-# MAYBE/2024-09-21: Prefer `git log -1` vs. `git log --no-walk`,
-#                           for readability.
-
+# CXREF:
+#   ~/.kit/git/git-put-wise/deps/sh-git-nubs/lib/git-nubs.sh
 git_rebase_set_committer_same_as_author () {
-  local gitref="$1"
+  unset -f git_rebase_set_committer_same_as_author
 
-  if [ -z "${gitref}" ]; then
-    >&2 echo "ERROR: Please specify a rebase ref, or \"--root\""
+  eval-git-nubs
 
-    return 1
-  fi
-
-  local interactive=""
-  if ${DXY_REBASE_AUTHOR_INTERACTIVE:-false}; then
-    # USAGE: Add -i so you can audit the rebase-todo.
-    interactive="-i"
-  fi
-
-  git rebase ${interactive} \
-    --exec "$( \
-      echo '
-        env
-          GIT_COMMITTER_DATE="$(git log --no-walk --format=%ad)"
-          GIT_COMMITTER_NAME="${author_name}"
-          GIT_COMMITTER_EMAIL="${author_email}"
-            git commit --amend --allow-empty --no-edit --no-verify;
-      ' | sed 's/^ \+/ /' | tr -d $'\n')" \
-    ${gitref}
+  git_rebase_set_committer_same_as_author "$@"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
