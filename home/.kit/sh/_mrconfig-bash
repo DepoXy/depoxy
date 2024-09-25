@@ -146,41 +146,6 @@ infuse =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# FIXME/2022-10-10: This is not yet published.
-#
-# GH1LN: "Measures code coverage between two branches"
-[${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report]
-# AWAIT/2023-03-06: DepoXy/feature-coverage-report not yet released.
-# - Eventually (or never?) it'll be published to DepoXy:
-lib = remote_set publish https://github.com/DepoXy/feature-coverage-report.git
-
-# FIXME/2022-10-10: Not yet published.
-skip = [ ! -d "${MR_REPO}" ]
-# Report *missing🤷* not *fetchfail* and don't die if `ffssh` fails.
-lib = export MR_REMOTE_PATH_ABSENCE_EXCUSED=true
-
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/feature-coverage-report"
-install = PREFIX="${HOME}/.local" make link
-# CXREF: See GIT_POST_REBASE_EXEC usage.
-# - Used post-rebase to remake hard links.
-# SAVYY: Call link_hard from infusePostRebase, not infuse.
-infusePostRebase =
-  # SAVVY/2024-02-26 16:10: This Makefile not used by any other project.
-  link_hard "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/sh/Makefile"
-  #
-  link_hard_dep_sh_colors
-  link_hard_dep_sh_git_nubs
-  link_hard_dep_sh_logger
-  link_hard_dep_sh_print_nanos_now
-infuse =
-  mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
 # 2023-01-01: Not that I ever use fries-findup.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
 lib = remote_set publish https://github.com/landonb/fries-findup.git
