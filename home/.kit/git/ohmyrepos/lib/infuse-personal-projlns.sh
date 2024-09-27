@@ -25,6 +25,10 @@
 #  - This lets you omit files you don't want under search.
 #  - Uses $@ to deep-link the specified list of files.
 #
+# CXREF: Another script runs Exuberant Ctags on ~/.projlns, so that Vim's <Ctrl-]>
+# jumps to the definition of the token under the cursor.
+#   infuse_projects_links_core_generate_ctags
+#     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
 
 DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
 

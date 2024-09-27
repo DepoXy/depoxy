@@ -49,6 +49,12 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Exuberant Ctags tags file.
+# - CXREF: XXX
+/tags
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # 2021-08-04: Private KE JSON symlinked via private infuse function.
 /Users/user/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications/*-private.json
 

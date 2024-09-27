@@ -16,6 +16,9 @@ DEPOXY_PROJLNS_USRDOC="${DEPOXY_PROJLNS_USRDOC:-${DEPOXY_PROJLNS}/docs-and-backl
 
 DEPOXY_PROJLNS_SH_LIB="${DEPOXY_PROJLNS_SH_LIB:-${DEPOXY_PROJLNS}/sh-lib}"
 
+# REFER: See lib/infuse-personal-projlns.sh:
+#  DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
@@ -37,7 +40,7 @@ source_deps () {
   # # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
   # . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
 
-  # Load: is_infuse_all, and link_deep.sh
+  # Load: is_infuse_all, link_deep.sh, DEPOXY_PROJLNS_DEPOXY
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   . "$(dirname -- "$(realpath -- "$0")")/../.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
 }
@@ -83,6 +86,10 @@ infuse_projects_links_core () {
     return 0
   fi
 
+  # Remove Ctags file, lest `remove_symlink_hierarchy_safe` fails:
+  #   "Symlink hierarchy target exists but contains regular files"
+  command rm -f -- "${DEPOXY_PROJLNS_DEPOXY}/tags"
+
   if ! mr -d / infuseProjlns; then
     warn
     warn
@@ -90,6 +97,71 @@ infuse_projects_links_core () {
     warn
     warn
   fi
+}
+
+# ***
+
+# Run Ctags on ~/.projlns/depoxy-deeplinks:
+#
+# - Use --exclude to omit code that's not yours.
+#   - USYNC: See similar exclude patterns:
+#     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+#     ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
+#     ~/.vim/pack/landonb/start/dubs_file_finder/plugin/dubs_file_finder.vim
+#     ~/.vim/pack/landonb/start/dubs_grep_steady/bin/vim-grepprg-rg-sort
+#
+# - Inhibit final summary using --totals=no.
+#   - Omits, e.g.,
+#     25458 files, 8613434 lines (513523 kB) scanned in 146.1 seconds (3513 kB/s)
+#     861265 tags added to tag file
+#     861265 tags sorted in 0.00 seconds
+
+infuse_projects_links_core_generate_ctags () {
+  # Use ctags wrapper to filter (delete afterwards) JavaScript false matches.
+  # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
+  local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
+
+  if ! ctags --version 2> /dev/null | head -n 1 | grep -q -e "^Exuberant Ctags"; then
+    warn "Skipping ~/.projlns Ctags, because Exuberant Ctags not found."
+
+    return 0
+  fi
+
+  LOG_MSG_NO_NEWLINE=true info "Creating Exuberant Ctags file... "
+
+  local time_0="$(date +%s.%N)"
+
+  (
+    cd "${DEPOXY_PROJLNS_DEPOXY}"
+
+    ${ctags_groom} \
+      --exclude=".git" \
+      --exclude=".tox" \
+      --exclude="node_modules" \
+      --exclude=".venv*" \
+      --totals=no \
+      -R
+  )
+
+  if [ ${LOG_LEVEL:-${LOG_LEVEL_ERROR:-40}} -le ${LOG_LEVEL_INFO:-20} ]; then
+    # Get the file size using st_size, aka `-f %z`
+    local tags_size
+    tags_size="$( \
+      echo "scale=0; $(stat -f %z "${DEPOXY_PROJLNS_DEPOXY}/tags") / 1024 / 1024" | bc -l
+    )"
+
+    printf "%s (%s)\n" \
+      "done!" \
+      "$(print_elapsed_mins "${time_0}" "${time_n}") min., ${tags_size}M file"
+  fi
+}
+
+print_elapsed_mins () {
+  local time_0="$1"
+  local time_n="${2:-$(date +%s.%N)}"
+
+  # SAVVY: `bc -l` loads the math library, so scale=1 reduces precision.
+  echo "scale=1; ($time_n - $time_0) / 60" | bc -l | xargs printf "%.2f"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
@@ -184,7 +256,10 @@ main () {
   MR_CONFIG= source_deps
 
   infuse_projects_links_core
+  infuse_projects_links_core_generate_ctags
+
   infuse_projects_links_docs
+
   infuse_projects_links_sh_lib
 }
 

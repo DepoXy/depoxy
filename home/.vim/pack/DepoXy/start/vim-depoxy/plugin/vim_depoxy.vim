@@ -17,3 +17,26 @@ let g:loaded_vim_depoxy = 1
 
 " ########################################################################
 
+" Load Exuberant Ctags tags file for ~/.projlns/depoxy-deeplinks (DEPOXY_PROJLNS_DEPOXY)
+"
+" CXREF: The 'tags' file is created on `mr -d / infuse`:
+"   infuse_projects_links_core_generate_ctags
+"     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+
+function! s:SetTagsProjlnsDepoxydeeplinks()
+  let l:ctags_file = $DEPOXY_PROJLNS_DEPOXY .. '/tags'
+
+  if !filereadable(l:ctags_file)
+    let l:ctags_file = $HOME .. '/.projlns/depoxy-deeplinks/tags'
+  endif
+
+  if filereadable(l:ctags_file)
+    " Default: './tags,tags'
+    exec 'set tags=' .. &tags .. ',' .. l:ctags_file
+  endif
+endfunction
+
+call s:SetTagsProjlnsDepoxydeeplinks()
+
+" ########################################################################
+
