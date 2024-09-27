@@ -135,12 +135,30 @@ infuse_projects_links_core_generate_ctags () {
     cd "${DEPOXY_PROJLNS_DEPOXY}"
 
     ${ctags_groom} \
-      --exclude=".git" \
-      --exclude=".tox" \
-      --exclude="node_modules" \
-      --exclude=".venv*" \
+      \
+      -R \
+      \
       --totals=no \
-      -R
+      \
+      --exclude=.git \
+      \
+      --exclude=build \
+      --exclude=.coverage \
+      --exclude=dist \
+      --exclude=docs/_build \
+      --exclude='*.egg-info' \
+      --exclude=htmlcov \
+      --exclude=__pycache__ \
+      --exclude=.pytest_cache \
+      --exclude=.tox \
+      --exclude='.venv*' \
+      \
+      --exclude=node_modules \
+      \
+      --exclude=.archived \
+      --exclude=.whilom \
+      --exclude=.zuppa \
+      --exclude=TBD-*
   )
 
   if [ ${LOG_LEVEL:-${LOG_LEVEL_ERROR:-40}} -le ${LOG_LEVEL_INFO:-20} ]; then
