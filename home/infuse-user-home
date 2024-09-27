@@ -492,22 +492,27 @@ infuse_symlinks_home_projlns () {
     return 0
   fi
 
-  # Drop:
+  # Create breadcrumb:
   #
   #   ~/.projlns/XCRUMB.depoxy
   #
   # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-breadcrumb.sh
   ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/infuse-projlns-breadcrumb.sh
 
-  # CXREF:
-  #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   # Populates:
-  #   ~/.projlns/depoxy-deeplinks/
-
-  # Populate
   #
+  #   ~/.projlns/depoxy-deeplinks/
   #   ~/.projlns/docs-and-backlog/
   #   ~/.projlns/sh-lib/
+  #
+  # - CXREF: Re: ~/.projlns/depoxy-deeplinks/, see:
+  #     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+  #   Populates:
+  #     ~/.projlns/depoxy-deeplinks/
+  #   Called by individual OMR projects:
+  #   - infuse-projlns-core.sh calls infuse_projects_links_core
+  #   - Which calls `mr -d / infuseProjlns`
+  #   - That each OMR project can adjust via infuse_projlns_if_personal_project
   #
   # CXREF: ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
   ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/infuse-projlns-core.sh

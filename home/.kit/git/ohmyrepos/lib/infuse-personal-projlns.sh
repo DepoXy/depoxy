@@ -5,9 +5,14 @@
 
 # ***
 
-# USAGE: Susses personal projects and symlinks under ~/.projlns,
-#        to quickly search across all your project using `rg`
-#        and Vim grep-steady.
+# USAGE: Creates symlinks under ~/.projlns to all your personal projects.
+#
+# UCASE: So you can quickly search through all your projects using RipGrep
+#        (`rg`), or using the author's Vim grep-steady plugin (what
+#        https://github.com/landonb/dubs_grep_steady wires at <Leader>g),
+#        or using `grep`, `ag` (The Silver Searcher), etc.
+#
+# USAGE: OMR config options:
 #
 #  Set OMR_INFUSE_PROJLNS_TOGGLE_OFF=true to always skip a project
 #    (after logging a message)
@@ -17,8 +22,9 @@
 #
 #  Set OMR_INFUSE_PROJLNS_FILES=true to always uses individual
 #    deep-links to each project file (from git-ls-files)
+#  - This lets you omit files you don't want under search.
+#  - Uses $@ to deep-link the specified list of files.
 #
-#  Use $@ to deep-link the specified list of files
 
 DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
 
