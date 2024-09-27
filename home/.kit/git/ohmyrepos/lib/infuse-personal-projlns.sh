@@ -124,7 +124,7 @@ infuse_create_symlinks_core_ignore () {
 }
 
 log_intro_message_if_infuse_all () {
-  debug "+------------------------------+---+--------------+\n" \
+  debug                       "+------------------------------+---+--------------+\n" \
   "                            | Decision-making              |or-| MR_REPO      |\n" \
   "                            |   process                    |der|   path       |\n" \
   "                            +------------------------------+---+--------------+"
