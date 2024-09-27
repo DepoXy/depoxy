@@ -562,13 +562,15 @@ infuse_all_the_symlinks () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+PROG_NAME="infuse-user-home"
+
 main () {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
 
-  if [ "$(basename -- "$0")" = "infuse-user-home" ]; then
+  if [ "$(basename -- "$0")" = "${PROG_NAME}" ]; then
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_VVVERBOSE:-0}}
   else
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}}
