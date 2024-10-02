@@ -163,10 +163,18 @@ infuse_projects_links_core_generate_ctags () {
   )
 
   if [ ${LOG_LEVEL:-${LOG_LEVEL_ERROR:-40}} -le ${LOG_LEVEL_INFO:-20} ]; then
-    # Get the file size using st_size, aka `-f %z`
+    # Get the file size.
+    # - BSD/macOS: Use st_size, aka `-f %z`:
+    #     stat -f %z "${DEPOXY_PROJLNS_DEPOXY}/tags"
+    # - Linux/GNU: Use "total size, in bytes", aka `-c %s`:
+    #     (g)stat -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags"
+    gnu_stat () {
+      command -v gstat || command -v stat || echo stat
+    }
+
     local tags_size
     tags_size="$( \
-      echo "scale=0; $(stat -f %z "${DEPOXY_PROJLNS_DEPOXY}/tags") / 1024 / 1024" | bc -l
+      echo "scale=0; $($(gnu_stat) -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags") / 1024 / 1024" | bc -l
     )"
 
     printf "%s (%s)\n" \
