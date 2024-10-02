@@ -156,6 +156,7 @@ infuse_projects_links_core_generate_ctags () {
       --exclude=node_modules \
       \
       --exclude=.archived \
+      --exclude=.cipher \
       --exclude=.whilom \
       --exclude=.zuppa \
       --exclude=TBD-*
