@@ -480,8 +480,11 @@ installVirtualenvwrapper =
 infuse =
   local pyenv_completions=""
   if [ -e "${HOMEBREW_PREFIX}/bin/pyenv" ]; then
-    # E.g., /opt/homebrew/Cellar/pyenv/2.4.8/completions/pyenv.bash
-    pyenv_completions="$(command ls -- "${HOMEBREW_PREFIX}/Cellar/pyenv/"*"/completions/pyenv.bash")"
+    # HSTRY/2024-10-05: Not sure if /opt/homebrew/opt is newer than this old approach:
+    #   # E.g., /opt/homebrew/Cellar/pyenv/2.4.8/completions/pyenv.bash
+    #   pyenv_completions="$(command ls -- "${HOMEBREW_PREFIX}/Cellar/pyenv/"*"/completions/pyenv.bash")"
+    # - But the opt/ directory maintains symlinks to the latest Cellar/ versions.
+    pyenv_completions="${HOMEBREW_PREFIX}/opt/pyenv/completions/pyenv.bash"
   else
     pyenv_completions="${MR_REPO}/completions/pyenv.bash"
     #
