@@ -54,7 +54,7 @@ https://www.tynsoe.org/geektool/documentation/
 
   - Menu bar weather
 
-    - Name: Wttr.in
+    - Name: MENU_Wttr.in
 
     - Command::
 
@@ -64,7 +64,7 @@ https://www.tynsoe.org/geektool/documentation/
 
     - Font and style:
 
-      - MENU_DATE:
+      - MENU_Wttr.in:
         - Font:
           - English > *Skia* > Regular > 18 pt
             Same size as clock but not bold
@@ -76,7 +76,7 @@ https://www.tynsoe.org/geektool/documentation/
 
   - Desktop weather
 
-    - Name: Wttr.in
+    - Name: CTRD_Wttr.in
 
     - Command::
 
@@ -86,7 +86,7 @@ https://www.tynsoe.org/geektool/documentation/
 
     - Font and style:
 
-      - MENU_DATE:
+      - CTRD_Wttr.in:
         - Font:
           - English > *Hack Nerd Font* > Regular > 18 pt
             Same font but about 2/3 the size of the clock
