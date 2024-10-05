@@ -8,12 +8,15 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF: ~/.cache/depoxy/infuse-macos.version
 MACOS_VERSION_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}/depoxy/infuse-macos.version"
 
 verify_cache_macos_version () {
   [ "$(cat "${MACOS_VERSION_CACHE}" 2> /dev/null)" = "$(macos_version)" ]
 }
 
+# CXREF: Called on success, e.g., `mr -d ~/.depoxy/ambers -n infuse`:
+#   ~/.depoxy/ambers/home/infuse-platform-macOS
 update_cache_macos_version () {
   mkdir -p -- "$(dirname -- "${MACOS_VERSION_CACHE}")"
 
