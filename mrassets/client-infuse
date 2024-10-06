@@ -726,6 +726,10 @@ symlink_overlay_dob_assets () {
 #     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/gtk-3.0.css
 #     /Applications/Gnucash.app/Contents/Resources/share/doc/gnucash/gtk-3.0.css
 #
+# - Capture 'qif-accounts-map' to save your QIF to GnuCash account mappings
+#
+# - Capture 'saved-reports-2.8' to save your custom reports
+#
 # - Capture 'bookmarks' to save any save dialog favorites you've added
 
 symlink_overlay_gnucash_assets () {
@@ -774,6 +778,8 @@ symlink_overlay_gnucash_assets () {
 
       infuse_gnucash_conf_file_if_exists "accelerator-map"
       infuse_gnucash_conf_file_if_exists "gtk-3.0.css"
+      infuse_gnucash_conf_file_if_exists "qif-accounts-map"
+      infuse_gnucash_conf_file_if_exists "saved-reports-2.8"
 
       infuse_gnucash_gtk_file_if_exists "bookmarks"
     )
