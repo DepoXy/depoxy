@@ -34,6 +34,87 @@ _dxc_client_infuse () {
   #     and then run `mr -d ~/.depoxy/running infuse` to wire it.
 
   local depoxydir_running_full="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}"
+
+  insist_is_the_active_client "${depoxydir_running_full}" \
+    || return 1
+
+  insist_is_correctly_wired "${depoxydir_running_full}" \
+    || return 1
+
+  # *** Hard linxks
+
+  mr -d . -n infusePostRebase
+
+  # *** DepoXy config
+
+  update_depoxy_configs
+
+  # *** DepoXy filespace
+
+  symlink_overlay_dir_depoxy_running "${depoxydir_running_full}"
+
+  # *** OMR
+
+  symlink_overlay_vendor_home_assets
+
+  alert_if_missing_vendor_mrconfig "${stints_dir}"
+
+  # *** DEPOXY
+
+  symlink_overlay_depoxy_stings_ignore
+
+  # *** BASH
+
+  symlink_overlay_homefries_private_bashrc
+
+  # *** VIM
+
+  symlink_overlay_vim_assets
+
+  # *** GIT
+
+  symlink_overlay_git_assets
+
+  # *** tig
+
+  symlink_overlay_tig_assets
+
+  # *** NPM
+
+  symlink_overlay_npm_assets
+
+  # *** Karabiner-Elements
+
+  symlink_overlay_karabiner_elements_assets
+
+  # *** GNU Inetutils auto-login credentials
+
+  symlink_overlay_netrc
+
+  # *** ~/.finicky.js
+
+  symlink_overlay_finicky_js
+
+  # *** ~/.kit
+
+  symlink_overlay_kit_assets
+
+  # *** ~/.kube
+
+  symlink_overlay_kube_assets
+
+  # *** dob
+
+  symlink_overlay_dob_assets
+
+  # *** GnuCash
+
+  symlink_overlay_gnucash_assets
+}
+
+insist_is_the_active_client () {
+  local depoxydir_running_full="$1"
+
   local running_now="$(realpath -- "${depoxydir_running_full}")"
   local project_abs="$(realpath -- "${MR_REPO}")"
   if [ "${project_abs}" != "${running_now}" ]; then
@@ -48,6 +129,10 @@ _dxc_client_infuse () {
 
     return 1
   fi
+}
+
+insist_is_correctly_wired () {
+  local depoxydir_running_full="$1"
 
   local project_client_id="$(basename -- "${MR_REPO}")"
   if [ "${project_client_id}" != "${DEPOXY_CLIENT_ID}" ]; then
@@ -74,93 +159,97 @@ _dxc_client_infuse () {
 
     return 1
   fi
+}
 
-  # *** Hard links
+# *** DepoXy config
 
-  mr -d . -n infusePostRebase
+# "Install" the ~/.config/depoxy/depoxyrc config.
+# - This lets 321open know which DEPOXY_CLIENT_ID to use, even if the
+#   client is unmounted (if you chose to put the client on an encfs,
+#   for instance).
+# - The depoxyrc also defines all the paths to DepoXy resources,
+#   which lets the user use different paths than the defaults.
+#   (Note that it's easiest to set these paths when you run
+#   deploy-archetype.sh, and that changing them afterwards
+#   will require some busywork. Note also the author has not
+#   tried using custom paths, but they *should* work, though
+#   be prepared for unexpected results.)
+# - SAVVY: This is not a symlink because repo might be offline.
+#   - This is also the only file *copied* somewhere, and not symlinked.
 
-  # *** DepoXy config
+update_depoxy_configs () {
+  # E.g., /Users/user/.config/depoxy
+  local dxy_conf="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy"
+  # E.g., .config/depoxy
+  local conf_base="$(echo "${dxy_conf}" | sed -E "s@^${HOME}/@@")"
 
-  # "Install" the ~/.config/depoxy/depoxyrc config.
-  # - This lets 321open know which DEPOXY_CLIENT_ID to use, even if the
-  #   client is unmounted (if you chose to put the client on an encfs,
-  #   for instance).
-  # - The depoxyrc also defines all the paths to DepoXy resources,
-  #   which lets the user use different paths than the defaults.
-  #   (Note that it's easiest to set these paths when you run
-  #   deploy-archetype.sh, and that changing them afterwards
-  #   will require some busywork. Note also the author has not
-  #   tried using custom paths, but they *should* work, though
-  #   be prepared for unexpected results.)
-  # - SAVVY: This is not a symlink because repo might be offline.
-  #   - This is also the only file *copied* somewhere, and not symlinked.
-  update_depoxy_configs () {
-    # E.g., /Users/user/.config/depoxy
-    local dxy_conf="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy"
-    # E.g., .config/depoxy
-    local conf_base="$(echo "${dxy_conf}" | sed -E "s@^${HOME}/@@")"
+  mkdir -p "${dxy_conf}"
 
-    mkdir -p "${dxy_conf}"
+  copy_depoxy_config () {
+    local file="$1"
 
-    copy_depoxy_config () {
-      local file="$1"
+    local conf_source="${MR_REPO}/home/${conf_base}/${file}"
+    local conf_target="${dxy_conf}/${file}"
 
-      local conf_source="${MR_REPO}/home/${conf_base}/${file}"
-      local conf_target="${dxy_conf}/${file}"
+    # Avoid being aggressively clobbery.
+    local conf_sha="${conf_target}.sha"
+    if [ -f "${conf_target}" ] \
+      && [ -f "${conf_sha}" ] \
+      && ! shasum -c "${conf_sha}" > /dev/null 2>&1 \
+    ; then
+      # Note that `\\ \n` works, but not `\\\n`: "Within double quotes,
+      # backslashes that are followed by one of these characters [including
+      # backslash] are removed."
+      >&2 error "ERROR: Did you edit the duplicate copy by mistake?\n" \
+        "meld \\\\\n  ${conf_source} \\\\\n  ${conf_target} &\n" \
+        "rm -- ${conf_target}"
+      return 1
+    fi
 
-      # Avoid being aggressively clobbery.
-      local conf_sha="${conf_target}.sha"
-      if [ -f "${conf_target}" ] \
-        && [ -f "${conf_sha}" ] \
-        && ! shasum -c "${conf_sha}" > /dev/null 2>&1 \
-      ; then
-        # Note that `\\ \n` works, but not `\\\n`: "Within double quotes,
-        # backslashes that are followed by one of these characters [including
-        # backslash] are removed."
-        >&2 error "ERROR: Did you edit the duplicate copy by mistake?\n" \
-          "meld \\\\\n  ${conf_source} \\\\\n  ${conf_target} &\n" \
-          "rm -- ${conf_target}"
-        return 1
-      fi
+    command cp -f -- "${conf_source}" "${conf_target}"
 
-      command cp -f -- "${conf_source}" "${conf_target}"
+    shasum "${conf_target}" > "${conf_sha}"
 
-      shasum "${conf_target}" > "${conf_sha}"
-
-      info "$(
-        font_info_updated " Copied "
-      ) $(
-        font_emphasize "conf") replica $(
-        font_highlight ${conf_target}
-      )"
-    }
-
-    copy_depoxy_config "depoxyrc"
-    copy_depoxy_config "321open.cfg"
+    info "$(
+      font_info_updated " Copied "
+    ) $(
+      font_emphasize "conf") replica $(
+      font_highlight ${conf_target}
+    )"
   }
-  update_depoxy_configs
 
-  # *** DepoXy filespace
+  copy_depoxy_config "depoxyrc"
+  copy_depoxy_config "321open.cfg"
+}
 
-  # See 'infusePostRebase' task for ~/.depoxy/.gitignore hard link.
+# *** DepoXy filespace
 
-  # Create the ~/.depoxy/running → ~/.depoxy/stints/XXXX symlink.
-  # - Note that ${DEPOXY_CLIENT_ID} is from user's environ, which depends on
-  #   this symlink probably having existed when ${DEPOXY_CLIENT_ID} was set.
-  #   - So generally the symlink probably already exists, but if it was
-  #     clobbered or changed you can repair it if you have a shell still
-  #     using the proper client ID.
+# See 'infusePostRebase' task for ~/.depoxy/.gitignore hard link.
 
-  # See guard clause above: This call is a no-op:
-  # - The symlink already exists and is correct.
+# Create the ~/.depoxy/running → ~/.depoxy/stints/XXXX symlink.
+# - Note that ${DEPOXY_CLIENT_ID} is from user's environ, which depends on
+#   this symlink probably having existed when ${DEPOXY_CLIENT_ID} was set.
+#   - So generally the symlink probably already exists, but if it was
+#     clobbered or changed you can repair it if you have a shell still
+#     using the proper client ID.
+
+# See guard clause above: This call is a no-op:
+# - The symlink already exists and is correct.
+
+symlink_overlay_dir_depoxy_running () {
+  local depoxydir_running_full="$1"
+
   symlink_overlay_dir "${MR_REPO}" "${depoxydir_running_full}"
+}
 
-  # *** OMR
+# *** OMR
 
+symlink_overlay_vendor_home_assets () {
   # .mrinfuse/ nesting
   local dxy_home_work="${MR_REPO}/home/${DEPOXY_VENDOR_HOME_NAME:-work}"
   local usr_home_work="${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}"
   local home_work_hint=""
+
   # These paths are part the Archetype boilerplate so exist initially,
   # but user may have moved or removed them.
   if [ ! -d "${dxy_home_work}" ]; then
@@ -168,6 +257,7 @@ _dxc_client_infuse () {
   elif [ ! -d "${usr_home_work}" ]; then
     home_work_hint="No $(font_highlight “${usr_home_work}”) directory or symlink"
   fi
+
   if [ -n "${home_work_hint}" ]; then
     info "$( \
       font_emphasize "Skipped overlay" \
@@ -180,6 +270,10 @@ _dxc_client_infuse () {
       "${dxy_home_work}/_ignore" \
       "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}/.ignore"
   fi
+}
+
+alert_if_missing_vendor_mrconfig () {
+  local stints_dir="$1"
 
   # Alert if missing business client mrconfig (because impossibly unlikely user won't want).
   # - E.g., "/home/user/.depoxy/stints"
@@ -188,21 +282,25 @@ _dxc_client_infuse () {
   if [ ! -f "${mr_business}" ]; then
     info "$(font_emphasize ALERT): No biz config at $(repo_highlight ${mr_business})"
   fi
+}
 
-  # *** DEPOXY
+# *** DEPOXY
 
+symlink_overlay_depoxy_stings_ignore () {
   symlink_overlay_file \
     "${MR_REPO}/home/.depoxy/stints/_ignore" \
     "${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/.ignore"
+}
 
-  # *** BASH
+# *** BASH
 
-  # DepoXy's generated @biz-specific Bash files.
-  # - DEV: Here's where to add your custom @biz-specific Bash:
-  #     bashrx.private.${DEPOXY_USERNAME}.sh.
-  #     bashrx.private.${DEPOXY_HOSTNAME}.sh.
-  #   And wire more as you like.
+# DepoXy's generated @biz-specific Bash files.
+# - DEV: Here's where to add your custom @biz-specific Bash:
+#     bashrx.private.${DEPOXY_USERNAME}.sh.
+#     bashrx.private.${DEPOXY_HOSTNAME}.sh.
+#   And wire more as you like.
 
+symlink_overlay_homefries_private_bashrc () {
   local bashrx_host="${MR_REPO}/home/bashrx.private.${DEPOXY_HOSTNAME}.sh"
 
   if [ -f "${bashrx_host}" ]; then
@@ -236,9 +334,11 @@ _dxc_client_infuse () {
   #     symlink_overlay_file \
   #       "${MR_REPO}/home/bashrx.private.${DEPOXY_HOSTNAME}.sh" \
   #       "${hf_dir}/.bashrc-bin/bashrx.private.${DEPOXY_HOSTNAME}..sh"
+}
 
-  # *** VIM
+# *** VIM
 
+symlink_overlay_vim_assets () {
   # Replace Vim spell file with symlink to user's version in DXC.
   cast_private_spell () {
     touch "${MR_REPO}/home/.vim/spell/en.utf-8.add"
@@ -285,9 +385,11 @@ _dxc_client_infuse () {
   symlink_overlay_dir \
     "${MR_REPO}/home/vim-trap" \
     "${HOME}/.vim/pack/DepoXy/start/vim-trap"
+}
 
-  # *** GIT
+# *** GIT
 
+symlink_overlay_git_assets () {
   symlink_gitconfigs () {
     # Git user.name and user.email wirer.
     # - Depending on project path, Git will load either your personal
@@ -341,29 +443,37 @@ _dxc_client_infuse () {
     "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/_git"
 
   # See 'infusePostRebase' task for ~/.gitignore hard link.
+}
 
-  # *** tig
+# *** tig
 
-  # Note this overwrites DepoXy's ~/.depoxy/ambers/home/.config/tig/config
-  # fallback symlink.
+# Note this overwrites DepoXy's ~/.depoxy/ambers/home/.config/tig/config
+# fallback symlink.
+
+symlink_overlay_tig_assets () {
   mkdir -p "${HOME}/.config/tig"
+
   symlink_overlay_file \
     "${MR_REPO}/home/.config/tig/config" \
     "${HOME}/.config/tig/config"
+}
 
-  # *** NPM
+# *** NPM
 
-  # Enterprise NPM: Client-specific npm registry URL.
+# Enterprise NPM: Client-specific npm registry URL.
+symlink_overlay_npm_assets () {
   if [ -f "${MR_REPO}/home/.npmrc" ]; then
     symlink_overlay_file \
       "${MR_REPO}/home/.npmrc" \
       "${HOME}/.npmrc"
   fi
+}
 
-  # *** Karabiner-Elements
+# *** Karabiner-Elements
 
-  # CXREF: DepoXy Ambers KB infuser:
-  #   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
+# CXREF: DepoXy Ambers KB infuser:
+#   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
+symlink_overlay_karabiner_elements_assets () {
   depoxy_client_infuse_karabiner_elements_complex_modifications () {
     local dxy_mrinfuse="${ambers_path}/home"
     local cmplxmods=".config/karabiner/assets/complex_modifications"
@@ -379,9 +489,11 @@ _dxc_client_infuse () {
     )
   }
   depoxy_client_infuse_karabiner_elements_complex_modifications
+}
 
-  # *** GNU Inetutils auto-login credentials
+# *** GNU Inetutils auto-login credentials
 
+symlink_overlay_netrc () {
   if [ -f "${HOME}/.netrc" ] && [ ! -h "${HOME}/.netrc" ]; then
     warn "Your ~/.netrc is not overseen by your DepoXy Client repo."
     info "Considering moving ~/.netrc inside your DepoXy Client and\n" \
@@ -394,15 +506,19 @@ _dxc_client_infuse () {
   # else
   #   info " $(font_emphasize "Skipped .netrc")"
   fi
+}
 
-  # *** ~/.finicky.js
+# *** ~/.finicky.js
 
+symlink_overlay_finicky_js () {
   symlink_overlay_file \
     "${MR_REPO}/home/.finicky.js" \
     "${HOME}/.finicky.js"
+}
 
-  # *** ~/.kit
+# *** ~/.kit
 
+symlink_overlay_kit_assets () {
   # What I call the Dopp Kit is where I clone most non-vendor projects,
   # e.g., various Git projects, useful shell utilities, and more. Most
   # of the projects are public/open source and installed by the public
@@ -432,15 +548,18 @@ _dxc_client_infuse () {
     cd "${before_cd}"
   }
   user_home_kit_link_private_exclude
+}
 
-  # *** ~/.kube
+# *** ~/.kube
 
-  # MAYBE/2022-12-14: Move this elsewhere, and keep core DepoXy infuse
-  # steps separate from steps associated with clients or specifically
-  # developing.
+# MAYBE/2022-12-14: Move this elsewhere, and keep core DepoXy infuse
+# steps separate from steps associated with clients or specifically
+# developing.
 
-  # OpenLens doesn't show any clusters when yaml symlinks used, so
-  # wiring yamls (and config, for parity) using hard links.
+# OpenLens doesn't show any clusters when yaml symlinks used, so
+# wiring yamls (and config, for parity) using hard links.
+
+symlink_overlay_kube_assets () {
   if [ -f "${MR_REPO}/home/.kube/config" ]; then
     mkdir -p "${HOME}/.kube"
 
@@ -474,36 +593,38 @@ _dxc_client_infuse () {
       command rg "command: aws" ~/.kube/*.yaml
     fi
   fi
+}
 
-  # *** dob
+# *** dob
 
-  # Infuse the dob.conf, plugins/ and styling/ config.
-  #
-  # - Note on Linux, the config is stored under ~/.config/dob
-  #   and the database under ~/.local/share/dob
-  #   - But on macOS, both are stored under
-  #     ~/Library/Application Support/dob
-  #
-  # - Unless user configures their Client otherwise, the Dob database
-  #   will be located in the same Client directory (via symlink) as the
-  #   config files, and the database will be auto-committed.
-  # - If user wants to keep their Dob database in another project,
-  #   they can clobber this symlink.
-  #   - I.e., after calling _dxc_client_infuse (this script),
-  #     call symlink_overlay_dir with the Dob database project
-  #     path. E.g.,
-  #       symlink_overlay_dir /path/to/my/dob/db \
-  #         "${HOME}/Library/Application Support/dob"
-  #     Or:
-  #       symlink_overlay_dir /path/to/my/dob/db \
-  #         "${HOME}/.local/share/dob"
-  #   - On macOS, the user will also want to add symlinks to the Client
-  #     assets, e.g.,
-  #       cd /path/to/my/dob/db
-  #       ln -sn ~/.depoxy/running/home/.config/dob/dob.conf
-  #       ln -sn ~/.depoxy/running/home/.config/dob/plugins
-  #       ln -sn ~/.depoxy/running/home/.config/dob/styling
+# Infuse the dob.conf, plugins/ and styling/ config.
+#
+# - Note on Linux, the config is stored under ~/.config/dob
+#   and the database under ~/.local/share/dob
+#   - But on macOS, both are stored under
+#     ~/Library/Application Support/dob
+#
+# - Unless user configures their Client otherwise, the Dob database
+#   will be located in the same Client directory (via symlink) as the
+#   config files, and the database will be auto-committed.
+# - If user wants to keep their Dob database in another project,
+#   they can clobber this symlink.
+#   - I.e., after calling _dxc_client_infuse (this script),
+#     call symlink_overlay_dir with the Dob database project
+#     path. E.g.,
+#       symlink_overlay_dir /path/to/my/dob/db \
+#         "${HOME}/Library/Application Support/dob"
+#     Or:
+#       symlink_overlay_dir /path/to/my/dob/db \
+#         "${HOME}/.local/share/dob"
+#   - On macOS, the user will also want to add symlinks to the Client
+#     assets, e.g.,
+#       cd /path/to/my/dob/db
+#       ln -sn ~/.depoxy/running/home/.config/dob/dob.conf
+#       ln -sn ~/.depoxy/running/home/.config/dob/plugins
+#       ln -sn ~/.depoxy/running/home/.config/dob/styling
 
+symlink_overlay_dob_assets () {
   infuse_dob_config_if_exists () {
     local mrinfuse_path
     local user_config_dir
@@ -584,28 +705,30 @@ _dxc_client_infuse () {
   }
 
   infuse_dob_assets
+}
 
-  # *** GnuCash
+# *** GnuCash
 
-  # REFER:
-  #
-  # - Use 'accelerator-map' to change keyboard bindings
-  #   https://wiki.gnucash.org/wiki/Keyboard_Shortcuts
-  #
-  #   - CXREF:
-  #     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/accelerator-map
-  #     /Applications/Gnucash.app/Contents/Resources/share/gnucash/ui/accelerator-map-osx
-  #
-  # - Use 'gtk-3.0.css' to change styling, e.g., font name and size
-  #   https://wiki.gnucash.org/wiki/FAQ#Customizing_the_Appearance
-  #   https://wiki.gnucash.org/wiki/GTK3
-  #
-  #   - CXREF:
-  #     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/gtk-3.0.css
-  #     /Applications/Gnucash.app/Contents/Resources/share/doc/gnucash/gtk-3.0.css
-  #
-  # - Capture 'bookmarks' to save any save dialog favorites you've added
+# REFER:
+#
+# - Use 'accelerator-map' to change keyboard bindings
+#   https://wiki.gnucash.org/wiki/Keyboard_Shortcuts
+#
+#   - CXREF:
+#     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/accelerator-map
+#     /Applications/Gnucash.app/Contents/Resources/share/gnucash/ui/accelerator-map-osx
+#
+# - Use 'gtk-3.0.css' to change styling, e.g., font name and size
+#   https://wiki.gnucash.org/wiki/FAQ#Customizing_the_Appearance
+#   https://wiki.gnucash.org/wiki/GTK3
+#
+#   - CXREF:
+#     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/gtk-3.0.css
+#     /Applications/Gnucash.app/Contents/Resources/share/doc/gnucash/gtk-3.0.css
+#
+# - Capture 'bookmarks' to save any save dialog favorites you've added
 
+symlink_overlay_gnucash_assets () {
   symlink_mrinfuse_file_if_exists () {
     local mrinfuse_path="$1"
 
@@ -657,7 +780,5 @@ _dxc_client_infuse () {
   }
 
   infuse_gnucash_assets
-
-  # *** EOF
 }
 
