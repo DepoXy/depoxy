@@ -584,5 +584,80 @@ _dxc_client_infuse () {
   }
 
   infuse_dob_assets
+
+  # *** GnuCash
+
+  # REFER:
+  #
+  # - Use 'accelerator-map' to change keyboard bindings
+  #   https://wiki.gnucash.org/wiki/Keyboard_Shortcuts
+  #
+  #   - CXREF:
+  #     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/accelerator-map
+  #     /Applications/Gnucash.app/Contents/Resources/share/gnucash/ui/accelerator-map-osx
+  #
+  # - Use 'gtk-3.0.css' to change styling, e.g., font name and size
+  #   https://wiki.gnucash.org/wiki/FAQ#Customizing_the_Appearance
+  #   https://wiki.gnucash.org/wiki/GTK3
+  #
+  #   - CXREF:
+  #     ~/.depoxy/ambers/home/Library/Application Support/GnuCash/gtk-3.0.css
+  #     /Applications/Gnucash.app/Contents/Resources/share/doc/gnucash/gtk-3.0.css
+  #
+  # - Capture 'bookmarks' to save any save dialog favorites you've added
+
+  symlink_mrinfuse_file_if_exists () {
+    local mrinfuse_path="$1"
+
+    local sourcep
+    if sourcep="$(path_to_mrinfuse_resolve "${mrinfuse_path}")" \
+      && [ -f "${sourcep}" ] \
+    ; then
+
+      symlink_mrinfuse_file "${mrinfuse_path}"
+    fi
+  }
+
+  infuse_gnucash_conf_file_if_exists () {
+    local conf_file="$1"
+
+    local mrinfuse_path
+    if ! os_is_macos; then
+      mrinfuse_path=".local/share/gnucash/${conf_file}"
+    else
+      mrinfuse_path="Library/Application Support/GnuCash/${conf_file}"
+    fi
+
+    symlink_mrinfuse_file_if_exists "${mrinfuse_path}"
+  }
+
+  infuse_gnucash_gtk_file_if_exists () {
+    local gtk_file="$1"
+
+    local mrinfuse_path
+    if ! os_is_macos; then
+      mrinfuse_path=".config/gtk-3.0/${gtk_file}"
+    else
+      mrinfuse_path="Library/Application Support/GnuCash/config/gtk-3.0/${gtk_file}"
+    fi
+
+    symlink_mrinfuse_file_if_exists "${mrinfuse_path}"
+  }
+
+  infuse_gnucash_assets () {
+    (
+      cd "${HOME}"
+      MR_REPO="${HOME}"
+
+      infuse_gnucash_conf_file_if_exists "accelerator-map"
+      infuse_gnucash_conf_file_if_exists "gtk-3.0.css"
+
+      infuse_gnucash_gtk_file_if_exists "bookmarks"
+    )
+  }
+
+  infuse_gnucash_assets
+
+  # *** EOF
 }
 
