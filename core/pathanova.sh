@@ -95,6 +95,12 @@ user_path_add_sh_bins () {
   #   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup/bin"
 }
 
+# ***
+
+user_path_add_py_bins () {
+  path_prefix "${DOPP_KIT:-${HOME}/.kit}/py/birdseye/bin"
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _depoxy_path_condense_colons () {
@@ -139,6 +145,9 @@ user_path_extend () {
 
   user_path_add_sh_bins
   unset -f user_path_add_sh_bins
+
+  user_path_add_py_bins
+  unset -f user_path_add_py_bins
 
   # *** Cleanup PATH: Remove repetitious colons.
 
