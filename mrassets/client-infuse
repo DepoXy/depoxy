@@ -734,41 +734,73 @@ symlink_overlay_dob_assets () {
 
 symlink_overlay_gnucash_assets () {
   symlink_mrinfuse_file_if_exists () {
-    local mrinfuse_path="$1"
+    local conf_home="$1"
+    local conf_file="$2"
+    local alt_home="$3"
+
+    local mrinfuse_path="${conf_home}/${conf_file}"
 
     local sourcep
     if sourcep="$(path_to_mrinfuse_resolve "${mrinfuse_path}")" \
       && [ -f "${sourcep}" ] \
     ; then
-
       symlink_mrinfuse_file "${mrinfuse_path}"
+
+      if [ -n "${alt_home}" ]; then
+        symlink_mrinfuse_file "${alt_home}/${conf_file}"
+      fi
     fi
   }
+
+  local checked_gnc_config_home=false
 
   infuse_gnucash_conf_file_if_exists () {
     local conf_file="$1"
 
-    local mrinfuse_path
+    # CXREF: https://wiki.gnucash.org/wiki/Configuration_Locations#GNC_CONFIG_HOME
+    # - AKA: XDG_DATA_HOME
+    local gnc_conf_home_linux=".local/share/gnucash"
+    local gnc_conf_home_macos="Library/Application Support/GnuCash"
+
+    local gnc_conf_home=""
     if ! os_is_macos; then
-      mrinfuse_path=".local/share/gnucash/${conf_file}"
+      gnc_conf_home="${gnc_conf_home_linux}"
     else
-      mrinfuse_path="Library/Application Support/GnuCash/${conf_file}"
+      gnc_conf_home="${gnc_conf_home_macos}"
     fi
 
-    symlink_mrinfuse_file_if_exists "${mrinfuse_path}"
+    symlink_mrinfuse_file_if_exists "${gnc_conf_home}" "${conf_file}"
+
+    if os_is_macos && ! $checked_gnc_config_home; then
+      # Maintain a convenience symlink at the base Linux directory path.
+      symlink_mrinfuse_dir \
+        "${HOME}/${gnc_conf_home_macos}" \
+        "${HOME}/${gnc_conf_home_linux}"
+
+      checked_gnc_config_home=true
+    fi
   }
 
   infuse_gnucash_gtk_file_if_exists () {
     local gtk_file="$1"
 
-    local mrinfuse_path
+    # CXREF: https://wiki.gnucash.org/wiki/Configuration_Locations#GTK_CONFIG_HOME
+    # - AKA: XDG_CONFIG_HOME
+    local gtk_conf_home_linux=".config/gtk-3.0"
+    local gtk_conf_home_macos="Library/Application Support/GnuCash/config/gtk-3.0"
+
+    local gtk_conf_home=""
+    local alt_conf_home=""
     if ! os_is_macos; then
-      mrinfuse_path=".config/gtk-3.0/${gtk_file}"
+      gtk_conf_home="${gtk_conf_home_linux}"
     else
-      mrinfuse_path="Library/Application Support/GnuCash/config/gtk-3.0/${gtk_file}"
+      gtk_conf_home="${gtk_conf_home_macos}"
+
+      # Maintain a convenience symlink at the Linux path.
+      alt_conf_home="${gtk_conf_home_linux}"
     fi
 
-    symlink_mrinfuse_file_if_exists "${mrinfuse_path}"
+    symlink_mrinfuse_file_if_exists "${gtk_conf_home}" "${gtk_file}" "${alt_conf_home}"
   }
 
   infuse_gnucash_assets () {
