@@ -117,7 +117,7 @@ main () {
   #     # Now fzf (w/o pipe) will use fd instead of find
   #     fzf
   #
-  #     # To apply the command to CTRL-T as well
+  #     # To apply the command to CTRL-T as well (CRUMB: <Ctrl-t> <C-t>)
   #     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   #
   #     # If you want the command to follow symbolic links, and don't
