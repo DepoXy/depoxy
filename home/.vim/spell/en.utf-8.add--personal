@@ -14,6 +14,7 @@ Bashcov
 BenQ
 Bitmoji
 Caja
+Chakram
 CoC
 Codecov
 Cython
@@ -34,8 +35,10 @@ Heredoc
 JetBrains
 Jinja
 Jupyter
+Kibana
 LM
 Lua
+MongoDB
 Moonlander
 NERDCommenter
 Neovim
@@ -107,6 +110,7 @@ i11l
 init
 inputrc
 iterm
+jq
 launchd
 linters
 macFUSE
@@ -119,6 +123,7 @@ msg
 myrepos
 nav
 neovim
+nginx
 notif
 notifs
 patchkage
