@@ -1,3 +1,8 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
 /.git/
 
 # The Vimprojects template is only updated when synced (against DepoXy
