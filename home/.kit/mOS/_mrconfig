@@ -110,6 +110,10 @@ echoInstallHelp =
     GeekTool > Check for updates: ✓ Automatic
  "
   #
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all' ${is_installed}) Configure GeekTool:
+    System Settings > General > Login Items & Extensions > Open at Login > + GeekTool.app
+ "
+  #
   # CXREF: ~/.depoxy/ambers/home/.kit/mOS/GeekTool/README.rst
   echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all' ${is_installed}) DepoXy: Create GeekTool *geeklets*:
     - CXREF: See setup notes:
