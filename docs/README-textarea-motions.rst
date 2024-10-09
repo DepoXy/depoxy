@@ -196,6 +196,11 @@ Cheatsheet
     <Shift-Cmd-Up>
     <Shift-Cmd-Down>
 
+- To select text to the top or bottom of the paragraph, use::
+
+    <Shift-Alt-Up>
+    <Shift-Alt-Down>
+
 - To move the cursor to the start of end of a line, use::
 
     <Cmd-Left>
