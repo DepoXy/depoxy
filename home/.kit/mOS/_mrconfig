@@ -97,18 +97,21 @@ skip = no_travel
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp =
-  echoInstallHelp 'os_macos' 'dxy_all'
+  local is_installed=false
+  ! mr -d . -n isInstalled > /dev/null 2>&1 || is_installed=true
   #
-  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') Configure GeekTool:
+  echoInstallHelp 'os_macos' 'dxy_all' '' '' ${is_installed}
+  #
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all' ${is_installed}) Configure GeekTool:
     GeekTool > ✓ Automatically launch at login
  "
   #
-  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') Configure GeekTool:
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all' ${is_installed}) Configure GeekTool:
     GeekTool > Check for updates: ✓ Automatic
  "
   #
   # CXREF: ~/.depoxy/ambers/home/.kit/mOS/GeekTool/README.rst
-  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all') DepoXy: Create GeekTool *geeklets*:
+  echo "$(echoInstallHelpWidget 'os_macos' 'dxy_all' ${is_installed}) DepoXy: Create GeekTool *geeklets*:
     - CXREF: See setup notes:
         ${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/mOS/GeekTool/README.rst
  "
