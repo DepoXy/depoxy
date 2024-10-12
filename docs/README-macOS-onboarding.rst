@@ -2,8 +2,8 @@
 DepoXy macOS ONBRD STEPS
 @@@@@@@@@@@@@@@@@@@@@@@@
 
-Circa 2024 (macOS Sonoma ~ 14.5)
-################################
+As Applied to macOS Sequoia ~ 15.0.1
+####################################
 
 .. vim:rdt=19999:tw=0:ts=2:sw=2:et
 .. contents:: T/O/C
@@ -233,7 +233,18 @@ habit of locking your machine when appropriate.
 - *Turn display off when inactive*: For 1 hour
 
 - *Require password after screen saver begins or display is turned off*:
-  Never (or perhaps "After 8 hours", just in case you forgot to lock)
+
+  - "After 8 hours", just in case you forgot to lock.
+
+    - E.g., if you're putzing around home, you might not interact with
+      the machine for a while. But if you, e.g., leave home or go to
+      sleep, you'll probably appreciate the host locking itself (if you
+      try to practice solid OPSEC).
+
+    - I had originally set this to "Never", but having since changed it
+      to 8 hours, I've never found the host unexpectedly (or annoyingly)
+      locked when I'm just doing chores, cooking, whatever, but haven't
+      left home.
 
 .. You will be password-prompted for both *Turn display off...* and *Require password...*.
 
@@ -257,7 +268,7 @@ You can easily install that way, or you can take it to the CLI.
 
 **STEPS**: Open a terminal window:
 
-- Press <Cmd-Space> to open Spotlight search,
+- Press ``<Cmd-Space>`` to open Spotlight search,
   enter "*terminal*", and open ``Terminal.app``.
 
 - If you're on a corporate machine, you may need to
@@ -466,18 +477,31 @@ and run the following::
   # USAGE: Adjust these environs to taste
 
   BREW_EXCLUDE_SLACK=false \
-  BREW_EXCLUDE_MELD=false \
-  BREW_INCLUDE_COLIMA=false \
-  BREW_INCLUDE_DOCKER_DESKTOP=false \
-  BREW_INCLUDE_TIKZIT=false \
   \
+  BREW_INCLUDE_COLIMA=false \
+  BREW_INCLUDE_DOCKER_DESKTOP=true \
   BREW_INCLUDE_VIRTUALBOX=true \
+  \
+  BREW_INCLUDE_DROPBOX=true \
+  BREW_INCLUDE_P4MERGE=false \
+  \
   BREW_INCLUDE_SPOTIFY=true \
+  BREW_INCLUDE_MEDIA_PLAYERS=true \
+  \
+  BREW_INCLUDE_PENCIL=true \
+  \
   BREW_INCLUDE_DIGIKAM=true \
   BREW_INCLUDE_GNUCASH=true \
-  BREW_INCLUDE_DROPBOX=true \
   \
     ./bin/install-homebrew.sh
+
+-------
+
+**STEPS**: Un-quarantine untrusted apps (e.g., Easy Move+Resize, MacDown)::
+
+  . ~/.kit/mOS/macOS-onboarder/lib/macOS-defaults-commands.sh
+
+  quarantine-liberate-apps
 
 -------
 
@@ -508,6 +532,10 @@ and run the following::
   - General > Login Items > Allow in the Background
 
     - ✓ *Fumihiko Takayama* "8 items: 3 items affect all users" [toggle on]
+
+    - ✓ *Karabiner-Elements Non-Privileged Agents* [confirm enabled]
+
+    - ✓ *Karabiner-Elements Privileged Daemons* [toggle on]
 
   - The author has *all* items listed thereunder enabled, including:
 
@@ -1029,7 +1057,7 @@ let's get permissions setup out of the way.
 
 **STEPS**: 
 
-- Press <Cmd-Space>
+- Press ``<Cmd-Space>``
 
 - Enter ``Alacritty.app`` to open a new terminal
 
@@ -1297,26 +1325,51 @@ and that Alacritty will run Bash v5 as the shell when you open a new terminal.
 - This is also different from the ``bash`` command that previous
   §s had you run, which is the built-in macOS Bash v3. Bash v3
   is *archaic* — it's 20 years old at this point (2024), and it
-  has some odd nuances that differ from POSIX that we won't
-  bother discussing here.
+  has some odd nuances that differ from POSIX, such as
+  ``ENV=foo cmd`` changing ``ENV`` after!
+
+  - E.g.::
+
+      $ /bin/bash --posix -c 'unset -v FOO; foo () { :; }; bar () {
+        FOO=123 foo; echo FOO=$FOO; local baz; FOO=abc foo; echo FOO=$FOO;
+      }; bar'
+      FOO=
+      FOO=abc
+
+  - Vs.::
+
+      $ /opt/homebrew/bin/bash --posix -c 'unset -v FOO; foo () { :; }; bar () {
+        FOO=123 foo; echo FOO=$FOO; local baz; FOO=abc foo; echo FOO=$FOO;
+      }; bar'
+      FOO=
+      FOO=
 
 -------
 
-**STEPS**: Tell macOS that Brew Bash is a usable shell::
+SAVVY/2024-08-23: The following steps are automated by DepoXy ``infuse`` task.
+
+- CXREF::
+
+    # infuse_macOS_verify_chsh
+    ~/.depoxy/ambers/home/infuse-platform-macOS
+
+REFER: Tell macOS that Brew Bash is a usable shell::
 
   sudo sh -c "echo /opt/homebrew/bin/bash >> /etc/shells"
 
+REFER: Set user's default shell to Brew Bash::
+
   chsh -s /opt/homebrew/bin/bash
-
-**STEPS**: Set user's default shell to Bash::
-
-  chsh -s /bin/bash
   # OUTPUT:
   # Changing shell for user.
   # Password for user: [Enter your password]
 
 From here on out, you won't have to run ``bash`` when you open
-a new terminal window!
+a new terminal window (or need to set a default terminal command).
+
+- To revert::
+
+    chsh -s /bin/bash
 
 -------
 
@@ -1326,19 +1379,27 @@ REFER: See these ``man`` pages for more on the above commands::
   man 8 DirectoryServices
   man 8 opendirectoryd
 
-REFER: You can show the user's default shell using these
-macOS-specific commands::
+AUDIT: Verify the default shell:
 
-  # For macOS:
-  dscl . -read /Users/${LOGNAME} UserShell
-  # OUTPUT (fresh macOS default):
-  # UserShell: /bin/zsh
+- You can show the user's default shell using these
+  macOS-specific commands::
 
-  # For the current macOS user:
-  dscl . -read ~/ UserShell
+    dscl . -read /Users/${LOGNAME} UserShell
+    # OUTPUT (fresh macOS default):
+    #   UserShell: /bin/zsh
+    # OUTPUT (after running `chsh` above):
+    #   UserShell: /opt/homebrew/bin/bash
 
-  # To parse the path inline using sed:
-  dscl . -read ~/ UserShell | sed 's/UserShell: //'
+    # For the current macOS user:
+    dscl . -read ~/ UserShell
+
+    # To parse the path inline using sed:
+    dscl . -read ~/ UserShell | sed 's/UserShell: //'
+
+- Or for Linux::
+
+    @Linux $ cat /etc/passwd | grep -e "${LOGNAME}" | awk -F  ':' '{print $NF}'
+    /bin/bash
 
 - REFER: Thanks to this post for cluing me into ``dscl``:
 
@@ -1759,6 +1820,7 @@ to a new host using a USB drive.
     cat ~/.ssh/<id_lan_key>.pub >> ~/.ssh/authorized_keys
 
     chmod 2750 ~/.ssh
+    chmod 400 ~/.ssh/config*
     chmod 400 ~/.ssh/<id_lan_key>
     chmod 440 ~/.ssh/<id_lan_key>.pub
     chmod 640 ~/.ssh/authorized_keys
@@ -1803,39 +1865,39 @@ or not worry about this step, or maybe check with I.T. first?
 
 -------
 
-**STEPS**::
+SAVVY/2024-08-23: Now automated via DepoXy 'infuse' task.
 
-  target=/private/etc/ssh/sshd_config
+HSTRY: Something like this will run on ``infuse``::
 
-  sudo cp "${target}" "${target}--orig"
+  infuse_macOS_configure_sshd_config_update () {
 
-  # WRONG/2024-05-22 02:18: Heh? sudo won't see function...
-  # - And `export -f` doesn't work...
-  #
-  #  sudo line_in_file "PasswordAuthentication no" "${target}"
-  #  sudo line_in_file "ChallengeResponseAuthentication no" "${target}"
+    target=/private/etc/ssh/sshd_config
 
-  sudo bash -c "
-    . $HOME/.kit/sh/sh-logger/bin/logger.sh ;
-    . $HOME/.kit/git/ohmyrepos/lib/line-in-file.sh ;
-    line_in_file \"PasswordAuthentication no\" \"${target}\""
+    sudo cp -- "${target}" "${target}--orig"
 
-  sudo bash -c "
-    . $HOME/.kit/sh/sh-logger/bin/logger.sh ;
-    . $HOME/.kit/git/ohmyrepos/lib/line-in-file.sh ;
-    line_in_file \"ChallengeResponseAuthentication no\" \"${target}\""
+    . "${HOME}/.kit/git/ohmyrepos/lib/line-in-file.sh"
 
-  # For good measure, add ITERM_SESSION_ID hook for window titling
-  sudo bash -c "
-    . $HOME/.kit/sh/sh-logger/bin/logger.sh ;
-    . $HOME/.kit/git/ohmyrepos/lib/line-in-file.sh ;
-    line_in_file \"AcceptEnv ITERM_SESSION_ID\" \"${target}\""
+    OMR_BECOME=sudo line_in_file "${target}" \
+      "^PasswordAuthentication " \
+      "PasswordAuthentication no"
 
-  diff "${target}--orig" "${target}"
+    OMR_BECOME=sudo line_in_file "${target}" \
+      "^ChallengeResponseAuthentication " \
+      "ChallengeResponseAuthentication no"
 
-  # SAVVY: Save to user dir, in case macOS update overwrites /private/etc/ssh/
-  mkdir -p ~/Documents/sshd
-  cp "${target}" "${target}--orig" ~/Documents/sshd/
+    # For good measure, add ITERM_SESSION_ID hook for window titling
+    OMR_BECOME=sudo line_in_file "${target}" \
+      "^AcceptEnv ITERM_SESSION_ID$" \
+      "AcceptEnv ITERM_SESSION_ID"
+
+    diff "${target}--orig" "${target}"
+
+    # SAVVY: Save to user dir, in case macOS update overwrites /private/etc/ssh/
+    mkdir -p ~/Documents/sshd
+    cp -- "${target}" "${target}--orig" ~/Documents/sshd/
+  }
+
+- SAVVY: If ``sshd`` is running, changes take effect immediately.
 
 -------
 
@@ -2302,6 +2364,8 @@ ONBRD: Customize Finder, and add Finder Favorites
 
   - AirDrop, *Recents*, Applications, Desktop, Documents, Downloads, <user>
 
+- STEPS: Open a Finder window, and then:
+
 - STEPS: Right-click each and *Remove from Sidebar*:
 
   - AirDrop
@@ -2310,6 +2374,7 @@ ONBRD: Customize Finder, and add Finder Favorites
 
     ~/.kit
     ~/Dropbox
+    /tmp
     etc.
 
 -------
@@ -2342,9 +2407,61 @@ ONBRD: Configure Sounds: Choose Alert and Output device
 
 -------
 
-################################################
-ONBRD: Setup ``updatedb`` for ``locate`` command
-################################################
+############################################################
+ONBRD: Configure Notification Center: Add and Remove Widgets
+############################################################
+.. 2024-10-02
+
+**STEPS**:
+
+- Open the Notification Center:
+
+  - Click the Clock in the macOS menu bar;
+
+    Or press <Shift-Ctrl-Alt-C> (wired by ``slather-defaults.sh``)
+
+  - Click *Edit Widgets...* at the bottom
+
+- Customize the widgets:
+
+  - I like to remove everything and start over with a few basic widgets:
+
+    - First row, side-by-side:
+
+      - *Weather > Sunrise and Sunset* [1×1 size]
+
+      - *Calendar > Month* [1×1 size]
+
+        - Doesn't show events, just month day numbers
+
+        - If you use Google Calendar and would like to wire that into macOS
+          so you can use the other Calendar widgets and see your events,
+          refer to:
+
+          - *Add Google Calendar events to Apple Calendar*
+
+            https://support.google.com/calendar/answer/99358
+
+    - Second row:
+
+      - *Weather > Forecase* [2×2 size]
+
+        - Pick the largest widget [2×2], which shows the current
+          weather and the 5-day forecast.
+
+    - Third row:
+
+      - *Screen Time > Daily Activity* [1×2 size]
+
+        - Pick the medium-sized widget [1×2] that shows a bar graph
+          with a slightly wider x-axis, and includes an abbreviated
+          (condensed) app. time display (icons but not app. names).
+
+-------
+
+###########################################################################
+ONBRD: Install and enable ``updatedb`` launch agent, for ``locate`` command
+###########################################################################
 .. 2024-08-09
 .. onbrd-setup-updatedb-for-locate-command
 
@@ -2372,14 +2489,103 @@ UCASE: So you can find files quickly with the ``locate`` command.
 
 -------
 
+############################################################################
+ONBRD: Install and enable ``check-sshd_config`` launch agent, for monitoring
+############################################################################
+.. 2024-08-23
+
+UCASE: Because macOS clobber-reverts ``/private/etc/ssh/sshd_config`` on
+every OS update.
+
+**STEPS**::
+
+  mr -d "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}" -n install
+
+  launchctl enable gui/501/com.tallybark.check-sshd_config
+
+- REFER: See |LaunchAgents/README.rst|_ for more details.
+
+.. FIXME Remove unless also necessary
+..
+.. .. Full_Disk_Access
+..
+.. **STEPS**: Configure FDA for ``gfind``.
+..
+.. - REFER: See `Configure Full Disk Access`_ above.
+..
+.. .. _Configure Full Disk Access: #onbrd-configure-full-disk-access
+
+-------
+
+#########################################
+OPTLY: Install ``sshfs``, and ``macFUSE``
+#########################################
+.. 2024-09-05
+
+UCASE: Mount network path locally over SSH.
+
+**STEPS**:
+
+- Install macFUSE (this may require a password)::
+
+    brew install --cask macfuse
+
+- Download and install ``osxfuse-sshfs``
+
+  https://github.com/osxfuse/sshfs/
+
+  - E.g.,
+    https://github.com/osxfuse/sshfs/releases/tag/osxfuse-sshfs-2.5.0
+
+  - Run wizard (and accept EULA), e.g.,::
+
+      open sshfs-2.5.0.pkg
+
+-------
+
+USAGE: E.g.,::
+
+  sshfs -o follow_symlinks host:/path/on/remote/host ~/path/to/local/mountdir
+
+  # To unmount, use `umount -f`, not `fusermount -u`
+  umount -f ~/path/to/local/mountdir
+
+-------
+
 ########################
 ⋰ ⋱ ⋰ ⋱  ADHOCs  ⋰ ⋱ ⋰ ⋱
 ########################
 
 ##################################################################
+ADHOC: Run ``infuse`` to undo file changes — After upgrading macOS
+##################################################################
+.. 2024-08-23
+
+UCASE: macOS resets files and options after (some/most/all?) OS updates.
+
+- E.g., after updating to macOS Sonoma 14.6.1 (Aug, 2024), macOS reset
+  SSH options::
+
+    /private/etc/ssh/sshd_config
+
+  And it also reverted the default non-interactive shell::
+
+    /var/select/sh -> /bin/bash
+
+**STEPS**: After every macOS OS upgrade, especially after a necessary
+reboot, run ``infuse`` to undo the damage::
+
+  infuse
+
+-------
+
+##################################################################
 ADHOC: Sign in Apple ID account            — After upgrading macOS
 ##################################################################
 .. 2024-04-10
+
+INERT/2024-08-23: I haven't needed to do this recently (and
+not after rebooting for macOS Sonoma 14.6.1).
 
 **STEPS**: System Settings > Update Apple ID Settings:
 
@@ -2392,14 +2598,16 @@ ADHOC: Sign in Apple ID account            — After upgrading macOS
   There was a few second delay, then *Update Apple ID Settings* disappeared
   from the sidebar.
 
--------
 
 ##################################################################
 ADHOC: Re-run ``xcode-select --install``   — After upgrading macOS
 ##################################################################
 .. 2023-01-13
 
-WRKLG/2023-01-13 02:03: After updating to macOS Ventura::
+INERT/2024-08-23: I haven't needed to do this recently (and
+not after rebooting for macOS Sonoma 14.6.1).
+
+WRKLG/2023-01-13: After updating to macOS Ventura::
 
   $ tig
   tig: Not a git repository
@@ -2497,9 +2705,63 @@ along.
 
 **STEPS**: Open Settings and configure *Downloads*:
 
-  - Find *Downloads* in the left-hand sidebar and choose:
+- Find *Downloads* in the left-hand sidebar and choose:
 
-    - Downloads > ✓ *Ask where to save each file before downloading*
+  - Downloads > ✓ *Ask where to save each file before downloading*
+
+**STEPS**: Linux full screen generally removes title bar,
+which you can emulate in macOS Chrome with following menu option:
+
+- View > ✗ Always Show Toolbar in Full Screen (<Shift-Cmd-F>)
+
+**STEPS**: Disable new Tab Groups feature.
+
+  - Visit: chrome://flags
+
+  - Search for *Tab Groups Save UI Update*.
+
+  - Enable it.
+
+  - Restart Chrome.
+
+  - Right-click the Bookmarks Bar on the right (but not on the
+    Tab Groups icon) and deselect *Show Tab Groups*.
+
+  - HSTRY: Circa 2024-10-03, Chrome shows a new Tab Groups feature on the
+    left of the Bookmarks Bar, but you cannot hide it.
+
+    - It's four square icons using different colors, then a "»" dropdown
+      with addition tab groups.
+
+    - For me, it turned all my Android Chrome tabs into tab groups that I
+      see on macOS Chrome — and I have so many tabs open on Android that
+      the "»" dropdown extends past the bottom of my monitor. (And it's
+      just a long list of colorful square icons, not very helpful! You
+      have to right-click each one to see what pages are in each group!)
+
+    - While you can right-click each *effin* icon and select *Delete Group*,
+      you didn't ask for such a pointless, repetitive chore!
+
+    - Fortunately, there's an easier way: enable the hidden feature,
+      *Tab Groups Save UI Update*.
+
+    - This replaces the four square icons and "»" dropdown with a single
+      icon which looks like a grid of 4 small squares (2×2).
+
+    - It also adds a new option to the Bookmarks Bar context menu:
+      *✓ Show Tab Groups*, that you can now disable (to hide the
+      4-small-squares icon).
+
+    - Thanks for wasting a half-hour of my life, Chrome.... (I know Chrome
+      is free, and otherwise it's a great product, but every once in a
+      while some experimental "feature" appears in my browser that's
+      more hindrance or annoying than helpful, and there's almost never
+      an obvious way to disable it. Furthermore, searching for a solution
+      is difficult, both trying to pick the right search words, and also
+      because the issue is so new, there's often little or no content on
+      it, or the content won't be surfaced in the results because it's so
+      fresh. So then I end up flipping bits in chrome://flags, restarting
+      Chrome a bunch, and hoping I can eventually figure it out.) /GRIPE
 
 -------
 
@@ -2607,7 +2869,7 @@ STEPS:
 
 - Chrome > ⋮ > Settings (``<Cmd-,>``) > Appearance > ✗ Show bookmarks bar
 
-  chrome://settings/appearance
+  ``chrome://settings/appearance``
 
 - Setup extensions you might want.
 
@@ -2615,9 +2877,9 @@ STEPS:
 
 -------
 
-#########################################
-ADHOC: Configure Chrome Devtools Settings
-#########################################
+################################################
+ADHOC: DFLTS: Configure Chrome Devtools Settings
+################################################
 .. 2024-07-18
 
 STEPS: Open Devtools, then <F1> brings up Settings
@@ -2629,6 +2891,356 @@ STEPS: Open Devtools, then <F1> brings up Settings
   - Find next result: Leave <Ctrl-G>, and add <F3>
 
   - Find previous result: Leave <Shift-Ctrl-G>, and add <Shift-F3>
+
+-------
+
+#######################################################
+ADHOC: Configure postfix to relay local emails to Gmail
+#######################################################
+
+STEPS: Update ``/etc/postfix/main.cf``
+
+- SAVVY: On @macOS, ``/etc`` -> ``/private/etc``
+
+- Create backup.
+
+  - STEPS::
+
+      sudo cp -a /etc/postfix/main.cf /etc/postfix/main.cf--$(date "+%Y-%m-%d")
+
+  - See also related files::
+
+      /private/etc/postfix/main.cf.default
+      /private/etc/postfix/main.cf.proto
+
+- Add custom ``myhostname``.
+
+  - STEPS: Pick your own hostname, e.g., DepoXy users might use ``VENDOR_DOMAIN``::
+
+      sudo bash -c 'echo -e "\nmyhostname = $(hostname).${VENDOR_DOMAIN:-acme.com}" >> /etc/postfix/main.cf'
+
+  - Or simply::
+
+      sudo bash -c 'echo -e "\nmyhostname = ${MYHOSTNAME:-myhost.acme.com}" >> /etc/postfix/main.cf'
+
+- Comment out existing ``message_size_limit = 10485760`` line, so that
+  large emails are not rejected.
+
+  - STEPS::
+
+    . ~/.kit/git/ohmyrepos/lib/line-in-file.sh
+
+    # SAVVY: line_in_file uses `tac`, so reverse order of replacement "line"'s lines.
+
+    line_in_file \
+      main.cf \
+      "^message_size_limit = ([0-9]+)$" \
+      "# message_size_limit = ([0-9]+)" \
+      "#  message_size_limit = \\\1\n# DepoXy: Disable the message_size_limit restriction (see below's = 0)"
+
+- Add our custom settings to the postfix config.
+
+  - STEPS::
+
+      sudo bash -c 'echo "
+      # Use Gmail SMTP
+      #  relayhost = [smtp.gmail.com]:587
+      relayhost = smtp.gmail.com:587
+      # Enable SASL authentication in the Postfix SMTP client.
+      smtp_sasl_auth_enable = yes
+      smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+      smtp_sasl_security_options = noanonymous
+      smtp_sasl_mechanism_filter = plain
+      # Enable Transport Layer Security (TLS), i.e. SSL.
+      smtp_use_tls = yes
+      smtp_tls_security_level = encrypt
+      # Remove the message_size_limit restriction (defaults 10240000)
+      message_size_limit = 0
+      # Location of CA certificates:
+      #  smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+      # Should already be set above:
+      #  tls_random_source = dev:/dev/urandom
+      # Add for more trace:
+      #  debug_peer_list = smtp.gmail.com
+      #  debug_peer_level = 3
+      " >> /etc/postfix/main.cf'
+
+-------
+
+STEPS: Configure your Gmail app password.
+
+- Cache your Gmail app password.
+
+  - STEPS: E.g.,::
+
+      sudo bash -c 'echo "smtp.gmail.com:587 your_username@gmail.com:your_password" \
+        > /etc/postfix/sasl_passwd'
+
+- Create the hash db file for Postfix.
+
+  - STEPS::
+
+      # Creates /etc/postfix/sasl_passwd.db
+      sudo postmap /etc/postfix/sasl_passwd
+
+      # Restrict both files to root.
+      sudo chmod 600 /etc/postfix/sasl_passwd*
+
+- MAYBE: You may need to enable the Gmail option, "Access for less secure
+  apps", otherwise you may get the error: ``SASL authentication failed``.
+
+  - TRACK/2024-09-17: Next time I set this up from scratch, I'll check.
+
+-------
+
+STEPS: Configure the postfix daemon.
+
+- Copy the postfix master ``plist`` out of System folder.
+
+  - STEPS::
+
+      sudo cp /System/Library/LaunchDaemons/com.apple.postfix.master.plist \
+        /Library/LaunchDaemons/org.postfix.custom.plist
+
+      sudo vim /Library/LaunchDaemons/org.postfix.custom.plist
+
+- Change the label value from ``com.apple.postfix.master`` to ``org.postfix.custom``.
+
+  - STEPS: Change to::
+
+      <string>org.postfix.custom</string>
+
+- Remove two lines to prevent exiting after 60 seconds.
+
+  - STEPS: Remove the two lines::
+
+      <string>-e</string>
+      <string>60</string>
+
+- Add two settings to keep service alive, and to run at load.
+
+  - STEPS: Add these lines before ``</dict>``::
+
+      <key>KeepAlive</key>
+      <true/>
+      <key>RunAtLoad</key>
+      <true/>
+
+- (Re)launch the daemon.
+
+  - STEPS::
+
+      sudo launchctl unload /Library/LaunchDaemons/org.postfix.custom.plist
+      # If not loaded, errors:
+      #   Unload failed: 5: Input/output error
+      #   Try running `launchctl bootout` as root for richer errors.
+
+      # Use launchctl to start the service.
+      # - Compare to Debian:
+      #   sudo /etc/init.d/postfix reload
+
+      sudo launchctl load /Library/LaunchDaemons/org.postfix.custom.plist
+      # No output
+
+- Check that daemon has started.
+
+  - STEPS::
+
+      sudo launchctl list | grep org.postfix
+
+-------
+
+STEPS: Configure email forwarding.
+
+- E.g.::
+
+    echo "your_username@gmail.com" > ~/.forward
+
+-------
+
+USAGE:
+
+- Test it::
+
+    # Delivers with "To: your_username@gmail.com"
+    echo "Test postfix — username@gmail.com" | mail -s "Test Postfix" your_username@gmail.com
+
+    # Delivers with "To: $(id -un)@${MYHOSTNAME:-myhost.acme.com}"
+    echo "Test postfix — $(id -un)" | mail -s "Test Postfix" $(id -un)
+
+    # Delivers with "To: $(id -un)@${MYHOSTNAME:-myhost.acme.com}"
+    echo "Test postfix — $(id -un)@${MYHOSTNAME:-myhost.acme.com}" \
+      | mail -s "Test Postfix" $(id -un)@${MYHOSTNAME:-myhost.acme.com}
+
+    # Won't be delivered if $(hostname) doesn't match 'myhostname'
+    #  echo "Test postfix — $(id -un)@$(hostname)" | mail -s "Test Postfix" $(id -un)@$(hostname)
+    # Won't be delivered
+    #  echo "Test postfix — $(id -un)@127.0.0.1" | mail -s "Test Postfix" $(id -un)@127.0.0.1
+
+- View mail queues::
+
+    mail
+    mailq
+    sendmail -bp
+    postqueue -j
+    postqueue -p
+
+    cat /var/mail/$(id -un)
+
+    # E.g., before starting postfix:
+    #   $ mailq
+    #   postqueue: fatal: Queue report unavailable - mail system is down
+
+- View mail log::
+
+    log stream --level debug | grep mail
+
+    tail -f /var/log/mail.log
+
+- View delete queue::
+
+    # Deleted mail possibly at:
+    sudo tree /var/spool/postfix/defer
+
+    # And not at:
+    sudo ls -la /var/spool/mqueue/
+    # which is empty.
+
+    # Aha!
+    sudo postsuper -d ALL deferred
+
+- Show open (listening) ports (and look for port 25)::
+
+    sudo lsof -i -P | grep -i "listen"
+
+-------
+
+REFER/THANX:
+
+- *Configure postfix as relay for macOS Sierra – Sonoma*
+
+  https://gist.github.com/loziju/66d3f024e102704ff5222e54a4bfd50e
+
+- *How to Install Mail Server on Mac OSX*
+
+  https://budiirawan.com/install-mail-server-mac-osx/
+
+-------
+
+###################################
+ADHOC: DEFTS: Configure LibreOffice
+###################################
+.. 2024-10-02
+
+STEPS: Disable LibreOffice *AutoCorrect*:
+
+- LibreOffice menu bar > Tools > *AutoCorrect* > ✗ *While Typing*
+
+- ALTLY: Tools > *AutoCorrect* > *AutoCorrect Options...* > Options:
+  - ✗ *Capitalize first letter of every sentence*
+  - ✗ *Correct TWo INitial CApitals*
+  - Etc.
+
+STEPS: Enable LibreOffice spell checking (underlines misspelled words):
+
+- LibreOffice menu bar > Tools > ✓ Automatic Spell Checking
+
+-------
+
+##############################################
+ADHOC: DFLTS: Configure *Adobe Acrobat Reader*
+##############################################
+.. 2024-10-07
+
+STEPS: Adobe Acrobat menu bar > Preferences > General:
+
+- ✗ Show offline storage when saving files
+
+-------
+
+UCASE: The Save As dialog is blank! (Seriously!!)
+
+- REFER: *Blank Save As dialog box in Acrobat*
+
+  https://helpx.adobe.com/acrobat/kb/blank-save-as-dialog-mac.html
+
+-------
+
+########################
+⋰ ⋱ ⋰ ⋱  REFERs  ⋰ ⋱ ⋰ ⋱
+########################
+
+#############################################################################
+REFER: macOS Chrome textarea motion cheatsheet (try ``<Cmd>-Arrow`` bindings)
+#############################################################################
+.. 2024-04-25
+
+REFER/CXREF:
+
+  file://~/.depoxy/ambers/docs/README-textarea-motions.rst @ 169
+
+- Jump to the cheatsheet:
+
+  https://github.com/DepoXy/depoxy/blob/release/docs/README-textarea-motions.rst#cheatsheet
+
+-------
+
+#############################################################
+REFER: Use ``<Cmd-.>`` to stop MacVim grep (not ``<Ctrl-C>``)
+#############################################################
+.. 2024-07-17
+
+SAVVY: Note that ``<Ctrl-C>`` in macOS MacVim won't stop long-running grep
+(or cancel any long-running command) like it does in terminal Vim, or
+on Linux (where ``<Ctrl-C>`` works in both GVim and command line vim).
+
+- SAVVY: You must use (non-remappable) ``<Cmd-.>`` to stop system calls in MacVim.
+
+- REFER: From ``:h macvim-shortcuts``::
+
+    Cmd-.   Interrupt Vim.              *Cmd-.* *<D-.>*
+
+            Unlike Ctrl-C which is sent as normal keyboard input
+            (and hence has to be received and then interpreted)
+            this sends a SIGINT signal to the Vim process.
+
+            This Cmd-key combination cannot be unmapped.
+
+- I think this is the only MacVim binding you cannot change. So remember it well!
+
+-------
+
+################################################################
+REFER: Use ``<Shift-Cmd-.>`` in open dialog to view hidden files
+################################################################
+.. 2024-10-10
+
+SAVVY: Even if there's no context menu or other option to show hidden files,
+``<Shift-Cmd-Period>`` should always show hidden files in an open dialog.
+
+-------
+
+################################################################
+REFER: Use ``log stream`` to view ``sshd`` and other system logs
+################################################################
+.. 2024-04-14
+
+CPYST: Run ``log stream`` to view macOS system logs, e.g.::
+
+  log stream --level debug | grep ssh
+
+REFER: https://stackoverflow.com/questions/43382825/where-to-find-sshd-logs-on-macos-sierra
+
+- BEGER: https://www.google.com/search?q=macos+ssh+auth+log
+
+-------
+
+###############################################################
+REFER: ``<Command-Alt-Escape>`` brings up macOS Force-Quit menu
+###############################################################
+.. 2024-09-18
+
+SAVVY: ``<Command-Alt-Escape>`` brings up macOS Force-Quit menu.
 
 -------
 
