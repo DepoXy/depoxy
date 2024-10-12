@@ -116,9 +116,6 @@ _source_scripts_following_homefries_dxy () {
   # Commacd.
   _dxy_source "cli-comma.sh"
 
-  # Completion.
-  _dxy_source "completes.sh"
-
   # Second sourcing, this time with deps (claim_alias_or_warn) loaded.
   _dxy_source "depoxy_fs.sh"
 
