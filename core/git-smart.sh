@@ -78,6 +78,12 @@ _dxy_wire_alias_git_rc () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_dxy_wire_alias_grh () {
+  claim_alias_or_warn "grh" "git reset HEAD"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Create l1..l9 aliases, e.g.,
 #
 #   claim_alias_or_warn "l1" "git --no-pager log -1"
@@ -281,6 +287,9 @@ main () {
 
   _dxy_wire_alias_git_rc
   unset -f _dxy_wire_alias_git_rc
+
+  _dxy_wire_alias_grh
+  unset -f _dxy_wire_alias_grh
 
   _dxy_wire_alias_git_logX
   unset -f _dxy_wire_alias_git_logX
