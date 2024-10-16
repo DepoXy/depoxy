@@ -170,9 +170,10 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
   )
 end
 
-local macvim_filter = hs.window.filter.new("MacVim")
-
-appTapAttach:filterAttachEventtap(macvim_filter, macvim_shift_ctrl_kludge_get_eventtap)
+appTapAttach:registerApptap(
+  "MacVim",
+  macvim_shift_ctrl_kludge_get_eventtap
+)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
