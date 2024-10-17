@@ -48,26 +48,23 @@ _dxy_wire_alias_git_wip_pwip () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_git_cv () {
+# Complement `git civ` with a plain `civ`.
+_dxy_wire_alias_git_civ () {
   local tnewtons="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
 
-  # Complement `git cv` with a plain `cv`.
-  claim_alias_or_warn "cv" "EDITOR='${tnewtons}/bin/editor-vim-0-0-insert-minimal' git commit -v"
-  # `cv` is so easy to type (and remember), I think it'll stick,
-  # but I also considered these aliass:
-  #
-  #  claim_alias_or_warn "civ" "git commit -v"
-  #  claim_alias_or_warn "gc" "git commit -v"
+  claim_alias_or_warn "civ" "EDITOR='${tnewtons}/bin/editor-vim-0-0-insert-minimal' git commit -v"
 }
 
-_dxy_wire_alias_git_cm () {
+# Complement `git cim` with a plain `cim`.
+_dxy_wire_alias_git_cim () {
   local tnewtons="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
 
-  claim_alias_or_warn "cm" "EDITOR='${tnewtons}/bin/editor-vim-0-0-insert-minimal' git commit --amend"
+  claim_alias_or_warn "cim" "EDITOR='${tnewtons}/bin/editor-vim-0-0-insert-minimal' git commit --amend"
 }
 
-_dxy_wire_alias_git_cn () {
-  claim_alias_or_warn "cn" "git commit --amend --no-edit"
+# Complement `git cin` with a plain `cin`.
+_dxy_wire_alias_git_cin () {
+  claim_alias_or_warn "cin" "git commit --amend --no-edit"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -276,14 +273,14 @@ main () {
   _dxy_wire_alias_git_wip_pwip
   unset -f _dxy_wire_alias_git_wip_pwip
 
-  _dxy_wire_alias_git_cv
-  unset -f _dxy_wire_alias_git_cv
+  _dxy_wire_alias_git_civ
+  unset -f _dxy_wire_alias_git_civ
 
-  _dxy_wire_alias_git_cm
-  unset -f _dxy_wire_alias_git_cm
+  _dxy_wire_alias_git_cim
+  unset -f _dxy_wire_alias_git_cim
 
-  _dxy_wire_alias_git_cn
-  unset -f _dxy_wire_alias_git_cn
+  _dxy_wire_alias_git_cin
+  unset -f _dxy_wire_alias_git_cin
 
   _dxy_wire_alias_git_rc
   unset -f _dxy_wire_alias_git_rc
