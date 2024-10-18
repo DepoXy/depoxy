@@ -536,8 +536,15 @@ _dxc_client_autocommit () {
     git_auto_commit_one_update "home/Library/Application Support/dob/dob.conf"
 
     dob_export_db () {
-      dob --no-color export \
-        -o "home/Library/Application Support/dob/dob.sqlite.export"
+      local export_prog
+      export_prog="$( \
+        DOB_REPORT_REPORT=true \
+        dob --no-color export \
+          -o "home/Library/Application Support/dob/dob.sqlite.export"
+      )"
+
+      debug "$(fg_mintgreen)$(attr_emphasis)capture dob db$(attr_reset)" \
+        "$(fg_lightyellow)${export_prog}$(attr_reset)"
     }
 
     local dob_venv="${DOB_OMR_DIR:-${HOME}/.kit/dob}/dob/.venv-dob"
