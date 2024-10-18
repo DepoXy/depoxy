@@ -265,6 +265,7 @@ skip = no_travel
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/hammerspoons]
 lib = remote_set starter https://github.com/Hammerspoon/Spoons.git "hammerspoons"
 skip = no_travel
+infuse = link_private_exclude "$@"
 
 # “Opinionated `~/.hammerspoon/init.lua`”
 # https://github.com/DepoXy/macOS-Hammyspoony#🥄
