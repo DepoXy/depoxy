@@ -535,9 +535,20 @@ _dxc_client_autocommit () {
   depoxy_client_autocommit_dob_assets () {
     git_auto_commit_one_update "home/Library/Application Support/dob/dob.conf"
 
-    if command -v dob > /dev/null; then
+    dob_export_db () {
       dob --no-color export \
         -o "home/Library/Application Support/dob/dob.sqlite.export"
+    }
+
+    local dob_venv="${DOB_OMR_DIR:-${HOME}/.kit/dob}/dob/.venv-dob"
+    local dob_acty="${dob_venv}/bin/activate"
+
+    if [ -f "${dob_acty}" ]; then
+      . "${dob_acty}"
+      dob_export_db
+      deactivate
+    elif command -v dob > /dev/null; then
+      dob_export_db
     else
       notice "ONBRD: 🔳 Install \`dob\`"
     fi
