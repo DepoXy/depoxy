@@ -130,8 +130,8 @@ main () {
   fzf_wire_default_cmd_fd () {
     command -v fd > /dev/null || return
 
-    # (lb): Let's go with the suggested command, sounds about right to me!
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    # This is the suggested command from fzf/README.md
+    export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
   }
 
