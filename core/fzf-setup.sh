@@ -14,6 +14,11 @@
 #
 # SAVVY/2024-10-19: Note that `install` has not been run since then,
 # so any changes in the past 4+ years have not been integrated.
+#
+# SAVVY/2021-01-21: On macOS, `brew install fzf` does not call fzf/install.
+# - And running fzf/install just creates ~/.fzf.bash, the essence of which
+#   was incorporated into this file.
+# - I.e., if you `brew install fzf`, you don't need to `fzf/install`.
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -98,21 +103,6 @@ main () {
     # CXREF: ~/.kit/go/fzf/shell/key-bindings.bash
     . "${fzf_path}/shell/key-bindings.bash"
   }
-
-  # 2021-01-21: Next is an old comment about installing on Linux.
-  # - Today I ran fzf/install on macOS, after first `brew install fzf`,
-  #   but I'm not sure fzf/install is necessary, or if it just creates
-  #   ~/.fzf.bash, which is essentially what this file is.
-  #
-  # [Comment Circa 2020-02-12:]
-  # - (lb): To migrate to Zoidy Pooh Ansible task, I either need
-  #         to call fzf/install, or I need to go-get-install it.
-  #         Because the install script is interactive,
-  #         and appends the next three blocks to ~/.bashrc
-  #         ... which I've since wrapped in functions.
-  #
-  #         - 2021-01-21: But note `brew install fzf` is not interactive.
-  #                       It just doesn't run fzf/install for you.
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
