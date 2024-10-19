@@ -13,7 +13,7 @@
 #              the selected file path into the command line
 #
 #              - Uses FZF_CTRL_T_COMMAND or FZF_DEFAULT_COMMAND to
-#                collect paths (using `fd`; see below)
+#                collect paths (using either `rg` or `fd`; see below)
 #
 #   <Ctrl-R> — Run FZF on shell history, and paste the selected
 #              command from history to the prompt
@@ -22,7 +22,7 @@
 #              and `cd` into the selected directory
 #
 #              - Uses FZF_ALT_C_COMMAND or FZF_DEFAULT_COMMAND to
-#                collect paths (using `fd`; see below)
+#                collect paths (using either `rg` or `fd`; see below)
 #
 # - CXREF: ~/.kit/go/fzf/shell/key-bindings.bash
 
@@ -127,6 +127,13 @@ main () {
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+  # <Ctrl-T> — Run fzf on files in the current directory.
+
+  # This script defaults to using `rg`, but you can opt-in `fd` instead.
+  DEPOXY_FZF_PREFER_FD="${DEPOXY_FZF_PREFER_FD:-false}"
+
+  local is_fzf_setup=false
+
   # REFER/2020-02-12: Here's an `fd` command crash course, courtesy junegunn:
   #
   #   https://github.com/junegunn/fzf#respecting-gitignore
@@ -149,21 +156,61 @@ main () {
   #     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 
   fzf_wire_default_cmd_fd () {
-    command -v fd > /dev/null || return
+    if ${is_fzf_setup:-false} \
+      || ! ${DEPOXY_FZF_PREFER_FD:-false} \
+      ! command -v fd > /dev/null \
+    ; then
+
+      return
+    fi
 
     # This is the suggested command from fzf/README.md
     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+
+    is_fzf_setup=true
   }
 
   # ***
 
+  # SAVVY/2024-10-19: In author's DepoXy environment, running the `fd`
+  # and `rg` variants on user home produce different sets of results:
+  # - With `rg`, <Ctrl-T> finds 377906 paths under home.
+  # - With `fd`, <Ctrl-T> finds 228691 paths under home.
+  # I have not investigated what's different, but we'll use the more
+  # inclusive `rg` (they both run in about the same amount of time).
+  # - If we later discover `rg` includes a lot of noise, perhaps it'll
+  #   encourage us to tweak our .ignore rules.
+
+  fzf_wire_default_cmd_rg () {
+    if ${is_fzf_setup:-false} \
+      || ${DEPOXY_FZF_PREFER_FD:-false} \
+      ! command -v rg > /dev/null \
+    ; then
+
+      return
+    fi
+
+    # USYNC: Use the same flags as Homefries' `rg`:
+    #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
+    # - Plus: --files / Sans: --smart-case, --colors
+
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs --no-ignore-parent -g "!**/{.git,.tox,node_modules,*.svg,*.xpm,.trash,.trash0,.Trash,.Trash0}/**" 2> /dev/null'
+
+    export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+
+    is_fzf_setup=true
+  }
+
+  # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
   fzf_wire () {
     # Setup fzf wiring
     fzf_update_path
     fzf_wire_completion
     fzf_wire_key_bindings
+    # This script defaults to using `rg`, but you can opt-in `fd` instead.
     fzf_wire_default_cmd_fd
+    fzf_wire_default_cmd_rg
   }
 
   # ***
@@ -179,6 +226,7 @@ main () {
     unset -f fzf_wire_completion
     unset -f fzf_wire_key_bindings
     unset -f fzf_wire_default_cmd_fd
+    unset -f fzf_wire_default_cmd_rg
 
     unset -f fzf_wire
     unset -f fzf_unset_fs
