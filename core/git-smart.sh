@@ -75,8 +75,8 @@ _dxy_wire_alias_git_rc () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_grh () {
-  claim_alias_or_warn "grh" "git reset HEAD"
+_dxy_wire_alias_git_rh () {
+  claim_alias_or_warn "rh" "git reset HEAD"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -285,8 +285,8 @@ main () {
   _dxy_wire_alias_git_rc
   unset -f _dxy_wire_alias_git_rc
 
-  _dxy_wire_alias_grh
-  unset -f _dxy_wire_alias_grh
+  _dxy_wire_alias_git_rh
+  unset -f _dxy_wire_alias_git_rh
 
   _dxy_wire_alias_git_logX
   unset -f _dxy_wire_alias_git_logX
