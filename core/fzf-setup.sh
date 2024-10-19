@@ -18,8 +18,8 @@
 #   <Ctrl-R> — Run FZF on shell history, and paste the selected
 #              command from history to the prompt
 #
-#   <Alt-C>  — Run FZF on directories under the current directory,
-#              and `cd` into the selected directory
+#   <Alt-C>  — Run FZF on directories under user home, and `cd`
+#              into the selected directory
 #
 #              - Uses FZF_ALT_C_COMMAND or FZF_DEFAULT_COMMAND to
 #                collect paths (using either `rg` or `fd`; see below)
@@ -232,6 +232,26 @@ main () {
     bind -x '"\C-p": file="$(fzf)" && fs "${file}";'
   }
 
+  # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+  # ALT-C - cd into directory picked from fzf prompt showing all dirs under home
+
+  # REFER: bfs — Breadth-first search for your files
+  #
+  #   https://tavianator.com/projects/bfs.html
+
+  # THANX: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+
+  fzf_wire_alt_c_cmd_bfs () {
+    command -v bfs > /dev/null \
+      || return
+
+    export FZF_ALT_C_COMMAND="cd -- ${HOME}; bfs -type d | sed s#^\.#${HOME}#"
+    # " # <-- Vim ft=bash syntax highlighting fix (kludge)
+  }
+
+  # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
   fzf_wire () {
     # Setup fzf wiring
     fzf_update_path
@@ -242,6 +262,8 @@ main () {
     fzf_wire_default_cmd_rg
     # DepoXy binding: Open fzf-selected file in gVim.
     fzf_wire_ctrl_p_cmd_cd
+    # Wire <Alt-C> `cd` convenience
+    fzf_wire_alt_c_cmd_bfs
   }
 
   # ***
@@ -259,6 +281,7 @@ main () {
     unset -f fzf_wire_default_cmd_fd
     unset -f fzf_wire_default_cmd_rg
     unset -f fzf_wire_ctrl_p_cmd_cd
+    unset -f fzf_wire_alt_c_cmd_bfs
 
     unset -f fzf_wire
     unset -f fzf_unset_fs
