@@ -25,6 +25,11 @@
 #                collect paths (using either `rg` or `fd`; see below)
 #
 # - CXREF: ~/.kit/go/fzf/shell/key-bindings.bash
+#
+# Depoxy also adds its own binding(s):
+#
+#   <Ctrl-P> — Like <Ctrl-T> but opens selected file in gVim (runs
+#              DepoXy's `fs` alias).
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -203,6 +208,30 @@ main () {
   }
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+  # SAVVY: By default, readline <Ctrl-p> pastes the previous command + args:
+  #
+  #   $ bind -P | grep -e "C\-p"
+  #   previous-history can be found on "\C-p", "\eOA".
+  #
+  # - SAVVY: "\eOA" is <Up> (which author uses all the time!).
+  #
+  #   - So reusing <Ctrl-P> loses nothing except a redundant binding.
+
+  # THANX: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+
+  # SAVVY: Use && so user can <Ctrl-C> cancel, as opposed to "simpler"
+  # syntax, e.g.,
+  #   bind -x '"\C-p": fs $(fzf);'
+  #   # Or:
+  #   bind -x '"\C-p": vim $(fzf);'
+
+  # CALSO: \C-t pastes picked file to prompt
+  # - Vs.  \C-p opens picked file in gVim (via `fs`)
+  fzf_wire_ctrl_p_cmd_cd () {
+    bind -x '"\C-p": file="$(fzf)" && fs "${file}";'
+  }
+
   fzf_wire () {
     # Setup fzf wiring
     fzf_update_path
@@ -211,6 +240,8 @@ main () {
     # This script defaults to using `rg`, but you can opt-in `fd` instead.
     fzf_wire_default_cmd_fd
     fzf_wire_default_cmd_rg
+    # DepoXy binding: Open fzf-selected file in gVim.
+    fzf_wire_ctrl_p_cmd_cd
   }
 
   # ***
@@ -227,6 +258,7 @@ main () {
     unset -f fzf_wire_key_bindings
     unset -f fzf_wire_default_cmd_fd
     unset -f fzf_wire_default_cmd_rg
+    unset -f fzf_wire_ctrl_p_cmd_cd
 
     unset -f fzf_wire
     unset -f fzf_unset_fs
