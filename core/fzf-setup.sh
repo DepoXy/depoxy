@@ -30,6 +30,11 @@
 #
 #   <Ctrl-P> — Like <Ctrl-T> but opens selected file in gVim (runs
 #              DepoXy's `fs` alias).
+#
+# - As well as a tmux utility function:
+#
+#   tx [client-or-session] — Attach to the named tmux client-or-session,
+#                            or prompt user using `fzf`
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -292,6 +297,41 @@ main () {
   fzf_wire
 
   fzf_unset_fs
+}
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE:
+#
+# `tx <session>` — attaches to the named session (if it exists), else creates it
+#
+# `tx` — opens fzf and lets you select the tmux session
+
+# SAVVY: Try connecting to existing session to test, then <Ctrl-A>d to detach.
+
+# THANX: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+
+tx () {
+  local target_client_or_session="$1"
+
+  local change
+
+  if [ -n "${TMUX}" ]; then
+    change="switch-client"
+  else
+    change="attach-session"
+  fi
+
+  if [ -n "${target_client_or_session}" ]; then
+     tmux ${change} -t "${target_client_or_session}" 2>/dev/null \
+       || (tmux new-session -d -s "${target_client_or_session}" \
+       && tmux ${change} -t "${target_client_or_session}")
+
+     return
+  fi
+
+  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) \
+    && tmux ${change} -t "${session}" || echo "No sessions found"
 }
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
