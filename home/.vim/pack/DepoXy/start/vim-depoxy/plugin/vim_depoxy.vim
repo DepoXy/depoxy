@@ -31,7 +31,7 @@ function! s:SetTagsProjlnsDepoxydeeplinks()
   endif
 
   if filereadable(l:ctags_file)
-    " Default: './tags,tags'
+    " Default tags='./tags,tags'
     exec 'set tags=' .. &tags .. ',' .. l:ctags_file
   endif
 endfunction
