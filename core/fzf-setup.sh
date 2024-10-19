@@ -140,7 +140,7 @@ main () {
   # <Ctrl-T> — Run fzf on files in the current directory.
 
   # This script defaults to using `rg`, but you can opt-in `fd` instead.
-  DEPOXY_FZF_PREFER_FD="${DEPOXY_FZF_PREFER_FD:-false}"
+  local DEPOXY_FZF_PREFER_FD="${DEPOXY_FZF_PREFER_FD:-false}"
 
   local is_fzf_setup=false
 
