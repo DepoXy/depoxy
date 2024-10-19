@@ -106,26 +106,27 @@ main () {
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-  # LEARNING!/2020-02-12: The `fd` command is new to me.
-  # - Here's a crash course, courtesy junegunn:
+  # REFER/2020-02-12: Here's an `fd` command crash course, courtesy junegunn:
+  #
   #   https://github.com/junegunn/fzf#respecting-gitignore
   #
   #     # Feed the output of fd into fzf
-  #     fd --type f | fzf
+  #     fd --type f --strip-cwd-prefix | fzf
   #
   #     # Setting fd as the default source for fzf
-  #     export FZF_DEFAULT_COMMAND='fd --type f'
+  #     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
   #
-  #     # Now fzf (w/o pipe) will use fd instead of find
+  #     # Now fzf (w/o pipe) will use the fd command to generate the list
   #     fzf
   #
   #     # To apply the command to CTRL-T as well (CRUMB: <Ctrl-t> <C-t>)
-  #     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  #     export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
   #
   #     # If you want the command to follow symbolic links, and don't
   #     # want it to exclude hidden files, use the following command:
   #
-  #     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  #     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+
   fzf_wire_default_cmd_fd () {
     command -v fd > /dev/null || return
 
