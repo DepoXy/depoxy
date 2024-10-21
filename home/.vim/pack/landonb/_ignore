@@ -34,3 +34,6 @@
 # This is the shell syntax file that's currently hot:
 #  /start/dubs_ftype_mess/syntax/sh-Version_189-lb.vim
 
+# -> ~/.vim/pack/landonb/start/vim-reST-highfive/after/syntax/rst.vim
+/start/vim-reST-highfive/FIVERs.vim
+
