@@ -74,7 +74,14 @@ hs.hotkey.bind({"cmd"}, "D", function()
   end
 
   if dob_window then
-    dob_window:raise():focus()
+    local front_win = hs.window.frontmostWindow()
+
+    -- See also: front_win:id() ~= dob_window:id()
+    if front_win ~= dob_window then
+      dob_window:raise():focus()
+    else
+      front_win:minimize()
+    end
   end
 end)
 
