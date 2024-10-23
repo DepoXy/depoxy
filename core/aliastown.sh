@@ -120,6 +120,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdgo" "${DOPP_KIT:-${HOME}/.kit}/go"
 
+  # Prefix not to be confused with ~/.kit/git projects
+  pushd_alias_or_warn "cdgh" "${DOPP_KIT:-${HOME}/.kit}/go/hugo"
+
   # *** ~/.kit/js — JavaScript
 
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
