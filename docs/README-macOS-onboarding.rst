@@ -129,7 +129,7 @@ enable highlighting special features of this document.
   https://github.com/landonb/vim-reST-highfive #🖐
 
 - Highlight name@email.com addresses, @hostnames, #tags,
-  <Ctrl-and-other-bindings>, and more:
+  ``<Ctrl-and-other-bindings>``, and more:
 
   https://github.com/landonb/vim-reST-highdefs #🎨
 
@@ -1204,7 +1204,7 @@ allow terminals to clear *scrollback* history:
 
 - Open an iTerm terminal window
 
-- Type <Ctrl-L> to clear the terminal
+- Type ``<Ctrl-L>`` to clear the terminal
 
 - Click *Always Allow (⌥A)* in the alert bar at the top of the terminal:
 
@@ -1213,7 +1213,7 @@ allow terminals to clear *scrollback* history:
 
     *Allow this in the future?*
 
-  - Click <Always Allow> (or press <Alt-A>)
+  - Click <Always Allow> (or press ``<Alt-A>``)
 
 -------
 
@@ -2418,7 +2418,7 @@ ONBRD: Configure Notification Center: Add and Remove Widgets
 
   - Click the Clock in the macOS menu bar;
 
-    Or press <Shift-Ctrl-Alt-C> (wired by ``slather-defaults.sh``)
+    Or press ``<Shift-Ctrl-Alt-C>`` (wired by ``slather-defaults.sh``)
 
   - Click *Edit Widgets...* at the bottom
 
@@ -2854,11 +2854,11 @@ Other Google Chrome Extensions
 
   - Default Keyboard shortcuts:
 
-    - <Shift-Alt-F> — Activate the extension
+    - ``<Shift-Alt-F>`` — Activate the extension
 
-    - <Shift-Alt-N> — Go to the next search result
+    - ``<Shift-Alt-N>`` — Go to the next search result
 
-    - <Shift-Alt-P> — Go to the previous search result
+    - ``<Shift-Alt-P>`` — Go to the previous search result
 
 - Reload All Tabs 5.0.0
 
@@ -2870,7 +2870,7 @@ Other Google Chrome Extensions
 
     - Not set — Activate the extension
 
-    - <Shift-Cmd-R> — Toggle reload
+    - ``<Shift-Cmd-R>`` — Toggle reload
 
 -------
 
@@ -2898,15 +2898,15 @@ ADHOC: DFLTS: Configure Chrome Devtools Settings
 ################################################
 .. 2024-07-18
 
-STEPS: Open Devtools, then <F1> brings up Settings
+STEPS: Open Devtools, then ``<F1>`` brings up Settings
 
 - Edit Shortcuts:
 
-  - Search in panel: Edit <Cmd-F> → <Ctrl-F>, and ✗ Delete <F3>, then click ✓
+  - Search in panel: Edit ``<Cmd-F>`` → ``<Ctrl-F>``, and ✗ Delete ``<F3>``, then click ✓
 
-  - Find next result: Leave <Ctrl-G>, and add <F3>
+  - Find next result: Leave ``<Ctrl-G>``, and add ``<F3>``
 
-  - Find previous result: Leave <Shift-Ctrl-G>, and add <Shift-F3>
+  - Find previous result: Leave ``<Shift-Ctrl-G>``, and add ``<Shift-F3>``
 
 -------
 
