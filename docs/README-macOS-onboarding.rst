@@ -2579,6 +2579,22 @@ reboot, run ``infuse`` to undo the damage::
 
 -------
 
+######################################################################
+ADHOC: Reactivate Full Disk Access permissions — After upgrading macOS
+######################################################################
+.. 2024-10-23
+
+UCASE: macOS disables some Full Disk Access after OS updates.
+
+- Or at least after upgrading to macOS Sequoia 15.0.1, Alacritty
+  no longer had Full Disk Access.
+
+  - Although the other 2 apps still had it (``gfind`` and ``sshd-keygen-wrapper``).
+
+**STEPS**: See above: *ONBRD: Configure Full Disk Access*.
+
+-------
+
 ##################################################################
 ADHOC: Sign in Apple ID account            — After upgrading macOS
 ##################################################################
