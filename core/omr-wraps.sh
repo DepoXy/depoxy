@@ -194,6 +194,24 @@ function omr-list-projects () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# BWARE: This could be confusing!: Handle `install .` specially.
+# - Preempts /usr/bin/install
+# - Note this doesn't actually break anything:
+#
+#     $ command install .
+#     usage: install [-bCcpSsUv] [-f flags] [-g group] [-m mode] [-o owner]
+#     ...
+
+install () {
+  if [ $# -eq 1 ] && [ "$1" = "." ]; then
+    mr -d . -n install
+  else
+    command install "$@"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_unset_f_omr_wraps () {
   unset -f main
   unset -f _dxy_aliases_wire_omr_wraps
