@@ -2,15 +2,24 @@
 GeekTool geeklet setup
 @@@@@@@@@@@@@@@@@@@@@@
 
-CXREF: https://www.tynsoe.org/geektool/
-https://www.tynsoe.org/geektool/documentation/
+REFER:
+
+- *GeekTool*
+
+  https://www.tynsoe.org/geektool/
+
+- *GeekTool Documentation*
+
+  https://www.tynsoe.org/geektool/documentation/
 
 -------
 
-- Create 2 *Shell* geeklets, one to stand in for the menu bar clock
-  when the menu bar is hidden, and another centered on the desktop:
+SETUP:
 
-  - Names: ``MENU_DATE`` | ``CTRD_DATE``
+- Create 1 Shell geeklet for the clock time, to stand in for the menu bar
+  clock when the menu bar is hidden:
+
+  - Name: ``MENU_DATE``
 
   - Command::
 
@@ -20,51 +29,55 @@ https://www.tynsoe.org/geektool/documentation/
 
   - Font and style:
 
-    - For: ``MENU_DATE``:
-      - Font:
-        - English > *Skia* > Bold > 18 pt
-          Should fit under auto-hiding menu bar
-      - Color: Whitish
-        - ~~Or maybe light gray, e.g., #D9D9D9.~~
-        - To set, click where it says *Click here to set font & color...*.
-        - ~~To set hex, click the color square, then click the Sliders icon,~~
-          ~~then choose *RGB Sliders* from the dropdown.~~
-        - Grayscale slider color > 87% brightness
-          (click the left button, which looks like its for background color,
-           I'd guess. The button on its right looks like font color icon.
-           The both seem to affect the font color similarly, though)
+    - Font:
 
-    - For: ``CTRD_DATE``:
-      - Font:
-        ~~*Herculanum* 36pt mid-Green, #007F00.~~
-        English > *Hack Nerd Font* > Regular > 30 pt
-      - Color: Same 87% Grayscale slider color as ``MENU_DATE``
+      - English > *Skia* > Bold > 18 pt
 
-    - I set text center-aligned, and then positioned the window.
-       - I tried right-aligned, but even with spaces at the end, the last
-         character from the clock was clipped by the *GeekTool* window.
+        - It should fit under auto-hiding menu bar.
 
-  - Setup: ``MENU_DATE``: Position upper-right, where the macOS menubar
-    clock appears when the menubar is visible.
+    - Color: Whitish
 
-  - Setup: ``CTRD_DATE``: You wanna know the time but can't see it.
-    - The geeklet lets you show-desktop, read time, and un-show desktop
-      to resume work.
-    - Configure similarly to menu bar clock, but center this widget on
-      the desktop, so that you can see if when you look straight ahead.
+      - To set, click where it says *Click here to set font & color...*.
 
-- SAVVY: Press <Ctrl-Alt-C> to show the Hammerspoon ``AClock`` clock,
-  which appears centered on your screen atop everything else.
+      - Grayscale slider color > 87% brightness
+
+        - Click the left button, which looks like its for background color,
+          (at least to me). The button on its right looks like font color
+          icon. The both seem to affect the font color similarly, though.
+
+    - Set the text center-aligned and then position the window.
+
+       - (I tried right-aligned, but even with spaces at the end, the last
+         character from the clock was clipped by the *GeekTool* window.)
+
+  - Position: Place the geeklet in the upper-right of the display, where
+    the macOS menubar clock appears when the menubar is visible.
+
+- SAVVY: Use a Hammerspoon *Spoon* to temporarily show an on-demand clock
+  on top of your display.
+
+  - Press ``<Ctrl-Alt-C>`` to show the Hammerspoon ``AClock`` clock,
+    which appears centered on your screen atop everything else.
+
+  - REFER:
+
+    https://github.com/DepoXy/macOS-Hammyspoony/blob/1.2.6/.hammerspoon/init.lua#L578-L591
+
+    - The keybinding definition can be found locally (within a DepoXy environment) at::
+
+      ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 
 -------
 
-- Create 1 more geeklet for weather, to the left of the "menubar" clock.
+SETUP:
+
+- Create 1 Shell geeklet for weather, to the left of the "menubar" clock.
 
   - Menu bar weather
 
     - Name: ``MENU_WX``
 
-    - Command:
+    - Command::
 
         /Users/user/.depoxy/running/bin/weather-mpls
 
@@ -73,32 +86,48 @@ https://www.tynsoe.org/geektool/documentation/
     - Font and style:
 
       - Font:
+
         - English > *Skia* > Regular > 18 pt
-          Same size as clock but not bold
-      - Color: Same 87% Grayscale slider color as ``MENU_DATE``
+
+          - Make the same size as the clock, but not bold.
+
+      - Color: Same 87% Grayscale slider color as ``MENU_DATE``.
+
       - Setup: Right-aligned, with its right edge positioned
-        just left of the clock
+        just left of the clock.
 
     - CXREF: See also the weather script that ``weather-mpls`` calls:
-      ~/.depoxy/ambers/bin/weather.sh
 
-- SAVVY: Press <Shift-Ctrl-Alt-C> to show the Notification Center,
+      https://github.com/DepoXy/depoxy/blob/1.3.1/bin/weather.sh
+
+      - Found locally at::
+
+        ~/.depoxy/ambers/bin/weather.sh
+
+- SAVVY: Press ``<Shift-Ctrl-Alt-C>`` to show the Notification Center,
   which has a weather forecast widget — at least if you setup the
   Notification Center as recommended by the macOS ONBRD document:
 
-  ~/.depoxy/ambers/docs/README-macOS-onboarding.rst @ 2411
+  https://github.com/DepoXy/depoxy/blob/1.3.1/docs/README-macOS-onboarding.rst#onbrd-configure-notification-center-add-and-remove-widgets
+
+  - Found locally at::
+
+    ~/.depoxy/ambers/docs/README-macOS-onboarding.rst @ 2411
 
 -------
 
-- SAVVY: You can <Ctrl-Alt-D> show-desktop to more easily move geeklet widgets around.
-  - SAVVY: Or <Shift-Ctrl-Cmd-W> to hide all windows.
+- SAVVY: You can ``<Ctrl-Alt-D>`` show-desktop to more easily move geeklet widgets around.
+
+  - SAVVY: Or ``<Shift-Ctrl-Cmd-W>`` to hide all windows (as wired by *Hammyspoony*).
 
 - SAVVY: Use the eyedropper to match the second widget font color to the first widget.
 
 - SAVVY: On Quit, choose ["No, Never Ask"] when asked if GeekTool should disable itself.
 
-- BWARE: I think GeekTool geeklets disappear after OS update (at least hours after
-         updating 14.4.1 -> 14.5 author noticed geeklets are missing)
+- BWARE: I think GeekTool geeklets disappear after OS update (at least hours
+  after updating 14.4.1 -> 14.5 author noticed geeklets were missing)
 
 -------
+
+That's it! Have fun *geeking out!!* 🤓
 
