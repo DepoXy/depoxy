@@ -50,6 +50,11 @@
 # - And running fzf/install just creates ~/.fzf.bash, the essence of which
 #   was incorporated into this file.
 # - I.e., if you `brew install fzf`, you don't need to `fzf/install`.
+#
+# THANX: The additional <Alt-C> and <Ctrl-P> bindings, and the tx()
+# function, were inspired by (dead link):
+#
+#   http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -223,8 +228,6 @@ main () {
   #
   #   - So reusing <Ctrl-P> loses nothing except a redundant binding.
 
-  # THANX: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
-
   # SAVVY: Use && so user can <Ctrl-C> cancel, as opposed to "simpler"
   # syntax, e.g.,
   #   bind -x '"\C-p": fs $(fzf);'
@@ -244,8 +247,6 @@ main () {
   # REFER: bfs — Breadth-first search for your files
   #
   #   https://tavianator.com/projects/bfs.html
-
-  # THANX: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
 
   fzf_wire_alt_c_cmd_bfs () {
     command -v bfs > /dev/null \
@@ -308,8 +309,6 @@ main () {
 # `tx` — opens fzf and lets you select the tmux session
 
 # SAVVY: Try connecting to existing session to test, then <Ctrl-A>d to detach.
-
-# THANX: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
 
 tx () {
   local target_client_or_session="$1"
