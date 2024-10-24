@@ -251,10 +251,24 @@ main () {
   #   # Or:
   #   bind -x '"\C-p": vim $(fzf);'
 
-  # CALSO: \C-t pastes picked file to prompt
-  # - Vs.  \C-f opens picked file in gVim (via `fs`)
+  # SAVVY: Remove trailing space from __fzf_select__, which it inserts
+  # as a convenience, I assume, because <Ctrl-T> is used to paste the
+  # FZF selection to the prompt.
+
+  # CALSO: <Ctrl-F> is similar to <Ctrl-T>, but it opens the picked file:
+  # - \C-t pastes picked file to prompt
+  # - \C-f opens picked file in gVim (via `fs`)
+
+  # USAGE: After FZF starts, press <Ctrl-F> again to *sort* the list (which
+  # re-runs the query, so maybe not something you want to do on a path with
+  # lots of files beneath it).
+
   fzf_wire_ctrl_f_cmd_fs () {
-    bind -x '"\C-f": file="$(fzf)" && fs "${file}";'
+    __fzf_select_with_sort__ () {
+      FZF_CTRL_T_OPTS="--bind 'ctrl-f:reload(${FZF_CTRL_T_COMMAND} | sort)'" __fzf_select__
+    }
+
+    bind -x '"\C-f": file="$(__fzf_select_with_sort__ | sed "s# \$##")" && fs "${file}";'
   }
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
