@@ -245,8 +245,8 @@ main () {
   #
   # (So noted just in case you later realize you want <Ctrl-F> forward-char back.)
 
-  # SAVVY: Use && so user can <Ctrl-C> cancel, as opposed to "simpler"
-  # syntax, e.g.,
+  # SAVVY: Use && so user can <Ctrl-C> cancel, as opposed to using a
+  # "simpler" syntax, e.g.,
   #   bind -x '"\C-p": fs $(fzf);'
   #   # Or:
   #   bind -x '"\C-p": vim $(fzf);'
