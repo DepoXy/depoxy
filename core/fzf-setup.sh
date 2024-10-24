@@ -28,7 +28,7 @@
 #
 # Depoxy also adds its own binding(s):
 #
-#   <Ctrl-P> — Like <Ctrl-T> but opens selected file in gVim (runs
+#   <Ctrl-F> — Like <Ctrl-T> but opens selected file in gVim (runs
 #              DepoXy's `fs` alias).
 #
 # - As well as a tmux utility function:
@@ -51,7 +51,7 @@
 #   was incorporated into this file.
 # - I.e., if you `brew install fzf`, you don't need to `fzf/install`.
 #
-# THANX: The additional <Alt-C> and <Ctrl-P> bindings, and the tx()
+# THANX: The additional <Alt-C> and <Ctrl-F> bindings, and the tx()
 # function, were inspired by (dead link):
 #
 #   http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
@@ -219,14 +219,31 @@ main () {
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-  # SAVVY: By default, readline <Ctrl-p> pastes the previous command + args:
+  # SAVVY: By default, readline <Ctrl-F> moves the cursor forward one character.
   #
-  #   $ bind -P | grep -e "C\-p"
-  #   previous-history can be found on "\C-p", "\eOA".
+  #   $ bind -P | grep "C\-f"
+  #   forward-char can be found on "\C-f", "\eOC", "\e[C".
+  #   shell-forward-word can be found on "\e\C-f", "\e[1;6C".
   #
-  # - SAVVY: "\eOA" is <Up> (which author uses all the time!).
+  # - Where "\C-f", "\eOC", "\e[C" are: <Ctrl-F>,
+  #   <Right> (Keypad mode), <Right> (ANSI mode).
+
+  # HSTRY: This command used to be bound to <Ctrl-P>, and it used to not
+  # have the sort option:
   #
-  #   - So reusing <Ctrl-P> loses nothing except a redundant binding.
+  #     bind -x '"\C-p": file="$(fzf)" && fs "${file}";'
+  #
+  # - Note that readline <Ctrl-P> pastes the previous command + args:
+  #
+  #     $ bind -P | grep -e "C\-p"
+  #     previous-history can be found on "\C-p", "\eOA".
+  #
+  #   But it's also bound to "\eOA" (<Up>, which author uses all the time,
+  #   as I'm sure do most folx).
+  #
+  #   - So reassinging <Ctrl-P> loses nothing except a redundant binding.
+  #
+  # (So noted just in case you later realize you want <Ctrl-F> forward-char back.)
 
   # SAVVY: Use && so user can <Ctrl-C> cancel, as opposed to "simpler"
   # syntax, e.g.,
@@ -235,9 +252,9 @@ main () {
   #   bind -x '"\C-p": vim $(fzf);'
 
   # CALSO: \C-t pastes picked file to prompt
-  # - Vs.  \C-p opens picked file in gVim (via `fs`)
-  fzf_wire_ctrl_p_cmd_cd () {
-    bind -x '"\C-p": file="$(fzf)" && fs "${file}";'
+  # - Vs.  \C-f opens picked file in gVim (via `fs`)
+  fzf_wire_ctrl_f_cmd_fs () {
+    bind -x '"\C-f": file="$(fzf)" && fs "${file}";'
   }
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -267,7 +284,7 @@ main () {
     fzf_wire_default_cmd_fd
     fzf_wire_default_cmd_rg
     # DepoXy binding: Open fzf-selected file in gVim.
-    fzf_wire_ctrl_p_cmd_cd
+    fzf_wire_ctrl_f_cmd_fs
     # Wire <Alt-C> `cd` convenience
     fzf_wire_alt_c_cmd_bfs
   }
@@ -286,7 +303,7 @@ main () {
     unset -f fzf_wire_key_bindings
     unset -f fzf_wire_default_cmd_fd
     unset -f fzf_wire_default_cmd_rg
-    unset -f fzf_wire_ctrl_p_cmd_cd
+    unset -f fzf_wire_ctrl_f_cmd_fs
     unset -f fzf_wire_alt_c_cmd_bfs
 
     unset -f fzf_wire
