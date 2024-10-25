@@ -99,6 +99,7 @@ installPips =
     "argcomplete" \
     "glances" \
     "grip" \
+    "pycobertura" \
   ; do
     info "pipx install ${package}"
     #
