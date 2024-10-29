@@ -2638,6 +2638,63 @@ SOLUN::
 
 -------
 
+#######################################################################
+ADHOC: Reactivate Alacritty Assistive Access    — If OSA starts failing
+#######################################################################
+.. 2024-10-29
+
+UCASE: Alacritty stops processing AppleScript and alerts on Accessibility permissions.
+
+- E.g., you might see the following error when trying to open a new Alacritty
+  window, and the Homefries window number susser fails::
+
+    /Users/user/.kit/sh/home-fries/lib/term/window-title--alacritty-number.osa:2389:2670:
+      execution error: System Events got an error: osascript is not allowed assistive access. (-25211)
+
+- Which is strange, because this error occurs while Alacritty already *has*
+  Accessibility access permissed.
+
+**STEPS**: Unfortunately, you'll need to reset *all* Accessibility permissions!
+
+- First, take a screenshot of the Accessibility permissions so you can reset
+  them.
+
+- NEXTM: See the *MAYBE* below and try the alternative ``tccutil`` command
+  the next time this happens.
+
+- After taking the screenshot, reset all Accessibility permissions::
+
+    sudo tccutil reset Accessibility
+
+- BWARE: Your host will likely become unresponsive to the mouse and keyboard,
+  and then you'll need to cold reset.
+
+- NTHEN: After resetting (and rebooting), reset Accessibility permissions
+  for all applications.
+
+SAVVY:
+
+- The author has experienced this issue once, two weeks after upgrading to
+  macOS Sequoia (15.0.1) — though I don't recall when the last time I opened
+  a new Alacritty window, but it was at least since the upgrade.
+
+- Also, you can try to disable and enable Alacritty *Accessibility* access,
+  and then reboot, but that doesn't make it work again.
+
+  - Nor does manually adding ``/usr/bin/osascript`` to the Accessibility
+    access list.
+
+- MAYBE: Rather than resetting Accessibility access for all applications,
+  you could try resetting all privacy settings for just Alacritty, e.g.,::
+
+    tccutil reset All org.alacritty
+
+- REFER: See (Closed) Alacritty Issue, which suggests resetting permissions
+  via ``sudo tccutil reset Accessibility``, but doesn't otherwise suggest
+  that this issue will be looked into further [drat].
+
+-------
+
 ###########################################################
 ADHOC: When any popup asks *Automatically Update*, click it
 ###########################################################
