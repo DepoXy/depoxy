@@ -67,6 +67,7 @@ Vimprojects
 Vimscript
 Visualping
 WRKLG
+a11y
 allowlisted
 allowlisting
 arg
@@ -137,6 +138,7 @@ neovim
 nginx
 notif
 notifs
+osascript
 patchkage
 patchkage's
 patchkages
