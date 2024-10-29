@@ -10,6 +10,25 @@
 #
 #   https://alacritty.org/config-alacritty.html
 
+# ADHOC: Sometimes Alacritty moves config options around,
+# but fortunately there's a command you can call:
+#
+#   alacritty migrate
+#
+# And Alacritty will tell you via a footer message that you
+# can find via ALACRITTY_LOG, e.g.,
+#
+#   $ echo "${ALACRITTY_LOG}"
+#   /var/folders/4r/vs_plqd91h9dclfh5c020cdh0000gn/T/Alacritty-44252.log
+#
+#   $ cat "${ALACRITTY_LOG}"
+#   [0.002542208s] [WARN ] [alacritty_config_derive]
+#     Config warning: shell has been deprecated; use terminal.shell instead
+#     Use `alacritty migrate` to automatically resolve it
+#
+# SAVVY: Note that `alacritty migrate` replaces ~/.config/alacritty/alacritty.toml
+# with actual file if that path was a symlink.
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 shell = "/opt/homebrew/bin/bash"
