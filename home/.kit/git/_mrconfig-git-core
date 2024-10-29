@@ -49,7 +49,10 @@ installLinux =
   #
   make clean
   make configure
-  ./configure --prefix=${HOME}/.local
+  # SAVVY/2024-10-25: GPW sort-by-scope needs Perl regex.
+  # - Otherwise `git log --perl-regexp ...` fails:
+  #   "fatal: cannot use Perl-compatible regexes when not compiled with USE_LIBPCRE"
+  ./configure --prefix=${HOME}/.local --with-libpcre
   make prefix="${HOME}/.local" all doc info
   make prefix="${HOME}/.local" install install-doc install-html install-info
   # SCALE/2024-02-17: `make clean` reduces disk usage from 678M to 379M (v2.44.0-rc1).
