@@ -2556,9 +2556,9 @@ USAGE: E.g.,::
 ⋰ ⋱ ⋰ ⋱  ADHOCs  ⋰ ⋱ ⋰ ⋱
 ########################
 
-##################################################################
-ADHOC: Run ``infuse`` to undo file changes — After upgrading macOS
-##################################################################
+#######################################################################
+ADHOC: Run ``infuse`` to undo file changes      — After upgrading macOS
+#######################################################################
 .. 2024-08-23
 
 UCASE: macOS resets files and options after (some/most/all?) OS updates.
@@ -2579,9 +2579,9 @@ reboot, run ``infuse`` to undo the damage::
 
 -------
 
-######################################################################
-ADHOC: Reactivate Full Disk Access permissions — After upgrading macOS
-######################################################################
+#######################################################################
+ADHOC: Reactivate Full Disk Access permissions  — After upgrading macOS
+#######################################################################
 .. 2024-10-23
 
 UCASE: macOS disables some Full Disk Access after OS updates.
@@ -2595,9 +2595,9 @@ UCASE: macOS disables some Full Disk Access after OS updates.
 
 -------
 
-##################################################################
-ADHOC: Sign in Apple ID account            — After upgrading macOS
-##################################################################
+#######################################################################
+ADHOC: Sign in Apple ID account                 — After upgrading macOS
+#######################################################################
 .. 2024-04-10
 
 INERT/2024-08-23: I haven't needed to do this recently (and
@@ -2615,9 +2615,9 @@ not after rebooting for macOS Sonoma 14.6.1).
   from the sidebar.
 
 
-##################################################################
-ADHOC: Re-run ``xcode-select --install``   — After upgrading macOS
-##################################################################
+#######################################################################
+ADHOC: Re-run ``xcode-select --install``        — After upgrading macOS
+#######################################################################
 .. 2023-01-13
 
 INERT/2024-08-23: I haven't needed to do this recently (and
