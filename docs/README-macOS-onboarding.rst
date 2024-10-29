@@ -2672,6 +2672,11 @@ UCASE: Alacritty stops processing AppleScript and alerts on Accessibility permis
 - NTHEN: After resetting (and rebooting), reset Accessibility permissions
   for all applications.
 
+  - REFER: See below for list of Accessibility-authorized applications
+    you'll find on a DepoXy host.
+
+-------
+
 SAVVY:
 
 - The author has experienced this issue once, two weeks after upgrading to
@@ -2692,6 +2697,75 @@ SAVVY:
 - REFER: See (Closed) Alacritty Issue, which suggests resetting permissions
   via ``sudo tccutil reset Accessibility``, but doesn't otherwise suggest
   that this issue will be looked into further [drat].
+
+-------
+
+REFER: Author's latest a11y permissions:
+
+- SAVVY: Click the ``+`` button to add those applications you don't see.
+
+  - And press ``<Shift-Cmd-.>`` to show hidden files/folders,
+    if necessary.
+
+Permissed applications:
+
+- ✗ *AEServer*
+
+  - This item likely won't be repopulated after ``tccutil reset``, and
+    you shouldn't need to find and add it.
+
+  - This is the Apple Events Server, a background process that processes
+    incoming Apple Events from remote Macs. Unless you need to control
+    your Mac from another Mac, you shouldn't need this (and if you find
+    out you do it, you'll probably be alerted).
+
+- ✓ Alacritty
+
+- ✓ AltTab
+
+- ✗ borders
+
+  - I don't recall why *borders* requested access, but it works (e.g.,
+    you'll see Alacritty window borders) without this permission.
+
+- ✓ Dropbox
+
+- ✓ Easy Move+Resize
+
+- ✓ Hammerspoon
+
+- ✓ iTerm (``/Applications/iTerm.app/``)
+
+  - Add manually (or open ``iTerm.app`` and run an AppleScript that needs
+    assistive access to have it added to the list).
+
+- ✗ *karabiner_console_user_server*
+
+  - I've since uninstalled Karabiner Elements because it stopped working
+    after upgrading to macOS Sequoia (15.0.1) and then I migrated all my
+    bindings to Hammerspoon.
+
+    - If you also don't run Karabiner Elements, you won't see this item
+      repopulated after ``tccutil reset``.
+
+- ✗ osascript (``/usr/bin/osascript``)
+
+  - I added this only to see if it would solve the *not allowed assistive access*
+    issue that this ADHOC § addresses, but it doesn't. So don't bother adding.
+
+- ✓ Rectangle
+
+- ✓ Script Editor (``/System/Applications/Utilities/Script Editor.app/``)
+
+- ✓ ``skhd``
+
+- ✓ ``sshd-keygen-wrapper`` (``/usr/libexec/sshd-keygen-wrapper``)
+
+  - This allows SSH clients to have accessibility access, and won't
+    be repopulated in the Accessibility list after ``tccutil reset``
+    (though you could run SSH from a remote host into your Mac and
+    then run something that needs a11y permissions; but it's easier
+    to just proactively add it).
 
 -------
 
