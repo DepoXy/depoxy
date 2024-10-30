@@ -480,7 +480,7 @@ install =
   #
   # Probe if Homebrew installed.
   # - ALTLY: We could use the DepoXy homebrew path printer, to distinguish
-  #   between Intel and Apple Silicone, e.g.,
+  #   between Intel and Apple Silicon, e.g.,
   #     . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
   #     # Returns (prints) "/opt/homebrew/bin/brew", "/usr/local/bin/brew", or "".
   #     local brew_path="$(_depoxy_print_homebrew_path)"
