@@ -41,8 +41,13 @@ _depoxy_print_homebrew_path () {
   printf "%s" "${brew_path}"
 }
 
-# Set Homebrew environs: HOMEBREW_PREFIX, HOMEBREW_CELLAR,
-# HOMEBREW_REPOSITORY, PATH, MANPATH, and INFOPATH.
+# Set Homebrew environs:
+#   HOMEBREW_PREFIX       (e.g., /opt/homebrew)
+#   HOMEBREW_CELLAR       (DepoXy does not explicitly use)
+#   HOMEBREW_REPOSITORY   (DepoXy does not explicitly use)
+#   PATH
+#   MANPATH
+#   INFOPATH
 infuse_brew_shellenv () {
   local brew_path="$(_depoxy_print_homebrew_path)"
 
