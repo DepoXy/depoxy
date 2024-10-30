@@ -551,7 +551,19 @@ en-westindies" | shuf -n 1
 
 source_deps () {
   # Put Homebrew bin/ on PATH, for `shuf`.
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
+  # - Note that `brew shellenv` (via _depoxy_infuse_brew_shellenv) calls
+  # `sudo --reset-timestamp` so we'll avoid this unless necessary.
+  if ! command -v shuf > /dev/null; then
+    . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
+
+    _depoxy_infuse_brew_shellenv
+  fi
+
+  if ! command -v shuf > /dev/null; then
+    >&2 echo "ERROR: Where's \`shuf\`?"
+
+    exit 1
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
