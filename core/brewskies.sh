@@ -22,15 +22,21 @@
 #   - I also tried NixOS Bash, but NixOS Bash also slow. https://nixos.org
 
 _depoxy_print_homebrew_path () {
+  local brew_path=""
+
   # Apple Silicon (M1 Mac/arm64/AArch64) brew path is /opt/homebrew.
-  local brew_bin="/opt/homebrew/bin"
+  [ -x "${brew_path}" ] || brew_path="/opt/homebrew/bin/brew"
 
   # Otherwise on Intel Macs it's under /usr/local.
-  [ -d "${brew_bin}" ] || brew_bin="/usr/local/bin"
+  [ -x "${brew_path}" ] || brew_path="/usr/local/bin/brew"
 
-  local brew_path="${brew_bin}/brew"
+  # DepoXy insists that Homebrew installed on macOS, but it's
+  # not a requirment on Linux.
+  if [ ! -x "${brew_path}" ] && os_is_macos; then
+    >&2 echo "ERROR: Where's the \`brew\` executable?"
 
-  [ -x "${brew_path}" ] || brew_path=""
+    return 1
+  fi
 
   printf "%s" "${brew_path}"
 }
