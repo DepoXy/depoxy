@@ -75,7 +75,8 @@ main () {
 }
 
 if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then
-  # Being sourced into the caller's Bash shell.
+  # Being sourced into the caller's Bash shell, or being reused by
+  # some other script.
   main "$@"
 # else, being sourced by not Bash, or being executed.
 fi
