@@ -28,6 +28,9 @@ source_deps () {
   # Load: _depoxy_print_homebrew_path.
   # - CXREF: ~/.depoxy/ambers/core/brewskies.sh
   . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/brewskies.sh"
+  # SKIPD: Avoid calling `brew` (via `brew shellenv`),
+  #        which calls `sudo --reset-timestamp`:
+  #          _depoxy_infuse_brew_shellenv
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

@@ -48,6 +48,10 @@ _depoxy_print_homebrew_path () {
 #   PATH
 #   MANPATH
 #   INFOPATH
+#
+# ALERT: `brew` calls `sudo --reset-timestamp`, so if you
+# rely on the sudo password being cached, it won't be after
+# this call.
 _depoxy_infuse_brew_shellenv () {
   local brew_path="$(_depoxy_print_homebrew_path)"
 
@@ -70,8 +74,15 @@ os_is_macos () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
-  _depoxy_infuse_brew_shellenv
-  unset -f _depoxy_infuse_brew_shellenv
+  # Avoid `brew shellenv` unless necessary, because `brew` command
+  # calls `sudo --reset-timestamp`, and `mr -d / infuse` needs sudo
+  # to fix /var/select/sh
+  #   ~/.depoxy/ambers/home/infuse-platform-macOS
+  # So we'll assume if HOMEBREW_PREFIX defined that `brew shellenv`
+  # already called.
+  if [ -z "${HOMEBREW_PREFIX}" ]; then
+    _depoxy_infuse_brew_shellenv
+  fi
 }
 
 if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then

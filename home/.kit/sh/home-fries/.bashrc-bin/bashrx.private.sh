@@ -76,6 +76,9 @@ _source_scripts_preceding_homefries_dxy () {
   # on PATH, so that pyenv `python3` is used, and not brew's.
   _dxy_source "brewskies.sh"
 
+  _depoxy_infuse_brew_shellenv
+  unset -f _depoxy_infuse_brew_shellenv
+
   # Setup MacPorts on PATH.
   # USYNC: Set _SOURCE_IT_FINIS for final source_it from
   #   _source_scripts_preceding_homefries_dxy

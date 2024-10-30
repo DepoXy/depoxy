@@ -31,9 +31,15 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# `eval "$(brew shellenv)"`, essentially.
 load_brew () {
-  # `eval "$(brew shellenv)"`, essentially.
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
+
+  # SAVVY: Calls `brew`, which calls `sudo --reset-timestamp` (but
+  # `daily-updatedb` generally called via anacron or Launch Agent,
+  # so probably not a concern; and we need the brew environment
+  # when run through one of these non-user-shell vectors).
+  _depoxy_infuse_brew_shellenv
 }
 
 set_environs () {
