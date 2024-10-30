@@ -48,7 +48,7 @@ _depoxy_print_homebrew_path () {
 #   PATH
 #   MANPATH
 #   INFOPATH
-infuse_brew_shellenv () {
+_depoxy_infuse_brew_shellenv () {
   local brew_path="$(_depoxy_print_homebrew_path)"
 
   if [ -e "${brew_path}" ]; then
@@ -70,8 +70,8 @@ os_is_macos () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main () {
-  infuse_brew_shellenv
-  unset -f infuse_brew_shellenv
+  _depoxy_infuse_brew_shellenv
+  unset -f _depoxy_infuse_brew_shellenv
 }
 
 if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then
