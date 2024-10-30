@@ -379,6 +379,8 @@ sudo_create_symlink_if_sudo_unlocked () {
     )"
     warn "DO THIS: Please cache admin password (sudo -v) so we can update symlink:" \
       "$(font_highlight "${syml_target}")"
+          warn "- E.g.:"
+    warn "  sudo -v ; ~/.depoxy/ambers/home/infuse-platform-macOS"
 
     return 1
   elif [ -d "${target_real}" ]; then
