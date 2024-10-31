@@ -287,14 +287,26 @@ bindings = [
 
   # ***
 
+  # Adjust Zoom, aka Font Size.
+  # - Changing <Cmd> → <Ctrl> like other bindings.
+  # - Adding Shift, b/c author has Vim binding on <Ctrl-->:
+  #     https://github.com/landonb/vim-ovm-seven-of-spines#🦴
+  # - Thusly:
+  #   <Cmd--> → <Shift-Ctrl-_>
+  #   <Cmd-=> → <Shift-Ctrl-+)
+
   # Remap: Cmd-0 -> Ctrl-0
   { key = "0", mods = "Control", action = "ResetFontSize" },
   { key = "0", mods = "Command", action = "None" },
   # Remap: Cmd-= -> Ctrl-=
-  { key = "=", mods = "Control", action = "IncreaseFontSize" },
+  { key = "+", mods = "Control|Shift", action = "IncreaseFontSize" },
+  # Without <Shift>:
+  #   { key = "=", mods = "Control|Shift", action = "IncreaseFontSize" },
   { key = "=", mods = "Command", action = "None" },
   # Remap: Cmd-- -> Ctrl--
-  { key = "-", mods = "Control", action = "DecreaseFontSize" },
+  { key = "_", mods = "Control|Shift", action = "DecreaseFontSize" },
+  # Without <Shift>:
+  #   { key = "-", mods = "Control", action = "DecreaseFontSize" },
   { key = "-", mods = "Command", action = "None" },
 
   # ***
