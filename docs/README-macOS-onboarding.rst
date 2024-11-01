@@ -2,8 +2,8 @@
 DepoXy macOS ONBRD STEPS
 @@@@@@@@@@@@@@@@@@@@@@@@
 
-As Applied to macOS Sequoia ~ 15.0.1
-####################################
+As applied to macOS Sequoia ~ 15.1
+##################################
 
 .. vim:rdt=19999:tw=0:ts=2:sw=2:et
 .. contents:: T/O/C
