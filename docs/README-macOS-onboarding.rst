@@ -3354,6 +3354,25 @@ REFER: https://github.com/DepoXy/depoxy/blob/release/docs/README-textarea-motion
 
     ~/.depoxy/ambers/docs/README-textarea-motions.rst @ 169
 
+-------
+
+############################################
+REFER: Less obvious macOS Keyboard Shortcuts
+############################################
+.. 2024-10-31
+
+SAVVY: Many macOS keyboard shortcuts are pretty obvious, e.g., ``<Cmd-C>``
+to copy (well, ``<Ctrl-C>`` in a DepoXy environment).
+
+But some keyboard shortcuts are less obvious, like typing ``<Shift-Cmd-Period>``
+to show hidden files within an Open or Save window.
+
+REFER: So the official |Mac keyboard shortcuts|_ document might be worth a perusal.
+
+We'll also list our favorites below.
+
+.. |Mac keyboard shortcuts| replace:: *Mac keyboard shortcuts*
+.. _Mac keyboard shortcuts: https://support.apple.com/en-us/102650
 
 -------
 
@@ -3365,6 +3384,116 @@ REFER: Use ``<Shift-Cmd-.>`` to show hidden files in Open and Save windows
 SAVVY: Even if there's no context menu or other option to show hidden files,
 ``<Shift-Cmd-Period>`` should always show hidden files in an Open or Save
 dialog.
+
+-------
+
+###########################################################################################################
+REFER: To enter full path in macOS Save dialog, type forward slash ``/``, tilde ``~``, or ``<Shift-Cmd-G>``
+###########################################################################################################
+.. 2024-10-31
+
+SAVVY: Type a forward slash (``/``) or tilde (``~``), or press ``<Shift-Cmd-G>``
+to bring up macOS *Go to Folder* dialog, and then you can paste a path!
+
+- The ``/`` and ``~`` shortcuts work from macOS Save and Open dialogs.
+
+- The ``<Shift-Cmd-G>`` binding works from Save/Open dialogs, as well
+  as from Finder windows.
+
+- The *Go to* dialog also supports tab completion, as well as drag-dropping
+  a folder from a Finder window to the path input (to paste its path).
+
+REFER: |Open a Go to Folder window|_ (Apple.com)
+
+.. |Open a Go to Folder window| replace:: *Mac keyboard shortcuts* > *Finder and system shortcuts*
+.. _Open a Go to Folder window: https://support.apple.com/en-us/102650#:~:text=Shift%2DCommand%2DG%3A%20Open,a%20Go%20to%20Folder%20window
+
+-------
+
+###############################
+REFER: Obscure Finder Shortcuts
+###############################
+.. 2024-10-31
+
+REFER: Here are some select shortcuts from |Finder and system shortcuts|_ (Apple.com)
+
+.. |Finder and system shortcuts| replace:: *Finder and system shortcuts*
+.. _Finder and system shortcuts: https://support.apple.com/en-us/102650#finder
+
+Go to a specific directory:
+
+- ``<Shift-Cmd-C>`` — Open the Computer window.
+
+- ``<Shift-Cmd-D>`` — Open the Desktop folder.
+
+- ``<Shift-Cmd-O>`` — Open the Documents folder.
+
+- ``<Cmd-Alt-L>`` — Open the Downloads folder.
+
+- ``<Shift-Cmd-H>`` — Open the user Home folder.
+
+- ``<Shift-Cmd-K>`` — Open the Network window.
+
+Navigate directory history:
+
+- ``<Cmd–[>`` — Go to the previous folder.
+
+- ``<Cmd–]>`` — Go to the next folder.
+
+Open folders and items:
+
+- ``<Cmd–Up>`` — Open the folder that contains the current folder.
+
+  - ``<Ctrl–Cmd–Up>`` — Open the folder that contains the current folder in a new window.
+
+- ``<Cmd–Down>`` — Open the selected item.
+
+Show and hide features:
+
+- ``<Shift-Cmd-P>`` — Show or hide the Preview pane in Finder windows.
+
+-------
+
+#######################################################################################
+REFER: Take Screenshots (``<Cmd-Shift-3>``, ``<Cmd-Shift-4>``, ``<Cmd-Shift-5>``, etc.)
+#######################################################################################
+.. 2024-10-31
+
+SAVVY: Screenshot keybindings:
+
+- ``<Shift-Cmd-3>`` — Capture the full screen.
+
+- ``<Shift-Cmd-4>`` — Use a rectangle selection tool.
+
+  - Press and hold ``<Space>`` to move the selection.
+
+  - Press ``<Escape>`` to cancel.
+
+- ``<Shift-Cmd-4> + <Space>`` — Click a specific window or menu to capture.
+
+  - Press ``<Alt>`` when you click to exclude the window's shade.
+
+  - Press ``<Escape>`` to cancel.
+
+- ``<Shift-Cmd-5>`` — Open the Screenshot app.
+
+  - This offers you additional options, including choosing an
+    alternative save location, setting a timer, and recording
+    the screen.
+
+  - REFER: |Take screenshots or screen recordings on Mac|_ (Apple.com)
+
+- After capturing the screenshot, ``<Ctrl-Click>`` or right-click the
+  thumbnail in the lower-right of the screen to bring up a context menu
+  that, among other things, lets you copy the image to the clipboard.
+
+.. |Take screenshots or screen recordings on Mac| replace:: *Take screenshots or screen recordings on Mac*
+.. _Take screenshots or screen recordings on Mac: https://support.apple.com/guide/mac-help/take-a-screenshot-mh26782/mac
+
+REFER: |Take a screenshot on your Mac|_ (Apple.com)
+
+.. |Take a screenshot on your Mac| replace:: *Take a screenshot on your Mac*
+.. _Take a screenshot on your Mac: https://support.apple.com/en-us/102646
 
 -------
 
