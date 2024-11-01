@@ -3317,21 +3317,6 @@ UCASE: The Save As dialog is blank! (Seriously!!)
 ⋰ ⋱ ⋰ ⋱  REFERs  ⋰ ⋱ ⋰ ⋱
 ########################
 
-#############################################################################
-REFER: macOS Chrome textarea motion cheatsheet (try ``<Cmd>-Arrow`` bindings)
-#############################################################################
-.. 2024-04-25
-
-REFER/CXREF:
-
-  file://~/.depoxy/ambers/docs/README-textarea-motions.rst @ 169
-
-- Jump to the cheatsheet:
-
-  https://github.com/DepoXy/depoxy/blob/release/docs/README-textarea-motions.rst#cheatsheet
-
--------
-
 #############################################################
 REFER: Use ``<Cmd-.>`` to stop MacVim grep (not ``<Ctrl-C>``)
 #############################################################
@@ -3354,6 +3339,21 @@ on Linux (where ``<Ctrl-C>`` works in both GVim and command line vim).
             This Cmd-key combination cannot be unmapped.
 
 - I think this is the only MacVim binding you cannot change. So remember it well!
+
+-------
+
+#############################################################################
+REFER: macOS Chrome textarea motion cheatsheet (try ``<Cmd>-Arrow`` bindings)
+#############################################################################
+.. 2024-04-25
+
+REFER/CXREF:
+
+  file://~/.depoxy/ambers/docs/README-textarea-motions.rst @ 169
+
+- Jump to the cheatsheet:
+
+  https://github.com/DepoXy/depoxy/blob/release/docs/README-textarea-motions.rst#cheatsheet
 
 -------
 
