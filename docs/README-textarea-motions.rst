@@ -13,45 +13,75 @@ Overview
 On macOS, the Chrome ``textarea`` motions for moving the cursor
 and selecting text are not quite the same as on Linux.
 
-- This document describes those bindings.
+- This document describes those bindings, and how DepoXy uses Hammerspoon
+  to change them.
 
-- The author had originally tried a
-  `Tampermonkey <https://www.tampermonkey.net/>`__
-  *userscript* to make the motions more like Linux,
-  but just learning the built-in bindings is better:
-
-  - Tampermonkey adds a security risk I'd rather not
-    worry about.
-
-  - Setting up Tampermonkey is a little tedious, and
-    not entirely automatable.
-
-  - Given that DepoXy sets up macOS almost identical
-    to Linux (Mint MATE), it's not a big deal if just
-    this one feature is slightly different between the
-    two OSes.
+- Note that DepoXy strives to set up the macOS environment as close to
+  Linux as possible (or at least to Linux Mint MATE, minus the panel),
+  but there are a few slight differences between the two OSes that are
+  not easily changeable.
 
 #####
 Setup
 #####
 
-The bindings below assume you've used
-`Karabiner-Elements <https://karabiner-elements.pqrs.org/>`__
-(KE) to swap ``<Ctrl-Right>`` and ``<Ctrl-Left>``
-with ``<Alt-Right>`` and ``<Alt-Left>``, so
-that these bindings are at least *more* like
-they work on Linux.
+The bindings below assume you're using
+`Hammerspoon <https://www.hammerspoon.org/>`__
+and the
+`Hammyspoony <https://github.com/DepoXy/macOS-Hammyspoony#🥄>`__
+Spoons.
+
+The Hammyspoony ``MotionUtils`` Spoon performs the following changes
+so that motion keybindings are more like they work on Linux:
+
+- It swaps ``<Ctrl-Right>`` and ``<Ctrl-Left>``
+  with ``<Alt-Right>`` and ``<Alt-Left>``, respectively.
+
+  - So now ``<Ctrl-Left>/<Ctrl-Right>`` moves the cursor word-wise,
+    and ``<Alt-Left>/<Alt-Right>`` moves the cursor line-wise.
+
+- It swaps ``<Shift-Ctrl-Right>`` and ``<Shift-Ctrl-Left>``
+  with ``<Shift-Alt-Right>`` and ``<Shift-Alt-Left>``, respectively,
+  to similarly change selection by the word-full and line-full.
+
+- It maps ``<Home>`` and ``<End>`` to ``<Cmd-Left>`` and ``<Cmd-Right``>,
+  respectively.
+
+  - Now ``<Home>`` and ``<End>`` will move the cursor to the start or
+    end of the same line, as opposed to moving it to the document
+    start or document end.
+
+  - Using ``<Shift-Home>`` and ``<Shift-End>`` will similarly select
+    text by the line-full.
+
+- It maps ``<Ctrl-Home>`` and ``<Ctrl-End>`` to ``<Cmd-Up>`` and ``<Cmd-Down``>,
+  respectively.
+
+  - Now ``<Ctrl-Home>`` and ``<Ctrl-End>`` work like in Linux and will move
+    the cursor the start or end of the document, respectively.
+
+  - Also ``<Shift-Ctrl-Home>`` and ``<Shift-Ctrl-End>`` will select to the
+    start or end of the document.
 
 - See:
 
-  https://github.com/DepoXy/Karabiner-Elephants/blob/release/complex_modifications/0170-apphoc-ctl-and-alt-lr.json
+  https://github.com/DepoXy/macOS-Hammyspoony/blob/release/Source/MotionUtils.spoon/init.lua
 
   Which you can find in a DepoXy environment at::
 
-    ~/.kit/mOS/Karabiner-Elephants/complex_modifications/0170-apphoc-ctl-and-alt-lr.json
+    ~/.kit/mOS/macOS-Hammyspoony/Source/MotionUtils.spoon/init.lua
 
-  Provided by 
-  `Karabiner-Elephants <https://github.com/DepoXy/Karabiner-Elephants#🐘>`__
+Note that Chrome is a little more tricky to remap, so there's a separate
+Spoon for that, which sometimes needs to check if the active application
+element is an editable control or not.
+
+- See:
+
+  https://github.com/DepoXy/macOS-Hammyspoony/blob/release/Source/AppTapChrome.spoon/init.lua
+
+  Found locally at::
+
+    ~/.kit/mOS/macOS-Hammyspoony/Source/AppTapChrome.spoon/init.lua
 
 ########
 Bindings
@@ -311,11 +341,4 @@ Cheatsheet
 
       <Shift-Ctrl-PageUp>
       <Shift-Ctrl-PageDown>
-
-#####
-Legal
-#####
-
-Tampermonkey® is a registered trademark of Jan Biniok.
-https://tsdr.uspto.gov/#caseNumber=79186543&caseSearchType=US_APPLICATION&caseType=DEFAULT&searchType=statusSearch
 
