@@ -3318,7 +3318,7 @@ UCASE: The Save As dialog is blank! (Seriously!!)
 ########################
 
 #############################################################
-REFER: Use ``<Cmd-.>`` to stop MacVim grep (not ``<Ctrl-C>``)
+REFER: Use ``<Cmd-.>`` to interrupt MacVim (not ``<Ctrl-C>``)
 #############################################################
 .. 2024-07-17
 
@@ -3338,32 +3338,47 @@ on Linux (where ``<Ctrl-C>`` works in both GVim and command line vim).
 
             This Cmd-key combination cannot be unmapped.
 
-- I think this is the only MacVim binding you cannot change. So remember it well!
+- I think this is the only MacVim binding you cannot change (at least not
+  using Vim config). So remember it well!
 
 -------
 
-#############################################################################
-REFER: macOS Chrome textarea motion cheatsheet (try ``<Cmd>-Arrow`` bindings)
-#############################################################################
+####################################################################################################
+REFER: macOS Chrome textarea motion cheatsheet (``<Cmd-{Arrow}>`` and ``<Home>``/``<End>`` bindings)
+####################################################################################################
 .. 2024-04-25
 
-REFER/CXREF:
+REFER: https://github.com/DepoXy/depoxy/blob/release/docs/README-textarea-motions.rst#cheatsheet
 
-  file://~/.depoxy/ambers/docs/README-textarea-motions.rst @ 169
+.. CXREF: Found locally within a DepoXy environment at::
 
-- Jump to the cheatsheet:
+    ~/.depoxy/ambers/docs/README-textarea-motions.rst @ 169
 
-  https://github.com/DepoXy/depoxy/blob/release/docs/README-textarea-motions.rst#cheatsheet
 
 -------
 
-################################################################
-REFER: Use ``<Shift-Cmd-.>`` in open dialog to view hidden files
-################################################################
+##########################################################################
+REFER: Use ``<Shift-Cmd-.>`` to show hidden files in Open and Save windows
+##########################################################################
 .. 2024-10-10
 
 SAVVY: Even if there's no context menu or other option to show hidden files,
-``<Shift-Cmd-Period>`` should always show hidden files in an open dialog.
+``<Shift-Cmd-Period>`` should always show hidden files in an Open or Save
+dialog.
+
+-------
+
+#####################################################################
+REFER: Press ``<Command-Alt-Escape>`` to summon macOS Force-Quit menu
+#####################################################################
+.. 2024-09-18
+
+SAVVY: ``<Command-Alt-Escape>`` brings up macOS Force-Quit menu.
+
+REFER: |How to force an app to quit on your Mac|_ (Apple.com)
+
+.. |How to force an app to quit on your Mac| replace:: *How to force an app to quit on your Mac*
+.. _How to force an app to quit on your Mac: https://support.apple.com/en-us/102586
 
 -------
 
@@ -3376,18 +3391,10 @@ CPYST: Run ``log stream`` to view macOS system logs, e.g.::
 
   log stream --level debug | grep ssh
 
-REFER: https://stackoverflow.com/questions/43382825/where-to-find-sshd-logs-on-macos-sierra
+REFER: |Where to find sshd logs on MacOS sierra|_ (Stack Overflow)
 
-- BEGER: https://www.google.com/search?q=macos+ssh+auth+log
-
--------
-
-###############################################################
-REFER: ``<Command-Alt-Escape>`` brings up macOS Force-Quit menu
-###############################################################
-.. 2024-09-18
-
-SAVVY: ``<Command-Alt-Escape>`` brings up macOS Force-Quit menu.
+.. |Where to find sshd logs on MacOS sierra| replace:: *Where to find sshd logs on MacOS sierra*
+.. _Where to find sshd logs on MacOS sierra: https://stackoverflow.com/questions/43382825/where-to-find-sshd-logs-on-macos-sierra
 
 -------
 
