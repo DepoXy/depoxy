@@ -125,6 +125,7 @@ init
 inputrc
 iterm
 jq
+keycode
 launchd
 linters
 macFUSE
