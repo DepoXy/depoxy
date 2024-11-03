@@ -158,6 +158,7 @@ rsync
 rsynced
 sed
 sendmail
+skhd
 skhdrc
 spellfile
 sudo
