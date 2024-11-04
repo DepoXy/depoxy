@@ -164,8 +164,13 @@ installDarwin =
     # FIXME/2024-04-23 23:22: DRY: Only diff from installLinux is linux.AppImage vs. mac.dmg
     local app_image_url="${app_image_base}/v${via_version}/via-${via_version}-mac.dmg"
     #
+    local local_bin_name="via-nativia"
     install_dmg_with_download_user_prompt_and_symlink \
-      "${app_image_url}" "" "Via.app" "via-nativia"
+      "${app_image_url}" "" "Via.app" "${local_bin_name}"
+    #
+    local local_bin_shim="${HOME}/.local/bin/${local_bin_name}"
+    echo -e '\necho "SAVVY: If Via does not front itself, run this command again"' \
+      >> "${local_bin_shim}"
   }
   # install_using_web_app
   install_using_dmg_image
