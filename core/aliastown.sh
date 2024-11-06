@@ -326,15 +326,32 @@ _dxy_wire_alias_tree () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Wire LibreOffice aliases for macOS (`brew install --cask libreoffice`).
+# - Note on LM 21.3, LibreOffice is installed by default, and both
+#   `libreoffice` and `soffice` are on PATH (and both symlink the same
+#   target).
+
+# DUNNO/2024-11-05: I had LibreOffice symlinked from ~/.local/bin, e.g.:
+#
+#   _MOSON_SOFFICE="/Applications/LibreOffice.app/Contents/MacOS/soffice"
+#   command ln -sfn '${_MOSON_SOFFICE}' '${HOME}/.local/bin/libreoffice'
+#   command ln -sfn '${_MOSON_SOFFICE}' '${HOME}/.local/bin/soffice'
+#
+# But then calling `soffice` opens it but shows the Alacritty menubar!
+#
+# Thankfully, using an alias and calling the path directly seems to work.
+
 _dxy_wire_alias_libreoffice () {
-  # On macOS, for `brew install --cask libreoffice` app.
-  # - soffice -> /opt/homebrew/Caskroom/libreoffice/<version>/soffice.wrapper.sh
-  # - Note on LM 21.3, both exists (and symlink the same target).
-  if ! command -v libreoffice > /dev/null \
-    && command -v soffice > /dev/null \
-  ; then
-    claim_alias_or_warn "libreoffice" "soffice"
+  if ! os_is_macos; then
+
+    return 0
   fi
+
+  local macOS_soffice="/Applications/LibreOffice.app/Contents/MacOS/soffice"
+
+  claim_alias_or_warn "soffice" "${macOS_soffice}"
+
+  claim_alias_or_warn "libreoffice" "${macOS_soffice}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
