@@ -311,14 +311,22 @@ _dxy_wire_alias_new_window_sensible_open () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_aliases_miscellaneous () {
+_dxy_wire_alias_hexdump () {
   # Include ASCII.
   alias hexdump="hexdump -C"
+}
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_wire_alias_tree () {
   # Include .hidden files by default on `tree`.
   # Also include .git/ subdirectories.
   alias tree="tree -a -I '.git'"
+}
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_wire_alias_libreoffice () {
   # On macOS, for `brew install --cask libreoffice` app.
   # - soffice -> /opt/homebrew/Caskroom/libreoffice/<version>/soffice.wrapper.sh
   # - Note on LM 21.3, both exists (and symlink the same target).
@@ -344,8 +352,14 @@ _dxy_wire_aliases () {
   _dxy_wire_alias_new_window_sensible_open
   unset -f _dxy_wire_alias_new_window_sensible_open
 
-  _dxy_wire_aliases_miscellaneous
-  unset -f _dxy_wire_aliases_miscellaneous
+  _dxy_wire_alias_hexdump
+  unset -f _dxy_wire_alias_hexdump
+
+  _dxy_wire_alias_tree
+  unset -f _dxy_wire_alias_tree
+
+  _dxy_wire_alias_libreoffice
+  unset -f _dxy_wire_alias_libreoffice
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
