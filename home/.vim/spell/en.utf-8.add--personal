@@ -11,6 +11,7 @@ AppleScript
 Arduino
 ArgoCD
 Asus
+Avro
 Bashcov
 BenQ
 Bitmoji
@@ -26,6 +27,7 @@ Codecov
 Cython
 DBeaver
 DXY # aka "DepoXy Ambers"
+Datadog
 DepoXy's
 DisplayPort
 Dockerfile
@@ -36,12 +38,15 @@ Firmlink
 Flathub
 Flatpak
 GNC
+GeoParquet
+GeoServer
 HSTRY
 Hammerspoon
 Hammerspoon's
 Hammyspoony
 Hammyspoony's
 Heredoc
+IaC
 JetBrains
 Jinja
 Jupyter
@@ -49,11 +54,13 @@ Kibana
 LM
 Lua
 MacDown
+MapServer
 MongoDB
 Moonlander
 NERDCommenter
 Neovim
 Nvidia
+OpenTelemetry
 OpenWeather
 PRs
 PostGIS
