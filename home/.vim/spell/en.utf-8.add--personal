@@ -47,6 +47,7 @@ Hammyspoony
 Hammyspoony's
 Heredoc
 IaC
+Inkscape
 JetBrains
 Jinja
 Jupyter
@@ -62,6 +63,7 @@ Neovim
 Nvidia
 OpenTelemetry
 OpenWeather
+Oxipng
 PRs
 PostGIS
 Powerline
@@ -72,6 +74,7 @@ Redux
 RubyGems
 SSHd
 SSHing
+Squoosh
 StubHub
 Timeshift
 Timeshift's
@@ -143,6 +146,7 @@ launchd
 letterlike
 linters
 macFUSE
+maskable
 monorepo
 monorepos
 mrconfig
@@ -183,6 +187,7 @@ tmux
 toml
 txns
 txt
+ungroup
 venv
 venv's
 venvs
