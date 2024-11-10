@@ -682,7 +682,9 @@ symlink_overlay_dob_assets () {
       user_data_dir="${XDG_CACHE_HOME:-${HOME}/.cache}"
       dob_log_dir="${user_data_dir}/dob/log"
     else
-      user_data_dir="${XDG_CACHE_HOME:-${HOME}/Library/Logs}"
+      # Because ~/Library/Caches, we'll call this location XDG_CACHE_LOGS,
+      # which isn't a real thing, but at least findable via "XDG_" search.
+      user_data_dir="${XDG_CACHE_LOGS:-${HOME}/Library/Logs}"
       dob_log_dir="${user_data_dir}/dob"
     fi
 
