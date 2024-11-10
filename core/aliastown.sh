@@ -121,6 +121,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdgo" "${DOPP_KIT:-${HOME}/.kit}/go"
 
   # Prefix not to be confused with ~/.kit/git projects
+  # - Mnemonic: cd Go Hugo
+  # - MAYBE: `cdgh` (tho `cdg*` is generally Git projects)
+  #          `cdhu`, `cdho`, `cdhg`, not `cdh` (home-fries)
   pushd_alias_or_warn "cdgh" "${DOPP_KIT:-${HOME}/.kit}/hugo/hugo"
 
   # *** ~/.kit/js — JavaScript
