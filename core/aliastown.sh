@@ -126,6 +126,23 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   #          `cdhu`, `cdho`, `cdhg`, not `cdh` (home-fries)
   pushd_alias_or_warn "cdgh" "${DOPP_KIT:-${HOME}/.kit}/hugo/hugo"
 
+  # On Netlify, Huge cache is at
+  #   /opt/build/cache/hugo_cache/
+  # https://gohugo.io/getting-started/configuration/#configure-cachedir
+  local hugo_cache_dir=""
+  if os_is_macos; then
+    # Note that XDG_CACHE_CACHES is not a real thing, but we'll use
+    # so it's findable if you search for XDG_.
+    hugo_cache_dir="${XDG_CACHE_CACHES:-${HOME}/Library/Caches}/hugo_cache"
+  else
+    hugo_cache_dir="${XDG_CACHE_HOME:-${HOME}/.cache}/hugo_cache"
+  fi
+  hugo_cache_dir="${HUGO_CACHEDIR:-${hugo_cache_dir}}"
+  # SAVVY: 2024-11-08: At least how author has been using Hugo, the first
+  # five directories each contain just one subdir. So link thereunder.
+  pushd_alias_or_warn "cdhc" "${hugo_cache_dir}/modules/filecache/modules/pkg/mod"
+  pushd_alias_or_warn "cdhcl" "${hugo_cache_dir}/modules/filecache/modules/pkg/mod/github.com/landonb"
+
   # *** ~/.kit/js — JavaScript
 
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
