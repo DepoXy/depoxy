@@ -78,6 +78,7 @@ Squoosh
 StubHub
 Timeshift
 Timeshift's
+Trustpilot
 VBox
 Vimprojects
 Vimscript
@@ -139,6 +140,7 @@ i11l
 iCloud
 init
 inputrc
+io
 iterm
 jq
 keycode
@@ -198,3 +200,4 @@ virtualenvs
 wakatime
 webhook
 webhooks
+whois
