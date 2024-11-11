@@ -5,7 +5,7 @@ Parade of Karabiner-Elements Modifications
 
   - CXREF:
 
-      /kit/working/mOS/Karabiner-Elephants/README.md
+      ~/.kit/mOS/Karabiner-Elephants/README.md
 
 ## JSON FILES
 

@@ -2,6 +2,6 @@
 /.gitignore.local
 
 # For `python3 -m pip install ${MR_REPO}`,
-# via `mr -d /kit/working/py/virtualenvwrapper -n install`.
+# via `mr -d ~/.kit/py/virtualenvwrapper -n install`.
 /get-pip.py
 

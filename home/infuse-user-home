@@ -301,7 +301,7 @@ infuse_symlinks_user_home_gitconfig_from_base () {
 
   # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig:
   #   - See now instead:
-  #       /kit/working/git/git-smart/.gitconfig
+  #       ~/.kit/git/git-smart/.gitconfig
   #     and infuser function in this file:
   #       infuse_symlinks_user_home_gitsmart
   # - NOT REALLY USED: Host-specific .gitconfig.
