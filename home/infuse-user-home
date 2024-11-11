@@ -39,9 +39,11 @@ source_deps () {
 
   # *** DXY
 
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+
   # Load: is_infuse_all
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
-  . "$(dirname -- "$(realpath -- "$0")")/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
+  . "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
