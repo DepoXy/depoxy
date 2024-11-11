@@ -484,7 +484,7 @@ infuse_symlinks_home_tmux_completion () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# Populate ~/.projlns for Vim dubs_grep_steady path #9.
+# Populate ~/.projlns for Vim dubs_grep_steady path #9, etc.
 infuse_symlinks_home_projlns () {
   if ! is_infuse_all; then
     info " $(font_info_skipped "Skipped") bc ! mr -d / $(font_highlight "~/.projlns/")"
