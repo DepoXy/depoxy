@@ -81,6 +81,11 @@
 # Alex Waulk's got a secret to share.
 /go/secretshare/
 
+# **** Go development
+
+/go/cobra/
+/go/delve/
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** JavaScript
@@ -101,16 +106,29 @@
 #
 #  /js/javascript-typescript-langserver/
 
-# OpenLens Kubernetes GUI (another item more approp. for .gitignore.local)
+# OpenLens Kubernetes GUI [2024-11-12: no longer free]
 /js/lens/
 
 # For digging into internals when you Need To Know.
 /js/nvm/
 
 # An awesome JS LS that blew my mind.
-# - And settles any question of whether I need to learn VS Code.
+# - And settles any question of whether I need to use VS Code.
 #   (*Nope!*)
 /js/typescript-language-server/
+
+# **** NodeJS
+
+/js/nodejs/babel/
+/js/nodejs/chakram/
+/js/nodejs/loglevel/
+/js/nodejs/material-ui/
+/js/nodejs/mocha/
+
+# **** React
+
+/js/react/material-ui/
+/js/react/react/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -121,6 +139,7 @@
 
 # Most (all?) of these projects will only be cloned when DepoXy is running
 # on a macOS host. (Though on Linux their directories may be stubbed.)
+
 /mOS/Docker-Desktop-OMR-install/
 /mOS/alt-tab-macos/
 /mOS/easy-move-resize/
@@ -140,46 +159,107 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# *** "Odd" [Currently: Mechanical Keyboard apps]
+# *** "Odd" (Uncategorized) projects
 
 # CXREF: ~/.depoxy/ambers/home/.kit/odd/_mrconfig
 
+# **** 321open
+
 /odd/321open/
+
+# **** Android
+
+/odd/android/planning-time-android/
+
+# **** Database
+
+/odd/database/cassandra/
+
+# **** Fonts
+
 /odd/fonts/
-/odd/via-nativia/
-/odd/wally/
+
+# **** Homebrew
+
+/odd/homebrew/install/
+
+# **** (Mechanical) Keyboard apps
+
+# /odd/keyboard/via-nativia/
+/odd/keyboard/via-nativia/.keep--omr-stub
+/odd/keyboard/via-nativia/via-*-linux.AppImage
+/odd/keyboard/via-nativia/via-*-mac.dmg
+
+# /odd/keyboard/wally/
+/odd/keyboard/wally/.keep--omr-stub
+/odd/keyboard/wally/wally-*-linux
+/odd/keyboard/wally/wally-osx-*.dmg
+
+# **** LaTeX
+
+/odd/latex/siunitx/
+
+# **** Ruby
+
+/odd/ruby/byebug/
+/odd/ruby/gli/
+/odd/ruby/highline/
+/odd/ruby/httparty/
+/odd/ruby/pry/
+/odd/ruby/rake/
+/odd/ruby/rspec-core/
+
+# **** Scala
+
+/odd/scala/bfg-repo-cleaner/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** Python
 
+/py/asciinema/
 /py/aws-cli/
+/py/cpython/
+/py/csv2ofx/
+/py/gimp-plugin-export-layers/
+/py/gnucash-qif-import/
 /py/install.python-poetry.org/
+/py/mdm2_many_doge_meme_maker/
 /py/meld/
+/py/pandas/
+/py/pipgrip/
 /py/pipx/
-/py/poetry-dynamic-versioning/
 /py/poetry/
-/py/pyenv-virtualenv/
-/py/virtualenvwrapper/
-
+/py/poetry-dynamic-versioning/
 /py/pyenv/.keep--omr-stub
-
-# python -> py/
-/python
+/py/pyenv-virtualenv/
+/py/pyfiglet/
+/py/pyspread/
+/py/restview/
+/py/schematics/
+/py/setuptools_scm/
+/py/sphinx_rtd_theme/
+/py/sqlalchemy/
+/py/termtosvg/
+/py/treelib/
+/py/virtualenvwrapper/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** [Sh]oilerplate et al
 
 /sh/.tmux/
-/sh/EvanHagn-dotfiles
+/sh/basher/
+/sh/bpkg/
+/sh/ccat/
 /sh/commacd/
 /sh/complete-alias/
 /sh/dot-inputrc/
 /sh/feature-coverage-report/
-/sh/gvim-open-kindness/
 /sh/fries-findup/
-/sh/parT
+/sh/gvim-open-kindness/
+/sh/home-fries/
+/sh/parT/
 /sh/password-store/
 /sh/sh-ask-yesnoskip/
 /sh/sh-colors/
@@ -190,7 +270,9 @@
 /sh/sh-print-nanos-now/
 /sh/sh-rm_safe/
 /sh/sh-sensible-open/
-/sh/tmux-bash-completion
+/sh/sh-spinners/
+/sh/tmux-bash-completion/
+/sh/tmuxinator/
 /sh/tmux-sensible/
 /sh/tpm/
 
@@ -201,5 +283,5 @@
 /txt/emoji-lookup/
 /txt/spellfile.txt/
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
