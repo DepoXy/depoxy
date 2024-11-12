@@ -40,6 +40,26 @@ updateDeps = update_deps_shoilerplate
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/odd/homebrew/install]
+lib = remote_set starter https://github.com/Homebrew/install.git
+# CXREF: On macOS, installed via macOS-onboarder:
+#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+# Docs:
+#   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Where:
+#   -f, --fail / (HTTP) Fail with error code 22 and with no response body output
+#                at all for HTTP transfers returning HTTP response codes ≥ 400.
+#   -s, --silent / Silent or quiet mode. Do not show progress meter or error msgs.
+#                  Makes Curl mute. It still outputs the data you ask for....
+#   -S, --show-error / When used with -s, ... show an error message if it fails.
+#   -L, --location / (HTTP) If the server reports that the requested page has moved to
+#                    a different location..., ... redo the request on the new place.
+install = "${MR_REPO}/install.sh"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # "Adds window-tiling hotkeys to any X11 desktop. (An analogue to
 #  WinSplit Revolution for people who don't want to use Compiz Grid)"
 [${DOPP_KIT:-${HOME}/.kit}/odd/x11/quicktile]
