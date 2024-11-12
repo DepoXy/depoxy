@@ -155,6 +155,7 @@ infuse_projects_links_core_generate_ctags () {
       \
       --exclude=node_modules \
       \
+      --exclude=deps \
       --exclude=.archived \
       --exclude=.cipher \
       --exclude=.whilom \
