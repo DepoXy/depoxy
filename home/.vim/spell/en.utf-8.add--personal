@@ -66,6 +66,7 @@ OpenTelemetry
 OpenWeather
 Oxipng
 PRs
+Portainer
 PostGIS
 Powerline
 Py
@@ -147,6 +148,7 @@ iterm
 jq
 keycode
 launchd
+lazydocker
 letterlike
 linters
 macFUSE
