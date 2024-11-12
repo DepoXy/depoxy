@@ -37,7 +37,14 @@ infuse_easy_as_pypi_follower_links () {
 
   # Only look for ./.ignore if not part of the repo.
   if [ -z "$(git ls-files -- .ignore)" ]; then
-    link_private_ignore "$@"
+    local sourcep=""
+    sourcep=$(path_to_mrinfuse_resolve ".ignore")
+
+    if [ -f "${sourcep}" ]; then
+      link_private_ignore "$@"
+    else
+      link_private_ignore_ "$@"
+    fi
   fi
 
   # USYNC: CXREF: This list is SYNCD with:
