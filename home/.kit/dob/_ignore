@@ -15,11 +15,16 @@
 /.mrinfuse/python-prompt-toolkit/_git/info/exclude
 /.mrinfuse/sqlalchemy-migrate-hotoffthehamster/_git/info/exclude
 
-# From proj
-#   -> ../../.mrinfuse/<proj>/.trustme/.trustme.sh
-# From mrinfuse
-#   -> ../../../../sh/trust_me/.trustme.sh
-.trustme.sh
-
 /easy-as-pypi/bin/.whilom-circa2020/
+
+# *** Trustme files
+
+# Most dob/<project>/.ignore -> ~/.kit/dob/.mrinfuse/easy-as-pypi/.ignore-for-the-masses
+#   which specifies
+#     /.trustme/.trustme.sh
+# But EAPP's .ignore doesn't specify it, so that Vim grep-steady #11
+# searches it.
+# - But this ignore is used by Vim grep-steady #9, so specify here to
+#   avoid duplicate search matches.
+/easy-as-pypi/.trustme/.trustme.sh
 
