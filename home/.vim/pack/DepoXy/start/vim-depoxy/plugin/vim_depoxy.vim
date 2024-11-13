@@ -19,7 +19,13 @@ let g:loaded_vim_depoxy = 1
 
 " Load Exuberant Ctags tags file for ~/.projlns/depoxy-deeplinks (DEPOXY_PROJLNS_DEPOXY)
 "
-" CXREF: The 'tags' file is created on `mr -d / infuse`:
+" Default `tags='./tags,tags'` which looks first for tags file
+" adjacent to current file (./tags), then tags file in current
+" working directory (tags). Though in normally DepoXy usage,
+" you won't find either such file (unless you add your own).
+" - Finally, search the DXY ~/.projlns 'tags' file last.
+"
+" CXREF: The ~/.projlns 'tags' file is created on `mr -d / infuse`:
 "   infuse_projects_links_core_generate_ctags
 "     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
 
@@ -31,8 +37,7 @@ function! s:SetTagsProjlnsDepoxydeeplinks()
   endif
 
   if filereadable(l:ctags_file)
-    " Default tags='./tags,tags'
-    exec 'set tags=' .. &tags .. ',' .. l:ctags_file
+    exec 'set tags=./tags,tags,' .. l:ctags_file
   endif
 endfunction
 
