@@ -6,6 +6,12 @@
 # -> .git/info/exclude
 /.gitignore.local
 
+# Self-referential!
+# -> ~/.depoxy/ambers/home/.kit/dob/_ignore
+/.ignore
+# -> ~/.kit/dob/.mrinfuse/easy-as-pypi/.ignore-for-the-masses
+/easy-as-pypi/.ignore-for-the-masses
+
 # -> /.mrinfuse/easy-as-pypi/_git/info/exclude-private
 /.mrinfuse/ansi-escape-room/_git/info/exclude
 /.mrinfuse/ansiwrap-hotoffthehamster/_git/info/exclude
