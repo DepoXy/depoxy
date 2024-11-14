@@ -46,16 +46,6 @@ lib = remote_set starter https://github.com/Homebrew/install.git
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
-# Docs:
-#   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# Where:
-#   -f, --fail / (HTTP) Fail with error code 22 and with no response body output
-#                at all for HTTP transfers returning HTTP response codes ≥ 400.
-#   -s, --silent / Silent or quiet mode. Do not show progress meter or error msgs.
-#                  Makes Curl mute. It still outputs the data you ask for....
-#   -S, --show-error / When used with -s, ... show an error message if it fails.
-#   -L, --location / (HTTP) If the server reports that the requested page has moved to
-#                    a different location..., ... redo the request on the new place.
 installLinux = "${MR_REPO}/install.sh"
 
 # ========================================================================
