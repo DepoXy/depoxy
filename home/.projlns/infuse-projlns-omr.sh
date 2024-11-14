@@ -20,7 +20,7 @@ source_deps () {
   PATH="${PATH}:${omr_lib}"
   # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
   #                        used by this file, and dep upon by link_deep).
-  # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
+  # CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Load: link_deep, and remove_symlink_hierarchy_safe. Requires logger.sh.

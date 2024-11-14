@@ -28,7 +28,7 @@ source_deps () {
   # Load: infuser_prepare (and by side-effect: logger.sh, and colors.sh;
   #                        for this file, and for link_deep),
   #       path_to_mrinfuse_resolve
-  # CXREF: ~/.ohmyrepos/lib/overlay-symlink.sh
+  # CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Load: _vendorfs_path_stints_basedir_print

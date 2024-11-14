@@ -181,7 +181,8 @@ isInstalled =
 install = install_os_specific
 installDarwin =
   # OMR/lib already on PATH, but explicit is descriptive.
-  . "${OHMYREPOS_LIB:-${HOME}/.ohmyrepos/lib}/print-homebrew-prefix.sh"
+  # - CXREF: ~/.kit/git/ohmyrepos/lib/print-homebrew-prefix.sh
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/print-homebrew-prefix.sh"
   local inject_path
   # Side-effect: Triggers errexit if print_homebrew_prefix cannot suss.
   inject_path="$(print_homebrew_prefix)/Library/Taps/homebrew/homebrew-autoupdate"
