@@ -21,13 +21,19 @@
 #     because I don't remember seeing this issue on older Intel MacBook.
 #   - I also tried NixOS Bash, but NixOS Bash also slow. https://nixos.org
 
+# USYNC: See OMR's `print_homebrew_prefix`:
+#   ~/.kit/git/ohmyrepos/lib/print-homebrew-prefix.sh
+# USYNC: See also other projects' `_depoxy_print_homebrew_path` copiers.
+# - MAYBE: Convert this fcn. to update-faithful dependency. But if/until
+#   then, we'll let this DRY violation continue to violate.
 _depoxy_print_homebrew_path () {
   local brew_path=""
 
-  # Apple Silicon (M1 Mac/arm64/AArch64) brew path is /opt/homebrew.
+  # On Apple Silicon (arm64/AArch64) Macs (M1, M2, etc.) it's /opt/homebrew
+  # - ALTLY: [ "$(uname -m)" = "arm64" ]
   [ -x "${brew_path}" ] || brew_path="/opt/homebrew/bin/brew"
 
-  # Otherwise on Intel Macs it's under /usr/local.
+  # On Intel Macs it's under /usr/local (tho deprecated)
   [ -x "${brew_path}" ] || brew_path="/usr/local/bin/brew"
 
   # DepoXy insists that Homebrew is installed on macOS, but it's
