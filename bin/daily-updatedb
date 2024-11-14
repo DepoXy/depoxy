@@ -33,6 +33,7 @@
 
 # `eval "$(brew shellenv)"`, essentially.
 load_brew () {
+  # CXREF: ~/.depoxy/ambers/core/brewskies.sh
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
 
   # SAVVY: Calls `brew`, which calls `sudo --reset-timestamp` (but

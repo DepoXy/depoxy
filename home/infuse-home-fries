@@ -31,6 +31,8 @@ source_deps () {
   # SKIPD: Avoid calling `brew` (via `brew shellenv`),
   #        which calls `sudo --reset-timestamp`:
   #          _depoxy_infuse_brew_shellenv
+  # - SAVVY: Note brewskies would call `brew shellenv` if we sourced
+  #   if from Bash, but this script runs from /bin/sh. Just FYI.
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

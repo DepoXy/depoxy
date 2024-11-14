@@ -46,6 +46,9 @@ lib = remote_set starter https://github.com/Homebrew/install.git
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
+# REFER: https://docs.brew.sh
+# CXREF: See macOS-onboarder `install_homebrew`:
+#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 installLinux = "${MR_REPO}/install.sh"
 
 # ========================================================================
