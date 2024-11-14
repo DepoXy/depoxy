@@ -36,6 +36,9 @@ _depoxy_print_homebrew_path () {
   # On Intel Macs it's under /usr/local (tho deprecated)
   [ -x "${brew_path}" ] || brew_path="/usr/local/bin/brew"
 
+  # On Linux, it's under /home (although there's no 'linuxbrew' account)
+  [ -x "${brew_path}" ] || brew_path="/home/linuxbrew/.linuxbrew/bin/brew"
+
   # DepoXy insists that Homebrew is installed on macOS, but it's
   # not a requirment on Linux.
   # - 2024-11-12: DepoXy Linux now installs Homebrew for *lazydocker*,
