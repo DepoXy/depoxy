@@ -500,6 +500,8 @@ install =
           LDFLAGS="-L${brew_prefix}/readline/lib -L${brew_prefix}/pcre2/lib" \
           CPPFLAGS="-I${brew_prefix}/readline/include -I${brew_prefix}/pcre2/include"
     else
+      # Intel macOS (deprecated): /usr/local/bin/brew
+      # Linux (no need for brew): /home/linuxbrew/.linuxbrew/bin/brew
       error "ERROR: Where's Homebrew?"
     fi
   else
