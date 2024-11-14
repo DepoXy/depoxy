@@ -52,13 +52,27 @@ _depoxy_print_homebrew_path () {
   printf "%s" "${brew_path}"
 }
 
-# Set Homebrew environs:
-#   HOMEBREW_PREFIX       (e.g., /opt/homebrew)
-#   HOMEBREW_CELLAR       (DepoXy does not explicitly use)
-#   HOMEBREW_REPOSITORY   (DepoXy does not explicitly use)
-#   PATH
-#   MANPATH
-#   INFOPATH
+# Apply Homebrew environ adjustments via `brew shellenv`:
+#
+#   HOMEBREW_PREFIX       — e.g., /opt/homebrew or /home/linuxbrew/.linuxbrew
+#                             (which DepoXy mostly uses to find bin/ paths)
+#
+#   HOMEBREW_CELLAR       — e.g., ${HOMEBREW_PREFIX}/Cellar
+#                             (which DepoXy does not explicitly use)
+#
+#   HOMEBREW_REPOSITORY   — e.g., /opt/homebrew or /home/linuxbrew/.linuxbrew/Homebrew
+#                             (which DepoXy does not explicitly use)
+#
+#   PATH                  — prepends ${HOMEBREW_PREFIX}/bin and
+#                             ${HOMEBREW_PREFIX}/sbin to your PATH
+#
+#   MANPATH               — prepends ${MANPATH} with ":" to include default list
+#                             CXREF: See comments under `_hf_jit_configure_manpath`:
+#                               ~/.kit/sh/home-fries/lib/manpath_util.sh
+#
+#   INFOPATH              — prepends generally empty INFOPATH var (used by `info`
+#                             command) with /opt/homebrew/share/info or
+#                             /home/linuxbrew/.linuxbrew/share/info
 #
 # ALERT: `brew` calls `sudo --reset-timestamp`, so if you
 # rely on the sudo password being cached, it won't be after
