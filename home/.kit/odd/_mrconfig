@@ -45,6 +45,7 @@ lib = remote_set starter https://github.com/Homebrew/install.git
 # CXREF: On macOS, installed via macOS-onboarder:
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+install = install_os_specific
 # Docs:
 #   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Where:
@@ -55,7 +56,7 @@ echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 #   -S, --show-error / When used with -s, ... show an error message if it fails.
 #   -L, --location / (HTTP) If the server reports that the requested page has moved to
 #                    a different location..., ... redo the request on the new place.
-install = "${MR_REPO}/install.sh"
+installLinux = "${MR_REPO}/install.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
