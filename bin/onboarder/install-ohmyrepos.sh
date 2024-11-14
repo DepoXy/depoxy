@@ -42,37 +42,17 @@ init_homebrew_or_exit_unless_not_macos () {
     return 0
   fi
 
-  # E.g., /opt/homebrew/bin/brew
-  if ! BREW_PATH="$(print_homebrew_prefix)/bin/brew"; then
+  # CXREF: ~/.depoxy/ambers/core/brewskies.sh
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
 
-    exit 1
-  fi
+  _depoxy_infuse_brew_shellenv
 
-  if [ ! -e "${BREW_PATH}" ]; then
+  # E.g., /opt/homebrew
+  if [ -z "${HOMEBREW_PREFIX}" ]; then
     >&2 echo "ERROR: Where's Homebrew?"
 
     exit 1
   fi
-
-  eval "$(${BREW_PATH} shellenv)"
-}
-
-print_homebrew_prefix () {
-  local brew_prefix="${HOMEBREW_PREFIX}"
-
-  # Apple Silicon (arm64) brew path is /opt/homebrew
-  [ -d "${brew_prefix}" ] || brew_prefix="/opt/homebrew"
-
-  # Otherwise on Intel Macs it's under /usr/local
-  [ -d "${brew_prefix}" ] || brew_prefix="/usr/local/Homebrew"
-
-  if [ ! -d "${brew_prefix}" ]; then
-    >&2 echo "ERROR: Where's HOMEBREW_PREFIX?"
-
-    exit 1
-  fi
-
-  printf "%s" "${brew_prefix}"
 }
 
 os_is_macos () {
