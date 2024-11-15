@@ -71,7 +71,7 @@ endfunction
 
 " ***
 
-function! s:WireStartFzfFromProjectRootForFileMap()
+function! s:WireFzfGitRootSearch()
   " Use Tim Pope's fugitive to set the working directory to the Git root
   " of the current file, then opens the FZF file fuzzy finder window.
   " (Vim doesn't cd as you open files and change buffers, so up to us.
@@ -91,5 +91,5 @@ call s:SetFzfEnvirons()
 
 call s:WireFzfFilesWithMatches()
 
-call s:WireStartFzfFromProjectRootForFileMap()
+call s:WireFzfGitRootSearch()
 
