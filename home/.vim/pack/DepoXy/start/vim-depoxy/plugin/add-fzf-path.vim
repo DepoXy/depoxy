@@ -23,8 +23,11 @@ let g:plugin_add_fzf_path = 1
 "
 "   \f       — Open FZF in Vim on paths in current Git project
 "
-"   :F <term> — Open FZF in Vim on files with matching <term>
-"               in their contents
+"   :F <term> — Open FZF in Vim on ~/.projlns/depoxy-deeplinks
+"               files with matching <term> in their contents
+"
+"   :D <term> — Open FZF in Vim on ~/.kit/docs/source
+"               files with matching <term> in their contents
 "
 " CXREF: See more FZF ref. in the complementary shell file:
 "
@@ -129,9 +132,35 @@ function! s:WireFzfFilesWithMatches()
   " aynchronously, unlike Quickfix which doesn't show any results
   " until all results are in.
 
-  " USAGE: :F {file-contents-search-term}
-  " SAVVY: This command reports failure if no matches found (so maybe :cd first).
-  command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
+  " MAYBE/2024-11-14: Should this command not impose a search directory?
+  " - This command used to search the current directory, e.g.,
+  "     command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
+  "   - SAVVY: But note:
+  "     - The command reports 'Command failed' if no matches found.
+  "       - So you'd often want to :cd first.
+  "       - Also 'Command failed' makes it sound like the `rg` command
+  "         is malformed, as opposed to their just being no matches.
+  "     - Searching all files under home takes a while, and it includes
+  "       a lot of noise.
+  " - So for now we'll search the DepoXy ~/.projlns directory, which is
+  "   meant to be inclusive of all files the user would ever care about.
+  "   - In this way, the search functionality matches how the author
+  "     normally searches their files. And by providing a closer
+  "     resemblence to the `\g` dubs-grep-steady command, it'll
+  "     encourage the author to try using FZF instead of grep-steady,
+  "     and it'll better inform me which one I like better.
+  "   - Though be aware: Unlike grep-steady, you cannot easily change
+  "     the search directory, and currently ~/.projlns *excludes* the
+  "     author's notes files (which is a separate path in dubs_projects.vim
+  "     that I choose when I want to search docs... so maybe I just need a
+  "     second command wired to the docs path...).
+
+  " USAGE: :F {file-contents-search-term} — Searches code projects
+  command! -bang -nargs=* F :exec "cd " .. $HOME .. "/.projlns/depoxy-deeplinks" | call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
+
+  " USAGE: :D {file-contents-search-term} — Searches notes files
+  command! -bang -nargs=* D :exec "cd " .. $HOME .. "/.kit/docs/source" | call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
+
 endfunction
 
 " ***
