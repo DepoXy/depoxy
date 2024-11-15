@@ -77,6 +77,7 @@ function! s:SetFzfEnvirons()
   endif
 
   " USYNC: See comment above: Copy this string from your shell.
+  " - Also update the rg_command, below.
 
   let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --no-ignore-vcs --no-ignore-parent -g '!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**' -g '!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}'"
 
@@ -100,10 +101,18 @@ function! s:WireFzfFilesWithMatches()
   "   match a term being searched. It works as an alternative to `fd`,
   "   helping to narrow your search, and to show you a little context
   "   for each file, displaying the matched line after the file name.
+
+  " let g:rg_command = '
+  "   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  "   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  "   \ -g "!{.git,node_modules,vendor}/*" '
+
+  " USYNC: Copy the globs from $FZF_DEFAULT_COMMAND, above.
   let g:rg_command = '
     \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-    \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-    \ -g "!{.git,node_modules,vendor}/*" '
+    \ -g "!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**"
+    \ -g "!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}"
+    \ '
 
   " The `:F {term}` command is pretty nifty, it'll search in files for
   " the term, and then give you a fuzzy finder prompt to narrow down
@@ -114,7 +123,11 @@ function! s:WireFzfFilesWithMatches()
   "  so unique; as there are many other ways to search for a file to open,
   "  and I tend to prefer using dubs_greps_steady (`\g`) and perusing
   "  results in the quickfix. Whether using the quickfix or FZF is quicker,
-  "  well, that might be what drives me to use one of the other.)
+  "  well, that might be what drives me to use one or the other.)
+  " ONICE/2024-11-14: One advantage is that the FZF window loads
+  " aynchronously, unlike Quickfix which doesn't show any results
+  " until all results are in.
+
   " USAGE: :F {file-contents-search-term}
   " SAVVY: This command reports failure if no matches found (so maybe :cd first).
   command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
