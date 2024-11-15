@@ -29,6 +29,9 @@ let g:plugin_add_fzf_path = 1
 "   :D <term> — Open FZF in Vim on ~/.kit/docs/source
 "               files with matching <term> in their contents
 "
+"   :FF <term> — Open FZF in Vim on current Git project's
+"                files with matching <term> in their contents
+"
 " CXREF: See more FZF ref. in the complementary shell file:
 "
 "   ~/.depoxy/ambers/core/fzf-setup.sh
@@ -160,6 +163,9 @@ function! s:WireFzfFilesWithMatches()
 
   " USAGE: :D {file-contents-search-term} — Searches notes files
   command! -bang -nargs=* D :exec "cd " .. $HOME .. "/.kit/docs/source" | call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
+
+  " USAGE: :FF {file-contents-search-term} — Searches current project files
+  command! -bang -nargs=* FF :Glcd | call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
 
 endfunction
 
