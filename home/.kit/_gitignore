@@ -171,6 +171,10 @@
 
 /odd/android/planning-time-android/
 
+# **** Containers
+
+/odd/containers/lazydocker
+
 # **** Database
 
 /odd/database/cassandra/

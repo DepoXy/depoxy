@@ -1,0 +1,36 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 699
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** Container projects
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# "The lazier way to manage everything docker"
+# - SIZED/2024-11-14: 59M (large docs/resources/demo*.gif)
+# - USAGE: Demo:
+#   - Run Docker Desktop (e.g., `open docker.app`)
+#   - Run `lazydocker`
+#   - You can also run the example `docker-compose.yml`:
+#       docker run --rm -it -v \
+#         /var/run/docker.sock:/var/run/docker.sock \
+#         -v ~/.kit/odd/containers/lazydocker:/.config/jesseduffield/lazydocker \
+#         lazyteam/lazydocker
+[${DOPP_KIT:-${HOME}/.kit}/odd/containers/lazydocker]
+lib = remote_set starter https://github.com/jesseduffield/lazydocker.git
+skip = no_travel
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
