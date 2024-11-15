@@ -158,6 +158,16 @@ function! s:WireFzfFilesWithMatches()
   "     that I choose when I want to search docs... so maybe I just need a
   "     second command wired to the docs path...).
 
+  " FIXEM/2024-11-15: Note you cannot use quotes or word boundary esacpes.
+  " - E.g., none of these work:
+  "     :F " FF "
+  "     :F ' FF '
+  "     :F \bGlcd\b
+  "     :F \<Glcd\>
+  "     :F \\bGlcd\\b
+  "     :F \\<Glcd\\>
+  " - This is a LOPRI request because grep-steady supports those searches.
+
   " USAGE: :F {file-contents-search-term} — Searches code projects
   command! -bang -nargs=* F :exec "cd " .. $HOME .. "/.projlns/depoxy-deeplinks" | call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
 
