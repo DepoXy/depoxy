@@ -109,9 +109,10 @@ function! s:WireFzfFilesWithMatches()
 
   " USYNC: Copy the globs from $FZF_DEFAULT_COMMAND, above.
   let g:rg_command = '
-    \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-    \ -g "!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**"
-    \ -g "!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}"
+    \ rg --hidden --follow --no-ignore-vcs --no-ignore-parent
+      \ --column --line-number --no-heading --fixed-strings --ignore-case  --color "always"
+      \ -g "!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**"
+      \ -g "!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}"
     \ '
 
   " The `:F {term}` command is pretty nifty, it'll search in files for
