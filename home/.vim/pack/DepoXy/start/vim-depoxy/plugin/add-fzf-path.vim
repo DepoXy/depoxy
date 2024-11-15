@@ -71,6 +71,7 @@ endfunction
 
 " ***
 
+" \f — Search files under Git root of current file's project.
 function! s:WireFzfGitRootSearch()
   " Use Tim Pope's fugitive to set the working directory to the Git root
   " of the current file, then opens the FZF file fuzzy finder window.
