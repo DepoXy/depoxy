@@ -210,23 +210,31 @@ main () {
     #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
     # - Plus: --files / Sans: --smart-case, --colors
 
-    local iglobs=()
-    iglobs+=(".git")
-    iglobs+=(".tox")
-    iglobs+=("node_modules")
-    iglobs+=("*.svg")
-    iglobs+=("*.xpm")
+    local dglobs=()
+    local fglobs=()
+    dglobs+=(".git")
+    dglobs+=(".tox")
+    dglobs+=("node_modules")
+    fglobs+=("*.svg")
+    fglobs+=("*.xpm")
     # Trash variants / CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_safe
-    iglobs+=(".trash")
-    iglobs+=(".trash0")
-    iglobs+=(".Trash")
-    iglobs+=(".Trash0")
+    dglobs+=(".trash")
+    dglobs+=(".trash0")
+    dglobs+=(".Trash")
+    dglobs+=(".Trash0")
 
-    local ignore_globs=""
-    local iglob
-    for iglob in "${iglobs[@]}"; do
-      [ -z "${ignore_globs}" ] || ignore_globs="${ignore_globs},"
-      ignore_globs="${ignore_globs}${iglob}"
+    local dir_globs=""
+    local dglob
+    for dglob in "${dglobs[@]}"; do
+      [ -z "${dir_globs}" ] || dir_globs="${dir_globs},"
+      dir_globs="${dir_globs}${dglob}"
+    done
+
+    local file_globs=""
+    local fglob
+    for fglob in "${fglobs[@]}"; do
+      [ -z "${file_globs}" ] || file_globs="${file_globs},"
+      file_globs="${file_globs}${fglob}"
     done
 
     export FZF_DEFAULT_COMMAND="$( \
@@ -237,7 +245,8 @@ main () {
           --follow
           --no-ignore-vcs
           --no-ignore-parent
-          -g '!**/{${ignore_globs}}/**'
+          -g '!**/{${dir_globs}}/**'
+          -g '!**/{${file_globs}}'
         2> /dev/null" \
       | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
     )"
