@@ -210,7 +210,18 @@ main () {
     #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
     # - Plus: --files / Sans: --smart-case, --colors
 
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs --no-ignore-parent -g "!**/{.git,.tox,node_modules,*.svg,*.xpm,.trash,.trash0,.Trash,.Trash0}/**" 2> /dev/null'
+    export FZF_DEFAULT_COMMAND="$( \
+      echo '
+        rg
+          --files
+          --hidden
+          --follow
+          --no-ignore-vcs
+          --no-ignore-parent
+          -g "!**/{.git,.tox,node_modules,*.svg,*.xpm,.trash,.trash0,.Trash,.Trash0}/**"
+        2> /dev/null' \
+      | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
+    )"
 
     export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 
