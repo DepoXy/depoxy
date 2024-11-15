@@ -223,22 +223,22 @@ main () {
     dglobs+=(".gnupg/private-keys-v1.d")
     dglobs+=(".zsh_sessions")
     # Vim's ~/.vim_backups/*.swp
-    fglobs+=("*.swp")
+    fglobs+=("swp")
     dglobs+=(".vim_backups")
     # Graphics, Document, and other files (you probably won't open in text)
-    fglobs+=("*.bin")
-    fglobs+=("*.gpg")
-    fglobs+=("*.jpg")
-    fglobs+=("*.Jpg")
-    fglobs+=("*.JPG")
-    fglobs+=("*.nib")
-    fglobs+=("*.pdf")
-    fglobs+=("*.Pdf")
-    fglobs+=("*.PDF")
-    fglobs+=("*.png")
-    fglobs+=("*.pyc")
-    fglobs+=("*.svg")
-    fglobs+=("*.xpm")
+    fglobs+=("bin")
+    fglobs+=("gpg")
+    fglobs+=("jpg")
+    fglobs+=("Jpg")
+    fglobs+=("JPG")
+    fglobs+=("nib")
+    fglobs+=("pdf")
+    fglobs+=("Pdf")
+    fglobs+=("PDF")
+    fglobs+=("png")
+    fglobs+=("pyc")
+    fglobs+=("svg")
+    fglobs+=("xpm")
     # DepoXy-specific directories
     dglobs+=(".crypt")
     dglobs+=(".noise/home")
@@ -272,7 +272,7 @@ main () {
           --no-ignore-vcs
           --no-ignore-parent
           -g '!**/{${dir_globs}}/**'
-          -g '!**/{${file_globs}}'
+          -g '!**/*.{${file_globs}}'
         2> /dev/null" \
       | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
     )"
