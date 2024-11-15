@@ -47,7 +47,8 @@
 #   :F <term> — Open FZF in Vim on files with matching <term>
 #               in their contents
 #
-# - CXREF: ~/.depoxy/ambers/core/fzf-setup.sh
+# - CXREF:
+#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
