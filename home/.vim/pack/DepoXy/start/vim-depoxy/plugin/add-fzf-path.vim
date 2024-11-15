@@ -17,6 +17,21 @@ let g:plugin_add_fzf_path = 1
 
 " ***
 
+" USAGE: This plugin wires the following bindings:
+"
+"   \F       — Open FZF in Vim on paths under user home
+"
+"   \f       — Open FZF in Vim on paths in current Git project
+"
+"   :F <term> — Open FZF in Vim on files with matching <term>
+"               in their contents
+"
+" CXREF: See more FZF ref. in the complementary shell file:
+"
+"   ~/.depoxy/ambers/core/fzf-setup.sh
+
+" ***
+
 " Configure fzf.
 "
 " USYNC: The FZF_DEFAULT_COMMAND string below was copied from a DepoXy shell:

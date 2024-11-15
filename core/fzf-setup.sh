@@ -35,6 +35,19 @@
 #
 #   tx [client-or-session] — Attach to the named tmux client-or-session,
 #                            or prompt user using `fzf`
+#
+# See also DepoXy Vim bindings:
+#
+#   \F       — Open FZF in Vim on paths under user home
+#              (akin to running <Ctrl-T> from user home)
+#
+#   \f       — Open FZF in Vim on paths in current Git project
+#              (akin to running <Ctrl-T> from `git root`)
+#
+#   :F <term> — Open FZF in Vim on files with matching <term>
+#               in their contents
+#
+# - CXREF: ~/.depoxy/ambers/core/fzf-setup.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -209,6 +222,9 @@ main () {
     # USYNC: Use the same flags as Homefries' `rg`:
     #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
     # - Plus: --files / Sans: --smart-case, --colors
+
+    # USYNC: Copy the final ${FZF_DEFAULT_COMMAND} to DepoXy Vim:
+    #   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
 
     local dglobs=()
     local fglobs=()
