@@ -232,6 +232,7 @@ main () {
     fglobs+=("Jpg")
     fglobs+=("JPG")
     fglobs+=("nib")
+    # SAVVY: `rg --ignore-case` doesn't seem to work on globs, so add permutations.
     fglobs+=("pdf")
     fglobs+=("Pdf")
     fglobs+=("PDF")
