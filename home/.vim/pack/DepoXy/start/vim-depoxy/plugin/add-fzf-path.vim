@@ -17,20 +17,55 @@ let g:plugin_add_fzf_path = 1
 
 " ***
 
-" See elsewhere:
-"
-"   Add user gopath bin to path.
-"
-" (so that Vim find fzf; amon'go other things).
-
 " Configure fzf.
+"
+" USYNC: The FZF_DEFAULT_COMMAND string below was copied from a DepoXy shell:
+"
+"   echo "${FZF_DEFAULT_COMMAND}"
+"
+" CXREF: ~/.depoxy/ambers/core/fzf-setup.sh
+"
+" - ALTLY: We could actually omit the FZF_DEFAULT_COMMAND setting if you
+"   start Vim from a DepoXy terminal. But embedding it ensures that FZF
+"   still works if you start Vim from a Launcher, or Spotlight, etc.
+"
+" SAVVY: `fzf` must be found on PATH.
+"
+" - DepoXy installs a symlink at ~/.local/bin/fzf
+"
+" HSTRY: This previously used an `fd` command [2024-11-14], e.g.:
+"
+"   function! s:SetFzfEnvirons()
+"     if !executable("fd")
+"       return
+"     endif
+"     let $FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+"     let $FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+"   endfunction
+"
+" - But author now prefers `rg`, for whatever reason.
+"   - See more comments in ~/.depoxy/ambers/core/fzf-setup.sh
+"
+" ALTLY: Rather than being exclusive, we could be inclusive, e.g.,:
+"
+"   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+"
+" - But author more likely knows which files they don't care about, and
+"   less likely about which files they do/might care about. (E.g., if
+"   you start working with a new language, e.g., Rust, I'd probably
+"   forget to come here to add the ".rs" extension (or I'd be annoyed
+"   that I had to).)
 
 function! s:SetFzfEnvirons()
-  if !executable("fd")
+  if !executable("rg")
     return
   endif
-  let $FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
-  let $FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git"
+
+  " USYNC: See comment above: Copy this string from your shell.
+
+  let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --no-ignore-vcs --no-ignore-parent -g '!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**' -g '!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}'"
+
+  let $FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 endfunction
 
 " ***
