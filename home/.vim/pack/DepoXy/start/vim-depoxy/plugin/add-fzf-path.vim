@@ -71,6 +71,13 @@ endfunction
 
 " ***
 
+" \F — Search files under user home.
+function! s:WireFzfAllFilesSearch()
+  map <silent> <leader>F :lcd<CR>:FZF<CR>
+endfunction
+
+" ***
+
 " \f — Search files under Git root of current file's project.
 function! s:WireFzfGitRootSearch()
   " Use Tim Pope's fugitive to set the working directory to the Git root
@@ -91,6 +98,8 @@ endfunction
 call s:SetFzfEnvirons()
 
 call s:WireFzfFilesWithMatches()
+
+call s:WireFzfAllFilesSearch()
 
 call s:WireFzfGitRootSearch()
 
