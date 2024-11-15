@@ -25,7 +25,7 @@ let g:plugin_add_fzf_path = 1
 
 " Configure fzf.
 
-function! s:SetFzfDefaultCommandsFd()
+function! s:SetFzfEnvirons()
   if !executable("fd")
     return
   endif
@@ -83,7 +83,7 @@ endfunction
 
 call s:SetFzfDefaultCommandsRg()
 
-call s:SetFzfDefaultCommandsFd()
+call s:SetFzfEnvirons()
 
 call s:WireStartFzfFromProjectRootForFileMap()
 
