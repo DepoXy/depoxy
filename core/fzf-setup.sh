@@ -210,16 +210,35 @@ main () {
     #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
     # - Plus: --files / Sans: --smart-case, --colors
 
+    local iglobs=()
+    iglobs+=(".git")
+    iglobs+=(".tox")
+    iglobs+=("node_modules")
+    iglobs+=("*.svg")
+    iglobs+=("*.xpm")
+    # Trash variants / CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_safe
+    iglobs+=(".trash")
+    iglobs+=(".trash0")
+    iglobs+=(".Trash")
+    iglobs+=(".Trash0")
+
+    local ignore_globs=""
+    local iglob
+    for iglob in "${iglobs[@]}"; do
+      [ -z "${ignore_globs}" ] || ignore_globs="${ignore_globs},"
+      ignore_globs="${ignore_globs}${iglob}"
+    done
+
     export FZF_DEFAULT_COMMAND="$( \
-      echo '
+      echo "
         rg
           --files
           --hidden
           --follow
           --no-ignore-vcs
           --no-ignore-parent
-          -g "!**/{.git,.tox,node_modules,*.svg,*.xpm,.trash,.trash0,.Trash,.Trash0}/**"
-        2> /dev/null' \
+          -g '!**/{${ignore_globs}}/**'
+        2> /dev/null" \
       | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
     )"
 
