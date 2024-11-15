@@ -35,7 +35,7 @@ endfunction
 
 " ***
 
-function! s:SetFzfDefaultCommandsRg()
+function! s:WireFzfFilesWithMatches()
   if !executable("rg")
     return
   endif
@@ -89,7 +89,7 @@ endfunction
 
 call s:SetFzfEnvirons()
 
-call s:SetFzfDefaultCommandsRg()
+call s:WireFzfFilesWithMatches()
 
 call s:WireStartFzfFromProjectRootForFileMap()
 
