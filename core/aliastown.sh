@@ -210,6 +210,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
   # Duplicate alias, because, ya know.
   pushd_alias_or_warn "cdej" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
+  # Another, b/c for some reason I can't remember either of the previous 2.
+  pushd_alias_or_warn "cdun" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
 
   pushd_alias_or_warn "cdsp" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 
