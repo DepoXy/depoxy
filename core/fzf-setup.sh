@@ -212,9 +212,11 @@ main () {
 
     local dglobs=()
     local fglobs=()
+    # Common dev tool directories
     dglobs+=(".git")
     dglobs+=(".tox")
     dglobs+=("node_modules")
+    # Graphics and Document files (you probably won't open in text)
     fglobs+=("*.svg")
     fglobs+=("*.xpm")
     # Trash variants / CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_safe
