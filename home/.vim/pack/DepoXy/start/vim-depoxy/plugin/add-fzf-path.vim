@@ -33,6 +33,8 @@ function! s:SetFzfEnvirons()
   let $FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git"
 endfunction
 
+" ***
+
 function! s:SetFzfDefaultCommandsRg()
   if !executable("rg")
     return
@@ -67,6 +69,8 @@ function! s:SetFzfDefaultCommandsRg()
   command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 endfunction
 
+" ***
+
 function! s:WireStartFzfFromProjectRootForFileMap()
   " Use Tim Pope's fugitive to set the working directory to the Git root
   " of the current file, then opens the FZF file fuzzy finder window.
@@ -81,11 +85,11 @@ function! s:WireStartFzfFromProjectRootForFileMap()
   map <silent> <leader>f :Glcd<CR>:FZF<CR>
 endfunction
 
+" ***
+
 call s:SetFzfEnvirons()
 
 call s:SetFzfDefaultCommandsRg()
 
 call s:WireStartFzfFromProjectRootForFileMap()
-
-" ***
 
