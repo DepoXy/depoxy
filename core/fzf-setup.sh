@@ -226,6 +226,7 @@ main () {
     fglobs+=("*.swp")
     dglobs+=(".vim_backups")
     # Graphics, Document, and other files (you probably won't open in text)
+    fglobs+=(".bash_history")
     fglobs+=("*.bin")
     fglobs+=("*.gif")
     fglobs+=("*.gpg")
@@ -242,6 +243,7 @@ main () {
     fglobs+=("*.png")
     fglobs+=("*.pyc")
     fglobs+=("*.svg")
+    fglobs+=(".viminfo")
     fglobs+=("*.xpm")
     fglobs+=("*.zip")
     # DepoXy-specific directories
