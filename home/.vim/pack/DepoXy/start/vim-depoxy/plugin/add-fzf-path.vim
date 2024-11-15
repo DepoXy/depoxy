@@ -116,6 +116,7 @@ function! s:WireFzfFilesWithMatches()
   "  results in the quickfix. Whether using the quickfix or FZF is quicker,
   "  well, that might be what drives me to use one of the other.)
   " USAGE: :F {file-contents-search-term}
+  " SAVVY: This command reports failure if no matches found (so maybe :cd first).
   command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
 endfunction
 
