@@ -81,9 +81,9 @@ function! s:WireStartFzfFromProjectRootForFileMap()
   map <silent> <leader>f :Glcd<CR>:FZF<CR>
 endfunction
 
-call s:SetFzfDefaultCommandsRg()
-
 call s:SetFzfEnvirons()
+
+call s:SetFzfDefaultCommandsRg()
 
 call s:WireStartFzfFromProjectRootForFileMap()
 
