@@ -227,11 +227,14 @@ main () {
     dglobs+=(".vim_backups")
     # Graphics, Document, and other files (you probably won't open in text)
     fglobs+=("bin")
+    fglobs+=("gif")
     fglobs+=("gpg")
     fglobs+=("jpg")
     fglobs+=("Jpg")
     fglobs+=("JPG")
     fglobs+=("nib")
+    fglobs+=("odg")
+    fglobs+=("odt")
     # SAVVY: `rg --ignore-case` doesn't seem to work on globs, so add permutations.
     fglobs+=("pdf")
     fglobs+=("Pdf")
@@ -240,6 +243,7 @@ main () {
     fglobs+=("pyc")
     fglobs+=("svg")
     fglobs+=("xpm")
+    fglobs+=("zip")
     # DepoXy-specific directories
     dglobs+=(".crypt")
     dglobs+=(".noise/home")
