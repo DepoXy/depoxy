@@ -52,29 +52,45 @@ let g:loaded_after_vim_minimal_sometimes = 1
 " SAVVY: Note the system() call itself runs in a subprocess, so `$$`
 " within system() is not the Vim process. The Vim process is `$PPID`.
 "
-" That said, here are some of the process trees you might see:
+" So here are some of the process trees you might see:
 "
-" - Vim process ('system()' parent process) is always MacVim:
+" - As mentioned, the system() process ID (`system("echo '$$'")`) is
+"   a fleeting process (and gone after the system call completes).
+"   You'll also see that Vim uses a temp file for its output.
+"   - E.g.: /opt/homebrew/bin/bash -c (ps -o command= -p $$) \
+"       > /var/folders/4r/vs_plqd91h9dclfh5c020cdh0000gn/T/vKPGiSW/5^@
+"
+"   echom 'PID: ' .. system('ps -o command= -p $$')
+"
+" - The Vim process (the 'system()' parent process) is Vim, or MacVim:
 "   - MacVim.app: /Applications/MacVim.app/Contents/MacOS/Vim
 "   - Terminal `vim`: /Applications/MacVim.app/Contents/MacOS/Vim
 "   - Command `pass edit`: /Applications/MacVim.app/Contents/MacOS/Vim -c startinsert ...
+"   - Command 'dob edit': /Applications/MacVim.app/Contents/MacOS/Vim -c startinsert
+"       -c norm! gg /var/folders/4r/vs_plqd91h9dclfh5c020cdh0000gn/T/2024_11_18_1040_jc7tz6c9.rst
 "
-"   echom system('ps -o command= -p ${PPID}')
+"   echom 'PPID: ' .. system('ps -o command= -p ${PPID}')
 "
 " - Vim parent process ('system()' grand-parent) varies by context, e.g.:
 "   - MacVim parent: /sbin/launchd (aka PID 1)
 "   - Terminal `vim` parent: /opt/homebrew/bin/bash
-"   - `pass edit` parent: bash /Users/user/.kit/sh/home-fries/bin/editor-vim-0-0-insert \
+"   - `pass edit` and `dob edit` parent: bash /Users/user/.kit/sh/home-fries/bin/editor-vim-0-0-insert \
 "       /var/folders/4r/vs_plqd91h9dclfh5c020cdh0000gn/T//pass.fS3PYHKq1ZkXu/70KsFD-foo-bar.rst
+"   - ALTLY: `EDITOR= pass edit` and `EDITOR= dob edit` gp is not 'editor-vim-0-0-insert', but that
+"     command itself instead, e.g.:
+"       bash /Users/user/.local/bin/pass edit --ext=rst path/to/pwd
+"       /Users/user/.kit/dob/dob/.venv-dob/bin/python /Users/user/.kit/dob/dob/.venv-dob/bin/dob edit
 "
-"   echom system('gpid="$(ps -o ppid= -p ${PPID} | tr -d " ")" ; ps -o command= -p ${gpid}')
+"   echom 'GPID: ' .. system('gpid="$(ps -o ppid= -p ${PPID} | tr -d " ")" ; ps -o command= -p ${gpid}')
 "
 " - Finally, the Vim grand-parent ('system()' g/g/p) tells us the app calling Vim, e.g.:
 "   - MacVim g/p: Nothing
 "   - `vim` g/p: /opt/homebrew/bin/bash
 "   - `pass edit` g/p: bash /Users/user/.local/bin/pass edit --ext=rst zyx/foo
+"   - `dob edit` g/p: /Users/user/.kit/dob/dob/.venv-dob/bin/python \
+"       /Users/user/.kit/dob/dob/.venv-dob/bin/dob edit
 "
-"   echom system('
+"   echom 'GGPID: ' .. system('
 "     \ gpid="$(ps -o ppid= -p ${PPID} | tr -d " ")" ;
 "     \ ggpid="$(ps -o ppid= -p ${gpid} | tr -d " ")" ;
 "     \ ps -o command= -p ${ggpid}
