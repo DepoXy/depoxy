@@ -68,6 +68,10 @@ skip = skip_unless_linux || no_travel
 lib = remote_set starter https://github.com/jesseduffield/lazydocker.git
 skip = no_travel
 
+[${DOPP_KIT:-${HOME}/.kit}/odd/containers/monokle/monokle-demo]
+lib = remote_set starter https://github.com/kubeshop/monokle-demo.git
+skip = no_travel
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
