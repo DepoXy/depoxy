@@ -58,6 +58,7 @@ Lua
 MacDown
 MapServer
 MongoDB
+Monokle
 Moonlander
 NERDCommenter
 Neovim
@@ -146,6 +147,7 @@ inputrc
 io
 iterm
 jq
+k9s
 keycode
 launchd
 lazydocker
