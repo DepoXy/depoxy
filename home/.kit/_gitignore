@@ -173,8 +173,8 @@
 
 # **** Containers
 
-/odd/containers/lazydocker
-/odd/containers/monokle/monokle-demo
+/odd/containers/lazydocker/
+/odd/containers/monokle/monokle-demo/
 
 # **** Database
 
