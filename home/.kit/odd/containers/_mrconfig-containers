@@ -17,6 +17,13 @@ order = 699
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/odd/containers/containerd]
+lib = remote_set starter https://github.com/containerd/containerd
+skip = skip_unless_linux || no_travel
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # Docker/Kubernetes GUIs/TUIs (mostly installed via Homebrew):
 #
 #   https://k9scli.io/

@@ -109,6 +109,11 @@ lib =
     ! os_is_macos || mr_exclusive
   }
 
+lib =
+  skip_unless_linux () {
+    [ "$(uname)" != "Linux" ] || mr_exclusive
+  }
+
 # Usually a project would specify a list of tags, e.g.,
 #   skip = mr_exclusive "python"
 # but for projects without an explicit 'skip' action, check for
