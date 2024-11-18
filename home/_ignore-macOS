@@ -3,5 +3,154 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# ***
+
+# Top-level symlinks
+#
+#   find ~ -type l -maxdepth 1 | sort
+
+/.acme.conf
+/.bash_history
+/.bashrc
+/.ctags
+/.finicky.js
+/.gitconfig
+/.gitconfig.local
+/.gitconfig.user
+/.gitconfig.user-business
+/.gitconfig.user-personal
+/.gitconfig.user-private
+/.gitignore.local
+/.gitmux.conf
+/.gnupg
+/.homefries
+/.ignore
+/.mrconfig
+/.mrinfuse
+/.mrtrust
+/.multitail.conf
+/.password-store
+/.pdbrc
+/.profile
+/.tmux.conf
+/.tmux.conf.local
+/.vimrc
+
+# ***
+
+# Top-level files
+
+/.CFUserTextEncoding
+/.bash_completion
+/.complete_alias
+/.forward
+/.lesshst
+/.node_repl_history
+/.pdbr_history
+/.python_history
+/.tig_history
+/.viminfo
+/.wget-hsts
+/.yarnrc
+/.zsh_history
+/README.rst
+/mbox
+
+# Top-level hard links
+
+/.gitignore
+/.inputrc
+
+# ***
+
+# Top-level DepoXy directories.
+
+/.trash/
+/.trash0/
+/.Trash/
+/.Trash0/
+# /.depoxy/
+# /.kit/
+/.noise/
+/.projlns/
+# /work/
+
+# Other top-level directories.
+
+/.bash_sessions/
+/.cache/
+/.config/
+/.cpan/
+/.cpanm/
+/.docker/
+/.dropbox/
+/.gem/
+/.git/
+/.gopath/
+/.grip/
+/.hammerspoon/
+/.k8slens/
+/.lldb/
+/.local/
+/.npm/
+/.pencil/
+/.pyenv/
+/.qutebrowser/
+/.ssh/
+/.terminfo/
+/.tmux/
+# /.vim/
+/.vim_backups/
+/.virtualenvs/
+/.zsh_sessions/
+/Applications/
+# /Desktop/
+# /Documents/
+# /Downloads/
+# /Dropbox/
 /Library/
+# /Movies/
+# /Music/
+# /Pictures/
+/Postman/
+# /Public/
+/go/
+/perl5/
+
+# ***
+
+# Apple files.
+
+.DS_Store
+*.localized
+
+# ***
+
+/Movies/iMovie Library.imovielibrary/
+/Movies/iMovie Theater.theater/
+/Movies/TV/Media.localized/
+/Movies/TV/Previous Libraries.localized/
+/Movies/TV/TV Library.tvlibrary/
+
+/Music/Audio Music Apps/
+/Music/GarageBand/
+/Music/Music/
+
+/Pictures/.dtrash/
+/Pictures/Photos Library.photoslibrary/
+/Pictures/digikam4.db
+/Pictures/recognition.db
+/Pictures/similarity.db
+/Pictures/thumbnails-digikam.db
+
+# ***
+
+# DepoXy paths.
+
+# Ignore intentionally broken symlink to avoid `rg`
+# complaint: "No such file or directory (os error 2)".
+#   .../broken_link.json -> not_found.json
+# - Note we have to ignore the parent directory, not
+#   just the file.
+/.kit/mOS/Karabiner-Elements/tests/src/complex_modifications_assets/json/complex_modifications/
 

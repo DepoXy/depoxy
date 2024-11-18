@@ -234,14 +234,8 @@ main () {
     dglobs+=(".tox")
     dglobs+=("node_modules")
     # Home directories
-    dglobs+=(".bash_sessions")
-    dglobs+=(".grip/cache-*")
-    dglobs+=(".gnupg/openpgp-revocs.d")
-    dglobs+=(".gnupg/private-keys-v1.d")
-    dglobs+=(".zsh_sessions")
     # Vim's ~/.vim_backups/*.swp
     fglobs+=("*.swp")
-    dglobs+=(".vim_backups")
     # Graphics, Document, and other files (you probably won't open in text)
     fglobs+=(".bash_history")
     fglobs+=("*.bin")
@@ -265,13 +259,6 @@ main () {
     fglobs+=("*.zip")
     # DepoXy-specific directories
     dglobs+=(".crypt")
-    dglobs+=(".noise/home")
-    dglobs+=(".projlns")
-    # Trash variants / CXREF: ~/.kit/sh/sh-rm_safe/bin/rm_safe
-    dglobs+=(".trash")
-    dglobs+=(".trash0")
-    dglobs+=(".Trash")
-    dglobs+=(".Trash0")
 
     local dir_globs=""
     local dglob

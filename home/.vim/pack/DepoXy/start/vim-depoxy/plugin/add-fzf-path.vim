@@ -85,7 +85,7 @@ function! s:SetFzfEnvirons()
   " USYNC: See comment above: Copy this string from your shell.
   " - Also update the rg_command, below.
 
-  let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --no-ignore-vcs --no-ignore-parent -g '!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**' -g '!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}'"
+  let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --no-ignore-vcs --no-ignore-parent -g '!**/{.git,.tox,node_modules,.crypt}/**' -g '!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}'"
 
   let $FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 endfunction
@@ -117,7 +117,7 @@ function! s:WireFzfFilesWithMatches()
   let g:rg_command = '
     \ rg --hidden --follow --no-ignore-vcs --no-ignore-parent
       \ --column --line-number --no-heading --fixed-strings --ignore-case  --color "always"
-      \ -g "!**/{.git,.tox,node_modules,.bash_sessions,.grip/cache-*,.gnupg/openpgp-revocs.d,.gnupg/private-keys-v1.d,.zsh_sessions,.vim_backups,.crypt,.noise/home,.projlns,.trash,.trash0,.Trash,.Trash0}/**"
+      \ -g "!**/{.git,.tox,node_modules,.crypt}/**"
       \ -g "!**/{*.swp,.bash_history,*.bin,*.gif,*.gpg,*.jpg,*.Jpg,*.JPG,*.nib,*.odg,*.odt,*.pdf,*.Pdf,*.PDF,*.png,*.pyc,*.svg,.viminfo,*.xpm,*.zip}"
     \ '
 
