@@ -17,6 +17,29 @@ order = 699
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# REFER: See the containder installation doc:
+#   ✓ https://github.com/containerd/containerd/blob/main/docs/getting-started.md
+# - BWARE: The containerd Ansible task (./contrib/ansible) is outdated (the
+#   apt.kubernetes.io apt repo is deprecated, migrated to pkgs.k8s.io).
+#   - So *do not* try to use this installation doc:
+#     ✗ https://github.com/containerd/containerd/blob/main/contrib/ansible/README.md
+#
+# CXREF: See K8s install tasks author added to ansible-role-docker playbook
+# (for Linux Mint/Ubuntu, but not for macOS):
+#   https://github.com/geerlingguy/ansible-role-docker
+#   https://github.com/geerlingguy/ansible-role-docker/blob/master/tasks/kubernetes-reconfigure-containerd.yml
+#   https://github.com/geerlingguy/ansible-role-docker/blob/master/tasks/kubernetes-install-cni-plugins.yml
+# Found locally on a Linux DepoXy environment at:
+#   ~/.kit/ansible/roles/ansible-role-docker/tasks/kubernetes-reconfigure-containerd.yml
+#   ~/.kit/ansible/roles/ansible-role-docker/tasks/kubernetes-install-cni-plugins.yml
+# - CXREF: You'll also need to configure UFW to allow pertinent ports:
+#     https://github.com/landonb/zoidy_troglodyte
+#     https://github.com/landonb/zoidy_troglodyte/blob/release/defaults/main.yml
+#     https://github.com/landonb/zoidy_troglodyte/blob/release/tasks/setup-ufw-firewall.yml
+#   - Found locally at:
+#     ~/.kit/ansible/roles/zoidy_troglodyte/defaults/main.yml
+#     ~/.kit/ansible/roles/zoidy_troglodyte/tasks/setup-ufw-firewall.yml
+
 [${DOPP_KIT:-${HOME}/.kit}/odd/containers/containerd]
 lib = remote_set starter https://github.com/containerd/containerd
 skip = skip_unless_linux || no_travel
