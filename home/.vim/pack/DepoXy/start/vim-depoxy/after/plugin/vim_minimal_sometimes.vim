@@ -96,6 +96,10 @@ let g:loaded_after_vim_minimal_sometimes = 1
 "     \ ps -o command= -p ${ggpid}
 "     \ ')
 
+" - SAVVY: We'll check if called from `pass edit`, but it's unnecessary
+"   because `pass_safe` uses VIM_EDIT_JUICE_EXIT_ON_SAVE=1.
+"   - CXREF: ~/.depoxy/ambers/core/passstore.sh
+
 function! s:MapCtrlSSaveAndExitForSpecialApps()
   " Check if `dob edit` or `pass edit` is great-grand-parent process.
   call system('
