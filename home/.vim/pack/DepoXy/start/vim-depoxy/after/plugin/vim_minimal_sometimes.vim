@@ -81,7 +81,7 @@ let g:loaded_after_vim_minimal_sometimes = 1
 "     \ ')
 
 function! s:MapCtrlSSaveAndExitForSpecialApps()
-  " Check if `dob edit` or `pass edit` is grand-parent process.
+  " Check if `dob edit` or `pass edit` is great-grand-parent process.
   call system('
     \ gpid="$(ps -o ppid= -p ${PPID} | tr -d " ")";
     \ ggpid="$(ps -o ppid= -p ${gpid} | tr -d " ")";
