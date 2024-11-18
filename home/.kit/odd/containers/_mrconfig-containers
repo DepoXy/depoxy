@@ -17,6 +17,13 @@ order = 699
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# Docker/Kubernetes GUIs/TUIs (mostly installed via Homebrew):
+#
+#   https://k9scli.io/
+#   https://monokle.io/
+#   https://k8slens.dev/
+#   https://github.com/jesseduffield/lazydocker
+
 # "The lazier way to manage everything docker"
 # - SIZED/2024-11-14: 59M (large docs/resources/demo*.gif)
 # - USAGE: Demo:
