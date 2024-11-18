@@ -173,6 +173,7 @@
 
 # **** Containers
 
+/odd/containers/containerd/
 /odd/containers/lazydocker/
 /odd/containers/monokle/monokle-demo/
 
