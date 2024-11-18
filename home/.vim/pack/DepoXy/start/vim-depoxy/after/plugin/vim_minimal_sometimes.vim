@@ -101,12 +101,13 @@ let g:loaded_after_vim_minimal_sometimes = 1
 "   - CXREF: ~/.depoxy/ambers/core/passstore.sh
 
 function! s:MapCtrlSSaveAndExitForSpecialApps()
-  " Check if `dob edit` or `pass edit` is great-grand-parent process.
+  " Check if `dob edit` or `pass edit` is great-grand-parent process,
+  " or if EDITOR="" and one of said commands is grand-parent process.
   call system('
     \ gpid="$(ps -o ppid= -p ${PPID} | tr -d " ")";
     \ ggpid="$(ps -o ppid= -p ${gpid} | tr -d " ")";
-    \ ps -o command= -p ${ggpid} | grep -q -e "^bash .*\/pass edit " \
-    \   || ps -o command= -p ${ggpid} | grep -q -e "\/python .*\/dob edit$";
+    \ (ps -o command= -p ${gpid}; ps -o command= -p ${ggpid}) |
+    \   grep -q -e "^bash .*\/pass edit " -e "\/python .*\/dob edit$";
     \ ')
 
   if !v:shell_error
