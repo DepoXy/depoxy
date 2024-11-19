@@ -151,8 +151,8 @@ bind generic % >sh -c " \
     PW_PID_KILL_ON_ERROR=$PPID \
       git rebase-sort-by-scope-protected-private \
         \"${starting_ref}\" \
-        \"${_magic_starting_ref:-true}\" \
         \"${_enable_gpg_sign:-false}\" \
+        \"${_magic_starting_ref:-true}\" \
         \"${_insist_signing_key:-false}\"; \
   }; git_sort_by_scope__rebase_________________"
 
@@ -170,8 +170,8 @@ bind generic <C-g> >sh -c " \
     PW_PID_KILL_ON_ERROR=$PPID \
       git rebase-sort-by-scope-protected-private \
         \"${starting_ref}\" \
-        \"${_magic_starting_ref:-true}\" \
         \"${_enable_gpg_sign:-true}\" \
+        \"${_magic_starting_ref:-true}\" \
         \"${_insist_signing_key:-true}\"; \
   }; git_sort_by_scope__rebase_with_gpgSign____"
 
