@@ -86,6 +86,9 @@ _dxy_check_if_omr_infuse_run_since_latest_macos_update () {
       "   三       三   " \
       "$(attr_underline)recently updated$(attr_reset) 🔔"
     echo "              三       三        ᕕ( ᐛ )ᕗ"
+    echo "$(attr_emphasis)Or expressly:$(attr_reset)"
+    echo "           " \
+      "$(attr_bold)sudo -v; ~/.depoxy/ambers/home/infuse-platform-macOS$(attr_reset)"
   fi
 }
 
