@@ -308,6 +308,8 @@ _dxy_wire_aliases_pushd_paths_kit () {
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
   pushd_alias_or_warn "cdks" "${SHOILERPLATE:-${HOME}/.kit/sh}"
+  # CALSO: `cdtx` (which author !remembers (are rarely goes there anyway)).
+  pushd_alias_or_warn "cdkt" "${DOPP_KIT:-${HOME}/.kit}/txt}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
