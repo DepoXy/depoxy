@@ -205,7 +205,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # *** ~/.kit/txt — Text
 
   # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
-  pushd_alias_or_warn "cdtx" "${SHOILERPLATE:-${HOME}/.kit/txt}"
+  pushd_alias_or_warn "cdtx" "${DOPP_KIT:-${HOME}/.kit}/txt}"
 
   pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
   # Duplicate alias, because, ya know.
