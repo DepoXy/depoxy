@@ -608,8 +608,13 @@ merge =
 rebase =
   local resume_cmd="$1"
   #
-  rebase_tip "${resume_cmd}" "project-local-venv" "starter/main" \
-    "publish/liminal" "${_local_name:--}" "${_add_version_tag:-true}" \
+  rebase_tip \
+    "${resume_cmd}" \
+    "${_slug_name:-project-local-venv}" \
+    "${_remote_ref:-starter/main}" \
+    "${_liminal_ref:-publish/liminal}" \
+    "${_local_name:--}" \
+    "${_add_version_tag:-true}" \
     "${_skip_rebase:-false}"
 push =
   rebase_tip_push_liminal_tag
