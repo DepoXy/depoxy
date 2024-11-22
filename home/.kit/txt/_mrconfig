@@ -38,3 +38,12 @@ autocommit =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# "Good-lookin' diffs. Actually… nah… The best-lookin' diffs. 🎉"
+# HSTRY: Unsure if ~/.kit/txt is best location for this.
+# - Altly: ~/.kit/odd/perl (which doesn't exist).
+[${DOPP_KIT:-${HOME}/.kit}/txt/diff-so-fancy]
+lib = remote_set starter https://github.com/so-fancy/diff-so-fancy.git
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
