@@ -233,6 +233,10 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # *** ~/Documents/screencaps
 
   pushd_alias_or_warn "cdsc" "${DEPOXY_SCREENCAPS_DIR:-${HOME}/Documents/screencaps}"
+
+  # *** macOS temp directory (with fallback Linux path)
+
+  pushd_alias_or_warn "cdtmp" '${TMPDIR:-/tmp}'
 }
 
 _dxy_wire_aliases_pushd_paths_vim () {
