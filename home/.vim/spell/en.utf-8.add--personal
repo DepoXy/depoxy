@@ -150,6 +150,8 @@ iterm
 jq
 k9s
 keycode
+kubeadm
+kubectl
 kubelet
 launchd
 lazydocker
