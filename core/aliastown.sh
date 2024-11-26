@@ -219,6 +219,10 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   pushd_alias_or_warn "cddl" "${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
 
+  # *** ~/.local
+
+  pushd_alias_or_warn "cdbin" "${HOME}/.local/bin}"
+
   # *** ~/.projlns
 
   # Changes to ripgrep corral. (Not that I go there very often,
