@@ -43,6 +43,7 @@ autocommit =
 # - Altly: ~/.kit/odd/perl (which doesn't exist).
 [${DOPP_KIT:-${HOME}/.kit}/txt/diff-so-fancy]
 lib = remote_set starter https://github.com/so-fancy/diff-so-fancy.git
+skip = no_travel
 
 # ========================================================================
 # ------------------------------------------------------------------------
