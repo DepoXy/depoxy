@@ -129,3 +129,15 @@ rebase =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# HSTRY/2024-11-25: `pass` uses `tree`, and tree v2.2.0 had regression,
+# which I noticed because Homebrew auto-updated last night. And rather
+# than revert to previous version, I cloned, investigated, and fixed.
+# REFER: https://oldmanprogrammer.net/source.php?dir=projects/tree
+[${SHOILERPLATE:-${HOME}/.kit/sh}/unix-tree]
+lib =
+  remote_set publish https://gitlab.com/l5b/unix-tree.git
+  remote_set starter https://gitlab.com/OldManProgrammer/unix-tree.git
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
