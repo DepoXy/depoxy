@@ -233,6 +233,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
     "${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS:-${HOME}/.projlns}/depoxy-deeplinks}"
   pushd_alias_or_warn "cdpjm" \
     "${MREDIT_CONFIGS:-${DEPOXY_PROJLNS:-${HOME}/.projlns}/mymrconfigs}"
+  # SKIPD: ~/.projlns/docs-and-backlog
+  # SKIPD: ~/.projlns/sh-lib
 
   # *** ~/Documents/screencaps
 
