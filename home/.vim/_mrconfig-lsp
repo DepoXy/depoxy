@@ -195,6 +195,15 @@ install =
   info
   info "Calling :CocInstall coc-json coc-tsserver coc-pyright..."
   #
+  # REFER: CoC extensions are generally forked from VS Code extensions:
+  # https://github.com/neoclide/coc-json
+  #   https://www.npmjs.com/package/vscode-json-languageservice
+  # https://github.com/neoclide/coc-tsserver
+  #   https://github.com/microsoft/vscode/tree/main/extensions/typescript-language-features
+  #     https://code.visualstudio.com/docs/languages/typescript
+  #     https://code.visualstudio.com/docs/languages/javascript
+  # https://github.com/fannheyward/coc-pyright
+  #   https://github.com/microsoft/pyright
   vim -c "CocInstall coc-json coc-tsserver coc-pyright"
 #
 infuse =
