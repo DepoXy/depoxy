@@ -608,16 +608,18 @@ merge =
   rebase_tip_merge_release "${_resume_cmd:-$1}" "starter/main" \
     "${_add_version_tag:-true}" "$@"
 rebase =
-  local resume_cmd="$1"
-  #
-  rebase_tip \
-    "${resume_cmd}" \
-    "${_slug_name:-project-local-venv}" \
-    "${_remote_ref:-starter/main}" \
-    "${_liminal_ref:-publish/liminal}" \
-    "${_local_name:--}" \
-    "${_add_version_tag:-true}" \
-    "${_skip_rebase:-false}"
+  # local resume_cmd="$1"
+  # #
+  # rebase_tip \
+  #   "${resume_cmd}" \
+  #   "${_slug_name:-project-local-venv}" \
+  #   "${_remote_ref:-starter/main}" \
+  #   "${_liminal_ref:-publish/liminal}" \
+  #   "${_local_name:--}" \
+  #   "${_add_version_tag:-true}" \
+  #   "${_skip_rebase:-false}"
+  >&2 echo "ERROR: Please 'merge' instead"
+  return 1
 push =
   rebase_tip_push_liminal_tag
 isInstalled =
