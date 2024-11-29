@@ -129,7 +129,13 @@ install =
   #     - Now I wonder if my terminology is misleading... I use
   #       'release' branches like 'main' branches... well, both,
   #       I support, so 'release' is fine, it still applies.
-  pull_latest "starter" "release"
+  #
+  # SAVVY/2024-11-27: The release branch isn't tagged, so use remote
+  # branch as the "tag" to create branch from.
+  pull_latest \
+    "${_remote_name:-starter}" \
+    "${_remote_branch:-release}" \
+    "${_version_tag:-starter/release}"
   #
   # ***
   #
