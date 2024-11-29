@@ -602,6 +602,8 @@ echoInstallHelp =
   #   echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
   #     mr -d \"${MR_REPO}\" -n installpythons
   #   "
+# CPYST: For more trace, try:
+#   MR_LOG_LEVEL=0 mr -d . -n merge
 merge =
   rebase_tip_merge_release "${_resume_cmd:-$1}" "starter/main" \
     "${_add_version_tag:-true}" "$@"
