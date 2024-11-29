@@ -254,6 +254,9 @@
 # -> ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 /.hammerspoon/init.lua
 
+# Conventional Python IDLE editor.
+/.idlerc/
+
 # `less`'s history file.
 /.lesshst
 
@@ -343,6 +346,9 @@
 
 # Tmux plugins, e.g., tmux-sensible, tpm.
 /.tmux/plugins/
+
+# Visual Studio Code
+/.vscode/
 
 # Wget's HSTS database.
 /.wget-hsts
