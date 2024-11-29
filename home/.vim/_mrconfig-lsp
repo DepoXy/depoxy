@@ -183,8 +183,12 @@ install =
   echo "- After Vim opens, wait for CoC to complete, then quit Vim"
   printf -- "- Press any key to open Vim [.] "
   local ignored_key
-  read -e -n 1 ignored_key
-  [ -z "${ignored_key}" ] || echo
+  # SAVVY: OMR uses /var/select/sh to run shell code, which DepoXy symlinks
+  # to /bin/dash, which doesn't support `read -e`, so run through bash.
+  /bin/bash -c "\
+    read -e -n 1 ignored_key;
+    [ -z "${ignored_key}" ] || echo;
+  "
   #
   info
   info "STEPS: Quit Vim after Coc finishes..."
