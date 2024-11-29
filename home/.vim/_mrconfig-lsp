@@ -111,6 +111,7 @@ isInstalled =
 #    :CocInstall coc-pyright coc-json coc-tsserver
 # "
 install =
+  info "Creating/Updating install branch..."
   # MAYBE/2021-03-11 23:17: Pin to specific version?
   # - E.g. coc-pyright "requires coc.nvim >= >=0.0.80":
   #   git checkout refs/tags/v0.0.80
@@ -139,6 +140,9 @@ install =
   #
   # ***
   #
+  info
+  info "Installing coc.nvim..."
+  #
   # Install TSLint, which is deprecated (says it's replaced by
   # ESLint), but if it's not installed, then `npm install` warns:
   #   npm WARN @typescript-eslint/eslint-plugin-tslint@4.2.0
@@ -147,14 +151,22 @@ install =
   # npm install eslint tslint
   # 2022-11-22:
   #   npm WARN deprecated tslint@6.1.3: TSLint has been deprecated in favor of ESLint.
+  echo
+  echo "$ npm install"
   npm install
   #
   # The install changes package.json, which makes the repo look changed.
+  # - SAVVY/2024-11-27: No longer an issue?
   debug "Restore package.json"
+  echo
+  echo "$ git checkout -- package.json"
   git checkout -- package.json
   #
   # Update Vim help.
+  debug
   debug "Calling :helptags"
+  echo
+  echo "$ vim -c \"helptags ./doc\" -c q"
   vim -c "helptags ./doc" -c q
   #
   # Wire ~/.vim/coc-settings.json
@@ -165,6 +177,8 @@ install =
   #   which calls:
   #     setup_private_coc_config
   #   This is the equivalent, for the 1 file we want planted.
+  echo
+  echo "MR_REPO=\"${HOME}/.vim\" symlink_mrinfuse_file 'coc-settings.json'"
   MR_REPO="${HOME}/.vim" symlink_mrinfuse_file 'coc-settings.json'
   # This also works, but then the symlink is an absolute path
   # (and `command ls -l` is more likely to wrap when printing it):
@@ -191,9 +205,7 @@ install =
   "
   #
   info
-  info "STEPS: Quit Vim after Coc finishes..."
-  info
-  info "Calling :CocInstall coc-json coc-tsserver coc-pyright..."
+  info "Remember: Quit Vim after Coc finishes..."
   #
   # REFER: CoC extensions are generally forked from VS Code extensions:
   # https://github.com/neoclide/coc-json
@@ -204,7 +216,11 @@ install =
   #     https://code.visualstudio.com/docs/languages/javascript
   # https://github.com/fannheyward/coc-pyright
   #   https://github.com/microsoft/pyright
+  echo "$ vim -c \"CocInstall coc-json coc-tsserver coc-pyright\""
   vim -c "CocInstall coc-json coc-tsserver coc-pyright"
+  #
+  info
+  info "Done! Enjoy being a Conqueror of Completion 👑 𓆰𓆪 ⚜️  ⚔️"
 #
 infuse =
   # 2020-12-26: Ignore package-lock.json.
