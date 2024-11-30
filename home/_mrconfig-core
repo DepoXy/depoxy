@@ -295,6 +295,7 @@ include =
 [${MR_HOME:-${HOME}}/.kit]
 order = 204
 lib = remote_set_private
+ffssh = MR_FLOATING_TAGS="pw/private/in" git_merge_ffonly_ssh_mirror "$@"
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   #
