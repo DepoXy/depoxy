@@ -63,7 +63,40 @@ marco_toggle_spotify () {
   fi
 }
 
+# ***
+
+check_deps () {
+  if ! os_is_linux; then
+    >&2 echo "ERROR: This script only runs on Linux"
+
+    return 1
+  fi
+
+  if ! command -v wmctrl > /dev/null; then
+    >&2 echo "ERROR: Missing comand \`wmctrl\`"
+
+    return 1
+  fi
+
+  if ! command -v xdotool > /dev/null; then
+    >&2 echo "ERROR: Missing comand \`xdotool\`"
+
+    return 1
+  fi
+}
+
+os_is_linux () {
+  [ "$(uname)" = "Linux" ]
+}
+
+# ***
+
 main () {
+  if ! check_deps; then
+
+    return 1
+  fi
+
   marco_toggle_spotify "$@"
 }
 
