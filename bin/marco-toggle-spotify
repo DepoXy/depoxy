@@ -22,6 +22,10 @@
 # https://github.com/user-none/KDocker/blob/master/src/trayitemmanager.cpp#L305
 
 keybinding-focus-spotify () {
+  # E.g., '65012405'
+  local win_before
+  win_before="$(xdotool getactivewindow)"
+
   local spotify_pid
   spotify_pid=$(ps aux | grep '/usr/share/spotify/spotify %U$' | awk '{print $2}')
 
@@ -48,6 +52,14 @@ keybinding-focus-spotify () {
         /usr/bin/spotify %U
   else
     wmctrl -i -a "${spotify_win}"
+
+    local win_after
+    win_after="$(xdotool getactivewindow)"
+
+    if [ "${win_before}" = "${win_after}" ]; then
+      # Window was already topmost, so minimize (iconify) it.
+      xdotool windowminimize "${win_before}"
+    fi
   fi
 }
 
