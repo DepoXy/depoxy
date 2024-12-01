@@ -41,6 +41,17 @@ marco_toggle_spotify () {
     #   -i file   Custom icon path
     #   -m        Keep application window showing (don't hide on dock)
     #   -q        Disable ballooning title changes (quiet)
+    # DUNNO: kdocker: When iconified, how do you find and front it?
+    #   -l        Iconify when focus lost [ideally I'd like to iconfiy
+    #               when minimized, but this is similarly as good]
+    #   -o        Iconify when obscured by other windows [doesn't seem to work]
+    #   ??        If you right-clock the icon, you can choose
+    #               Options > Iconify when minimized
+    #             And you can right-click the icon itself to iconify the app.
+    #             But when iconified, it no longer appears in the window list,
+    #             so we cannot call wmctrl to raise it...
+    #             - DUNNO: Maybe there's a `kdocker` or similar command we
+    #               could call to un-iconify the app, but I can't find one.
     # OPTNS: /usr/bin/spotify:
     #   %U        Author does not recall, and cannot find documented.
     /usr/bin/kdocker \
