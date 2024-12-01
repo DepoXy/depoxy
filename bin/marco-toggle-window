@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2024 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+toogle_window_marco () {
+  local found_window=false
+
+  # E.g., '65012405'
+  local win_before
+  win_before="$(xdotool getactivewindow)"
+
+  local win_title
+  for win_title in "$@"; do
+    if wmctrl -a "${win_title}"; then
+      found_window=true
+
+      break;
+    fi
+  done
+
+  if ! ${found_window}; then
+
+    return 1
+  fi
+
+  local win_after
+  win_after="$(xdotool getactivewindow)"
+
+  if [ "${win_before}" = "${win_after}" ]; then
+    # Window was already topmost, so minimize (iconify) it.
+    xdotool windowminimize "${win_before}"
+  fi
+}
+
+# ***
+
+check_deps () {
+  if ! os_is_linux; then
+    >&2 echo "ERROR: This script only runs on Linux"
+
+    return 1
+  fi
+
+  if ! command -v wmctrl > /dev/null; then
+    >&2 echo "ERROR: Missing comand \`wmctrl\`"
+
+    return 1
+  fi
+
+  if ! command -v xdotool > /dev/null; then
+    >&2 echo "ERROR: Missing comand \`xdotool\`"
+
+    return 1
+  fi
+}
+
+os_is_linux () {
+  [ "$(uname)" = "Linux" ]
+}
+
+# ***
+
+main () {
+  if ! check_deps; then
+
+    return 1
+  fi
+
+  toogle_window_marco "$@"
+}
+
+main "$@"
+
