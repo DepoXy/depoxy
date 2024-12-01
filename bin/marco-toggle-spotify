@@ -64,11 +64,7 @@ marco_toggle_spotify () {
 }
 
 main () {
-  if [ "${BASH_SOURCE[0]}" != "$0" ]; then
-    export -f marco_toggle_spotify
-  else
-    marco_toggle_spotify "$@"
-  fi
+  marco_toggle_spotify "$@"
 }
 
 main "$@"
