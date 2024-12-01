@@ -23,9 +23,16 @@
 
 keybinding-focus-spotify () {
   local spotify_pid
-  spotify_pid=$(ps aux | grep 'spotify/spotify$' | awk '{print $2}')
-  spotify_win=$(wmctrl -lp | grep "\<${spotify_pid}\>" | awk '{print $1}')
-  wmctrl -i -a ${spotify_win}
+  spotify_pid=$(ps aux | grep '/usr/share/spotify/spotify %U$' | awk '{print $2}')
+
+  local spotify_win=""
+  if [ -n "${spotify_pid}" ]; then
+    spotify_win="$(wmctrl -lp | grep "\<${spotify_pid}\>" | awk '{print $1}')"
+  fi
+
+  if [ -n "${spotify_win}" ]; then
+    wmctrl -i -a "${spotify_win}"
+  fi
 }
 
 main () {
