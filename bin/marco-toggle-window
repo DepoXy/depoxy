@@ -29,6 +29,14 @@ toogle_window_marco () {
     return 1
   fi
 
+  # TRACK/2024-12-01 04:54: If the frontmost window is not the one
+  # being raised, but it's minimized when you run this command, you
+  # might need to hold off for a split second for `wmctrl -a` to
+  # finish raising the intended target.
+  # - E.g.:
+  #
+  #   sleep 0.13
+
   local win_after
   win_after="$(xdotool getactivewindow)"
 
