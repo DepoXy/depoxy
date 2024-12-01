@@ -21,7 +21,7 @@
 # "This window is already docked.\nClick on system tray icon to toggle docking."
 # https://github.com/user-none/KDocker/blob/master/src/trayitemmanager.cpp#L305
 
-keybinding-focus-spotify () {
+marco_toggle_spotify () {
   # E.g., '65012405'
   local win_before
   win_before="$(xdotool getactivewindow)"
@@ -65,9 +65,9 @@ keybinding-focus-spotify () {
 
 main () {
   if [ "${BASH_SOURCE[0]}" != "$0" ]; then
-    export -f keybinding-focus-spotify
+    export -f marco_toggle_spotify
   else
-    keybinding-focus-spotify "$@"
+    marco_toggle_spotify "$@"
   fi
 }
 
