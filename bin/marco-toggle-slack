@@ -1,0 +1,85 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE: Call to focus the Spotify application window,
+#        useful for, e.g., window manager keybindings.
+
+# Note: Spotify renames the window to "Artist - Song Title" so need to
+#   do a little window ID math: get the process ID (PID) using a more
+#   exact path, "spotify/spotify" (to distinguish from the associated
+#   kdocker task). Then use wmctrl to get the window ID, and then to
+#   focus it.
+
+# FIXME/2020-01-07: Figure out how to tell kdocker to restore from tray.
+# - For now, only works if Spotify is windowed, and not solely docked.
+# 2020-04-28 19:32: Doesn't appear possible via CLI. And it tells you to click:
+# "This window is already docked.\nClick on system tray icon to toggle docking."
+# https://github.com/user-none/KDocker/blob/master/src/trayitemmanager.cpp#L305
+
+marco_toggle_slack () {
+  # E.g., '65012405'
+  local win_before
+  win_before="$(xdotool getactivewindow)"
+
+  local slack_win=""
+  slack_win="$(wmctrl -l | grep " - Slack$" | awk '{ print $1 }')"
+
+  if [ -z "${slack_win}" ]; then
+    flatpak run com.slack.Slack
+  else
+    wmctrl -i -a "${slack_win}"
+
+    local win_after
+    win_after="$(xdotool getactivewindow)"
+
+    if [ "${win_before}" = "${win_after}" ]; then
+      # Window was already topmost, so minimize (iconify) it.
+      xdotool windowminimize "${win_before}"
+    fi
+  fi
+}
+
+# ***
+
+check_deps () {
+  if ! os_is_linux; then
+    >&2 echo "ERROR: This script only runs on Linux"
+
+    return 1
+  fi
+
+  if ! command -v wmctrl > /dev/null; then
+    >&2 echo "ERROR: Missing comand \`wmctrl\`"
+
+    return 1
+  fi
+
+  if ! command -v xdotool > /dev/null; then
+    >&2 echo "ERROR: Missing comand \`xdotool\`"
+
+    return 1
+  fi
+}
+
+os_is_linux () {
+  [ "$(uname)" = "Linux" ]
+}
+
+# ***
+
+main () {
+  if ! check_deps; then
+
+    return 1
+  fi
+
+  marco_toggle_slack "$@"
+}
+
+main "$@"
+
