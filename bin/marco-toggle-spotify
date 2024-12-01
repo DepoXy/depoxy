@@ -30,7 +30,23 @@ keybinding-focus-spotify () {
     spotify_win="$(wmctrl -lp | grep "\<${spotify_pid}\>" | awk '{print $1}')"
   fi
 
-  if [ -n "${spotify_win}" ]; then
+  if [ -z "${spotify_win}" ]; then
+    # ALERT: Depends on https://github.com/landonb/zoidy_matecocido#🖥️
+    # at least for the kdocker icon.
+    # OPTNS: kdocker:
+    #   -i file   Custom icon path
+    #   -m        Keep application window showing (don't hide on dock)
+    #   -q        Disable ballooning title changes (quiet)
+    # OPTNS: /usr/bin/spotify:
+    #   %U        Author does not recall, and cannot find documented.
+    /usr/bin/kdocker \
+      -i "${HOME}/.config/zoidy_matecocido/icons/spotify-linux-128-CROPPED-118.png" \
+      -m \
+      -q \
+      env \
+        BAMF_DESKTOP_FILE_HINT=/usr/share/spotify/spotify.desktop \
+        /usr/bin/spotify %U
+  else
     wmctrl -i -a "${spotify_win}"
   fi
 }
