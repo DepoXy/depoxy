@@ -792,7 +792,8 @@ install =
 lib = remote_set publish https://github.com/doblabs/mrconfig-dob.git
 infuse =
   link_private_exclude "$@"
-  link_private_ignore_ "$@"
+  # ISOFF/2024-12-02: ~/.kit/dob includes its .ignore
+  #  link_private_ignore_ "$@"
   #
   symlink_overlay_file \
     "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/dob/_mrconfig-client" \
