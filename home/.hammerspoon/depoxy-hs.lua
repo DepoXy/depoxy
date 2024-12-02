@@ -97,6 +97,8 @@ end)
 --       gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc/.config/skhd/skhdrc")
 --     end)
 
+-- *** Hammerspoon config files
+
 -- Meta (main macOS-Hammyspoony config)
 --
 -- - CXREF: ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
@@ -106,7 +108,7 @@ shift_alt_r = hs.hotkey.bind({"shift", "alt"}, "R", function()
   gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua")
 end)
 
--- More meta (this file)
+-- More meta (CXREF: this file)
 
 -- BNDNG: <Shift-Cmd-R>
 shift_cmd_r = hs.hotkey.bind({"shift", "cmd"}, "R", function()
