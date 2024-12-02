@@ -245,7 +245,11 @@ tigconfig_generate_depoxy_tig_config () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_user_home_dotfiles () {
-  # 2020-11-22: Ctags a bit obsolete, given Vim-CoC and LSPs.
+  # Note that go-to-definition (e.g., `gd`) from LSP servers (i.e.,
+  # neoclide/coc.nvim and the servers it runs) is very useful, but
+  # Ctags is still useful for DepoXy as a whole (such as being any
+  # to jump to almost any function definition from any file from
+  # any project), and very much so for Bash/Shell functions.
   symlink_mrinfuse_file '.ctags'
 
   # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
