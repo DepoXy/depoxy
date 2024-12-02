@@ -55,7 +55,7 @@ end
 -- - CXREF: ~/.kit/txt/emoji-lookup/emoji-lookup.rst
 
 -- BNDNG: <Cmd-U>
-hs.hotkey.bind({"cmd"}, "U", function()
+local cmd_u = hs.hotkey.bind({"cmd"}, "U", function()
   gvim_open_kindness("${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst")
 end)
 
@@ -63,7 +63,7 @@ end)
 -- - CXREF: ~/.depoxy/ambers/bin/macOS/launchers/alacritty-front-window-dob.osa
 
 -- BNDNG: <Cmd-D>
-hs.hotkey.bind({"cmd"}, "D", function()
+local cmd_d = hs.hotkey.bind({"cmd"}, "D", function()
   local dob_window = hs.window.find('dob edit')
 
   if not dob_window then
@@ -104,14 +104,14 @@ end)
 -- - CXREF: ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 
 -- BNDNG: <Shift-Alt-R>
-shift_alt_r = hs.hotkey.bind({"shift", "alt"}, "R", function()
+local shift_alt_r = hs.hotkey.bind({"shift", "alt"}, "R", function()
   gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua")
 end)
 
 -- More meta (CXREF: this file)
 
 -- BNDNG: <Shift-Cmd-R>
-shift_cmd_r = hs.hotkey.bind({"shift", "cmd"}, "R", function()
+local shift_cmd_r = hs.hotkey.bind({"shift", "cmd"}, "R", function()
   gvim_open_kindness("${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.hammerspoon/depoxy-hs.lua")
 end)
 
@@ -122,7 +122,7 @@ ignore_hotkey_slack(shift_cmd_r)
 -- - CXREF: ~/.depoxy/running/home/.hammerspoon/client-hs.lua
 
 -- BNDNG: <Shift-Ctrl-R>
-shift_ctrl_r = hs.hotkey.bind({"shift", "ctrl"}, "R", function()
+local shift_ctrl_r = hs.hotkey.bind({"shift", "ctrl"}, "R", function()
   gvim_open_kindness("${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua")
 end)
 
@@ -183,6 +183,21 @@ appTapAttach:registerApptap(
   "MacVim",
   macvim_shift_ctrl_kludge_get_eventtap
 )
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Application blocklist: Blanket hotkey disablement for select apps.
+
+local allHotkeys = {
+  -- Individual hs.hotkey.bind() objects from above
+  cmd_u,
+  cmd_d,
+  shift_alt_r,
+  shift_cmd_r,
+  shift_ctrl_r,
+}
+
+appTapDisableHotkeys:registerHotkeys(allHotkeys)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
