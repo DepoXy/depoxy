@@ -190,6 +190,20 @@ _dxy_add_on_demand_source_git_put_wise () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# REFER: https://github.com/DepoXy/macOS-onboarder#🏂
+_dxy_add_on_demand_source_macOS_defaults_commands () {
+  # CXREF: ~/.kit/mOS/macOS-onboarder/lib/macOS-defaults-commands.sh
+  local defaults_cmds="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/lib/macOS-defaults-commands.sh"
+
+  if [ -f "${defaults_cmds}" ]; then
+    eval "eval-macOS-defaults-commands () {
+      . '${defaults_cmds}';
+    }"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_configure_git_my_merge_status () {
   GITSMART_MYST_BRANCH_HIERARCHY="${GITSMART_MYST_BRANCH_HIERARCHY:-release develop proving}"
   GITSMART_MYST_REMOTE_HIERARCHY="${GITSMART_MYST_REMOTE_HIERARCHY:-release 👍 👆 protected 🌟 🌛}"
@@ -305,6 +319,9 @@ main () {
 
   _dxy_add_on_demand_source_git_put_wise
   unset -f _dxy_add_on_demand_source_git_put_wise
+
+  _dxy_add_on_demand_source_macOS_defaults_commands
+  unset -f _dxy_add_on_demand_source_macOS_defaults_commands
 
   _dxy_configure_git_my_merge_status
   unset -f _dxy_configure_git_my_merge_status
