@@ -51,6 +51,21 @@ lib =
   }
   source_321open_cfg
 
+lib =
+  # Load HOMEBREW_PREFIX et al for projects to use.
+  # - When run from your shell, Brew might already be loaded.
+  #   So this is for running from another process, e.g., `homebrew-autoupdate`.
+  # - Currently, this is just for `mr -d ~/.kit/py/pyenv -n infuse`.
+  source_brewskies_and_by_extension_homebrew () {
+    local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+    # CXREF: ~/.depoxy/ambers/core/brewskies.sh
+    . "${DEPOXYAMBERS_DIR:-${ambers_path}}/core/brewskies.sh"
+    # brewskies.sh calls `brew shellenv` when sourced by Bash,
+    # but OMR runs via /bin/sh (e.g., /bin/dash).
+    _depoxy_infuse_brew_shellenv
+  }
+  source_brewskies_and_by_extension_homebrew
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
