@@ -148,6 +148,14 @@ installDarwin =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# REFER/2024-12-03 03:50: See logs for homebrew-autoupdate:
+#
+#   $ ll ~/Library/Logs/com.github.domt4.homebrew-autoupdate/*.out
+#   -rw-r--r-- 1 puck staff 30M Dec  2 03:55
+#     /Users/puck/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
+#
+# - You'll find the `mr -d / infuse` output therein, too.
+
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/homebrew-autoupdate]
 # Use 'origin' remote specifically, otherwise:
 #   $ brew install some-app
