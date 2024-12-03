@@ -7,8 +7,9 @@
 # ------------------------------------------------------------------------
 
 [DEFAULT]
-# CXREF: ~/.kit/git/ohmyrepos/.mrconfig-omr
-include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos}/.mrconfig-omr"
+include =
+  # CXREF: ~/.kit/git/ohmyrepos/.mrconfig-omr
+  cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/ohmyrepos}/.mrconfig-omr"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -21,29 +22,21 @@ include = cat "${OHMYREPOS_DIR:-${GITREPOSPATH:-${MR_HOME:-${HOME}}/.kit/git}/oh
 #     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi
 include =
   cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi"
-
-include =
   cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate"
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/append-bash-completion.sh"
-
-# CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
-
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/is-remote-depoxy-client-same.sh"
-
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/macos-install-dmg.sh"
-
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/prepare-guard-repo.sh"
-
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/pyenv-shell-unset.sh"
-
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/rebase-tip.sh"
-
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/stub-checkout.sh"
+lib =
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/append-bash-completion.sh"
+  # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/is-remote-depoxy-client-same.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/macos-install-dmg.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/prepare-guard-repo.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/pyenv-shell-unset.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/rebase-tip.sh"
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/stub-checkout.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -61,7 +54,8 @@ include =
 [DEFAULT]
 # spells.sh runner (commit_sorted_spells_and_alert_if_conflicts) for Vim spell file maintenance.
 # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh @ 17
-lib = . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh"
+lib =
+  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------

@@ -6,8 +6,10 @@
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/_mrconfig-load-libs
-include = cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/_mrconfig-load-libs"
+[DEFAULT]
+include =
+  # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/_mrconfig-load-libs
+  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/_mrconfig-load-libs"
 
 # ========================================================================
 # ------------------------------------------------------------------------
