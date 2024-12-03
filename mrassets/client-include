@@ -18,7 +18,27 @@ source_deps () {
   if command -v "logger.sh" > /dev/null; then
     . "logger.sh"
   else
+    # Ensure colors.sh on path, or sourcing from sh-logger/bin, otherwise
+    # you might see "MISSING: ‘colors.sh’ not found on PATH." (which is not
+    # fatal, and something else will later source it into the OMR runtime,
+    # but still distasteful to see).
+    # - This might happen if `mr` wired to run from cron or launchd, or you
+    #   run it without your shell loaded (where PATH is, for example,
+    #   /usr/bin:/bin:/usr/sbin:/sbin), e.g.:
+    #     $ cd ~/.kit/git/myrepos
+    #     $ OHMYREPOS_LIB="${OHMYREPOS_LIB:-${HOME}/.kit/git/ohmyrepos/lib}" \
+    #       MR_LOG_LEVEL=0 \
+    #         ./mr -d / infuse
+    #
+    # Alternatively to setting PATH, we'll just `cd`.
+    # - DUNNO: `mr` doesn't allow `cd -` or `cd -- -`. If included:
+    #     mr: parse error from `include`...
+    local before_cd="$(pwd -L)"
+    cd -- "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+    #
     . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+    #
+    cd -- "${before_cd}"
   fi
 }
 
