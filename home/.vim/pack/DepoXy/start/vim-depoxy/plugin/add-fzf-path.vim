@@ -168,6 +168,9 @@ function! s:WireFzfFilesWithMatches()
   "     :F \\<Glcd\\>
   " - This is a LOPRI request because grep-steady supports those searches.
 
+  " CXREF: This commands call junegunn/fzf.vim:
+  " ~/.vim/pack/junegunn/start/fzf.vim/autoload/fzf/vim.vim
+
   " USAGE: :F {file-contents-search-term} — Searches code projects
   command! -bang -nargs=* F :exec "cd " .. $HOME .. "/.projlns/depoxy-deeplinks" | call fzf#vim#grep(g:rg_command .. shellescape(<q-args>), 1, <bang>0)
 
