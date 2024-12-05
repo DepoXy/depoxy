@@ -173,7 +173,7 @@ populate_run_generator () {
     return 0
   fi
 
-  info " Running symlink generator: $(font_highlight "${generator}")…"
+  info "Running symlink generator: $(font_highlight "${generator}")…"
 
   ${generator} > /dev/null
 
