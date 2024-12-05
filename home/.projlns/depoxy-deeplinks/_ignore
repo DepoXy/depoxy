@@ -71,24 +71,14 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# ~/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh is all over.
+# OBSOLETE/2024-12-05: DepoXy no longer uses a bashrx.private.${USER}.sh
+# or any other bashrx.private*.sh file — it just uses bashrx.private.sh,
+# which is not a symlink.
 #
-# Via `rg -uuu "<some unique text from bashrx.private.${USER}.sh>"`
-# from within ~/.projlns/depoxy-deeplinks:
-#
-#   /Users/user/.depoxy/ambers/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
-#   /Users/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /Users/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
-#   /Users/user/.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#   /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/.bashrc-bin/bashrx.private.sh
-#
-# But there's only one duplicate that's not .ignore'd by another .ignore.
-
-# Symlinks to private DepoXy Client Bashrc.
-# -> ../../.mrinfuse/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
-# Aka: ~/.depoxy/running/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
-/Users/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private*.sh
+#   # Symlinks to private DepoXy Client Bashrc.
+#   # -> ../../.mrinfuse/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
+#   # Aka: ~/.depoxy/running/home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.${USER}.sh
+#   /Users/user/.kit/sh/home-fries/.bashrc-bin/bashrx.private*.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
