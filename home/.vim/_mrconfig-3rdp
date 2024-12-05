@@ -63,8 +63,8 @@ lib = remote_set starter https://github.com/ctrlpvim/ctrlp.vim.git
 
 # *** 'DepoXy': See .mrconfig-dubs
 #
-# mine: [pack/DepoXy/start/vim-clip-expand-path] #👣
-# mine: [pack/DepoXy/start/vim-depoxy-coc-defaults] #🥥
+# mine: [pack/DepoXy/start/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
+# mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
 #
 # # Symlink to private plugin for DepoXy Client @biz-specific features.
 # mine: [pack/DepoXy/start/vim-trap]
@@ -149,8 +149,10 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # # --- Original projects and some forks:
 # both: [pack/landonb/start/vim-buffer-ring#💍]
 # fork: [pack/landonb/start/vim-classic-taglist#🏛]
+# mine: [pack/DepoXy/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
 # mine: [pack/landonb/start/vim-command-line-clock#🕰]
-# gone: [pack/landonb/start/vim-ftplugin-how-it-works#🎆]
+# mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
+# gone: [pack/landonb/opt/vim-ftplugin-how-it-works#🎆]
 # mine: [pack/landonb/start/vim-fullscreen-toggle#💯]
 # mine: [pack/thirsty-vim/start/vim-goto-file-sh#🚕]
 # mine: [pack/landonb/start/vim-lcd-project-root#🥔]
