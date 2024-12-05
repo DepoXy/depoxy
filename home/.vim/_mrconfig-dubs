@@ -28,7 +28,7 @@ order = 369
 #  [pack/cespare/start/vim-toml]
 #  [pack/chrisbra/start/improvedft]
 #  [pack/chrisbra/start/matchit]
-#  [pack/ctrlpvim/start/ctrlp.vim]
+#  [pack/ctrlpvim/opt/ctrlp.vim]
 #  [pack/editorconfig/opt/vim-go]
 #  [pack/editorconfig/start/editorconfig-vim]
 #  # [pack/fholgado/opt/minibufexpl.vim]  # OFF: 2017-11-02: Removed minibufexpl.vim.
@@ -305,7 +305,7 @@ lib =
 #  [pack/vim-scripts/start/ZoomWin]
 # *** vo-z
 #  [pack/voithos/start/vim-python-matchit]
-#  [pack/wincent/start/command-t]
+#  [pack/wincent/opt/command-t]
 #  #[pack/xolox/opt/vim-easytags]  # Removed.
 #  [pack/xolox/start/vim-misc]
 #  [pack/yssl/start/QFEnter]

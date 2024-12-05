@@ -57,8 +57,10 @@ rebase =
     git commit -m "Bugfix: Remove doc/tags (:Helptags asset)"
   fi
 
-# CALSO: There are 3 FZF plugins. See junegunn/fzf.vim for notes, below.
-[pack/ctrlpvim/start/ctrlp.vim]
+# ISOFF/2024-12-05: CtrlP and CommandT are now disabled
+# (they've long since stopped working properly in DepoXy).
+# - REFER: For FZF features, see junegunn/fzf.vim, below.
+[pack/ctrlpvim/opt/ctrlp.vim]
 lib = remote_set starter https://github.com/ctrlpvim/ctrlp.vim.git
 
 # *** 'DepoXy': See .mrconfig-dubs
@@ -103,15 +105,17 @@ infuse = link_private_exclude "$@"
 [pack/juanpabloaj/start/vim-istanbul]
 lib = remote_set starter https://github.com/juanpabloaj/vim-istanbul.git
 
-# CALSO: There are 3 FZF plugins:
+# CALSO: There are at least 3 Vim FZF plugins you could use:
 #     ctrlpvim/ctrlp.vim (VimL)
 #     junegunn/fzf.vim   (Go)
-#     wincent/command-t  (Ruby)
-# - DepoXy wires junegunn/fzf.vim (which author assumes is more performant
-#   than VimL or Ruby, but I haven't profiled), though you can still try
-#   the other two.
+#     wincent/command-t  (Lua for Neovim, or old Ruby code for Vim)
+# - DepoXy wires junegunn/fzf.vim (which author assumes is more
+#   performant than VimL or Ruby, but I haven't profiled).
 #   - CXREF:
 #     ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
+# - DepoXy used to also include CtrlP and CommandT, but they no longer
+#   work properly. And because junefunn/fzf.vim works well, there's no
+#   reason to try to resurrect those two plugins.
 [pack/junegunn/start/fzf.vim]
 lib = remote_set starter https://github.com/junegunn/fzf.vim.git
 
@@ -382,8 +386,10 @@ lib = remote_set starter https://github.com/voithos/vim-python-matchit.git
 
 # *** From 'w' to 'z'
 
-# CALSO: There are 3 FZF plugins. See junegunn/fzf.vim for notes, above.
-[pack/wincent/start/command-t]
+# ISOFF/2024-12-05: CtrlP and CommandT are now disabled
+# (they've long since stopped working properly in DepoXy).
+# - REFER: For FZF features, see junegunn/fzf.vim, above.
+[pack/wincent/opt/command-t]
 lib = remote_set starter https://github.com/wincent/command-t.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'Command-T/cmdT'
 isInstalled = test -x "ruby/command-t/ext/command-t/ext.so"

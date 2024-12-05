@@ -123,7 +123,7 @@
 /cespare/start/vim-toml/
 /chrisbra/start/improvedft/
 /chrisbra/start/matchit/
-/ctrlpvim/start/ctrlp.vim/
+/ctrlpvim/opt/ctrlp.vim/
 /editorconfig/start/editorconfig-vim/
 /editorconfig/start/vim-go/
 /flazz/start/vim-colorschemes/
@@ -161,7 +161,7 @@
 /vim-scripts/start/TeTrIs.vim/
 /vim-scripts/start/ZoomWin/
 /voithos/start/vim-python-matchit/
-/wincent/start/command-t/
+/wincent/opt/command-t/
 /xolox/start/vim-misc/
 /yuezk/start/vim-js/
 /zhou13/start/vim-easyescape/
