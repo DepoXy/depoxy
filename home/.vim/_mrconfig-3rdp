@@ -156,7 +156,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/vim-reST-highfive#🖐]
 # mine: [pack/landonb/start/vim-reST-highline#➖]
 # mine: [pack/landonb/start/vim-select-mode-stopped-down#🛑]
-# mine: [pack/landonb/start/vim-source-reloader#🔃]
+# mine: [pack/landonb/start/vim-source-reloader#🔃] # Or: ↩️
 # fork: [pack/landonb/start/vim-surround#🔄]
 # mine: [pack/landonb/start/vim-title-bar-time-of-day#⌚]
 # fork: [pack/landonb/start/vim-tmux-navigator#🧭]

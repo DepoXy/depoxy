@@ -162,7 +162,7 @@ lib = remote_set publish https://github.com/landonb/vim-command-line-clock.git
 lib = remote_set publish https://github.com/landonb/vim-fullscreen-toggle.git
 
 # Original project.
-# Savvy sh-syntax aware `includeexpr` for `gf`
+# Shell-syntax-aware `includeexpr` for `gf`
 [pack/thirsty-vim/start/vim-goto-file-sh]
 lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
 # Original project.
