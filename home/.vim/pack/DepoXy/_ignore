@@ -4,7 +4,7 @@ opt/*/doc/tags
 start/*/doc/tags
 
 # Ignore symlinks to user's private files.
-start/dubs_file_finder/cmdt_paths
+opt/dubs_file_finder/cmdt_paths
 start/dubs_grep_steady/dubs_projects.vim
 start/dubs_project_tray/dubs_cuts
 start/dubs_project_tray/.vimprojects

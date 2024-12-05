@@ -135,7 +135,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/dubs_appearance#💅]
 # mine: [pack/landonb/start/dubs_buffer_fun#🎲]
 # mine: [pack/landonb/start/dubs_edit_juice#🧃]
-# mine: [pack/landonb/start/dubs_file_finder#🗄]
+# mine: [pack/landonb/opt/dubs_file_finder#🗄]
 # mine: [pack/landonb/start/dubs_ftype_mess#🧹]
 # mine: [pack/landonb/start/dubs_grep_steady#🤹]
 # mine: [pack/landonb/start/dubs_html_entities#👽]

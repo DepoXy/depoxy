@@ -107,7 +107,7 @@ infuse_projects_links_core () {
 #   - USYNC: See similar exclude patterns:
 #     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
 #     ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
-#     ~/.vim/pack/landonb/start/dubs_file_finder/plugin/dubs_file_finder.vim
+#     ~/.vim/pack/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
 #     ~/.vim/pack/landonb/start/dubs_grep_steady/bin/vim-grepprg-rg-sort
 #
 # - Inhibit final summary using --totals=no.

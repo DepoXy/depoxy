@@ -157,7 +157,7 @@ infuse_this_infuser () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 populate_run_generator () {
-  # E.g., .mrinfuse/pack/landonb/start/dubs_file_finder/cmdt_paths/generate_links.sh
+  # E.g., .mrinfuse/pack/landonb/start/dubs_project_tray/generate_links.sh
   local generator="$1"
 
   local symldir
@@ -182,14 +182,32 @@ populate_run_generator () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# ISOFF/2024-12-05: dubs_file_finder is now deprecated in favor of
+# junegunn/fzf.vim and DepoXy's vim-depoxy:
+#   ~/.vim/pack/junegunn/start/fzf.vim/README.md
+#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
+# - You can still find dubs_file_finder under opt/:
+#   ~/.vim/pack/landonb/opt/dubs_file_finder
+
 # CXREF:
-#   ~/.vim/pack/landonb/start/dubs_file_finder/plugin/dubs_file_finder.vim
+#   ~/.vim/pack/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
 setup_private_plug_file_dubs_file_finder () {
-  [ -d "${HOME}/.vim/pack/landonb/start/dubs_file_finder" ] || return 0
+  local dff_dir="${HOME}/.vim/pack/landonb/start/dubs_file_finder"
+
+  if ! [ -d "${dff_dir}" ]; then
+    dff_dir="${HOME}/.vim/pack/landonb/opt/dubs_file_finder"
+  fi
+
+  if ! [ -d "${dff_dir}" ]; then
+
+    return 0
+  fi
+
+  # ***
 
   local before_cd="$(pwd -L)"
 
-  cd "${HOME}/.vim/pack/landonb/start/dubs_file_finder"
+  cd "${dff_dir}"
 
   # HSTRY/2024-05-08: Previously used generate_links.sh at
   #   ~/.depoxy/ambers/home/.vim/cmdt_paths/
@@ -209,7 +227,7 @@ setup_private_plug_file_dubs_file_finder () {
   # that target would create a file system loop, e.g.,:
   #
   #   rg: File system loop found:
-  #     /home/user/.projlns/depoxy-deeplinks/home/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths
+  #     /home/user/.projlns/depoxy-deeplinks/home/user/_vim/pack/landonb/opt/dubs_file_finder/cmdt_paths
   #   points to an ancestor /home/user/.projlns/depoxy-deeplinks
   #
   # So put cmdt_paths 1 deep.

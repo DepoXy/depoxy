@@ -110,11 +110,12 @@ dubs_cuts_generate_links () {
           echo "  path_abbrevd: ${path_abbrevd}"
           echo "  link_name: ${link_name}"
       fi
-      # Using -f, because file shortening may make two files look like one:
-      # e.g., dubs_all/cmdt_paths/generate_links.sh
-      #       dubs_file_finder/cmdt_paths.template/generate_links.sh
-      #    both resolve to cmdt_path-generate_links.sh.
-      # Obviously, remove -f to see what files conflict.
+      # Using -f, because file shortening may create the same
+      # shortened file name for two different paths, e.g.:
+      # e.g., some_project/path/foo/bar
+      #   and another_project/path/foo/bar
+      # would both resolve to foo-bar.
+      # - Obviously, remove -f to see what files conflict.
       /bin/ln -sf "${fpath}" "${link_name}"
     fi
   done
@@ -123,7 +124,7 @@ dubs_cuts_generate_links () {
   # their dubs_cuts names end up buried in the readmes.
   /bin/ln -s ~/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim your_dubs--dubs_projects.vim
   #
-  # /bin/ln -s ~/.vim/pack/landonb/start/dubs_file_finder/cmdt_paths your_dubs--cmdt_paths
+  # /bin/ln -s ~/.vim/pack/landonb/opt/dubs_file_finder/cmdt_paths your_dubs--cmdt_paths
   # /bin/ln -s ~/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts your_dubs--dubs_cuts
   /bin/ln -s ~/.vim/pack/landonb/start/dubs_project_tray/.vimprojects your_dubs--.vimprojects
 
