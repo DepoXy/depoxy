@@ -107,35 +107,18 @@
 # Project deps/ directories.
 # - All the deps/ are between DepoXy projects (shell script hard links),
 #   so all deps/ paths are (from our perspective) duplicate paths.
-
-# # USYNC: To update, run:
-# #
-# #   cd ~/.projlns/depoxy-deeplinks && fd -L "deps$" | sort
 #
-# # /Users/user/.depoxy/ambers/bin/onboarder/deps/
-# #   ↪ See rule in ~/.depoxy/ambers/.ignore
-#
-# # /Users/user/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/home-fries/deps/
-# #   ↪ See * rule in ~/.depoxy/ambers/home/.vim/cmdt_paths/symlinks/.ignore
-#
-# /Users/user/.kit/sh/home-fries/deps/
-#
-# #  /.vim/.mrinfuse/cmdt_paths/symlinks/home-fries/deps/
-# #  /.vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
-# #  /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/home-fries/deps/
-# #   ↪ See * rules in .vim/.mrinfuse/cmdt_paths/symlinks/.ignore
-# #                    .vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
-# #                    /Users/user/_vim/pack/landonb/start/dubs_file_finder/cmdt_paths/symlinks/.ignore
-#
-# /Users/user/.kit/git/git-bump-version-tag/deps/
-# /Users/user/.kit/git/git-my-merge-status/deps/
-# /Users/user/.kit/git/git-put-wise/deps/
-# /Users/user/.kit/git/git-smart/deps/
-# /Users/user/.kit/git/git-rebase-tip/deps/
-# /Users/user/.kit/git/ohmyrepos/deps/
-# /Users/user/.kit/sh/feature-coverage-report/deps/
-# /Users/user/.kit/sh/sh-logger/deps/
-# /Users/user/.kit/sh/sh-rm_safe/deps/
+# E.g.,
+#   /Users/user/.kit/git/git-bump-version-tag/deps/
+#   /Users/user/.kit/git/git-my-merge-status/deps/
+#   /Users/user/.kit/git/git-put-wise/deps/
+#   /Users/user/.kit/git/git-smart/deps/
+#   /Users/user/.kit/git/git-rebase-tip/deps/
+#   /Users/user/.kit/git/ohmyrepos/deps/
+#   /Users/user/.kit/sh/feature-coverage-report/deps/
+#   /Users/user/.kit/sh/home-fries/deps/
+#   /Users/user/.kit/sh/sh-logger/deps/
+#   /Users/user/.kit/sh/sh-rm_safe/deps/
 
 deps/
 
