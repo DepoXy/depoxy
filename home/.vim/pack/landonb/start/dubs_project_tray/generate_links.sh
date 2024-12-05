@@ -116,23 +116,23 @@ dubs_cuts_generate_links () {
       #   and another_project/path/foo/bar
       # would both resolve to foo-bar.
       # - Obviously, remove -f to see what files conflict.
-      /bin/ln -sf "${fpath}" "${link_name}"
+      command ln -sfn -- "${fpath}" "${link_name}"
     fi
   done
 
   # The two symlinks were neglected by the find and
   # their dubs_cuts names end up buried in the readmes.
-  /bin/ln -s ~/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim your_dubs--dubs_projects.vim
+  command ln -s -- ~/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim your_dubs--dubs_projects.vim
   #
-  # /bin/ln -s ~/.vim/pack/landonb/opt/dubs_file_finder/cmdt_paths your_dubs--cmdt_paths
-  # /bin/ln -s ~/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts your_dubs--dubs_cuts
-  /bin/ln -s ~/.vim/pack/landonb/start/dubs_project_tray/.vimprojects your_dubs--.vimprojects
+  # command ln -s -- ~/.vim/pack/landonb/opt/dubs_file_finder/cmdt_paths your_dubs--cmdt_paths
+  # command ln -s -- ~/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts your_dubs--dubs_cuts
+  command ln -s -- ~/.vim/pack/landonb/start/dubs_project_tray/.vimprojects your_dubs--.vimprojects
 
-  /bin/ln -s ~/.vim/README.rst dubs_vim--README.rst
-  /bin/ln -s ~/.vim/README-USING.rst dubs_vim--README-USING.rst
-  /bin/ln -s ~/.vim/doc/readme-using.pt1.rst dubs_vim--readme-using.pt1.rst
-  /bin/ln -s ~/.vim/doc/readme-using.pt2.rst dubs_vim--readme-using.pt2.rst
-  /bin/ln -s ~/.vim/doc/readme-using.make.sh dubs_vim--readme-using.make.sh
+  command ln -s -- ~/.vim/README.rst dubs_vim--README.rst
+  command ln -s -- ~/.vim/README-USING.rst dubs_vim--README-USING.rst
+  command ln -s -- ~/.vim/doc/readme-using.pt1.rst dubs_vim--readme-using.pt1.rst
+  command ln -s -- ~/.vim/doc/readme-using.pt2.rst dubs_vim--readme-using.pt2.rst
+  command ln -s -- ~/.vim/doc/readme-using.make.sh dubs_vim--readme-using.make.sh
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
