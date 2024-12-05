@@ -392,6 +392,28 @@ install =
   # REFER: :help command-t-ruby (previous implementation using Ruby)
   # REFER: :help command-t      (latest   implementation using Lua)
   # - HINT: Use <C-f> in Command-T prompt to clear file list cache.
+  which_ruby () {
+    # Use Homebrew Ruby for MacVim, so versions match (else won't compile).
+    # - Compare shell Ruby versions:
+    #     /usr/bin/ruby --version
+    #   And:
+    #     /opt/homebrew/opt/ruby/bin/ruby --version
+    #   To the MacVim version:
+    #     :ruby print RUBY_VERSION
+    if [ -d "${HOMEBREW_PREFIX}" ]; then
+      # I.e., /opt/homebrew/opt/ruby/bin/ruby
+      local ruby="${HOMEBREW_PREFIX}/opt/ruby/bin/ruby"
+      
+      if ! [ -x "${ruby}" ]; then
+        >&2 echo "ERROR: Homebrew ruby not found at: ${ruby}"
+        
+        exit 1
+      fi
+      printf "%s" "${HOMEBREW_PREFIX}/opt/ruby/bin/ruby"
+    else
+      printf "%s" "ruby"
+    fi
+  }
   ruby_make () {
     # Opt-in:
     #   let g:CommandTPreferredImplementation='ruby'
@@ -400,7 +422,7 @@ install =
     #   $ ruby -e 'puts "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"'
     # Vs.
     #   :ruby puts "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"
-    ruby extconf.rb
+    $(which_ruby) extconf.rb
     make
   }
   lua_make () {
