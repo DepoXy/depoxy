@@ -142,6 +142,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/vim-command-line-clock#🕰]
 # gone: [pack/landonb/start/vim-ftplugin-how-it-works#🎆]
 # mine: [pack/landonb/start/vim-fullscreen-toggle#💯]
+# mine: [pack/thirsty-vim/start/vim-goto-file-sh#🚕]
 # mine: [pack/landonb/start/vim-lcd-project-root#🥔]
 # fork: [pack/landonb/start/vim-markdown#👇]
 # mine: [pack/landonb/start/vim-mkspell-when-stale#🥖]
