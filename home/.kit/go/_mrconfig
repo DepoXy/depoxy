@@ -12,8 +12,10 @@ order = 999
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# "Ahead by 2 commits — :cherry_blossom: A command-line fuzzy finder"
 [${DOPP_KIT:-${HOME}/.kit}/go/fzf]
 lib = remote_set starter https://github.com/junegunn/fzf.git
+  remote_set publish https://github.com/landonb/fzf.git
 # DEPCY: Relies on nvm being ordered (installed) earlier / CXREF:
 #   ~/.depoxy/ambers/home/.kit/js/_mrconfig @ 105 (order = 690).
 order = 691

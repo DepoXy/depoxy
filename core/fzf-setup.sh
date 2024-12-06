@@ -18,7 +18,7 @@
 #   <Ctrl-R> — Run FZF on shell history, and paste the selected
 #              command from history to the prompt
 #
-#   <Alt-C>  — Run FZF on directories under user home, and `cd`
+#   <Alt-C>  — Run FZF on directories under user home, and `pushd`
 #              into the selected directory
 #
 #              - Uses FZF_ALT_C_COMMAND or FZF_DEFAULT_COMMAND to
@@ -349,7 +349,7 @@ main () {
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-  # ALT-C - cd into directory picked from fzf prompt showing all dirs under home
+  # ALT-C - pushd into directory picked from fzf prompt showing all dirs under home
 
   # REFER: bfs — Breadth-first search for your files
   #
@@ -361,6 +361,10 @@ main () {
 
     export FZF_ALT_C_COMMAND="cd -- ${HOME}; bfs -type d | sed s#^\.#${HOME}#"
     # " # <-- Vim ft=bash syntax highlighting fix (kludge)
+
+    # Defaults: `build cd -- %1`
+    # - SAVVY: This environ is in landonb/fzf, fork of junegunn/fzf.
+    export FZF_ALT_C_CD_COMMAND="builtin pushd -- %q > /dev/null"
   }
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
