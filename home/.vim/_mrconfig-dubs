@@ -173,7 +173,15 @@ lib = remote_set publish https://github.com/landonb/vim-fullscreen-toggle.git
 
 # Original project.
 # Shell-syntax-aware `includeexpr` for `gf`
-[pack/thirsty-vim/start/vim-goto-file-sh]
+[pack/embrace-vim/start/vim-goto-file-sh]
+lib = remote_set publish https://github.com/embrace-vim/vim-goto-file-sh.git
+#
+# HSTRY/2024-12-04: I couldn't decide between embrace-vim and thirsty-vim.
+# - I like the latter because Vim is always thirsty for more plugins! (At
+#   least mine is, I can't stop writing plugins!)
+# - But the former is definitely a more catchy, noteworthy name, and without
+#   the baggage attached to however some people might interpret "thirsty".
+[pack/thirsty-vim/opt/vim-goto-file-sh]
 lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
 # Original project.
 [pack/landonb/start/vim-lcd-project-root]

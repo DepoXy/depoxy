@@ -96,7 +96,11 @@
 /landonb/start/vim-classic-taglist/
 /landonb/start/vim-command-line-clock/
 /landonb/start/vim-fullscreen-toggle/
-/thirsty-vim/start/vim-goto-file-sh/
+/embrace-vim/start/vim-goto-file-sh/
+# HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
+# but I liked the embrace-vim/ better (though
+# I liked the thirsty-vim logo better)
+/thirsty-vim/opt/vim-goto-file-sh/
 /landonb/start/vim-lcd-project-root/
 /landonb/start/vim-markdown/
 /landonb/start/vim-mkspell-when-stale/
