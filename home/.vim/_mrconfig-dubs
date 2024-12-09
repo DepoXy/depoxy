@@ -132,9 +132,6 @@ lib = remote_set publish https://github.com/landonb/dubs_syntastic_wrap.git
 [pack/landonb/start/dubs_toggle_textwrap]
 lib = remote_set publish https://github.com/landonb/dubs_toggle_textwrap.git
 
-[pack/landonb/start/dubs_web_hatch]
-lib = remote_set publish https://github.com/landonb/dubs_web_hatch.git
-
 # ------------------------------------------------------------------------
 
 # 2021-02-18: QFEnter forked to restore cursor position in QuickFix after jumping (:cc).
@@ -292,6 +289,10 @@ lib =
   remote_set publish https://github.com/landonb/vim-unimpaired.git
   remote_set starter https://github.com/tpope/vim-unimpaired.git
 
+# HSTRY/2024-12-08: Née landonb/dubs_web_hatch.git
+[pack/embrace-vim/start/vim-web-hatch]
+lib = remote_set publish https://github.com/embrace-vim/vim-web-hatch.git
+  remote_set landonb https://github.com/landonb/dubs_web_hatch.git
 # ------------------------------------------------------------------------
 
 # *** In -3rdp: m-z.

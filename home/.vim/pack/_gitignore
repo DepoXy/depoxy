@@ -90,7 +90,6 @@
 /landonb/start/dubs_style_guard/
 /landonb/start/dubs_syntastic_wrap/
 /landonb/start/dubs_toggle_textwrap/
-/landonb/start/dubs_web_hatch/
 /landonb/start/QFEnter/
 /landonb/start/vim-buffer-ring/
 /landonb/start/vim-classic-taglist/
@@ -98,6 +97,8 @@
 /landonb/start/vim-fullscreen-toggle/
 /embrace-vim/start/vim-async-mapper/
 /embrace-vim/start/vim-goto-file-sh/
+# Née /landonb/start/dubs_web_hatch/
+/embrace-vim/start/vim-web-hatch/
 # HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
 # but I liked the embrace-vim/ better (though
 # I liked the thirsty-vim logo better)
