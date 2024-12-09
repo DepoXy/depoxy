@@ -19,7 +19,7 @@ order = 830
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# *** From 'a' to 'landonb'
+# *** From ['a' to 'landonb')
 
 # # "Execute a :command and show the output in a temporary buffer"
 # # CXREF: https://github.com/AndrewRadev/bufferize.vim
@@ -63,7 +63,10 @@ rebase =
 [pack/ctrlpvim/opt/ctrlp.vim]
 lib = remote_set starter https://github.com/ctrlpvim/ctrlp.vim.git
 
-# *** 'DepoXy': See .mrconfig-dubs
+# *** 'DepoXy': See _mrconfig-dubs:
+#
+# CXREF:
+# ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
 #
 # mine: [pack/DepoXy/start/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
 # mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
@@ -127,6 +130,11 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 
 # ------------------------------------------------------------------------
 
+#  In -dubs: DepoXy/ embrace-vim/ landonb/ thirsty-vim/
+#
+# CXREF:
+# ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
+
 # # Key: Original projects ('mine') and forks
 #        (untouched 'fork' or improved 'both')
 # # --- Retired/Obsolete:
@@ -180,7 +188,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 
 # ------------------------------------------------------------------------
 
-# *** From 'landonb' to 'tpope'
+# *** From ('landonb' to 'zhou13']
 
 # 2021-04-15: Having TypeScript comment autoindent issues.
 # - JS/JSX works, using indentexpr=GetJavascriptIndent() from pangloss/vim-javascript.
@@ -384,7 +392,7 @@ infuse = link_private_exclude "$@"
 [pack/voithos/start/vim-python-matchit]
 lib = remote_set starter https://github.com/voithos/vim-python-matchit.git
 
-# *** From 'w' to 'z'
+# ***
 
 # ISOFF/2024-12-05: CtrlP and CommandT are now disabled
 # (they've long since stopped working properly in DepoXy).

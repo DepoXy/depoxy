@@ -22,6 +22,9 @@ order = 369
 # ------------------------------------------------------------------------
 
 # *** In -3rdp: a-l.
+#
+# CXREF:
+# ~/.depoxy/ambers/home/.vim/_mrconfig-3rdp
 
 #  # [pack/AndrewRadev/start/bufferize.vim]
 #  [pack/arcticicestudio/start/nord-vim]
