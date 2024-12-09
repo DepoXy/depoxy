@@ -183,6 +183,19 @@ lib = remote_set publish https://github.com/embrace-vim/vim-goto-file-sh.git
 #   the baggage attached to however some people might interpret "thirsty".
 [pack/thirsty-vim/opt/vim-goto-file-sh]
 lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
+
+# Forked project (definitely inspired by upstream but feels quite original now).
+# Generalized vim-easyescape fork supports multiple sequences,
+# arbitrary commands.
+# - embrace-vim/vim-async-mapper iconifications:
+#   - Map/Cartography/Travel: 🗺️📍✈︎𖤧 જ⁀➴ 🗺️ ⁀જ✈︎ 🌐 🌏 🛣️
+#   - Or because it supports dual-key insert mode maps: 👫2️ 💕 2️⃣ 🥂🤼🐫👙
+#   - Onomatopoeia (is it tho?): "Sink":🚰⛲🛁🚿💧💦🧼🛀🧽🪣 | 🔀
+#   - Generic "plugin": 🔌 💉 🛢️
+[pack/embrace-vim/start/vim-async-mapper]
+lib = remote_set publish https://github.com/embrace-vim/vim-async-mapper.git
+  remote_set starter https://github.com/zhou13/vim-easyescape.git
+
 # Original project.
 [pack/landonb/start/vim-lcd-project-root]
 lib = remote_set publish https://github.com/landonb/vim-lcd-project-root.git

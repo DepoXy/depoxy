@@ -96,6 +96,7 @@
 /landonb/start/vim-classic-taglist/
 /landonb/start/vim-command-line-clock/
 /landonb/start/vim-fullscreen-toggle/
+/embrace-vim/start/vim-async-mapper/
 /embrace-vim/start/vim-goto-file-sh/
 # HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
 # but I liked the embrace-vim/ better (though
@@ -168,7 +169,7 @@
 /wincent/opt/command-t/
 /xolox/start/vim-misc/
 /yuezk/start/vim-js/
-/zhou13/start/vim-easyescape/
+/zhou13/opt/vim-easyescape/
 
 # *** CoC and related LSP.
 
