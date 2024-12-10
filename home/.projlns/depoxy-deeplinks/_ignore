@@ -104,6 +104,11 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Generated file
+/Users/user/.vim/README-USING.rst
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Project deps/ directories.
 # - All the deps/ are between DepoXy projects (shell script hard links),
 #   so all deps/ paths are (from our perspective) duplicate paths.
