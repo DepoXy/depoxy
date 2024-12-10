@@ -5,6 +5,10 @@
 
 /.git/
 
+# Ignore thyself
+# -> ~/.depoxy/ambers/home/.depoxy/ambers/archetype/_ignore
+/.ignore
+
 # The Vimprojects template is only updated when synced (against DepoXy
 # Client file, DXC/home/.vimprojects--purged).
 # - Here we keep it from searches so you're not tempted to waste time
