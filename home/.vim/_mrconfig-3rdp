@@ -481,8 +481,24 @@ infuse = link_private_exclude "$@"
 [pack/vim-scripts/opt/TeTrIs.vim]
 lib = remote_set starter https://github.com/vim-scripts/TeTrIs.vim.git
 
+# REFER/2024-12-09: ZoomWin adds <Ctrl-W>o full screen toggle — press
+# once to make current window the only window, then press again to
+# restore your windows.
+# - CALSO:
+#   - Built-ins: <C-w>| to make window the only window (if using vsplits),
+#     then <C-w>= to restore (though doesn't get widths correct, esp. not
+#     with project tray). Or use <c-w>_ for horizontal splits.
+#   - *🧘 Zen Mode* (Neovim)
+#     https://github.com/folke/zen-mode.nvim
+# CXREF:
+#   ~/.vim/pack/vim-scripts/start/ZoomWin/README
+#   ~/.vim/pack/vim-scripts/start/ZoomWin/doc/ZoonWin.txt
+#   ~/.vim/pack/vim-scripts/start/ZoomWin/autoload/ZoomWin.vim
 [pack/vim-scripts/start/ZoomWin]
-lib = remote_set starter https://github.com/vim-scripts/ZoomWin.git
+lib = remote_set starter https://github.com/regedarek/ZoomWin
+  # ALERT: Legacy script is broken. On second <C-w>o, MacVim is unresponsive
+  # for tens of secs., and the file icon in the titlebar just blinks.
+  #   remote_set legacy https://github.com/vim-scripts/ZoomWin.git
 infuse = link_private_exclude "$@"
 
 # 2021-08-18: python_matchit Refs:
