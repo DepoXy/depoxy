@@ -126,7 +126,8 @@ lib = remote_set publish https://github.com/landonb/dubs_quickfix_wrap.git
 [pack/landonb/start/dubs_style_guard]
 lib = remote_set publish https://github.com/landonb/dubs_style_guard.git
 
-[pack/landonb/start/dubs_syntastic_wrap]
+# ISOFF/2024-12-10: Syntastic, and dubs_syntastic_wrap, are deprecated.
+[pack/landonb/opt/dubs_syntastic_wrap]
 lib = remote_set publish https://github.com/landonb/dubs_syntastic_wrap.git
 
 [pack/landonb/start/dubs_toggle_textwrap]
@@ -306,7 +307,7 @@ lib = remote_set publish https://github.com/embrace-vim/vim-web-hatch.git
 #  [pack/preservim/start/nerdcommenter]
 #  [pack/samoshkin/start/vim-mergetool]
 #  [pack/scrooloose/opt/nerdtree]
-#  [pack/scrooloose/start/syntastic]
+#  [pack/scrooloose/opt/syntastic]
 #  [pack/tomtom/start/tlib_vim]
 #  [pack/tomtom/start/viki_vim]
 # *** tpope [retired]
