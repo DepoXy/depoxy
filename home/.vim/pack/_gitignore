@@ -124,7 +124,7 @@
 
 # ***
 
-/arcticicestudio/start/nord-vim/
+/arcticicestudio/opt/nord-vim/
 /autozimu/opt/LanguageClient-neovim/
 /cespare/start/vim-toml/
 /chrisbra/start/improvedft/
@@ -139,7 +139,7 @@
 /junegunn/start/fzf.vim/
 /junegunn/opt/goyo.vim/
 /junegunn/start/limelight.vim/
-/leafgarland/start/typescript-vim/
+/leafgarland/opt/typescript-vim/
 /majutsushi/start/tagbar/
 /marshallward/opt/vim-restructuredtext/
 /MaxMEllon/start/vim-jsx-pretty/
