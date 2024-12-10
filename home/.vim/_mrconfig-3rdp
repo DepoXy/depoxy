@@ -33,7 +33,7 @@ lib = remote_set starter https://github.com/arcticicestudio/nord-vim.git
 [pack/cespare/start/vim-toml]
 lib = remote_set starter https://github.com/cespare/vim-toml.git
 
-# CXREF: #vim_motion_plugins
+# GROUP: #vim_motion_plugins
 [pack/chrisbra/start/improvedft]
 lib = remote_set starter https://github.com/chrisbra/improvedft.git
 infuse = link_private_exclude "$@"
@@ -102,7 +102,7 @@ lib = remote_set starter https://github.com/editorconfig/editorconfig-vim.git
 #   :colorscheme molokai
 # CXREF: "one colorscheme pack to rule them all!"
 #   ~/.vim/pack/flazz/start/vim-colorschemes/README.md
-# CXREF: #colorscheme_plugins
+# GROUP: #colorscheme_plugins
 [pack/flazz/opt/vim-colorschemes]
 lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 
@@ -112,7 +112,7 @@ lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 #  lib = remote_set starter https://github.com/henrik/vim-open-url.git
 
 # "Yet Another TypeScript Syntax: The most advanced TS Syntax Highlighting in Vim"
-# CXREF: #javascript_typescript_plugins
+# GROUP: #javascript_typescript_plugins
 [pack/HerringtonDarkholme/start/yats.vim]
 lib = remote_set starter https://github.com/HerringtonDarkholme/yats.vim.git
 
@@ -271,17 +271,17 @@ skip = true
 # See .mrconfig-lsp: [pack/mattn/start/vim-lsp-settings]
 
 # "🔦 [Vim script] JSX and TSX syntax pretty highlighting for vim."
-# CXREF: #javascript_typescript_plugins
+# GROUP: #javascript_typescript_plugins
 [pack/MaxMEllon/start/vim-jsx-pretty]
 lib = remote_set starter https://github.com/MaxMEllon/vim-jsx-pretty.git
 
 # "A colorful, dark color scheme for Vim."
-# CXREF: #colorscheme_plugins
+# GROUP: #colorscheme_plugins
 [pack/nanotech/opt/jellybeans.vim]
 lib = remote_set starter https://github.com/nanotech/jellybeans.vim.git
 
 # "Vastly improved Javascript indentation and syntax support in Vim."
-# CXREF: #javascript_typescript_plugins
+# GROUP: #javascript_typescript_plugins
 [pack/pangloss/start/vim-javascript]
 lib = remote_set starter https://github.com/pangloss/vim-javascript.git
 
@@ -584,7 +584,7 @@ lib = remote_set starter https://github.com/xolox/vim-misc.git
 
 # CXREF: JS highlighting plugin:
 #   ~/.vim/pack/yuezk/start/vim-js/README.md
-# CXREF: #javascript_typescript_plugins
+# GROUP: #javascript_typescript_plugins
 [pack/yuezk/start/vim-js]
 lib = remote_set starter https://github.com/yuezk/vim-js.git
 
