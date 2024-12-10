@@ -1,11 +1,11 @@
-" vim-fugitive `gb` and `gc` aliases.
+" vim:tw=0:ts=2:sw=2:et:norl:ft=vim
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/DepoXy/depoxy#🍯
 " License: https://creativecommons.org/publicdomain/zero/1.0/
-"  vim:tw=0:ts=2:sw=2:et:norl:ft=vim
-" Copyright © 2023 Landon Bouma.
+"   Copyright © 2023 Landon Bouma.
+" Summary: vim-fugitive `gb` and `gc` maps to show and hide blame.
 
-" ***
+" -------------------------------------------------------------------
 
 " DEV: Uncomment and <F9> to source/reload.
 "  silent! unlet g:loaded_vim_depoxy_vim_fugitive
