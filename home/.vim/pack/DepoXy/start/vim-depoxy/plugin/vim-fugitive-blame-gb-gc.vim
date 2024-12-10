@@ -7,15 +7,19 @@
 
 " -------------------------------------------------------------------
 
-" DEV: Uncomment and <F9> to source/reload.
-"  silent! unlet g:loaded_vim_depoxy_vim_fugitive
+" USAGE: Unlet var (or nix finish) & press <F9> to reload this plugin.
+" - DEP: https://github.com/landonb/vim-source-reloader#↩️
+"
+" silent! unlet g:loaded_vim_depoxy_plugin_vim_fugitive_blame
 
-if exists("g:loaded_vim_depoxy_vim_fugitive") || &cp
+if exists("g:loaded_vim_depoxy_plugin_vim_fugitive_blame") || &cp
+
   finish
 endif
-let g:loaded_vim_depoxy_vim_fugitive = 1
 
-" ***
+let g:loaded_vim_depoxy_plugin_vim_fugitive_blame = 1
+
+" -------------------------------------------------------------------
 
 " vim-fugitive maps 'gq' (Git quit) that closes the :Git blame window.
 " - But 'gq' *only* closes the blame window, and not the commit window,
