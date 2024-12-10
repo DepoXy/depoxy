@@ -185,7 +185,7 @@ populate_run_generator () {
 # ISOFF/2024-12-05: dubs_file_finder is now deprecated in favor of
 # junegunn/fzf.vim and DepoXy's vim-depoxy:
 #   ~/.vim/pack/junegunn/start/fzf.vim/README.md
-#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
+#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - You can still find dubs_file_finder under opt/:
 #   ~/.vim/pack/landonb/opt/dubs_file_finder
 

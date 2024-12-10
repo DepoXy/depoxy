@@ -88,7 +88,7 @@ lib = remote_set publish https://github.com/landonb/dubs_edit_juice.git
 
 # ISOFF/2024-12-05: dubs_file_finder is deprecated and now disabled.
 # - See instead junegunn/fzf.vim and the related DepoXy vim plugin:
-#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
+#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - But keeping this repo, though in a deprecated state, because it's
 #   still published on GH (and maybe someday you'll need to resurrect
 #   it to run CtrlP, which is written in Vimscript, in case a vendor

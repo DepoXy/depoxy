@@ -48,7 +48,7 @@
 #               in their contents
 #
 # - CXREF:
-#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
+#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -225,7 +225,7 @@ main () {
     # - Plus: --files / Sans: --smart-case, --colors
 
     # USYNC: Copy the final ${FZF_DEFAULT_COMMAND} to DepoXy Vim:
-    #   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/add-fzf-path.vim
+    #   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 
     local dglobs=()
     local fglobs=()
