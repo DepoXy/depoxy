@@ -75,12 +75,13 @@
 # *** landonb
 
 /landonb/.ignore
+/landonb/opt/dubs_file_finder/
+/landonb/opt/dubs_syntastic_wrap/
 /landonb/start/ansible-vim/
 /landonb/start/dubs_after_dark/
 /landonb/start/dubs_appearance/
 /landonb/start/dubs_buffer_fun/
 /landonb/start/dubs_edit_juice/
-/landonb/opt/dubs_file_finder/
 /landonb/start/dubs_ftype_mess/
 /landonb/start/dubs_grep_steady/
 /landonb/start/dubs_html_entities/
@@ -88,21 +89,12 @@
 /landonb/start/dubs_project_tray/
 /landonb/start/dubs_quickfix_wrap/
 /landonb/start/dubs_style_guard/
-/landonb/opt/dubs_syntastic_wrap/
 /landonb/start/dubs_toggle_textwrap/
 /landonb/start/QFEnter/
 /landonb/start/vim-buffer-ring/
 /landonb/start/vim-classic-taglist/
 /landonb/start/vim-command-line-clock/
 /landonb/start/vim-fullscreen-toggle/
-/embrace-vim/start/vim-async-mapper/
-/embrace-vim/start/vim-goto-file-sh/
-# Née /landonb/start/dubs_web_hatch/
-/embrace-vim/start/vim-web-hatch/
-# HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
-# but I liked the embrace-vim/ better (though
-# I liked the thirsty-vim logo better)
-/thirsty-vim/opt/vim-goto-file-sh/
 /landonb/start/vim-lcd-project-root/
 /landonb/start/vim-markdown/
 /landonb/start/vim-mkspell-when-stale/
@@ -122,6 +114,16 @@
 /landonb/start/vim-tmux-navigator/
 /landonb/start/vim-unimpaired/
 
+/embrace-vim/start/vim-async-mapper/
+/embrace-vim/start/vim-goto-file-sh/
+# Née /landonb/start/dubs_web_hatch/
+/embrace-vim/start/vim-web-hatch/
+
+# HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
+# but I liked the embrace-vim/ better (though
+# I liked the thirsty-vim logo better)
+/thirsty-vim/opt/vim-goto-file-sh/
+
 # ***
 
 /arcticicestudio/opt/nord-vim/
@@ -136,8 +138,8 @@
 /HerringtonDarkholme/start/yats.vim/
 /jamessan/start/vim-gnupg/
 /juanpabloaj/start/vim-istanbul/
-/junegunn/start/fzf.vim/
 /junegunn/opt/goyo.vim/
+/junegunn/start/fzf.vim/
 /junegunn/start/limelight.vim/
 /leafgarland/opt/typescript-vim/
 /majutsushi/start/tagbar/
