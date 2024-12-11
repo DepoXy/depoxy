@@ -598,7 +598,7 @@ lib = remote_set starter https://github.com/xolox/vim-misc.git
 [pack/yuezk/start/vim-js]
 lib = remote_set starter https://github.com/yuezk/vim-js.git
 
-# ISOFF/2024-12-08: Replaced with fork: embrace-vim/vim-async-mapper
+# ISOFF/2024-12-08: Replaced with fork: embrace-vim/vim-async-map
 [pack/zhou13/opt/vim-easyescape]
 lib = remote_set starter https://github.com/zhou13/vim-easyescape.git
 

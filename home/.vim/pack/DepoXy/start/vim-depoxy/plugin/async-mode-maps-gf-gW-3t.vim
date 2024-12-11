@@ -30,9 +30,9 @@ let g:loaded_vim_depoxy_plugin_async_mode_maps = 1
 " - Alternatively, we could try-except each function call, e.g.,
 "
 "     try
-"       call g:embrace#amapper#register_insert_mode_map('gf', 'gF)
+"       call g:embrace#async_map#register_insert_mode_map('gf', 'gF)
 "     catch /^Vim\%((\a\+)\)\=:E117:/
-"       " - I.e., embrace-vim/vim-async-mapper is not installed.
+"       " - I.e., embrace-vim/vim-async-map is not installed.
 "       endif
 "     endtry
 "
@@ -40,10 +40,10 @@ let g:loaded_vim_depoxy_plugin_async_mode_maps = 1
 "   use try/endtry throughout this script.
 
 function! s:check_deps() abort
-  runtime autoload/embrace/amapper.vim
+  runtime autoload/embrace/async_map.vim
 
-  if !exists("*embrace#amapper#register_insert_mode_map")
-    echom "ALERT: Please install embrace-vim/vim-async-mapper to enable async mode maps"
+  if !exists("*embrace#async_map#register_insert_mode_map")
+    echom "ALERT: Please install embrace-vim/vim-async-map to enable async mode maps"
 
     finish
   endif
@@ -67,7 +67,7 @@ function! s:setup_bindings_insert_mode_gW() abort
   "     for this particular sequence.
   let timeout = 250
 
-  call g:embrace#amapper#register_insert_mode_map("gW", "gW", timeout)
+  call g:embrace#async_map#register_insert_mode_map("gW", "gW", timeout)
 endfunction
 
 " Also wire visual mode `gW`.
@@ -113,7 +113,7 @@ endfunction
 "     clean up the extra character. Also, the cursor would be on the
 "     line directly under the underline, and not after a blank line.
 "
-" - Fortunately, I made the `vim-async-mapper` recently, just a few days
+" - Fortunately, I made the `vim-async-map` recently, just a few days
 "   after I fiddled with the CoC config, and now, a few days after creating
 "   the async mode mapper plugin, I realized I can use it to solve the
 "   problem I created!
@@ -127,7 +127,7 @@ endfunction
 " MAYBE/2024-12-11: Add async mode map feature to restrict this abbrev.
 " to ft=rst,markdown,txt
 function! s:setup_bindings_insert_mode_3t() abort
-  call g:embrace#amapper#register_insert_mode_map(
+  call g:embrace#async_map#register_insert_mode_map(
   \   "3t",
   \   "i################\<CR>\<C-R>=strftime('%Y-%m-%d %H:%M')\<C-M>\<CR>################\<CR>\<CR>"
   \ )
