@@ -124,6 +124,8 @@ endfunction
 "
 " So here it is, the glorious `3t` iabbrev reborn as an async map sequence!
 
+" MAYBE/2024-12-11: Add async mode map feature to restrict this abbrev.
+" to ft=rst,markdown,txt
 function! s:setup_bindings_insert_mode_3t() abort
   call g:embrace#amapper#register_insert_mode_map(
   \   "3t",
