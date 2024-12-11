@@ -24,10 +24,14 @@ let g:loaded_plugin_map_nop_q_r_s = 1
 " - I've never use the command-line window, except accidentally,
 "   and you can still see it -- and search it -- with "q/" or "q?".
 " - So now I can fastly type ":q" and not worry if I get me keys crossed.
-" Ref:
+" REFER:
 "   https://vi.stackexchange.com/questions/457/does-ex-mode-have-any-practical-use
 
-map q: <Nop>
+" Remap q:, because I often type :q too fast and get the characters backwards.
+" - I don't use the command window often, but sometimes I want to copy from it.
+" REFER: You can also use `:<Ctrl-F>` to open command window (Vim built-in).
+noremap q: <Nop>
+noremap q:: :<C-F>
 
 " Unmapping Q also suggested, but I don't have a problem with *this* Q.
 "
