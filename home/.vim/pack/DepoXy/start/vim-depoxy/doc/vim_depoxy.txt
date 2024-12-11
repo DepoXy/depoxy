@@ -7,6 +7,7 @@ DEPOXY AMBERS VIM			*depoxy-ambers-vim*
 1. About This Plugin			|depoxy-ambers-vim-about|
 2. Configure FZF			|depoxy-ambers-vim-setup-fzf|
 3. Configure NERD Commenter		|depoxy-ambers-vim-setup-nerd|
+4. Async Mode Maps			|depoxy-ambers-vim-async-mode-maps|
 
 ==============================================================================
 1. About This Plugin			*depoxy-ambers-vim-about*
@@ -28,5 +29,32 @@ and sets a few commands, such as `FZF` and `F`.
 3. Configure NERD Commenter		*depoxy-ambers-vim-setup-nerd*
 
 Sets NERD Commenter options just the way we want.
+
+==============================================================================
+4. Async Mode Maps			*depoxy-ambers-vim-async-mode-maps*
+
+This commands work from insert mode.
+
+				*i_gf*
+gf                      When in insert mode, `gf` opens the file path
+			under the cursor, or when text is selected,
+			opens the file path for editing.
+
+				*i_gW*
+gW                      When in insert mode, `gW` opens the URL under
+			the cursor, or when text is selected, opens the
+			text as a URL in the browser.
+
+				*3t* *i_3t*
+3t			Insert #-delimited reST header titled with time,
+			e.g.,
+
+			  `################`
+			  `YYYY-MM-DD HH-MM`
+			  `################`
+
+			Because implemented using async mode mapper,
+			completes immediately upon typing `3t`, if
+			you type both characters within 100 msec.
 
  vim:tw=78:ts=8:ft=help:norl:
