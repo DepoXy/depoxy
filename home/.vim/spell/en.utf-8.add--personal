@@ -199,6 +199,7 @@ popups
 proj
 pw
 py3
+pydoc
 pyproject
 pytest
 python3
