@@ -7,6 +7,17 @@
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ "
 
+" REFER:
+"
+"   https://github.com/preservim/nerdcommenter
+"
+" CALSO: Alternative comments plugins:
+"
+"   https://github.com/tpope/vim-commentary
+"   https://github.com/tomtom/tcomment_vim
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ "
+
 " YOU: Uncomment next 'unlet', then <F9> to reload this file.
 "      (Iff: https://github.com/landonb/vim-source-reloader)
 "
