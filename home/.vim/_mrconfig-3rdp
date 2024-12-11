@@ -36,7 +36,7 @@ lib = remote_set starter https://github.com/arcticicestudio/nord-vim.git
 lib = remote_set starter https://github.com/cespare/vim-toml.git
 
 # GROUP: #vim_motion_plugins
-[pack/chrisbra/start/improvedft]
+[pack/chrisbra/opt/improvedft]
 lib = remote_set starter https://github.com/chrisbra/improvedft.git
 infuse = link_private_exclude "$@"
 

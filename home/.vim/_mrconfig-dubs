@@ -29,7 +29,7 @@ order = 369
 #  # [pack/AndrewRadev/start/bufferize.vim]
 #  [pack/arcticicestudio/start/nord-vim]
 #  [pack/cespare/start/vim-toml]
-#  [pack/chrisbra/start/improvedft]
+#  [pack/chrisbra/opt/improvedft]
 #  [pack/chrisbra/start/matchit]
 #  [pack/ctrlpvim/opt/ctrlp.vim]
 #  [pack/editorconfig/opt/vim-go]
