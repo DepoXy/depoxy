@@ -183,13 +183,16 @@ lib = remote_set publish https://github.com/embrace-vim/vim-goto-file-sh.git
 lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
 
 # Forked project (definitely inspired by upstream but feels quite original now).
-# Generalized vim-easyescape fork supports multiple sequences,
-# arbitrary commands.
-# - embrace-vim/vim-async-map iconifications:
-#   - Map/Cartography/Travel: 🗺️📍✈︎𖤧 જ⁀➴ 🗺️ ⁀જ✈︎ 🌐 🌏 🛣️
-#   - Or because it supports dual-key insert mode maps: 👫2️ 💕 2️⃣ 🥂🤼🐫👙
-#   - Onomatopoeia (is it tho?): "Sink":🚰⛲🛁🚿💧💦🧼🛀🧽🪣 | 🔀
-#   - Generic "plugin": 🔌 💉 🛢️
+# Slug'n:
+# - Add non-blocking multi-character insert mode maps!
+# - Generalized vim-easyescape fork supports arbitrary commands
+# - Generalized vim-easyescape fork supports multiple sequences,
+#   arbitrary commands.
+# embrace-vim/vim-async-map iconifications:
+# - Map/Cartography/Travel: 🗺️📍✈︎𖤧 જ⁀➴ 🗺️ ⁀જ✈︎ 🌐 🌏 🛣️
+# - Or because it supports dual-key insert mode maps: 👫2️ 💕 2️⃣ 🥂🤼🐫👙
+# - Onomatopoeia (is it tho?): "Sink":🚰⛲🛁🚿💧💦🧼🛀🧽🪣 | 🔀
+# - Generic "plugin": 🔌 💉 🛢️
 [pack/embrace-vim/start/vim-async-map]
 lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
   remote_set starter https://github.com/zhou13/vim-easyescape.git
