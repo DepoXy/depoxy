@@ -443,6 +443,9 @@ lib = remote_set starter https://github.com/tpope/vim-jdaddy.git
 [pack/tpope/start/vim-rails]
 lib = remote_set starter https://github.com/tpope/vim-rails.git
 
+[pack/tpope/start/vim-repeat]
+lib = remote_set starter https://github.com/tpope/vim-repeat.git
+
 [pack/tpope/start/vim-speeddating]
 lib = remote_set starter https://github.com/tpope/vim-speeddating.git
 
