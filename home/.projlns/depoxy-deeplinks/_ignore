@@ -107,6 +107,9 @@
 # Generated file
 /Users/user/.vim/README-USING.rst
 
+# Vim :Helptags tags files.
+/Users/user/.vim/pack/*/*/*/doc/tags
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Project deps/ directories.
