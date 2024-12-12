@@ -103,13 +103,6 @@ infuse_projects_links_core () {
 
 # Run Ctags on ~/.projlns/depoxy-deeplinks:
 #
-# - Use --exclude to omit code that's not yours.
-#   - USYNC: See similar exclude patterns:
-#     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
-#     ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
-#     ~/.vim/pack/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
-#     ~/.vim/pack/landonb/start/dubs_grep_steady/bin/vim-grepprg-rg-sort
-#
 # - Inhibit final summary using --totals=no.
 #   - Omits, e.g.,
 #     25458 files, 8613434 lines (513523 kB) scanned in 146.1 seconds (3513 kB/s)
