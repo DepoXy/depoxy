@@ -50,7 +50,8 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Exuberant Ctags tags file.
-# - CXREF: XXX
+# - CXREF: infuse_projects_links_core_generate_ctags:
+#   ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
 /tags
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
