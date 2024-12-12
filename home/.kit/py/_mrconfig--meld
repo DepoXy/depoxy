@@ -70,6 +70,13 @@ lib =
 
 # ***
 
+infuseProjlns =
+  OMR_INFUSE_PROJLNS_TOGGLE_OFF=false \
+    infuse_projlns_if_personal_project \
+      "meld/accelerators.py"
+
+# ***
+
 merge =
   local resume_cmd="$1"
   #
