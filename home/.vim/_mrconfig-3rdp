@@ -108,7 +108,7 @@ lib = remote_set starter https://github.com/editorconfig/editorconfig-vim.git
 [pack/flazz/opt/vim-colorschemes]
 lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 
-# ISOFF/2020-05-10: I demoed vim-open-url, but prefer dubs_web_hatch.
+# ISOFF/2020-05-10: I demoed vim-open-url, but prefer embrace-vim/vim-web-hatch.
 # CXREF: https://github.com/henrik/vim-open-url
 #  [pack/henrik/opt/vim-open-url]
 #  lib = remote_set starter https://github.com/henrik/vim-open-url.git
