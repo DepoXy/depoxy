@@ -293,6 +293,7 @@ lib =
   remote_set publish https://github.com/landonb/vim-unimpaired.git
   remote_set starter https://github.com/tpope/vim-unimpaired.git
 
+# "Open browser tab to search or define selected text"
 # HSTRY/2024-12-08: Née landonb/dubs_web_hatch.git
 [pack/embrace-vim/start/vim-web-hatch]
 lib = remote_set publish https://github.com/embrace-vim/vim-web-hatch.git
