@@ -248,45 +248,68 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 _dxy_wire_aliases_pushd_paths_vim () {
   # Change to Vim directories.
   #
-  # - These are redundant (see `cdv` and `cdvp`) but I find them more
-  #   convenient. But I'm also not sure I want to remove the other
-  #   variants -- the `cd`-prefix provides a decent mnemonic. I.e.,
-  #   Change-Directory-Vim is easy to think of on the spot. And it
-  #   feels complete to offer all the cd-prefixed aliases, rather
-  #   than convert some to shorter aliases. We can do both, right?
-  #
   # - These aliases try to follow a simple mnemonic:
+  #
   #   - Each alias at least starts with a `c`, for 'Change directory'.
+  #
   #   - The following letters in the alias try to match the first
   #     character of each word (or the first and last word) in the
   #     directory path.
+  #
   #   - E.g., `cvp` changes the directory to ~/.vim/pack
   #                                             ↑   ↑
   #   - E.g., `cvs` changes the directory to ~/.vim/pack/<user>/start
   #                                             ↑               ↑
+  #
+  # - And though redundant, we also wire `cd`-prefix variants, to match
+  #   many of the other cd-jumpers aliased in this file.
 
   # `cv` would be the ideal mapping, but I use that for `git commit -v`,
   # which I use far more often than cd'ing to ~/.vim.
   #
-  #  pushd_alias_or_warn "cv" "${HOME}/.vim"  # `cv` taken to match `git cv`
+  #   # pushd_alias_or_warn "cv" "${HOME}/.vim"  # ISOFF: `cv` aliases `git cv`
   #
-  # DCIDE/2023-01-31: Demoing `cvi` and `cvv`. `cvi` makes more sense
+  # HSTRY/DCIDE/2023-01-31: Demoing `cvi` and `cvv`. `cvi` makes more sense
   # mnemonically, but `cvv` gonna be easier to smash out on your keyboard.
-  pushd_alias_or_warn "cvi" "${HOME}/.vim"
+  # - DCIDD/2024-12-12: I've never used `cvi`, so removed.
+  #   - And for some reason, I use `cvv`, not `cdv`;
+  #     but I find myself using `cdvp`, not `cvp`!
   pushd_alias_or_warn "cvv" "${HOME}/.vim"
+  pushd_alias_or_warn "cdv" "${HOME}/.vim"
   #
   pushd_alias_or_warn "cvp" "${HOME}/.vim/pack"
+  pushd_alias_or_warn "cdvp" "${HOME}/.vim/pack"
 
   # Are you a Vim plugin author? Here's a convenient pushd to your plugs.
   # - Just set the environ from your private Bashrc, e.g.,
   #     export DEPOXY_CVS_ALIAS_VIM_PLUG_ORG=yourusername
+  # - Mnemonic: Cd Vim (user plugins) Start (directory)
   local cvs_alias="cvs"
-  if [ -n "${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}" ]; then
-    pushd_alias_or_warn "${cvs_alias}" "${HOME}/.vim/pack/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
-  elif ! type "${cvs_alias}" > /dev/null 2>&1; then
-    eval "alias ${cvs_alias}='echo \"Please set DEPOXY_CVS_ALIAS_VIM_PLUG_ORG to enable this alias\"'"
+  if [ -z "${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}" ]; then
+    if ! type "${cvs_alias}" > /dev/null 2>&1; then
+      eval "alias ${cvs_alias}='echo \"Please set DEPOXY_CVS_ALIAS_VIM_PLUG_ORG to enable this alias\"'"
+    else
+      >&2 echo "WARNING: Cannot alias: “${cvs_alias}” already assigned"
+    fi
   else
-    >&2 echo "WARNING: Cannot alias: “${cvs_alias}” already assigned"
+    local user_plug"${HOME}/.vim/pack/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
+
+    # Wire "cvs".
+    pushd_alias_or_warn "${cvs_alias}" "${user_plug}"
+    # Wire "cdvs": for parity with cd-prefixed aliases.
+    pushd_alias_or_warn "cdvs" "${user_plug}"
+
+    # Alternatively, use "User", not "Start" make better mnemonic sense?
+    # Wire "cvpu": for parity with cvp-prefixed aliases.
+    # - Mnemonic: Cd Vim Pack User plugins start/ directory.
+    pushd_alias_or_warn "cvpu" "${user_plug}"
+    # Wire "cdvpu": for parity with cd-prefixed aliases.
+    pushd_alias_or_warn "cdvpu" "${user_plug}"
+
+    # SKIPD: Considered `cvu`, but we have too many aliases as it is...
+    # - Mnemonic: Cd Vim User (plugin start/ directory)
+    #  pushd_alias_or_warn "cvu" "${user_plug}"
+    #  pushd_alias_or_warn "cdvu" "${user_plug}"
   fi
 }
 
