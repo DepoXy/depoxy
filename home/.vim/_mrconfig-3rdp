@@ -428,6 +428,17 @@ lib = remote_set starter https://github.com/tpope/vim-scriptease.git
 order = 840
 lib = remote_set starter https://github.com/tpope/vim-vividchalk.git
 
+# *** tpope [opt-in]
+
+# Called by minimal Git and Dob EDITORs.
+# - CXREF:
+#   ~/.kit/git/git-smart/deps/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
+#   ~/.vim/pack/tpope/opt/vim-sensible/plugin/sensible.vim
+# - TRYME:
+#   ~/.kit/git/git-smart/deps/tig-newtons/bin/editor-vim-0-0-insert-minimal
+[pack/tpope/opt/vim-sensible]
+lib = remote_set starter https://github.com/tpope/vim-sensible.git
+
 # *** tpope [active]
 
 [pack/tpope/start/vim-abolish]
