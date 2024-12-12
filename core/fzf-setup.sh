@@ -287,8 +287,8 @@ main () {
           --follow
           --no-ignore-vcs
           --no-ignore-parent
-          -g '!**/{${dir_globs}}/**'
-          -g '!**/{${file_globs}}'
+          --glob '!**/{${dir_globs}}/**'
+          --glob '!**/{${file_globs}}'
         2> /dev/null" \
       | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
     )"
