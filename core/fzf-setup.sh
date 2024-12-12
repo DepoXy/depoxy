@@ -264,6 +264,8 @@ main () {
     fglobs+=("*.zip")
     # DepoXy-specific directories
     dglobs+=(".crypt")
+    # Vim :Helptags tags files
+    fglobs+=("doc/tags")
 
     local dir_globs=""
     local dglob
