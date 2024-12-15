@@ -175,6 +175,7 @@ launchd
 lazydocker
 letterlike
 linters
+lowercasing
 macFUSE
 maskable
 monorepo
@@ -220,6 +221,7 @@ toml
 txns
 txt
 ungroup
+uppercasing
 venv
 venv's
 venvs
