@@ -488,6 +488,15 @@ infuse = link_private_exclude "$@"
 lib = remote_set starter https://github.com/vim-scripts/ingo-library.git
 infuse = link_private_exclude "$@"
 
+# "Delete buffers (close files) without closing your windows or messing
+# up your layout." — :Bdelete
+[pack/vim-scripts/start/bbye]
+lib = remote_set starter https://github.com/vim-scripts/bbye
+
+# Just the BufOnly() function.
+[pack/vim-scripts/start/BufOnly.vim]
+lib = remote_set starter https://github.com/vim-scripts/BufOnly.vim
+
 # In -core: [pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
 
 # OHDUH/2024-12-09: Why include an active plugin you never use? Also, the
