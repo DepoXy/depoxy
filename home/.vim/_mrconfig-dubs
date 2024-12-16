@@ -80,9 +80,6 @@ lib = remote_set publish https://github.com/landonb/dubs_after_dark.git
 [pack/landonb/start/dubs_appearance]
 lib = remote_set publish https://github.com/landonb/dubs_appearance.git
 
-[pack/landonb/start/dubs_buffer_fun]
-lib = remote_set publish https://github.com/landonb/dubs_buffer_fun.git
-
 [pack/landonb/start/dubs_edit_juice]
 lib = remote_set publish https://github.com/landonb/dubs_edit_juice.git
 
@@ -147,6 +144,10 @@ p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
 # *** Dubs' vim-* projects (newer than Dubs Vim, made easier for others to use),
 #
 #     and some forked projects that I tweaked.
+
+# Née https://github.com/landonb/dubs_buffer_fun#🎲
+[pack/embrace-vim/start/vim-buffer-delights]
+lib = remote_set publish https://github.com/embrace-vim/vim-buffer-delights.git
 
 # Forked project but heavily developed since.
 # 2020-03-19: Forked, to keep .vimprojects and netrw out of BufSurf w:history queue.

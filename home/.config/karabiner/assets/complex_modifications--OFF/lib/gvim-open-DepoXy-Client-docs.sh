@@ -14,7 +14,7 @@
 # Use case: This script is basically a shim so you don't have to use a
 # really long, obtusely hard to read, and escaped shell command, e.g.,
 #
-#   "shell_command": "/usr/local/bin/bash -c '/usr/local/Cellar/macvim/latest/MacVim.app/Contents/bin/gvim --servername ${GVIM_OPEN_SERVERNAME:-SAMPI} --remote-send \"<ESC>:call SensibleOpenMoveCursorAvoidSpecial()<CR>\" --remote-silent ${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/XXXX/docs/Backlog_Client_XXXX.rst'"
+#   "shell_command": "/usr/local/bin/bash -c '/usr/local/Cellar/macvim/latest/MacVim.app/Contents/bin/gvim --servername ${GVIM_OPEN_SERVERNAME:-SAMPI} --remote-send \"<ESC>:silent! call g:embrace#windows#OpenFileInNonSpecialBufferAndFocus()<CR>\" --remote-silent ${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/XXXX/docs/Backlog_Client_XXXX.rst'"
 
 # Findability: The Karabiner-Elements shell_command that DepoXy Ambers sets (in, e.g.,
 # home/.config/karabiner/assets/complex_modifications/1001-devlpr-docs-launchers.json)
