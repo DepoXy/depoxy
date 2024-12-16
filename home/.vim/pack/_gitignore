@@ -117,7 +117,7 @@
 /embrace-vim/start/vim-async-map/
 /embrace-vim/start/vim-goto-file-sh/
 # Née /landonb/start/dubs_web_hatch/
-/embrace-vim/start/vim-web-hatch/
+/embrace-vim/start/vim-webopen/
 
 # HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
 # but I liked the embrace-vim/ better (though

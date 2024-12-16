@@ -72,10 +72,10 @@ endfunction
 
 " Also wire visual mode `gW`.
 " - CXREF:
-"   ~/.vim/pack/embrace-vim/start/vim-web-hatch/autoload/embrace/browser.vim @ 267
+"   ~/.vim/pack/embrace-vim/start/vim-webopen/autoload/embrace/browser.vim @ 267
 function! s:setup_bindings_visual_mode_gW() abort
   " [y]ank selected text to `"` register, then paste `"` contents as fcn. arg.
-  vnoremap gW y:call embrace#browser#web_open_url('<C-r>"', 0)<CR>
+  vnoremap gW y:call embrace#browser#WebOpenUrl('<C-r>"', 0)<CR>
 endfunction
 
 function! s:setup_bindings_two_modes_gW() abort

@@ -296,8 +296,8 @@ lib =
 
 # "Open browser tab to search or define selected text"
 # HSTRY/2024-12-08: Née landonb/dubs_web_hatch.git
-[pack/embrace-vim/start/vim-web-hatch]
-lib = remote_set publish https://github.com/embrace-vim/vim-web-hatch.git
+[pack/embrace-vim/start/vim-webopen]
+lib = remote_set publish https://github.com/embrace-vim/vim-webopen.git
   remote_set landonb https://github.com/landonb/dubs_web_hatch.git
 # ------------------------------------------------------------------------
 

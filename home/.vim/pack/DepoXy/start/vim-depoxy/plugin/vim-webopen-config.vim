@@ -3,8 +3,8 @@
 " Project: https://github.com/DepoXy/depoxy#🍯
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 "   Copyright © 2024 Landon Bouma.
-" Summary: vim-web-hatch config.
-"   https://github.com/embrace-vim/vim-web-hatch#🐣
+" Summary: vim-webopen config.
+"   https://github.com/embrace-vim/vim-webopen#🐣
 
 " -------------------------------------------------------------------
 
@@ -14,12 +14,12 @@
 "   - See Option 2 for specifying the sequence for each mode separately.
 " - Set to the empty string to inhibit the maps for the specified feature.
 if 0
-  " Similar to g:vim_web_hatch_maps, below, but without bonus 'gW' map.
-  let g:vim_web_hatch_open_url_seq = "<Leader>T"
-  let g:vim_web_hatch_google_define_seq = "<Leader>D"
-  let g:vim_web_hatch_google_search_seq = "<Leader>W"
-  " let g:vim_web_hatch_open_incognito_seq = "g!"
-  let g:vim_web_hatch_open_incognito_seq = "<Leader>P"
+  " Similar to g:vim_webopen_maps, below, but without bonus 'gW' map.
+  let g:vim_webopen_open_url_seq = "<Leader>T"
+  let g:vim_webopen_google_define_seq = "<Leader>D"
+  let g:vim_webopen_google_search_seq = "<Leader>W"
+  " let g:vim_webopen_open_incognito_seq = "g!"
+  let g:vim_webopen_open_incognito_seq = "<Leader>P"
 endif
 
 " Option 2: Define single global variable mapping.
@@ -35,7 +35,7 @@ endif
 "     { 'open': { 'nmap': '', 'imap': [], 'vmap': '<Leader>T' } }
 "   will only wire <Leader>T in visual mode to open URL, and
 "   it will skip the normal and insert mode maps for open URL.
-" - Note the plugin prefers using g:vim_web_hatch_maps, but
+" - Note the plugin prefers using g:vim_webopen_maps, but
 "   if a top-level key is not found, it'll fallback the Option 1
 "   variable.
 "   - And if the Option 1 variable isn't set, it'll fallback a
@@ -51,7 +51,7 @@ endif
 "   - 2020-09-01: (lb): Unbound/Available: gS, gW, g!. Taken: gP, g@, g#...
 
 if 1
-  let g:vim_web_hatch_maps =
+  let g:vim_webopen_maps =
     \ {
     \   "open":
     \     {
@@ -67,39 +67,39 @@ endif
 
 " ALTLY: You could instead build the Dictionary thusly.
 if 0
-  let g:vim_web_hatch_maps = {}
+  let g:vim_webopen_maps = {}
 
-  let g:vim_web_hatch_maps.open = {}
-  let g:vim_web_hatch_maps.define = {}
-  let g:vim_web_hatch_maps.search = {}
-  let g:vim_web_hatch_maps.incognito = {}
+  let g:vim_webopen_maps.open = {}
+  let g:vim_webopen_maps.define = {}
+  let g:vim_webopen_maps.search = {}
+  let g:vim_webopen_maps.incognito = {}
 
-  let g:vim_web_hatch_maps.open.nmap = [ "<Leader>T", "gW" ]
-  let g:vim_web_hatch_maps.open.imap = "<Leader>T"
-  let g:vim_web_hatch_maps.open.vmap = "<Leader>T"
+  let g:vim_webopen_maps.open.nmap = [ "<Leader>T", "gW" ]
+  let g:vim_webopen_maps.open.imap = "<Leader>T"
+  let g:vim_webopen_maps.open.vmap = "<Leader>T"
 
-  let g:vim_web_hatch_maps.define.nmap = "<Leader>D"
-  let g:vim_web_hatch_maps.define.imap = "<Leader>D"
-  let g:vim_web_hatch_maps.define.vmap = "<Leader>D"
+  let g:vim_webopen_maps.define.nmap = "<Leader>D"
+  let g:vim_webopen_maps.define.imap = "<Leader>D"
+  let g:vim_webopen_maps.define.vmap = "<Leader>D"
 
-  let g:vim_web_hatch_maps.search.nmap = "<Leader>W"
-  let g:vim_web_hatch_maps.search.imap = "<Leader>W"
-  let g:vim_web_hatch_maps.search.vmap = "<Leader>W"
+  let g:vim_webopen_maps.search.nmap = "<Leader>W"
+  let g:vim_webopen_maps.search.imap = "<Leader>W"
+  let g:vim_webopen_maps.search.vmap = "<Leader>W"
 
-  let g:vim_web_hatch_maps.incognito.nmap = "g!"
+  let g:vim_webopen_maps.incognito.nmap = "g!"
 endif
 
 " If you'd like each URL to open in a new browser tab in an
 " existing window instead of always opening in a new window,
-" set g:vim_web_hatch_use_tab nonzero:
+" set g:vim_webopen_use_tab nonzero:
 "
-"   let g:vim_web_hatch_use_tab = 1
+"   let g:vim_webopen_use_tab = 1
 
 
 " If you'd like Chrome to use most recent user profile, and not 'Default',
-" set g:vim_web_hatch_mru_profile nonzero:
+" set g:vim_webopen_mru_profile nonzero:
 "
-"   let g:vim_web_hatch_mru_profile = 1
+"   let g:vim_webopen_mru_profile = 1
 
 call g:embrace#webopen#CreateMaps()
 

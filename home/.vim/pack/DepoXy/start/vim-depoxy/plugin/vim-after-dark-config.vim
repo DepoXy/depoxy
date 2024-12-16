@@ -4,7 +4,7 @@
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 "   Copyright © 2024 Landon Bouma.
 " Summary: https://github.com/landonb/dubs_after_dark#🌃
-"   https://github.com/embrace-vim/vim-web-hatch#🐣
+"   https://github.com/embrace-vim/vim-webopen#🐣
 
 " -------------------------------------------------------------------
 
