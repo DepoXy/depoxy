@@ -101,5 +101,5 @@ endif
 "
 "   let g:vim_web_hatch_mru_profile = 1
 
-call embrace#vim_web_hatch#create_maps()
+call g:embrace#webopen#CreateMaps()
 
