@@ -4,14 +4,14 @@
 "  vim:tw=0:ts=2:sw=2:et:norl:ft=vim
 " Copyright © 2023 Landon Bouma.
 
-" ***
+" -------------------------------------------------------------------
 
 if exists("g:autoloaded_vim_depoxy_git_fugitive_window_cleanup")
   finish
 endif
 let g:autoloaded_vim_depoxy_git_fugitive_window_cleanup = 1
 
-" ***
+" -------------------------------------------------------------------
 
 function! git_fugitive_window_cleanup#close_git_windows() abort
   let l:orig_win = winnr()
@@ -52,6 +52,8 @@ function! git_fugitive_window_cleanup#close_git_windows() abort
   endif
 endfunction
 
+" ***
+
 function! s:BufferIsNotSpecial(bufnr)
   let l:ftype = getbufvar(a:bufnr, "&ft")
 
@@ -71,6 +73,4 @@ function! s:BufferIsNotSpecial(bufnr)
 
   return 1
 endfunction
-
-" ***
 
