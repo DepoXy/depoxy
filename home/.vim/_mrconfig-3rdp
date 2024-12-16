@@ -200,8 +200,8 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/dubs_style_guard#💂]
 # mine: [pack/landonb/opt/dubs_syntastic_wrap#🤸]
 # mine: [pack/landonb/start/dubs_toggle_textwrap#🔘]
-# mine: [pack/landonb/start/dubs_web_hatch#🐣]
 # # --- Original projects and some forks:
+# mine: [pack/embrace-vim/start/vim-async-map#જ⁀➴]
 # mine: [pack/embrace-vim/start/vim-buffer-delights#🍧]
 # both: [pack/landonb/start/vim-buffer-ring#💍]
 # fork: [pack/landonb/start/vim-classic-taglist#🏛]
@@ -230,6 +230,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/vim-title-bar-time-of-day#⌚]
 # fork: [pack/landonb/start/vim-tmux-navigator#🧭]
 # fork: [pack/landonb/start/vim-unimpaired#👿]
+# mine: [pack/embrace-vim/start/dubs_web_hatch#🐣]
 
 # ------------------------------------------------------------------------
 
