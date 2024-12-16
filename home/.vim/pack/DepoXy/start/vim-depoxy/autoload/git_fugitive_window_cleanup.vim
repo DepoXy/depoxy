@@ -26,7 +26,7 @@ function! git_fugitive_window_cleanup#close_git_windows() abort
   while l:curr_winnr <= l:last_winnr
     let l:bufnr = winbufnr(l:curr_winnr)
 
-    if !s:BufferIsNotSpecial(l:bufnr)
+    if s:IsVimFugitiveWindow(l:bufnr)
       if l:curr_winnr < l:orig_winnr
         let l:adjust_nr += 1
       endif
@@ -54,7 +54,7 @@ endfunction
 
 " ***
 
-function! s:BufferIsNotSpecial(bufnr)
+function! s:IsVimFugitiveWindow(bufnr)
   let l:ftype = getbufvar(a:bufnr, "&ft")
 
   " Not sure why, but this not reporting 1 for preview window for me.
@@ -68,9 +68,9 @@ function! s:BufferIsNotSpecial(bufnr)
     \ || l:ftype == 'fugitiveblame'
     \ || l:pview
 
-    return 0
+    return 1
   endif
 
-  return 1
+  return 0
 endfunction
 
