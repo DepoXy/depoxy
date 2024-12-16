@@ -6,10 +6,10 @@
 
 " -------------------------------------------------------------------
 
-function! s:create_maps()
+function! s:CreateMaps()
   " LATER/2024-12-13 14:33: But will you use this instead of <M-f>c?
-  nnoremap <Leader>dc :Bclose<CR>
-  inoremap <Leader>dc <C-o>:Bclose<CR>
+  nnoremap <Leader>dc :Bdelete<CR>
+  inoremap <Leader>dc <C-o>:Bdelete<CR>
 
   " CXREF: <M-f>l → s:RecreateDubsVimMappings()
   "        <M-f>e → s:RecreateDubsVimMappings()
@@ -19,5 +19,5 @@ function! s:create_maps()
   inoremap <Leader>dq <C-o>:wa<CR><C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>
 endfunction
 
-call s:create_maps()
+call s:CreateMaps()
 
