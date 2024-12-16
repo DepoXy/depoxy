@@ -14,30 +14,30 @@ let g:autoloaded_vim_depoxy_git_fugitive_window_cleanup = 1
 " -------------------------------------------------------------------
 
 function! git_fugitive_window_cleanup#close_git_windows() abort
-  let l:orig_win = winnr()
+  let l:orig_winnr = winnr()
   " let l:orig_line = line('.')
   let l:adjust_nr = 0
 
   " ***
 
-  let l:visit_winnr = 1
-  let l:final_winnr = winnr('$')
+  let l:curr_winnr = 1
+  let l:last_winnr = winnr('$')
 
-  while l:visit_winnr <= l:final_winnr
-    let l:bufnr = winbufnr(l:visit_winnr)
+  while l:curr_winnr <= l:last_winnr
+    let l:bufnr = winbufnr(l:curr_winnr)
 
     if !s:BufferIsNotSpecial(l:bufnr)
-      if l:visit_winnr < l:orig_win
+      if l:curr_winnr < l:orig_winnr
         let l:adjust_nr += 1
       endif
     endif
 
-    let l:visit_winnr += 1
+    let l:curr_winnr += 1
   endwhile
 
   " ***
 
-  let l:best_win = l:orig_win - l:adjust_nr
+  let l:best_win = l:orig_winnr - l:adjust_nr
 
   windo if (&filetype == 'git' || &filetype == 'fugitiveblame' || &previewwindow) | q | endif
 
