@@ -340,6 +340,10 @@ update = git pull --ff-only
 # - MAYBE: We could add a `grip`-like wrapper that reads it from `pass`.
 #   - But I don't have a use case for it yet.
 
+# CALSO/2024-12-10: rhubarb.vim: GitHub extension for fugitive.vim
+# - Run Hub commands from within Vim, e.g., :GBrowse to open GH URLs.
+#   https://github.com/tpope/vim-rhubarb
+
 [${GITREPOSPATH:-${HOME}/.kit/git}/hub]
 # NOTE: README suggests additional clone args., e.g.,:
 #   git clone \

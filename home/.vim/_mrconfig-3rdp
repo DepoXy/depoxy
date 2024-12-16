@@ -230,7 +230,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/vim-title-bar-time-of-day#⌚]
 # fork: [pack/landonb/start/vim-tmux-navigator#🧭]
 # fork: [pack/landonb/start/vim-unimpaired#👿]
-# mine: [pack/embrace-vim/start/dubs_web_hatch#🐣]
+# mine: [pack/embrace-vim/start/vim-webopen#🐣]
 
 # ------------------------------------------------------------------------
 

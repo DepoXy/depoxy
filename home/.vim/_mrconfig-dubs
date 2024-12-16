@@ -34,9 +34,9 @@ order = 369
 #  [pack/ctrlpvim/opt/ctrlp.vim]
 #  [pack/editorconfig/opt/vim-go]
 #  [pack/editorconfig/start/editorconfig-vim]
-#  # [pack/fholgado/opt/minibufexpl.vim]  # OFF: 2017-11-02: Removed minibufexpl.vim.
+#  # [pack/fholgado/opt/minibufexpl.vim]  # ISOFF: 2017-11-02: Removed
 #  [pack/flazz/start/vim-colorschemes]
-#  # [pack/henrik/start/vim-open-url]  # I demoed but prefer dubs_web_hatch.
+#  # [pack/henrik/start/vim-open-url]  # I demoed but prefer vim-webopen
 #  [pack/HerringtonDarkholme/start/yats.vim]
 #  [pack/jamessan/start/vim-gnupg]
 #  [pack/juanpabloaj/start/vim-istanbul]
@@ -299,6 +299,7 @@ lib =
 [pack/embrace-vim/start/vim-webopen]
 lib = remote_set publish https://github.com/embrace-vim/vim-webopen.git
   remote_set landonb https://github.com/landonb/dubs_web_hatch.git
+
 # ------------------------------------------------------------------------
 
 # *** In -3rdp: m-z.
