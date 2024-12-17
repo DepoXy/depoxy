@@ -78,7 +78,7 @@ function! s:setup_bindings_visual_mode_gW() abort
   vnoremap gW y:call embrace#browser#WebOpenUrl('<C-r>"', 0)<CR>
 endfunction
 
-function! s:setup_bindings_two_modes_gW() abort
+function! s:CreateMaps_gW() abort
   call s:setup_bindings_insert_mode_gW()
   call s:setup_bindings_visual_mode_gW()
 endfunction
@@ -149,7 +149,7 @@ let g:vim_goto_file_add_visual_mode_map = 1
 let g:vim_goto_file_use_simple_gf = 0
 
 " Enable `gW` insert and visual mode maps.
-call s:setup_bindings_two_modes_gW()
+call s:CreateMaps_gW()
 
 " Author's reST header injector (like an abbrev/snippet).
 call s:setup_bindings_insert_mode_3t()
