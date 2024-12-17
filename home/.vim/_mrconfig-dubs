@@ -137,7 +137,19 @@ lib = remote_set publish https://github.com/landonb/dubs_toggle_textwrap.git
 lib =
   remote_set publish https://github.com/landonb/QFEnter.git
   remote_set starter https://github.com/yssl/QFEnter.git
-p = rebase_tip "starter/master" "main" "restore-cursor-and-avoid-special"
+merge =
+  git fetch "starter"
+  PW_OPTION_STARTING_REF="starter/master" \
+  rebase_tip_merge_release "${_resume_cmd:-$1}" "starter/master" \
+    "${_add_version_tag:-false}" "$@"
+rebase =
+  >&2 echo "ERROR: Please 'merge' instead"
+  return 1
+  # local resume_cmd="$1"
+  # local liminal_ref="-"
+  # rebase_tip "${resume_cmd}" "restore-cursor-and-avoid-special" "starter/master" \
+  #   "${liminal_ref}" "main" "${_add_version_tag:-false}" \
+  #   "${_skip_rebase:-false}"
 
 # ------------------------------------------------------------------------
 
