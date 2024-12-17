@@ -288,7 +288,8 @@ infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project
 # USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
 #   ~/.depoxy/ambers/home/.vim/_mrconfig
 skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
-  "github.com/landonb" "vim-lsp" "vim-private" "DXC" "${LOGNAME}"
+  "github.com/landonb" "vim-lsp" "vim-private" "vim-plugins" \
+  "DXC" "${LOGNAME}"
 
 # NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
 #   is within ~/.depoxy/running/.mrconfigs/_mrconfig
@@ -305,7 +306,7 @@ include =
 [${MR_HOME:-${HOME}}/.vim/pack/DepoXy/start/vim-depoxy]
 order = 141
 lib = remote_set publish "https://github.com/DepoXy/vim-depoxy.git"
-skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs"
+skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
 infuse = link_private_exclude "$@"
 
 # ========================================================================
