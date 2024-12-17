@@ -316,7 +316,7 @@ bindings = [
   # - CXREF: Hammerspoon substitutions for MacVim:
   #     ~/.depoxy/ambers/home/.hammerspoon/depoxy-hs.lua
   # - CXREF: Associated Vim maps:
-  #     ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
+  #     ~/.vim/pack/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
   # - SAVVY: You cannot map <C-S> bindings in Vim b/c the terminal ignores
   #   the Shift modifier when it generates a Control binding escape code.
   #   - E.g., <C-S-X> is interpreted as simply <C-X>.

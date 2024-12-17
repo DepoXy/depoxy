@@ -137,7 +137,7 @@ lib = remote_set starter https://github.com/juanpabloaj/vim-istanbul.git
 # - DepoXy wires junegunn/fzf.vim (which author assumes is more
 #   performant than VimL or Ruby, but I haven't profiled).
 #   - CXREF:
-#     ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#     ~/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - DepoXy used to also include CtrlP and CommandT, but they no longer
 #   work properly. And because junefunn/fzf.vim works well, there's no
 #   reason to try to resurrect those two plugins.

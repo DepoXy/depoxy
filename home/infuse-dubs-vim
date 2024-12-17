@@ -185,7 +185,7 @@ populate_run_generator () {
 # ISOFF/2024-12-05: dubs_file_finder is now deprecated in favor of
 # junegunn/fzf.vim and DepoXy's vim-depoxy:
 #   ~/.vim/pack/junegunn/start/fzf.vim/README.md
-#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#   ~/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - You can still find dubs_file_finder under opt/:
 #   ~/.vim/pack/landonb/opt/dubs_file_finder
 
@@ -283,35 +283,19 @@ setup_project_plug_vim_depoxy () {
 
   local depoxy_vim_org="DepoXy"
 
-  mkdir -p "${HOME}/.vim/pack/${depoxy_vim_org}/start"
+  local depoxy_vim_start="${HOME}/.vim/pack/${depoxy_vim_org}/start"
+
+  mkdir -p "${depoxy_vim_start}"
 
   local before_cd="$(pwd -L)"
 
   # ***
 
-  cd "${HOME}/.vim/pack/${depoxy_vim_org}"
-
-  # FIXME/2024-02-21: Verify this ignore file, b/c its paths look like
-  # they're from perspective of ~/.vim/pack, and not ~/.vim/pack/DepoXy.
-  symlink_overlay_file \
-    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/_ignore" \
-    ".ignore"
-
-  # ***
-
-  cd "./start"
-
-  symlink_overlay_dir \
-    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/pack/${depoxy_vim_org}/start/vim-depoxy" \
-    "vim-depoxy"
-
-  # ***
+  cd "${depoxy_vim_start}/vim-depoxy/plugin"
 
   local fzf_vim="${DOPP_KIT:-${HOME}/.kit}/go/fzf/plugin/fzf.vim"
 
   if [ -e "${fzf_vim}" ]; then
-    cd "./vim-depoxy/plugin"
-
     symlink_overlay_file "${fzf_vim}" "fzf.vim"
   fi
 

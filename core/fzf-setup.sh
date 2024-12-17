@@ -48,7 +48,7 @@
 #               in their contents
 #
 # - CXREF:
-#   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#   ~/..vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -230,7 +230,7 @@ main () {
     #   ~/.vim/pack/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
 
     # USYNC: Copy the final ${FZF_DEFAULT_COMMAND} to DepoXy Vim:
-    #   ~/.depoxy/ambers/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+    #   ~/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 
     local dglobs=()
     local fglobs=()

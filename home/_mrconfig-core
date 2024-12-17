@@ -301,6 +301,15 @@ include =
   cat "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.vim/_mrconfig-vim-include" \
     2> /dev/null || true
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  vim-depoxy#🤙
+
+[${MR_HOME:-${HOME}}/.vim/pack/DepoXy/start/vim-depoxy]
+order = 141
+lib = remote_set publish "https://github.com/DepoXy/vim-depoxy.git"
+skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs"
+infuse = link_private_exclude "$@"
+
 # ========================================================================
 # ------------------------------------------------------------------------
 

@@ -280,8 +280,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
   pushd_alias_or_warn "cvp" "${HOME}/.vim/pack"
   pushd_alias_or_warn "cdvp" "${HOME}/.vim/pack"
 
-  # FIXME/2024-12-12: Publish as its own plugin. (Then update this path.)
-  local dxy_plug="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.vim/pack/DepoXy/start/vim-depoxy/plugin"
+  local dxy_plug="${HOME}/.vim/pack/DepoXy/start/vim-depoxy/plugin"
   pushd_alias_or_warn "cvpd" "${dxy_plug}"
   pushd_alias_or_warn "cdvpd" "${dxy_plug}"
 

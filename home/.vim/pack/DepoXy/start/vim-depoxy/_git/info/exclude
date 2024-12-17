@@ -1,0 +1,11 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+/.gitignore.local
+# From :Helptags.
+/doc/tags
+# Symlink by infuse-dubs-vim's setup_project_plug_vim_depoxy.
+/plugin/fzf.vim
+
