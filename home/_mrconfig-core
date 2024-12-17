@@ -146,8 +146,7 @@ install =
 # https://github.com/DepoXy/depoxy#🍯
 [${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}]
 order = 131
-lib =
-  remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
+lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   # Optional .gitignore.local
@@ -236,8 +235,7 @@ include =
 # https://github.com/DepoXy/depoxy-archetype#🏹
 [${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
 order = 132
-lib =
-  remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
+lib = remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
 infuse =
   link_private_exclude "$@"
