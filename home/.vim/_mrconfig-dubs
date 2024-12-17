@@ -219,6 +219,11 @@ lib = remote_set publish https://github.com/landonb/vim-mkspell-when-stale.git
 lib = remote_set publish https://github.com/landonb/vim-netrw-cfg-split-explorer.git
 
 # Original project.
+# "Wire convenient `:Explore [dir]` command maps"
+[pack/embrace-vim/start/vim-netrw-explore-map]
+lib = remote_set publish https://github.com/embrace-vim/vim-netrw-explore-map.git
+
+# Original project.
 [pack/landonb/start/vim-netrw-link-resolve]
 lib = remote_set publish https://github.com/landonb/vim-netrw-link-resolve.git
 

@@ -116,6 +116,7 @@
 
 /embrace-vim/start/vim-async-map/
 /embrace-vim/start/vim-goto-file-sh/
+/embrace-vim/start/vim-netrw-explore-map/
 # Née /landonb/start/dubs_web_hatch/
 /embrace-vim/start/vim-webopen/
 

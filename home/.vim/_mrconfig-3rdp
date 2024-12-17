@@ -217,6 +217,7 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # mine: [pack/landonb/start/vim-mkspell-when-stale#🥖]
 # mine: [pack/landonb/start/vim-netrw-cfg-split-explorer#🌐]
 # mine: [pack/landonb/start/vim-netrw-link-resolve#🧩]
+# mine: [pack/embrace-vim/start/vim-netrw-explore-map#🐾]
 # mine: [pack/landonb/start/vim-nicer-file-changed-prompt#🗯]
 # mine: [pack/landonb/start/vim-ovm-easyescape-kj-jk#🧼]
 # mine: [pack/landonb/start/vim-ovm-seven-of-spines#🦴]
