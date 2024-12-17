@@ -9,7 +9,7 @@
 " USAGE: Unlet var (or nix finish) & press <F9> to reload this plugin.
 " USING: https://github.com/landonb/vim-source-reloader#↩️
 "
-" silent! unlet g:loaded_vim_depoxy_plugin_async_mode_maps
+"  silent! unlet g:loaded_vim_depoxy_plugin_async_mode_maps
 
 if exists("g:loaded_vim_depoxy_plugin_async_mode_maps") || &cp
 
