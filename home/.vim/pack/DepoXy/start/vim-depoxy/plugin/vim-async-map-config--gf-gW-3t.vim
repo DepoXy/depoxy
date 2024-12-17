@@ -30,7 +30,7 @@ let g:loaded_vim_depoxy_plugin_async_mode_maps = 1
 " - Alternatively, we could try-except each function call, e.g.,
 "
 "     try
-"       call g:embrace#async_map#register_insert_mode_map('gf', 'gF)
+"       call g:embrace#async_map#RegisterInsertModeMap('gf', 'gF)
 "     catch /^Vim\%((\a\+)\)\=:E117:/
 "       " - I.e., embrace-vim/vim-async-map is not installed.
 "       endif
@@ -42,7 +42,7 @@ let g:loaded_vim_depoxy_plugin_async_mode_maps = 1
 function! s:check_deps() abort
   runtime autoload/embrace/async_map.vim
 
-  if !exists("*embrace#async_map#register_insert_mode_map")
+  if !exists("*embrace#async_map#RegisterInsertModeMap")
     echom "ALERT: Please install embrace-vim/vim-async-map to enable async mode maps"
 
     finish
