@@ -3,6 +3,6 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-.gitignore.local
+/.gitignore.local
 /doc/tags
 
