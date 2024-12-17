@@ -297,7 +297,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
       >&2 echo "WARNING: Cannot alias: “${cvs_alias}” already assigned"
     fi
   else
-    local user_plug"${HOME}/.vim/pack/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
+    local user_plug="${HOME}/.vim/pack/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
 
     # Wire "cvs".
     pushd_alias_or_warn "${cvs_alias}" "${user_plug}"
