@@ -1,3 +1,8 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
 /.gitignore.local
 /package-lock.json
 # 2021-01-26: Since last time I (re)installed.
