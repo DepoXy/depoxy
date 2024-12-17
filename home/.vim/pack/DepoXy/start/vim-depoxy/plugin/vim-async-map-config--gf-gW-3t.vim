@@ -67,7 +67,7 @@ function! s:setup_bindings_insert_mode_gW() abort
   "     for this particular sequence.
   let timeout = 250
 
-  call g:embrace#async_map#register_insert_mode_map("gW", "gW", timeout)
+  call g:embrace#async_map#RegisterInsertModeMap("gW", "gW", timeout)
 endfunction
 
 " Also wire visual mode `gW`.
@@ -127,7 +127,7 @@ endfunction
 " MAYBE/2024-12-11: Add async mode map feature to restrict this abbrev.
 " to ft=rst,markdown,txt
 function! s:setup_bindings_insert_mode_3t() abort
-  call g:embrace#async_map#register_insert_mode_map(
+  call g:embrace#async_map#RegisterInsertModeMap(
   \   "3t",
   \   "i################\<CR>\<C-R>=strftime('%Y-%m-%d %H:%M')\<C-M>\<CR>################\<CR>\<CR>"
   \ )
