@@ -138,7 +138,7 @@ endfunction
 " Set a reasonable default async mapper timeout.
 " - SAVVY: The plugin alerts and hints at fixes if Python 3 not available,
 "   which is required to set a timeout under 2,000 msecs.
-let g:vim_async_mapper_timeout = 100
+let g:vim_async_map_timeout = 100
 
 " Enable `gf` insert and visual mode maps.
 " - CXREF:
