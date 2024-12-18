@@ -337,6 +337,7 @@ lib = remote_set publish https://github.com/embrace-vim/vim-webopen.git
 #  [pack/samoshkin/start/vim-mergetool]
 #  [pack/scrooloose/opt/nerdtree]
 #  [pack/scrooloose/opt/syntastic]
+#  [pack/thinca/opt/vim-visualstar]
 #  [pack/tomtom/start/tlib_vim]
 #  [pack/tomtom/start/viki_vim]
 # *** tpope [retired]

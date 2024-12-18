@@ -374,6 +374,10 @@ lib = remote_set starter https://github.com/scrooloose/nerdtree.git
 [pack/scrooloose/opt/syntastic]
 lib = remote_set starter https://github.com/scrooloose/syntastic.git
 
+# *star for Visual-mode.*
+[pack/thinca/opt/vim-visualstar]
+lib = remote_set starter https://github.com/thinca/vim-visualstar
+
 # ISOFF/2024-12-09: Required by viki_vim, which is now disabled.
 # SAVVY: Required by tomtom/viki_vim
 # "Some utility functions for VIM"
