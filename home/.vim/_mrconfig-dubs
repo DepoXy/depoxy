@@ -172,6 +172,12 @@ rebase =
 lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
   remote_set starter https://github.com/zhou13/vim-easyescape.git
 
+# Née https://github.com/landonb/dubs_appearance#💅
+# Née https://github.com/landonb/dubs_edit_juice#🧃
+# Visual search enhancements for Vim
+[pack/embrace-vim/start/vim-blinky-search]
+lib = remote_set publish https://github.com/embrace-vim/vim-blinky-search.git
+
 # Née https://github.com/landonb/dubs_buffer_fun#🎲
 [pack/embrace-vim/start/vim-buffer-delights]
 lib = remote_set publish https://github.com/embrace-vim/vim-buffer-delights.git
