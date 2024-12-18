@@ -157,6 +157,21 @@ rebase =
 #
 #     and some forked projects that I tweaked.
 
+# Forked project (definitely inspired by upstream but feels quite original now).
+# Slug'n:
+# - Add non-blocking multi-character insert mode maps!
+# - Generalized vim-easyescape fork supports arbitrary commands
+# - Generalized vim-easyescape fork supports multiple sequences,
+#   arbitrary commands.
+# embrace-vim/vim-async-map iconifications:
+# - Map/Cartography/Travel: 🗺️📍✈︎𖤧 જ⁀➴ 🗺️ ⁀જ✈︎ 🌐 🌏 🛣️
+# - Or because it supports dual-key insert mode maps: 👫2️ 💕 2️⃣ 🥂🤼🐫👙
+# - Onomatopoeia (is it tho?): "Sink":🚰⛲🛁🚿💧💦🧼🛀🧽🪣 | 🔀
+# - Generic "plugin": 🔌 💉 🛢️
+[pack/embrace-vim/start/vim-async-map]
+lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
+  remote_set starter https://github.com/zhou13/vim-easyescape.git
+
 # Née https://github.com/landonb/dubs_buffer_fun#🎲
 [pack/embrace-vim/start/vim-buffer-delights]
 lib = remote_set publish https://github.com/embrace-vim/vim-buffer-delights.git
@@ -194,21 +209,6 @@ lib = remote_set publish https://github.com/embrace-vim/vim-goto-file-sh.git
 #   the baggage attached to however some people might interpret "thirsty".
 [pack/thirsty-vim/opt/vim-goto-file-sh]
 lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
-
-# Forked project (definitely inspired by upstream but feels quite original now).
-# Slug'n:
-# - Add non-blocking multi-character insert mode maps!
-# - Generalized vim-easyescape fork supports arbitrary commands
-# - Generalized vim-easyescape fork supports multiple sequences,
-#   arbitrary commands.
-# embrace-vim/vim-async-map iconifications:
-# - Map/Cartography/Travel: 🗺️📍✈︎𖤧 જ⁀➴ 🗺️ ⁀જ✈︎ 🌐 🌏 🛣️
-# - Or because it supports dual-key insert mode maps: 👫2️ 💕 2️⃣ 🥂🤼🐫👙
-# - Onomatopoeia (is it tho?): "Sink":🚰⛲🛁🚿💧💦🧼🛀🧽🪣 | 🔀
-# - Generic "plugin": 🔌 💉 🛢️
-[pack/embrace-vim/start/vim-async-map]
-lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
-  remote_set starter https://github.com/zhou13/vim-easyescape.git
 
 # Original project.
 [pack/landonb/start/vim-lcd-project-root]
