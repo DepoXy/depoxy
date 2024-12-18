@@ -80,7 +80,6 @@
 /landonb/start/ansible-vim/
 /landonb/start/dubs_after_dark/
 /landonb/start/dubs_appearance/
-/landonb/start/dubs_buffer_fun/
 /landonb/start/dubs_edit_juice/
 /landonb/start/dubs_ftype_mess/
 /landonb/start/dubs_grep_steady/
@@ -116,6 +115,7 @@
 
 /embrace-vim/start/vim-async-map/
 /embrace-vim/start/vim-blinky-search/
+/embrace-vim/start/vim-buffer-delights/
 /embrace-vim/start/vim-goto-file-sh/
 /embrace-vim/start/vim-netrw-explore-map/
 # Née /landonb/start/dubs_web_hatch/
