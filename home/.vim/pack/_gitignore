@@ -77,6 +77,7 @@
 /landonb/.ignore
 /landonb/opt/dubs_file_finder/
 /landonb/opt/dubs_syntastic_wrap/
+/landonb/opt/vim-markdown/
 /landonb/start/ansible-vim/
 /landonb/start/dubs_after_dark/
 /landonb/start/dubs_appearance/
@@ -95,7 +96,6 @@
 /landonb/start/vim-command-line-clock/
 /landonb/start/vim-fullscreen-toggle/
 /landonb/start/vim-lcd-project-root/
-/landonb/start/vim-markdown/
 /landonb/start/vim-mkspell-when-stale/
 /landonb/start/vim-netrw-cfg-split-explorer/
 /landonb/start/vim-netrw-link-resolve/
@@ -137,6 +137,7 @@
 /editorconfig/start/editorconfig-vim/
 /editorconfig/start/vim-go/
 /flazz/opt/vim-colorschemes/
+/godlygeek/start/tabular/
 /HerringtonDarkholme/start/yats.vim/
 /jamessan/start/vim-gnupg/
 /juanpabloaj/start/vim-istanbul/
@@ -150,6 +151,7 @@
 /nanotech/opt/jellybeans.vim/
 /pangloss/start/vim-javascript/
 /preservim/start/nerdcommenter/
+/preservim/start/vim-markdown/
 /samoshkin/start/vim-mergetool/
 /scrooloose/opt/nerdtree/
 /scrooloose/opt/syntastic/

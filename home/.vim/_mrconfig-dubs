@@ -220,12 +220,12 @@ lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
 [pack/landonb/start/vim-lcd-project-root]
 lib = remote_set publish https://github.com/landonb/vim-lcd-project-root.git
 
-# 2017-03-16: vim-markdown forked to fix issue of "white on white".
-[pack/landonb/start/vim-markdown]
+# ISOFF/2024-12-19: Latest preservim/vim-markdown works well.
+# HSTRY/2017-03-16: vim-markdown forked to fix issue of "white on white".
+[pack/landonb/opt/vim-markdown]
 lib =
   remote_set publish https://github.com/landonb/vim-markdown.git
   remote_set starter https://github.com/gabrielelana/vim-markdown.git
-# Alt. repo: https://github.com/plasticboy/vim-markdown.git
 
 # Original project.
 # `mkspell` wrapper
