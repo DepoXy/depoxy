@@ -181,6 +181,7 @@ lib = remote_set publish https://github.com/embrace-vim/vim-blinky-search.git
 # Née https://github.com/landonb/dubs_buffer_fun#🎲
 [pack/embrace-vim/start/vim-buffer-delights]
 lib = remote_set publish https://github.com/embrace-vim/vim-buffer-delights.git
+  remote_set landonb https://github.com/landonb/dubs_buffer_fun
 
 # Forked project but heavily developed since.
 # 2020-03-19: Forked, to keep .vimprojects and netrw out of BufSurf w:history queue.
