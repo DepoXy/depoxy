@@ -12,6 +12,10 @@ order = 830
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# CXREF: Landon's plugins are elsewhere:
+#
+# ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
+
 # To cross-check the paths listed here against reality::
 #
 #   ll -d ~/.vim/pack/*/*/*
@@ -68,9 +72,6 @@ rebase =
 lib = remote_set starter https://github.com/ctrlpvim/ctrlp.vim.git
 
 # *** 'DepoXy': See _mrconfig-dubs:
-#
-# CXREF:
-# ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
 #
 # mine: [pack/DepoXy/start/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
 # mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
@@ -180,9 +181,6 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 # ------------------------------------------------------------------------
 
 #  In -dubs: DepoXy/ embrace-vim/ landonb/ thirsty-vim/
-#
-# CXREF:
-# ~/.depoxy/ambers/home/.vim/_mrconfig-dubs
 
 # # Key: Original projects ('mine') and forks
 #        (untouched 'fork' or improved 'both')
@@ -387,6 +385,7 @@ lib = remote_set starter https://github.com/scrooloose/nerdtree.git
 lib = remote_set starter https://github.com/scrooloose/syntastic.git
 
 # *star for Visual-mode.*
+# GROUP: visual_search
 [pack/thinca/opt/vim-visualstar]
 lib = remote_set starter https://github.com/thinca/vim-visualstar
 

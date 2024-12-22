@@ -14,6 +14,10 @@ order = 369
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# CXREF: Third-party plugins are elsewhere:
+#
+# ~/.depoxy/ambers/home/.vim/_mrconfig-3rdp
+
 # To cross-check the paths listed here against reality::
 #
 #   ll -d ~/.vim/pack/*/*/*
@@ -22,9 +26,6 @@ order = 369
 # ------------------------------------------------------------------------
 
 # *** In -3rdp: a-l.
-#
-# CXREF:
-# ~/.depoxy/ambers/home/.vim/_mrconfig-3rdp
 
 #  # [pack/AndrewRadev/start/bufferize.vim]
 #  [pack/arcticicestudio/start/nord-vim]
@@ -175,6 +176,8 @@ lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
 # Née https://github.com/landonb/dubs_appearance#💅
 # Née https://github.com/landonb/dubs_edit_juice#🧃
 # Visual search enhancements for Vim
+# FIXME/2024-12-21 05:13: Set repo to public
+# GROUP: visual_search
 [pack/embrace-vim/start/vim-blinky-search]
 lib = remote_set publish https://github.com/embrace-vim/vim-blinky-search.git
 
