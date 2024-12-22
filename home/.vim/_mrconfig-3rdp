@@ -178,6 +178,36 @@ lib = remote_set starter https://github.com/junegunn/goyo.vim.git
 [pack/junegunn/start/limelight.vim]
 lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 
+# REFER: junegunn/vim-slash is a great-looking plugin!
+# - I only wish my Vim scripts could be so clean and concise!!
+# - vim-slash "automatically clears search highlight when cursor is
+#   moved", and it modifies star-search to highlight "without moving".
+#   - Except the modified star-search *does* scroll the window! It uses
+#     the naïve approach — It starts a /- or ?-search, and then runs the
+#     opposite command (? or /) to match backwards. (See this Vim tip
+#     on avoiding scroll —
+#       https://vim.fandom.com/wiki/Highlight_all_search_pattern_matches
+#     ). So ultimately the cursor doesn't move, except it jumps forward,
+#     then backward, which scrolls the window. (To not scroll, it would
+#     have to manually `let @/ = {}` and `set hlsearch`, rather than
+#     just running /-search. Which is an amount of additional work. And
+#     would make vim-slash less, uh, *tight*. (For a 124 line file, it
+#     shows off a lot of advanced, nifty, crafty Vim techniques. I
+#     learned a lot!) Anyway, for a non-scrolling stay-put start-search,
+#     see vim-blinky-search.)
+# - vim-slash also includes an optional match-blink feature, akin to
+#   die_blinkënmatchen.vim, but a lot more concise,
+# CALSO: vim-slash was inspired by a deprecated plugin:
+# - *Improved /-search (experimental)*
+#   https://github.com/junegunn/vim-oblique
+# - And vim-obliquie has inspired at least one other plugin:
+#   - *Automatically clears search highlight*
+#     https://github.com/pgdouyon/vim-evanesco
+#   Which is where I (thankfully!) spied upon the vim-slash blink feature.
+# GROUP: visual_search
+[pack/junegunn/opt/vim-slash]
+lib = remote_set starter https://github.com/junegunn/vim-slash.git
+
 # ------------------------------------------------------------------------
 
 #  In -dubs: DepoXy/ embrace-vim/ landonb/ thirsty-vim/
