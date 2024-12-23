@@ -99,7 +99,6 @@
 /landonb/start/vim-mkspell-when-stale/
 /landonb/start/vim-netrw-cfg-split-explorer/
 /landonb/start/vim-netrw-link-resolve/
-/landonb/start/vim-nicer-file-changed-prompt/
 /landonb/start/vim-ovm-easyescape-kj-jk/
 /landonb/start/vim-ovm-seven-of-spines/
 /landonb/start/vim-reSTfold/
@@ -114,6 +113,7 @@
 /landonb/start/vim-unimpaired/
 
 /embrace-vim/start/vim-async-map/
+/embrace-vim/start/vim-better-file-changed-prompt/
 /embrace-vim/start/vim-blinky-search/
 /embrace-vim/start/vim-buffer-delights/
 /embrace-vim/start/vim-goto-file-sh/

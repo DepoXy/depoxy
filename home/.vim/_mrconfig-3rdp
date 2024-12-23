@@ -235,6 +235,7 @@ lib = remote_set starter https://github.com/junegunn/vim-slash.git
 # mine: [pack/landonb/start/dubs_toggle_textwrap#🔘]
 # # --- Original projects and some forks:
 # mine: [pack/embrace-vim/start/vim-async-map#જ⁀➴]
+# mine: [pack/embrace-vim/start/vim-better-file-changed-prompt#🗯]
 # mine: [pack/embrace-vim/start/vim-blinky-search#🕹]👾👻
 # mine: [pack/embrace-vim/start/vim-buffer-delights#🍧]
 # both: [pack/landonb/start/vim-buffer-ring#💍]
@@ -252,7 +253,6 @@ lib = remote_set starter https://github.com/junegunn/vim-slash.git
 # mine: [pack/landonb/start/vim-netrw-cfg-split-explorer#🌐]
 # mine: [pack/landonb/start/vim-netrw-link-resolve#🧩]
 # mine: [pack/embrace-vim/start/vim-netrw-explore-map#🥾]
-# mine: [pack/landonb/start/vim-nicer-file-changed-prompt#🗯]
 # mine: [pack/landonb/start/vim-ovm-easyescape-kj-jk#🧼]
 # mine: [pack/landonb/start/vim-ovm-seven-of-spines#🦴]
 # mine: [pack/landonb/start/vim-reSTfold#🙏]

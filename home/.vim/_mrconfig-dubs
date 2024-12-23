@@ -173,6 +173,13 @@ rebase =
 lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
   remote_set starter https://github.com/zhou13/vim-easyescape.git
 
+# Original project.
+# "Press <Enter> on file-changed prompt to load changes"
+# "Streamline the File Changed prompt behavior"
+# FIXME: Transfer ownership
+[pack/embrace-vim/start/vim-better-file-changed-prompt]
+lib = remote_set publish https://github.com/embrace-vim/vim-better-file-changed-prompt.git
+
 # Née https://github.com/landonb/dubs_appearance#💅
 # Née https://github.com/landonb/dubs_edit_juice#🧃
 # Visual search enhancements for Vim
@@ -247,11 +254,6 @@ lib = remote_set publish https://github.com/embrace-vim/vim-netrw-explore-map.gi
 # Original project.
 [pack/landonb/start/vim-netrw-link-resolve]
 lib = remote_set publish https://github.com/landonb/vim-netrw-link-resolve.git
-
-# Original project.
-# "Streamline the File Changed prompt behavior"
-[pack/landonb/start/vim-nicer-file-changed-prompt]
-lib = remote_set publish https://github.com/landonb/vim-nicer-file-changed-prompt.git
 
 # Original project.
 # "Escape from Insert Mode with `kj` or `jk`"
