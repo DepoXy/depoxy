@@ -183,7 +183,6 @@ lib = remote_set publish https://github.com/embrace-vim/vim-better-file-changed-
 # Née https://github.com/landonb/dubs_appearance#💅
 # Née https://github.com/landonb/dubs_edit_juice#🧃
 # Visual search enhancements for Vim
-# FIXME/2024-12-21 05:13: Set repo to public
 # GROUP: visual_search
 [pack/embrace-vim/start/vim-blinky-search]
 lib = remote_set publish https://github.com/embrace-vim/vim-blinky-search.git
