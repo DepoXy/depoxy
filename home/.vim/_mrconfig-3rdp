@@ -118,6 +118,10 @@ lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 [pack/godlygeek/start/tabular]
 lib = remote_set starter https://github.com/godlygeek/tabular.git
 
+[pack/greg0ire/opt/more-instantly-better-vim]
+lib = remote_set starter https://github.com/greg0ire/more-instantly-better-vim.git
+skip = no_travel
+
 # ISOFF/2020-05-10: I demoed vim-open-url, but prefer embrace-vim/vim-webopen#🐣
 # CXREF: https://github.com/henrik/vim-open-url
 #  [pack/henrik/opt/vim-open-url]
