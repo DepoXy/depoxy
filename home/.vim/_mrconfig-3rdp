@@ -249,10 +249,10 @@ lib = remote_set starter https://github.com/junegunn/vim-slash.git
 # both: [pack/landonb/start/vim-buffer-ring#💍]
 # fork: [pack/landonb/start/vim-classic-taglist#🏛]
 # mine: [pack/DepoXy/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
-# mine: [pack/landonb/start/vim-command-line-clock#🕰]
+# mine: [pack/embrace-vim/start/vim-command-line-clock#🕰]
 # mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
 # gone: [pack/landonb/opt/vim-ftplugin-how-it-works#🎆]
-# mine: [pack/landonb/start/vim-fullscreen-toggle#💯]
+# mine: [pack/embrace-vim/start/vim-fullscreen-toggle#💯]
 # mine: [pack/embrace-vim/start/vim-goto-file-sh#🚕]
 # mine: [pack/thirsty-vim/opt/vim-goto-file-sh#🚕]
 # mine: [pack/landonb/start/vim-lcd-project-root#🥔]
@@ -268,7 +268,7 @@ lib = remote_set starter https://github.com/junegunn/vim-slash.git
 # mine: [pack/landonb/start/vim-reST-highfive#🖐]
 # mine: [pack/landonb/start/vim-reST-highline#➖]
 # mine: [pack/landonb/start/vim-select-mode-stopped-down#🛑]
-# mine: [pack/landonb/start/vim-source-reloader#🔃] # Or: ↩️
+# mine: [pack/embrace-vim/start/vim-source-reloader#🔃] # Or: ↩️
 # fork: [pack/landonb/start/vim-surround#🔄]
 # mine: [pack/landonb/start/vim-title-bar-time-of-day#⌚]
 # fork: [pack/landonb/start/vim-tmux-navigator#🧭]

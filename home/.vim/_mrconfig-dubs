@@ -204,11 +204,9 @@ lib =
 lib = remote_set publish https://github.com/landonb/vim-classic-taglist.git
 
 # Original project.
-[pack/landonb/start/vim-command-line-clock]
+[pack/embrace-vim/start/vim-command-line-clock]
 lib = remote_set publish https://github.com/landonb/vim-command-line-clock.git
 
-# Original project.
-# display-aware gVim/MacVim fullsizer
 [pack/landonb/start/vim-fullscreen-toggle]
 lib = remote_set publish https://github.com/landonb/vim-fullscreen-toggle.git
 
