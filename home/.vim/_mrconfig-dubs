@@ -207,7 +207,7 @@ lib = remote_set publish https://github.com/landonb/vim-classic-taglist.git
 [pack/embrace-vim/start/vim-command-line-clock]
 lib = remote_set publish https://github.com/landonb/vim-command-line-clock.git
 
-[pack/landonb/start/vim-fullscreen-toggle]
+[pack/embrace-vim/start/vim-fullscreen-toggle]
 lib = remote_set publish https://github.com/landonb/vim-fullscreen-toggle.git
 
 # Original project.
@@ -290,9 +290,12 @@ lib = remote_set publish https://github.com/landonb/vim-reST-highline.git
 [pack/landonb/start/vim-select-mode-stopped-down]
 lib = remote_set publish https://github.com/landonb/vim-select-mode-stopped-down.git
 
-# Original project.
-[pack/landonb/start/vim-source-reloader]
-lib = remote_set publish https://github.com/landonb/vim-source-reloader.git
+# SLGLN: *Quickly source Vim scripts at runtime*
+# - HSTRY: *The classic Vim tip, "Source current file when editing a script"*
+# - Original project.
+# - Redirectee for: https://github.com/landonb/vim-source-reloader
+[pack/embrace-vim/start/vim-source-reloader]
+lib = remote_set publish https://github.com/embrace-vim/vim-source-reloader.git
 
 # Tipless fork, i.e., I've made zero changes. Just want to be cool, I guess.
 # - Forked vim-surround... but haven't actually tipped the code.

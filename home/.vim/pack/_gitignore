@@ -93,8 +93,6 @@
 /landonb/start/QFEnter/
 /landonb/start/vim-buffer-ring/
 /landonb/start/vim-classic-taglist/
-/landonb/start/vim-command-line-clock/
-/landonb/start/vim-fullscreen-toggle/
 /landonb/start/vim-lcd-project-root/
 /landonb/start/vim-mkspell-when-stale/
 /landonb/start/vim-netrw-cfg-split-explorer/
@@ -106,7 +104,6 @@
 /landonb/start/vim-reST-highfive/
 /landonb/start/vim-reST-highline/
 /landonb/start/vim-select-mode-stopped-down/
-/landonb/start/vim-source-reloader/
 /landonb/start/vim-surround/
 /landonb/start/vim-title-bar-time-of-day/
 /landonb/start/vim-tmux-navigator/
@@ -116,8 +113,11 @@
 /embrace-vim/start/vim-better-file-changed-prompt/
 /embrace-vim/start/vim-blinky-search/
 /embrace-vim/start/vim-buffer-delights/
+/embrace-vim/start/vim-command-line-clock/
+/embrace-vim/start/vim-fullscreen-toggle/
 /embrace-vim/start/vim-goto-file-sh/
 /embrace-vim/start/vim-netrw-explore-map/
+/embrace-vim/start/vim-source-reloader/
 /embrace-vim/start/vim-webopen/
 
 # HSTRY/2024-12-09: Made 2 GH orgs for Vim plugins,
