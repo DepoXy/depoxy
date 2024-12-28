@@ -217,7 +217,24 @@ installDarwin =
   #   ~/Library/LaunchAgents/com.github.domt4.homebrew-autoupdate.plist
   # SAVVY: Your shell PATH when you run this command is used in the
   # generated file, 'brew_autoupdate' (see CXREF below).
-  brew autoupdate start 86400 --upgrade
+  #
+  # USAGE: Run `brew autoupdate delete` after you make edits
+  # to the update script:
+  #   ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb
+  #
+  if ! brew autoupdate start 86400 --upgrade; then
+    >&2 echo
+    >&2 echo "ALERT: Failed!"
+    >&2 echo "- You may need to delete the old files first:"
+    >&2 echo "    brew autoupdate delete"
+    >&2 echo
+    #
+    return 1
+  fi
+  echo
+  echo "Success!"
+  echo "- Verify the installed script:"
+  echo "  fs \"${HOME}/Library/Application Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate\""
   # NOTED/2024-06-27: This warning does not apply to us (no casks that are
   # installed by macOS-onboarder/bin/install-homebrew.sh require sudo):
   # - Be aware "if you use Casks that require `sudo` to upgrade." Something
