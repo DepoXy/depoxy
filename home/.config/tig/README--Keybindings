@@ -1,3 +1,9 @@
+XXX HINT: Author: Landon Bouma <https://tallybark.com/>
+XXX HINT: Project: https://github.com/DepoXy/depoxy#🍯
+XXX HINT: License: MIT
+XXX HINT:
+XXX HINT: *****************************************************
+XXX HINT:
 XXX HINT: See what keys are in use:
 XXX HINT:
 XXX HINT:   sort ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2
