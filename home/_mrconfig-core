@@ -79,6 +79,15 @@ infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   local infuse_home_fries="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-home-fries"
   #
+  # SAVVY: Note that hard links include scoped commits.
+  # - But `updateDeps` still works, and will only commit public commits.
+  # - So you could use hard links so you can hack on deps and test
+  #   changes immediately, then `updateDeps` to commit changes,
+  #   but push a PWIP when finished, then pop the PWIP before
+  #   running `updateDeps` again... (which feels tedious, but
+  #   there's no alternative other than to not use scoped commits
+  #   in deps, or to move those scoped commits to another branch
+  #   — and if you know me, you know I like to work *branchlessly*).
   . "${infuse_home_fries}"
   link_hard_dep_shoilerplate
 infuse =
