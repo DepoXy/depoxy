@@ -109,6 +109,8 @@ infuse =
     "${infuse_home_fries}" "$@"
 updateDeps =
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh @ 44
+  # - SAVVY: Just FYI: DepoXy ctags work, too, so rather than maintain CXREF line nums.  ↑↑
+  #          you could use <Ctrl-]> in Vim instead to jump to definition.
   update_deps_shoilerplate
 #
 skip = mr_exclusive "bash" "sh" "home" "${LOGNAME}" "DXC"
