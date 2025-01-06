@@ -18,14 +18,53 @@ XXX HINT: Or use :enew, or :tabnew (like TabMessage).
 XXX HINT:
 XXX HINT: *****************************************************
 XXX HINT:
-XXX HINT: Keys that do not work:
+XXX HINT: Keys that do not work
+XXX HINT: =====================
+XXX HINT:
+XXX HINT: From observation:
 XXX HINT: - Don't work: <C-->, <C-.>, <C-Delete>, etc.
 XXX HINT: - Escape works, but brief pause before you see shell:
 XXX HINT:     bind generic <Esc> !sh -c "
 XXX HINT: - <C-i> responds "Only one view is displayed":
 XXX HINT:     bind generic <C-i> !sh -c "
+XXX HINT:   - See below: <Ctrl-I> is implicate <Tab>
 XXX HINT: - <C-.> responds "Unknown key":
 XXX HINT:     bind generic <C-.> !sh -c "
+XXX HINT:
+XXX HINT: From `man tigrc`:
+XXX HINT: • Tig reads keystrokes via ncurses and is subject to various limitations.
+XXX HINT:     See ncurses(3x) and terminfo(5) (or termcap).
+XXX HINT:
+XXX HINT: • Ctrl-m and Ctrl-i cannot be bound as they conflict with Enter and Tab respectively.
+all                 <Ctrl-M> <Enter> (implicit)
+all                 <Ctrl-I> <Tab> (implicit)
+XXX HINT:
+XXX HINT: • Case differences cannot be distinguished in control sequences such as Ctrl-f and Ctrl-F.
+XXX HINT:
+XXX HINT: • Ctrl-<Space> is typically translated to Ctrl-@, which is available for binding.
+XXX HINT:
+all             <Ctrl-Space> see <Ctrl-@>
+all                 <Ctrl-@> see <Ctrl-Space>
+XXX HINT:
+XXX HINT: • Only some subset of special symbolic keys such as <ShiftTab> will be available
+XXX HINT:     in any given terminal emulator.
+XXX HINT:
+XXX HINT: • Ctrl-z is automatically used for process control and will suspend Tig and open
+XXX HINT:     a subshell (use fg to reenter Tig).
+all                 <Ctrl-Z> suspend tig (implicit)
+XXX HINT:
+XXX HINT: *****************************************************
+XXX HINT:
+XXX HINT: <Ctrl-> bindings left
+XXX HINT: =====================
+XXX HINT:
+XXX HINT: As of 2025-01-05, here are the unbound 'generic' <Ctrl-> bindings:
+XXX HINT:
+all                 <Ctrl-H> (AVAILABLE! Could be yours)
+all                 <Ctrl-J> (AVAILABLE! Could be yours)
+all                 <Ctrl-Q> (AVAILABLE! Could be yours)
+all                 <Ctrl-W> (AVAILABLE! Could be yours)
+all                 <Ctrl-X> (AVAILABLE! Could be yours)
 XXX HINT:
 XXX HINT: *****************************************************
 XXX HINT:
