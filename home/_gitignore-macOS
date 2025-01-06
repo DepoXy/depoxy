@@ -209,6 +209,15 @@
 # Robo-3T Mongo client.
 /.3T/robo-3t/
 
+# Audio ripper.
+#  https://abcde.einval.com/wiki/
+#  https://github.com/johnlane/abcde
+/.abcde.conf
+
+# Ansible.
+/.ansible/
+/ansible_hosts
+
 # Cisco AnyConnect.
 /.anyconnect
 /.cisco/
@@ -216,6 +225,10 @@
 # Guessing these are because ~/.kit/mOS/homebrew-autoupdate. Ruby nonetheless.
 /.bundle/cache/compact_index/
 /.gem/
+
+# Go CLI library generator defaults.
+#   https://github.com/spf13/cobra
+/.cobra.yaml
 
 # Perl `cpan` command (e.g., `cpan Acme::Cow`)
 /.cpan/
@@ -226,6 +239,10 @@
 
 # If you accidentally send a print job (because who prints?).
 /.cups/
+
+# Direnv project-specific environment variable manager.
+#   https://github.com/direnv/direnv
+/.direnvrc
 
 # Dropbox
 /.dropbox/
@@ -256,6 +273,10 @@
 
 # Conventional Python IDLE editor.
 /.idlerc/
+
+# Interactive Ruby client config.
+#   https://github.com/ruby/irb
+/.irbrc
 
 # `less`'s history file.
 /.lesshst
@@ -295,6 +316,9 @@
 # pdbr: pdb debugger + rich inspection
 /.pdbr_history
 
+# User postgres client config.
+/.psqlrc
+
 # "pex is short for “Python Executable”". A "general purpose Python
 # environment-virtualization solution similar to virtualenv."
 #  https://pex.readthedocs.io/en/v2.1.113/
@@ -327,6 +351,7 @@
 
 # sqlite3
 /.sqlite_history
+/.sqliterc
 
 # DUNNO: Looks like Alacritty assets but unsure what I did to
 # create these.
