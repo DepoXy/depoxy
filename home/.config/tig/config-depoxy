@@ -177,6 +177,25 @@ bind generic <C-g> >sh -c " \
     echo; \
   }; git_sort_by_scope__rebase_with_gpgSign____"
 
+# ***
+
+# Move the GPW pw/private/in tag, which can be used in private,
+# unpublished repos to move the sort-by-scope reference commit.
+#
+# Most simply:
+#   git tag -f pw/private/in \"%(commit)\"; \
+# For robustness, call new (just for this hook) GPW fcn., which
+# uses `format_pw_tag_applied` to make the tag name.
+
+bind generic <C-k> >sh -c " \
+  git_tag_force_pw_private_in_______________ () { \
+    echo \"🍎 git_tag_force_pw_private_in 🍎\"; \
+    \
+    PW_PID_KILL_ON_ERROR=$PPID \
+      git put-wise --move-pw-in-tag \"%(commit)\"; \
+    echo; \
+  }; git_tag_force_pw_private_in_______________"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Mnemonic: B[u]mp. Or maybe version [u]p. Who knows.
