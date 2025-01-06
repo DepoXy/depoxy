@@ -11,7 +11,8 @@ XXX HINT:     | awk '{ print $1 " " $2 " " $3 }'  # If you want
 XXX HINT:
 XXX HINT: Better yet, dump to a new buffer in Vim:
 XXX HINT:
-XXX HINT:   :Scratch | read !sort ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2 | grep -v XXX | awk '{ print $1 " " $2 " " $3 }'
+XXX HINT:   :Scratch
+XXX HINT:   :read !LC_ALL='C' sort --ignore-case ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2 | grep -v XXX
 XXX HINT:
 XXX HINT: Or use :enew, or :tabnew (like TabMessage).
 XXX HINT:
