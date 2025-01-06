@@ -110,25 +110,28 @@ all                        T :set main-view-date = width:16,display:default
 all                        R :set main-view-date = width:6,display:relative
 all                        V :show-version
 XXX HELP: External commands:
-all                        v !open_line_under_cursor__gVim______________
-all                        e !open_line_under_cursor__editor____________
-all                        x !clipboard_copy__selected_commit_sha_______
-all                        P !clipboard_copy__file_path_________________
-all                 <Ctrl-r> !rebase_interactive___from_selected_rev____
-all                        * !rebase_edit__________selected_rev_________
-all                        + !rebase_fixup_staged__into_selected_rev____
-all                 <Ctrl-t> !wip_commit__push__aka_tidy_up_____________
-all                        ^ !wip_commit__pop___iff_youngest_rev________
-all                        . !shell_out_to_view_previous_command_output_
-all                 <Ctrl-o> !git_drop_revision_________________________
-all                 <Ctrl-a> !git_put_wise__archive_____________________
-all                 <Ctrl-s> !git_put_wise__push________________________
-all                 <Ctrl-f> !git_put_wise__push__force_________________
-all                 <Ctrl-v> !git_put_wise__pull________________________
-all                 <Ctrl-b> !git_put_wise__apply_______________________
-all                        % !git_sort_by_scope__rebase_________________
-all                        C !git_commit_verbose________________________
-all                        & !rebase_reword________selected_rev_________
+all                        P clipboard_copy__file_path_________________
+all                        x clipboard_copy__selected_commit_sha_______
+all                 <Ctrl-t> wip_commit__push__aka_tidy_up_____________
+all                        ^ wip_commit__pop___iff_youngest_rev________
+all                        v open_line_under_cursor__gVim______________
+all                        e open_line_under_cursor__editor____________
+all                 <Ctrl-r> rebase_interactive___from_selected_rev____
+all                        * rebase_edit__________selected_rev_________
+all                        + rebase_fixup_staged__into_selected_rev____
+all                 <Ctrl-o> git_drop_revision_________________________
+all                        . shell_out_to_view_previous_command_output_
+all                        C git_commit_verbose________________________
+all                        & rebase_reword________selected_rev_________
+all                 <Ctrl-a> git_put_wise__archive_____________________
+all                 <Ctrl-s> git_put_wise__push________________________
+all                 <Ctrl-f> git_put_wise__push__force_________________
+all                 <Ctrl-v> git_put_wise__pull________________________
+all                 <Ctrl-b> git_put_wise__apply_______________________
+all                        % git_sort_by_scope__rebase_________________
+all                 <Ctrl-g> git_sort_by_scope__rebase_with_gpgSign____
+all                 <Ctrl-k> git_tag_force_pw_private_in_______________
+all                        u git_bump_version_tag______________________
 XXX HELP: [-] search bindings
 XXX HELP: View manipulation
 search              <Ctrl-C> view-close          Close the current view
@@ -146,21 +149,32 @@ main                       F :toggle commit-title-refs
 XXX HELP: Internal commands:
 main                       H :goto HEAD
 XXX HELP: External commands:
-main                       C !git_commit_verbose________________________
-main                       M !make_lint_________________________________
-main                       ! !git_upraise_revision______________________
-diff                       [ :toggle diff-context -1
-diff                       ] :toggle diff-context +1
+main                       v print_helpful_hint_re_diff_v_binding______
+main                       e print_helpful_hint_re_diff_e_binding______
+main                       ! git_upraise_revision______________________
+main                       [ revision_range_cmd__select_first_commit___
+main                       ] revision_range_cmd__select_final_commit___
+main                       { tags_delete_range_tags____________________
+main                       \ revision_range_cmd__apply_range_action____
+main                       C git_commit_verbose________________________
+main                       M make_lint_________________________________
 XXX HELP: [-] diff bindings
+XXX HELP: Option toggling:
+diff                       ( :toggle diff-context -1
+diff                       ) :toggle diff-context +1
 XXX HELP: Internal commands:
 diff                       @ :/^@@
 XXX HELP: External commands:
 diff                       ! !git_upraise_revision______________________
+diff                       [ revision_range_cmd__select_first_commit___
+diff                       ] revision_range_cmd__select_final_commit___
+diff                       { tags_delete_range_tags____________________
+diff                       \ revision_range_cmd__apply_range_action____
 XXX HELP: [-] reflog bindings
 XXX HELP: Option toggling:
 reflog                     F :toggle commit-title-refs
-reflog                     C ?git checkout %(branch)
 XXX HELP: External commands:
+reflog                     C ?git checkout %(branch)
 reflog                     ! ?git reset --hard %(commit)
 XXX HELP: [-] refs bindings
 XXX HELP: External commands:
@@ -183,6 +197,8 @@ stage                      \ stage-split-chunk   Split current diff chunk
 XXX HELP: Option toggling:
 stage                      [ :toggle diff-context -1
 stage                      ] :toggle diff-context +1
+stage                      ( :toggle diff-context -1
+stage                      ) :toggle diff-context +1
 XXX HELP: Internal commands:
 stage                      @ :/^@@
 XXX HELP: [-] stash bindings
@@ -194,4 +210,3 @@ XXX HELP: [-] pager bindings
 XXX HELP: Internal commands:
 pager                      @ :/^@@
 XXX HELP: [help] - line 161 of 161
-
