@@ -164,6 +164,27 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
+  update_deps_sh_humble_prompt () {
+    [ -d "deps/sh-humble-prompt" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt"
+
+    update_faithful_file \
+      "deps/sh-humble-prompt/lib/set-shell-prompt-and-window-title.sh" \
+      "lib/set-shell-prompt-and-window-title.sh"
+    update_faithful_file \
+      "deps/sh-humble-prompt/lib/show-command-name-in-window-title.sh" \
+      "lib/show-command-name-in-window-title.sh"
+    update_faithful_file \
+      "deps/sh-humble-prompt/lib/window-title--alacritty-number.osa" \
+      "lib/window-title--alacritty-number.osa"
+    update_faithful_file \
+      "deps/sh-humble-prompt/lib/window-title--fancy-cwd-path" \
+      "lib/window-title--fancy-cwd-path"
+
+    update_faithful_finish_signed
+  }
+
   update_deps_sh_logger_and_colors () {
     [ -d "deps/sh-logger/deps/sh-colors" ] || return 0
 
@@ -252,6 +273,7 @@ update_deps_shoilerplate () {
   update_deps_sh_colors
   update_deps_sh_err_trap
   update_deps_sh_git_nubs
+  update_deps_sh_humble_prompt
   update_deps_sh_logger_and_colors
   update_deps_sh_logger
   update_deps_sh_pather
@@ -309,6 +331,17 @@ link_hard_dep_sh_err_trap () {
 link_hard_dep_sh_git_nubs () {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh" \
     "deps/sh-git-nubs/lib/git-nubs.sh"
+}
+
+link_hard_dep_sh_humble_prompt () {
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/set-shell-prompt-and-window-title.sh" \
+    "deps/sh-humble-prompt/lib/set-shell-prompt-and-window-title.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh" \
+    "deps/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/window-title--alacritty-number.osa" \
+    "deps/sh-humble-prompt/lib/window-title--alacritty-number.osa"
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/window-title--fancy-cwd-path" \
+    "deps/sh-humble-prompt/lib/window-title--fancy-cwd-path"
 }
 
 link_hard_dep_sh_logger () {

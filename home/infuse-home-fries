@@ -65,6 +65,8 @@ link_hard_dep_shoilerplate () {
 
   link_hard_dep_sh_colors
 
+  link_hard_dep_sh_humble_prompt
+
   link_hard_dep_sh_logger
 
   link_hard_dep_sh_pather
