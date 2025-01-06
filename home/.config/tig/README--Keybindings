@@ -107,13 +107,13 @@ all                 <Ctrl-b> !git_put_wise__apply_______________________
 all                        % !git_sort_by_scope__rebase_________________
 all                        C !git_commit_verbose________________________
 all                        & !rebase_reword________selected_rev_________
-all                 <Ctrl-C> view-close          Close the current view
-all                   <Down> find-next           Find next search match
-all                 <Ctrl-N> find-next           Find next search match
-all                 <Ctrl-J> find-next           Find next search match
-all                     <Up> find-prev           Find previous search match
-all                 <Ctrl-P> find-prev           Find previous search match
-all                 <Ctrl-K> find-prev           Find previous search match
+search              <Ctrl-C> view-close          Close the current view
+search                <Down> find-next           Find next search match
+search              <Ctrl-N> find-next           Find next search match
+search              <Ctrl-J> find-next           Find next search match
+search                  <Up> find-prev           Find previous search match
+search              <Ctrl-P> find-prev           Find previous search match
+search              <Ctrl-K> find-prev           Find previous search match
 main                       G :toggle commit-title-graph
 main                       F :toggle commit-title-refs
 main                       H :goto HEAD
