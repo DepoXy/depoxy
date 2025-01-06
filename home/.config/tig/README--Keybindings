@@ -5,9 +5,9 @@ XXX HINT:     | awk '{ print $1 " " $2 " " $3 }'  # If you want
 XXX HINT:
 XXX HINT: Better yet, dump to a new buffer in Vim:
 XXX HINT:
-XXX HINT:   :enew | read !sort ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2 | grep -v XXX | awk '{ print $1 " " $2 " " $3 }'
+XXX HINT:   :Scratch | read !sort ~/.depoxy/ambers/home/.config/tig/README--Keybindings -k1 -k2 | grep -v XXX | awk '{ print $1 " " $2 " " $3 }'
 XXX HINT:
-XXX HINT: See also :tabnew (like TabMessage).
+XXX HINT: Or use :enew, or :tabnew (like TabMessage).
 XXX HINT:
 XXX HINT: Keys that do not work:
 XXX HINT: - Don't work: <C-->, <C-.>, <C-Delete>, etc.
