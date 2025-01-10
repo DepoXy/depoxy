@@ -70,6 +70,17 @@ _source_scripts_preceding_homefries_dxy () {
   # Add paths to shoilerplate to PATH, otherwise Bashrc fails...
   _dxy_source "pathanova.sh"
 
+  # Setup MacPorts on PATH.
+  # BWARE: Run before Homebrew paths, so /opt/homebrew/bin
+  #        is preferred over /opt/local/bin (the latter at
+  #        least has older Bash (5.2.32) than Homebrew's
+  #        (5.2.37), but I wonder it /opt/local/bin/bash
+  #        from old MacPorts install I tried (and removed).
+  # USYNC: Set _SOURCE_IT_FINIS for final source_it from
+  #   _source_scripts_preceding_homefries_dxy
+  _SOURCE_IT_FINIS=${_DEPOXY_SOURCE_IT_FINIS} \
+    _dxy_source "portskies.sh"
+
   # Setup Homebrew on PATH.
   # BWARE: Do this now, so that `source_it "python_util.sh"`
   # runs later, ensuring that pyenv's .shims/ path is earlier
@@ -78,12 +89,6 @@ _source_scripts_preceding_homefries_dxy () {
 
   _depoxy_infuse_brew_shellenv
   unset -f _depoxy_infuse_brew_shellenv
-
-  # Setup MacPorts on PATH.
-  # USYNC: Set _SOURCE_IT_FINIS for final source_it from
-  #   _source_scripts_preceding_homefries_dxy
-  _SOURCE_IT_FINIS=${_DEPOXY_SOURCE_IT_FINIS} \
-  _dxy_source "portskies.sh"
 
   LOG_LEVEL=0
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
