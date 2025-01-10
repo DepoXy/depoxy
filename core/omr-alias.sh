@@ -124,7 +124,7 @@ stt () {
   local proj_path="/"
 
   if [ -d "${exclusive_or_path}" ]; then
-    local proj_path="${exclusive_or_path}"
+    proj_path="${exclusive_or_path}"
   elif [ -n "${exclusive_or_path}" ]; then
     exclusive="MR_INCLUDE=${exclusive_or_path}"
   fi
