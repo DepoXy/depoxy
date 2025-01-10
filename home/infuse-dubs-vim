@@ -21,11 +21,11 @@ source_deps () {
   # "logger.sh" on PATH).
   local before_cd="$(pwd -L)"
 
-  cd "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+  cd -- "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
   # Load: warn, etc.
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
-  cd "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  cd -- "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   # Load: link_hard
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
   # Load: link_private_exclude
@@ -35,7 +35,7 @@ source_deps () {
   # Load: symlink_*, infuser_prepare, font_highlight
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
