@@ -51,9 +51,10 @@ lib =
     if ret=\$(is_remote_depoxy_client_same "\${client_id}" 2> /dev/null); then
       MR_REMOTE_PATH="${remote_path}"
     fi
-    # If ! \${ret}, e.g., "No remote specified by MR_REMOTE", but we'll
-    # let 'ffssh' fail if MR_REMOTE not set, so that other actions don't
-    # fail, e.g., \`mr -d . -n run sh -c 'echo \$MR_SECTION_CONFIG'\`
+    # Don't errexit here, but let action (e.g., 'ffssh') fail if MR_REMOTE
+    # not set (e.g., perhaps "No remote specified by MR_REMOTE"). This lets
+    # actions that don't care to succeed, e.g.,
+    #   $ mr -d . -n run sh -c 'echo $MR_SECTION_CONFIG'
     # - Nope:
     #   # # errexit if is_remote_depoxy_client_same encountered error.
     #   # \${ret}
