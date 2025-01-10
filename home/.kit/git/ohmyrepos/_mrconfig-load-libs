@@ -21,22 +21,26 @@ include =
 #   onboard_easy_as_pypi_follower_2023
 #     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi
 include =
-  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi"
-  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate"
+  _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
+  #
+  cat "${_omr_dxy_lib_dir}/my-deps-manage-easy-as-pypi"
+  cat "${_omr_dxy_lib_dir}/my-deps-manage-shoilerplate"
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
 lib =
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/append-bash-completion.sh"
+  _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
+  #
+  . "${_omr_dxy_lib_dir}/append-bash-completion.sh"
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh"
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/is-remote-depoxy-client-same.sh"
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/macos-install-dmg.sh"
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/prepare-guard-repo.sh"
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/pyenv-shell-unset.sh"
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/rebase-tip.sh"
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/stub-checkout.sh"
+  . "${_omr_dxy_lib_dir}/infuse-personal-projlns.sh"
+  . "${_omr_dxy_lib_dir}/is-remote-depoxy-client-same.sh"
+  . "${_omr_dxy_lib_dir}/macos-install-dmg.sh"
+  . "${_omr_dxy_lib_dir}/prepare-guard-repo.sh"
+  . "${_omr_dxy_lib_dir}/pyenv-shell-unset.sh"
+  . "${_omr_dxy_lib_dir}/rebase-tip.sh"
+  . "${_omr_dxy_lib_dir}/stub-checkout.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -46,7 +50,9 @@ lib =
 #   update_faithful_file et al:
 #     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/update-faithful
 include =
-  cat "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/update-faithful"
+  _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
+  #
+  cat "${_omr_dxy_lib_dir}/update-faithful"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -55,7 +61,9 @@ include =
 # spells.sh runner (commit_sorted_spells_and_alert_if_conflicts) for Vim spell file maintenance.
 # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh @ 17
 lib =
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib/spellfile.txt-runner.sh"
+  _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
+  #
+  . "${_omr_dxy_lib_dir}/spellfile.txt-runner.sh"
 
 # ========================================================================
 # ------------------------------------------------------------------------
