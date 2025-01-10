@@ -47,12 +47,17 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
+  local before_cd="$(pwd -L)"
+
   # For infuse-platform-macOS source to work
+  cd -- "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
   # Load: infuse_macOS_probe_sshd_config
   # CXREF: ~/.depoxy/ambers/home/infuse-platform-macOS
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/infuse-platform-macOS"
+
+  cd -- "${before_cd}"
 }
 
 run_everday_check_sshd_config () {

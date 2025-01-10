@@ -11,26 +11,31 @@ MSG_PREFIX_ADDED_SYMLINKS_DIR='Created symlinks for'
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
+  # HSTRY/2025-01-07: Rather than rely on PATH (you can `. <filename>`
+  # and the shell will search PATH for a match) like author's code has
+  # mostly done in the past, new approach: The sourced files assume
+  # they're sourced from their own directory, so they can find
+  # dependencies relative to the current working directory. Also
+  # by using the full path when sourcing, we don't have to worry about
+  # same-named filename clashes (e.g., avoid sourcing *some other*
+  # "logger.sh" on PATH).
+  local before_cd="$(pwd -L)"
+
+  cd "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
   # Load: warn, etc.
-  command -v logger.sh > /dev/null && . logger.sh ||
-    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
-  # The OMR/lib modules (link-private-exclude.sh and link-private-ignore.sh)
-  # expect that OMR/lib is on PATH.
-  PATH="${PATH}:${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
-
+  cd "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   # Load: link_hard
-  command -v link-hard.sh > /dev/null && . link-hard.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
   # Load: link_private_exclude
-  command -v link-private-exclude.sh > /dev/null && . link-private-exclude.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-exclude.sh"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-exclude.sh"
   # Load: link_private_ignore, link_private_ignore_
-  command -v link-private-ignore.sh > /dev/null && . link-private-ignore.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-ignore.sh"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-ignore.sh"
   # Load: symlink_*, infuser_prepare, font_highlight
-  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+
+  cd "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

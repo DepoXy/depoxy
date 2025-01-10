@@ -30,7 +30,9 @@ include =
 # ------------------------------------------------------------------------
 
 lib =
+  _omr_before_cd="$(pwd -L)"
   _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
+  cd -- "${_omr_dxy_lib_dir}"
   #
   . "${_omr_dxy_lib_dir}/append-bash-completion.sh"
   # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
@@ -41,6 +43,8 @@ lib =
   . "${_omr_dxy_lib_dir}/pyenv-shell-unset.sh"
   . "${_omr_dxy_lib_dir}/rebase-tip.sh"
   . "${_omr_dxy_lib_dir}/stub-checkout.sh"
+  #
+  cd -- "${_omr_before_cd}"
 
 # ========================================================================
 # ------------------------------------------------------------------------

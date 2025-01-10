@@ -5,17 +5,19 @@
 # License: MIT
 
 source_deps () {
+  local before_cd="$(pwd -L)"
+
   # Load: debug, etc.
-  command -v logger.sh > /dev/null && . logger.sh ||
-    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  cd "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
   # Load: link_hard.
-  command -v link-hard.sh > /dev/null && . link-hard.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
+  cd "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
 
   # Load: symlink_*, infuser_prepare, font_highlight.
-  command -v overlay-symlink.sh > /dev/null && . overlay-symlink.sh ||
-    . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+  cd "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # ***
 
@@ -33,6 +35,8 @@ source_deps () {
   #          _depoxy_infuse_brew_shellenv
   # - SAVVY: Note brewskies would call `brew shellenv` if we sourced
   #   if from Bash, but this script runs from /bin/sh. Just FYI.
+
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

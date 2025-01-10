@@ -5,17 +5,19 @@
 # License: MIT
 
 source_deps () {
+  local before_cd="$(pwd -L)"
+
   # Load: warn, etc.
   # ISOFF: Loaded by overlay-symlink.sh:
-  #  command -v logger.sh > /dev/null && . logger.sh ||
-  #    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  #   cd "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+  #   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
   # Load: symlink_*, infuser_prepare.
   # - CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
   # Update PATH, in case this file run directly by user, because OMR
   # expects all its deps to be on PATH.
-  export PATH="${PATH}:${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
-  . "overlay-symlink.sh"
+  cd -- "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 
   # Required by distro_util.sh: tweak_errexit
   . "${HOMEFRIES_LIB:-${HOME}/.kit/sh/home-fries/lib}/process_util.sh"
@@ -29,6 +31,8 @@ source_deps () {
   # Load: update_cache_macos_version
   # CXREF: ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
   . "$(dirname -- "$(realpath -- "$0")")/.depoxy/ambers/bin/verify-cache-macos-version"
+
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -595,13 +599,19 @@ sudo_has_cached_credentials () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_infuse_platform_macos__this_filename="infuse-platform-macOS"
+
+_infuse_platform_macos__shell_sourced () {
+  [ "$(realpath -- "$0")" != "${_infuse_platform_macos__this_filename}" ]
+}
+
 main () {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
 
-  if [ "$(basename -- "$0")" = "infuse-platform-macOS" ]; then
+  if _infuse_platform_macos__shell_sourced; then
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_VVVERBOSE:-0}}
   else
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}}
@@ -651,12 +661,12 @@ main () {
   )
 }
 
-
 # Run the infuser iff being executed.
-SCRIPT_NAME="infuse-platform-macOS"
-if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
+if ! _infuse_platform_macos__shell_sourced; then
   main "$@"
 fi
 
+unset -v _infuse_platform_macos__this_filename
+unset -f _infuse_platform_macos__shell_sourced
 unset -f main
 

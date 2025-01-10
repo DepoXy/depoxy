@@ -11,7 +11,7 @@
 source_deps () {
   # Load: logger.sh, and colors.sh, for link_deep.
   # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
-  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
   
   # Load: _vendorfs_path_running_client_print.
   # - CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh

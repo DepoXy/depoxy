@@ -233,7 +233,13 @@ _dxc_client_autocommit () {
   # *** GPG Keys
 
   aci_gnupg () {
+    local before_cd="$(pwd -L)"
+    #
+    # Load: git_auto_commit_one_* fcns.
+    cd -- "${DOPP_KIT:-${HOME}/.kit}/odd/321open/lib"
     . "${DOPP_KIT:-${HOME}/.kit}/odd/321open/lib/biblio.321"
+    #
+    cd -- "${before_cd}"
 
     local dxy_target="home/.gnupg"
 
