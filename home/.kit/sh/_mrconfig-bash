@@ -68,6 +68,11 @@ skip = mr_exclusive "!entrusted"
 lib = remote_set publish https://github.com/landonb/sh-print-nanos-now.git
 skip = mr_exclusive "!entrusted"
 
+# Shell dependency loading boilerplate
+[${SHOILERPLATE:-${HOME}/.kit/sh}/sh-source-deps-template]
+lib = remote_set publish https://github.com/DepoXy/sh-source-deps-template.git
+skip = mr_exclusive "!aci" "!entrusted"
+
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
 lib = remote_set publish https://github.com/landonb/sh-rm_safe.git
 skip = mr_exclusive "!entrusted"

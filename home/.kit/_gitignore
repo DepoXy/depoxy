@@ -277,6 +277,7 @@
 /sh/sh-print-nanos-now/
 /sh/sh-rm_safe/
 /sh/sh-sensible-open/
+/sh/sh-source-deps-template/
 /sh/sh-spinners/
 /sh/tmux-bash-completion/
 /sh/tmuxinator/
