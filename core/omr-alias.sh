@@ -102,7 +102,7 @@ sff () {
 
 # `st` alone shows just local repo's fancy report;
 # `stt` alone shows all repos quick tidiness report;
-# `st <>` or `stt <>` shows quick tidiness report on group <>.
+# `st <>` or `stt <>` shows quick tidiness report on dir <> or group <>.
 st () {
   [ -n "$1" ] && OMR_MYSTATUS_FANCY=false stt "$@" || git my-merge-status
 }
