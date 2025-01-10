@@ -10,7 +10,7 @@
 # - You'll also need to add a special project to the remote OMR config to
 #   also manage MR_REMOTE_PATH on the other host (e.g., it'll have to pull
 #   from this host's $HOME, and not from ~/.depoxy/stints/XXXX/home/.home,
-#   which doesn't exist on this host.
+#   which doesn't exist on this host).
 
 lib =
   set_environ_remote_dxc_home () {
