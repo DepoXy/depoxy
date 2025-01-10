@@ -48,7 +48,7 @@ lib =
     local client_id="\$1"
     #
     local ret
-    if ret=\$(is_remote_depoxy_client_same "\${client_id}" 2> /dev/null); then
+    if ret=\$(is_remote_depoxy_client_same "\${client_id}"); then
       MR_REMOTE_PATH="${remote_path}"
     fi
     # Don't errexit here, but let action (e.g., 'ffssh') fail if MR_REMOTE

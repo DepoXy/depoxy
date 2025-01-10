@@ -39,7 +39,13 @@ is_remote_depoxy_client_same () {
   # Not Bash, so can't do this the easy way:
   #   ${!remote_cache_key}
   local remote_cache_id="$(eval printf "%s" "\${${remote_cache_key}}")"
-  if [ -n "${remote_cache_id}" ]; then
+
+  >&2 verbose "Sussing remote home: ${remote_cache_key}: ${remote_cache_id:-<Unprobed>}"
+
+  if [ "${remote_cache_id}" = "timeout" ]; then
+    echo "false"
+    return 1
+  elif [ -n "${remote_cache_id}" ]; then
     echo "true"
     [ "${remote_cache_id}" = "${client_id}" ] \
       && return 0 \
@@ -59,9 +65,17 @@ is_remote_depoxy_client_same () {
   local remote_running="${MR_REMOTE_RUNNING:-${MR_REMOTE_HOME:-${HOME}}/${local_running_rel}}"
 
   local remote_id
-  remote_id="$( \
-    ssh ${MR_REMOTE} "basename -- \"\$(realpath -- '${remote_running}')\""
-  )"
+  if ! remote_id="$( \
+    ssh -o ConnectTimeout=${MR_REMOTE_CONNECT_TIMEOUT:-5} ${MR_REMOTE} \
+      "basename -- \"\$(realpath -- '${remote_running}')\""
+  )"; then
+    >&2 warn "Remote SSH timeout: ${MR_REMOTE} is unreachable"
+
+    eval "${remote_cache_key}=timeout"
+
+    echo "false"
+    return 1
+  fi
 
   >&2 verbose "remote_id: ${remote_id} / remote_running: ${remote_running}"
 
