@@ -107,6 +107,15 @@ install =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# *** Dash (Debian Almquist shell)
+
+[${SHOILERPLATE:-${HOME}/.kit/sh}/dash]
+lib = remote_set starter https://git.kernel.org/pub/scm/utils/dash/dash.git
+skip = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # *** OpSec (OPSEC)
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/password-store]
