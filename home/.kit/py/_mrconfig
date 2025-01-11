@@ -317,7 +317,33 @@ installDarwin =
     return 1
   fi
 installLinux =
+  #
+  sudo -v -p "for the sudo: "
+  #
   pull_latest "starter" "master" "" "main"
+  #
+  # REFER:
+  # https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+  sudo apt update
+  sudo apt install \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    curl \
+    git \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    libffi-dev \
+    liblzma-dev
+  # "If you are going build PyPy from source or install other Python
+  #  flavors that require CLang, also install llvm."
+  sudo apt install llvm
   #
   src/configure
   make -C src
