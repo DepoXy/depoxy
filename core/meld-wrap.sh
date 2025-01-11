@@ -44,7 +44,7 @@ meld () {
   local user_meld="${DOPP_KIT:-${HOME}/.kit}/py/meld"
 
   # USYNC: DEPOXY_PYENV_PYVERS
-  local py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}"
+  local py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}"
   local py_path="/opt/homebrew/lib/python${py_vers%.*}/site-packages"
 
   is_meld_sources_installed () {

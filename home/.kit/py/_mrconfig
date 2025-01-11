@@ -85,15 +85,15 @@ isInstalled =
 install =
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
-  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
-  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.8}
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
   # pip install --upgrade pip
   python3 -m pip install --upgrade pip
   python3 -m pip install --user pipx
 installPips =
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
-  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
   for package in \
     "asciinema" \
     "argcomplete" \
@@ -130,8 +130,8 @@ install =
   test "$(command -v deactivate)" = "deactivate" && deactivate
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
-  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
-  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.8}
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
   #
   mr -d "${DOPP_KIT:-${HOME}/.kit}/py/install.python-poetry.org" -n update
   # https://install.python-poetry.org/
@@ -187,8 +187,8 @@ install =
     test "$(command -v deactivate)" = "deactivate" && deactivate
     eval "$(pyenv init -)"
     # USYNC: DEPOXY_PYENV_PYVERS
-    pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.1}
-    pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.1}
+    pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.8}
+    pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
     #
     # E.g., `pip install virtualenvwrapper`
     vew_fork="${VENV_WRAP:-${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper}"

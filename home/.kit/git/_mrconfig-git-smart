@@ -70,7 +70,7 @@ echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled =
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
-  pyenv shell ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}
+  pyenv shell ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}
   python_get_distribution () {
     local pkgname="$1"
     # /usr/bin/env python3 -c \
@@ -84,8 +84,8 @@ isInstalled =
 install =
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
-  pyenv install -s ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}
-  pyenv shell ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}
+  pyenv install -s ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}
+  pyenv shell ${GITSMART_PYENV_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}
   # pip install --upgrade pip
   python3 -m pip install --upgrade pip
   python3 -m pip install human-friendly_pedantic-timedelta

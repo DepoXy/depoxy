@@ -196,7 +196,7 @@ installDarwin =
   eval "$(pyenv init -)"
   #
   # USYNC: DEPOXY_PYENV_PYVERS
-  py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.1}}"
+  py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}"
   pyenv install -s ${py_vers}
   pyenv shell ${py_vers}
   #
