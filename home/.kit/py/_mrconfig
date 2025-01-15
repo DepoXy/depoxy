@@ -109,8 +109,13 @@ installPips =
   # For `argcomplete`, what `activate-global-python-argcomplete` does.
   # - MAYBE/2024-04-03: This cries for making a placeholder `argcomplete`
   #   OMR project with its own 'install' action...
-  append_bash_completion \
-    ". ~/.local/lib/python3.12/site-packages/argcomplete/bash_completion.d/_python-argcomplete"
+  argcompletion="${HOME}/.local/lib/python3.12/site-packages/argcomplete/bash_completion.d/_python-argcomplete"
+  if [ -f "${argcompletion}" ]; then
+    append_bash_completion ". ${argcompletion}"
+  else
+    >&2 echo "ERROR: Where's arcomplete completion? It's not at:"
+    >&2 echo "  ${argcompletion}"
+  fi
 
 # ========================================================================
 # ------------------------------------------------------------------------
