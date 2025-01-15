@@ -354,9 +354,16 @@ setup_private_coc_config () {
 #   and won't be captured on stdout.
 setup_vim_generate_helptags () {
   info "Rebuilding Vim helptags: $(font_highlight "call pathogen#helptags()")"
+  # SAVVY: Print newline in case Vim prompts on startup...
+  # - Note that a Vim startup prompt happens if there are
+  #   `echom` messages during startup. Which generally
+  #   shouldn't happen, but they might. And if they do,
+  #   they could hang the 'infuse' process until the
+  #   user interacts with the prompt (which they might not
+  #   realize they need to do, because stderr inhibited).
   # ALTLY: `vim -c "Helptags" -c q`, but this call ensures you won't
   # confuse pathogen's :Helptags with Vim's built-in :helptags <dir>
-  vim -c ":call pathogen#helptags()" -c q 2> /dev/null
+  printf "\n" | vim -c ":call pathogen#helptags()" -c q 2> /dev/null
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
