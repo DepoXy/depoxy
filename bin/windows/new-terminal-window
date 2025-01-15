@@ -60,9 +60,6 @@ new_alacritty_window () {
     return 1
   fi
 
-  # REFER: Instead of HOMEFRIES_CD, see also:
-  #   alacritty --working-directory <DIR>
-
   # FIXME: Make the values more easily configurable.
 
   # Override default dimensions from Alacritty config:
@@ -88,6 +85,9 @@ new_alacritty_window () {
   if ! os_is_macos; then
     font_family="monospace"
   fi
+
+  # REFER: Instead of HOMEFRIES_CD, see also:
+  #   alacritty --working-directory <DIR>
 
   ITERM_SESSION_ID= \
   DUBS_ALWAYS_ON_VISIBLE=false \
