@@ -32,6 +32,8 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 [terminal]
+# On Linux, use:
+#   alacritty -o terminal.shell="'${HOME}/.local/bin/bash'" ... &
 shell = "/opt/homebrew/bin/bash"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

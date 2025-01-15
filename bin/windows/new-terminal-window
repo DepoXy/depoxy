@@ -86,6 +86,12 @@ new_alacritty_window () {
     font_family="monospace"
   fi
 
+  local term_shell="/opt/homebrew/bin/bash"
+
+  if ! os_is_macos; then
+    term_shell="${HOME}/.local/bin/bash"
+  fi
+
   # REFER: Instead of HOMEFRIES_CD, see also:
   #   alacritty --working-directory <DIR>
 
@@ -93,6 +99,7 @@ new_alacritty_window () {
   DUBS_ALWAYS_ON_VISIBLE=false \
   HOMEFRIES_CD="${HOME}" \
     alacritty \
+    -o "terminal.shell='${term_shell}'" \
     -o 'font.normal={ family = "'${font_family}'", style = "Regular" }' \
     -o "window.dimensions.columns=${dim_cols}" \
     -o "window.dimensions.lines=${dim_rows}" \
