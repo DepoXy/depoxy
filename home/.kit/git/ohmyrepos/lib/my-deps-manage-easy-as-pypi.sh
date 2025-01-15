@@ -210,7 +210,15 @@ infuse_easy_as_pypi_gh_repo_set_default () {
   # Caller can skip this task, e.g.,
   #   INFUSE_GH_ORG=- infuse_easy_as_pypi_follower
   if [ "${gh_org}" = "-" ]; then
+
     return 0
+  fi
+
+  if ! command -v gh > /dev/null; then
+    >&2 echo "ERROR: Please install \`gh\` to wire EAPP repos"
+    >&2 echo "  mr -d ~/.kit/git/cli -n install"
+
+    return 1
   fi
 
   # Prints, e.g.,
