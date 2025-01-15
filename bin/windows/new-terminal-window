@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2025 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# FIXME: Make the hardcoded values below more easily configurable.
+
+# HSTRY/2025-01-14: "Previously on" this was hardcoded in the keybinding config:
+#   ~/.kit/ansible/roles/zoidy_matecocido/defaults/main/keybindings.yml
+# And it assumed mate-terminal.
+# - Now it *prefers* Alacritty, but falls-back built-in mate-terminal
+#   or gnome-terminal.
+
+new_terminal_window () {
+  local screen_w
+  local screen_h
+  probe_screen_dimensions
+
+  false \
+    || new_alacritty_window \
+    || new_mate_terminal_window \
+    || new_gnome_terminal_window \
+    || alert_terminal_whatnow
+}
+
+# SAVVY: Because <() redirection, this script requires Bash (shebang).
+probe_screen_dimensions () {
+  # E.g., Lenovo T480:
+  #   $ cat /sys/class/graphics/*/virtual_size
+  #   1920,1080
+  IFS=',' read screen_w screen_h \
+    < <(cat /sys/class/graphics/*/virtual_size | head -n1)
+
+  if [ -z "${screen_w}" ] || [ -z "${screen_h}" ]; then
+    # E.g., Lenovo T480
+    #   $ cat /sys/class/graphics/*/modes
+    #   U:1920x1080p-0
+    IFS='x' read screen_w screen_h \
+      < <(cat /sys/class/graphics/*/modes | head -n1 | grep -o '[0-9x]*')
+  fi
+
+  if [ -z "${screen_w}" ] || [ -z "${screen_h}" ]; then
+    # Works on Wayland, but who knows how long X Window utils will
+    # continue to work.
+    IFS='x' read screen_w screen_h \
+      < <(xdpyinfo | grep dimensions | grep -o '[0-9x]*' | head -n1)
+  fi
+
+  ! ${TRACE:-false} || echo "screen: width: ${screen_w} / height: ${screen_h}"
+}
+
+new_alacritty_window () {
+  if ! command -v alacritty > /dev/null; then
+
+    return 1
+  fi
+
+  # REFER: Instead of HOMEFRIES_CD, see also:
+  #   alacritty --working-directory <DIR>
+
+  # FIXME: Make the values more easily configurable.
+
+  # Override default dimensions from Alacritty config:
+  # ~/.depoxy/ambers/home/.config/alacritty/alacritty.toml
+  local dim_cols=169
+  local dim_rows=69
+
+  if [ "${screen_w}" -eq 1920 ] && [ "${screen_h}" -eq 1080 ]; then
+    dim_cols=130
+    dim_rows=45
+  fi
+
+  ITERM_SESSION_ID= \
+  DUBS_ALWAYS_ON_VISIBLE=false \
+  HOMEFRIES_CD="${HOME}" \
+    alacritty \
+    -o "window.dimensions.columns=${dim_cols}" \
+    -o "window.dimensions.lines=${dim_rows}" \
+    &
+}
+
+new_mate_terminal_window () {
+  if ! command -v mate-terminal > /dev/null; then
+
+    return 1
+  fi
+
+  ITERM_SESSION_ID= \
+  DUBS_ALWAYS_ON_VISIBLE=false \
+  HOMEFRIES_CD="${HOME}" \
+    mate-terminal \
+      --geometry="130x48+402+89" \
+      -e "${HOME}/.local/bin/bash" \
+      &
+}
+
+new_gnome_terminal_window () {
+  if ! command -v gnome-terminal > /dev/null; then
+
+    return 1
+  fi
+
+  ITERM_SESSION_ID= \
+  DUBS_ALWAYS_ON_VISIBLE=false \
+  HOMEFRIES_CD="${HOME}" \
+    gnome-terminal \
+      -- "${HOME}/.local/bin/bash" \
+      &
+}
+
+alert_terminal_whatnow () {
+  >&2 echo "ERROR: Unable to find terminal application"
+  >&2 echo "- None found: Alaritty, mate-terminal, gnome-terminal"
+
+  exit 1
+}
+
+# ***
+
+main () {
+  set -e
+
+  new_terminal_window "$@"
+}
+
+main "$@"
+
