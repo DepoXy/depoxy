@@ -155,6 +155,21 @@ include =
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "rust" ] ||
+     [ "${MR_INCLUDE}" = "kit-rust" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
+  false; then
+    # CXREF: ~/.depoxy/ambers/home/.kit/rust/_mrconfig
+    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/rust/_mrconfig
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "sh" ] ||
      [ "${MR_INCLUDE}" = "kit-sh" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
