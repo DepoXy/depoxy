@@ -328,6 +328,7 @@ _dxy_wire_aliases_pushd_paths_kit () {
   pushd_alias_or_warn "cdkml" "${DOPP_KIT:-${HOME}/.kit}/ml"
   pushd_alias_or_warn "cdkmos" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
   pushd_alias_or_warn "cdkpy" "${DOPP_KIT:-${HOME}/.kit}/py"
+  pushd_alias_or_warn "cdkrs" "${DOPP_KIT:-${HOME}/.kit}/rust"
   pushd_alias_or_warn "cdksh" "${SHOILERPLATE:-${HOME}/.kit/sh}"
 
   # See also: GITREPOSPATH
@@ -339,6 +340,7 @@ _dxy_wire_aliases_pushd_paths_kit () {
   pushd_alias_or_warn "cdkm" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
   pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
+  pushd_alias_or_warn "cdkr" "${DOPP_KIT:-${HOME}/.kit}/rust"
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
   pushd_alias_or_warn "cdks" "${SHOILERPLATE:-${HOME}/.kit/sh}"
   # CALSO: `cdtx` (which author !remembers (are rarely goes there anyway)).
