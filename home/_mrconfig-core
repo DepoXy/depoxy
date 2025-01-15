@@ -287,6 +287,8 @@ infuse =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
   #
+  # CXREF: DXC might override this 'infuse':
+  #   ~/.depoxy/running/home/.vim/_mrconfig-vim-include
   LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
     "${infuse_dubs_vim}" "$@"
 # Don't need/want ~/.vim/.ignore (it doesn't have any rules we want,
