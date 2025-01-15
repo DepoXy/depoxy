@@ -22,6 +22,25 @@ source_deps () {
   cd -- "${before_cd}"
 }
 
+check_deps () {
+  # . "${SHOILERPLATE:-${HOME}/.kit/sh}/home-fries/lib/snips/check_dep.sh"
+  #
+  # check_dep "m4" "- Try, e.g., \`apt install m4\`"
+  must_verify_m4
+}
+
+must_verify_m4 () {
+  if m4_kludge > /dev/null; then
+
+    return 0
+  fi
+
+  >&2 echo "ERROR: Missing dependency: m4 (or gm4)"
+  >&2 echo "- Try, e.g., \`apt install m4\`"
+
+  exit 1
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_myrepos_mrconfig_and_mrinfuse () {
@@ -110,6 +129,8 @@ main () {
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
+
+  check_deps
 
   if [ "$(basename -- "$0")" = "infuse-config-omr" ]; then
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_VVVERBOSE:-0}}
