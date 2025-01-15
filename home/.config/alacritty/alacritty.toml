@@ -37,14 +37,76 @@ shell = "/opt/homebrew/bin/bash"
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 [font]
+
+# SAVVY/2025-01-15: On GNOME Shell, if you specify the font name
+# directly, then emoji are not rendered colorfully. E.g., if you
+# specify:
+#   normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+# Then instead of the colorful VS-16 emoji variants, you see the
+# plain white-on-black variants.
+# - This happens with "Hack Nerd Font Mono", "Hack", "Noto Sans Mono",
+#   etc. But it works with "Noto Color Emoji" (though normal characers
+#   don't render properly with that font).
+# REFER:
+# https://github.com/alacritty/alacritty/issues/153#issuecomment-620571405
+# https://github.com/alacritty/alacritty/issues/3823
+# - *Not all emojis are correct in alacritty terminal*
+#   https://bbs.archlinux.org/viewtopic.php?id=268110
+#
+# CXREF: We can work around the issue using a fonts.conf file:
+#   ~/.config/fontconfig/fonts.conf
+#
+# USAGE: After editing fonts.conf, reload the font cache:
+#   fc-cache -vf
+#   sudo fc-cache -vf
+#
+# TRYME: Paste these emoji to a terminal to see how they render:
+#   echo "🍄🍅👍😍🙊🥱🥺✨✅🎊🏄"
+#
+# WRKLG: Debian 12:
+#   $ fc-match -s "Hack Nerd Font Mono" | head -1
+#   Hack Regular Nerd Font Complete Mono.ttf: "Hack Nerd Font Mono" "Regular"
+#   $ fc-match emoji
+#   NotoColorEmoji.ttf: "Noto Color Emoji" "Regular"
+# - Default monospace font:
+#   $ fc-match monospace
+#   NotoSansMono-Regular.ttf: "Noto Sans Mono" "Regular"
+# - After adding ~/.config/fontconfig/fonts.conf
+#   $ fc-match monospace
+#   Hack Regular Nerd Font Complete Mono.ttf: "Hack Nerd Font Mono" "Regular"
+#
+# SAVVY: On Linux, use "monospace" fond wired via
+#   ~/.config/fontconfig/fonts.conf
+# so emoji are printed colorfully, and not using the
+# VS15 black and white variant.
+# - Except don't do it here, e.g.:
+#
+#     normal = { family = "monospace", style = "Regular" }
+#
+#   but specify as command argument, e.g.:
+#
+#     alacritty \
+#       -o 'font.normal={family = "'${font_family}'", style = "Regular"}' \
+#       ...
+#
+#   so that macOS can default use Hack Nerd Font Mono (because macOS
+#   doesn't support fonts.conf [AFAIK], so either we need separate
+#   alacritty.toml for each OS, or we need to specify config
+#   differences via the command line; and the latter seems easier).
+#
+#   - SAVVY: Also note that whatever you specify via -o will never
+#     be overridden by a config file value, incuding if you edit and
+#     save this file and trigger each Alacritty window to reload the
+#     config — if a window was opened using -o arguments, those -o
+#     arguments continue to override whatever's in this config file.
+
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
-size = 12.75
+
 # See also @macOS built-in fonts, e.g.,:
 #   normal = { family = "Menlo", style = "Regular" }
 #   normal = { family = "Andale Mono", style = "Regular" }
 
-# Not all emojis are correct in alacritty terminal
-# https://bbs.archlinux.org/viewtopic.php?id=268110
+size = 12.75
 
 builtin_box_drawing = true
 

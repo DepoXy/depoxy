@@ -75,10 +75,25 @@ new_alacritty_window () {
     dim_rows=45
   fi
 
+  # CXREF: See comments in Alacritty.conf re: font family:
+  #   ~/.depoxy/ambers/home/.config/alacritty/alacritty.toml
+  #
+  # NTRST: Alacritty watches the config and reloads it when you
+  # save it. But it won't override -o options when it reloads
+  # the config file (so if you change "family" in the config and
+  # save it, Alacritty will still use the value we used here).
+
+  local font_family="Hack Nerd Font Mono"
+
+  if ! os_is_macos; then
+    font_family="monospace"
+  fi
+
   ITERM_SESSION_ID= \
   DUBS_ALWAYS_ON_VISIBLE=false \
   HOMEFRIES_CD="${HOME}" \
     alacritty \
+    -o 'font.normal={ family = "'${font_family}'", style = "Regular" }' \
     -o "window.dimensions.columns=${dim_cols}" \
     -o "window.dimensions.lines=${dim_rows}" \
     &
@@ -118,6 +133,10 @@ alert_terminal_whatnow () {
   >&2 echo "- None found: Alaritty, mate-terminal, gnome-terminal"
 
   exit 1
+}
+
+os_is_macos () {
+  [ "$(uname)" = "Darwin" ]
 }
 
 # ***
