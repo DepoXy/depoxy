@@ -1,0 +1,111 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2024-2025 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE: Wire to DE accelerators, e.g., <Cmd-1> .. <Cmd-9> to front
+# terminal windows with sequentially numbered titles.
+#
+# - CXREF: See how author wires GNOME Shell and MATE custom keybindings:
+#
+#     https://github.com/landonb/zoidy_matecocido#🖥️
+#
+#     - Keybinding definitions:
+#
+#       https://github.com/landonb/zoidy_matecocido/blob/release/defaults/main/keybindings.yml#L369-L412
+#         ~/.kit/ansible/roles/zoidy_matecocido/defaults/main/keybindings.yml @ 370
+#
+#     - Keybinding dconf iterator:
+#
+#       https://github.com/landonb/zoidy_matecocido/blob/release/tasks/keybinding-circus.yml
+#         ~/.kit/ansible/roles/zoidy_matecocido/tasks/keybinding-circus.yml
+
+# CXREF: See how DepoXy uses Homefries uses sh-humble-prompt to
+#   automatically number terminal windows as they're opened:
+#
+#     https://github.com/DepoXy/sh-humble-prompt#🙇
+#
+#       ~/.kit/sh/sh-humble-prompt/lib/show-command-name-in-window-title.sh
+#
+# CXREF: Homefries uses different dots for window title window numbers:
+# - Either Full Stop (normal period, “.”), or One Dot Leader (“․”) for
+#   sticky terminal windows.
+#
+# - See:
+#
+#     https://github.com/landonb/home-fries#🍟
+#
+#       https://github.com/landonb/home-fries/blob/release/lib/term/perhaps-always-on-visible-desktop.sh
+#
+#   Or if running a DepoXy environment, locally at:
+#
+#     ~/.kit/sh/home-fries/lib/term/perhaps-always-on-visible-desktop.sh
+#
+# SAVVY: Note that `wmctrl -a '1. '` does not work (the trailing space).
+# - But `wmctrl -a '1.'` or `wmctrl -a '1. <some-text>'` works.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps () {
+  # Load: `_hf_probe_desktop_environment`
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
+}
+
+# ***
+
+toogle_window_numbered () {
+  local title_num="$1"
+
+  local de_name
+  de_name="$(_hf_probe_desktop_environment)"
+
+  # On GNOME Shell, we match using grep, which lets us ensure the number-dot
+  # is at the start of the title; we also escape the ASCII period to match
+  # literally.
+  # - On MATE, the string can match as a substring, but at least the dot is
+  #   literal, so the likelihood (in author's experience) in minimal.
+  if [ "${de_name}" = "GNOME" ]; then
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/windows/toggle-visibility" \
+      "^${title_num}\\." "^${title_num}․"
+  # REMEM: This is the One Dot Leader- ↑
+  else
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/windows/toggle-visibility" \
+      "${title_num}." "${title_num}․"
+  # REMEM: This 'a One Dot Leader- ↑
+  fi
+}
+
+# ***
+
+check_deps () {
+  if ! os_is_linux; then
+    >&2 echo "ERROR: This script only runs on Linux"
+
+    return 1
+  fi
+}
+
+os_is_linux () {
+  [ "$(uname)" = "Linux" ]
+}
+
+# ***
+
+main () {
+  if ! check_deps; then
+
+    return 1
+  fi
+
+  source_deps
+
+  toogle_window_numbered "$@"
+}
+
+main "$@"
+
