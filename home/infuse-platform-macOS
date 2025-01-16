@@ -602,7 +602,7 @@ sudo_has_cached_credentials () {
 _infuse_platform_macos__this_filename="infuse-platform-macOS"
 
 _infuse_platform_macos__shell_sourced () {
-  [ "$(realpath -- "$0")" != "${_infuse_platform_macos__this_filename}" ]
+  [ "$(basename -- "$(realpath -- "$0")")" != "${_infuse_platform_macos__this_filename}" ]
 }
 
 main () {
