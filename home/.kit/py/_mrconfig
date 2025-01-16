@@ -394,14 +394,18 @@ installpythons =
   #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL
   # USYNC: Other 'installpythons' task(s):
   #   See virtualenvwrapper project, below
-  pyenv install -s 3.8
+  # CXREF: https://devguide.python.org/versions/
+  #   pyenv install -l | grep "^  3\."
+  # ALTLY: See pyenv versions installed:
+  #   ll ~/.pyenv/versions/
   pyenv install -s 3.9
   pyenv install -s 3.10
   pyenv install -s 3.11
   pyenv install -s 3.12
+  pyenv install -s 3.13
   # Pre-release Python only installable by full version.
-  # This installs the non-dev version, e.g., '3.13.0a1', not '3.13-dev'.
-  pyenv install -s $(pyenv install -l | grep '^ \+3\.13\.' | tail -1)
+  # This installs the non-dev version, e.g., '3.14.0a3t', not '3.13-dev'.
+  pyenv install -s $(pyenv install -l | grep '^ \+3\.14\.' | tail -1)
   #
   mr -d "${MR_REPO}" -n installVirtualenvwrapper
   #
