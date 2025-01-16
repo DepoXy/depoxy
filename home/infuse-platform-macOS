@@ -608,6 +608,11 @@ _infuse_platform_macos__shell_sourced () {
 main () {
   set -e
 
+  # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib/err-trap.sh"
+
+  set_traps
+
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
 
@@ -621,6 +626,7 @@ main () {
   local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
   infuser_prepare "${ambers_dir}" "$@"
 
+  local retcode=0
   (
     cd "${MR_REPO}"
 
@@ -658,15 +664,20 @@ main () {
     fi
 
     return ${retcode}
-  )
+  ) \
+    || retcode=$?
+
+  clear_traps
+
+  return ${retcode}
 }
 
 # Run the infuser iff being executed.
-if ! _infuse_platform_macos__shell_sourced; then
+if _infuse_platform_macos__shell_sourced; then
+  unset -v _infuse_platform_macos__this_filename
+  unset -f _infuse_platform_macos__shell_sourced
+  unset -f main
+else
   main "$@"
 fi
-
-unset -v _infuse_platform_macos__this_filename
-unset -f _infuse_platform_macos__shell_sourced
-unset -f main
 
