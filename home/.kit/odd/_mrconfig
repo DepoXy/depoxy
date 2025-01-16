@@ -82,9 +82,33 @@ infuse = link_private_exclude "$@"
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 install = install_os_specific
 installLinux =
+  local venv_name=".venv-quicktile"
+  local user_bin="${HOME}/.local/bin/quicktile.sh"
+  #
+  # Load: _hf_probe_desktop_environment
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
+  #
+  local de_name
+  de_name="$(_hf_probe_desktop_environment)"
+  #
+  if [ "${de_name}" = "GNOME" ]; then
+    echo "Uninstalling quicktile on GNOME environment"
+    # I suppose if you had two DEs installed, maybe you'd want
+    # to keep the virtualenv.
+    if [ -d "${venv_name}" ]; then
+      info "Removing venv: ${venv_name}"
+      "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_safe" "${venv_name}"
+    fi
+    if [ -h "${user_bin}" ]; then
+      info "Removing PATH bin: ${user_bin}"
+      "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rm_safe" "${user_bin}"
+    fi
+    #
+    return 0
+  fi
+  #
   pyenv_shell_unset
   #
-  local venv_name=".venv-quicktile"
   if ! [ -d "${venv_name}" ]; then
     info "Creating venv..."
     python3 -m venv --system-site-packages "${venv_name}"
@@ -115,6 +139,12 @@ installLinux =
   #
   # Install the service
   # CXREF: ~/.depoxy/ambers/home/.kit/odd/x11/quicktile/quicktile.service
+  # BWARE/2025-01-15: At least on Debian 12, no ~/.config/systemd:
+  #   mkdir -p "${HOME}/.config/systemd/user"
+  # - though I don't plan to resurrect quicktile, and I've switched
+  #   to GNOME. So just FYI, this'll may-probably fail, but I don't
+  #   plan to fix it...
+  #   - FIXME/2025-01-15: Retire this project.
   cp "${ambers_root}/home/.kit/odd/x11/quicktile/quicktile.service" \
     "${HOME}/.config/systemd/user/quicktile.service"
   systemctl --user daemon-reload
