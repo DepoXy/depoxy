@@ -349,6 +349,8 @@ installLinux =
   # "If you are going build PyPy from source or install other Python
   #  flavors that require CLang, also install llvm."
   sudo apt install llvm
+  # For system `pip`
+  sudo apt install python3-pip
   #
   src/configure
   make -C src
@@ -497,14 +499,73 @@ installVirtualenvwrapper =
       export PYTHONNOUSERSITE=true
     fi
     #
-    python3 -m pip install --upgrade pip
+    # On Debian 12, cannot upgrade system pip:
+    #   error: externally-managed-environment
+    #
+    #   × This environment is externally managed
+    #   ╰─> To install Python packages system-wide, try apt install
+    #       python3-xyz, where xyz is the package you are trying to
+    #       install.
+    #
+    #       If you wish to install a non-Debian-packaged Python package,
+    #       create a virtual environment using python3 -m venv path/to/venv.
+    #       Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    #       sure you have python3-full installed.
+    #
+    #       If you wish to install a non-Debian packaged Python application,
+    #       it may be easiest to use pipx install xyz, which will manage a
+    #       virtual environment for you. Make sure you have pipx installed.
+    #
+    #       See /usr/share/doc/python3.11/README.venv for more information.
+    #
+    #   note: If you believe this is a mistake, please contact your Python
+    #   installation or OS distribution provider. You can override this, at
+    #   the risk of breaking your Python installation or OS, by passing
+    #     --break-system-packages.
+    #   hint: See PEP 668 for the detailed specification.
+    if [ "${pyvers}" != "system" ]; then
+      python3 -m pip install --upgrade pip
+    fi
     #
     vew_fork="${VENV_WRAP:-${DOPP_KIT:-${HOME}/.kit}/py/virtualenvwrapper}"
     vew_name="$(basename -- "${vew_fork}")"
     if [ -d "${vew_fork}" ]; then
       vew_name="${vew_fork}"
     fi
-    python3 -m pip install "${vew_name}"
+    #
+    break_system_packages=""
+    if [ "${pyvers}" = "system" ]; then
+      # MAYBE/2025-01-15: Should we not do this?
+      # - The question might be if any of the deps conflict with
+      #   system Python packages.
+      # - ALTHO: But then we need to run `pyenv shell <vers>` before
+      #   running `workon`, or we need to adjust `workon` to work
+      #   without virtualenvwrapper pip-installed to system Python.
+      # - Here's what pip-install reports on Debian 12:
+      #   Collecting virtualenv
+      #     Downloading virtualenv-20.29.0-py3-none-any.whl (4.3 MB)
+      #   Collecting virtualenv-clone
+      #     Downloading virtualenv_clone-0.5.7-py3-none-any.whl (6.6 kB)
+      #   Collecting stevedore
+      #     Downloading stevedore-5.4.0-py3-none-any.whl (49 kB)
+      #   Collecting pbr>=2.0.0
+      #     Downloading pbr-6.1.0-py2.py3-none-any.whl (108 kB)
+      #   Collecting distlib<1,>=0.3.7
+      #     Downloading distlib-0.3.9-py2.py3-none-any.whl (468 kB)
+      #   Collecting filelock<4,>=3.12.2
+      #     Downloading filelock-3.16.1-py3-none-any.whl (16 kB)
+      #   Collecting platformdirs<5,>=3.9.1
+      #     Downloading platformdirs-4.3.6-py3-none-any.whl (18 kB)
+      #   Installing collected packages: distlib, virtualenv-clone,
+      #     platformdirs, pbr, filelock, virtualenv, stevedore,
+      #     virtualenvwrapper
+      #   Successfully installed distlib-0.3.9 filelock-3.16.1 pbr-6.1.0
+      #     platformdirs-4.3.6 stevedore-5.4.0 virtualenv-20.29.0
+      #     virtualenv-clone-0.5.7
+      #     virtualenvwrapper-6.1.2rc25.dev3+g0ca9ebd.d20250116
+      break_system_packages="--break-system-packages"
+    fi
+    python3 -m pip install ${break_system_packages} "${vew_name}"
   done
   #
   unset PYTHONNOUSERSITE
