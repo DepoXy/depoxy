@@ -405,10 +405,6 @@ installpythons =
   #
   mr -d "${MR_REPO}" -n installVirtualenvwrapper
   #
-  # Latest EOL Pythons:
-  #  pyenv install -s 3.5.10
-  #  pyenv install -s 3.6.15
-  #
 # Install virtualenvwrapper to all environments.
 # - UCASE: Support `workon` from all pyenv envs.
 # - REFER: https://github.com/landonb/virtualenvwrapper
