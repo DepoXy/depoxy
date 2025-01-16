@@ -97,6 +97,7 @@ installPips =
   for package in \
     "asciinema" \
     "argcomplete" \
+    "dunamai" \
     "glances" \
     "grip" \
     "pycobertura" \
