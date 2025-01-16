@@ -402,7 +402,8 @@ No .ogg files: ${alert_dir}"
 __CPYST__="$(
 cat <<'EOF'
   icon_theme="$( \
-    gsettings get org.mate.interface icon-theme \
+    ( gsettings get org.gnome.desktop.interface icon-theme 2> /dev/null \
+      || gsettings get org.mate.interface icon-theme 2> /dev/null ) \
     | sed "s/^'//" | sed "s/'\$//"
   )"
   # Open gthumb, then look for *48/ directories.
@@ -417,7 +418,8 @@ EOF
 #   /usr/share/icons/mate/48x48/emotes/face-wink.png
 random_notif_image_name_linux () {
   local icon_theme="$( \
-    gsettings get org.mate.interface icon-theme \
+    ( gsettings get org.gnome.desktop.interface icon-theme 2> /dev/null \
+      || gsettings get org.mate.interface icon-theme 2> /dev/null ) \
     | sed "s/^'//" | sed "s/'\$//"
   )"
   local image_dir="/usr/share/icons/${icon_theme}/"
