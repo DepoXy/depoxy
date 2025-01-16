@@ -159,6 +159,8 @@ install =
 order = 131
 lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
 skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
+# CXREF: The client might monkey-patch 'infuse':
+# ~/.depoxy/running/home/.depoxy/ambers/_mrconfig-include
 infuse =
   # Optional .gitignore.local
   link_private_exclude "$@" 2> /dev/null || true
