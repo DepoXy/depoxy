@@ -106,16 +106,16 @@ installLinux =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
   #
-  # # CXREF: ~/.kit/odd/quicktile/quicktile.sh
+  # # CXREF: ~/.kit/odd/x11/quicktile/quicktile.sh
   # # symlink_overlay_file "${MR_REPO}/quicktile.sh" "${HOME}/.local/bin/quicktile.sh"
-  # CXREF: ~/.depoxy/ambers/home/.kit/odd/quicktile/quicktile.sh
+  # CXREF: ~/.depoxy/ambers/home/.kit/odd/x11/quicktile/quicktile.sh
   symlink_overlay_file \
-    "${ambers_root}/home/.kit/odd/quicktile/quicktile.sh" \
+    "${ambers_root}/home/.kit/odd/x11/quicktile/quicktile.sh" \
     "${HOME}/.local/bin/quicktile.sh"
   #
   # Install the service
-  # CXREF: ~/.depoxy/ambers/home/.kit/odd/quicktile/quicktile.service
-  cp "${ambers_root}/home/.kit/odd/quicktile/quicktile.service" \
+  # CXREF: ~/.depoxy/ambers/home/.kit/odd/x11/quicktile/quicktile.service
+  cp "${ambers_root}/home/.kit/odd/x11/quicktile/quicktile.service" \
     "${HOME}/.config/systemd/user/quicktile.service"
   systemctl --user daemon-reload
   systemctl --user enable quicktile.service
@@ -127,7 +127,7 @@ installLinux =
   #
   # USAGE: Called without args, `quicktile` silently exits immediately.
   # - Try:
-  #     cd ~/.kit/odd/quicktile
+  #     cd ~/.kit/odd/x11/quicktile
   #     workon
   #     py3 -m quicktile --help
   #     py3 -m quicktile --show-bindings
