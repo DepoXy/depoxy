@@ -30,7 +30,7 @@ check_deps () {
 }
 
 must_verify_m4 () {
-  if m4_kludge > /dev/null; then
+  if gnu_m4 > /dev/null; then
 
     return 0
   fi
@@ -106,7 +106,7 @@ setup_myrepos_generated_mrtrust () {
   symlink_mrinfuse_file ".mrtrust"
 
   # USYNC: mrtrust_generators
-  $(m4_kludge) \
+  $(gnu_m4) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT:-${HOME}/.kit} \
     "${ambers_home}/.mrtrust.m4" \
@@ -116,8 +116,11 @@ setup_myrepos_generated_mrtrust () {
 # ***
 
 # Kluge: macOS Xcode `m4` broken; defer `gm4` if present.
-m4_kludge () {
-  command -v gm4 || command -v m4
+gnu_m4 () {
+  for cmd in "gm4" "m4"; do
+    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+      && break
+  done
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

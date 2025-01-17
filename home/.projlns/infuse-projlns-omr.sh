@@ -135,7 +135,10 @@ infuse_create_symlinks_omr_scattered () {
 }
 
 gnu_uniq () {
-  command -v guniq || command -v uniq
+  for cmd in "guniq" "uniq"; do
+    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+      && break
+  done
 }
 
 has_mredit_optout_file () {

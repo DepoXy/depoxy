@@ -163,7 +163,10 @@ infuse_projects_links_core_generate_ctags () {
     # - Linux/GNU: Use "total size, in bytes", aka `-c %s`:
     #     (g)stat -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags"
     gnu_stat () {
-      command -v gstat || command -v stat || echo stat
+      for cmd in "gstat" "stat"; do
+        ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+          && break
+      done
     }
 
     local tags_size
