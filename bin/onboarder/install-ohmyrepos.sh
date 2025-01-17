@@ -142,7 +142,7 @@ prepare_mrconfig () {
 # Generate the myrepos trust file.
 # - USYNC: mrtrust_generators
 prepare_mrtrust () {
-  $(m4_kludge) \
+  $(gnu_m4) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT} \
     ${DEPOXYAMBERS_DIR}/home/.mrtrust.m4 \
@@ -189,8 +189,11 @@ prepare_mrtrust () {
 # Aptitude package (Debian), nor any common `gm4` Linux command
 # that the author knows).
 
-m4_kludge () {
-  command -v gm4 || command -v m4
+gnu_m4 () {
+  for cmd in "gm4" "m4"; do
+    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+      && break
+  done
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
