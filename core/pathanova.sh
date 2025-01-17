@@ -80,13 +80,18 @@ user_path_add_omr_lib () {
 
 user_path_add_sh_bins () {
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin"
+  # Commands: strip-colors, test-colors, test-truecolor
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib"
+  # Contains: logger.sh
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+  # Commands: path_prefix, path_suffix
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin"
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin"
+  # Commands: So many: cp_safe, mv_safe, path_device, rmrm, rm_rotate, rm_safe
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin"
+  # Commands: sensible-open, and related
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open/bin"
 
   # These projects are installed via OMR install command (which
