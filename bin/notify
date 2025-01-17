@@ -111,6 +111,10 @@ os_is_macos () {
   [ "$(uname)" = "Darwin" ]
 }
 
+os_is_linux () {
+  [ "$(uname)" = "Linux" ]
+}
+
 # ================================================================= #
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # ================================================================= #
@@ -334,7 +338,6 @@ ${notif_subby}"
 
   [ -n "${notif_image}" ] || notif_image="$(random_notif_image_name_linux)"
 
-  # notify-send from libnotify-bin, standard (AFAIK) on Desktop distros.
   if [ -n "${notif_title}" ]; then
     # REFER: See random_notif_image_name_linux for --icon ideas.
     notify-send -i "${notif_image}" "${notif_title}" "${notif_messg}"
@@ -563,6 +566,14 @@ source_deps () {
 
   if ! command -v shuf > /dev/null; then
     >&2 echo "ERROR: Where's \`shuf\`?"
+
+    exit 1
+  fi
+
+  # notify-send from libnotify-bin. Not installed by default on at least Debian.
+  if os_is_linux && ! command -v notify-send >/dev/null; then
+    >&2 echo "ERROR: Missing \`notify-send\`"
+    >&2 echo "- HINT: E.g., \`apt install libnotify-bin\`"
 
     exit 1
   fi
