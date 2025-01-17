@@ -33,8 +33,14 @@ _hf_locate () {
 
   local locate_cmd="$(_hf_locate_command)"
 
-  if [ "${locate_cmd}" = "mlocate" ]; then
-    echo "CHORE: Please install \`plocate\` (Linux) or \`glocate\` (macOS)"
+  local missing_msg="Please install \`plocate\` (Linux) or \`glocate\` (macOS)"
+
+  if [ -z "${locate_cmd}" ]; then
+    echo "ERROR: ${missing_msg}"
+
+    return 1
+  elif [ "${locate_cmd}" = "mlocate" ]; then
+    echo "CHORE: ${missing_msg}"
   fi
 
   if [ ! -f "${db_path}" ]; then
