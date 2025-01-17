@@ -22,9 +22,11 @@ checkout = stub_checkout_directory
 # Not an actual repo
 skip = no_travel
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
-#
+
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-#
+
+isInstalled = ( unset -f rustup && . "$HOME/.cargo/env" && test -n "$(type -p rustup)" ) 2> /dev/null
+
 # CXREF: ~/.kit/sh/home-fries/lib/distro/default-browser.sh
 # isInstalled =
 #   test "net.kassett.finicky" = \
