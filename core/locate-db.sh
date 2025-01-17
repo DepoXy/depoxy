@@ -81,7 +81,10 @@ _hf_locate () {
 # Linux uses `plocate` (old Lunux uses `mlocate`); Brew installs `glocate`.
 # - Don't `command -v locate` which is the alias.
 _hf_locate_command () {
-  command -v plocate || command -v glocate || command -v mlocate || echo locate
+  for cmd in "plocate" "glocate" "mlocate" "locate"; do
+    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+      && break
+  done
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
