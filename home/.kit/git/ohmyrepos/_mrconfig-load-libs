@@ -26,7 +26,6 @@ lib =
   . "${_omr_dxy_lib_dir}/macos-install-dmg.sh"
   . "${_omr_dxy_lib_dir}/my-deps-manage-easy-as-pypi.sh"
   . "${_omr_dxy_lib_dir}/my-deps-manage-shoilerplate.sh"
-  . "${_omr_dxy_lib_dir}/my-deps-manage-vim.sh"
   . "${_omr_dxy_lib_dir}/prepare-guard-repo.sh"
   . "${_omr_dxy_lib_dir}/pyenv-shell-unset.sh"
   . "${_omr_dxy_lib_dir}/rebase-tip.sh"
