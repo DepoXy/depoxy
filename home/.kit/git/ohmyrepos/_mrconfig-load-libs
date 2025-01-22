@@ -14,21 +14,6 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-[DEFAULT]
-# CXREF/2023-05-18: EAPP project boilerplate symlink and hard link infuse wiring:
-#   infuse_easy_as_pypi_follower
-#   update_easy_as_pypi_follower
-#   onboard_easy_as_pypi_follower_2023
-#     ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-easy-as-pypi
-include =
-  _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
-  #
-  cat "${_omr_dxy_lib_dir}/my-deps-manage-easy-as-pypi"
-  cat "${_omr_dxy_lib_dir}/my-deps-manage-shoilerplate"
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
 lib =
   _omr_before_cd="$(pwd -L)"
   _omr_dxy_lib_dir="${DXYOHMYREPOS_LIB:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.kit/git/ohmyrepos/lib}"
@@ -39,6 +24,8 @@ lib =
   . "${_omr_dxy_lib_dir}/infuse-personal-projlns.sh"
   . "${_omr_dxy_lib_dir}/is-remote-depoxy-client-same.sh"
   . "${_omr_dxy_lib_dir}/macos-install-dmg.sh"
+  . "${_omr_dxy_lib_dir}/my-deps-manage-easy-as-pypi.sh"
+  . "${_omr_dxy_lib_dir}/my-deps-manage-shoilerplate.sh"
   . "${_omr_dxy_lib_dir}/prepare-guard-repo.sh"
   . "${_omr_dxy_lib_dir}/pyenv-shell-unset.sh"
   . "${_omr_dxy_lib_dir}/rebase-tip.sh"
