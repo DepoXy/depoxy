@@ -71,6 +71,8 @@ infuse_symlinks_user_home_dotconfig () {
   mkdir -p '.config/less'
   symlink_mrinfuse_file '.config/less/termcap'
 
+  symlink_mrinfuse_dir '.config/nvim'
+
   mkdir -p '.config/pdbr'
   symlink_mrinfuse_file '.config/pdbr/setup.cfg'
 
