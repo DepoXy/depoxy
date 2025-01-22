@@ -24,8 +24,7 @@ infusePostRebase =
 #   ~/.depoxy/ambers/home/infuse-user-home
 infuse =
   mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -53,8 +52,7 @@ infusePostRebase =
   link_hard_dep_sh_git_nubs
 infuse =
   mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # GH Slugln.:
 #   "Fancy, information-dense, multiple-remote workflow-aware git-status for the sophisticated dev in you"
@@ -69,8 +67,7 @@ infuse =
   link_private_exclude "$@"
   #
   symlink_mrinfuse_file 'bin/.my-merge-status-nochores'
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled =
   eval "$(pyenv init -)"
@@ -124,8 +121,7 @@ infuse =
   # Not so much a "convenience" symlink as a reminder it exists.
   local ambers_root="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
   symlink_overlay_file "${ambers_root}/core/putwisely.sh" "${MR_REPO}/bin/putwisely.sh"
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # SLUGL: "Esoteric fork management"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-rebase-tip]
@@ -136,8 +132,7 @@ infusePostRebase =
   link_hard_dep_sh_logger_and_colors
 infuse =
   mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # Brilliantly-hacky cross-project same-filesystem dependency-maintainer.
 # "The undependency dependency maintainer"
@@ -151,8 +146,7 @@ infuse =
   mr -d . -n infusePostRebase
   #
   link_private_exclude "$@"
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # Interactive Git patch injector.
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-veggie-patch]
@@ -179,8 +173,7 @@ infusePostRebase =
   link_hard_dep_sh_logger
 infuse =
   mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -194,8 +187,7 @@ infusePostRebase =
   link_hard_dep_git_smart_git_fup
 infuse =
   mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------

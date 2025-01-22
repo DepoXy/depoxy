@@ -140,8 +140,7 @@ infuse =
   symlink_mrinfuse_file ".trustme.vim"
   symlink_mrinfuse_file ".trustme.plugin"
   symlink_overlay_file "${DOPP_KIT:-${HOME}/.kit}/docs/source/retrosoft/Backlog_Release_Ghub_PyPI.rst"
-updateDeps =
-  update_deps_shoilerplate
+updateDeps = update_deps_shoilerplate
 
 # ------------------------------------------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

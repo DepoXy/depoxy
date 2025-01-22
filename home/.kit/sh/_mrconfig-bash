@@ -55,10 +55,8 @@ lib = remote_set publish https://github.com/landonb/sh-logger.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
-infuse =
-  mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+infuse = mr -d . -n infusePostRebase
+updateDeps = update_deps_shoilerplate
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
 lib = remote_set publish https://github.com/landonb/sh-pather.git
@@ -78,10 +76,8 @@ lib = remote_set publish https://github.com/landonb/sh-rm_safe.git
 skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
-infuse =
-  mr -d . -n infusePostRebase
-updateDeps =
-  update_deps_shoilerplate
+infuse = mr -d . -n infusePostRebase
+updateDeps = update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------
