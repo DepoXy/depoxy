@@ -73,12 +73,17 @@ LM
 Lua
 Luc
 MacDown
+MacPorts
+MacVim
+MacVim's
 MapServer
 MinIO
 MongoDB
 Monokle
 Moonlander
 NERDCommenter
+Neovide
+Neovide's
 Neovim
 Nvidia
 OpenTelemetry
@@ -158,6 +163,7 @@ geeklets
 gitconfig
 gitignore
 globbing
+gtk3
 homefries
 hostname
 hrule
@@ -194,6 +200,7 @@ neovim
 nginx
 notif
 notifs
+nvim
 osascript
 patchkage
 patchkage's
