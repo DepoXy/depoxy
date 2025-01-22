@@ -6,21 +6,32 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # Vim packages overview.
 
-# Use Vim's new(ish) packages feature (see: :help packages) and manually
-# install packages under ~/.vim/pack. To keep packages organized, use
-# subdirectories to manage packages by their author. E.g., for a package
-# you always want loaded, use a path such as, e.g.,
-#       ~/.vim/pack/<author>/start/<package>
-# - If you later want to disable a package, make it optional by
-#   moving the directory under 'opt', e.g.,
-#         ~/.vim/pack/<author>/opt/<package>
-#   and then should you want to load it, run, e.g.,:
-#         :packadd! <package>
-# - If you're looking for a way to manage multiple git repositories,
-#   the author recommends myrepos:
-#       https://myrepos.branchable.com/
-#   paired with the author's myrepos extensions and actions:
-#       https://github.com/landonb/ohmyrepos
+# The ~/.vim/plugs directory is used for storing plugins that are
+# explicitly loaded using a package manager (vim-plug, lazy.nvim).
+# - This author used to use Vim's conventional ~/.vim/pack directory,
+#   but then it's not as easy to disable plugins — you gotta `mv` a
+#   plugin away from its ~/.vim/pack/*/start/ dir. to avoid Vim auto-
+#   loading it.
+#   - REFER: |packadd| |packloadall| |load-plugins| |rtp|
+# - Though unnecessary, the ~/.vim/plugs directory follows the same
+#   structure as the ~/.vim/pack directory, including start/ and
+#   opt/ directories.
+#   - But because using a plugin manager, it doesn't matter where
+#     you actually store each plugin.
+#   - MAYBE: Remove start/ and opt/ usage, e.g., combine
+#       ~/.vim/plugs/<author>/start/*
+#       ~/.vim/plugs/<author>/opt/*
+#     into single
+#       ~/.vim/plugs/<author>/*
+#     - HSTRY: The start/ and opt/ usage is leftover from having
+#       previously used ~/.vim/pack.
+#
+# REFER: Note this project doesn't use a Vim plugin plugin to
+# checkout or update the plugins, but relies upon a generic Git
+# mutiple respository tool, `myrepos`:
+#     https://myrepos.branchable.com/
+# The author pairs this with a collection of libraries and actions:
+#     https://github.com/landonb/ohmyrepos
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -47,18 +58,18 @@
 #   installed.
 #
 # HINT:
-#   ll -d ~/.vim/pack/*/*/*
+#   ll -d ~/.vim/plugs/*/*/*
 
 # *** DepoXy
 
 /DepoXy/.ignore
 
-# *** DepoXy published plugs
+# *** DepoXy plugins
 
 /DepoXy/start/vim-clip-expand-path/
 /DepoXy/start/vim-depoxy-coc-defaults/
 
-# *** DepoXy Client plugs
+# *** DepoXy Client plugins
 
 # Public DepoXy Ambers Plugin.
 /DepoXy/start/vim-depoxy
@@ -189,7 +200,7 @@
 
 # - Note that DepoXy symlinks a file we cannot set an ignore rule on:
 #     ../coc-settings.json
-#   Because this file is symlinked at ~/.vim/pack/.gitignore.
+#   Because this file is symlinked at ~/.vim/plugs/.gitignore.
 # - So that ignore rule is upstream in the Dubs Vim project.
 #     https://github.com/landonb/dubs-vim#🖖
 /neoclide/start/coc.nvim/

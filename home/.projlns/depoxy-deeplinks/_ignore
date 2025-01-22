@@ -109,7 +109,7 @@
 /Users/user/.vim/README-USING.rst
 
 # Vim :Helptags tags files.
-/Users/user/.vim/pack/*/*/*/doc/tags
+/Users/user/.vim/plugs/*/*/*/doc/tags
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 

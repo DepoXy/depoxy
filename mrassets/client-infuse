@@ -357,18 +357,18 @@ symlink_overlay_vim_assets () {
   # Developer Vim tray: Custom Project Tray (Shift-Alt-3) Paths file.
   # - Add vendor-specific project listing to this file.
   symlink_overlay_file \
-    "${MR_REPO}/home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects" \
-    "${HOME}/.vim/pack/landonb/start/dubs_project_tray/.vimprojects"
+    "${MR_REPO}/home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects" \
+    "${HOME}/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects"
   # For the convenience.
   symlink_overlay_file \
-    "home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects" \
+    "home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects" \
     "home/.vimprojects"
 
   # Developer Vim grep: Custom Project Grep (\g) Paths list.
   # - Add vendor-specific project paths to this file.
   symlink_overlay_file \
-    "${MR_REPO}/home/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim" \
-    "${HOME}/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim"
+    "${MR_REPO}/home/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+    "${HOME}/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim"
   # Reload <\g> search list.
   # - If no such instance:
   #     E247: No registered server named "SAMPI": Send failed.
@@ -377,14 +377,14 @@ symlink_overlay_vim_assets () {
     2> /dev/null || true
   # For the convenience.
   symlink_overlay_file \
-    "home/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+    "home/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim" \
     "home/dubs_projects.vim"
 
-  # Developer Vim plug: Custom plug at ~/.vim/pack/DepoXy/start/vim-trap
+  # Developer Vim plug: Custom plug at ~/.vim/plugs/DepoXy/start/vim-trap
   # - Use this plugin for vendor-specific Vim config and commands.
   symlink_overlay_dir \
     "${MR_REPO}/home/vim-trap" \
-    "${HOME}/.vim/pack/DepoXy/start/vim-trap"
+    "${HOME}/.vim/plugs/DepoXy/start/vim-trap"
 }
 
 # *** GIT

@@ -8,7 +8,7 @@
 # i.e., so you can have one project directory in your project
 # tray that is all the links to your Vim plugins and docs.
 
-DUBS_PROJECT_TRAY_DUBS_CUTS="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts"
+DUBS_PROJECT_TRAY_DUBS_CUTS="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.vim/plugs/landonb/start/dubs_project_tray/dubs_cuts"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -43,11 +43,11 @@ dubs_cuts_generate_links () {
 
   local fpath_dirs=()
 
-  if [ -e ~/.vim/pack/landonb/start ]; then
-    fpath_dirs+=(~/.vim/pack/landonb/start)
+  if [ -e ~/.vim/plugs/landonb/start ]; then
+    fpath_dirs+=(~/.vim/plugs/landonb/start)
   fi
-  if [ -e ~/.vim/pack/landonb/opt ]; then
-    fpath_dirs+=(~/.vim/pack/landonb/opt)
+  if [ -e ~/.vim/plugs/landonb/opt ]; then
+    fpath_dirs+=(~/.vim/plugs/landonb/opt)
   fi
 
   fpath_dirs+=(~/.vim/autoload)
@@ -122,11 +122,11 @@ dubs_cuts_generate_links () {
 
   # The two symlinks were neglected by the find and
   # their dubs_cuts names end up buried in the readmes.
-  command ln -s -- ~/.vim/pack/landonb/start/dubs_grep_steady/dubs_projects.vim your_dubs--dubs_projects.vim
+  command ln -s -- ~/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim your_dubs--dubs_projects.vim
   #
-  # command ln -s -- ~/.vim/pack/landonb/opt/dubs_file_finder/cmdt_paths your_dubs--cmdt_paths
-  # command ln -s -- ~/.vim/pack/landonb/start/dubs_project_tray/dubs_cuts your_dubs--dubs_cuts
-  command ln -s -- ~/.vim/pack/landonb/start/dubs_project_tray/.vimprojects your_dubs--.vimprojects
+  # command ln -s -- ~/.vim/plugs/landonb/opt/dubs_file_finder/cmdt_paths your_dubs--cmdt_paths
+  # command ln -s -- ~/.vim/plugs/landonb/start/dubs_project_tray/dubs_cuts your_dubs--dubs_cuts
+  command ln -s -- ~/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects your_dubs--.vimprojects
 
   command ln -s -- ~/.vim/README.rst dubs_vim--README.rst
   command ln -s -- ~/.vim/README-USING.rst dubs_vim--README-USING.rst

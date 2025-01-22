@@ -18,7 +18,7 @@ order = 830
 
 # To cross-check the paths listed here against reality::
 #
-#   ll -d ~/.vim/pack/*/*/*
+#   ll -d ~/.vim/plugs/*/*/*
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -28,19 +28,19 @@ order = 830
 # # "Execute a :command and show the output in a temporary buffer"
 # # CXREF: https://github.com/AndrewRadev/bufferize.vim
 # # ALTLY/2021-02-01: Similar to :TabMessage
-# [pack/AndrewRadev/start/bufferize.vim]
+# [plugs/AndrewRadev/start/bufferize.vim]
 # lib = remote_set starter https://github.com/AndrewRadev/bufferize.vim.git
 
 # "An arctic, north-bluish clean and elegant Vim theme."
 # GROUP: #colorscheme_plugins
-[pack/arcticicestudio/opt/nord-vim]
+[plugs/arcticicestudio/opt/nord-vim]
 lib = remote_set starter https://github.com/arcticicestudio/nord-vim.git
 
-[pack/cespare/start/vim-toml]
+[plugs/cespare/start/vim-toml]
 lib = remote_set starter https://github.com/cespare/vim-toml.git
 
 # GROUP: #vim_motion_plugins
-[pack/chrisbra/opt/improvedft]
+[plugs/chrisbra/opt/improvedft]
 lib = remote_set starter https://github.com/chrisbra/improvedft.git
 infuse = link_private_exclude "$@"
 
@@ -52,7 +52,7 @@ infuse = link_private_exclude "$@"
 #   - v1.18, https://github.com/chrisbra/matchit (and vimscript-4)
 # - See also: vim-python-matchit
 # CALSO: voithos/vim-python-matchit, below
-[pack/chrisbra/start/matchit]
+[plugs/chrisbra/start/matchit]
 lib = remote_set starter https://github.com/chrisbra/matchit.git
 infuse = link_private_exclude "$@"
 rebase =
@@ -68,36 +68,36 @@ rebase =
 # ISOFF/2024-12-05: CtrlP and CommandT are now disabled
 # (they've long since stopped working properly in DepoXy).
 # - REFER: For FZF features, see junegunn/fzf.vim, below.
-[pack/ctrlpvim/opt/ctrlp.vim]
+[plugs/ctrlpvim/opt/ctrlp.vim]
 lib = remote_set starter https://github.com/ctrlpvim/ctrlp.vim.git
 
 # *** 'DepoXy': See _mrconfig-dubs:
 #
-# mine: [pack/DepoXy/start/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
-# mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
+# mine: [plugs/DepoXy/start/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
+# mine: [plugs/DepoXy/start/vim-depoxy-coc-defaults#🥥]
 #
 # # Symlink to private plugin for DepoXy Client @biz-specific features.
-# mine: [pack/DepoXy/start/vim-trap]
+# mine: [plugs/DepoXy/start/vim-trap]
 
-[pack/djoshea/opt/vim-autoread]
+[plugs/djoshea/opt/vim-autoread]
 lib = remote_set starter https://github.com/djoshea/vim-autoread.git
 skip = true
 
 # CXREF: https://github.com/fatih/vim-go
-[pack/editorconfig/start/vim-go]
+[plugs/editorconfig/start/vim-go]
 lib = remote_set starter https://github.com/fatih/vim-go.git
 #
 # NOTED/2024-11-10: Reactivated (to start/).
 # - This is a reminder to update old hosts.
-[pack/editorconfig/opt/vim-go]
+[plugs/editorconfig/opt/vim-go]
 deleted = true
 
-[pack/editorconfig/start/editorconfig-vim]
+[plugs/editorconfig/start/editorconfig-vim]
 lib = remote_set starter https://github.com/editorconfig/editorconfig-vim.git
 
 # ISOFF/2017-11-02: Aka GONE-BNF.
 # - Removed from .vimrc: `let g:miniBufExplAutoStart = 0`
-#  [pack/fholgado/opt/minibufexpl.vim]
+#  [plugs/fholgado/opt/minibufexpl.vim]
 
 # ISOFF/2024-12-09: Author is addicted to `dubs_after_dark`, so making
 # this enableable, but disabled by default (just in case it affects Vim
@@ -108,40 +108,40 @@ lib = remote_set starter https://github.com/editorconfig/editorconfig-vim.git
 #   :colorscheme wombat
 #   :colorscheme molokai
 # CXREF: "one colorscheme pack to rule them all!"
-#   ~/.vim/pack/flazz/start/vim-colorschemes/README.md
+#   ~/.vim/plugs/flazz/start/vim-colorschemes/README.md
 # GROUP: #colorscheme_plugins
-[pack/flazz/opt/vim-colorschemes]
+[plugs/flazz/opt/vim-colorschemes]
 lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 
 # Tabular is required by preservim/vim-markdown
 # GROUP: #markdown_syntax
-[pack/godlygeek/start/tabular]
+[plugs/godlygeek/start/tabular]
 lib = remote_set starter https://github.com/godlygeek/tabular.git
 
-[pack/greg0ire/opt/more-instantly-better-vim]
+[plugs/greg0ire/opt/more-instantly-better-vim]
 lib = remote_set starter https://github.com/greg0ire/more-instantly-better-vim.git
 skip = no_travel
 
 # ISOFF/2020-05-10: I demoed vim-open-url, but prefer embrace-vim/vim-webopen#🐣
 # CXREF: https://github.com/henrik/vim-open-url
-#  [pack/henrik/opt/vim-open-url]
+#  [plugs/henrik/opt/vim-open-url]
 #  lib = remote_set starter https://github.com/henrik/vim-open-url.git
 
 # "Yet Another TypeScript Syntax: The most advanced TS Syntax Highlighting in Vim"
 # GROUP: #javascript_typescript_plugins
-[pack/HerringtonDarkholme/start/yats.vim]
+[plugs/HerringtonDarkholme/start/yats.vim]
 lib = remote_set starter https://github.com/HerringtonDarkholme/yats.vim.git
 
 # "transparent editing of gpg encrypted files"
-[pack/jamessan/start/vim-gnupg]
+[plugs/jamessan/start/vim-gnupg]
 lib = remote_set starter https://github.com/jamessan/vim-gnupg.git
 infuse = link_private_exclude "$@"
 
 # "Show coverage information generated by Istanbul"
 # CXREF:
-#   ~/.vim/pack/juanpabloaj/start/vim-istanbul/README.md
-#   ~/.vim/pack/juanpabloaj/start/vim-istanbul/plugin/istanbul.vim
-[pack/juanpabloaj/start/vim-istanbul]
+#   ~/.vim/plugs/juanpabloaj/start/vim-istanbul/README.md
+#   ~/.vim/plugs/juanpabloaj/start/vim-istanbul/plugin/istanbul.vim
+[plugs/juanpabloaj/start/vim-istanbul]
 lib = remote_set starter https://github.com/juanpabloaj/vim-istanbul.git
 
 # CALSO: There are at least 3 Vim FZF plugins you could use:
@@ -151,11 +151,11 @@ lib = remote_set starter https://github.com/juanpabloaj/vim-istanbul.git
 # - DepoXy wires junegunn/fzf.vim (which author assumes is more
 #   performant than VimL or Ruby, but I haven't profiled).
 #   - CXREF:
-#     ~/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#     ~/.vim/plugs/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - DepoXy used to also include CtrlP and CommandT, but they no longer
 #   work properly. And because junefunn/fzf.vim works well, there's no
 #   reason to try to resurrect those two plugins.
-[pack/junegunn/start/fzf.vim]
+[plugs/junegunn/start/fzf.vim]
 lib = remote_set starter https://github.com/junegunn/fzf.vim.git
 
 # ISOFF/2024-12-09: I've never really used. It centers the current window
@@ -170,8 +170,8 @@ lib = remote_set starter https://github.com/junegunn/fzf.vim.git
 #   :Goyo [dimension]   — Turn on or resize Goyo
 #   :Goyo!              — Turn Goyo off
 # CXREF: "🌷 Distraction-free writing in Vim"
-#   ~/.vim/pack/junegunn/start/goyo.vim/README.md
-[pack/junegunn/opt/goyo.vim]
+#   ~/.vim/plugs/junegunn/start/goyo.vim/README.md
+[plugs/junegunn/opt/goyo.vim]
 lib = remote_set starter https://github.com/junegunn/goyo.vim.git
 
 # NTRST/2024-12-09: Like putting a spotlight on the current paragraph,
@@ -182,8 +182,8 @@ lib = remote_set starter https://github.com/junegunn/goyo.vim.git
 #   Limelight!! [0.0 ~ 1.0]   — Toggle Limelight
 # CXREF: "🔦 All the world's indeed a stage and we are merely players"
 #        "Hyperfocus-writing in Vim." "Best served with Goyo.vim."
-#   ~/.vim/pack/junegunn/start/limelight.vim/README.md
-[pack/junegunn/start/limelight.vim]
+#   ~/.vim/plugs/junegunn/start/limelight.vim/README.md
+[plugs/junegunn/start/limelight.vim]
 lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 
 # REFER: junegunn/vim-slash is a great-looking plugin!
@@ -213,8 +213,12 @@ lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 #     https://github.com/pgdouyon/vim-evanesco
 #   Which is where I (thankfully!) spied upon the vim-slash blink feature.
 # GROUP: visual_search
-[pack/junegunn/opt/vim-slash]
+[plugs/junegunn/opt/vim-slash]
 lib = remote_set starter https://github.com/junegunn/vim-slash.git
+
+# GROUP: #vim_motion_plugins
+[plugs/justinmk/start/vim-sneak]
+lib = remote_set starter https://github.com/justinmk/vim-sneak.git
 
 # ------------------------------------------------------------------------
 
@@ -223,57 +227,57 @@ lib = remote_set starter https://github.com/junegunn/vim-slash.git
 # # Key: Original projects ('mine') and forks
 #        (untouched 'fork' or improved 'both')
 # # --- Retired/Obsolete:
-# [pack/landonb/opt/dubs_cycloplan]
-# [pack/landonb/opt/vim-jsx] (*fork)
+# [plugs/landonb/opt/dubs_cycloplan]
+# [plugs/landonb/opt/vim-jsx] (*fork)
 # # --- Forked and slightly tweaked:
-# both: [pack/landonb/start/ansible-vim]
+# both: [plugs/landonb/start/ansible-vim]
 # # --- Dubs Vim (original projects):
-# mine: [pack/landonb/start/dubs_after_dark#🌃]
-# mine: [pack/landonb/start/dubs_appearance#💅]
-# mine: [pack/landonb/start/dubs_edit_juice#🧃]
-# mine: [pack/landonb/opt/dubs_file_finder#🗄]
-# mine: [pack/landonb/start/dubs_ftype_mess#🧹]
-# mine: [pack/landonb/start/dubs_grep_steady#🤹]
-# mine: [pack/landonb/start/dubs_html_entities#👽]
-# mine: [pack/landonb/start/dubs_mescaline#🍄]
-# mine: [pack/landonb/start/dubs_project_tray#🗂]
-# mine: [pack/landonb/start/dubs_quickfix_wrap#🌯]
-# mine: [pack/landonb/start/dubs_style_guard#💂]
-# mine: [pack/landonb/opt/dubs_syntastic_wrap#🤸]
-# mine: [pack/landonb/start/dubs_toggle_textwrap#🔘]
+# mine: [plugs/landonb/start/dubs_after_dark#🌃]
+# mine: [plugs/landonb/start/dubs_appearance#💅]
+# mine: [plugs/landonb/start/dubs_edit_juice#🧃]
+# mine: [plugs/landonb/opt/dubs_file_finder#🗄]
+# mine: [plugs/landonb/start/dubs_ftype_mess#🧹]
+# mine: [plugs/landonb/start/dubs_grep_steady#🤹]
+# mine: [plugs/landonb/start/dubs_html_entities#👽]
+# mine: [plugs/landonb/start/dubs_mescaline#🍄]
+# mine: [plugs/landonb/start/dubs_project_tray#🗂]
+# mine: [plugs/landonb/start/dubs_quickfix_wrap#🌯]
+# mine: [plugs/landonb/start/dubs_style_guard#💂]
+# mine: [plugs/landonb/opt/dubs_syntastic_wrap#🤸]
+# mine: [plugs/landonb/start/dubs_toggle_textwrap#🔘]
 # # --- Original projects and some forks:
-# mine: [pack/embrace-vim/start/vim-async-map#જ⁀➴]
-# mine: [pack/embrace-vim/start/vim-better-file-changed-prompt#🗯]
-# mine: [pack/embrace-vim/start/vim-blinky-search#🕹]👾👻
-# mine: [pack/embrace-vim/start/vim-buffer-delights#🍧]
-# both: [pack/landonb/start/vim-buffer-ring#💍]
-# fork: [pack/landonb/start/vim-classic-taglist#🏛]
-# mine: [pack/DepoXy/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
-# mine: [pack/embrace-vim/start/vim-command-line-clock#🕰]
-# mine: [pack/DepoXy/start/vim-depoxy-coc-defaults#🥥]
-# gone: [pack/landonb/opt/vim-ftplugin-how-it-works#🎆]
-# mine: [pack/embrace-vim/start/vim-fullscreen-toggle#💯]
-# mine: [pack/embrace-vim/start/vim-goto-file-sh#🚕]
-# mine: [pack/thirsty-vim/opt/vim-goto-file-sh#🚕]
-# mine: [pack/landonb/start/vim-lcd-project-root#🥔]
-# fork: [pack/landonb/opt/vim-markdown#👇]
-# mine: [pack/landonb/start/vim-mkspell-when-stale#🥖]
-# mine: [pack/landonb/start/vim-netrw-cfg-split-explorer#🌐]
-# mine: [pack/landonb/start/vim-netrw-link-resolve#🧩]
-# mine: [pack/embrace-vim/start/vim-netrw-explore-map#🥾]
-# mine: [pack/landonb/start/vim-ovm-easyescape-kj-jk#🧼]
-# mine: [pack/landonb/start/vim-ovm-seven-of-spines#🦴]
-# mine: [pack/landonb/start/vim-reSTfold#🙏]
-# mine: [pack/landonb/start/vim-reST-highdefs#🎨]
-# mine: [pack/landonb/start/vim-reST-highfive#🖐]
-# mine: [pack/landonb/start/vim-reST-highline#➖]
-# mine: [pack/landonb/start/vim-select-mode-stopped-down#🛑]
-# mine: [pack/embrace-vim/start/vim-source-reloader#🔃] # Or: ↩️
-# fork: [pack/landonb/start/vim-surround#🔄]
-# mine: [pack/landonb/start/vim-title-bar-time-of-day#⌚]
-# fork: [pack/landonb/start/vim-tmux-navigator#🧭]
-# fork: [pack/landonb/start/vim-unimpaired#👿]
-# mine: [pack/embrace-vim/start/vim-webopen#🐣]
+# mine: [plugs/embrace-vim/start/vim-async-map#જ⁀➴]
+# mine: [plugs/embrace-vim/start/vim-better-file-changed-prompt#🗯]
+# mine: [plugs/embrace-vim/start/vim-blinky-search#🕹]👾👻
+# mine: [plugs/embrace-vim/start/vim-buffer-delights#🍧]
+# both: [plugs/landonb/start/vim-buffer-ring#💍]
+# fork: [plugs/landonb/start/vim-classic-taglist#🏛]
+# mine: [plugs/DepoXy/vim-clip-expand-path#👣] # Or: 🐼 (ex-PAN-da)
+# mine: [plugs/embrace-vim/start/vim-command-line-clock#🕰️]
+# mine: [plugs/DepoXy/start/vim-depoxy-coc-defaults#🥥]
+# gone: [plugs/landonb/opt/vim-ftplugin-how-it-works#🎆]
+# mine: [plugs/embrace-vim/start/vim-fullscreen-toggle#💯]
+# mine: [plugs/embrace-vim/start/vim-goto-file-sh#🚕]
+# mine: [plugs/thirsty-vim/opt/vim-goto-file-sh#🚕]
+# mine: [plugs/landonb/start/vim-lcd-project-root#🥔]
+# fork: [plugs/landonb/opt/vim-markdown#👇]
+# mine: [plugs/landonb/start/vim-mkspell-when-stale#🥖]
+# mine: [plugs/landonb/start/vim-netrw-cfg-split-explorer#🌐]
+# mine: [plugs/landonb/start/vim-netrw-link-resolve#🧩]
+# mine: [plugs/embrace-vim/start/vim-netrw-explore-map#🥾]
+# mine: [plugs/landonb/start/vim-ovm-easyescape-kj-jk#🧼]
+# mine: [plugs/landonb/start/vim-ovm-seven-of-spines#🦴]
+# mine: [plugs/landonb/start/vim-reSTfold#🙏]
+# mine: [plugs/landonb/start/vim-reST-highdefs#🎨]
+# mine: [plugs/landonb/start/vim-reST-highfive#🖐]
+# mine: [plugs/landonb/start/vim-reST-highline#➖]
+# mine: [plugs/landonb/start/vim-select-mode-stopped-down#🛑]
+# mine: [plugs/embrace-vim/start/vim-source-reloader#🔃] # Or: ↩️
+# fork: [plugs/landonb/start/vim-surround#🔄]
+# mine: [plugs/landonb/start/vim-title-bar-time-of-day#⌚]
+# fork: [plugs/landonb/start/vim-tmux-navigator#🧭]
+# fork: [plugs/landonb/start/vim-unimpaired#👿]
+# mine: [plugs/embrace-vim/start/vim-webopen#🐣]
 
 # ------------------------------------------------------------------------
 
@@ -296,7 +300,7 @@ lib = remote_set starter https://github.com/junegunn/vim-slash.git
 #     /usr/share/vim/vim90/syntax/typescript.vim  # MacVim
 #     /home/landonb/.local/share/vim/vim91/syntax/typescript.vim  # Linux user build
 # - CALSO: YATS https://github.com/HerringtonDarkholme/yats.vim
-[pack/leafgarland/opt/typescript-vim]
+[plugs/leafgarland/opt/typescript-vim]
 lib = remote_set starter https://github.com/leafgarland/typescript-vim.git
 
 # REFER:
@@ -304,42 +308,42 @@ lib = remote_set starter https://github.com/leafgarland/typescript-vim.git
 #   " Or add to your config, e.g.,
 #   nmap <F8> :TagbarToggle<CR>
 # CXREF: "Vim plugin that displays tags in a window, ordered by scope"
-#   ~/.vim/pack/majutsushi/start/tagbar/README.md
-[pack/majutsushi/start/tagbar]
+#   ~/.vim/plugs/majutsushi/start/tagbar/README.md
+[plugs/majutsushi/start/tagbar]
 lib = remote_set starter https://github.com/majutsushi/tagbar.git
 
 # ISOFF/2020-02-13: #HadIssuz:
-#  [pack/marshallward/start/vim-restructuredtext]
+#  [plugs/marshallward/start/vim-restructuredtext]
 # - 2018-02-01: The new reST plugin makes editing sluggish.
 #   - Also, when I use \s to find-replace <TAB>s, it only works
 #   on the first line of matches, and then it exits replace mode,
 #   and you see "xx matches on xx lines" message like you would
 #   with \S find-replace-multi-files command. So weird. So disabled!
-[pack/marshallward/opt/vim-restructuredtext]
+[plugs/marshallward/opt/vim-restructuredtext]
 lib = remote_set starter https://github.com/marshallward/vim-restructuredtext.git
 skip = true
 
-# See .mrconfig-lsp: [pack/mattn/start/vim-lsp-settings]
+# See .mrconfig-lsp: [plugs/mattn/start/vim-lsp-settings]
 
 # "🔦 [Vim script] JSX and TSX syntax pretty highlighting for vim."
 # GROUP: #javascript_typescript_plugins
-[pack/MaxMEllon/start/vim-jsx-pretty]
+[plugs/MaxMEllon/start/vim-jsx-pretty]
 lib = remote_set starter https://github.com/MaxMEllon/vim-jsx-pretty.git
 
 # "A colorful, dark color scheme for Vim."
 # GROUP: #colorscheme_plugins
-[pack/nanotech/opt/jellybeans.vim]
+[plugs/nanotech/opt/jellybeans.vim]
 lib = remote_set starter https://github.com/nanotech/jellybeans.vim.git
 
 # "Vastly improved Javascript indentation and syntax support in Vim."
 # GROUP: #javascript_typescript_plugins
-[pack/pangloss/start/vim-javascript]
+[plugs/pangloss/start/vim-javascript]
 lib = remote_set starter https://github.com/pangloss/vim-javascript.git
 
-# See .mrconfig-lsp: [pack/prabirshrestha/start/async.vim]
-# See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete.vim]
-# See .mrconfig-lsp: [pack/prabirshrestha/start/asyncomplete-lsp.vim]
-# See .mrconfig-lsp: [pack/prabirshrestha/start/vim-lsp]
+# See .mrconfig-lsp: [plugs/prabirshrestha/start/async.vim]
+# See .mrconfig-lsp: [plugs/prabirshrestha/start/asyncomplete.vim]
+# See .mrconfig-lsp: [plugs/prabirshrestha/start/asyncomplete-lsp.vim]
+# See .mrconfig-lsp: [plugs/prabirshrestha/start/vim-lsp]
 
 # NERD Commenter: *Vim plugin for intensely nerdy commenting powers*
 # CXREF: https://github.com/preservim/nerdcommenter
@@ -371,7 +375,7 @@ lib = remote_set starter https://github.com/pangloss/vim-javascript.git
 # - Nonetheless, having both solutions doesn't hurt: At least with the config
 #   in the core ~/.vim project, NERD Commenter works without user running this
 #   install task.
-[pack/preservim/start/nerdcommenter]
+[plugs/preservim/start/nerdcommenter]
 lib = remote_set starter https://github.com/preservim/nerdcommenter.git
 pull =
   local remote_branch_default="$(git symbolic-ref refs/remotes/starter/HEAD)"
@@ -406,31 +410,31 @@ install =
 # BEGET: https://github.com/plasticboy/vim-markdown
 # CALSO: https://github.com/gabrielelana/vim-markdown
 # GROUP: #markdown_syntax
-[pack/preservim/start/vim-markdown]
+[plugs/preservim/start/vim-markdown]
 lib = remote_set starter https://github.com/preservim/vim-markdown.git
 
-# See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-javascript]
-# See .mrconfig-lsp: [pack/ryanolsonx/start/vim-lsp-typescript]
+# See .mrconfig-lsp: [plugs/ryanolsonx/start/vim-lsp-javascript]
+# See .mrconfig-lsp: [plugs/ryanolsonx/start/vim-lsp-typescript]
 
-[pack/samoshkin/start/vim-mergetool]
+[plugs/samoshkin/start/vim-mergetool]
 lib = remote_set starter https://github.com/samoshkin/vim-mergetool.git
 
-[pack/scrooloose/opt/nerdtree]
+[plugs/scrooloose/opt/nerdtree]
 lib = remote_set starter https://github.com/scrooloose/nerdtree.git
 
 # ISOFF/2024-12-10: Syntastic, and dubs_syntastic_wrap, are deprecated.
-[pack/scrooloose/opt/syntastic]
+[plugs/scrooloose/opt/syntastic]
 lib = remote_set starter https://github.com/scrooloose/syntastic.git
 
 # *star for Visual-mode.*
 # GROUP: visual_search
-[pack/thinca/opt/vim-visualstar]
+[plugs/thinca/opt/vim-visualstar]
 lib = remote_set starter https://github.com/thinca/vim-visualstar
 
 # ISOFF/2024-12-09: Required by viki_vim, which is now disabled.
 # SAVVY: Required by tomtom/viki_vim
 # "Some utility functions for VIM"
-[pack/tomtom/opt/tlib_vim]
+[plugs/tomtom/opt/tlib_vim]
 lib = remote_set starter https://github.com/tomtom/tlib_vim.git
 #
 # ISOFF/2024-12-09: Superseded by vikibase_vim plugin:
@@ -451,36 +455,36 @@ lib = remote_set starter https://github.com/tomtom/tlib_vim.git
 #   :VikiMode
 # SAVVY: Requires by tomtom/tlib_vim
 # "A personal wiki for Vim"
-[pack/tomtom/opt/viki_vim]
+[plugs/tomtom/opt/viki_vim]
 lib = remote_set starter https://github.com/tomtom/viki_vim.git
 
 # *** tpope [retired]
 
 # - 2021-01-23: See instead: github.com/preservim/nerdcommenter
-[pack/tpope/opt/vim-commentary]
+[plugs/tpope/opt/vim-commentary]
 lib = remote_set starter https://github.com/tpope/vim-commentary.git
 
 # - 2019-03-19: Disabled vim-endwise: it's frustrating me.
-[pack/tpope/opt/vim-endwise]
+[plugs/tpope/opt/vim-endwise]
 order = 840
 lib = remote_set starter https://github.com/tpope/vim-endwise.git
 # FIXME/2020-02-13: Uncomment (and skip) someday:
 #  skip = true
 
-[pack/tpope/opt/vim-pathogen]
+[plugs/tpope/opt/vim-pathogen]
 order = 840
 lib = remote_set starter https://github.com/tpope/vim-pathogen.git
 
 # - The scriptease package is quite esoteric. It's basically Tim Pope's
 #   Vim dev commands. And the last thing I need to do is spend time more
 #   time developing Vim, especially core Vim!! Pass.
-[pack/tpope/opt/vim-scriptease]
+[plugs/tpope/opt/vim-scriptease]
 order = 840
 lib = remote_set starter https://github.com/tpope/vim-scriptease.git
 
 # - 2018-12-13: A colorscheme I looked at, for inspiration, but ultimately
 #               dubs_after_dark is too hot.
-[pack/tpope/opt/vim-vividchalk]
+[plugs/tpope/opt/vim-vividchalk]
 order = 840
 lib = remote_set starter https://github.com/tpope/vim-vividchalk.git
 
@@ -489,34 +493,34 @@ lib = remote_set starter https://github.com/tpope/vim-vividchalk.git
 # Called by minimal Git and Dob EDITORs.
 # - CXREF:
 #   ~/.kit/git/git-smart/deps/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
-#   ~/.vim/pack/tpope/opt/vim-sensible/plugin/sensible.vim
+#   ~/.vim/plugs/tpope/opt/vim-sensible/plugin/sensible.vim
 # - TRYME:
 #   ~/.kit/git/git-smart/deps/tig-newtons/bin/editor-vim-0-0-insert-minimal
-[pack/tpope/opt/vim-sensible]
+[plugs/tpope/opt/vim-sensible]
 lib = remote_set starter https://github.com/tpope/vim-sensible.git
 
 # *** tpope [active]
 
-[pack/tpope/start/vim-abolish]
+[plugs/tpope/start/vim-abolish]
 lib = remote_set starter https://github.com/tpope/vim-abolish.git
 
-[pack/tpope/start/vim-fugitive]
+[plugs/tpope/start/vim-fugitive]
 lib = remote_set starter https://github.com/tpope/vim-fugitive.git
 
 # "jdaddy.vim: JSON manipulation and pretty printing"
-[pack/tpope/start/vim-jdaddy]
+[plugs/tpope/start/vim-jdaddy]
 lib = remote_set starter https://github.com/tpope/vim-jdaddy.git
 
-[pack/tpope/start/vim-rails]
+[plugs/tpope/start/vim-rails]
 lib = remote_set starter https://github.com/tpope/vim-rails.git
 
-[pack/tpope/start/vim-repeat]
+[plugs/tpope/start/vim-repeat]
 lib = remote_set starter https://github.com/tpope/vim-repeat.git
 
-[pack/tpope/start/vim-speeddating]
+[plugs/tpope/start/vim-speeddating]
 lib = remote_set starter https://github.com/tpope/vim-speeddating.git
 
-[pack/tpope/start/vim-vinegar]
+[plugs/tpope/start/vim-vinegar]
 lib = remote_set starter https://github.com/tpope/vim-vinegar.git
 
 # *** vim-scripts
@@ -528,8 +532,8 @@ lib = remote_set starter https://github.com/tpope/vim-vinegar.git
 # interfering).
 # - SAVVY: Requires vim-scripts/ingo-library
 # CXREF: "Automatically adapt timestamps, copyright notices, etc."
-#   ~/.vim/pack/vim-scripts/opt/AutoAdapt/README
-[pack/vim-scripts/opt/AutoAdapt]
+#   ~/.vim/plugs/vim-scripts/opt/AutoAdapt/README
+[plugs/vim-scripts/opt/AutoAdapt]
 lib = remote_set starter https://github.com/vim-scripts/AutoAdapt.git
 infuse = link_private_exclude "$@"
 #
@@ -537,23 +541,23 @@ infuse = link_private_exclude "$@"
 # - SAVVY: Required by vim-scripts/AutoAdapt (and possibly by other
 #   plugins by Ingo Karkat, but DepoXy has none other than AutoAdapt).
 # CXREF: "Vimscript library of common functions."
-#   ~/.vim/pack/vim-scripts/start/ingo-library/README
-#   ~/.vim/pack/vim-scripts/start/ingo-library/doc/ingo-library.txt
-#   ~/.vim/pack/vim-scripts/start/ingo-library/autoload/ingo/*.vim
-[pack/vim-scripts/opt/ingo-library]
+#   ~/.vim/plugs/vim-scripts/start/ingo-library/README
+#   ~/.vim/plugs/vim-scripts/start/ingo-library/doc/ingo-library.txt
+#   ~/.vim/plugs/vim-scripts/start/ingo-library/autoload/ingo/*.vim
+[plugs/vim-scripts/opt/ingo-library]
 lib = remote_set starter https://github.com/vim-scripts/ingo-library.git
 infuse = link_private_exclude "$@"
 
 # "Delete buffers (close files) without closing your windows or messing
 # up your layout." — :Bdelete
-[pack/vim-scripts/start/bbye]
+[plugs/vim-scripts/start/bbye]
 lib = remote_set starter https://github.com/vim-scripts/bbye
 
 # Just the BufOnly() function.
-[pack/vim-scripts/start/BufOnly.vim]
+[plugs/vim-scripts/start/BufOnly.vim]
 lib = remote_set starter https://github.com/vim-scripts/BufOnly.vim
 
-# In -core: [pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
+# In -core: [plugs/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
 
 # OHDUH/2024-12-09: Why include an active plugin you never use? Also, the
 # plugin uses `<Leader>te`, which conflicts with \t commonly used by mot-
@@ -564,7 +568,7 @@ lib = remote_set starter https://github.com/vim-scripts/BufOnly.vim
 #     \te
 # - ALTLY: Replace the nmap with a command instead:
 #     command Tetris :call s:Main()
-[pack/vim-scripts/opt/TeTrIs.vim]
+[plugs/vim-scripts/opt/TeTrIs.vim]
 lib = remote_set starter https://github.com/vim-scripts/TeTrIs.vim.git
 
 # REFER/2024-12-09: ZoomWin adds <Ctrl-W>o full screen toggle — press
@@ -577,10 +581,10 @@ lib = remote_set starter https://github.com/vim-scripts/TeTrIs.vim.git
 #   - *🧘 Zen Mode* (Neovim)
 #     https://github.com/folke/zen-mode.nvim
 # CXREF:
-#   ~/.vim/pack/vim-scripts/start/ZoomWin/README
-#   ~/.vim/pack/vim-scripts/start/ZoomWin/doc/ZoonWin.txt
-#   ~/.vim/pack/vim-scripts/start/ZoomWin/autoload/ZoomWin.vim
-[pack/vim-scripts/start/ZoomWin]
+#   ~/.vim/plugs/vim-scripts/start/ZoomWin/README
+#   ~/.vim/plugs/vim-scripts/start/ZoomWin/doc/ZoonWin.txt
+#   ~/.vim/plugs/vim-scripts/start/ZoomWin/autoload/ZoomWin.vim
+[plugs/vim-scripts/start/ZoomWin]
 lib = remote_set starter https://github.com/regedarek/ZoomWin
   # ALERT: Legacy script is broken. On second <C-w>o, MacVim is unresponsive
   # for tens of secs., and the file icon in the titlebar just blinks.
@@ -594,8 +598,8 @@ infuse = link_private_exclude "$@"
 #   - v0.5: https://github.com/voithos/vim-python-matchit
 # CALSO: chrisbra/matchit, above
 # CXREF:
-#   ~/.vim/pack/voithos/start/vim-python-matchit/ftplugin/python_matchit.vim
-[pack/voithos/start/vim-python-matchit]
+#   ~/.vim/plugs/voithos/start/vim-python-matchit/ftplugin/python_matchit.vim
+[plugs/voithos/start/vim-python-matchit]
 lib = remote_set starter https://github.com/voithos/vim-python-matchit.git
 
 # ***
@@ -603,7 +607,7 @@ lib = remote_set starter https://github.com/voithos/vim-python-matchit.git
 # ISOFF/2024-12-05: CtrlP and CommandT are now disabled
 # (they've long since stopped working properly in DepoXy).
 # - REFER: For FZF features, see junegunn/fzf.vim, above.
-[pack/wincent/opt/command-t]
+[plugs/wincent/opt/command-t]
 lib = remote_set starter https://github.com/wincent/command-t.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'Command-T/cmdT'
 isInstalled = test -x "ruby/command-t/ext/command-t/ext.so"
@@ -657,25 +661,25 @@ install =
   #   Ruby implementation is still supported. So sticking with Ruby.
   ( ruby_make )
 
-# GONE-BNF: [pack/xolox/start/vim-easytags]  # 2016-11-13 or earlier: Removed.
+# GONE-BNF: [plugs/xolox/start/vim-easytags]  # 2016-11-13 or earlier: Removed.
 #
 # ISOFF/2024-12-09: Ope, xolox/vim-misc is just a library for that author's
 # other plugins, like vim-easytags. So disabling this.
 # CXREF:
-#   ~/.vim/pack/xolox/start/vim-misc/README.md
-#   ~/.vim/pack/xolox/start/vim-misc/doc/misc.txt
-#   ~/.vim/pack/xolox/start/vim-misc/plugin/xolox/misc.vim
-[pack/xolox/opt/vim-misc]
+#   ~/.vim/plugs/xolox/start/vim-misc/README.md
+#   ~/.vim/plugs/xolox/start/vim-misc/doc/misc.txt
+#   ~/.vim/plugs/xolox/start/vim-misc/plugin/xolox/misc.vim
+[plugs/xolox/opt/vim-misc]
 lib = remote_set starter https://github.com/xolox/vim-misc.git
 
 # CXREF: JS highlighting plugin:
-#   ~/.vim/pack/yuezk/start/vim-js/README.md
+#   ~/.vim/plugs/yuezk/start/vim-js/README.md
 # GROUP: #javascript_typescript_plugins
-[pack/yuezk/start/vim-js]
+[plugs/yuezk/start/vim-js]
 lib = remote_set starter https://github.com/yuezk/vim-js.git
 
 # ISOFF/2024-12-08: Replaced with fork: embrace-vim/vim-async-map
-[pack/zhou13/opt/vim-easyescape]
+[plugs/zhou13/opt/vim-easyescape]
 lib = remote_set starter https://github.com/zhou13/vim-easyescape.git
 
 # ========================================================================

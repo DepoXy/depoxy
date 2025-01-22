@@ -6,9 +6,9 @@
 .git/
 
 # Self-ignore, ha
-# ~/.vim/pack/landonb/.ignore ->
-#   ~/.vim/pack/landonb/.ignore ->
-#     ~/.depoxy/ambers/home/.vim/pack/landonb/_ignore (this file)
+# ~/.vim/plugs/landonb/.ignore ->
+#   ~/.vim/plugs/landonb/.ignore ->
+#     ~/.depoxy/ambers/home/.vim/plugs/landonb/_ignore (this file)
 /.ignore
 
 /opt/*/doc/tags
@@ -34,6 +34,6 @@
 # This is the shell syntax file that's currently hot:
 #  /start/dubs_ftype_mess/syntax/sh-Version_189-lb.vim
 
-# -> ~/.vim/pack/landonb/start/vim-reST-highfive/after/syntax/rst.vim
+# -> ~/.vim/plugs/landonb/start/vim-reST-highfive/after/syntax/rst.vim
 /start/vim-reST-highfive/FIVERs.vim
 

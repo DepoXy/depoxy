@@ -20,52 +20,52 @@ order = 369
 
 # To cross-check the paths listed here against reality::
 #
-#   ll -d ~/.vim/pack/*/*/*
+#   ll -d ~/.vim/plugs/*/*/*
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
 # *** In -3rdp: a-l.
 
-#  # [pack/AndrewRadev/start/bufferize.vim]
-#  [pack/arcticicestudio/start/nord-vim]
-#  [pack/cespare/start/vim-toml]
-#  [pack/chrisbra/opt/improvedft]
-#  [pack/chrisbra/start/matchit]
-#  [pack/ctrlpvim/opt/ctrlp.vim]
-#  [pack/editorconfig/opt/vim-go]
-#  [pack/editorconfig/start/editorconfig-vim]
-#  # [pack/fholgado/opt/minibufexpl.vim]  # ISOFF: 2017-11-02: Removed
-#  [pack/flazz/start/vim-colorschemes]
-#  # [pack/henrik/start/vim-open-url]  # I demoed but prefer vim-webopen
-#  [pack/HerringtonDarkholme/start/yats.vim]
-#  [pack/jamessan/start/vim-gnupg]
-#  [pack/juanpabloaj/start/vim-istanbul]
-#  [pack/junegunn/start/fzf.vim]
-#  [pack/junegunn/start/goyo.vim]
-#  [pack/junegunn/start/limelight.vim]
+#  # [plugs/AndrewRadev/start/bufferize.vim]
+#  [plugs/arcticicestudio/start/nord-vim]
+#  [plugs/cespare/start/vim-toml]
+#  [plugs/chrisbra/opt/improvedft]
+#  [plugs/chrisbra/start/matchit]
+#  [plugs/ctrlpvim/opt/ctrlp.vim]
+#  [plugs/editorconfig/opt/vim-go]
+#  [plugs/editorconfig/start/editorconfig-vim]
+#  # [plugs/fholgado/opt/minibufexpl.vim]  # ISOFF: 2017-11-02: Removed
+#  [plugs/flazz/start/vim-colorschemes]
+#  # [plugs/henrik/start/vim-open-url]  # I demoed but prefer vim-webopen
+#  [plugs/HerringtonDarkholme/start/yats.vim]
+#  [plugs/jamessan/start/vim-gnupg]
+#  [plugs/juanpabloaj/start/vim-istanbul]
+#  [plugs/junegunn/start/fzf.vim]
+#  [plugs/junegunn/start/goyo.vim]
+#  [plugs/junegunn/start/limelight.vim]
 
 # ------------------------------------------------------------------------
 
 # Copy file path 👣 to system clipboard [Original project]
 # https://github.com/DepoXy/vim-clip-expand-path#👣
-[pack/DepoXy/start/vim-clip-expand-path]
+[plugs/DepoXy/start/vim-clip-expand-path]
 lib = remote_set publish https://github.com/DepoXy/vim-clip-expand-path.git
 
 # Original project.
 # to relieve 🥥 this bellyache
 # Opinionated CoC defaults 🥥
 # https://github.com/DepoXy/vim-depoxy-coc-defaults#🥥
-[pack/DepoXy/start/vim-depoxy-coc-defaults]
+[plugs/DepoXy/start/vim-depoxy-coc-defaults]
 lib = remote_set publish https://github.com/DepoXy/vim-depoxy-coc-defaults.git
 
 # Symlink to private plugin for DepoXy Client @biz-specific features.
-#  [pack/DepoXy/start/vim-trap]
+#  [plugs/DepoXy/start/vim-trap]
 
 # ------------------------------------------------------------------------
 
 # 2018-12-17: ansible-vim forked to tweak Yaml syntax engine.
-[pack/landonb/start/ansible-vim]
+[plugs/landonb/start/ansible-vim]
 lib =
   remote_set publish https://github.com/landonb/ansible-vim.git
   remote_set starter https://github.com/pearofducks/ansible-vim.git
@@ -75,23 +75,23 @@ lib =
 # *** Original Dubs Vim plugins.
 
 # "Vibrant negative polarity Vim color scheme. Turn off the lights and dance"
-[pack/landonb/start/dubs_after_dark]
+[plugs/landonb/start/dubs_after_dark]
 lib = remote_set publish https://github.com/landonb/dubs_after_dark.git
 
-[pack/landonb/start/dubs_appearance]
+[plugs/landonb/start/dubs_appearance]
 lib = remote_set publish https://github.com/landonb/dubs_appearance.git
 
-[pack/landonb/start/dubs_edit_juice]
+[plugs/landonb/start/dubs_edit_juice]
 lib = remote_set publish https://github.com/landonb/dubs_edit_juice.git
 
 # ISOFF/2024-12-05: dubs_file_finder is deprecated and now disabled.
 # - See instead junegunn/fzf.vim and the related DepoXy vim plugin:
-#   ~/.vim/pack/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#   ~/.vim/plugs/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - But keeping this repo, though in a deprecated state, because it's
 #   still published on GH (and maybe someday you'll need to resurrect
 #   it to run CtrlP, which is written in Vimscript, in case a vendor
 #   disallows Go code and you cannot run junegunn/fzf.vim).
-[pack/landonb/opt/dubs_file_finder]
+[plugs/landonb/opt/dubs_file_finder]
 lib = remote_set publish https://github.com/landonb/dubs_file_finder.git
 infuse =
   link_private_exclude "$@"
@@ -101,40 +101,40 @@ infuse =
 # - Tho with new .ignore file this is unnecessary.
 #  infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project
 
-[pack/landonb/start/dubs_ftype_mess]
+[plugs/landonb/start/dubs_ftype_mess]
 lib = remote_set publish https://github.com/landonb/dubs_ftype_mess.git
 infuse = link_private_exclude "$@"
 
-[pack/landonb/start/dubs_grep_steady]
+[plugs/landonb/start/dubs_grep_steady]
 lib = remote_set publish https://github.com/landonb/dubs_grep_steady.git#🧐
 
-[pack/landonb/start/dubs_html_entities]
+[plugs/landonb/start/dubs_html_entities]
 lib = remote_set publish https://github.com/landonb/dubs_html_entities.git
 
 # "Spirited Vim Status Line"
-[pack/landonb/start/dubs_mescaline]
+[plugs/landonb/start/dubs_mescaline]
 lib = remote_set publish https://github.com/landonb/dubs_mescaline.git
 
-[pack/landonb/start/dubs_project_tray]
+[plugs/landonb/start/dubs_project_tray]
 lib = remote_set publish https://github.com/landonb/dubs_project_tray.git
 
-[pack/landonb/start/dubs_quickfix_wrap]
+[plugs/landonb/start/dubs_quickfix_wrap]
 lib = remote_set publish https://github.com/landonb/dubs_quickfix_wrap.git
 
-[pack/landonb/start/dubs_style_guard]
+[plugs/landonb/start/dubs_style_guard]
 lib = remote_set publish https://github.com/landonb/dubs_style_guard.git
 
 # ISOFF/2024-12-10: Syntastic, and dubs_syntastic_wrap, are deprecated.
-[pack/landonb/opt/dubs_syntastic_wrap]
+[plugs/landonb/opt/dubs_syntastic_wrap]
 lib = remote_set publish https://github.com/landonb/dubs_syntastic_wrap.git
 
-[pack/landonb/start/dubs_toggle_textwrap]
+[plugs/landonb/start/dubs_toggle_textwrap]
 lib = remote_set publish https://github.com/landonb/dubs_toggle_textwrap.git
 
 # ------------------------------------------------------------------------
 
 # 2021-02-18: QFEnter forked to restore cursor position in QuickFix after jumping (:cc).
-[pack/landonb/start/QFEnter]
+[plugs/landonb/start/QFEnter]
 lib =
   remote_set publish https://github.com/landonb/QFEnter.git
   remote_set starter https://github.com/yssl/QFEnter.git
@@ -169,7 +169,7 @@ rebase =
 # - Or because it supports dual-key insert mode maps: 👫2️ 💕 2️⃣ 🥂🤼🐫👙
 # - Onomatopoeia (is it tho?): "Sink":🚰⛲🛁🚿💧💦🧼🛀🧽🪣 | 🔀
 # - Generic "plugin": 🔌 💉 🛢️
-[pack/embrace-vim/start/vim-async-map]
+[plugs/embrace-vim/start/vim-async-map]
 lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
   remote_set starter https://github.com/zhou13/vim-easyescape.git
 
@@ -177,42 +177,42 @@ lib = remote_set publish https://github.com/embrace-vim/vim-async-map.git
 # "Press <Enter> on file-changed prompt to load changes"
 # "Streamline the File Changed prompt behavior"
 # FIXME: Transfer ownership
-[pack/embrace-vim/start/vim-better-file-changed-prompt]
+[plugs/embrace-vim/start/vim-better-file-changed-prompt]
 lib = remote_set publish https://github.com/embrace-vim/vim-better-file-changed-prompt.git
 
 # Née https://github.com/landonb/dubs_appearance#💅
 # Née https://github.com/landonb/dubs_edit_juice#🧃
 # Visual search enhancements for Vim
 # GROUP: visual_search
-[pack/embrace-vim/start/vim-blinky-search]
+[plugs/embrace-vim/start/vim-blinky-search]
 lib = remote_set publish https://github.com/embrace-vim/vim-blinky-search.git
 
 # Née https://github.com/landonb/dubs_buffer_fun#🎲
-[pack/embrace-vim/start/vim-buffer-delights]
+[plugs/embrace-vim/start/vim-buffer-delights]
 lib = remote_set publish https://github.com/embrace-vim/vim-buffer-delights.git
 
 # Forked project but heavily developed since.
 # 2020-03-19: Forked, to keep .vimprojects and netrw out of BufSurf w:history queue.
 # GHSLUGLINE: "Like vim-bufsurf, but 1) includes buffers only once, and 2) wraps around the list"
-[pack/landonb/start/vim-buffer-ring]
+[plugs/landonb/start/vim-buffer-ring]
 lib =
   remote_set publish https://github.com/landonb/vim-buffer-ring.git
   remote_set starter https://github.com/ton/vim-bufsurf.git
 
 # Forked project.
-[pack/landonb/start/vim-classic-taglist]
+[plugs/landonb/start/vim-classic-taglist]
 lib = remote_set publish https://github.com/landonb/vim-classic-taglist.git
 
 # Original project.
-[pack/embrace-vim/start/vim-command-line-clock]
+[plugs/embrace-vim/start/vim-command-line-clock]
 lib = remote_set publish https://github.com/landonb/vim-command-line-clock.git
 
-[pack/embrace-vim/start/vim-fullscreen-toggle]
+[plugs/embrace-vim/start/vim-fullscreen-toggle]
 lib = remote_set publish https://github.com/landonb/vim-fullscreen-toggle.git
 
 # Original project.
 # Shell-syntax-aware `includeexpr` for `gf`
-[pack/embrace-vim/start/vim-goto-file-sh]
+[plugs/embrace-vim/start/vim-goto-file-sh]
 lib = remote_set publish https://github.com/embrace-vim/vim-goto-file-sh.git
 #
 # HSTRY/2024-12-04: I couldn't decide between embrace-vim and thirsty-vim.
@@ -220,111 +220,111 @@ lib = remote_set publish https://github.com/embrace-vim/vim-goto-file-sh.git
 #   least mine is, I can't stop writing plugins!)
 # - But the former is definitely a more catchy, noteworthy name, and without
 #   the baggage attached to however some people might interpret "thirsty".
-[pack/thirsty-vim/opt/vim-goto-file-sh]
+[plugs/thirsty-vim/opt/vim-goto-file-sh]
 lib = remote_set publish https://github.com/thirsty-vim/vim-goto-file-sh.git
 
 # Original project.
-[pack/landonb/start/vim-lcd-project-root]
+[plugs/landonb/start/vim-lcd-project-root]
 lib = remote_set publish https://github.com/landonb/vim-lcd-project-root.git
 
 # ISOFF/2024-12-19: Latest preservim/vim-markdown works well.
 # HSTRY/2017-03-16: vim-markdown forked to fix issue of "white on white".
-[pack/landonb/opt/vim-markdown]
+[plugs/landonb/opt/vim-markdown]
 lib =
   remote_set publish https://github.com/landonb/vim-markdown.git
   remote_set starter https://github.com/gabrielelana/vim-markdown.git
 
 # Original project.
 # `mkspell` wrapper
-[pack/landonb/start/vim-mkspell-when-stale]
+[plugs/landonb/start/vim-mkspell-when-stale]
 lib = remote_set publish https://github.com/landonb/vim-mkspell-when-stale.git
 
 # Original project.
-[pack/landonb/start/vim-netrw-cfg-split-explorer]
+[plugs/landonb/start/vim-netrw-cfg-split-explorer]
 lib = remote_set publish https://github.com/landonb/vim-netrw-cfg-split-explorer.git
 
 # Original project.
 # "Wire convenient `:Explore [dir]` command maps"
-[pack/embrace-vim/start/vim-netrw-explore-map]
+[plugs/embrace-vim/start/vim-netrw-explore-map]
 lib = remote_set publish https://github.com/embrace-vim/vim-netrw-explore-map.git
 
 # Original project.
-[pack/landonb/start/vim-netrw-link-resolve]
+[plugs/landonb/start/vim-netrw-link-resolve]
 lib = remote_set publish https://github.com/landonb/vim-netrw-link-resolve.git
 
 # Original project.
 # "Escape from Insert Mode with `kj` or `jk`"
-[pack/landonb/start/vim-ovm-easyescape-kj-jk]
+[plugs/landonb/start/vim-ovm-easyescape-kj-jk]
 lib = remote_set publish https://github.com/landonb/vim-ovm-easyescape-kj-jk.git
 
 # Original project.
 # "Insert Seven Dashes and Two Newlines on <Ctrl-Shift-->"
-[pack/landonb/start/vim-ovm-seven-of-spines]
+[plugs/landonb/start/vim-ovm-seven-of-spines]
 lib = remote_set publish https://github.com/landonb/vim-ovm-seven-of-spines.git
 
 # Original project.
 # "Innovative reStructuredText section folder for Vim"
 # "Level-aware, Performance-conscious reST Section Folding for Vim"
-[pack/landonb/start/vim-reSTfold]
+[plugs/landonb/start/vim-reSTfold]
 lib = remote_set publish https://github.com/landonb/vim-reSTfold.git
 
 # Original project.
 # "Nonstandard syntax highlights so you can manage notes in Vim with reST"
-[pack/landonb/start/vim-reST-highdefs]
+[plugs/landonb/start/vim-reST-highdefs]
 lib = remote_set publish https://github.com/landonb/vim-reST-highdefs.git
 
 # Original project.
 # "Innovative reStructuredText five-letter word highlighter"
-[pack/landonb/start/vim-reST-highfive]
+[plugs/landonb/start/vim-reST-highfive]
 lib = remote_set publish https://github.com/landonb/vim-reST-highfive.git
 # 2022-10-05: So I can search-find the file via Project Tray, b/c I update this file often.
 infuse = symlink_mrinfuse_file "${MR_REPO}/after/syntax/rst.vim" "FIVERs.vim"
 
 # Original project.
 # "Highlight arbitrary horizontal rule lines in reST docs"
-[pack/landonb/start/vim-reST-highline]
+[plugs/landonb/start/vim-reST-highline]
 lib = remote_set publish https://github.com/landonb/vim-reST-highline.git
 
 # Original project.
 # "Build selections cleverly with Ctrl-Shift-Left/-Right"
-[pack/landonb/start/vim-select-mode-stopped-down]
+[plugs/landonb/start/vim-select-mode-stopped-down]
 lib = remote_set publish https://github.com/landonb/vim-select-mode-stopped-down.git
 
 # SLGLN: *Quickly source Vim scripts at runtime*
 # - HSTRY: *The classic Vim tip, "Source current file when editing a script"*
 # - Original project.
 # - Redirectee for: https://github.com/landonb/vim-source-reloader
-[pack/embrace-vim/start/vim-source-reloader]
+[plugs/embrace-vim/start/vim-source-reloader]
 lib = remote_set publish https://github.com/embrace-vim/vim-source-reloader.git
 
 # Tipless fork, i.e., I've made zero changes. Just want to be cool, I guess.
 # - Forked vim-surround... but haven't actually tipped the code.
-[pack/landonb/start/vim-surround]
+[plugs/landonb/start/vim-surround]
 lib =
   remote_set publish https://github.com/landonb/vim-surround.git
   remote_set starter https://github.com/tpope/vim-surround.git
 
 # Original project.
-[pack/landonb/start/vim-title-bar-time-of-day]
+[plugs/landonb/start/vim-title-bar-time-of-day]
 lib = remote_set publish https://github.com/landonb/vim-title-bar-time-of-day.git
 
 # 2020-02-08: Forked vim-tmux-navigator to add C-S-Up/-Down navigation.
 # 2020-02-08: vim-tmux-nav. forked to add Dubs' C-S-Up/-Down +/- pane mappings.
 # - (lb): I forked vim-tmux-nav. to add C-S-Up/-Down +/- pane motions
-[pack/landonb/start/vim-tmux-navigator]
+[plugs/landonb/start/vim-tmux-navigator]
 lib =
   remote_set publish https://github.com/landonb/vim-tmux-navigator.git
   remote_set starter https://github.com/christoomey/vim-tmux-navigator.git
 
 # Forked project.
-[pack/landonb/start/vim-unimpaired]
+[plugs/landonb/start/vim-unimpaired]
 lib =
   remote_set publish https://github.com/landonb/vim-unimpaired.git
   remote_set starter https://github.com/tpope/vim-unimpaired.git
 
 # "Open browser tab to search or define selected text"
 # - Redirectee for: https://github.com/landonb/dubs_web_hatch
-[pack/embrace-vim/start/vim-webopen]
+[plugs/embrace-vim/start/vim-webopen]
 lib = remote_set publish https://github.com/embrace-vim/vim-webopen.git
 
 # ------------------------------------------------------------------------
@@ -332,45 +332,45 @@ lib = remote_set publish https://github.com/embrace-vim/vim-webopen.git
 # *** In -3rdp: m-z.
 
 # *** m-to
-#  [pack/majutsushi/start/tagbar]
-#  #[pack/marshallward/opt/vim-restructuredtext]  # Uninstalled: HadIssuz.
-#  [pack/MaxMEllon/start/vim-jsx-pretty]
-#  [pack/nanotech/start/jellybeans.vim]
-#  [pack/pangloss/start/vim-javascript]
-#  [pack/preservim/start/nerdcommenter]
-#  [pack/samoshkin/start/vim-mergetool]
-#  [pack/scrooloose/opt/nerdtree]
-#  [pack/scrooloose/opt/syntastic]
-#  [pack/thinca/opt/vim-visualstar]
-#  [pack/tomtom/start/tlib_vim]
-#  [pack/tomtom/start/viki_vim]
+#  [plugs/majutsushi/start/tagbar]
+#  #[plugs/marshallward/opt/vim-restructuredtext]  # Uninstalled: HadIssuz.
+#  [plugs/MaxMEllon/start/vim-jsx-pretty]
+#  [plugs/nanotech/start/jellybeans.vim]
+#  [plugs/pangloss/start/vim-javascript]
+#  [plugs/preservim/start/nerdcommenter]
+#  [plugs/samoshkin/start/vim-mergetool]
+#  [plugs/scrooloose/opt/nerdtree]
+#  [plugs/scrooloose/opt/syntastic]
+#  [plugs/thinca/opt/vim-visualstar]
+#  [plugs/tomtom/start/tlib_vim]
+#  [plugs/tomtom/start/viki_vim]
 # *** tpope [retired]
-#  [pack/tpope/opt/vim-endwise]
-#  [pack/tpope/opt/vim-pathogen]
-#  [pack/tpope/opt/vim-scriptease]
-#  [pack/tpope/opt/vim-vividchalk]
+#  [plugs/tpope/opt/vim-endwise]
+#  [plugs/tpope/opt/vim-pathogen]
+#  [plugs/tpope/opt/vim-scriptease]
+#  [plugs/tpope/opt/vim-vividchalk]
 # *** tpope [active]
-#  [pack/tpope/start/vim-abolish]
-#  [pack/tpope/start/vim-fugitive]
-#  [pack/tpope/start/vim-jdaddy]
-#  [pack/tpope/start/vim-rails]
-#  [pack/tpope/start/vim-speeddating]
-#  [pack/tpope/start/vim-unimpaired]
-#  [pack/tpope/start/vim-vinegar]
+#  [plugs/tpope/start/vim-abolish]
+#  [plugs/tpope/start/vim-fugitive]
+#  [plugs/tpope/start/vim-jdaddy]
+#  [plugs/tpope/start/vim-rails]
+#  [plugs/tpope/start/vim-speeddating]
+#  [plugs/tpope/start/vim-unimpaired]
+#  [plugs/tpope/start/vim-vinegar]
 # *** vim-scripts
-#  [pack/vim-scripts/start/AutoAdapt]
-#  [pack/vim-scripts/start/ingo-library]
-#  #[pack/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
-#  [pack/vim-scripts/start/TeTrIs.vim]
-#  [pack/vim-scripts/start/ZoomWin]
+#  [plugs/vim-scripts/start/AutoAdapt]
+#  [plugs/vim-scripts/start/ingo-library]
+#  #[plugs/vim-scripts/start/taglist]  # taglist is part of ~/.vim repo.
+#  [plugs/vim-scripts/start/TeTrIs.vim]
+#  [plugs/vim-scripts/start/ZoomWin]
 # *** vo-z
-#  [pack/voithos/start/vim-python-matchit]
-#  [pack/wincent/opt/command-t]
-#  #[pack/xolox/opt/vim-easytags]  # Removed.
-#  [pack/xolox/start/vim-misc]
-#  [pack/yssl/start/QFEnter]
-#  [pack/yuezk/start/vim-js]
-#  [pack/zhou13/start/vim-easyescape]
+#  [plugs/voithos/start/vim-python-matchit]
+#  [plugs/wincent/opt/command-t]
+#  #[plugs/xolox/opt/vim-easytags]  # Removed.
+#  [plugs/xolox/start/vim-misc]
+#  [plugs/yssl/start/QFEnter]
+#  [plugs/yuezk/start/vim-js]
+#  [plugs/zhou13/start/vim-easyescape]
 
 # ========================================================================
 # ------------------------------------------------------------------------

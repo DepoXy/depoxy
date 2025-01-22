@@ -3,9 +3,9 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-# ~/.vim/pack/.fdignore -> 
-#   ../.mrinfuse/*/pack/_fdignore ->
-#     ~/.depoxy/ambers/home/.vim/pack/_fdignore
+# ~/.vim/plugs/.fdignore -> 
+#   ../.mrinfuse/*/plugs/_fdignore ->
+#     ~/.depoxy/ambers/home/.vim/plugs/_fdignore
 /.fdignore
 
 node_modules/

@@ -256,9 +256,9 @@ _dxy_wire_aliases_pushd_paths_vim () {
   #     character of each word (or the first and last word) in the
   #     directory path.
   #
-  #   - E.g., `cvp` changes the directory to ~/.vim/pack
+  #   - E.g., `cvp` changes the directory to ~/.vim/plugs
   #                                             ↑   ↑
-  #   - E.g., `cvs` changes the directory to ~/.vim/pack/<user>/start
+  #   - E.g., `cvs` changes the directory to ~/.vim/plugs/<user>/start
   #                                             ↑               ↑
   #
   # - And though redundant, we also wire `cd`-prefix variants, to match
@@ -277,17 +277,21 @@ _dxy_wire_aliases_pushd_paths_vim () {
   pushd_alias_or_warn "cvv" "${HOME}/.vim"
   pushd_alias_or_warn "cdv" "${HOME}/.vim"
   #
-  pushd_alias_or_warn "cvp" "${HOME}/.vim/pack"
-  pushd_alias_or_warn "cdvp" "${HOME}/.vim/pack"
+  pushd_alias_or_warn "cvp" "${HOME}/.vim/plugs"
+  pushd_alias_or_warn "cdvp" "${HOME}/.vim/plugs"
 
-  local dxy_plug="${HOME}/.vim/pack/DepoXy/start/vim-depoxy/plugin"
+  local dxy_plug="${HOME}/.vim/plugs/DepoXy/start/vim-depoxy/plugin"
   pushd_alias_or_warn "cvpd" "${dxy_plug}"
   pushd_alias_or_warn "cdvpd" "${dxy_plug}"
 
-  # Are you a Vim plugin author? Here's a convenient pushd to your plugs.
+  # Are you a Vim plugin author? Here's a convenient pushd to your plugins.
   # - Just set the environ from your private Bashrc, e.g.,
   #     export DEPOXY_CVS_ALIAS_VIM_PLUG_ORG=yourusername
   # - Mnemonic: Cd Vim (user plugins) Start (directory)
+  #   - Though because using Vim plugin manager (vim-pack, lazy.nvim),
+  #     and no longer using ~/.vim/pack, the start/ directory doesn't
+  #     technically matter. But idea is still valid, these are active,
+  #     automatically loaded plugins.
   local cvs_alias="cvs"
   if [ -z "${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}" ]; then
     if ! type "${cvs_alias}" > /dev/null 2>&1; then
@@ -296,7 +300,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
       >&2 echo "WARNING: Cannot alias: “${cvs_alias}” already assigned"
     fi
   else
-    local user_plug="${HOME}/.vim/pack/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
+    local user_plug="${HOME}/.vim/plugs/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
 
     # Wire "cvs".
     pushd_alias_or_warn "${cvs_alias}" "${user_plug}"
@@ -305,7 +309,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
 
     # Alternatively, use "User", not "Start" make better mnemonic sense?
     # Wire "cvpu": for parity with cvp-prefixed aliases.
-    # - Mnemonic: Cd Vim Pack User plugins start/ directory.
+    # - Mnemonic: Cd Vim Plugins User plugins directory.
     pushd_alias_or_warn "cvpu" "${user_plug}"
     # Wire "cdvpu": for parity with cd-prefixed aliases.
     pushd_alias_or_warn "cdvpu" "${user_plug}"

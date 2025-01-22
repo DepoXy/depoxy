@@ -15,9 +15,9 @@
 #   editing it otherwise.
 # - What's canon is DXC/home/.vimprojects — go edit that, then sync
 #   the --purged copy you have @home against the template.
-/home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects.EVAL
+/home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects.EVAL
 # Same for project-specific Vimprojects files.
-/home/.vim/pack/landonb/start/dubs_project_tray/.vimprojects--dob
+/home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects--dob
 
 # Convenience symlink -> "Application Support" so we can use
 # Vim `gf` command on paths thereunder, e.g.,
