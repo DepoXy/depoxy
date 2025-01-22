@@ -271,6 +271,7 @@ infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_pr
 order = 140
 lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
 chain = true
+updateDeps = update_deps_vim
 infusePostRebase =
   # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
@@ -279,6 +280,9 @@ infusePostRebase =
   . "${infuse_dubs_vim}"
   setup_vim_plugs_git_exclude
   setup_vim_plugs_grep_ignore
+  #
+  link_hard_dep_vim_pack_junegunn_vim_plug
+  link_hard_dep_vim_pack_tpope_vim_pathogen
 infuse =
   # SKIPD: Calling infusePostRebase from this infuser is redundant.
   #  mr -d . -n infusePostRebase
