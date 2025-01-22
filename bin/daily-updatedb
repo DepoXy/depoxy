@@ -163,7 +163,7 @@ generate_locatedb_macos () {
     ) $( \
       find /System/Volumes/* -maxdepth 0 -type d -name Data -prune -o -print -type d | tr '\n' ' '
     )" \
-    --prunepaths="${HOME}/.password-store ${HOME}/.gnupg ${HOME}/.ssh" \
+    --prunepaths="${HOME}/.password-store ${HOME}/.gnupg ${HOME}/.ssh ${LOCATEDB_PRUNEPATHS}" \
     --output="${LOCATEDB_PATH}"
 }
 
