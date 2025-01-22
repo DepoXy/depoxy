@@ -603,7 +603,7 @@ if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   # Being executed.
   main "$@"
 else
-  source_deps
+  MR_CONFIG= source_deps
 fi
 
 unset -f main
