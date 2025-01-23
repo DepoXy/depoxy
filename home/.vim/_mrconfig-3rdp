@@ -186,6 +186,9 @@ lib = remote_set starter https://github.com/junegunn/goyo.vim.git
 [plugs/junegunn/start/limelight.vim]
 lib = remote_set starter https://github.com/junegunn/limelight.vim.git
 
+[plugs/junegunn/start/vim-plug]
+lib = remote_set starter https://github.com/junegunn/vim-plug.git
+
 # REFER: junegunn/vim-slash is a great-looking plugin!
 # - I only wish my Vim scripts could be so clean and concise!!
 # - vim-slash "automatically clears search highlight when cursor is
