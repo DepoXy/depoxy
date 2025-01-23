@@ -43,10 +43,10 @@ dubs_cuts_generate_links () {
 
   local fpath_dirs=()
 
-  if [ -e ~/.vim/plugs/landonb/start ]; then
+  if [ -d ~/.vim/plugs/landonb/start ]; then
     fpath_dirs+=(~/.vim/plugs/landonb/start)
   fi
-  if [ -e ~/.vim/plugs/landonb/opt ]; then
+  if [ -d ~/.vim/plugs/landonb/opt ]; then
     fpath_dirs+=(~/.vim/plugs/landonb/opt)
   fi
 
