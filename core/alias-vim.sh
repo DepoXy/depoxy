@@ -7,6 +7,9 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# MSNOM: Misnomer: File named `alias-vim.sh` but better name is `funcs-vim.sh`
+# - 2025-01-23: Or perhaps `boths-vim.sh` because now includes alias, too.
+
 # *** Gvim/gVim file openers
 
 # A few different DepoXy commands that open Vim all use the same
@@ -39,5 +42,32 @@ fa () {
   gvim-open-kindness "${DEPOXY_GVIM_ALTERNATE:-ALPHA}" "" "" "$@"
 }
 
+# ***
+
+# CXREF:
+# ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal
+# ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
+
+_dxy_alias_vim_wire_vim_minimal () {
+  local tign="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
+
+  claim_alias_or_warn "vim.minimal" "${tign}/bin/editor-vim-0-0-insert-minimal"
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_wire_aliases () {
+  _dxy_alias_vim_wire_vim_minimal
+  unset -f _dxy_alias_vim_wire_vim_minimal
+}
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+
+main () {
+  _dxy_wire_aliases
+  unset -f _dxy_wire_aliases
+}
+
+main "$@"
+unset -f main
 
