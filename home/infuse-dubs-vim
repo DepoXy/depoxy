@@ -299,8 +299,6 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_project_plug_vim_depoxy () {
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-
   local depoxy_vim_org="DepoXy"
 
   local depoxy_vim_start="${HOME}/.vim/plugs/${depoxy_vim_org}/start"
