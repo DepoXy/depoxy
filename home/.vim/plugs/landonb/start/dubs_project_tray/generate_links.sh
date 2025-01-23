@@ -50,8 +50,8 @@ dubs_cuts_generate_links () {
     fpath_dirs+=(~/.vim/plugs/landonb/opt)
   fi
 
-  fpath_dirs+=(~/.vim/autoload)
-  fpath_dirs+=(~/.vim/plugin)
+  ! [ -d ~/.vim/autoload ] || fpath_dirs+=(~/.vim/autoload)
+  ! [ -d ~/.vim/plugin ] || fpath_dirs+=(~/.vim/plugin)
 
   local padline1='---------'
   for fpath in $( \
