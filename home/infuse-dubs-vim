@@ -142,6 +142,19 @@ setup_private_grep_ignore () {
 
 # ***
 
+# Link ~/.config/nvim/ → ~/.depoxy/ambers/home/.config/nvim/
+wire_dot_config_nvim () {
+  local before_cd="$(pwd -L)"
+
+  cd "${HOME}"
+
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_dir '.config/nvim'
+
+  cd "${before_cd}"
+}
+
+# ***
+
 # Link ~/.vimrc → ~/.vim/.vimrc
 wire_home_vimrc () {
   local before_cd="$(pwd -L)"
@@ -403,6 +416,8 @@ main () {
   setup_vim_plugs_grep_ignore
 
   setup_private_grep_ignore
+
+  wire_dot_config_nvim
 
   wire_home_vimrc
 
