@@ -100,6 +100,7 @@ setup_vim_plugs_fdignore () {
 
   cd "${HOME}/.vim/plugs"
 
+  # Use path relative to MR_REPO=~/.vim
   symlink_mrinfuse_file "plugs/_fdignore" "plugs/.fdignore"
 
   cd "${before_cd}"
@@ -126,6 +127,7 @@ setup_vim_plugs_grep_ignore () {
 
   cd "${HOME}/.vim/plugs"
 
+  # Use path relative to MR_REPO=~/.vim
   link_private_ignore "plugs/_ignore"
 
   cd "${before_cd}"
