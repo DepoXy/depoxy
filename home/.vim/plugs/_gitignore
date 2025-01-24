@@ -148,6 +148,7 @@
 /editorconfig/start/editorconfig-vim/
 /editorconfig/start/vim-go/
 /flazz/opt/vim-colorschemes/
+/folke/start/lazy.nvim/
 /godlygeek/start/tabular/
 /greg0ire/opt/more-instantly-better-vim/
 /HerringtonDarkholme/start/yats.vim/

@@ -113,6 +113,9 @@ lib = remote_set starter https://github.com/editorconfig/editorconfig-vim.git
 [plugs/flazz/opt/vim-colorschemes]
 lib = remote_set starter https://github.com/flazz/vim-colorschemes.git
 
+[plugs/folke/start/lazy.nvim]
+lib = remote_set starter https://github.com/folke/lazy.nvim
+
 # Tabular is required by preservim/vim-markdown
 # GROUP: #markdown_syntax
 [plugs/godlygeek/start/tabular]
