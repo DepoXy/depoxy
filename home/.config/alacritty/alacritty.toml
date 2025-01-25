@@ -405,6 +405,7 @@ bindings = [
   #                          - Complements: <Ctrl-D> Dedent
   # - SAVVY: To generate the character so you can copy it, add/edit/verify
   #   the binding here, then press the associated keypress in the terminal.
+  #   - REFER: In Vim, put cursor over char and use `ga` to see its details.
 
   # \uE000  \uE001  \uE002  \uE003  \uE004  \uE005  \uE006  \uE007
   #   a      b      c      d      e      f      g      h 
