@@ -115,6 +115,9 @@ install =
   symlink_overlay_file \
     "${MR_REPO}/bin/gvim-open-kindness" \
     "${HOME}/.local/bin/gvim-open-kindness"
+  symlink_overlay_file \
+    "${MR_REPO}/bin/nvim-open-kindness" \
+    "${HOME}/.local/bin/nvim-open-kindness"
 
 # ========================================================================
 # ------------------------------------------------------------------------
