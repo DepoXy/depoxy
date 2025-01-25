@@ -29,7 +29,9 @@
 --
 --     gvim_open_kindness("~/foo/bar")
 --
--- CXREF: ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
+-- CXREF: Runs gvim or nvim (See: GVIM_OPEN_PREFER_NVIM=true):
+-- ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
+-- ~/.depoxy/running/home/.config/depoxy/depoxyrc
 
 gvim_open_kindness = function(path)
   local task = hs.task.new(

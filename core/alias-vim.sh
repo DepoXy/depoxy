@@ -29,6 +29,9 @@
 # I suppose), and so far it doesn't conflict with anything popular of
 # which I know (unlike, say, `fd`). I type `fs` or `fs {file}` (or
 # `fs <Alt-.>`) a lot when I want to start editing in GVim.
+# CXREF: Runs gvim or nvim (See: GVIM_OPEN_PREFER_NVIM=true):
+#   ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
+#   ~/.depoxy/running/home/.config/depoxy/depoxyrc
 _dxy_alias_vim_fs_main_editor_instance () {
   claim_alias_or_warn "fs" "gvim-open-kindness"
 }
@@ -37,6 +40,7 @@ _dxy_alias_vim_fs_main_editor_instance () {
 # of GVim. (I cannot remember the last time I used this command, but
 # it happens.)
 fa () {
+  # REFER: Runs gvim or nvim (See: GVIM_OPEN_PREFER_NVIM=true).
   gvim-open-kindness "${DEPOXY_GVIM_ALTERNATE:-ALPHA}" "" "" "$@"
 }
 

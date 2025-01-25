@@ -48,6 +48,11 @@ _dxy_wire_alias_git_wip_pwip () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF: Runs vim or nvim (latter if EDITOR_PREFER_NVIM=true):
+#   ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal
+#   ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
+#   ~/.depoxy/running/home/.config/depoxy/depoxyrc
+
 # Complement `git civ` with a plain `civ`.
 _dxy_wire_alias_git_civ () {
   local tnewtons="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
