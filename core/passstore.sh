@@ -29,6 +29,7 @@ pass_safe () {
     # than normal Vim; and then you won't get reST highlight. Not this:
     #   local tnewtons="${TIGNEWTONSPATH:-${HOME}/.kit/git/tig-newtons}"
     #   EDITOR="${tnewtons}/bin/editor-vim-0-0-insert-minimal" \
+    #     VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
 
     VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
