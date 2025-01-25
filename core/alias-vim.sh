@@ -29,10 +29,8 @@
 # I suppose), and so far it doesn't conflict with anything popular of
 # which I know (unlike, say, `fd`). I type `fs` or `fs {file}` (or
 # `fs <Alt-.>`) a lot when I want to start editing in GVim.
-fs () {
-  # NOTE: The servername appears in the window title bar, so you are
-  #       encouraged to personalize it accordingly!
-  gvim-open-kindness "${GVIM_OPEN_SERVERNAME:-SAMPI}" "" "" "$@"
+_dxy_alias_vim_fs_main_editor_instance () {
+  claim_alias_or_warn "fs" "gvim-open-kindness"
 }
 
 # The `fa` command exists should you want to open a second instance
@@ -57,6 +55,9 @@ _dxy_alias_vim_wire_vim_minimal () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_aliases () {
+  _dxy_alias_vim_fs_main_editor_instance
+  unset -f _dxy_alias_vim_fs_main_editor_instance
+
   _dxy_alias_vim_wire_vim_minimal
   unset -f _dxy_alias_vim_wire_vim_minimal
 }
