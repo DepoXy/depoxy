@@ -104,6 +104,8 @@ shell = "/opt/homebrew/bin/bash"
 
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 
+italic = { family = "MonaspiceRn Nerd Font", style = "Light Italic" }
+
 # See also @macOS built-in fonts, e.g.,:
 #   normal = { family = "Menlo", style = "Regular" }
 #   normal = { family = "Andale Mono", style = "Regular" }
