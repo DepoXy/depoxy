@@ -199,7 +199,7 @@ include =
   fi
 
 # SAVVY: End with a [DEFAULT] section because previous cat'ted file ends
-#        with a [/path/to/project] section. If not, the file the cats
+#        with a [/path/to/project] section. If not, the file that cats
 #        this file would have to specify [DEFAULT] again to avoid config
 #        after the cat from going to [/path/to/project].
 [DEFAULT]
