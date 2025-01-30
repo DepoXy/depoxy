@@ -74,9 +74,21 @@ installVim =
   # Ensure `pyenv` not in effect.
   pyenv_shell_unset
   #
-  # Suss the --with-python3-config-dir=<path>.
-  # - SAVVY/2023-04-20: `pyenv root` is, e.g., ~/.pyenv
-  #   - Note that ~/.pyenv -> ~/.kit/py/pyenv/
+  # SAVVY/2024-04-23: macOS Brew Vim version:
+  #   puck@DXC2417∶vim 🍄 $ vim --version
+  #   VIM - Vi IMproved 9.1 (2024 Jan 02, compiled Jan  4 2024 03:08:50)
+  #
+  # *** Suss the Python path
+  #
+  # SAVVY/2025-01-30: Some plugins use Python.
+  # - E.g., vim-easyescape and vim-async-map.
+  #
+  # HSTRY/2024-04-24: Deprecated: --with-python3-config-dir
+  # - We'll use vi_cv_path_python3_include/vi_cv_path_python3_platinclude
+  # - Though see DUNNO below: Must still use --with-python3-config-dir ??
+  #
+  # SAVVY/2023-04-20: `pyenv root` is, e.g., ~/.pyenv
+  # - On DepoXy, ~/.pyenv -> ~/.kit/py/pyenv/
   local pyenv_root="$(pyenv root)"
   # - Version is, e.g., 3.10.6
   local py_version="$(python3 -c "import platform; print(platform.python_version())")"
@@ -93,17 +105,48 @@ installVim =
   # - E.g., python3
   local py3_command="python${ver_major}"
   # - Config dir is, e.g.,
-  #     ~/pyenv/versions/3.10.6/lib/python3.10/config-3.10-x86_64-linux-gnu
+  #   ~/.pyenv/versions/3.10.6/lib/python3.10/config-3.10-x86_64-linux-gnu
+  #   ~/.pyenv/versions/3.9.19/lib/python3.9/config-3.9-darwin/
+  #
+  # - See also, e.g.,
+  #   /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/config-3.9-darwin/
   #
   local config_dir
   if ! os_is_macos; then
     config_dir="${pyenv_root}/versions/${py_version}/lib/python${ver_mminor}/config-${ver_mminor}-x86_64-linux-gnu"
   else
     py3_command="/usr/bin/python3"
-    # DUNNO/2024-04-23 23:53: Found via `locate python-config.py`
-    # /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Headers/Python.h
+    #
+    # WRKLG/2024-04-23: Found via `locate python-config.py`
+    #   /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Headers/Python.h
     # config_dir="/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/${ver_mminor}/lib/python${ver_mminor}/config-${ver_mminor}-darwin/"
     config_dir="/opt/homebrew/opt/python@${ver_mminor}/Frameworks/Python.framework/Versions/${ver_mminor}/lib/python${ver_mminor}/config-${ver_mminor}-darwin"
+    #
+    # REFER/2025-01-30: If the build cannot locate the Python config
+    # directory, you can locate it by installing Brew Python.
+    # - E.g., if you get an error like this:
+    #
+    #   checking --enable-python3interp argument... yes
+    #   checking --with-python3-command argument... python3
+    #   checking Python version... 3.9
+    #   checking Python is 3.0 or better... yep
+    #   checking --with-python3-stable-abi argument... no
+    #   checking Python's abiflags...
+    #   checking Python's install prefix...
+    #     /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9
+    #   checking Python's execution prefix...
+    #     /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9
+    #   checking Python's include path... /Library/Python/3.9/include
+    #   checking Python's include path... /Library/Python/3.9/include
+    #   checking Python's configuration directory...
+    #   can't find it!
+    #
+    # Try to determine the path from Brew Python, e.g.:
+    #
+    #   $ brew install python@3.9
+    #   $ python3-config --include
+    #   /opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/
+    #
     export vi_cv_path_python3_include="/opt/homebrew/opt/python@${ver_mminor}/Frameworks/Python.framework/Versions/${ver_mminor}/include/python${ver_mminor}/"
     export vi_cv_path_python3_platinclude="/opt/homebrew/opt/python@${ver_mminor}/Frameworks/Python.framework/Versions/${ver_mminor}/include/python${ver_mminor}/"
   fi
@@ -116,6 +159,7 @@ installVim =
   # - FIXME: You'll want to test that the new line, e.g.,
   #     --with-python3-command=python3
   #   works on @Linux.
+  # DUNNO/2024-04-24: --with-python3-config-dir deprecated, but fails without it.
   ./configure \
     --enable-luainterp=yes \
     --enable-perlinterp=yes \
