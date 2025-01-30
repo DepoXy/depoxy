@@ -103,9 +103,9 @@ installVim =
     # DUNNO/2024-04-23 23:53: Found via `locate python-config.py`
     # /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Headers/Python.h
     # config_dir="/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/${ver_mminor}/lib/python${ver_mminor}/config-${ver_mminor}-darwin/"
-    config_dir="/opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/config-3.9-darwin"
-    export vi_cv_path_python3_include="/opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/"
-    export vi_cv_path_python3_platinclude="/opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9/"
+    config_dir="/opt/homebrew/opt/python@${ver_mminor}/Frameworks/Python.framework/Versions/${ver_mminor}/lib/python${ver_mminor}/config-${ver_mminor}-darwin"
+    export vi_cv_path_python3_include="/opt/homebrew/opt/python@${ver_mminor}/Frameworks/Python.framework/Versions/${ver_mminor}/include/python${ver_mminor}/"
+    export vi_cv_path_python3_platinclude="/opt/homebrew/opt/python@${ver_mminor}/Frameworks/Python.framework/Versions/${ver_mminor}/include/python${ver_mminor}/"
   fi
   #
   make clean
