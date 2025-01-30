@@ -622,3 +622,15 @@ installLinux =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# BMONY/2025-01-27: C'mon, big money! I feel like I lucked out on this one,
+# wasn't looking for it, saw referenced in a meme on tpope's Mastodon feed,
+#   https://hachyderm.io/@tpope/111908416726012364
+# glad I web-searched 'git-absorb', seems like something I should've looked
+# for years ago, because I fixup *all* *the* *time*.
+
+[${GITREPOSPATH:-${HOME}/.kit/git}/git-absorb]
+lib = remote_set starter https://github.com/tummychow/git-absorb
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

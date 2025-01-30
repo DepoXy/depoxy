@@ -32,6 +32,8 @@
 /git/cli/
 # Git itself.
 /git/git/
+# Automated fixup.
+/git/git-absorb/
 # Bumper Gits.
 /git/git-bump-version-tag/
 # Wicked clever Git commands.
