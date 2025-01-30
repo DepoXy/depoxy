@@ -175,6 +175,11 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   pushd_alias_or_warn "cdke" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elephants"
 
+  # *** ~/.kit/nvim — Neovim and Vim plugins
+
+  # - DUPES: `cnpd` and `cdnd`.
+  pushd_alias_or_warn "cdnd" "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
+
   # *** ~/.kit/odd — Odd
 
   pushd_alias_or_warn "cdop" "${DOPP_KIT:-${HOME}/.kit}/odd/321open"
@@ -274,15 +279,28 @@ _dxy_wire_aliases_pushd_paths_vim () {
   # - DCIDD/2024-12-12: I've never used `cvi`, so removed.
   #   - And for some reason, I use `cvv`, not `cdv`;
   #     but I find myself using `cdvp`, not `cvp`!
-  pushd_alias_or_warn "cvv" "${HOME}/.vim"
-  pushd_alias_or_warn "cdv" "${HOME}/.vim"
   #
+  # HSTRY/2025-01-30: Now that I've switched (upgraded!) to Neovim,
+  # I expect that I'll rarely use `cvv`...
+  pushd_alias_or_warn "cvv" "${HOME}/.vim"
+  # - ISOFF/2025-01-30: Never used `cdv` anyway.
+  #  pushd_alias_or_warn "cdv" "${HOME}/.vim"
+  #
+  # FIXME/2025-01-30: Obsolete? Now that Neovim.
   pushd_alias_or_warn "cvp" "${HOME}/.vim/plugs"
   pushd_alias_or_warn "cdvp" "${HOME}/.vim/plugs"
 
+  # FIXME/2025-01-30: Swallow into ~/.kit/nvim/nvim-depoxy Lua.
+  # - Call from plugin-specific lazy.nvim definitions.
   local dxy_plug="${HOME}/.vim/plugs/DepoXy/start/vim-depoxy/plugin"
   pushd_alias_or_warn "cvpd" "${dxy_plug}"
-  pushd_alias_or_warn "cdvpd" "${dxy_plug}"
+  # - ISOFF/2025-01-30: I found myself using `cvpd`, unsurprisingly.
+  #  pushd_alias_or_warn "cdvpd" "${dxy_plug}"
+
+  # HSTRY/2025-01-30: New alias to new project, expect this to evolve
+  # over the short-term.
+  # - DUPES: `cnpd` and `cdnd`.
+  pushd_alias_or_warn "cnpd" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
 
   # Are you a Vim plugin author? Here's a convenient pushd to your plugins.
   # - Just set the environ from your private Bashrc, e.g.,
@@ -342,6 +360,7 @@ _dxy_wire_aliases_pushd_paths_kit () {
   pushd_alias_or_warn "cdkj" "${DOPP_KIT:-${HOME}/.kit}/js"
   #  pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/ml"
   pushd_alias_or_warn "cdkm" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
+  pushd_alias_or_warn "cdkn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
   pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
   pushd_alias_or_warn "cdkr" "${DOPP_KIT:-${HOME}/.kit}/rust"
