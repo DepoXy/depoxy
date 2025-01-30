@@ -25,6 +25,9 @@
 # -> ../../../../bin/macOS/launchers/
 /home/.config/karabiner/assets/launchers
 
+# -> /private/user/.kit/nvim/nvim-depoxy/.config/nvim/
+/home/.config/nvim
+
 # Symlinks: home/.config/tig/* -> :
 #   cfg-tgn-*         -> ~/.kit/git/tig-newtons/tig/*
 #   config-*          -> ~/.depoxy/ambers/home/.config/tig/config-*
