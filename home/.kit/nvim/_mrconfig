@@ -13,6 +13,19 @@
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+#  vim-depoxy#🤙
+
+# SAVVY/2025-01-21: The only plugin not under ~/.plugs nor loaded by lazy.nvim or vim-plug
+[${MR_HOME:-${HOME}}/.vim/plugs/DepoXy/start/vim-depoxy]
+order = 141
+lib = remote_set publish "https://github.com/DepoXy/vim-depoxy.git"
+skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
+infuse = link_private_exclude "$@"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [${DOPP_KIT:-${HOME}/.kit}/clang/vim]
 order = 810
 lib =
