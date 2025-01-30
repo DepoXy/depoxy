@@ -10,6 +10,21 @@
 
 /docs/README-macOS-onboarding.rst
 
+# CXREF: ~/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications
+#   is populated with symlinks by symlink_kbmods_using_file_symlinks in
+#     ~/.depoxy/ambers/home/infuse-platform-macOS:47
+#   and DXC's depoxy_client_id_infuse_karabiner_elements_complex_modifications
+#     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr:751
+#   that serve as canon for ~/.projlns
+/home/.config/karabiner/assets/complex_modifications/
+# --DXC -> ../../../../../running/home/.config/karabiner/assets/complex_modifications/
+/home/.config/karabiner/assets/complex_modifications--DXC/
+# --KBE -> ~/.kit/mOS/Karabiner-Elephants/complex_modifications/
+/home/.config/karabiner/assets/complex_modifications--KBE/
+
+# -> ../../../../bin/macOS/launchers/
+/home/.config/karabiner/assets/launchers
+
 # Symlinks: home/.config/tig/* -> :
 #   cfg-tgn-*         -> ~/.kit/git/tig-newtons/tig/*
 #   config-*          -> ~/.depoxy/ambers/home/.config/tig/config-*
@@ -65,19 +80,4 @@
 /home/.vim/spell/en.utf-8.add
 # Vim spell file generated on 'infuse'.
 /home/.vim/spell/en.utf-8.add--compiled
-
-# CXREF: ~/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications
-#   is populated with symlinks by symlink_kbmods_using_file_symlinks in
-#     ~/.depoxy/ambers/home/infuse-platform-macOS:47
-#   and DXC's depoxy_client_id_infuse_karabiner_elements_complex_modifications
-#     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr:751
-#   that serve as canon for ~/.projlns
-/home/.config/karabiner/assets/complex_modifications/
-# --DXC -> ../../../../../running/home/.config/karabiner/assets/complex_modifications/
-/home/.config/karabiner/assets/complex_modifications--DXC/
-# --KBE -> ~/.kit/mOS/Karabiner-Elephants/complex_modifications/
-/home/.config/karabiner/assets/complex_modifications--KBE/
-
-# -> ../../../../bin/macOS/launchers/
-/home/.config/karabiner/assets/launchers
 
