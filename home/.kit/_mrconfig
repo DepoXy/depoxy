@@ -9,6 +9,14 @@
 [DEFAULT]
 order = 590
 
+# MAYBE/2025-01-30: Because new `skip = mr_exclusive` behavior, get rid
+# of MR_INCLUDE usage, and just `mr_cat` everything instead.
+# - Unless you can identify use case that this behavior would slow down,
+#   but I cannot think of one.
+# - It would simplify tag logic, which is currently messing to maintain
+#   and easy to get wrong (and sometimes difficult to track down what's
+#   not working).
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
