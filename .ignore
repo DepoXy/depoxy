@@ -77,10 +77,10 @@
 /home/.kit/_git
 
 # Generated file.
-/home/.vim/plugs/DepoXy/start/vim-depoxy/doc/tags
+/home/.kit/nvim/DepoXy/start/vim-depoxy/doc/tags
 
 # Live Vim spell file generated from sources.
-/home/.vim/spell/en.utf-8.add
+/home/.kit/nvim/spell/en.utf-8.add
 # Vim spell file generated on 'infuse'.
-/home/.vim/spell/en.utf-8.add--compiled
+/home/.kit/nvim/spell/en.utf-8.add--compiled
 

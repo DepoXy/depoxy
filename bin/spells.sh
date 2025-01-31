@@ -26,8 +26,8 @@ init_spellssh () {
   SPF_SPELLS="${SPELLFILE_DIR:-${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt}/bin/spells.sh"
 
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-  # E.g., ~/.depoxy/ambers/home/.vim/spell/en.utf-8.add--private
-  DEPOXY_SPELLS="${ambers_path}/home/.vim/spell/en.utf-8.add--personal"
+  # E.g., ~/.depoxy/ambers/home/.kit/nvim/spell/en.utf-8.add--private
+  DEPOXY_SPELLS="${ambers_path}/home/.kit/nvim/spell/en.utf-8.add--personal"
 }
 
 # ***
