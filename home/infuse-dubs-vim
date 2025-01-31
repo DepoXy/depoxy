@@ -296,13 +296,12 @@ populate_dubs_cuts_generate () {
   # because I could not make the script POSIX-compliant, or more likely
   # because of the for-loop on find with regex).
 
-  # Run the Dubs Vim dubs_cuts infuser, i.e., execute:
-  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/generate_links.sh
+  # Run this Dubs Vim dubs_cuts generator manually, i.e., execute:
+  #   ~/.kit/nvim/nvim-depoxy/mrinfuse/landonb/start/dubs_project_tray/generate_links.sh
   # to populate:
   #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
-  # aka:
-  #  "${HOME}/.vim/.mrinfuse/plugs/landonb/start/dubs_project_tray/dubs_cuts"
-  # upon which setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
+  # upon which
+  #   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
   # depends.
   local generator
   MR_REPO="${nvim_repos}" \
