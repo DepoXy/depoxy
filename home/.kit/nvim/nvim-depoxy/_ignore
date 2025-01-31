@@ -16,8 +16,17 @@
 # Generated file.
 #  /mrinfuse/DepoXy/start/vim-depoxy/doc/tags
 
-# Live Vim spell file generated from sources.
-#  /.config/nvim/spell/en.utf-8.add
-# Vim spell file generated on 'infuse'.
-#  /.config/nvim/spell/en.utf-8.add--compiled
+# Users spell file.
+# -> ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
+/.config/nvim/spell/en.utf-8.add
+# Generated spell file used by Vim (ignored anyway because binary).
+/.config/nvim/spell/en.utf-8.add.spl
+
+# CXREF: 'infuse'd by and symlink to:
+# -> ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+/mrconfig/depoxy-mrconfig
+
+# Symlink to private Vim mrconfig.
+# -> ~/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
+/mrconfig/_mrconfig-private-nvim
 
