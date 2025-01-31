@@ -261,9 +261,9 @@ _dxy_wire_aliases_pushd_paths_vim () {
   #     character of each word (or the first and last word) in the
   #     directory path.
   #
-  #   - E.g., `cvp` changes the directory to ~/.vim/plugs
+  #   - E.g., `cvp` changes the directory to ~/.kit/nvim
   #                                             ↑   ↑
-  #   - E.g., `cvs` changes the directory to ~/.vim/plugs/<user>/start
+  #   - E.g., `cvs` changes the directory to ~/.kit/nvim/<user>/start
   #                                             ↑               ↑
   #
   # - And though redundant, we also wire `cd`-prefix variants, to match
@@ -286,13 +286,15 @@ _dxy_wire_aliases_pushd_paths_vim () {
   # - ISOFF/2025-01-30: Never used `cdv` anyway.
   #  pushd_alias_or_warn "cdv" "${HOME}/.vim"
   #
-  # FIXME/2025-01-30: Obsolete? Now that Neovim.
-  pushd_alias_or_warn "cvp" "${HOME}/.vim/plugs"
-  pushd_alias_or_warn "cdvp" "${HOME}/.vim/plugs"
+  # HSTRY/2025-01-30: Was to ~/.vim/pack, then ~/.vim/plugs for a few days
+  # after I implemented vim-pack and lazy.nvim usage, now obsolete because
+  # Vim/Neovim plugins moved under ~/.kit/nvim (see dupe: `cdkn`).
+  pushd_alias_or_warn "cvp" "${HOME}/.kit/nvim"
+  pushd_alias_or_warn "cdvp" "${HOME}/.kit/nvim"
 
   # FIXME/2025-01-30: Swallow into ~/.kit/nvim/nvim-depoxy Lua.
   # - Call from plugin-specific lazy.nvim definitions.
-  local dxy_plug="${HOME}/.vim/plugs/DepoXy/start/vim-depoxy/plugin"
+  local dxy_plug="${HOME}/.kit/nvim/DepoXy/start/vim-depoxy/plugin"
   pushd_alias_or_warn "cvpd" "${dxy_plug}"
   # - ISOFF/2025-01-30: I found myself using `cvpd`, unsurprisingly.
   #  pushd_alias_or_warn "cdvpd" "${dxy_plug}"
@@ -318,7 +320,7 @@ _dxy_wire_aliases_pushd_paths_vim () {
       >&2 echo "WARNING: Cannot alias: “${cvs_alias}” already assigned"
     fi
   else
-    local user_plug="${HOME}/.vim/plugs/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
+    local user_plug="${HOME}/.kit/nvim/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
 
     # Wire "cvs".
     pushd_alias_or_warn "${cvs_alias}" "${user_plug}"
