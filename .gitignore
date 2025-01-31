@@ -58,17 +58,18 @@
 /home/.kit/_git
 
 # Symlink to private Vim mrconfig.
-# - E.g., -> /home/user/.depoxy/running/home/.vim/_mrconfig-private
-/home/.vim/_mrconfig-private
+# - E.g., -> /home/user/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
+/home/.kit/nvim/_mrconfig-private-nvim
 
+# FIXME/2025-01-30 17:00: Update:
 # Ignore generated directory. See:
 #   ~/.depoxy/ambers/home/.vim/cmdt_paths/generate_links.sh
 /home/.vim/cmdt_paths/symlinks/
 
 # Ignore generated directory. See:
-#   ~/.depoxy/ambers/home/.vim/plugs/landonb/start/dubs_project_tray/generate_links.sh
-/home/.vim/plugs/landonb/start/dubs_project_tray/dubs_cuts/
+#   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/generate_links.sh
+/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
 
 # Vim spell file generated on 'infuse'.
-/home/.vim/spell/en.utf-8.add--compiled
+/home/.kit/nvim/spell/en.utf-8.add--compiled
 
