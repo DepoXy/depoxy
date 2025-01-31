@@ -12,6 +12,25 @@ order = 771
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/odd]
+# FTREQ/2025-01-30: DRY: Make common include for this common
+#   checkout|skip|ffssh pattern for pseudo-repos
+#   (see also stub_checkout_directory).
+checkout = mkdir -p -- "${MR_REPO}"
+# Not an actual repo
+skip = no_travel
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
+
+# CXREF/2025-01-30: This psuedo-project approach intended to replace
+# `mkdir` list in ~/.kit 'infuse':
+#   ~/.depoxy/ambers/home/_mrconfig-core @ 337
+infuse =
+  cd -- "${MR_REPO}"
+  mkdir -p -- "homebrew" "x11" "keyboard"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # Mount encfs and wire ~/.gnupg, ~/.ssh, and ~/.password-store
 # Multiple encfs mounter, unmounter, and burn-down-the-house panicker
 # https://github.com/DepoXy/321open#👐

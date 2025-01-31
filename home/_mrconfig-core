@@ -347,14 +347,32 @@ infuse =
     # .gitignore.local and .git/info/exclude symlinks are placed by DXC infuse.
     symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/README.md" "README.md"
     prepare_guard_repo
-    # myrepos checkout will fails `mr: failed to determine working directory`
+    # myrepos checkout will fail `mr: failed to determine working directory`
     # if the base path does not exist, so ensure repo parents directories exist.
+    # - MAYBE/2025-01-30: The `mkdir` list here is incomplete, or at least other
+    #   dirs should be noted if they don't need to be `mkdir`ed.
+    #   - But really we could use pseudo-projects in ~/.kit OMR config to
+    #     call `mkdir`, and get rid of this tightly-coupled `mkdir` list.
+    #   - CXREF: See pseudo-project atop ~/.kit/odd mrconfig:
+    #       ~/.depoxy/ambers/home/.kit/odd/_mrconfig
+    #  mkdir -p "${MR_REPO}/ansible"
+    #  mkdir -p "${MR_REPO}/clang"
+    #  mkdir -p "${MR_REPO}/clients"
+    #  mkdir -p "${MR_REPO}/dob"
     mkdir -p "${MR_REPO}/git"
+    #  mkdir -p "${MR_REPO}/gnucash"
     mkdir -p "${MR_REPO}/go"
+    #  mkdir -p "${MR_REPO}/hugo"
     mkdir -p "${MR_REPO}/js"
     mkdir -p "${MR_REPO}/mOS"
+    mkdir -p "${MR_REPO}/nvim"
+    #  mkdir -p "${MR_REPO}/odd"
+    #  mkdir -p "${MR_REPO}/odd/*"
     mkdir -p "${MR_REPO}/py"
+    #  mkdir -p "${MR_REPO}/rust"
     mkdir -p "${MR_REPO}/sh"
+    #  mkdir -p "${MR_REPO}/text"
+    #  mkdir -p "${MR_REPO}/work"
   }
   if ! test -d "${MR_REPO}/.git"; then
     create_guard_repo
