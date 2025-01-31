@@ -341,34 +341,34 @@ symlink_overlay_homefries_private_bashrc () {
 symlink_overlay_vim_assets () {
   # Replace Vim spell file with symlink to user's version in DXC.
   cast_private_spell () {
-    touch "${MR_REPO}/home/.vim/spell/en.utf-8.add"
-    mkdir -p "${HOME}/.vim/spell"
+    touch "${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add"
+    mkdir -p "${HOME}/.config/nvim/spell"
     # DepoXy Ambers maintains ~/.mrinfuse, so currently cannot simply:
     #   symlink_mrinfuse_file "spell/en.utf-8.add"
     # but we could probably infuse the mrinfuse'r and then we could use
     # symlink_mrinfuse_file. But seems like unnecessary lift with no big
     # reward.
     symlink_overlay_file \
-      "${MR_REPO}/home/.vim/spell/en.utf-8.add" \
-      "${HOME}/.vim/spell/en.utf-8.add"
+      "${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add" \
+      "${HOME}/.config/nvim/spell/en.utf-8.add"
   }
   cast_private_spell
 
   # Developer Vim tray: Custom Project Tray (Shift-Alt-3) Paths file.
   # - Add vendor-specific project listing to this file.
   symlink_overlay_file \
-    "${MR_REPO}/home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects" \
-    "${HOME}/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects"
+    "${MR_REPO}/home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects" \
+    "${HOME}/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects"
   # For the convenience.
   symlink_overlay_file \
-    "home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects" \
+    "home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects" \
     "home/.vimprojects"
 
   # Developer Vim grep: Custom Project Grep (\g) Paths list.
   # - Add vendor-specific project paths to this file.
   symlink_overlay_file \
-    "${MR_REPO}/home/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim" \
-    "${HOME}/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim"
+    "${MR_REPO}/home/.kit/nvim/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+    "${HOME}/.kit/nvim/landonb/start/dubs_grep_steady/dubs_projects.vim"
   # Reload <\g> search list.
   # - If no such instance:
   #     E247: No registered server named "SAMPI": Send failed.
@@ -377,14 +377,14 @@ symlink_overlay_vim_assets () {
     2> /dev/null || true
   # For the convenience.
   symlink_overlay_file \
-    "home/.vim/plugs/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+    "home/.kit/nvim/landonb/start/dubs_grep_steady/dubs_projects.vim" \
     "home/dubs_projects.vim"
 
-  # Developer Vim plug: Custom plug at ~/.vim/plugs/DepoXy/start/vim-trap
+  # Developer Vim plug: Custom plug at ~/.kit/nvim/DepoXy/start/vim-trap
   # - Use this plugin for vendor-specific Vim config and commands.
   symlink_overlay_dir \
     "${MR_REPO}/home/vim-trap" \
-    "${HOME}/.vim/plugs/DepoXy/start/vim-trap"
+    "${HOME}/.kit/nvim/DepoXy/start/vim-trap"
 }
 
 # *** GIT
