@@ -670,7 +670,7 @@ _dxc_client_autocommit () {
   depoxy_client_autocommit_tree_dumps () {
     # Don't generate tree while spell changes outstanding,
     # because meld files come and go.
-    if test -n "$(git status --porcelain -- home/.vim/spell)"; then
+    if test -n "$(git status --porcelain -- home/.kit/nvim/spell)"; then
       return 0
     fi
 

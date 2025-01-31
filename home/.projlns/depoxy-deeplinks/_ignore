@@ -108,8 +108,11 @@
 # Generated file
 /Users/user/.vim/README-USING.rst
 
-# Vim :Helptags tags files.
-/Users/user/.vim/plugs/*/*/*/doc/tags
+# Vim :Helptags files, where */*/* is {org}/start/{plug} or {org}/opt/{plug}
+/Users/user/.kit/nvim/*/*/*/doc/tags
+
+# -> ~/.depoxy/ambers/home/.vim/.vimrc
+/Users/user/.vim/.vimrc
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 

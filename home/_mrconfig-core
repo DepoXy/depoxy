@@ -3,6 +3,9 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# CXREF: This file `include`'d from top of main config:
+#   ~/.depoxy/ambers/home/_mrconfig
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
@@ -187,7 +190,7 @@ infuseProjlns = OMR_INFUSE_PROJLNS_ROOT=true infuse_projlns_if_personal_project
 
 autocommit =
   git_auto_commit_parse_args "$@"
-  git_auto_commit_one 'home/.vim/spell/en.utf-8.add--personal' -m "Update: Spells"
+  git_auto_commit_one 'home/.kit/nvim/spell/en.utf-8.add--personal' -m "Update: Spells"
 
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' \
   "Linux: fussy.desktop def't browser / macOS: allow term. notifs"
@@ -260,59 +263,6 @@ infuse =
 #   Run in the "off" position to emit a trace message.
 # - USYNC: See above: ambers/ uses ROOT=true to include archetype/.
 infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_project
-
-# ========================================================================
-# ------------------------------------------------------------------------
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-#  Dubs Vim (~/.vim foundation and lightweight ~/.vimrc)
-
-[${MR_HOME:-${HOME}}/.vim]
-order = 140
-lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
-chain = true
-infusePostRebase =
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
-  #
-  . "${infuse_dubs_vim}"
-  setup_vim_plugs_git_exclude
-  setup_vim_plugs_grep_ignore
-infuse =
-  # SKIPD: Calling infusePostRebase from this infuser is redundant.
-  #  mr -d . -n infusePostRebase
-  # B/c infuse-dubs-vim calls setup_vim_plugs_git_exclude and setup_vim_plugs_grep_ignore.
-  #
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
-  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
-  #
-  # CXREF: DXC might override this 'infuse':
-  #   ~/.depoxy/running/home/.vim/_mrconfig-vim-include
-  LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}} \
-    "${infuse_dubs_vim}" "$@"
-# Don't need/want ~/.vim/.ignore (it doesn't have any rules we want,
-# and one we don't want, ignoring .vim/plugs).
-infuseProjlns = OMR_INFUSE_PROJLNS_FILES=true infuse_projlns_if_personal_project \
-  "plugs/.fdignore" \
-  "plugs/.ignore" \
-  "plugs/landonb/.ignore"
-
-# USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
-#   ~/.depoxy/ambers/home/.vim/_mrconfig
-skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
-  "github.com/landonb" "vim-lsp" "vim-private" "vim-plugins" \
-  "DXC" "${LOGNAME}"
-
-# NOTE: The autocommit for ~/.vim/spell/en.utf-8.add
-#   is within ~/.depoxy/running/.mrconfigs/_mrconfig
-
-# Let user override or extend the [~/.vim] config.
-include =
-  # CXREF: ~/.depoxy/running/home/.vim/_mrconfig-vim-include
-  cat "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.vim/_mrconfig-vim-include" \
-    2> /dev/null || true
 
 # ========================================================================
 # ------------------------------------------------------------------------

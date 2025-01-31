@@ -131,6 +131,33 @@ include =
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
+     [ "${MR_INCLUDE}" = "nvim" ] ||
+     [ "${MR_INCLUDE}" = "kit-nvim" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
+     \
+     [ "${MR_INCLUDE}" = "vim" ] ||
+     [ "${MR_INCLUDE}" = "dubs-vim" ] ||
+     [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
+     [ "${MR_INCLUDE}" = "vim-dubs" ] ||
+     [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
+     [ "${MR_INCLUDE}" = "vim-lsp" ] ||
+     [ "${MR_INCLUDE}" = "vim-private" ] ||
+     [ "${MR_INCLUDE}" = "vim-plugins" ] ||
+     [ "${MR_INCLUDE}" = "DXC" ] ||
+     [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
+     \
+  false; then
+    # CXREF: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/nvim/_mrconfig
+  fi
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+include =
+  if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
+     [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "odd" ] ||
      [ "${MR_INCLUDE}" = "kit-odd" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||

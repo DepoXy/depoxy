@@ -162,6 +162,22 @@ include =
     [ "${MR_INCLUDE}" = "mOS" ] ||
     [ "${MR_INCLUDE}" = "kit-mOS" ] ||
     \
+    \
+    [ "${MR_INCLUDE}" = "nvim" ] ||
+    [ "${MR_INCLUDE}" = "kit-nvim" ] ||
+    \
+    [ "${MR_INCLUDE}" = "vim" ] ||
+    [ "${MR_INCLUDE}" = "dubs-vim" ] ||
+    [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
+    [ "${MR_INCLUDE}" = "vim-dubs" ] ||
+    [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
+    [ "${MR_INCLUDE}" = "vim-lsp" ] ||
+    [ "${MR_INCLUDE}" = "vim-private" ] ||
+    [ "${MR_INCLUDE}" = "vim-plugins" ] ||
+    [ "${MR_INCLUDE}" = "DXC" ] ||
+    [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
+    \
+    \
     [ "${MR_INCLUDE}" = "odd" ] ||
     [ "${MR_INCLUDE}" = "kit-odd" ] ||
     \

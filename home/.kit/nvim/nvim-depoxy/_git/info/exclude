@@ -1,0 +1,28 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+/.gitignore.local
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# CXREF: 'infuse'd by:
+#   ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+# -> ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+/mrconfig/depoxy-mrconfig
+
+# Symlink to private Vim mrconfig.
+# - E.g., -> /home/user/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
+/mrconfig/_mrconfig-private-nvim
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE/2025-01-30 20:44: Infused manually (I think, ha)
+# -> /private/user/.kit/landonb/tally-bark-llc/private/docs/REFER/Neovim-Plugins-Review-Board.rst
+/.config/nvim/Neovim-Plugins-Review-Board.rst
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+

@@ -4,6 +4,11 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# MAYBE/2025-01-30 13:11: Move to nvim-depoxy?
+# - Except for ~/.config/neovide overlay
+# - MAYBE: If you move this, rename file and var after moving:
+SCRIPT_NAME="infuse-dubs-vim"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 MSG_PREFIX_ADDED_SYMLINKS_DIR='Created symlinks for'
@@ -11,6 +16,10 @@ MSG_PREFIX_ADDED_SYMLINKS_DIR='Created symlinks for'
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps () {
+  local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+
+  local shlogg_dir="${omr_lib}/../deps/sh-logger/bin"
+
   # HSTRY/2025-01-07: Rather than rely on PATH (you can `. <filename>`
   # and the shell will search PATH for a match) like author's code has
   # mostly done in the past, new approach: The sourced files assume
@@ -21,19 +30,19 @@ source_deps () {
   # "logger.sh" on PATH).
   local before_cd="$(pwd -L)"
 
-  cd -- "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
+  cd -- "${shlogg_dir}"
   # Load: warn, etc.
-  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+  . "${shlogg_dir}/logger.sh"
 
-  cd -- "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  cd -- "${omr_lib}"
   # Load: link_hard
-  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
+  . "${omr_lib}/link-hard.sh"
   # Load: link_private_exclude
-  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-exclude.sh"
+  . "${omr_lib}/link-private-exclude.sh"
   # Load: link_private_ignore, link_private_ignore_
-  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-private-ignore.sh"
+  . "${omr_lib}/link-private-ignore.sh"
   # Load: symlink_*, infuser_prepare, font_highlight
-  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
+  . "${omr_lib}/overlay-symlink.sh"
 
   cd -- "${before_cd}"
 }
@@ -41,103 +50,103 @@ source_deps () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 seed_myrepos_mrconfig_dubs_vim () {
+  local before_cd="$(pwd -L)"
+
+  # CXREF: ~/.kit/nvim/.mrconfig — loaded via 'chain = true'
+  symlink_overlay_file "nvim-depoxy/mrconfig/_mrconfig" ".mrconfig"
+
+  # ***
+
+  cd -- "${nvim_repos}/nvim-depoxy"
+
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  # CXREF: This is usually redundant because ~/.mrinfuse:
-  #   ~/.depoxy/ambers/home/infuse-config-omr
-  #     setup_myrepos_mrconfig_and_mrinfuse
-  # but it makes for shorter symlinks.
-  # - SAVVY: Create descendency link if you symlinked
-  #     ~/.mrinfuse -> ~/.depoxy/running/home
-  #   E.g.,
-  #     ln -sfn ~/.depoxy/ambers/home/.vim ~/.depoxy/running/home/.vim/.mrinfuse
-  symlink_overlay_dir "../${MRT_INFUSE_DIR:-.mrinfuse}/.vim" "${MRT_INFUSE_DIR:-.mrinfuse}"
-
-  symlink_mrinfuse_file "_mrconfig" ".mrconfig"
-  symlink_mrinfuse_file "_mrconfig-dubs" ".mrconfig-dubs"
-  symlink_mrinfuse_file "_mrconfig-3rdp" ".mrconfig-3rdp"
-  symlink_mrinfuse_file "_mrconfig-lsp" ".mrconfig-lsp"
-
-  local vim_conf_private="home/.vim/_mrconfig-private"
+  # CXREF: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+  symlink_overlay_file "${ambers_path}/home/.kit/nvim/_mrconfig" "mrconfig/depoxy-mrconfig"
 
   # USAGE: Optional private DepoXy Client Vim projects.
-  # - Place at either ~/.depoxy/running/home/.vim/_mrconfig-private
-  #   Or at           ~/.depoxy/ambers/home/.vim/_mrconfig-private
+  # - Place at either ~/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
+  #   Or at           ~/.depoxy/ambers/home/.kit/nvim/_mrconfig-private-nvim
+  local vim_conf_private="home/.kit/nvim/_mrconfig-private-nvim"
   local private_conf
   for private_conf in \
-    "${ambers_path}/${vim_conf_private}" \
     "${DEPOXYDIR_STINTS_FULL}/${DEPOXY_CLIENT_ID}/${vim_conf_private}" \
+    "${ambers_path}/${vim_conf_private}" \
   ; do
     if [ -f "${private_conf}" ]; then
-      symlink_mrinfuse_file "${private_conf}" ".mrconfig-private"
+      symlink_overlay_file "${private_conf}" "mrconfig/$(basename -- "${vim_conf_private}")"
 
       break
     fi
   done
+
+  cd -- "${before_cd}"
 }
 
 # ***
 
 seed_myrepos_mrinfuse_dubs_vim_plug () {
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-
-  symlink_overlay_dir "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/plugs" "plugs/.mrinfuse"
+  # CXREF: ~/.kit/nvim/.mrinfuse
+  symlink_overlay_dir "nvim-depoxy/mrinfuse" ".mrinfuse"
 }
 
 # ***
 
 setup_private_git_exclude () {
-  # Place ~/.vim/.gitignore.local
-  #     → ~/.vim/.git/info/exclude
-  #     → home/.vim/_git/info/exclude
-  link_private_exclude
+  local before_cd="$(pwd -L)"
+
+  cd -- "${nvim_repos}/nvim-depoxy"
+
+  # Place ~/.kit/nvim/nvim-depoxy/.gitignore.local
+  #         → ~/.kit/nvim/nvim-depoxy/.git/info/exclude
+  #           → ~/.depoxy/ambers/home/.kit/nvim/_git/info/exclude
+  MR_REPO="$(pwd -L)" link_private_exclude
+
+  cd -- "${before_cd}"
 }
 
 # ***
 
 setup_vim_plugs_fdignore () {
-  local before_cd="$(pwd -L)"
-
-  cd "${HOME}/.vim/plugs"
-
-  # Use path relative to MR_REPO=~/.vim
-  symlink_mrinfuse_file "plugs/_fdignore" "plugs/.fdignore"
-
-  cd "${before_cd}"
+  # CXREF: ~/.kit/nvim/.fdignore
+  # ALTLY: But uses full path:
+  #   MR_REPO="${nvim_repos}" symlink_mrinfuse_file "_fdignore" ".fdignore"
+  symlink_overlay_file "nvim-depoxy/mrinfuse/_fdignore" ".fdignore"
 }
 
 # ***
 
-# Place ~/.vim/plugs/.gitignore.
-setup_vim_plugs_git_exclude () {
-  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-
+# Place ~/.kit/nvim/.gitignore
+setup_kit_nvim_git_exclude () {
   # MAYBE/2023-11-11: Make `link_hard_mrinfuse_file`, akin to `symlink_mrinfuse_file`.
   # - This hard-links .gitignore (sorta like `link_private_exclude`, except that
   #   function hard-links .git/info/exclude).
   # - A `link_hard_mrinfuse_file` would let us simplify the args, e.g.,
   #     link_hard_mrinfuse_file "plugs/.gitignore"
-  link_hard "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/plugs/_gitignore" "plugs/.gitignore"
+  link_hard "${nvim_repos}/nvim-depoxy/mrinfuse/_gitignore" "${nvim_repos}/.gitignore"
 }
 
 # ***
 
-setup_vim_plugs_grep_ignore () {
+# Place ~/.kit/nvim/.ignore
+setup_kit_nvim_grep_ignore () {
+  # CXREF: ~/.kit/nvim/.ignore
+  # ALTLY: But uses full path:
+  #   MR_REPO="${nvim_repos}" link_private_ignore "_ignore"
+  symlink_overlay_file "nvim-depoxy/mrinfuse/_ignore" ".ignore"
+}
+
+# ***
+
+# Place ~/.kit/nvim/nvim-depoxy/.ignore
+setup_private_grep_ignore () {
   local before_cd="$(pwd -L)"
 
-  cd "${HOME}/.vim/plugs"
+  cd -- "${nvim_repos}/nvim-depoxy"
 
-  # Use path relative to MR_REPO=~/.vim
-  link_private_ignore "plugs/_ignore"
-
-  cd "${before_cd}"
-}
-
-# ***
-
-setup_private_grep_ignore () {
-  # Place ~/.vim/.ignore.
   link_private_ignore_
+
+  cd -- "${before_cd}"
 }
 
 # ***
@@ -148,24 +157,41 @@ wire_dot_config () {
 
   local before_cd="$(pwd -L)"
 
-  cd "${HOME}"
+  cd -- "${HOME}"
 
   MR_REPO="$(pwd -L)" symlink_mrinfuse_dir ".config/${dir}"
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # ***
 
-# Link ~/.vimrc → ~/.vim/.vimrc
-wire_home_vimrc () {
+# Link ~/.vimrc → ~/.depoxy/ambers/home/.vim/.vimrc
+#      ~/.vim/.vimrc →  "      "     "    "     "
+#      ~/.vim/autoload → ~/.depoxy/ambers/home/.vim/autoload
+wire_dot_vimrc_and_autoload () {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local dxyambs_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}"
+
   local before_cd="$(pwd -L)"
 
-  cd "${HOME}"
+  cd -- "${HOME}"
 
-  symlink_overlay_file ".vim/.vimrc" ".vimrc"
+  symlink_overlay_dir "${nvim_repos}/nvim-depoxy/.vim" ".vim"
 
-  cd "${before_cd}"
+  # This is for convenience, so you don't have to use `vim -u`.
+  symlink_overlay_file "${nvim_repos}/nvim-depoxy/.vim/.vimrc" ".vimrc"
+  # # Also add ~/.vim/.vimrc, for convenience and history.
+  # symlink_overlay_file "${dxyambs_dir}/home/.vim/.vimrc" ".vim/.vimrc"
+
+  # symlink_overlay_dir "${dxyambs_dir}/home/.vim/autoload" ".vim/autoload"
+
+  # It bothers me somewhat how coupled this is...
+  # MAYBE/2025-01-30 13:46: Relocate to nvim-depoxy 'infuse'
+  symlink_overlay_file "${nvim_repos}/junegunn/start/vim-plug/plug.vim" \
+    ".vim/autoload/plug.vim"
+
+  cd -- "${before_cd}"
 }
 
 # ***
@@ -206,18 +232,18 @@ populate_run_generator () {
 
 # ISOFF/2024-12-05: dubs_file_finder is now deprecated in favor of
 # junegunn/fzf.vim and DepoXy's vim-depoxy:
-#   ~/.vim/plugs/junegunn/start/fzf.vim/README.md
-#   ~/.vim/plugs/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#   ~/.kit/nvim/junegunn/start/fzf.vim/README.md
+#   ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - You can still find dubs_file_finder under opt/:
-#   ~/.vim/plugs/landonb/opt/dubs_file_finder
+#   ~/.kit/nvim/landonb/opt/dubs_file_finder
 
 # CXREF:
-#   ~/.vim/plugs/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
+#   ~/.kit/nvim/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
 setup_private_plug_file_dubs_file_finder () {
-  local dff_dir="${HOME}/.vim/plugs/landonb/start/dubs_file_finder"
+  local dff_dir="${nvim_repos}/landonb/start/dubs_file_finder"
 
   if ! [ -d "${dff_dir}" ]; then
-    dff_dir="${HOME}/.vim/plugs/landonb/opt/dubs_file_finder"
+    dff_dir="${nvim_repos}/landonb/opt/dubs_file_finder"
   fi
 
   if ! [ -d "${dff_dir}" ]; then
@@ -229,7 +255,7 @@ setup_private_plug_file_dubs_file_finder () {
 
   local before_cd="$(pwd -L)"
 
-  cd "${dff_dir}"
+  cd -- "${dff_dir}"
 
   # HSTRY/2024-05-08: Previously used generate_links.sh at
   #   ~/.depoxy/ambers/home/.vim/cmdt_paths/
@@ -254,11 +280,11 @@ setup_private_plug_file_dubs_file_finder () {
   #
   # So put cmdt_paths 1 deep.
   mkdir -p "_cmdt_paths"
-  cd "_cmdt_paths"
+  cd -- "_cmdt_paths"
 
   symlink_overlay_dir "${dxy_deeplns}" "cmdt_paths"
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -271,31 +297,34 @@ populate_dubs_cuts_generate () {
   # because of the for-loop on find with regex).
 
   # Run the Dubs Vim dubs_cuts infuser, i.e., execute:
-  #   ~/.depoxy/ambers/home/.vim/plugs/landonb/start/dubs_project_tray/generate_links.sh
+  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/generate_links.sh
   # to populate:
-  #   ~/.depoxy/ambers/home/.vim/plugs/landonb/start/dubs_project_tray/dubs_cuts/
+  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
   # aka:
   #  "${HOME}/.vim/.mrinfuse/plugs/landonb/start/dubs_project_tray/dubs_cuts"
   # upon which setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
   # depends.
   local generator
-  generator="$(path_to_mrinfuse_resolve "plugs/landonb/start/dubs_project_tray/generate_links.sh")"
+  MR_REPO="${nvim_repos}" \
+    generator="$(path_to_mrinfuse_resolve "landonb/start/dubs_project_tray/generate_links.sh")"
   populate_run_generator "${generator}"
 }
 
 # ***
 
 setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
-  [ -d "${HOME}/.vim/plugs/landonb/start/dubs_project_tray" ] || return 0
+  local plug_dir="${nvim_repos}/landonb/start/dubs_project_tray"
+
+  [ -d "${plug_dir}" ] || return 0
 
   local before_cd="$(pwd -L)"
 
-  cd "${HOME}/.vim/plugs/landonb/start/dubs_project_tray"
+  cd -- "${plug_dir}"
 
   # symlink_overlay_dir "${HOME}/.vim/.mrinfuse/plugs/landonb/start/dubs_project_tray/dubs_cuts"
   MR_REPO="$(pwd -L)" symlink_mrinfuse_dir "dubs_cuts"
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -303,7 +332,7 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 setup_project_plug_vim_depoxy () {
   local depoxy_vim_org="DepoXy"
 
-  local depoxy_vim_start="${HOME}/.vim/plugs/${depoxy_vim_org}/start"
+  local depoxy_vim_start="${nvim_repos}/${depoxy_vim_org}/start"
 
   mkdir -p "${depoxy_vim_start}"
 
@@ -311,7 +340,7 @@ setup_project_plug_vim_depoxy () {
 
   # ***
 
-  cd "${depoxy_vim_start}/vim-depoxy/plugin"
+  cd -- "${depoxy_vim_start}/vim-depoxy/plugin"
 
   local fzf_vim="${DOPP_KIT:-${HOME}/.kit}/go/fzf/plugin/fzf.vim"
 
@@ -321,7 +350,7 @@ setup_project_plug_vim_depoxy () {
 
   # ***
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -331,26 +360,32 @@ setup_project_plug_vim_landonb () {
 
   local landonb_vim_org="landonb"
 
-  mkdir -p "${HOME}/.vim/plugs/${landonb_vim_org}"
+  mkdir -p "${nvim_repos}/${landonb_vim_org}"
 
   local before_cd="$(pwd -L)"
 
   # ***
 
-  cd "${HOME}/.vim/plugs/${landonb_vim_org}"
+  cd -- "${nvim_repos}/${landonb_vim_org}"
 
-  symlink_overlay_file \
-    "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.vim/plugs/${landonb_vim_org}/_ignore" \
-    ".ignore"
+  # ALTLY:
+  #   symlink_overlay_file \
+  #     "${nvim_repos}/nvim-depoxy/mrinfuse/${landonb_vim_org}/_ignore" \
+  #     ".ignore"
+  MR_REPO="${nvim_repos}/${landonb_vim_org}" link_private_ignore_
 
   # ***
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 setup_private_coc_config () {
+
+  # FIXME/2025-01-30: Revisit this; disabling now because switched to Neovim.
+  return 0
+
   symlink_mrinfuse_file "coc-settings.json"
 }
 
@@ -369,6 +404,15 @@ setup_private_coc_config () {
 #   and won't be captured on stdout.
 setup_vim_generate_helptags () {
   info "Rebuilding Vim helptags: $(font_highlight "call pathogen#helptags()")"
+
+  # TRYNG/2025-01-30: It shouldn't matter if you call Vim or
+  # Neovim because either way it builds 'tags' files.
+  # - SAVVY: However, `nvim` appears to run the command
+  #   and exit, regardless of startup `echom`, whereas
+  #   Vim will await user confirmation is there's any
+  #   blather during startup.
+  DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM=${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false}
+
   # SAVVY: Print newline in case Vim prompts on startup...
   # - Note that a Vim startup prompt happens if there are
   #   `echom` messages during startup. Which generally
@@ -378,7 +422,11 @@ setup_vim_generate_helptags () {
   #   realize they need to do, because stderr inhibited).
   # ALTLY: `vim -c "Helptags" -c q`, but this call ensures you won't
   # confuse pathogen's :Helptags with Vim's built-in :helptags <dir>
-  printf "\n" | vim -c ":call pathogen#helptags()" -c q 2> /dev/null
+  if ${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false} || ! command -v nvim >/dev/null; then
+    printf "\n" | vim -c ":call pathogen#helptags()" -c q 2> /dev/null
+  else
+    nvim -c ":call pathogen#helptags()" -c q >/dev/null 2>&1
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -386,20 +434,22 @@ setup_vim_generate_helptags () {
 main () {
   set -e
 
+  local nvim_repos="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}"
+
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
   MR_CONFIG= source_deps
 
-  if [ "$(basename -- "$0")" = "infuse-dubs-vim" ]; then
+  if [ "$(basename -- "$0")" = "${SCRIPT_NAME}" ]; then
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_VVVERBOSE:-0}}
   else
     LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_TRACE:-10}}
   fi
 
   # Set MR_REPO, say hello (emit $MR_REPO), and look for --switches.
-  infuser_prepare "${HOME}/.vim" "$@"
+  infuser_prepare "${nvim_repos}" "$@"
 
   local before_cd="$(pwd -L)"
-  cd "${MR_REPO}"
+  cd -- "${MR_REPO}"
 
   # ***
 
@@ -411,9 +461,9 @@ main () {
 
   setup_vim_plugs_fdignore
 
-  setup_vim_plugs_git_exclude
+  setup_kit_nvim_git_exclude
 
-  setup_vim_plugs_grep_ignore
+  setup_kit_nvim_grep_ignore
 
   setup_private_grep_ignore
 
@@ -421,7 +471,7 @@ main () {
 
   wire_dot_config "neovide"
 
-  wire_home_vimrc
+  wire_dot_vimrc_and_autoload
 
   infuse_this_infuser
 
@@ -448,18 +498,17 @@ main () {
   # ***
 
   # It might take a few-ten secs to populate
-  #   ~/.depoxy/ambers/home/.vim/plugs/landonb/start/dubs_project_tray/dubs_cuts/
+  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
   # so call last, to make debugging previous calls quicker.
   populate_dubs_cuts_generate
   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
 
   # ***
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 # Run the infuser iff being executed.
-SCRIPT_NAME="infuse-dubs-vim"
 if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
   main "$@"
 fi

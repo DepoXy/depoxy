@@ -33,5 +33,5 @@ changequote('[[[', ']]]')dnl
 # - Note that myrepos is symlink-aware, so you can trust a
 #   file only once, even if it's symlinked from elsewhere
 
-USER_HOME/.vim/.mrconfig
+USER_HOME/.kit/nvim/.mrconfig
 
