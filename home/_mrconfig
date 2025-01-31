@@ -145,6 +145,8 @@ include =
   # USYNC: MR_INCLUDE keywords used in both files:
   #   ~/.depoxy/ambers/home/_mrconfig
   #   ~/.depoxy/ambers/home/.kit/_mrconfig
+  # MAYBE/2025-01-30: Get rid of this list and just
+  # always call load_kit_mrconfig (who cares!).
   if \
     [ -z ${MR_INCLUDE+x} ] ||
     \
