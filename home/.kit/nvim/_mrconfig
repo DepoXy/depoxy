@@ -91,6 +91,20 @@ infuse = link_private_exclude "$@"
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# *** Getting a taste of other people's Neovim setups.
+#
+# SAVVY/2025-02-07: Compared to LazyVim:
+# - Wansmer, 51 GH stars | 9mm, 12 | LazyVim, 19.1k
+
+[${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-config/Wansmer]
+lib = remote_set starter https://github.com/Wansmer/nvim-config.git 'Wansmer'
+
+[${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-config/9mm]
+lib = remote_set starter https://github.com/9mm/dotfiles.git '9mm'
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [${DOPP_KIT:-${HOME}/.kit}/clang/neovim]
 lib = remote_set starter https://github.com/neovim/neovim
 order = 810
