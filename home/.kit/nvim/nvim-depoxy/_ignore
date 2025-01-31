@@ -8,14 +8,6 @@
 # (this file) -> ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/_ignore
 /.ignore
 
-# -> ~/.depoxy/ambers/home/infuse-dubs-vim
-/infuse
-
-# FIXME/2025-01-30 18:07:
-
-# Generated file.
-#  /mrinfuse/DepoXy/start/vim-depoxy/doc/tags
-
 # Users spell file.
 # -> ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
 /.config/nvim/spell/en.utf-8.add
