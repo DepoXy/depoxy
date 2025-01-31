@@ -158,7 +158,8 @@
 
 # *** Vim-related.
 
-/.vim/
+# HSTRY/2025-01-31: Now: -> ~/.kit/nvim/nvim-depoxy/.vim/
+/.vim
 /.vim_backups/
 /.viminfo
 # 2022-11-04: I saw this 2021-07-09 but ne'er since.
