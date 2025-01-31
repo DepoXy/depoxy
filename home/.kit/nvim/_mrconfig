@@ -50,6 +50,11 @@ infusePostRebase =
   . "${infuse_dubs_vim}"
   setup_kit_nvim_git_exclude
   setup_kit_nvim_grep_ignore
+  #
+  link_hard_dep_vim_pack_junegunn_vim_plug
+  link_hard_dep_vim_pack_tpope_vim_pathogen
+
+updateDeps = update_deps_vim
 
 # CXREF: The autocommit for ~/.config/nvim/spell/en.utf-8.add is within:
 #
