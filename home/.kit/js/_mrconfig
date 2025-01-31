@@ -176,7 +176,7 @@ installNVMNodes =
 
 # TypeScript engine used for Vim LSP support, bridged by
 # vim-lsp-javascript (at least that's my understanding).
-#   ~/.vim/plugs/ryanolsonx/start/vim-lsp-javascript
+#   ~/.kit/nvim/ryanolsonx/start/vim-lsp-javascript
 [${DOPP_KIT:-${HOME}/.kit}/js/typescript-language-server]
 lib = remote_set starter https://github.com/theia-ide/typescript-language-server.git
 skip = mr_exclusive "!entrusted"
