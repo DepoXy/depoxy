@@ -8,7 +8,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-DUBS_PROJECT_TRAY_PATH="home/.vim/plugs/landonb/start/dubs_project_tray"
+DUBS_PROJECT_TRAY_PATH="home/.kit/nvim/landonb/start/dubs_project_tray"
 
 CUT_HEAD_UNTIL_DELIM="^#░░▒░░▒░░▒░░#"
 
@@ -48,7 +48,7 @@ vimprojects_create_copy_without_vendor_projects () {
       grep -B 1 -A 99999 "### END: VENDOR_PROJS ##########" \
     >> "${vimpg}"
 
-  # less home/.vim/plugs/landonb/start/dubs_project_tray/.vimprojects--purged
+  # less home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects--purged
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
