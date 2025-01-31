@@ -434,6 +434,11 @@ _dxc_client_autocommit () {
   git_auto_commit_one_update "home/.kit/nvim/landonb/start/dubs_grep_steady/dubs_projects.vim" \
     "" "${PRIVATE_ACI}"
 
+  # Commit the deploy-archetype.sh-generated infuse symlink:
+  #   ~/.depoxy/running/home/.kit/nvim/nvim-depoxy/.config/nvim/spell/en.utf-8.add
+  #     -> ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
+  git_auto_commit_one "home/.kit/nvim/nvim-depoxy/.config/nvim/spell/en.utf-8.add" \
+    -m "${CLEARED_ACI}: nvim-depoxy/.config/nvim/spell/en.utf-8.add"
   # Manage the spell file, and alert if parts differ from the whole.
   #   🎩🪄🔮✨  🧙📚👧🦁🏰   ⊃━☆ﾟ
   debug "$(fg_mintgreen)$(attr_emphasis)conjure spells$(attr_reset)" \
