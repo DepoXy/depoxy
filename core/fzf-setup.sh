@@ -48,7 +48,7 @@
 #               in their contents
 #
 # - CXREF:
-#   ~/.vim/plugs/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#   ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -226,11 +226,11 @@ main () {
     # REFER: See similar rg --glob's (found locally at these paths within DepoXy environ):
     #   ~/.depoxy/ambers/core/fzf-setup.sh
     #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
-    #   ~/.vim/plugs/landonb/start/dubs_grep_steady/bin/vim-grepprg-rg-sort
-    #   ~/.vim/plugs/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
+    #   ~/.kit/nvim/landonb/start/dubs_grep_steady/bin/vim-grepprg-rg-sort
+    #   ~/.kit/nvim/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
 
     # USYNC: Copy the final ${FZF_DEFAULT_COMMAND} to DepoXy Vim:
-    #   ~/.vim/plugs/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+    #   ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 
     local dglobs=()
     local fglobs=()
