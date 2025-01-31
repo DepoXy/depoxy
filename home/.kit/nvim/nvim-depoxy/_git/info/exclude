@@ -9,13 +9,12 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# CXREF: 'infuse'd by:
-#   ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+# CXREF: 'infuse'd by and symlink to:
 # -> ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
 /mrconfig/depoxy-mrconfig
 
 # Symlink to private Vim mrconfig.
-# - E.g., -> /home/user/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
+# -> ~/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
 /mrconfig/_mrconfig-private-nvim
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
