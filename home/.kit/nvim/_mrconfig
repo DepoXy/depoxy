@@ -52,7 +52,7 @@ infusePostRebase =
   setup_kit_nvim_grep_ignore
   #
   link_hard_dep_vim_pack_junegunn_vim_plug
-  link_hard_dep_vim_pack_tpope_vim_pathogen
+  # link_hard_dep_vim_pack_tpope_vim_pathogen
 
 updateDeps = update_deps_vim
 

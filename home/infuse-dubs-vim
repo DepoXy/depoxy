@@ -186,10 +186,10 @@ wire_dot_vimrc_and_autoload () {
 
   # symlink_overlay_dir "${dxyambs_dir}/home/.vim/autoload" ".vim/autoload"
 
-  # It bothers me somewhat how coupled this is...
-  # MAYBE/2025-01-30 13:46: Relocate to nvim-depoxy 'infuse'
-  symlink_overlay_file "${nvim_repos}/junegunn/start/vim-plug/plug.vim" \
-    ".vim/autoload/plug.vim"
+  # Currently, autoload/plug.vim is symlink to deps/ file in same project.
+  # - ALTLY: This is more tightly coupled (uses inter-project path):
+  #     symlink_overlay_file "${nvim_repos}/junegunn/start/vim-plug/plug.vim" \
+  #       ".vim/autoload/plug.vim"
 
   cd -- "${before_cd}"
 }
