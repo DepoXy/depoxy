@@ -40,11 +40,11 @@ init_spellssh () {
 #   args, the main public spell:
 #     ~/.kit/txt/spellfile.txt/spell/private
 #   is merged with the DepoXy's published spell:
-#     ~/.depoxy/ambers/home/.vim/spell/private
+#     ~/.depoxy/ambers/home/.kit/nvim/spell/en.utf-8.add--personal
 #   is merged with the user's private spell:
-#     ~/.depoxy/running/home/.vim/spell/private
+#     ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add--personal
 #   and the compiled spell file is created at:
-#     ~/.depoxy/running/home/.vim/spell/compiled
+#     ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add--compiled
 #   because "~/.depoxy/running/home" (client_homeish
 #   below) is first arg passed to upstream compile-spells.
 
