@@ -54,8 +54,11 @@ compile_spells () {
   local client_homeish=""
   local client_basedir="$(_print_client_basedir)"
   if [ -n "${client_basedir}" ]; then
-    # E.g., ~/.depoxy/running/home
-    client_homeish="${client_basedir}/home"
+    # HSTRY: spells.sh used to find check .vim/spells/ under home/:
+    #   client_homeish="${client_basedir}/home"
+    # But now it finds nvim/spells under home/.kit/:
+    # E.g., ~/.depoxy/running/home/.kit
+    client_homeish="${client_basedir}/home/.kit"
   fi
 
   "${SPF_SPELLS}" compile-spells "${homeish_path}" "${DEPOXY_SPELLS}" "${client_homeish}" "$@"
