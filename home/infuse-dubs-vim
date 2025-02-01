@@ -333,7 +333,11 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 
   cd -- "${plug_dir}"
 
-  # symlink_overlay_dir "${HOME}/.vim/.mrinfuse/plugs/landonb/start/dubs_project_tray/dubs_cuts"
+  # Creates:
+  #   ~/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts
+  # ALTLY:
+  #   symlink_overlay_dir \
+  #     "${HOME}/.depoxy/running/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts"
   MR_REPO="$(pwd -L)" symlink_mrinfuse_dir "dubs_cuts"
 
   cd -- "${before_cd}"
