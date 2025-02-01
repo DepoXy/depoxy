@@ -142,65 +142,8 @@ include =
     #
     mr_cat "${kit_mrconfig}"
   }
-  # USYNC: MR_INCLUDE keywords used in both files:
-  #   ~/.depoxy/ambers/home/_mrconfig
-  #   ~/.depoxy/ambers/home/.kit/_mrconfig
-  # MAYBE/2025-01-30: Get rid of this list and just
-  # always call load_kit_mrconfig (who cares!).
-  if \
-    [ -z ${MR_INCLUDE+x} ] ||
-    \
-    [ "${MR_INCLUDE}" = "kit" ] ||
-    \
-    [ "${MR_INCLUDE}" = "git" ] ||
-    [ "${MR_INCLUDE}" = "kit-git" ] ||
-    \
-    [ "${MR_INCLUDE}" = "go" ] ||
-    [ "${MR_INCLUDE}" = "kit-go" ] ||
-    \
-    [ "${MR_INCLUDE}" = "js" ] ||
-    [ "${MR_INCLUDE}" = "kit-js" ] ||
-    \
-    [ "${MR_INCLUDE}" = "mOS" ] ||
-    [ "${MR_INCLUDE}" = "kit-mOS" ] ||
-    \
-    \
-    [ "${MR_INCLUDE}" = "nvim" ] ||
-    [ "${MR_INCLUDE}" = "kit-nvim" ] ||
-    \
-    [ "${MR_INCLUDE}" = "vim" ] ||
-    [ "${MR_INCLUDE}" = "dubs-vim" ] ||
-    [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
-    [ "${MR_INCLUDE}" = "vim-dubs" ] ||
-    [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
-    [ "${MR_INCLUDE}" = "vim-lsp" ] ||
-    [ "${MR_INCLUDE}" = "vim-private" ] ||
-    [ "${MR_INCLUDE}" = "vim-plugins" ] ||
-    [ "${MR_INCLUDE}" = "DXC" ] ||
-    [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
-    \
-    \
-    [ "${MR_INCLUDE}" = "odd" ] ||
-    [ "${MR_INCLUDE}" = "kit-odd" ] ||
-    \
-    [ "${MR_INCLUDE}" = "py" ] ||
-    [ "${MR_INCLUDE}" = "kit-py" ] ||
-    \
-    [ "${MR_INCLUDE}" = "sh" ] ||
-    [ "${MR_INCLUDE}" = "kit-sh" ] ||
-    [ "${MR_INCLUDE}" = "bash" ] ||
-    \
-    [ "${MR_INCLUDE}" = "txt" ] ||
-    [ "${MR_INCLUDE}" = "kit-txt" ] ||
-    \
-    [ "${MR_INCLUDE}" = "dob" ] ||
-    [ "${MR_INCLUDE}" = "eapp" ] ||
-    [ "${MR_INCLUDE}" = "entrusted" ] ||
-    [ "${MR_INCLUDE}" = "git-nubs" ] ||
-    \
-  false; then
-    load_kit_mrconfig
-  fi
+  #
+  load_kit_mrconfig
 
 # ========================================================================
 # ------------------------------------------------------------------------
