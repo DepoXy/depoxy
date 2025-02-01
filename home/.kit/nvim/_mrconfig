@@ -22,7 +22,8 @@ ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #   ~/.kit/nvim/.mrconfig
 skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
   "github.com/landonb" "vim-lsp" "vim-private" "vim-plugins" \
-  "DXC" "${LOGNAME}"
+  "DXC" "${LOGNAME}" \
+  "vim_active" "!vim_active"
 
 # So that nvim OMR config can use relative paths, which makes it more
 # easily reusable and maintainable.

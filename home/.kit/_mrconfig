@@ -149,6 +149,9 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
      [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
      \
+     [ "${MR_INCLUDE}" = "vim_active" ] ||
+     [ "${MR_INCLUDE}" = "!vim_active" ] ||
+     \
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/nvim/_mrconfig
