@@ -252,6 +252,13 @@ populate_run_generator () {
 # CXREF:
 #   ~/.kit/nvim/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
 setup_private_plug_file_dubs_file_finder () {
+  # Unexpected, because no longer called from main().
+  >&2 echo "ISOFF: dubs_file_finder is disabled! Skipping generator: cmdt_paths/"
+
+  return 1
+
+  # ***
+
   local dff_dir="${nvim_repos}/landonb/start/dubs_file_finder"
 
   if ! [ -d "${dff_dir}" ]; then
@@ -325,6 +332,13 @@ populate_dubs_cuts_generate () {
 # ***
 
 setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
+  # Unexpected, because no longer called from main().
+  >&2 echo "ISOFF: dubs_project_tray/dubs_cuts generator is disabled!"
+
+  return 1
+
+  # ***
+
   local plug_dir="${nvim_repos}/landonb/start/dubs_project_tray"
 
   [ -d "${plug_dir}" ] || return 0
@@ -495,7 +509,10 @@ main () {
 
   # ***
 
-  setup_private_plug_file_dubs_file_finder
+  # ISOFF/2025-01-31: But keeping for findabilty re: any remaining
+  # cmdt_paths/ paths.
+  #
+  #   setup_private_plug_file_dubs_file_finder
 
   # ***
 
@@ -515,11 +532,16 @@ main () {
 
   # ***
 
-  # It might take a few-ten secs to populate
-  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
-  # so call last, to make debugging previous calls quicker.
-  populate_dubs_cuts_generate
-  setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
+  # ISOFF/2025-02-01: Takes a few seconds, and the directory listing
+  # isn't very useful.
+  # - Would otherwise populate:
+  #   ~/.depoxy/running/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
+  #
+  #   # It might take a few-ten secs to populate
+  #   #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
+  #   # so call last, to make debugging previous calls quicker.
+  #   populate_dubs_cuts_generate
+  #   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
 
   # ***
 
