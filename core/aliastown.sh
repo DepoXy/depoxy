@@ -177,7 +177,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/nvim — Neovim and Vim plugins
 
-  # - DUPES: `cnpd` and `cdnd`.
+  # - DUPES: `cnd` and `cdnd`.
   pushd_alias_or_warn "cdnd" "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
 
   # *** ~/.kit/odd — Odd
@@ -301,8 +301,10 @@ _dxy_wire_aliases_pushd_paths_vim () {
 
   # HSTRY/2025-01-30: New alias to new project, expect this to evolve
   # over the short-term.
-  # - DUPES: `cnpd` and `cdnd`.
-  pushd_alias_or_warn "cnpd" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
+  # - DUPES: `cnd` and `cdnd`.
+  pushd_alias_or_warn "cnd" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
+  # 2025-01-31: Old alias `cvp` → `cnp` ? *Change dirs. Neovim Plugins*
+  pushd_alias_or_warn "cnp" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
 
   # Are you a Vim plugin author? Here's a convenient pushd to your plugins.
   # - Just set the environ from your private Bashrc, e.g.,
