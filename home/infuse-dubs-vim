@@ -151,6 +151,18 @@ setup_private_grep_ignore () {
 
 # ***
 
+setup_nvim_depoxy_lua_specs () {
+  local before_cd="$(pwd -L)"
+
+  cd -- "${nvim_repos}/nvim-depoxy"
+
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file ".config/nvim/lua/specs/group--depoxy-client.lua"
+
+  cd -- "${before_cd}"
+}
+
+# ***
+
 # Link ~/.config/<target>/ → ~/.depoxy/ambers/home/.config/<target>/
 wire_dot_config () {
   local dir="$1"
@@ -465,6 +477,8 @@ main () {
   setup_kit_nvim_grep_ignore
 
   setup_private_grep_ignore
+
+  setup_nvim_depoxy_lua_specs
 
   wire_dot_config "nvim"
 

@@ -25,3 +25,9 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Conventional DXC specs file.
+/.config/nvim/lua/specs/group--depoxy.lua
+# USAGE: Infuse your own DXC specs.
+/.config/nvim/lua/specs/group--depoxy-*
+/.config/nvim/lua/specs/spec--client-*
+
