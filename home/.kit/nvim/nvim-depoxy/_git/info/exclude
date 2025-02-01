@@ -7,6 +7,8 @@
 
 /.gitignore.local
 
+/.ignore
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # CXREF: 'infuse'd by and symlink to:
