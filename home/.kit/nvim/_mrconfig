@@ -32,11 +32,11 @@ chain = true
 infuse =
   # SKIPD: Calling infusePostRebase from this infuser is redundant.
   #  mr -d . -n infusePostRebase
-  # B/c infuse-dubs-vim calls setup_kit_nvim_git_exclude and setup_kit_nvim_grep_ignore.
+  # B/c infuse-nvim-depoxy calls setup_kit_nvim_git_exclude and setup_kit_nvim_grep_ignore.
   #
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
-  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
+  # CXREF: ~/.depoxy/ambers/home/infuse-nvim-depoxy
+  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-nvim-depoxy"
   #
   # CXREF: DXC might override this 'infuse':
   # ~/.depoxy/running/home/.kit/nvim/_mrconfig-include-nvim
@@ -44,9 +44,9 @@ infuse =
     "${infuse_dubs_vim}" "$@"
 
 infusePostRebase =
-  # CXREF: ~/.depoxy/ambers/home/infuse-dubs-vim
+  # CXREF: ~/.depoxy/ambers/home/infuse-nvim-depoxy
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim"
+  local infuse_dubs_vim="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-nvim-depoxy"
   #
   . "${infuse_dubs_vim}"
   setup_kit_nvim_git_exclude

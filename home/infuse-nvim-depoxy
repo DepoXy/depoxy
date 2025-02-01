@@ -6,8 +6,7 @@
 
 # MAYBE/2025-01-30 13:11: Move to nvim-depoxy?
 # - Except for ~/.config/neovide overlay
-# - MAYBE: If you move this, rename file and var after moving:
-SCRIPT_NAME="infuse-dubs-vim"
+SCRIPT_NAME="infuse-nvim-depoxy"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -211,7 +210,7 @@ wire_dot_vimrc_and_autoload () {
 infuse_this_infuser () {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
-  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-dubs-vim" "infuse"
+  symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-nvim-depoxy" "infuse"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
