@@ -24,6 +24,9 @@ order = 590
 #       from within one of these subdirectories, you do not see repos twice.
 [DEFAULT]
 
+# CXREF: Loaded by:
+#   ~/.depoxy/ambers/home/_mrconfig
+#
 # USYNC: MR_INCLUDE keywords used in both files:
 #   ~/.depoxy/ambers/home/_mrconfig
 #   ~/.depoxy/ambers/home/.kit/_mrconfig
