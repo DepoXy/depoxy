@@ -11,6 +11,15 @@
 
 # ====================================================================
 
+# USAGE: After editing this file, regenerate it:
+#
+#   . ~/.depoxy/ambers/bin/onboarder/install-ohmyrepos.sh
+#   prepare_mrtrust
+#
+# You terminal should have all the environs defined already.
+
+# ====================================================================
+
 # SETUP/WIRING:
 #
 #   m4 \
