@@ -177,6 +177,9 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/nvim — Neovim and Vim plugins
 
+  # - DUPES: `cdn` and `cvp` (legacy)
+  pushd_alias_or_warn "cdn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
+
   # - DUPES: `cnd` and `cdnd`.
   pushd_alias_or_warn "cdnd" "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
 
