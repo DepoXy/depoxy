@@ -55,6 +55,12 @@ infusePostRebase =
   link_hard_dep_vim_pack_junegunn_vim_plug
   # link_hard_dep_vim_pack_tpope_vim_pathogen
 
+infuseProjlns =
+  OMR_INFUSE_PROJLNS_TOGGLE_OFF=false \
+  OMR_INFUSE_PROJLNS_FILES=true \
+    infuse_projlns_if_personal_project \
+      "landonb/.ignore"
+
 updateDeps = update_deps_vim
 
 # CXREF: The autocommit for ~/.config/nvim/spell/en.utf-8.add is within:
