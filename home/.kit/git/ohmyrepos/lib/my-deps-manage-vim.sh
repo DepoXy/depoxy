@@ -58,12 +58,12 @@ update_deps_vim () {
 # ------------------------------------------------------------------------
 
 link_hard_dep_vim_pack_junegunn_vim_plug () {
-  link_hard "${VIM_PACKPATH:-${HOME}/.vim/plugs}/junegunn/start/vim-plug/plug.vim" \
+  link_hard "${VIM_PACKPATH:-${HOME}/.kit/nvim}/junegunn/start/vim-plug/plug.vim" \
     ".vim/deps/junegunn/start/vim-plug/plug.vim"
 }
 
 link_hard_dep_vim_pack_tpope_vim_pathogen () {
-  link_hard "${VIM_PACKPATH:-${HOME}/.vim/plugs}/tpope/opt/vim-pathogen/autoload/pathogen.vim" \
+  link_hard "${VIM_PACKPATH:-${HOME}/.kit/nvim}/tpope/opt/vim-pathogen/autoload/pathogen.vim" \
     ".vim/deps/tpope/start/vim-pathogen/autoload/pathogen.vim"
 }
 
