@@ -150,6 +150,24 @@ setup_private_grep_ignore () {
 
 # ***
 
+# CXREF:
+# ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/config/profile-client.lua
+
+setup_nvim_depoxy_lua_profile () {
+  local before_cd="$(pwd -L)"
+
+  cd -- "${nvim_repos}/nvim-depoxy"
+
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file ".config/nvim/lua/config/profile-client.lua"
+
+  cd -- "${before_cd}"
+}
+
+# ***
+
+# CXREF:
+# ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/specs/group--depoxy-client.lua
+
 setup_nvim_depoxy_lua_specs () {
   local before_cd="$(pwd -L)"
 
@@ -495,6 +513,8 @@ main () {
   setup_kit_nvim_grep_ignore
 
   setup_private_grep_ignore
+
+  setup_nvim_depoxy_lua_profile
 
   setup_nvim_depoxy_lua_specs
 

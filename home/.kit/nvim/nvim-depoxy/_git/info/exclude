@@ -27,6 +27,10 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Conventional DXC profile module.
+# - USAGE: Copy into your DXC and customize.
+/.config/nvim/lua/config/profile-client.lua
+
 # Conventional DXC specs file.
 /.config/nvim/lua/specs/group--depoxy.lua
 # USAGE: Infuse your own DXC specs.
