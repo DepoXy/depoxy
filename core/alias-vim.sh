@@ -44,6 +44,12 @@ fa () {
   gvim-open-kindness "${DEPOXY_GVIM_ALTERNATE:-ALPHA}" "" "" "$@"
 }
 
+# CPYST: You can also run the GUI using the "minimal" plugin profile,
+# e.g.,
+#
+#   GVIM_OPEN_INIT_VIMRC=~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.lua fs
+#   GVIM_OPEN_INIT_VIMRC=~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.lua fa
+
 # ***
 
 # CXREF:
