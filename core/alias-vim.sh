@@ -47,19 +47,20 @@ fa () {
 # CPYST: You can also run the GUI using the "minimal" plugin profile,
 # e.g.,
 #
-#   GVIM_OPEN_INIT_VIMRC=~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.lua fs
-#   GVIM_OPEN_INIT_VIMRC=~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.lua fa
+#   GVIM_OPEN_INIT_VIMRC=~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua fs
+#   GVIM_OPEN_INIT_VIMRC=~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua fa
 
 # ***
 
 # CXREF:
-# ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal
-# ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
+# ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal
+# ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua
+# ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
 
 _dxy_alias_vim_wire_vim_minimal () {
-  local tign="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
+  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
 
-  claim_alias_or_warn "vim.minimal" "${tign}/bin/editor-vim-0-0-insert-minimal"
+  claim_alias_or_warn "vim.minimal" "${nvimd}/bin/editor-vim-0-0-insert-minimal"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

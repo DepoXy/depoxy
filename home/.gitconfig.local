@@ -145,7 +145,7 @@
 #   minimal Neovim editor, with some handy shortcuts (like <Ctrl-S>
 #   to save and quit (:wq)) to make committing quick and easy.
 #   - REFER: See the source for more details. / CXREF: On DepoXy at:
-#     ~/.kit/nvim/bin/editor-vim-0-0-insert-minimal.vimrc
+#     ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
 
 [alias]
   # Simple git-commit shortcut.

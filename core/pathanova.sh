@@ -74,6 +74,12 @@ user_path_add_omr_lib () {
 
 # ***
 
+user_path_add_nvim_bins () {
+  path_prefix "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy/bin"
+}
+
+# ***
+
 # ALTLY/2025-01-17: You could add OMR 'install' tasks to make ~/.local/bin
 # symlinks for the executables you care about. / Though this PATH approach
 # isn't too bad, either, and seems like less work for the user.
@@ -144,9 +150,12 @@ user_path_extend () {
   #
   user_path_add_tj_git_extras
   unset -f user_path_add_tj_git_extras
-
+  #
   user_path_add_omr_lib
   unset -f user_path_add_omr_lib
+
+  user_path_add_nvim_bins
+  unset -f user_path_add_nvim_bins
 
   user_path_add_sh_bins
   unset -f user_path_add_sh_bins

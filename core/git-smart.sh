@@ -49,22 +49,22 @@ _dxy_wire_alias_git_wip_pwip () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # CXREF: Runs vim or nvim (latter if EDITOR_PREFER_NVIM=true):
-#   ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal
-#   ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
+#   ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal
+#   ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
 #   ~/.depoxy/running/home/.config/depoxy/depoxyrc
 
 # Complement `git civ` with a plain `civ`.
 _dxy_wire_alias_git_civ () {
-  local tnewtons="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
+  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
 
-  claim_alias_or_warn "civ" "EDITOR='${tnewtons}/bin/editor-vim-0-0-insert-minimal' git commit -v"
+  claim_alias_or_warn "civ" "EDITOR='${nvimd}/bin/editor-vim-0-0-insert-minimal' git commit -v"
 }
 
 # Complement `git cim` with a plain `cim`.
 _dxy_wire_alias_git_cim () {
-  local tnewtons="${TIGNEWTONSPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/tig-newtons}"
+  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
 
-  claim_alias_or_warn "cim" "EDITOR='${tnewtons}/bin/editor-vim-0-0-insert-minimal' git commit --amend"
+  claim_alias_or_warn "cim" "EDITOR='${nvimd}/bin/editor-vim-0-0-insert-minimal' git commit --amend"
 }
 
 # Complement `git cin` with a plain `cin`.

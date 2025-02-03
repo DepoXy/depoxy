@@ -36,11 +36,9 @@
 /home/.config/tig/cfg-tgn-bind-clip-path
 /home/.config/tig/cfg-tgn-bind-clip-sha
 /home/.config/tig/cfg-tgn-bind-commit
-/home/.config/tig/cfg-tgn-bind-commit--minimal-editor
 /home/.config/tig/cfg-tgn-bind-commit-wip
 /home/.config/tig/cfg-tgn-bind-file-edit
 /home/.config/tig/cfg-tgn-bind-rebase
-/home/.config/tig/cfg-tgn-bind-rebase--minimal-editor
 /home/.config/tig/cfg-tgn-bind-rebase-range--diff
 /home/.config/tig/cfg-tgn-bind-rebase-range--main
 /home/.config/tig/cfg-tgn-bind-shell-out

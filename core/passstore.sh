@@ -26,9 +26,9 @@ pass_safe () {
     shift
 
     # ISOFF/2024-08-07: The minimal editor is not any quicker to start
-    # than normal Vim; and then you won't get reST highlight. Not this:
-    #   local tnewtons="${TIGNEWTONSPATH:-${HOME}/.kit/git/tig-newtons}"
-    #   EDITOR="${tnewtons}/bin/editor-vim-0-0-insert-minimal" \
+    # than normal Vim; and then you won't get reST highlights. Not this:
+    #   local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
+    #   EDITOR="${nvimd}/bin/editor-vim-0-0-insert-minimal" \
     #     VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
 
     VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
