@@ -137,6 +137,51 @@
   colorMoved = zebra
 
 # #######################################################################
+# ***                         Commit Aliases                          ***
+# #######################################################################
+
+# SAVVY/2024-08-07: Opinionated commit aliases:
+# - Specify `-c core.editor=editor-vim-0-0-insert-minimal` to use a
+#   minimal Neovim editor, with some handy shortcuts (like <Ctrl-S>
+#   to save and quit (:wq)) to make committing quick and easy.
+#   - REFER: See the source for more details. / CXREF: On DepoXy at:
+#     ~/.kit/nvim/bin/editor-vim-0-0-insert-minimal.vimrc
+
+[alias]
+  # Simple git-commit shortcut.
+  ci = -c core.editor=editor-vim-0-0-insert-minimal commit
+
+  # Type message at prompt.
+  cm = -c core.editor=editor-vim-0-0-insert-minimal commit --message
+
+  # Use `git cv` to open your EDITOR to compose a commit message.
+  cv = -c core.editor=editor-vim-0-0-insert-minimal commit --verbose
+  #
+  # For parity with `git cim` and `git civ`.
+  civ = -c core.editor=editor-vim-0-0-insert-minimal commit --verbose
+
+  # ***
+
+  # (lb): 2020-11-24: At least I can say I use `cim` and `cin` a lot.
+  # - I first had `cin` aliased from `cia` (commit/ci + amend/a) but I
+  #   feel like `cin` complements `cim` better, and I like the idea of
+  #   c-in → commit-in → commit into last commit (and then cim is like
+  #   cim → commit-into-message → commit into & edit message). #mnemonics
+
+  # Use `cin` and `cim` to amend the last commit, even with unstaged work.
+  # - `cin` will automatically fixup staged into the most recent commit.
+  # - `cim` works similarly but runs the EDITOR so you can edit the message.
+  cim = -c core.editor=editor-vim-0-0-insert-minimal commit --amend
+
+  # Like `git cim`, but leave staged changes staged.
+  # https://github.com/mgedmin/dotfiles/blob/1da8d86/gitconfig#L167-L168
+  # (https://github.com/mgedmin/dotfiles is technically not licensed: No license file.)
+  cim-only = -c core.editor=editor-vim-0-0-insert-minimal commit --amend --only -v
+
+  # CXREF: `cin` is defined in git-smart/.gitconfig:
+  #   ~/.kit/git/git-smart/.gitconfig
+
+# #######################################################################
 # ***                     Interactive Rebase Tool                     ***
 # #######################################################################
 

@@ -1,0 +1,142 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitconfig
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# USAGE: Use `includeIf` to source this file for specific projects.
+#
+#   For instance, in ~/.gitconfig.local, add:
+#
+#     [includeIf "gitdir:/path/to/some-project/"]
+#
+#       path = /path/to/git-smart/gitconfigs/commit-no-verify.gitconfig
+#
+#   This is useful for projects that have pre-commit hooks you'd like to bypass.
+
+# #######################################################################
+
+# ETHICS: The purpose of this script is not to get around hooks or checks.
+#
+#         The idea is to reduce friction during development.
+#
+#         E.g., this author rebases a ton (early and often), so running
+#         checks on every commit in a rebase would be, at the very least,
+#         extremely, dissuasively slow; but, at the very worst, it would
+#         cause the rebase to fail (e.g., if a lint check fails on one of
+#         the commits being rebased). In this example, you might see how
+#         pre-commit hooks might not be what you want -- sure, if you want
+#         *every* commit to pass checks, then, yes, run pre-commit hooks.
+#         But if you only care that the final commit (what you want to PR)
+#         passes checks, then consider a pre-push hook instead (or running
+#         checks from your CI tools that run against the HEAD of whatever
+#         branches you push).
+#
+# - In any case, the whole point of this file is to let you work with a
+#   codebase that has a pre-commit hook you want to ignore (but that you
+#   don't want to get around using an alternative method, such as either
+#   removing or renaming the .git/hooks/pre-commit file to disable it,
+#   or using the HUSKY_SKIP_HOOKS=1 environ to disable hooks, if your
+#   project uses Husky. See below for more on these alternatives).
+
+# HOW IT WORKS:
+#
+#   - There are three Git commands that perform commit operations:
+#
+#     - git-commit, git-rebase, and git-cherry-pick.
+#
+#   Each of these commands runs the pre-commit hook by default.
+#
+#   - To skip the pre-commit hook, `git commit` and `git rebase`
+#     each offer a `--no-verify` option, e.g.:
+#
+#         git commit --no-verify ...
+#
+#         git rebase --no-verify ...
+#
+#   - But `git cherry-pick`, on the other hand, does not have such a flag.
+#     FWR.
+#
+#     To skip the pre-commit hook on cherry-pick, there are a few options.
+#
+#     - For any/all project/s, you can move the hook file to disable it, e.g.,
+#
+#         mv .git/hook/pre-commit .git/hook/pre-commit-OFF
+#         git cherry-pick ...
+#         mv .git/hook/pre-commit-OFF .git/hook/pre-commit
+#
+#     - For npm projects that use husky, you can use an enablement environment:
+#
+#         HUSKY_SKIP_HOOKS=1 cherry-pick ...
+#
+#     - Another alternative is to avoid the cherry-pick command and to use the
+#       rebase command to pick instead. (E.g., you can add the commit(s) that
+#       you want to bring into the branch using an interactive rebase instead,
+#       e.g., run `git rebase -i --no-verify HEAD` and then add your picks.
+
+[alias]
+
+  # *** See similar aliases in the top-level .gitconfig.
+  #
+  #   - These aliases are those aliases but with an added `--no-verify`. 
+  #
+  # -n, --no-verify / This option bypasses the pre-commit and commit-msg hooks.
+
+  # *** Commit
+
+  # Is `git ci` common/conventional? What about `git co`?
+  # - I'm a git-co-is-for-Check-Out person, which I guess
+  #   means git-ci is for Comm-It.
+  ci = -c core.editor=editor-vim-0-0-insert-minimal commit --no-verify
+
+  # *** Commit with message
+
+  # Commit with message from the prompt. ci + message → cm.
+  # - 6 of 1: `git cm` ↔ `git ci -m` ↔ `git commit --message`.
+  cm = -c core.editor=editor-vim-0-0-insert-minimal commit --message --no-verify
+
+  # Commit with message from the EDITOR.
+  # - Note that -v/--verbose seems like a misleading option name.
+  #   It means the commit template is verbose, and shows a diff
+  #   of what's being committed (which you can see with git-smart
+  #   `dcc` alias).
+  cv = -c core.editor=editor-vim-0-0-insert-minimal commit --verbose --no-verify
+  #
+  # For parity with `git cim` and `git civ`.
+  civ = -c core.editor=editor-vim-0-0-insert-minimal commit --verbose --no-verify
+
+  # *** Amend commit
+
+  # Amend commit, and edit the message.
+  #
+  # - You could try the memory device: CommIt aMend.
+  #                                    c   i   m
+  #
+  #   But a better pneumonic might be: Commit Into last commit and update Message
+  #                                    c      i                           m
+  cim = -c core.editor=editor-vim-0-0-insert-minimal commit --amend --no-verify
+
+  # Amend commit. Period. Think, "Commit INto" previous commit, perhaps.
+  cin = "! f() { \
+    if [ -n \"$(git diff --cached)\" ]; then \
+      git commit --amend --no-edit --no-verify \"$@\"; \
+    else \
+      >&2 echo \"Nothing staged\"; \
+    fi; \
+  }; f"
+
+[alias]
+
+  # Interactive, Auto-squash (and auto-fixup) Rebase, without hooks.
+  #
+  # - From man git-rebase:
+  #
+  #     --no-verify
+  #         This option bypasses the pre-rebase hook. See also githooks(5).
+  ria = ria-no-verify
+
+[alias]
+
+  # Use `git wip` to quickly-easily commit all staged and unstaged changes
+  # and untracked files.
+  wip = ! git add -A && git commit --no-verify -m "WIP"
+
