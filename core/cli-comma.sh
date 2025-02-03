@@ -20,7 +20,7 @@
 #   https://github.com/shyiko/commacd
 #   http://shyiko.com/2014/10/10/commacd/
 wire_commacd () {
-  COMMACD_CD="_dxy_command_cd"
+  COMMACD_CD="_dxy_commacd"
 
   # CXREF: ~/.kit/sh/commacd/commacd.sh
   #        ~/.kit/sh/commacd/commacd.bash
@@ -34,13 +34,13 @@ wire_commacd () {
 # ***
 
 # COMMACD_CD override, to use `pushd` not `cd`
-_dxy_command_cd () {
+_dxy_commacd () {
   local dir=$1 IFS=$' \t\n'
 
   if [[ "$PWD" != "$dir" ]]; then
     builtin pushd "$dir" > /dev/null && pwd
   else
-    echo "_dxy_command_cd: no matches found" >&2
+    echo "_dxy_commacd: no matches found" >&2
     return 1
   fi
 }
