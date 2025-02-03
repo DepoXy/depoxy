@@ -32,16 +32,15 @@
 # CXREF: Runs gvim or nvim (See: GVIM_OPEN_PREFER_NVIM=true):
 #   ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
 #   ~/.depoxy/running/home/.config/depoxy/depoxyrc
-_dxy_alias_vim_fs_main_editor_instance () {
-  claim_alias_or_warn "fs" "gvim-open-kindness"
+_dxy_alias_vim_fs_editor_opener () {
+  # REFER: Uses --server/socket ID GVIM_OPEN_SERVERNAME.
+  claim_alias_or_warn "fs" "gvim-open-kindness '' '' ''"
 }
 
-# The `fa` command exists should you want to open a second instance
-# of GVim. (I cannot remember the last time I used this command, but
-# it happens.)
-fa () {
-  # REFER: Runs gvim or nvim (See: GVIM_OPEN_PREFER_NVIM=true).
-  gvim-open-kindness "${DEPOXY_GVIM_ALTERNATE:-ALPHA}" "" "" "$@"
+# Use the `fa` command when you want to open an editor instance
+# separate from your main instance.
+_dxy_alias_vim_fa_editor_opener () {
+  claim_alias_or_warn "fa" "gvim-open-kindness '${DEPOXY_GVIM_ALTERNATE:-ALPHA}' '' ''"
 }
 
 # CPYST: You can also run the GUI using the "minimal" plugin profile,
@@ -66,8 +65,11 @@ _dxy_alias_vim_wire_vim_minimal () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_aliases () {
-  _dxy_alias_vim_fs_main_editor_instance
-  unset -f _dxy_alias_vim_fs_main_editor_instance
+  _dxy_alias_vim_fs_editor_opener
+  unset -f _dxy_alias_vim_fs_editor_opener
+
+  _dxy_alias_vim_fa_editor_opener
+  unset -f _dxy_alias_vim_fa_editor_opener
 
   _dxy_alias_vim_wire_vim_minimal
   unset -f _dxy_alias_vim_wire_vim_minimal
