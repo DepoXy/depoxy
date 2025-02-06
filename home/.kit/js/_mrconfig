@@ -35,7 +35,10 @@ skip = mr_exclusive "!entrusted"
 # Lens aka OpenLens aka Electron Lens.
 [${DOPP_KIT:-${HOME}/.kit}/js/lens]
 lib = remote_set starter https://github.com/lensapp/lens.git
-skip = mr_exclusive "!entrusted"
+# ISOFF/2025-02-05: ¾GB and I have a small SSD.
+#  skip = mr_exclusive "!entrusted"
+skip = true
+deleted = true
 echoInstallHelp =
   echoInstallHelp 'os_off' 'dxy_off'
   #
