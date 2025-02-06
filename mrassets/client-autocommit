@@ -488,6 +488,8 @@ _dxc_client_autocommit () {
       fatal "ERROR: Unsupported, Unknown Platform: “$(uname)”"
     fi
 
+    # CXREF:
+    # ~/.depoxy/running/home/Library/Application\ Support/Google/Chrome/Default/Bookmarks
     local chrome_bms_json="${chrome_dir}/Bookmarks"
     mkdir -p "home/${chrome_dir}"
 
@@ -539,7 +541,12 @@ _dxc_client_autocommit () {
       git_auto_commit_one_update "${bms_file}"
     done
   }
-  depoxy_client_autocommit_chrome_bookmarks
+  # ISOFF/2025-02-06: This causes repo bloat. (Though file is text (JSON),
+  # timestamp values within regularly change.)
+  # - SIZED: Author's DXC repo grew 16MB → 596MB in 10 months.
+  #   - Props to git-filter-repo to wrangle it back down.
+  #
+  #  depoxy_client_autocommit_chrome_bookmarks
 
   # ***
 
