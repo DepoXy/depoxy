@@ -501,7 +501,7 @@ _dxc_client_autocommit () {
         command cp -- "${HOME}/${chrome_bms_json}" "home/${chrome_bms_json}"
       fi
     fi
-    git_auto_commit_one "home/${chrome_bms_json}" -m "${PRIVATE_ACI}: Chrome BMs (orig JSON)"
+    git_auto_commit_one "home/${chrome_bms_json}" -m "${PRIVATE_ACI}: Chrome BMs (JSON)"
 
     # We'll also assume any file named "bookmarks.html" is also private.
     local chrome_bms_html="${chrome_dir}/bookmarks.html"
