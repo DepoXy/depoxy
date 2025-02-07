@@ -3,6 +3,8 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+.DS_Store
+
 /.gitignore.local
 
 /.venv-*
