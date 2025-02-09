@@ -86,6 +86,12 @@ _dxy_wire_alias_git_rh () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_dxy_wire_alias_git_abort() {
+  claim_alias_or_warn "abort" "git abort"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Create l1..l9 aliases, e.g.,
 #
 #   claim_alias_or_warn "l1" "git --no-pager log -1"
@@ -306,6 +312,9 @@ main () {
 
   _dxy_wire_alias_git_rh
   unset -f _dxy_wire_alias_git_rh
+
+  _dxy_wire_alias_git_abort
+  unset -f _dxy_wire_alias_git_abort
 
   _dxy_wire_alias_git_logX
   unset -f _dxy_wire_alias_git_logX
