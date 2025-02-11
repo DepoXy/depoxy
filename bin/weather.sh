@@ -177,6 +177,9 @@ check_deps () {
 # SAVVY: macOS prints some emoji as B&W VS15 variants in Alacritty/terminals.
 #   echo "☀️  🌞 / ⛅ / 🌫 / 🌧 / ❄️  ☃  ⛄ 🏒 / 🌦 / ⛈ ⚡ 🌀 / ✨"
 #            ✓✓        ✓✓   ✓✓            ✓✓   ✓✓         ✓✓   ✓✓
+# CALSO: Nerd Font weather icons:       󰼰              
+#   https://www.nerdfonts.com/cheat-sheet?q=nf-weather-
+#     https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points
 
 weather_to_emoji () {
   local weather_main="$1"
