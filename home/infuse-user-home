@@ -498,8 +498,10 @@ infuse_symlinks_home_tmux_completion () {
 
 # Populate ~/.projlns for Vim dubs_grep_steady path #9, etc.
 infuse_symlinks_home_projlns () {
-  if ! is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-false}; then
-    info " $(font_info_skipped "Skipped") regenerating $(font_highlight "~/.projlns/") [because not \`mr -d /\` aka not all-project \`infuse\`, and not \${DEPOXY_INFUSE_PROJLNS}]"
+  if ( ! is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-false} ) \
+    || ( is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-true} ) \
+  ; then
+    info " $(font_info_skipped "Skipped") regenerating $(font_highlight "~/.projlns/") [because not \`mr -d /\` aka not all-project \`infuse\`, and/or not \${DEPOXY_INFUSE_PROJLNS}]"
 
     return 0
   fi
