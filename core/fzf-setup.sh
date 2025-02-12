@@ -362,12 +362,16 @@ main () {
   #
   #   https://tavianator.com/projects/bfs.html
 
+  # CXREF: Wired by junegunn/fzf, found locally in DepoXy environment at:
+  #   ~/.kit/go/fzf/shell/key-bindings.bash
+
   fzf_wire_alt_c_cmd_bfs () {
     command -v bfs > /dev/null \
       || return
 
-    export FZF_ALT_C_COMMAND="cd -- ${HOME}; bfs -type d | sed s#^\.#${HOME}#"
-    # " # <-- Vim ft=bash syntax highlighting fix (kludge)
+    # Run __fzf_cd__ on current dir., and convert relative paths to full.
+    export FZF_ALT_C_COMMAND="bfs -type d | sed s#^\.#\$(pwd)#"
+    # " # <-- (n)vim ft=bash syntax highlighting fix (kludge)
 
     # Defaults: `build cd -- %1`
     # - SAVVY: This environ is in landonb/fzf, fork of junegunn/fzf.
