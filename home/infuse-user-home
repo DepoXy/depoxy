@@ -498,6 +498,8 @@ infuse_symlinks_home_tmux_completion () {
 
 # Populate ~/.projlns for Vim dubs_grep_steady path #9, etc.
 infuse_symlinks_home_projlns () {
+  # USAGE: E.g.,
+  #   cx && DEPOXY_INFUSE_PROJLNS=true infuse .
   if ( ! is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-false} ) \
     || ( is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-true} ) \
   ; then
