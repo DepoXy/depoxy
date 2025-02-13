@@ -33,6 +33,9 @@ return {
     init = function()
       -- Inhibit vim-depoxy from wiring vim-fullscreen-toggle
       vim.g.loaded_vim_depoxy_fullscreen_toggle_config = 1
+
+      -- Inhibit alert message.
+      vim.g.loaded_vim_depoxy_async_map_config = 1
     end,
   },
 
