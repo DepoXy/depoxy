@@ -27,9 +27,13 @@ return {
     dir = "~/.kit/nvim/DepoXy/start/vim-depoxy",
     lazy = not lazy_profile["vim-depoxy"],
     dependencies = {
-      { dir = "~/.kit/nvim/embrace-vim/start/vim-fullscreen-toggle" },
+      -- { dir = "~/.kit/nvim/embrace-vim/start/vim-fullscreen-toggle" },
       { dir = "~/.kit/nvim/embrace-vim/start/vim-webopen" },
     },
+    init = function()
+      -- Inhibit vim-depoxy from wiring vim-fullscreen-toggle
+      vim.g.loaded_vim_depoxy_fullscreen_toggle_config = 1
+    end,
   },
 
   -- vim-trap is the user's private DepoXy Client plugin.
