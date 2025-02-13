@@ -16,7 +16,13 @@ order = 250
 
 checkout = mkdir -p -- "${MR_REPO}"
 # Not an actual repo
+# PRINT: E.g., [DBUG] 2025-02-13 @ 13:56:52   blocklist   /home/user/.kit/nvim
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
+# AVOID: E.g., mr travel: unknown repository type and no defined travel command for /home/user/.kit/nvim
+fetch = true
+status = true
+travel = true
+unpack = true
 
 # USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
 #   ~/.kit/nvim/.mrconfig
