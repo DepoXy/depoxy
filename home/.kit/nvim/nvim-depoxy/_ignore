@@ -14,6 +14,9 @@
 # Generated spell file used by Vim (ignored anyway because binary).
 /.config/nvim/spell/en.utf-8.add.spl
 
+# -> ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/specs/group--depoxy-client.lua
+/.config/nvim/lua/specs/group--depoxy-client.lua
+
 # CXREF: 'infuse'd by and symlink to:
 # -> ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
 /mrconfig/depoxy-mrconfig
