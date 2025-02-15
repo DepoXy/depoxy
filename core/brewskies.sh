@@ -77,11 +77,23 @@ _depoxy_print_homebrew_path () {
 # ALERT: `brew` calls `sudo --reset-timestamp`, so if you
 # rely on the sudo password being cached, it won't be after
 # this call.
+#
+# SAVVY: `brew shellenv` prints nothing if already loaded:
+#   "To help guarantee idempotence, this command produces no output
+#    when Homebrew’s bin and sbin directories are first and second
+#    respectively in your PATH."
+# - However when called via homebrew-autoupdate.sh, PATH is set up
+#   correctly, and `brew shellenv` will otherwise not output anything,
+#   but for some reason $HOMEBREW_PREFIX is not set. So adjust PATH to
+#   force `brew shellenv` to print its goods.
+
 _depoxy_infuse_brew_shellenv () {
   local brew_path="$(_depoxy_print_homebrew_path)"
 
   if [ -e "${brew_path}" ]; then
-    eval "$(${brew_path} shellenv)"
+    # CXREF: /opt/homebrew/bin/brew
+    #   /opt/homebrew/Library/Homebrew/brew.sh
+    eval "$(PATH="::$PATH" ${brew_path} shellenv)"
   elif os_is_macos; then
     >&2 echo "ERROR: Could not suss Homebrew path"
 
