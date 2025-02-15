@@ -202,7 +202,11 @@ installDarwin =
   # CPYST:
   #     brew autoupdate.rb --help
   #     # Run immediately:
+  #     # - From shell:
   #     brew autoupdate
+  #     # - Via launchd:
+  #     brew autoupdate stop
+  #     brew autoupdate start 86400 --upgrade --immediate
   #     # Chech launchd status
   #     launchctl print gui/501/com.github.domt4.homebrew-autoupdate
   #     # - ALTLY: Use "legacy" `launchctl list`:
