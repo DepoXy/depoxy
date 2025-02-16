@@ -186,8 +186,8 @@ isInstalled =
   brew autoupdate status 2>/dev/null \
     | head -n 1 \
     | grep -q -e "^Autoupdate is installed and running.$"
-install = install_os_specific
-installDarwin =
+# FIXME/2025-02-15: Test 'install' on Debian.
+install =
   # OMR/lib already on PATH, but explicit is descriptive.
   # - CXREF: ~/.kit/git/ohmyrepos/lib/print-homebrew-prefix.sh
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/print-homebrew-prefix.sh"
