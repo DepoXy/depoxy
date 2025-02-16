@@ -319,7 +319,7 @@
 
   #  See also, git-rev-parse, e.g.,:
   #   [ "$(git rev-parse --show-toplevel)" = "$(pwd)" ] && echo 't' || echo 'f'
-  isroot = ! [ -z "${GIT_PREFIX}" ] && echo 't' || echo 'f'
+  isroot = ! [ -z "${GIT_PREFIX}" ] && true || false
 
 # #######################################################################
 # ***                            GIT  CPC                             ***
