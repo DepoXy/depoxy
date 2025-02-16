@@ -367,12 +367,12 @@
 
   # ***
 
-  # 2020-12-03: Smells obvious to me, how have I never thought of this before?
-  # FIXME/2020-12-03: Move to commit-no-verify.gitconfig, and base .gitconfig.
+  # HSTRY: Added 2020-12-03, but rarely used b/c I use tig to fixup staged
+  #        without using --fixup commits.
+  # CALSO: `git-absorb`
+  # INERT/2020-12-03: Move to commit-no-verify.gitconfig, and base .gitconfig.
   #  fu = commit --fixup
   fu = commit --no-verify --fixup
-  # FIXME/2021-05-30: I haven't used this since adding it, have I?
-  # - Tell me: How is this different than `git cin`?
 
 # #######################################################################
 # ***                          GIT LOG -S/-G                          ***
