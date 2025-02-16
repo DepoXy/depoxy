@@ -871,6 +871,58 @@
 # ***
 
 # #######################################################################
+# ***                            GIT DELTA                            ***
+# #######################################################################
+
+# REFER: `delta --help`
+# https://github.com/dandavison/delta
+
+[core]
+
+  pager = delta
+
+[interactive]
+
+  diffFilter = delta --color-only
+
+[delta]
+
+  navigate = true   # "use n and N to move between diff sections"
+
+  # dark = true       # "or light = true, or omit for auto-detection"
+  # light = true    # (lb): Kinda unreadable...
+
+  line-numbers = true
+
+  # For `git blame {file} | delta` but I'm not seeing links...
+  hyperlinks = true
+
+[merge]
+
+  conflictstyle = zdiff3
+
+# REFER: The standard 'light' and 'dark' themese are not vibrant enough to read.
+# https://dandavison.github.io/delta/custom-themes.html
+#
+# CXREF:
+# ~/.kit/git/delta/themes.gitconfig
+#
+# USAGE:
+# delta --show-themes
+#
+# MAYBE/2025-02-16: Customize the theme to be more vibrant.
+
+[include]
+  
+  path = ~/.kit/git/delta/themes.gitconfig
+
+[delta]
+
+  # features = collared-trogon
+  features = arctic-fox
+  # side-by-side = true
+
+# #######################################################################
 # =======================================================================
 # #######################################################################
 

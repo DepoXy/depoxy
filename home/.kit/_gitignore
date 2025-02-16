@@ -32,6 +32,8 @@
 /git/cli/
 # Git itself.
 /git/git/
+# git-delta git-diff filter.
+/git/delta/
 # Automated fixup.
 /git/git-absorb/
 # Bumper Gits.
