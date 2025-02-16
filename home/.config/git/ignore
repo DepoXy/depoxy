@@ -1,0 +1,75 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# THANX:
+# https://gist.github.com/jacobtomlinson/aace65a6920e44348d501da5e13a5a17
+# - Which I found after seeing `gitignore_global` in another user's dotfiles:
+#   https://github.com/lukas-reineke/dotfiles/blob/02064d6dccb2e/git/gitignore_global
+# - And how is it that it's 2025-02-16 and I'm still learning new tricks...
+
+# REFER: man git-config
+# - Automatically loaded from ~/.config/git/ignore
+# - ALTLY: Link from ~/.gitconfig, e.g.,
+#     git config --global core.excludesfile ~/.gitignore_global
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# # Compiled source #
+# ###################
+# *.com
+# *.class
+# *.dll
+# *.exe
+# *.o
+# *.so
+# *.pyc
+# *.pyo
+
+# # Packages #
+# ############
+# # it's better to unpack these files and commit the raw source
+# # git has its own built in compression methods
+# *.7z
+# *.dmg
+# *.gz
+# *.iso
+# *.jar
+# *.rar
+# *.tar
+# *.zip
+# *.msi
+
+# # Logs and databases #
+# ######################
+# *.log
+# *.sql
+# *.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+# .DS_Store?
+# ._*
+# .Spotlight-V100
+# .Trashes
+# ehthumbs.db
+# Thumbs.db
+# desktop.ini
+
+# # Temporary files #
+# ###################
+# *.bak
+# *.swp
+# *.swo
+# *~
+# *#
+
+# # IDE files #
+# #############
+# .vscode
+# .idea
+# .iml
+# *.sublime-workspace
+
