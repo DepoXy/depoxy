@@ -17,6 +17,14 @@
 #     # Similar to `brew upgrade`, but also calls this script.
 #     ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate
 #
+#   - ALTLY: Add the `--immediate` option to run the upgrade now:
+#
+#       OMR_IMMEDIATE=yes mr -d ~/.kit/mOS/homebrew-autoupdate install
+#
+#     - CXREF: See OMR 'install' task:
+#
+#       ~/.depoxy/ambers/home/.kit/mOS/_mrconfig @ 193
+#
 #   - To avoid sudo prompt, if there is one:
 #
 #     SUDO_ASKPASS=foo ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate

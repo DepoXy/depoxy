@@ -230,7 +230,14 @@ install =
   # - Note this resets the log file.
   brew autoupdate delete
   #
-  if ! brew autoupdate start 86400 --upgrade; then
+  # USAGE: If you want to run/test immediately, use an environ, e.g.,
+  #   OMR_IMMEDIATE=yes mr -d ~/.kit/mOS/homebrew-autoupdate install
+  local immediate=""
+  if ${OMR_IMMEDIATE:-false}; then
+    immediate="--immediate"
+  fi
+  #
+  if ! brew autoupdate start 86400 --upgrade ${immediate}; then
     >&2 echo
     >&2 echo "ALERT: Failed!"
     >&2 echo "- You may need to delete the old files first:"
