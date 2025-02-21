@@ -53,8 +53,6 @@ fa () {
 #   GVIM_OPEN_INIT_VIMRC=~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua fs
 #   GVIM_OPEN_INIT_VIMRC=~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua fa
 
-# ***
-
 # CXREF:
 # ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal
 # ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua
