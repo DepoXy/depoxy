@@ -61,7 +61,7 @@ fa () {
 # ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
 
 _dxy_alias_vim_wire_vim_minimal () {
-  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
+  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
 
   claim_alias_or_warn "vim.minimal" "${nvimd}/bin/editor-vim-0-0-insert-minimal"
 }
