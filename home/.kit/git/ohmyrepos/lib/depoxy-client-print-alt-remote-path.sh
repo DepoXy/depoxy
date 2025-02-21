@@ -47,6 +47,8 @@ lib =
   use_remote_home_if_depoxy_client_matches () {
     local client_id="\$1"
     #
+    [ "\${MR_ACTION}" = 'ffssh' ] || return 0
+    #
     local ret
     if ret=\$(is_remote_depoxy_client_same "\${client_id}"); then
       MR_REMOTE_PATH="${remote_path}"
