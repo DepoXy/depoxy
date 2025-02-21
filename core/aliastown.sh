@@ -45,7 +45,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # Change to Git projects parent directory.
   pushd_alias_or_warn "cdg" "${GITREPOSPATH:-${HOME}/.kit/git}"
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdgi" "${DOPP_KIT:-${HOME}/.kit}/git"
 
   # Change to Git project directory.
@@ -117,7 +117,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/go — Golang
 
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdgo" "${DOPP_KIT:-${HOME}/.kit}/go"
 
   # Prefix not to be confused with ~/.kit/git projects
@@ -145,19 +145,19 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/js — JavaScript
 
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdjs" "${DOPP_KIT:-${HOME}/.kit}/js"
 
   pushd_alias_or_warn "cdpm" "${DOPP_KIT:-${HOME}/.kit}/js/pampermonkey"
 
   # *** ~/.kit/ml — (Machine Learning)
 
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdml" "${DOPP_KIT:-${HOME}/.kit}/ml"
 
   # *** ~/.kit/mOS — macOS
 
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdm" "${DOPP_KIT:-${HOME}/.kit}/mOS"
   pushd_alias_or_warn "cdmO" "${DOPP_KIT:-${HOME}/.kit}/mOS"
   pushd_alias_or_warn "cdmos" "${DOPP_KIT:-${HOME}/.kit}/mOS"
@@ -189,7 +189,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/py — Python
 
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdpy" "${DOPP_KIT:-${HOME}/.kit}/py"
 
   # 2023-05-12: Completely unnecessary; unlikely to work on this much.
@@ -198,7 +198,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # *** ~/.kit/sh — Shell
 
   # Change to Shell project directories.
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
   pushd_alias_or_warn "cdsh" "${SHOILERPLATE:-${HOME}/.kit/sh}"
 
@@ -212,7 +212,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.kit/txt — Text
 
-  # Two-letter Dopp Kit subsir jumper.  #2letter_cdjumper
+  # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdtx" "${DOPP_KIT:-${HOME}/.kit}/txt}"
 
   pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
