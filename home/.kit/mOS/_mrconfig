@@ -202,29 +202,32 @@ install =
   # CPYST:
   #     brew autoupdate.rb --help
   #     # Run immediately:
-  #     # - From shell:
-  #     brew autoupdate
-  #     # - Via launchd:
+  #     # - From shell (Skips OMR `infuse`):
+  #     brew upgrade 
+  #     # - Via launchd (Includes OMR `infuse`):
   #     brew autoupdate stop
   #     brew autoupdate start 86400 --upgrade --immediate
-  #     # Chech launchd status
+  #     # Chech launchd status:
   #     launchctl print gui/501/com.github.domt4.homebrew-autoupdate
   #     # - ALTLY: Use "legacy" `launchctl list`:
   #     #   launchctl list | head -1 ; launchctl list | grep com.github.domt4.homebrew-autoupdate
-  #     # Remove launchctl
+  #     # Remove launchctl:
   #     brew autoupdate delete
-  #     # See the brew_autoupdate executable
+  #     # Verify the brew_autoupdate executable that autoupdate-start creates:
   #     ll ~/Library/Application\ Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate
-  #     # View logs (though none for brew_autoupdate?)
+  #     # View the brew-autoupdate log:
+  #     fs ~/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
+  #     # View other Homebrew logs:
   #     ll ~/Library/Logs/Homebrew/**
   # CXREF: LaunchAgents run on user logon:
   #   ~/Library/LaunchAgents/com.github.domt4.homebrew-autoupdate.plist
   # SAVVY: Your shell PATH when you run this command is used in the
-  # generated file, 'brew_autoupdate' (see CXREF below).
+  # generated file, 'brew_autoupdate' (see CXREFs elsewhere).
   #
-  # USAGE: Run `brew autoupdate delete` after you make edits
-  # to the update script:
+  # USAGE: Run `brew autoupdate delete` after you make edits to the update
+  # script (which is used to generate `brew_autoupdate`):
   #   ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb
+  # - Note this resets the log file.
   brew autoupdate delete
   #
   if ! brew autoupdate start 86400 --upgrade; then
