@@ -47,6 +47,136 @@ fa () {
   gvim-open-kindness "${DEPOXY_GVIM_ALTERNATE:-ALPHA}" "" "" "$@"
 }
 
+# ***
+
+fss () {
+  local profile="$1"
+
+  # REFER: Server ID used to format gvim-open-kindness socket:
+  #   printf "/tmp/nvim.socket-%s" "${server_id}"
+  # DUNNO: Using 💩 or 🤡 raises instance running as 🦢...
+  #   local server_ids="💩🤡"
+  local server_ids="👹👺👻👽👾🤖"
+
+  _dxy_fss_print_server_id () {
+    local app_cfg_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/ambers"
+    local cfg_ids_file="${app_cfg_dir}/neovim.ids"
+
+    mkdir -p -- "${app_cfg_dir}"
+
+    if ! [ -e "${cfg_ids_file}" ] \
+      || ! [ -s "${cfg_ids_file}" ] \
+      || [ -z "$(cat -- "${cfg_ids_file}")" ] \
+    ; then
+      echo "${server_ids}" > "${cfg_ids_file}"
+    fi
+
+    local server_id
+    server_id="$(cat "${cfg_ids_file}" | cut -c1)"
+
+    cat "${cfg_ids_file}" | cut -c2- | sed '/\s/d' > "${cfg_ids_file}.tmp"
+
+    command mv -f "${cfg_ids_file}"{.tmp,}
+
+    printf "%s" "${server_id}"
+  }
+
+  # - REFER/2025-02-22:
+  #   $ brew install neovim  # v0.10.4
+  #   # /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim
+  #   $ brew install --HEAD neovim  # v0.11.0-dev-{sha}-Homebrew
+  #   # /opt/homebrew/Cellar/neovim/HEAD-228fe50_1/bin/nvim
+  _dxy_print_latest_bin_nvim_path () {
+    nvim_bin="$( \
+      find "${HOMEBREW_PREFIX}/Cellar/neovim/" \
+        -mindepth 1 \
+        -maxdepth 1 \
+        -type d \
+        -not -name "HEAD*" \
+        | sort -V \
+        | tail -1
+    )"
+
+    if [ -z "${nvim_bin}" ]; then
+      >&2 echo "ERROR: Latest nvim release not found under: ${HOMEBREW_PREFIX}/Cellar/neovim/"
+
+      return
+    fi
+
+    printf "%s" "${nvim_bin}/bin/nvim"
+  }
+
+  # KLUGE/2025-02-22: There's gotta be a better way to do this...
+  # - Or maybe I should just be thankful that this works!
+  #
+  #   $ neovide --neovim-bin /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim \
+  #     -- --listen /tmp/nvim.socket-👽
+  #   ERROR [neovide::error_handling] Neovide just crashed :(
+  #   This is the error that caused the crash. In case you don't know what
+  #     to do with this, please feel free to report this on
+  #     https://github.com/neovide/neovide/issues!
+  #
+  #   ERROR: Unexpected output from neovim binary:
+  #     /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim -v
+  #   stdout:
+  #   stderr: dyld[65588]: Library not loaded:
+  #     /opt/homebrew/opt/tree-sitter/lib/libtree-sitter.0.24.dylib
+  #     Referenced from: <5476F149-4D25-3E75-A787-A24715A11CD0>
+  #       /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim
+  #     Reason: tried: '/opt/homebrew/opt/tree-sitter/lib/libtree-sitter.0.24.dylib'
+  #       (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/...'...
+  #
+  #   Please check your shell configuration.
+  #   $SHELL -lc '{bin} -v'
+  # USYNC: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+  _dxy_kludge_treesitter_lib () {
+    local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
+    local curr="0.25.2/lib/libtree-sitter.0.24.dylib"
+    local base="${HOMEBREW_PREFIX:-/opt/homebrew}/Cellar/tree-sitter"
+
+    if ! [ -e "${curr}" ]; then
+      command ln -sfn -- "${base}/${prev}" "${base}/${curr}"
+    fi
+  }
+
+  local server_id
+  server_id="$(_dxy_fss_print_server_id)"
+
+  # - Bare `fss` opens Dubs Classic and runs the startup script:
+  #     ~/.depoxy/running/home/vim-trap/after/plugin/startup-state.vim
+  # - `fss lazy` opens LazyVim to splash screen (whatever it's called).
+  # - Another option might be a scratch buffer: open_file="[Scratch]"
+  local nvim_bin=""
+  local open_file=""
+  if [ -z "${profile}" ]; then
+    nvim_bin="$(_dxy_print_latest_bin_nvim_path)"
+    open_file="${NVIM_OPEN_FILE_ON_SPAWN}"
+    _dxy_kludge_treesitter_lib
+  fi
+
+  if false; then
+    ( cat <<EOF
+    NVD_PROFILE="${profile}" \
+    NEOVIM_BIN="${nvim_bin}" \
+    NVIM_OPEN_FILE_ON_SPAWN="${open_file}" \
+      gvim-open-kindness "${server_id}" "" ""
+EOF
+    ) | sed "s/\s\+/ /g" | sed "s/^ \+//" | sed "s/\+$//"
+  fi
+  echo "Launching ${server_id}"
+
+  NVD_PROFILE="${profile}" \
+  NEOVIM_BIN="${nvim_bin}" \
+  NVIM_OPEN_FILE_ON_SPAWN="${open_file}" \
+    gvim-open-kindness "${server_id}" "" ""
+
+  unset -f _dxy_fss_print_server_id
+  unset -f _dxy_print_latest_bin_nvim_path
+  unset -f _dxy_kludge_treesitter_lib
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # CPYST: You can also run the GUI using the "minimal" plugin profile,
 # e.g.,
 #
