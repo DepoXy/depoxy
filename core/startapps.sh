@@ -101,6 +101,62 @@ _dxy_start_background_apps_macos_activity_monitor () {
   open "${actmon_app}"
 }
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Meh, there's not a better file under core/*.sh for this setup,
+# and I don't want to make another file (I secretly blame having
+# to source so many Bash scripts on startup as the cause of the
+# 5 sec. startup time; at least when I use the HOMEFRIES_PROFILING
+# switch or the completely unscientific HOMEFRIES_LOADINGDOTS prog.,
+# it really seems there's just a large overhead using the `.` command.
+# - Anyway, long story short, this fcn. feels a little misplaced here,
+#   but this file *does* deal with startup "apps", and zoxide *is*" an
+#   application... though not a macOS GUI application, whatever.
+
+# REFER:
+# https://github.com/ajeetdsouza/zoxide#configuration
+#
+# --cmd
+#   - Default commands are `z` and `zi`:
+#       eval "$(zoxide init bash --cmd z)"
+#   - ALTLY: Replace `cd`, and add `cdi`:
+#       eval "$(zoxide init bash --cmd cd)"
+#
+# --hook <HOOK>
+#   - none — Never increment directory's score
+#   - prompt — At every shell prompt
+#   - pwd (default) — Whenever the directory is changed
+#
+# --no-cmd
+#   - Don't define `z` and `zi`.
+#   - See: __zoxide_z, __zoxide_zi
+#
+# _ZO_DATA_DIR
+#   - Default:
+#       ~/.local/share
+#       ~/Library/Application\ Support
+#
+# _ZO_ECHO
+#   - "When set to 1, z will print the matched dir before navigating to it"
+#
+# _ZO_EXCLUDE_DIRS
+#   - Colon-separated globs list
+#   - Defaults to "$HOME"
+#
+# _ZO_FZF_OPTS
+#   - Custom options for fzf
+#
+# _ZO_MAXAGE
+#   - Configure the "aging algorithm", max db entries, defaults 10,000.
+#
+# _ZO_RESOLVE_SYMLINKS
+#   - "When set to 1, z will resolve symlinks before adding dirs to the db"
+_dxy_source_shell_goodies_zoxide () {
+  if command -v zoxide >/dev/null; then
+    eval "$(zoxide init bash)"
+  fi
+}
+
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 _dxy_run_background_openers () {
@@ -124,6 +180,11 @@ _dxy_run_background_openers () {
   unset -f _dxy_start_background_apps_macos_activity_monitor
 }
 
+_dxy_source_shell_goodies () {
+  _dxy_source_shell_goodies_zoxide
+  unset -f _dxy_source_shell_goodies_zoxide
+}
+
 main () {
   unset -f main
 
@@ -138,6 +199,9 @@ main () {
   #   calls.
   _dxy_run_background_openers &
   unset -f _dxy_run_background_openers
+
+  _dxy_source_shell_goodies
+  unset -f _dxy_source_shell_goodies
 }
 
 main "$@"
