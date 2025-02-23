@@ -47,6 +47,10 @@ fa () {
   gvim-open-kindness "${DEPOXY_GVIM_ALTERNATE:-ALPHA}" "" "" "$@"
 }
 
+neovide--no-plugin () {
+  neovide -- --listen "/tmp/nvim.socket-${DEPOXY_GVIM_ALTERNATE:-ALPHA}" --noplugin &
+}
+
 # ***
 
 fss () {
