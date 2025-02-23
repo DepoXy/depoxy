@@ -81,31 +81,6 @@ fss () {
     printf "%s" "${server_id}"
   }
 
-  # - REFER/2025-02-22:
-  #   $ brew install neovim  # v0.10.4
-  #   # /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim
-  #   $ brew install --HEAD neovim  # v0.11.0-dev-{sha}-Homebrew
-  #   # /opt/homebrew/Cellar/neovim/HEAD-228fe50_1/bin/nvim
-  _dxy_print_latest_bin_nvim_path () {
-    nvim_bin="$( \
-      find "${HOMEBREW_PREFIX}/Cellar/neovim/" \
-        -mindepth 1 \
-        -maxdepth 1 \
-        -type d \
-        -not -name "HEAD*" \
-        | sort -V \
-        | tail -1
-    )"
-
-    if [ -z "${nvim_bin}" ]; then
-      >&2 echo "ERROR: Latest nvim release not found under: ${HOMEBREW_PREFIX}/Cellar/neovim/"
-
-      return
-    fi
-
-    printf "%s" "${nvim_bin}/bin/nvim"
-  }
-
   # KLUGE/2025-02-22: There's gotta be a better way to do this...
   # - Or maybe I should just be thankful that this works!
   #
@@ -149,7 +124,7 @@ fss () {
   local nvim_bin=""
   local open_file=""
   if [ -z "${profile}" ]; then
-    nvim_bin="$(_dxy_print_latest_bin_nvim_path)"
+    nvim_bin="$(_dxy_nvim_release_bin)"
     open_file="${NVIM_OPEN_FILE_ON_SPAWN}"
     _dxy_kludge_treesitter_lib
   fi
@@ -171,8 +146,32 @@ EOF
     gvim-open-kindness "${server_id}" "" ""
 
   unset -f _dxy_fss_print_server_id
-  unset -f _dxy_print_latest_bin_nvim_path
   unset -f _dxy_kludge_treesitter_lib
+}
+
+# - REFER/2025-02-22:
+#   $ brew install neovim  # v0.10.4
+#   # /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim
+#   $ brew install --HEAD neovim  # v0.11.0-dev-{sha}-Homebrew
+#   # /opt/homebrew/Cellar/neovim/HEAD-228fe50_1/bin/nvim
+_dxy_nvim_release_bin () {
+  nvim_bin="$( \
+    find "${HOMEBREW_PREFIX}/Cellar/neovim/" \
+      -mindepth 1 \
+      -maxdepth 1 \
+      -type d \
+      -not -name "HEAD*" \
+      | sort -V \
+      | tail -1
+  )"
+
+  if [ -z "${nvim_bin}" ]; then
+    >&2 echo "ERROR: Latest nvim release not found under: ${HOMEBREW_PREFIX}/Cellar/neovim/"
+
+    return
+  fi
+
+  printf "%s" "${nvim_bin}/bin/nvim"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
