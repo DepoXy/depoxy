@@ -44,7 +44,7 @@ _dxy_check_if_omr_infuse_run_since_latest_macos_update () {
     # Reset cursor in case HOMEFRIES_LOADINGDOTS.
     printf '\r'
     echo "$(attr_emphasis)Please run$(attr_reset)" \
-      "\`$(attr_bold)sudo -v; infuse$(attr_reset)\`" \
+      "\`$(attr_bold)sudo -v && infuse$(attr_reset)\`" \
       "$(attr_emphasis)given that$(attr_reset) macOS $(attr_emphasis)was $(attr_reset)"
     echo "          " \
       "   三       三   " \
@@ -52,7 +52,7 @@ _dxy_check_if_omr_infuse_run_since_latest_macos_update () {
     echo "              三       三        ᕕ( ᐛ )ᕗ"
     echo "$(attr_emphasis)Or expressly:$(attr_reset)"
     echo "           " \
-      "$(attr_bold)sudo -v; ~/.depoxy/ambers/home/infuse-platform-macOS$(attr_reset)"
+      "$(attr_bold)sudo -v && ~/.depoxy/ambers/home/infuse-platform-macOS$(attr_reset)"
   fi
 }
 
