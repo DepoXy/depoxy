@@ -5,9 +5,6 @@
 
 # Copyright (c) © 2020-2021 Landon Bouma. All Rights Reserved.
 
-# MAYBE/2021-03-11: Run this file from Bashrc, rather than source,
-# then you can remove the `unset -f` calls.
-
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_start_background_apps_macos_alttab () {
@@ -106,10 +103,8 @@ _dxy_start_background_apps_macos_activity_monitor () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
-  unset -f main
-
-  # System tray items
+_dxy_run_background_openers () {
+  # *** "System tray" (Notification area) items
 
   _dxy_start_background_apps_macos_alttab
   unset -f _dxy_start_background_apps_macos_alttab
@@ -127,6 +122,22 @@ main () {
 
   _dxy_start_background_apps_macos_activity_monitor
   unset -f _dxy_start_background_apps_macos_activity_monitor
+}
+
+main () {
+  unset -f main
+
+  # DUNNO: I'd expect this to print the job ID, e.g.,
+  #   foo () { :; }
+  #   $ foo &
+  #   [1] 10846
+  # but it's silent.
+  # - PFILE/2025-02-23: Not calling this took 0.2s off an over 5 sec.
+  #   startup time... not significant considering the overall time.
+  #   We can at least run in the background since it's just `open`
+  #   calls.
+  _dxy_run_background_openers &
+  unset -f _dxy_run_background_openers
 }
 
 main "$@"
