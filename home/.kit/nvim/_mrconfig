@@ -126,6 +126,26 @@ lib = remote_set starter https://github.com/9mm/dotfiles.git '9mm'
 [${DOPP_KIT:-${HOME}/.kit}/clang/neovim]
 lib = remote_set starter https://github.com/neovim/neovim
 order = 810
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+install =
+  # Assumes user previously ran `brew install neovim` to install the
+  # stable releave. Here we install the "nightly" build (nightly to
+  # us because homebrew-autoupdate will update it, well, every 24h,
+  # so not necessarily "nightly").
+  # - CXREF: See original brew-install task:
+  #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
+  brew unlink neovim
+  brew install --HEAD neovim
+  # USYNC: ~/.depoxy/ambers/core/alias-vim.sh
+  _dxy_kludge_treesitter_lib () {
+    local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
+    local curr="0.25.2/lib/libtree-sitter.0.24.dylib"
+    local base="${HOMEBREW_PREFIX:-/opt/homebrew}/Cellar/tree-sitter"
+    #
+    if ! [ -e "${curr}" ]; then
+      command ln -sfn -- "${base}/${prev}" "${base}/${curr}"
+    fi
+  }
 
 # ========================================================================
 # ------------------------------------------------------------------------
