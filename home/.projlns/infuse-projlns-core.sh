@@ -114,7 +114,12 @@ infuse_projects_links_core_generate_ctags () {
   # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
   local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
 
-  if ! ctags --version 2> /dev/null | head -n 1 | grep -q -e "^Exuberant Ctags"; then
+  # SAVVY: Universal Ctags is continuation of Exuberant Ctags.
+  #   https://ctags.io/
+  if ! ctags --version 2> /dev/null \
+    | head -n 1 \
+    | grep -q -e "^Exuberant Ctags" -e "^Universal Ctags" \
+  ; then
     warn "Skipping ~/.projlns Ctags, because Exuberant Ctags not found."
 
     return 0
