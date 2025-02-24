@@ -23,6 +23,21 @@ DepoXy 🍯 Developer Experience Orchestrator
 
     https://github.blog/2023-06-08-developer-experience-what-is-it-and-why-should-you-care/
 
+## SIMILAR PROJECTS
+
+  Obviously you'll find tons of dot-file repos on GitHub and elsewhere (10s of thousands? 100s?).
+
+  Below are just a few of the notable ones I've found and cared to mention here.
+
+  - Prolific Neovim streamer `@linkarzu`'s publishes their dot-files
+    and a video demonstrating how they deploy them:
+
+    https://github.com/linkarzu/dotfiles-latest
+
+    https://www.youtube.com/@linkarzu
+
+    https://linkarzu.com/posts/2024-macos-workflow/clone-dotfiles/
+
 ## AUTHOR
 
 Copyright (c) 2015-2023 Landon Bouma &lt;depoxy@tallybark.com&gt;
