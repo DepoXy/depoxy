@@ -417,21 +417,21 @@ _dxc_client_autocommit () {
     # CXREF: ~/.depoxy/ambers/bin/vimprojects-filter
     ${ambers_path}/bin/vimprojects-filter
 
-    git_auto_commit_one "home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects" \
+    git_auto_commit_one "home/.kit/nvim/landonb/dubs_project_tray/.vimprojects" \
       -m "${PRIVATE_ACI}: Vimprojects         (Client project-tray drawer)"
     # The "purged" Vimprojects file is created by client-infuse, so file might be absent.
-    if [ -f "home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects--purged" ]; then
-      git_auto_commit_one "home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects--purged" \
+    if [ -f "home/.kit/nvim/landonb/dubs_project_tray/.vimprojects--purged" ]; then
+      git_auto_commit_one "home/.kit/nvim/landonb/dubs_project_tray/.vimprojects--purged" \
         -m "${CLEARED_ACI}: Vimprojects--purged (DepoXy projects only)"
     fi
 
     # Dob, easy-as-pypi, and related Python projects.
-    git_auto_commit_one "home/.kit/nvim/landonb/start/dubs_project_tray/.vimprojects--dob" \
+    git_auto_commit_one "home/.kit/nvim/landonb/dubs_project_tray/.vimprojects--dob" \
       -m "${CLEARED_ACI}: Vimprojects--dob"
   }
   depoxy_client_autocommit_vimprojects
 
-  git_auto_commit_one_update "home/.kit/nvim/landonb/start/dubs_grep_steady/dubs_projects.vim" \
+  git_auto_commit_one_update "home/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim" \
     "" "${PRIVATE_ACI}"
 
   # Commit the deploy-archetype.sh-generated infuse symlink:

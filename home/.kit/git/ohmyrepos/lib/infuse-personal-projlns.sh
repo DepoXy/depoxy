@@ -359,7 +359,7 @@ find_one_git_directory () {
   #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
   #   ~/.kit/sh/home-fries/lib/alias/alias_fd.sh
-  #   ~/.kit/nvim/landonb/start/dubs_project_tray/plugin/dubs_project.vim
+  #   ~/.kit/nvim/landonb/dubs_project_tray/plugin/dubs_project.vim
   # - MAYBE: DRY the -prune list.
   find \
     . \

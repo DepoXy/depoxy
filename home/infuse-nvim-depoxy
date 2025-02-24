@@ -234,7 +234,7 @@ infuse_this_infuser () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 populate_run_generator () {
-  # E.g., .mrinfuse/plugs/landonb/start/dubs_project_tray/generate_links.sh
+  # E.g., .mrinfuse/plugs/landonb/dubs_project_tray/generate_links.sh
   local generator="$1"
 
   local symldir
@@ -264,10 +264,10 @@ populate_run_generator () {
 #   ~/.kit/nvim/junegunn/start/fzf.vim/README.md
 #   ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
 # - You can still find dubs_file_finder under opt/:
-#   ~/.kit/nvim/landonb/opt/dubs_file_finder
+#   ~/.kit/nvim/landonb/.whilom/dubs_file_finder
 
 # CXREF:
-#   ~/.kit/nvim/landonb/opt/dubs_file_finder/plugin/dubs_file_finder.vim
+#   ~/.kit/nvim/landonb/.whilom/dubs_file_finder/plugin/dubs_file_finder.vim
 setup_private_plug_file_dubs_file_finder () {
   # Unexpected, because no longer called from main().
   >&2 echo "ISOFF: dubs_file_finder is disabled! Skipping generator: cmdt_paths/"
@@ -276,10 +276,10 @@ setup_private_plug_file_dubs_file_finder () {
 
   # ***
 
-  local dff_dir="${nvim_repos}/landonb/start/dubs_file_finder"
+  local dff_dir="${nvim_repos}/landonb/dubs_file_finder"
 
   if ! [ -d "${dff_dir}" ]; then
-    dff_dir="${nvim_repos}/landonb/opt/dubs_file_finder"
+    dff_dir="${nvim_repos}/landonb/.whilom/dubs_file_finder"
   fi
 
   if ! [ -d "${dff_dir}" ]; then
@@ -311,7 +311,7 @@ setup_private_plug_file_dubs_file_finder () {
   # that target would create a file system loop, e.g.,:
   #
   #   rg: File system loop found:
-  #     /home/user/.projlns/depoxy-deeplinks/home/user/_vim/plugs/landonb/opt/dubs_file_finder/cmdt_paths
+  #     /home/user/.projlns/depoxy-deeplinks/home/user/_vim/plugs/landonb/.whilom/dubs_file_finder/cmdt_paths
   #   points to an ancestor
   #     /home/user/.projlns/depoxy-deeplinks
   #
@@ -334,15 +334,15 @@ populate_dubs_cuts_generate () {
   # because of the for-loop on find with regex).
 
   # Run this Dubs Vim dubs_cuts generator manually, i.e., execute:
-  #   ~/.kit/nvim/nvim-depoxy/mrinfuse/landonb/start/dubs_project_tray/generate_links.sh
+  #   ~/.kit/nvim/nvim-depoxy/mrinfuse/landonb/dubs_project_tray/generate_links.sh
   # to populate:
-  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
+  #   ~/.depoxy/ambers/home/.kit/nvim/landonb/dubs_project_tray/dubs_cuts/
   # upon which
   #   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
   # depends.
   local generator
   MR_REPO="${nvim_repos}" \
-    generator="$(path_to_mrinfuse_resolve "landonb/start/dubs_project_tray/generate_links.sh")"
+    generator="$(path_to_mrinfuse_resolve "landonb/dubs_project_tray/generate_links.sh")"
   populate_run_generator "${generator}"
 }
 
@@ -356,7 +356,7 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 
   # ***
 
-  local plug_dir="${nvim_repos}/landonb/start/dubs_project_tray"
+  local plug_dir="${nvim_repos}/landonb/dubs_project_tray"
 
   [ -d "${plug_dir}" ] || return 0
 
@@ -365,10 +365,10 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
   cd -- "${plug_dir}"
 
   # Creates:
-  #   ~/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts
+  #   ~/.kit/nvim/landonb/dubs_project_tray/dubs_cuts
   # ALTLY:
   #   symlink_overlay_dir \
-  #     "${HOME}/.depoxy/running/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts"
+  #     "${HOME}/.depoxy/running/home/.kit/nvim/landonb/dubs_project_tray/dubs_cuts"
   MR_REPO="$(pwd -L)" symlink_mrinfuse_dir "dubs_cuts"
 
   cd -- "${before_cd}"
@@ -565,10 +565,10 @@ main () {
   # ISOFF/2025-02-01: Takes a few seconds, and the directory listing
   # isn't very useful.
   # - Would otherwise populate:
-  #   ~/.depoxy/running/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
+  #   ~/.depoxy/running/home/.kit/nvim/landonb/dubs_project_tray/dubs_cuts/
   #
   #   # It might take a few-ten secs to populate
-  #   #   ~/.depoxy/ambers/home/.kit/nvim/landonb/start/dubs_project_tray/dubs_cuts/
+  #   #   ~/.depoxy/ambers/home/.kit/nvim/landonb/dubs_project_tray/dubs_cuts/
   #   # so call last, to make debugging previous calls quicker.
   #   populate_dubs_cuts_generate
   #   setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts
