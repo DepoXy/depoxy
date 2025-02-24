@@ -40,7 +40,7 @@ DepoXy 🍯 Developer Experience Orchestrator
 
 ## AUTHOR
 
-Copyright (c) 2015-2023 Landon Bouma &lt;depoxy@tallybark.com&gt;
+Copyright (c) 2015-2025 Landon Bouma &lt;depoxy@tallybark.com&gt;
 
 This software is released under the MIT license (see `LICENSE` file for more)
 
