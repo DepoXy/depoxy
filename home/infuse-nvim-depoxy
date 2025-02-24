@@ -522,7 +522,10 @@ main () {
 
   wire_dot_config "neovide"
 
-  wire_dot_config "nvim-Lazyman"
+  # ISOFF/2025-02-24: Eh. Seems like a distraction to
+  # demo different Neovim configs!
+  #
+  #  wire_dot_config "nvim-Lazyman"
 
   wire_dot_vimrc_and_autoload
 
