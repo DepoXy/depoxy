@@ -309,7 +309,7 @@
 # npm Registry URL config.
 /.npmrc
 # Node Version Manager
-/.nvm/
+#  /.nvm/
 
 # JAVA JRE something.
 /.oracle_jre_usage/

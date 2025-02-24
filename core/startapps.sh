@@ -113,6 +113,54 @@ _dxy_start_background_apps_macos_activity_monitor () {
 #   but this file *does* deal with startup "apps", and zoxide *is*" an
 #   application... though not a macOS GUI application, whatever.
 
+# COPYD: As deposited in ~/.bashrc by `lazyman.sh` install:
+#   https://github.com/doctorfree/nvim-lazyman
+_dxy_source_shell_goodies_nvim_Lazyman () {
+  # ISOFF/2025-02-24: Load nvim-Lazyman manually if you care...
+
+  # CXREF: nvim-Lazyman installs nvm to its default ~/.nvm location,
+  # but DepoXy includes nvm at ~/.kit/js/nvm, so this is unnecessary
+  # (see core/nvm-setup.sh).
+  if ${HECK_NO:-false}; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  fi
+
+  # ISOFF/2025-02-24: (lb): This nvim-Lazyvim shell file overwrites some
+  # core commands with new aliases, e.g., `tree` and `ls` and aliased to
+  # `lsd` commands. The file also uses unprefixed function names and defines
+  # global vars. (e.g., $have_lsd and $fzfver, which persist in your shell).
+  # - Re: `alias' setter: it changes `tree` to `lsd` (with icons, ew), it
+  #   changes `ls` to `lsd` (I like my simple `ls`! and I find `lsd` more
+  #   distracting), it changes `less` to `bat` (which doesn't use the
+  #   pager so pollutes the terminal history, and it's also more
+  #   distracting than less, e.g., it prints line numbers and horiz/vert.
+  #   border lines), etc.
+  # - I made some edits, like adding function prefixes (`__lazyman`),
+  #   and disabling some of the alias changes. But it seems silly to
+  #   add something with such grubby fingers to the mix... especially
+  #   something I wouldn't run except possibly rarely to demo different
+  #   Neovim distros, and even then it might just be easier to clone and
+  #   call them manually, e.g.,
+  #       NVIM_APPNAME=~/.config/LazyVim nvim
+  #   but I do like the appeal of using Lazyman to mass-install 100+ distros
+  #   to demo... though also I don't have time to demo everything! So it does
+  #   probably make more sense to just do things manually when you care...
+  if ${HECK_NO:-false}; then
+    # Source the Lazyman shell initialization for aliases and nvims selector
+    # shellcheck source=.config/nvim-Lazyman/.lazymanrc
+    [ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
+  fi
+
+  # ISOFF/2025-02-24: (lb): Wires <Ctrl-n> to `neovides`, or `nvims`.
+  if ${HECK_NO:-false}; then
+    # Source the Lazyman .nvimsbind for nvims key binding
+    # shellcheck source=.config/nvim-Lazyman/.nvimsbind
+    [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
+  fi
+}
+
 # REFER:
 # https://github.com/ajeetdsouza/zoxide#configuration
 #
@@ -181,6 +229,9 @@ _dxy_run_background_openers () {
 }
 
 _dxy_source_shell_goodies () {
+  _dxy_source_shell_goodies_nvim_Lazyman
+  unset -f _dxy_source_shell_goodies_nvim_Lazyman
+
   _dxy_source_shell_goodies_zoxide
   unset -f _dxy_source_shell_goodies_zoxide
 }

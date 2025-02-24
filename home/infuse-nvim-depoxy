@@ -522,6 +522,8 @@ main () {
 
   wire_dot_config "neovide"
 
+  wire_dot_config "nvim-Lazyman"
+
   wire_dot_vimrc_and_autoload
 
   infuse_this_infuser

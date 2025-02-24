@@ -53,6 +53,21 @@ neovide--no-plugin () {
 
 # ***
 
+# REFER/2025-02-23 18:37: On NTRST, who knew: You can install
+# Neovim distros in parallel, vs. how I use PROFILE environ to
+# decide in my shim config what to do. E.g.:
+#
+#   # install
+#   git clone https://github.com/NvChad/NvChad   ~/.config/nvchad -d1
+#   git clone https://github.com/LazyVim/starter ~/.config/lazyvim -d1
+#   # run
+#   NVIM_APPNAME=nvchad   nvim
+#   NVIM_APPNAME=lazynvim nvim
+#
+# THANX: funbike
+# https://www.reddit.com/r/neovim/comments/1b0llw7/comment/ks8uqw6/
+# https://www.reddit.com/r/neovim/comments/1b0llw7/nvchad_vs_lazyvim/
+
 fss () {
   local profile="$1"
 
