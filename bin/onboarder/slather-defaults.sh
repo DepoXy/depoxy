@@ -276,7 +276,7 @@ depoxy_configure_remind_task_infuse_and_wireRemotes () {
 
 depoxy_configure_remind_task_reopen_terminals_and_neovims () {
   print_at_end+=("\
-🔳 DepoXy: Restart shells and Vims to realize changes
+🔳 DepoXy: Restart shells, Neovims, etc. to realize changes
    (e.g., restart shells so myrepos-mredit-command picks up new MREDIT_CONFIGS environ,
     etc.)
 ")
