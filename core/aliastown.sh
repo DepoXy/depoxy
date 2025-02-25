@@ -274,12 +274,14 @@ _dxy_wire_aliases_pushd_paths_nvim () {
   pushd_alias_or_warn "cnd" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
 
   # Modern Neovim config (managed by lazy.nvim, uses LazyVim as a base,
-  # incorporates select features from classic vim-depoxy).
-  # LATER/2025-02-24: Remove duplicate bindings. For now, options!
+  #   incorporates select features from classic vim-depoxy).
+  # `cnl` matches the `cn` prefix (">>c<<d ~/.kit/>>n<<vim").
   pushd_alias_or_warn "cnl" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
-  pushd_alias_or_warn "cdnl" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
-  pushd_alias_or_warn "cnb" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
+  # `clz` is probably easier to remember mnemonically.
   pushd_alias_or_warn "clz" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
+  # "Race condition OK!" (The condition being a finger each on either hand
+  #                       drilling for the 'l' and 'z' simultaneously.)
+  pushd_alias_or_warn "czl" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
 
   # Classic Vim plugin sink written in Vimscript. Still works!
   local dxy_plug="${HOME}/.kit/nvim/DepoXy/start/vim-depoxy/plugin"
