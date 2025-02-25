@@ -122,7 +122,7 @@ infuse_projects_links_core_generate_ctags () {
   ; then
     warn "Skipping ~/.projlns Ctags, because Exuberant Ctags not found."
 
-    return 0
+    return 1
   fi
 
   LOG_MSG_NO_NEWLINE=true info "Creating Exuberant Ctags file... "
