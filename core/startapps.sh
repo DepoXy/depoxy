@@ -161,6 +161,8 @@ _dxy_source_shell_goodies_nvim_Lazyman () {
   fi
 }
 
+# USAGE: zoxide --help  # not `z --help`
+#        zoxide edit    # view frecency values, and more
 # REFER:
 # https://github.com/ajeetdsouza/zoxide#configuration
 #
