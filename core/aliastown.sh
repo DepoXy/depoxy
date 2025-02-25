@@ -182,9 +182,6 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   # - DUPES: `cdn` and `cvp` (legacy)
   pushd_alias_or_warn "cdn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
 
-  # - DUPES: `cnd` and `cdnd`.
-  pushd_alias_or_warn "cdnd" "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
-
   # *** ~/.kit/odd — Odd
 
   pushd_alias_or_warn "cdop" "${DOPP_KIT:-${HOME}/.kit}/odd/321open"
@@ -255,96 +252,68 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdtmp" '${TMPDIR:-/tmp}'
 }
 
-_dxy_wire_aliases_pushd_paths_vim () {
-  # Change to Vim directories.
+_dxy_wire_aliases_pushd_paths_nvim () {
+  # Change to Neovim directories.
   #
   # - These aliases try to follow a simple mnemonic:
   #
   #   - Each alias at least starts with a `c`, for 'Change directory'.
   #
-  #   - The following letters in the alias try to match the first
-  #     character of each word (or the first and last word) in the
-  #     directory path.
+  #   - And then two or three letters as they appear in sequence.
   #
-  #   - E.g., `cvp` changes the directory to ~/.kit/nvim
-  #                                             ↑   ↑
-  #   - E.g., `cvs` changes the directory to ~/.kit/nvim/<user>/start
-  #                                             ↑               ↑
+  #   - E.g., `cnd` changes the directory to ~/.kit/nvim/nvim-depoxy
+  #                 ↑                                    ↑    ↑
   #
   # - And though redundant, we also wire `cd`-prefix variants, to match
   #   many of the other cd-jumpers aliased in this file.
 
-  # `cv` would be the ideal mapping, but I use that for `git commit -v`,
-  # which I use far more often than cd'ing to ~/.vim.
+  # HSTRY/2025-01-30: Obsolete now that I've switched (finally!) to Neovim.
   #
-  #   # pushd_alias_or_warn "cv" "${HOME}/.vim"  # ISOFF: `cv` aliases `git cv`
-  #
-  # HSTRY/DCIDE/2023-01-31: Demoing `cvi` and `cvv`. `cvi` makes more sense
-  # mnemonically, but `cvv` gonna be easier to smash out on your keyboard.
-  # - DCIDD/2024-12-12: I've never used `cvi`, so removed.
-  #   - And for some reason, I use `cvv`, not `cdv`;
-  #     but I find myself using `cdvp`, not `cvp`!
-  #
-  # HSTRY/2025-01-30: Now that I've switched (upgraded!) to Neovim,
-  # I expect that I'll rarely use `cvv`...
-  pushd_alias_or_warn "cvv" "${HOME}/.vim"
-  # - ISOFF/2025-01-30: Never used `cdv` anyway.
-  #  pushd_alias_or_warn "cdv" "${HOME}/.vim"
-  #
-  # HSTRY/2025-01-30: Was to ~/.vim/pack, then ~/.vim/plugs for a few days
-  # after I implemented vim-pack and lazy.nvim usage, now obsolete because
-  # Vim/Neovim plugins moved under ~/.kit/nvim (see dupe: `cdkn`).
-  pushd_alias_or_warn "cvp" "${HOME}/.kit/nvim"
-  pushd_alias_or_warn "cdvp" "${HOME}/.kit/nvim"
+  #  pushd_alias_or_warn "cvv" "${HOME}/.vim"
 
-  # FIXME/2025-01-30: Swallow into ~/.kit/nvim/nvim-depoxy Lua.
-  # - Call from plugin-specific lazy.nvim definitions.
+  pushd_alias_or_warn "cnd" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
+
+  # Modern Neovim config (managed by lazy.nvim, uses LazyVim as a base,
+  # incorporates select features from classic vim-depoxy).
+  # LATER/2025-02-24: Remove duplicate bindings. For now, options!
+  pushd_alias_or_warn "cnl" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
+  pushd_alias_or_warn "cdnl" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
+  pushd_alias_or_warn "cnb" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
+  pushd_alias_or_warn "clz" "${DOPP_KIT:-${HOME}/.kit}/nvim/landonb/nvim-lazyb"
+
+  # Classic Vim plugin sink written in Vimscript. Still works!
   local dxy_plug="${HOME}/.kit/nvim/DepoXy/start/vim-depoxy/plugin"
   pushd_alias_or_warn "cvpd" "${dxy_plug}"
-  # - ISOFF/2025-01-30: I found myself using `cvpd`, unsurprisingly.
-  #  pushd_alias_or_warn "cdvpd" "${dxy_plug}"
-
-  # HSTRY/2025-01-30: New alias to new project, expect this to evolve
-  # over the short-term.
-  # - DUPES: `cnd` and `cdnd`.
-  pushd_alias_or_warn "cnd" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
-  # 2025-01-31: Old alias `cvp` → `cnp` ? *Change dirs. Neovim Plugins*
-  pushd_alias_or_warn "cnp" "${DOPP_KIT:-${HOME}/.kit}/nvim/nvim-depoxy"
+  pushd_alias_or_warn "cvd" "${dxy_plug}"
 
   # Are you a Vim plugin author? Here's a convenient pushd to your plugins.
   # - Just set the environ from your private Bashrc, e.g.,
-  #     export DEPOXY_CVS_ALIAS_VIM_PLUG_ORG=yourusername
+  #     export DEPOXY_CD_ALIAS_NVIM_PLUG_ORG=yourusername
   # - Mnemonic: Cd Vim (user plugins) Start (directory)
   #   - Though because using Vim plugin manager (vim-pack, lazy.nvim),
   #     and no longer using ~/.vim/pack, the start/ directory doesn't
   #     technically matter. But idea is still valid, these are active,
   #     automatically loaded plugins.
-  local cvs_alias="cvs"
-  if [ -z "${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}" ]; then
-    if ! type "${cvs_alias}" > /dev/null 2>&1; then
-      eval "alias ${cvs_alias}='echo \"Please set DEPOXY_CVS_ALIAS_VIM_PLUG_ORG to enable this alias\"'"
+  # HSTRY/2025-02-24: `cvs` is the old Vim mnemonic:
+  #   - I.e., `cvs` changes the directory to ~/.vim/plug/<user>/start
+  #                 ↑                           ↑               ↑
+  #   local cd_alias="cvs"
+  # - Let's try `cnu`, for ~/.nvim/<user>
+  #              ↑            ↑     ↑
+  local cd_alias="cvs"
+  if [ -z "${DEPOXY_CD_ALIAS_NVIM_PLUG_ORG}" ]; then
+    if ! type "${cd_alias}" > /dev/null 2>&1; then
+      eval "alias ${cd_alias}='echo \"Please set DEPOXY_CD_ALIAS_NVIM_PLUG_ORG to enable this alias\"'"
     else
-      >&2 echo "WARNING: Cannot alias: “${cvs_alias}” already assigned"
+      >&2 echo "WARNING: Cannot alias: “${cd_alias}” already assigned"
     fi
   else
-    local user_plug="${HOME}/.kit/nvim/${DEPOXY_CVS_ALIAS_VIM_PLUG_ORG}/start"
+    local user_plug="${HOME}/.kit/nvim/${DEPOXY_CD_ALIAS_NVIM_PLUG_ORG}/start"
 
-    # Wire "cvs".
-    pushd_alias_or_warn "${cvs_alias}" "${user_plug}"
-    # Wire "cdvs": for parity with cd-prefixed aliases.
-    pushd_alias_or_warn "cdvs" "${user_plug}"
-
-    # Alternatively, use "User", not "Start" make better mnemonic sense?
-    # Wire "cvpu": for parity with cvp-prefixed aliases.
-    # - Mnemonic: Cd Vim Plugins User plugins directory.
-    pushd_alias_or_warn "cvpu" "${user_plug}"
-    # Wire "cdvpu": for parity with cd-prefixed aliases.
-    pushd_alias_or_warn "cdvpu" "${user_plug}"
-
-    # SKIPD: Considered `cvu`, but we have too many aliases as it is...
-    # - Mnemonic: Cd Vim User (plugin start/ directory)
-    #  pushd_alias_or_warn "cvu" "${user_plug}"
-    #  pushd_alias_or_warn "cdvu" "${user_plug}"
+    # Wire "cnu".
+    pushd_alias_or_warn "${cd_alias}" "${user_plug}"
+    # Wire "cdnu": for parity with cd-prefixed aliases.
+    pushd_alias_or_warn "cdnu" "${user_plug}"
   fi
 }
 
@@ -455,8 +424,8 @@ _dxy_wire_aliases () {
   _dxy_wire_aliases_pushd_paths_cdprefixed
   unset -f _dxy_wire_aliases_pushd_paths_cdprefixed
 
-  _dxy_wire_aliases_pushd_paths_vim
-  unset -f _dxy_wire_aliases_pushd_paths_vim
+  _dxy_wire_aliases_pushd_paths_nvim
+  unset -f _dxy_wire_aliases_pushd_paths_nvim
 
   _dxy_wire_aliases_pushd_paths_kit
   unset -f _dxy_wire_aliases_pushd_paths_kit
