@@ -25,8 +25,14 @@
 # -> ../../../../bin/macOS/launchers/
 /home/.config/karabiner/assets/launchers
 
-# -> /private/user/.kit/nvim/nvim-depoxy/.config/nvim/
+# -> ~/.kit/nvim/nvim-depoxy/.config/nvim/
 /home/.config/nvim
+# -> ~/.kit/nvim/nvim-depoxy/.config/nvim/
+/home/.config/nvim_depoxy
+# -> ~/.kit/nvim/landonb/nvim-lazyb/
+/home/.config/nvim_lazyb
+# -> ~/.kit/nvim/doctorfree/nvim-lazyman/
+/home/.config/nvim-Lazyman
 
 # Symlinks: home/.config/tig/* -> :
 #   cfg-tgn-*         -> ~/.kit/git/tig-newtons/tig/*
