@@ -528,8 +528,8 @@ main () {
   #  wire_dot_config "nvim-Lazyman"
 
   # USAGE: Isolated Neovim environments:
-  #   NVIM_APPNAME=nvim_dxy nvim
-  #   NVIM_APPNAME=nvim_lzy nvim
+  #   NVIM_APPNAME=nvim_depoxy nvim
+  #   NVIM_APPNAME=nvim_lazyb nvim
   wire_dot_config "nvim_depoxy"
   wire_dot_config "nvim_lazyb"
 
