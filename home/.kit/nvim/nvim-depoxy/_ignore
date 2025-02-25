@@ -14,6 +14,12 @@
 # Generated spell file used by Vim (ignored anyway because binary).
 /.config/nvim/spell/en.utf-8.add.spl
 
+# KLUGE: FIXME/2025-02-24: Remove kludge from bottom of launcher:
+#   ~/.kit/nvim/nvim-depoxy/.config/nvim/init.lua
+# - Now that NVIM_APPNAME being used instead.
+# -> /private/user/.kit/nvim/landonb/nvim-lazyb/lua/plugins/
+/.config/nvim/lua/plugins
+
 # -> ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/specs/group--depoxy-client.lua
 /.config/nvim/lua/specs/group--depoxy-client.lua
 
