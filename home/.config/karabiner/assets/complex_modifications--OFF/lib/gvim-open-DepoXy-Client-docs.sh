@@ -72,9 +72,9 @@ set_path_vars () {
 
   PATH="${kindness_bin}:${PATH}"
 
-  # YOU: Just a reminder to set gvim's --servername if you prefer
-  #      something different.
+  # USAGE: Use an environ to pick a different target (Neo)vim instance, e.g.,
   # 
+  #   NVIM_OPEN_SOCKETNAME=${NVIM_OPEN_SOCKETNAME:-SAMPI}
   #   GVIM_OPEN_SERVERNAME=${GVIM_OPEN_SERVERNAME:-SAMPI}
 }
 
