@@ -302,7 +302,7 @@ _dxy_wire_aliases_pushd_paths_nvim () {
   #   local cd_alias="cvs"
   # - Let's try `cnu`, for ~/.nvim/<user>
   #              ↑            ↑     ↑
-  local cd_alias="cvs"
+  local cd_alias="cnu"
   if [ -z "${DEPOXY_CD_ALIAS_NVIM_PLUG_ORG}" ]; then
     if ! type "${cd_alias}" > /dev/null 2>&1; then
       eval "alias ${cd_alias}='echo \"Please set DEPOXY_CD_ALIAS_NVIM_PLUG_ORG to enable this alias\"'"
@@ -310,13 +310,21 @@ _dxy_wire_aliases_pushd_paths_nvim () {
       >&2 echo "WARNING: Cannot alias: “${cd_alias}” already assigned"
     fi
   else
-    local user_plug="${HOME}/.kit/nvim/${DEPOXY_CD_ALIAS_NVIM_PLUG_ORG}/start"
+    local user_plug="${HOME}/.kit/nvim/${DEPOXY_CD_ALIAS_NVIM_PLUG_ORG}"
 
     # Wire "cnu".
     pushd_alias_or_warn "${cd_alias}" "${user_plug}"
     # Wire "cdnu": for parity with cd-prefixed aliases.
     pushd_alias_or_warn "cdnu" "${user_plug}"
+    # HSTRY/2025-02-27: Old alias, for muscle memory...
+    pushd_alias_or_warn "cvs" "${user_plug}"
   fi
+
+  # USAGE/2025-02-25: So you can search plugin sources as you learn LazyVim.
+  #  pushd_alias_or_warn "cdsnl" "${HOME}/.local/share/nvim/lazy"
+  #  pushd_alias_or_warn "cdsnl" "${HOME}/.local/share/nvim_depoxy/lazy"
+  pushd_alias_or_warn "cdsnl" "${HOME}/.local/share/nvim_lazyb/lazy"
+  pushd_alias_or_warn "cdnl" "${HOME}/.local/share/nvim_lazyb/lazy"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
