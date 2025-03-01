@@ -190,6 +190,21 @@ setup_nvim_lazyb_lua_config () {
 
 # ***
 
+# CXREF:
+# ~/.depoxy/ambers/home/.local/share/nvim_lazyb/lazy/_ignore
+
+setup_nvim_lazyb_lazy_ignore () {
+  local before_cd="$(pwd -L)"
+
+  cd -- "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim_lazyb/lazy"
+
+  MR_REPO="$(pwd -L)" link_private_ignore_
+
+  cd -- "${before_cd}"
+}
+
+# ***
+
 # Link ~/.config/<target>/ → ~/.depoxy/ambers/home/.config/<target>/
 wire_dot_config () {
   local dir="$1"
@@ -527,6 +542,8 @@ main () {
   setup_nvim_depoxy_lua_config
 
   setup_nvim_lazyb_lua_config
+
+  setup_nvim_lazyb_lazy_ignore
 
   wire_dot_config "nvim"
 
