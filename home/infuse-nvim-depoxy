@@ -150,30 +150,40 @@ setup_private_grep_ignore () {
 
 # ***
 
-# CXREF:
-# ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/config/profile-client.lua
-
-setup_nvim_depoxy_lua_profile () {
+setup_nvim_depoxy_lua_config () {
   local before_cd="$(pwd -L)"
 
   cd -- "${nvim_repos}/nvim-depoxy"
 
+  # CXREF:
+  # ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/config/profile-client.lua
   MR_REPO="$(pwd -L)" symlink_mrinfuse_file ".config/nvim/lua/config/profile-client.lua"
+
+  # CXREF:
+  # ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/specs/group--depoxy-client.lua
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file ".config/nvim/lua/specs/group--depoxy-client.lua"
 
   cd -- "${before_cd}"
 }
 
 # ***
 
-# CXREF:
-# ~/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/nvim/lua/specs/group--depoxy-client.lua
-
-setup_nvim_depoxy_lua_specs () {
+setup_nvim_lazyb_lua_config () {
   local before_cd="$(pwd -L)"
 
-  cd -- "${nvim_repos}/nvim-depoxy"
+  cd -- "${nvim_repos}/landonb/nvim-lazyb"
 
-  MR_REPO="$(pwd -L)" symlink_mrinfuse_file ".config/nvim/lua/specs/group--depoxy-client.lua"
+  # CXREF:
+  # ~/.depoxy/ambers/home/.kit/nvim/landonb/nvim-lazyb/lua/config/keymaps-client.lua
+  # ~/.depoxy/ambers/home/.kit/nvim/landonb/nvim-lazyb/lua/config/options-client.lua
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file "lua/config/keymaps-client.lua"
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file "lua/config/options-client.lua"
+
+  # CXREF:
+  # ~/.depoxy/running/home/.kit/nvim/landonb/nvim-lazyb/lua/config/keymaps-private.lua
+  # ~/.depoxy/running/home/.kit/nvim/landonb/nvim-lazyb/lua/config/options-private.lua
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file "lua/config/keymaps-private.lua"
+  MR_REPO="$(pwd -L)" symlink_mrinfuse_file "lua/config/options-private.lua"
 
   cd -- "${before_cd}"
 }
@@ -514,9 +524,9 @@ main () {
 
   setup_private_grep_ignore
 
-  setup_nvim_depoxy_lua_profile
+  setup_nvim_depoxy_lua_config
 
-  setup_nvim_depoxy_lua_specs
+  setup_nvim_lazyb_lua_config
 
   wire_dot_config "nvim"
 
@@ -530,7 +540,9 @@ main () {
   # USAGE: Isolated Neovim environments:
   #   NVIM_APPNAME=nvim_depoxy nvim
   #   NVIM_APPNAME=nvim_lazyb nvim
+  # WIRES: ~/.config/nvim_depoxy → ~/.kit/nvim/nvim-depoxy/.config/nvim/
   wire_dot_config "nvim_depoxy"
+  # WIRES: ~/.config/nvim_lazyb → ~/.kit/nvim/landonb/nvim-lazyb/
   wire_dot_config "nvim_lazyb"
 
   wire_dot_vimrc_and_autoload
