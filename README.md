@@ -65,6 +65,12 @@ DepoXy 🍯 Developer Experience Orchestrator
 
     https://linkarzu.com/posts/2024-macos-workflow/clone-dotfiles/
 
+  - *chezmoi* — *Manage your dotfiles across multiple diverse machines, securely.*
+
+    https://www.chezmoi.io/
+
+    https://www.chezmoi.io/comparison-table/
+
 ## AUTHOR
 
 Copyright (c) 2015-2025 Landon Bouma &lt;depoxy@tallybark.com&gt;
