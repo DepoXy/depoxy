@@ -1,0 +1,16 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=gitignore
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+/.git/
+
+# -> ~/.kit/nvim/nvim-depoxy/.config/nvim/
+/home/.config/nvim
+# -> ~/.kit/nvim/nvim-depoxy/.config/nvim/
+/home/.config/nvim_depoxy
+# -> ~/.kit/nvim/landonb/nvim-lazyb/
+/home/.config/nvim_lazyb
+# -> ~/.kit/nvim/doctorfree/nvim-lazyman/
+/home/.config/nvim-Lazyman
+
