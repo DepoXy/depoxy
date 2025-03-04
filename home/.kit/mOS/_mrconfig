@@ -148,11 +148,10 @@ installDarwin =
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# REFER/2024-12-03 03:50: See logs for homebrew-autoupdate:
+# REFER/2024-12-03: See logs for homebrew-autoupdate:
 #
-#   $ ll ~/Library/Logs/com.github.domt4.homebrew-autoupdate/*.out
-#   -rw-r--r-- 1 puck staff 30M Dec  2 03:55
-#     /Users/puck/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
+#   $ ls ~/Library/Logs/com.github.domt4.homebrew-autoupdate/*.out
+#   ~/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
 #
 # - You'll find the `mr -d / infuse` output therein, too.
 
@@ -203,7 +202,7 @@ install =
   #     brew autoupdate.rb --help
   #     # Run immediately:
   #     # - From shell (Skips OMR `infuse`):
-  #     brew upgrade 
+  #     brew upgrade
   #     # - Via launchd (Includes OMR `infuse`):
   #     brew autoupdate stop
   #     brew autoupdate start 86400 --upgrade --immediate
