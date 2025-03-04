@@ -185,6 +185,19 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
         -- Use user Unicode character 0xE016
         return true, { e:setUnicodeString("") }
       end
+    elseif e:getFlags():containExactly({ "ctrl" }) then
+      if false then
+
+      -- <Ctrl-;> :BufferRingBackward
+      elseif e:getKeyCode() == hs.keycodes.map[";"] then
+        -- Use PUA Unicode character 0xE01A
+        return true, { e:setUnicodeString("") }
+
+      -- <Ctrl-'> :BufferRingForward
+      elseif e:getKeyCode() == hs.keycodes.map["'"] then
+        -- Use PUA Unicode character 0xE01B
+        return true, { e:setUnicodeString("") }
+      end
     end
 
     -- Return false to propagate event.

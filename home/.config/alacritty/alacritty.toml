@@ -415,8 +415,8 @@ bindings = [
   #   i      j      k      l      m      n      o      p 
   # \uE010  \uE011  \uE012  \uE013  \uE014  \uE015  \uE016  \uE017
   #   q      r      s      t      u      v      w      x 
-  # \uE018  \uE019
-  #   y      z  
+  # \uE018  \uE019  \uE01A  \uE01B
+  #   y      z      ;      ' 
   { key = "A", mods = "Control|Shift", chars = "\uE000" },
   { key = "B", mods = "Control|Shift", chars = "\uE001" },
   # SKIPD: <Shift-Control-C> is copy (see above).
@@ -447,6 +447,8 @@ bindings = [
   { key = "X", mods = "Control|Shift", chars = "\uE017" },
   { key = "Y", mods = "Control|Shift", chars = "\uE018" },
   { key = "Z", mods = "Control|Shift", chars = "\uE019" },
+  { key = ";", mods = "Control", chars = "\uE01A" },
+  { key = "'", mods = "Control", chars = "\uE01B" },
 
   # ***
 
