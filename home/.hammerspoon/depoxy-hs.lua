@@ -152,6 +152,12 @@ ignore_hotkey_slack(shift_ctrl_r)
 
 local macvim_shift_ctrl_kludge_get_eventtap = function()
   return hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
+    -- USAGE: Uncomment to debug/pry (see Hammyspoony for tableJoin def):
+    --    local unmodified = false
+    --    hs.alert.show("CHARS: " .. e:getCharacters(unmodified))
+    --    hs.alert.show("FLAGS: " .. tableJoin(e:getFlags(), ", "))
+    --    hs.alert.show("KEYCD: " .. e:getKeyCode())
+
     -- Returns true to delete original event, followed by the new event.
     if e:getFlags():containExactly({ "shift", "ctrl" }) then
       if false then
