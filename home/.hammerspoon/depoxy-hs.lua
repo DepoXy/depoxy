@@ -175,6 +175,11 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
         --    inoremap  <C-O>:call ...
         return true, { e:setUnicodeString("") }
 
+      -- <Shift-Ctrl-U> Scrolls down
+      elseif e:getKeyCode() == hs.keycodes.map["u"] then
+        -- Use user Unicode character 0xE014
+        return true, { e:setUnicodeString("") }
+
       -- <Shift-Ctrl-W> Delete-to-beginning-of-line
       elseif e:getKeyCode() == hs.keycodes.map["w"] then
         -- Use user Unicode character 0xE016
