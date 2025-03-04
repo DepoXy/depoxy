@@ -72,7 +72,7 @@
 #
 # - Note the caller uses `start_with?`, not `.eql?`, to identify the
 #   shims paths to remove (but dunno why it has to, perhaps newlines?).
-# 
+#
 # - Original PATH (caller's context) is user's PATH when they call `brew`
 #   command, so includes whatever changes DepoXy or Homefries made to it;
 #   or it's launchd's PATH and includes none of that.
