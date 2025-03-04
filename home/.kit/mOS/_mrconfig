@@ -257,7 +257,7 @@ install =
   # NOTED: "Homebrew will now automatically update every 24 hours."
   # - Note also the daemon starts on system boot.
   # NOTED: Also never an issue with this:
-  # - "WARNING: You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
+  # - "WARNING You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
   #    gem executables will not run."
 # Add the one file we've edited to Vim grep-steady search path.
 # - CXREF:
