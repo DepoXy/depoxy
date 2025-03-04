@@ -194,6 +194,8 @@ end
 
 appTapAttach:registerApptap("MacVim", macvim_shift_ctrl_kludge_get_eventtap)
 
+appTapAttach:registerApptap("neovide", macvim_shift_ctrl_kludge_get_eventtap)
+
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Application blocklist: Blanket hotkey disablement for select apps.
