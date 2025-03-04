@@ -109,14 +109,14 @@ dxy_homebrew_autoupdate () {
     || retcode=$?
 
   if [ ${retcode} -ne 0 ] || [ ${update_status} -ne 0 ]; then
-    local what_failed="<ul>"
+    local what_failed=""
     local rerun_hint=""
     if [ ${retcode} -ne 0 ]; then
-      what_failed="<br/>
+      what_failed="${what_failed}
 <li>\`<tt class=\"mono\">mr</tt>\` failed!! (exit: ${retcode})</li>"
     fi
     if [ ${update_status} -ne 0 ]; then
-      what_failed="
+      what_failed="${what_failed}
 <li>\`<tt class=\"mono\">brew_autoupdate</tt>\` failed!! (exit: ${update_status})</li>"
       rerun_hint="
 <ul><li>Try running manually (it might just need sudo):</li>
@@ -142,7 +142,10 @@ Content-Type: text/html
 </style>
 
 <p style="color:black">
-Hey bedhead! 🤦${what_failed}${rerun_hint}</ul>
+Hey bedhead! 🤦
+</p>
+<p style="color:black">
+<ul>${what_failed}${rerun_hint}</ul>
 </p>
 
 <p style="color:black">
