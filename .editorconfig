@@ -1,0 +1,26 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=toml
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# REFER:
+# http://editorconfig.org
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+charset = utf-8
+end_of_line = lf
+
+[LICENSE]
+insert_final_newline = false
+
+[*.lua]
+# SAVVY: StyLua always removes trailing newlines.
+# - I.e., it ignores this option. Ah, well....
+insert_final_newline = true
+
