@@ -7,7 +7,7 @@
 -- CXREF: Optional user config:
 -- ~/.depoxy/running/home/.kit/nvim/landonb/nvim-lazyb/lua/config/options-private.lua
 pcall(function()
-	require("config.options-private").setup()
+  require("config.options-private").setup()
 end)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

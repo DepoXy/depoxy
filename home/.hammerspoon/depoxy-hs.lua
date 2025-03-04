@@ -34,20 +34,18 @@
 -- ~/.depoxy/running/home/.config/depoxy/depoxyrc
 
 gvim_open_kindness = function(path)
-  local task = hs.task.new(
-    "/bin/dash",
-    nil,
-    function() return false end,
-    {
-      '-c',
-      [[
-        [ -f ~/.config/depoxy/depoxyrc ] \
-        && . ~/.config/depoxy/depoxyrc \
-        && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
-          -- ]] .. path .. [[
-      ]],
-    }
-  )
+  -- stylua: ignore
+  local task = hs.task.new("/bin/dash", nil, function()
+    return false
+  end, {
+    "-c",
+    [[
+      [ -f ~/.config/depoxy/depoxyrc ] \
+      && . ~/.config/depoxy/depoxyrc \
+      && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
+        -- ]] .. path .. [[
+    ]],
+  })
   task:start()
 end
 
@@ -57,22 +55,24 @@ end
 -- - CXREF: ~/.kit/txt/emoji-lookup/emoji-lookup.rst
 
 -- BNDNG: <Cmd-U>
-local cmd_u = hs.hotkey.bind({"cmd"}, "U", function()
+local cmd_u = hs.hotkey.bind({ "cmd" }, "U", function()
   gvim_open_kindness("${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup/emoji-lookup.rst")
 end)
+
+-------
 
 -- Systemwide — Foreground “dob” window (Cmd-d)
 -- - CXREF: ~/.depoxy/ambers/bin/macOS/launchers/alacritty-front-window-dob.osa
 
 -- BNDNG: <Cmd-D>
-local cmd_d = hs.hotkey.bind({"cmd"}, "D", function()
-  local dob_window = hs.window.find('dob edit')
+local cmd_d = hs.hotkey.bind({ "cmd" }, "D", function()
+  local dob_window = hs.window.find("dob edit")
 
   if not dob_window then
     -- SAVVY: The window title is controlled by Homefries:
     --   tmux_conf_theme_terminal_title='#T ┇ #{=3:session_name}'
     -- - CXREF: ~/.kit/sh/home-fries/.tmux.conf.local
-    dob_window = hs.window.find('┇ ham')
+    dob_window = hs.window.find("┇ ham")
   end
 
   if dob_window then
@@ -106,15 +106,19 @@ end)
 -- - CXREF: ~/.kit/mOS/macOS-Hammyspoony/.hammerspoon/init.lua
 
 -- BNDNG: <Shift-Alt-R>
-local shift_alt_r = hs.hotkey.bind({"shift", "alt"}, "R", function()
-  gvim_open_kindness("${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua")
+local shift_alt_r = hs.hotkey.bind({ "shift", "alt" }, "R", function()
+  gvim_open_kindness(
+    "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/.hammerspoon/init.lua"
+  )
 end)
 
 -- More meta (CXREF: this file)
 
 -- BNDNG: <Shift-Cmd-R>
-local shift_cmd_r = hs.hotkey.bind({"shift", "cmd"}, "R", function()
-  gvim_open_kindness("${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.hammerspoon/depoxy-hs.lua")
+local shift_cmd_r = hs.hotkey.bind({ "shift", "cmd" }, "R", function()
+  gvim_open_kindness(
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.hammerspoon/depoxy-hs.lua"
+  )
 end)
 
 ignore_hotkey_slack(shift_cmd_r)
@@ -124,8 +128,10 @@ ignore_hotkey_slack(shift_cmd_r)
 -- - CXREF: ~/.depoxy/running/home/.hammerspoon/client-hs.lua
 
 -- BNDNG: <Shift-Ctrl-R>
-local shift_ctrl_r = hs.hotkey.bind({"shift", "ctrl"}, "R", function()
-  gvim_open_kindness("${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua")
+local shift_ctrl_r = hs.hotkey.bind({ "shift", "ctrl" }, "R", function()
+  gvim_open_kindness(
+    "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}/home/.hammerspoon/client-hs.lua"
+  )
 end)
 
 ignore_hotkey_slack(shift_ctrl_r)
@@ -145,46 +151,37 @@ ignore_hotkey_slack(shift_ctrl_r)
 --     ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
 
 local macvim_shift_ctrl_kludge_get_eventtap = function()
-  return hs.eventtap.new(
-    {hs.eventtap.event.types.keyDown},
-    function(e)
-      -- Returns true to delete original event, followed by the new event.
-      if e:getFlags():containExactly({"shift", "ctrl"}) then
-        if false then
+  return hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
+    -- Returns true to delete original event, followed by the new event.
+    if e:getFlags():containExactly({ "shift", "ctrl" }) then
+      if false then
 
-        -- Note that generating a new key event using the integer
-        -- character value doesn't work, e.g., where 0xE003 = 57347:
-        --    return true, {hs.eventtap.event.newKeyEvent(57347, true)}  -- WRONG
-        -- Fortunately we can setUnicodeString() on the current event
-        -- using the literal character, and then return it.
+      -- Note that generating a new key event using the integer
+      -- character value doesn't work, e.g., where 0xE003 = 57347:
+      --    return true, {hs.eventtap.event.newKeyEvent(57347, true)}  -- WRONG
+      -- Fortunately we can setUnicodeString() on the current event
+      -- using the literal character, and then return it.
 
-        -- <Shift-Ctrl-D> Indent line
-        elseif e:getKeyCode() == hs.keycodes.map["d"] then
-          -- Use user Unicode character 0xE003
-          -- - Then in Vimrc, e.g.,
-          --    inoremap  <C-O>:call ...
-          return true, {e:setUnicodeString("")}
+      -- <Shift-Ctrl-D> Indent line
+      elseif e:getKeyCode() == hs.keycodes.map["d"] then
+        -- Use user Unicode character 0xE003
+        -- - Then in Vimrc, e.g.,
+        --    inoremap  <C-O>:call ...
+        return true, { e:setUnicodeString("") }
 
-        -- <Shift-Ctrl-W> Delete-to-beginning-of-line
-        elseif e:getKeyCode() == hs.keycodes.map["w"] then
-          -- Use user Unicode character 0xE016
-          -- - Then in Vimrc, e.g.,
-          --    inoremap  <C-O>:call ...
-          return true, {e:setUnicodeString("")}
-
-        end
+      -- <Shift-Ctrl-W> Delete-to-beginning-of-line
+      elseif e:getKeyCode() == hs.keycodes.map["w"] then
+        -- Use user Unicode character 0xE016
+        return true, { e:setUnicodeString("") }
       end
-
-      -- Return false to propagate event.
-      return false
     end
-  )
+
+    -- Return false to propagate event.
+    return false
+  end)
 end
 
-appTapAttach:registerApptap(
-  "MacVim",
-  macvim_shift_ctrl_kludge_get_eventtap
-)
+appTapAttach:registerApptap("MacVim", macvim_shift_ctrl_kludge_get_eventtap)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -202,4 +199,3 @@ local allHotkeys = {
 appTapDisableHotkeys:registerHotkeys(allHotkeys)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-

@@ -1,0 +1,27 @@
+# vim:tw=0:ts=2:sw=2:et:norl:ft=toml
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# REFER: Default config:
+# https://github.com/JohnnyMorganz/StyLua#options
+#
+#   syntax = "All"
+#   column_width = 120
+#   line_endings = "Unix"
+#   indent_type = "Tabs"
+#   indent_width = 4
+#   quote_style = "AutoPreferDouble"
+#   call_parentheses = "Always"
+#   collapse_simple_statement = "Never"
+#   space_after_function_names = "Never"
+#
+#   [sort_requires]
+#   enabled = false
+
+# SAVVY: Apparently no option to control trailing newlines.
+
+column_width = 90
+indent_type = "Spaces"
+indent_width = 2
+
