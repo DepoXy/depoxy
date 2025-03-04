@@ -43,7 +43,7 @@ gvim_open_kindness = function(path)
       [ -f ~/.config/depoxy/depoxyrc ] \
       && . ~/.config/depoxy/depoxyrc \
       && "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/gvim-open-kindness/bin/gvim-open-kindness" \
-        -- ]] .. path .. [[
+        -- "]] .. path .. [["
     ]],
   })
   task:start()
