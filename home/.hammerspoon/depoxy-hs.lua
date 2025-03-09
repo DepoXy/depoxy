@@ -190,6 +190,11 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
       elseif e:getKeyCode() == hs.keycodes.map["w"] then
         -- Use user Unicode character 0xE016
         return true, { e:setUnicodeString("") }
+
+      -- <Shift-Ctrl-\> (Neo)vim MRU window (both modes)
+      elseif e:getKeyCode() == hs.keycodes.map["\\"] then
+        -- Use user Unicode character 0xE01C
+        return true, { e:setUnicodeString("") }
       end
     elseif e:getFlags():containExactly({ "ctrl" }) then
       if false then
