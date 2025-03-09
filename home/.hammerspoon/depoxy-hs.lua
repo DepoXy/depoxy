@@ -162,25 +162,26 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
     if e:getFlags():containExactly({ "shift", "ctrl" }) then
       if false then
 
-      -- Note that generating a new key event using the integer
-      -- character value doesn't work, e.g., where 0xE003 = 57347:
-      --    return true, {hs.eventtap.event.newKeyEvent(57347, true)}  -- WRONG
-      -- Fortunately we can setUnicodeString() on the current event
-      -- using the literal character, and then return it.
+        -- Note that generating a new key event using the integer
+        -- character value doesn't work, e.g., where 0xE003 = 57347:
+        --    return true, {hs.eventtap.event.newKeyEvent(57347, true)}  -- WRONG
+        -- Fortunately we can setUnicodeString() on the current event
+        -- using the literal character, and then return it.
 
-      -- <Shift-Ctrl-D> Indent line
+        -- <Shift-Ctrl-D> Indent line (Insert mode, to match <Ctrl-D> dedent;
+        --                             Normal mode <C-d> pages down)
       elseif e:getKeyCode() == hs.keycodes.map["d"] then
         -- Use user Unicode character 0xE003
         -- - Then in Vimrc, e.g.,
         --    inoremap  <C-O>:call ...
         return true, { e:setUnicodeString("") }
 
-      -- <Shift-Ctrl-U> Scrolls down
+      -- <Shift-Ctrl-U> Scrolls down one page (both modes)
       elseif e:getKeyCode() == hs.keycodes.map["u"] then
         -- Use user Unicode character 0xE014
         return true, { e:setUnicodeString("") }
 
-      -- <Shift-Ctrl-W> Delete-to-beginning-of-line
+      -- <Shift-Ctrl-W> Delete-to-beginning-of-line (both modes)
       elseif e:getKeyCode() == hs.keycodes.map["w"] then
         -- Use user Unicode character 0xE016
         return true, { e:setUnicodeString("") }
