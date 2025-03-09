@@ -104,7 +104,7 @@ SETUP:
 
         ~/.depoxy/ambers/bin/weather.sh
 
-- SAVVY: Press ``<Shift-Ctrl-Alt-C>`` to show the Notification Center,
+- SAVVY: Press ``<Shift-Ctrl-Cmd-C>`` to show the Notification Center,
   which has a weather forecast widget — at least if you setup the
   Notification Center as recommended by the macOS ONBRD document:
 
