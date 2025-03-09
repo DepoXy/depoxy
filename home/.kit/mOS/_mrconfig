@@ -312,6 +312,11 @@ infuse = link_private_exclude "$@"
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony]
 lib = remote_set publish https://github.com/DepoXy/macOS-Hammyspoony.git
 order = 481
+infuse =
+  link_private_exclude "$@"
+  symlink_mrinfuse_file ".luarc.json"
+  # SPIKE: Investigate neoconf plugin, see if you'd want to use.
+  symlink_mrinfuse_file ".neoconf.json--OFF"
 
 # ***
 

@@ -1,0 +1,8 @@
+{
+  "Lua.workspace.library": [
+    "~/.kit/mOS/hammerspoons/Source/EmmyLua.spoon/annotations",
+    "~/.kit/mOS/macOS-Hammyspoony/.hammerspoon",
+    "~/.kit/mOS/macOS-Hammyspoony/Source/FrillsAlacrittyAndTerminal.spoon",
+    "~/.kit/mOS/macOS-Hammyspoony/Source/?"
+  ]
+}
