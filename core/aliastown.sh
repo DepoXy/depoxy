@@ -287,6 +287,7 @@ _dxy_wire_aliases_pushd_paths_nvim () {
   local dxy_plug="${HOME}/.kit/nvim/DepoXy/start/vim-depoxy/plugin"
   pushd_alias_or_warn "cvpd" "${dxy_plug}"
   pushd_alias_or_warn "cvd" "${dxy_plug}"
+  pushd_alias_or_warn "cndp" "${dxy_plug}"
 
   # Are you a Vim plugin author? Here's a convenient pushd to your plugins.
   # - Just set the environ from your private Bashrc, e.g.,
@@ -325,6 +326,7 @@ _dxy_wire_aliases_pushd_paths_nvim () {
   #  pushd_alias_or_warn "cdsnl" "${HOME}/.local/share/nvim_depoxy/lazy"
   pushd_alias_or_warn "cdsnl" "${HOME}/.local/share/nvim_lazyb/lazy"
   pushd_alias_or_warn "cdnl" "${HOME}/.local/share/nvim_lazyb/lazy"
+  pushd_alias_or_warn "cdlz" "${HOME}/.local/share/nvim_lazyb/lazy"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
