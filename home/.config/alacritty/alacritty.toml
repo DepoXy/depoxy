@@ -436,7 +436,7 @@ bindings = [
   { key = "P", mods = "Control|Shift", chars = "\uE00F" },
   # SKIPD: <Shift-Ctrl-Q> immediately exits Alacritty.
   #  { key = "Q", mods = "Control|Shift", chars = "\uE010" },
-  # SKIPD: <Shift-Ctrl-R> is DepoXy Client Hammerspoon config opener. 
+  # SKIPD: <Shift-Ctrl-R> is DepoXy Client Hammerspoon config opener.
   #  { key = "R", mods = "Control|Shift", chars = "\uE011" },
   { key = "S", mods = "Control|Shift", chars = "\uE012" },
   { key = "T", mods = "Control|Shift", chars = "\uE013" },
