@@ -110,6 +110,14 @@ italic = { family = "MonaspiceRn Nerd Font", style = "Light Italic" }
 #   normal = { family = "Menlo", style = "Regular" }
 #   normal = { family = "Andale Mono", style = "Regular" }
 
+# For whatever reason, I like 12.75 in the terminal, but 12 in my editor.
+# - Note that at 12 pt., Hack Nerd Font renders the same in Alacritty
+#   window as it does in MacVim. But at 12.75 or 13 pt., the font in
+#   Alacritty uses less kerning than in MacVim. And in MacVim, the
+#   characters are spaced so far apart, it doesn't look good. So
+#   author prefers 12 pt. in MacVim, but 12.75 in terminal (a little
+#   larger to keep pace with this human's again eyes, I suppose).
+#  size = 12
 size = 12.75
 
 builtin_box_drawing = true
@@ -131,6 +139,18 @@ history = 100000
 # - Well, this, or maybe I could learn to use Vi mode, too, 'v'-select
 #   and 'y'ank.
 save_to_clipboard = true
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# REFER:
+# https://alacritty.org/config-alacritty.html#cursor
+
+# [cursor]
+# style = { shape = "Beam", blinking = "Always" }
+# # vi_mode_style =
+# blink_interval = 500
+# unfocused_hollow = true
+# thickness = 0.15
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -382,7 +402,7 @@ bindings = [
   # - CXREF: Hammerspoon substitutions for MacVim:
   #     ~/.depoxy/ambers/home/.hammerspoon/depoxy-hs.lua
   # - CXREF: Associated Vim maps:
-  #     ~/.vim/plugs/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
+  #     ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
   # - SAVVY: You cannot map <C-S> bindings in Vim b/c the terminal ignores
   #   the Shift modifier when it generates a Control binding escape code.
   #   - E.g., <C-S-X> is interpreted as simply <C-X>.
