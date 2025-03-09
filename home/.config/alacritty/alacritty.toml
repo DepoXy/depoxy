@@ -192,7 +192,9 @@ padding = { x = 1, y = 1 }
 #     https://github.com/search?q=repo%3Aalacritty%2Falacritty%20option_as_alt&type=code
 #     `man 5 alacritty`
 # "Make Option key behave as Alt."
-option_as_alt = "Both"
+#   option_as_alt = "OnlyLeft" | "OnlyRight" | "Both" | "None" # (macOS only)
+#  option_as_alt = "Both"
+option_as_alt = "None"
 
 dimensions = { columns = 169, lines = 69 }
 
