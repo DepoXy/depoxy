@@ -31,3 +31,6 @@
 # -> ~/.depoxy/running/home/.kit/nvim/_mrconfig-private-nvim
 /mrconfig/_mrconfig-private-nvim
 
+# -> ../deps/junegunn/start/vim-plug/plug.vim
+/.vim/autoload/plug.vim
+
