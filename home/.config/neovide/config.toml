@@ -1,2 +1,86 @@
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# REFER: https://neovide.dev/config-file.html
+# https://neovide.dev/command-line-reference.html
+#
+# backtraces_path = "/path/to/neovide_backtraces.log" # see below for the default platform specific location
+# fork = false
+# frame = "full"
+# idle = true
+# maximized = false
+#
+# REFER:
+#   Available since 0.14.
+#
+#   This sets the mouse cursor icon to be used in the window.
+#
+#   TLDR; Neovim has not yet implemented the 'mouseshape' feature, meaning
+#   that the cursor will not be reactive respecting the context of any Neovim
+#   element such as tabs, buttons and dividers. For that reason, the Arrow
+#   cursor has been taken as the default due to its generalistic purpose.
+#
+# mouse-cursor-icon = "arrow"
+mouse-cursor-icon = "i-beam"
+#
+# neovim-bin = "/usr/bin/nvim" # in reality found dynamically on $PATH if unset
 neovim-bin = "/opt/homebrew/bin/nvim"
+# no-multigrid = false
+# srgb = false
+# tabs = true
+# theme = "auto"
+# title-hidden = true
+# vsync = true
+# wsl = false
+#
+# [font]
+# normal = [] # Will use the bundled Fira Code Nerd Font by default
+# size = 14.0
+
+# REFER: See also &guifont ...
+
+# [font]
+# size = 12
+# # hinting = "full"
+# # edging = "antialias"
+#
+# [[font.normal]]
+# # family = "JetBrainsMono Nerd Font Propo"
+# family = "Hack Nerd Font Mono"
+# # style = "W400"
+# style = "Normal"
+#
+# # You can set a different font for fallback
+# [[font.normal]]
+# family = "Noto Sans CJK SC"
+# style = "Normal"
+#
+# # [font.features]
+# # "MonoLisa Nerd Font" = [ "+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14" ]
+
+# THANX: Using Monaspice for italic inspired by:
+#   https://github.com/augustocdias/dotfiles/blob/main/.config/alacritty/alacritty.toml
+# - Via: https://www.reddit.com/r/neovim/comments/16ug1jf/very_slow_startup_in_macos_sonoma/
+
+[font]
+normal = [
+  # HSTRY/2025-01-28: I've been using Hack for over a decade, trying
+  # something new, Monaspice has a pleasant feel to it.
+  # - ISOFF/2025-02-02: I like Monaspice, but I'm seeing a few weird artifacts with it.
+  #     { family = "MonaspiceNe Nerd Font", style = "Retina" },
+  { family = "Hack Nerd Font", style = "Regular" },
+  # CALSO:
+  # - "The icon font for Visual Studio Code"
+  #     brew install --cask font-codicon
+  #   https://github.com/microsoft/vscode-codicons/
+  #  { family = "codicon" },
+]
+italic = { family = "MonaspiceRn Nerd Font", style = "italic" }
+size = 12
+edging = "subpixelantialias"
+
+[font.features]
+"MonaspiceRn Nerd Font" = ["-liga"]
+"MonaspiceNe Nerd Font" = ["-liga"]
 
