@@ -236,8 +236,12 @@ fss () {
     #   $SHELL -lc '{bin} -v'
     # USYNC: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
     _dxy_kludge_treesitter_lib () {
-      local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
-      local curr="0.25.2/lib/libtree-sitter.0.24.dylib"
+      # This worked until brew-update removed the old tree-sitter version:
+      #   local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
+      # But we can just reference the current library using the old version
+      # name... and hope that there aren't any breaking changes in the API...
+      local prev="0.25.3/lib/libtree-sitter.0.25.dylib"
+      local curr="0.25.3/lib/libtree-sitter.0.24.dylib"
       local base="${HOMEBREW_PREFIX:-/opt/homebrew}/Cellar/tree-sitter"
 
       if ! [ -e "${curr}" ]; then
