@@ -162,7 +162,7 @@ fss () {
   # test changes I make to the config (that I can't otherwise reload
   # at runtime into the `fs` instance).)
   local server_id="${DEPOXY_NVIM_TRICHOTOMY:-🐝}"
-  if ${DEPOXY_NVIM_FSS_UNIQUE:-false}; then  
+  if ${DEPOXY_NVIM_FSS_UNIQUE:-false}; then
     # REFER: Server ID is used to format gvim-open-kindness socket:
     #   printf "/tmp/nvim.socket-%s" "${server_id}"
     # DUNNO: Using 💩 or 🤡 raises same instance running as 🦢...
