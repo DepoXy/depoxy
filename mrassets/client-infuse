@@ -69,7 +69,7 @@ _dxc_client_infuse() {
 
   # *** VIM
 
-  symlink_overlay_vim_assets
+  symlink_overlay_nvim_assets
 
   # *** GIT
 
@@ -339,23 +339,22 @@ symlink_overlay_homefries_private_bashrc() {
   #       "${hf_dir}/.bashrc-bin/bashrx.private.${DEPOXY_HOSTNAME}..sh"
 }
 
-# *** VIM
+# *** NVIM
 
-symlink_overlay_vim_assets () {
-  # Replace Vim spell file with symlink to user's version in DXC.
-  cast_private_spell () {
-    touch "${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add"
-    mkdir -p "${HOME}/.config/nvim/spell"
-    # DepoXy Ambers maintains ~/.mrinfuse, so currently cannot simply:
-    #   symlink_mrinfuse_file "spell/en.utf-8.add"
-    # but we could probably infuse the mrinfuse'r and then we could use
-    # symlink_mrinfuse_file. But seems like unnecessary lift with no big
-    # reward.
-    symlink_overlay_file \
-      "${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add" \
-      "${HOME}/.config/nvim/spell/en.utf-8.add"
+symlink_overlay_nvim_assets() {
+  # Replace (n)vim spell file(s) with symlink(s) to user's version in DXC.
+  # - ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
+  local dxc_spell_file="${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add"
+  touch "${dxc_spell_file}"
+  cast_private_spell() {
+    local nvim_appname="$1"
+    local config_dir="${HOME}/.config/${nvim_appname}"
+    mkdir -p "${config_dir}/spell"
+    symlink_overlay_file "${dxc_spell_file}" "${config_dir}/spell/en.utf-8.add"
   }
-  cast_private_spell
+  cast_private_spell "nvim"
+  cast_private_spell "nvim_depoxy"
+  cast_private_spell "nvim_lazyb"
 
   # Developer Vim tray: Custom Project Tray (Shift-Alt-3) Paths file.
   # - Add vendor-specific project listing to this file.
