@@ -92,7 +92,6 @@ order = 141
 lib = remote_set_private
 skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
 infuse = link_private_exclude "$@"
-  # link_private_ignore_ "$@"
 
 # ========================================================================
 # ------------------------------------------------------------------------
