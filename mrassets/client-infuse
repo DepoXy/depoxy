@@ -10,7 +10,7 @@
 # client _mrconfig, hence it's just one big function. Feel free to
 # refactor into smaller functions if you're so inspired.
 
-_dxc_client_infuse () {
+_dxc_client_infuse() {
   local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
   local stints_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}"
 
@@ -112,7 +112,7 @@ _dxc_client_infuse () {
   symlink_overlay_gnucash_assets
 }
 
-insist_is_the_active_client () {
+insist_is_the_active_client() {
   local depoxydir_running_full="$1"
 
   local running_now="$(realpath -- "${depoxydir_running_full}")"
@@ -131,7 +131,7 @@ insist_is_the_active_client () {
   fi
 }
 
-insist_is_correctly_wired () {
+insist_is_correctly_wired() {
   local depoxydir_running_full="$1"
 
   local project_client_id="$(basename -- "${MR_REPO}")"
@@ -177,7 +177,7 @@ insist_is_correctly_wired () {
 # - SAVVY: This is not a symlink because repo might be offline.
 #   - This is also the only file *copied* somewhere, and not symlinked.
 
-update_depoxy_configs () {
+update_depoxy_configs() {
   # E.g., /Users/user/.config/depoxy
   local dxy_conf="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy"
   # E.g., .config/depoxy
@@ -185,7 +185,7 @@ update_depoxy_configs () {
 
   mkdir -p "${dxy_conf}"
 
-  copy_depoxy_config () {
+  copy_depoxy_config() {
     local file="$1"
 
     local conf_source="${MR_REPO}/home/${conf_base}/${file}"
@@ -196,13 +196,15 @@ update_depoxy_configs () {
     if [ -f "${conf_target}" ] \
       && [ -f "${conf_sha}" ] \
       && ! shasum -c "${conf_sha}" > /dev/null 2>&1 \
-    ; then
+      ; then
+
       # Note that `\\ \n` works, but not `\\\n`: "Within double quotes,
       # backslashes that are followed by one of these characters [including
       # backslash] are removed."
       >&2 error "ERROR: Did you edit the duplicate copy by mistake?\n" \
         "meld \\\\\n  ${conf_source} \\\\\n  ${conf_target} &\n" \
         "rm -- ${conf_target}"
+
       return 1
     fi
 
@@ -213,7 +215,8 @@ update_depoxy_configs () {
     info "$(
       font_info_updated " Copied "
     ) $(
-      font_emphasize "conf") replica $(
+      font_emphasize "conf"
+    ) replica $(
       font_highlight ${conf_target}
     )"
   }
@@ -236,7 +239,7 @@ update_depoxy_configs () {
 # See guard clause above: This call is a no-op:
 # - The symlink already exists and is correct.
 
-symlink_overlay_dir_depoxy_running () {
+symlink_overlay_dir_depoxy_running() {
   local depoxydir_running_full="$1"
 
   symlink_overlay_dir "${MR_REPO}" "${depoxydir_running_full}"
@@ -244,7 +247,7 @@ symlink_overlay_dir_depoxy_running () {
 
 # *** OMR
 
-symlink_overlay_vendor_home_assets () {
+symlink_overlay_vendor_home_assets() {
   # .mrinfuse/ nesting
   local dxy_home_work="${MR_REPO}/home/${DEPOXY_VENDOR_HOME_NAME:-work}"
   local usr_home_work="${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}"
@@ -259,8 +262,8 @@ symlink_overlay_vendor_home_assets () {
   fi
 
   if [ -n "${home_work_hint}" ]; then
-    info "$( \
-      font_emphasize "Skipped overlay" \
+    info "$(
+      font_emphasize "Skipped overlay"
     ) ${dxy_home_work} ↯ ${usr_home_work}\n                             - ${home_work_hint}"
   else
     symlink_overlay_dir \
@@ -272,7 +275,7 @@ symlink_overlay_vendor_home_assets () {
   fi
 }
 
-alert_if_missing_vendor_mrconfig () {
+alert_if_missing_vendor_mrconfig() {
   local stints_dir="$1"
 
   # Alert if missing business client mrconfig (because impossibly unlikely user won't want).
@@ -286,7 +289,7 @@ alert_if_missing_vendor_mrconfig () {
 
 # *** DEPOXY
 
-symlink_overlay_depoxy_stings_ignore () {
+symlink_overlay_depoxy_stings_ignore() {
   symlink_overlay_file \
     "${MR_REPO}/home/.depoxy/stints/_ignore" \
     "${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/.ignore"
@@ -300,7 +303,7 @@ symlink_overlay_depoxy_stings_ignore () {
 #     bashrx.private.${DEPOXY_HOSTNAME}.sh.
 #   And wire more as you like.
 
-symlink_overlay_homefries_private_bashrc () {
+symlink_overlay_homefries_private_bashrc() {
   local bashrx_host="${MR_REPO}/home/bashrx.private.${DEPOXY_HOSTNAME}.sh"
 
   if [ -f "${bashrx_host}" ]; then
@@ -372,7 +375,7 @@ symlink_overlay_vim_assets () {
   # Reload <\g> search list.
   # - If no such instance:
   #     E247: No registered server named "GVIM": Send failed.
-  if command -v nvim >/dev/null; then
+  if command -v nvim > /dev/null; then
     # REFER: Assumes user started instance with gvim-open-kindess,
     # or uses the same socket path format.
     #   ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
@@ -380,7 +383,7 @@ symlink_overlay_vim_assets () {
       --remote-send "<ESC>:GrepSteadyReload<CR>" \
       2> /dev/null || true
   fi
-  if command -v gvim >/dev/null; then
+  if command -v gvim > /dev/null; then
     gvim --servername "${GVIM_OPEN_SERVERNAME:-${NVIM_OPEN_SOCKETNAME:-🧸}}" \
       --remote-send "<ESC>:GrepSteadyReload<CR>" \
       2> /dev/null || true
@@ -399,8 +402,8 @@ symlink_overlay_vim_assets () {
 
 # *** GIT
 
-symlink_overlay_git_assets () {
-  symlink_gitconfigs () {
+symlink_overlay_git_assets() {
+  symlink_gitconfigs() {
     # Git user.name and user.email wirer.
     # - Depending on project path, Git will load either your personal
     #   user config, or it'll load your business user config.
@@ -460,7 +463,7 @@ symlink_overlay_git_assets () {
 # Note this overwrites DepoXy's ~/.depoxy/ambers/home/.config/tig/config
 # fallback symlink.
 
-symlink_overlay_tig_assets () {
+symlink_overlay_tig_assets() {
   mkdir -p "${HOME}/.config/tig"
 
   symlink_overlay_file \
@@ -471,7 +474,7 @@ symlink_overlay_tig_assets () {
 # *** NPM
 
 # Enterprise NPM: Client-specific npm registry URL.
-symlink_overlay_npm_assets () {
+symlink_overlay_npm_assets() {
   if [ -f "${MR_REPO}/home/.npmrc" ]; then
     symlink_overlay_file \
       "${MR_REPO}/home/.npmrc" \
@@ -483,8 +486,8 @@ symlink_overlay_npm_assets () {
 
 # CXREF: DepoXy Ambers KB infuser:
 #   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications
-symlink_overlay_karabiner_elements_assets () {
-  depoxy_client_infuse_karabiner_elements_complex_modifications () {
+symlink_overlay_karabiner_elements_assets() {
+  depoxy_client_infuse_karabiner_elements_complex_modifications() {
     local dxy_mrinfuse="${ambers_path}/home"
     local cmplxmods=".config/karabiner/assets/complex_modifications"
     # Symlink private KE cfg.
@@ -503,7 +506,7 @@ symlink_overlay_karabiner_elements_assets () {
 
 # *** GNU Inetutils auto-login credentials
 
-symlink_overlay_netrc () {
+symlink_overlay_netrc() {
   if [ -f "${HOME}/.netrc" ] && [ ! -h "${HOME}/.netrc" ]; then
     warn "Your ~/.netrc is not overseen by your DepoXy Client repo."
     info "Considering moving ~/.netrc inside your DepoXy Client and\n" \
@@ -520,7 +523,7 @@ symlink_overlay_netrc () {
 
 # *** ~/.finicky.js
 
-symlink_overlay_finicky_js () {
+symlink_overlay_finicky_js() {
   symlink_overlay_file \
     "${MR_REPO}/home/.finicky.js" \
     "${HOME}/.finicky.js"
@@ -528,7 +531,7 @@ symlink_overlay_finicky_js () {
 
 # *** ~/.kit
 
-symlink_overlay_kit_assets () {
+symlink_overlay_kit_assets() {
   # What I call the Dopp Kit is where I clone most non-vendor projects,
   # e.g., various Git projects, useful shell utilities, and more. Most
   # of the projects are public/open source and installed by the public
@@ -537,7 +540,7 @@ symlink_overlay_kit_assets () {
   # to the _mrconfig-vendor included at the end of this file). Here we
   # install a ~/.kit/.git/info/exclude file (and I know, this function
   # looks more complicated, but really that's all it does).
-  user_home_kit_link_private_exclude () {
+  user_home_kit_link_private_exclude() {
     # ~/.kit/.gitignore.local wiring.
 
     # First wire the mrinfuse path.
@@ -569,7 +572,7 @@ symlink_overlay_kit_assets () {
 # OpenLens doesn't show any clusters when yaml symlinks used, so
 # wiring yamls (and config, for parity) using hard links.
 
-symlink_overlay_kube_assets () {
+symlink_overlay_kube_assets() {
   if [ -f "${MR_REPO}/home/.kube/config" ]; then
     mkdir -p "${HOME}/.kube"
 
@@ -634,8 +637,8 @@ symlink_overlay_kube_assets () {
 #       ln -sn ~/.depoxy/running/home/.config/dob/plugins
 #       ln -sn ~/.depoxy/running/home/.config/dob/styling
 
-symlink_overlay_dob_assets () {
-  infuse_dob_config_if_exists () {
+symlink_overlay_dob_assets() {
+  infuse_dob_config_if_exists() {
     local mrinfuse_path
     local user_config_dir
     if ! os_is_macos; then
@@ -649,7 +652,8 @@ symlink_overlay_dob_assets () {
     local sourcep
     if sourcep="$(path_to_mrinfuse_resolve "${mrinfuse_path}")" \
       && [ -d "${sourcep}" ] \
-    ; then
+      ; then
+
       local dob_config_dir="${user_config_dir}/dob"
 
       symlink_mrinfuse_dir "${mrinfuse_path}" "${dob_config_dir}"
@@ -662,7 +666,7 @@ symlink_overlay_dob_assets () {
   }
 
   # As noted above, on Linux, the data directory is a separate path.
-  infuse_dob_data_directory () {
+  infuse_dob_data_directory() {
     local user_data_dir
     if ! os_is_macos; then
       user_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}"
@@ -685,7 +689,7 @@ symlink_overlay_dob_assets () {
     fi
   }
 
-  infuse_dob_log_directory () {
+  infuse_dob_log_directory() {
     local user_data_dir
     local dob_log_dir
     if ! os_is_macos; then
@@ -700,12 +704,11 @@ symlink_overlay_dob_assets () {
 
     if os_is_macos; then
       # Convenience link (and parity with Linux).
-      # - Also enables 
       symlink_overlay_dir "${dob_log_dir}" "${HOME}/.cache/dob/log"
     fi
   }
 
-  infuse_dob_assets () {
+  infuse_dob_assets() {
     (
       cd "${HOME}"
       MR_REPO="${HOME}"
@@ -744,8 +747,8 @@ symlink_overlay_dob_assets () {
 #
 # - Capture 'bookmarks' to save any save dialog favorites you've added
 
-symlink_overlay_gnucash_assets () {
-  symlink_mrinfuse_file_if_exists () {
+symlink_overlay_gnucash_assets() {
+  symlink_mrinfuse_file_if_exists() {
     local conf_home="$1"
     local conf_file="$2"
     local alt_home="$3"
@@ -755,7 +758,8 @@ symlink_overlay_gnucash_assets () {
     local sourcep
     if sourcep="$(path_to_mrinfuse_resolve "${mrinfuse_path}")" \
       && [ -f "${sourcep}" ] \
-    ; then
+      ; then
+
       symlink_mrinfuse_file "${mrinfuse_path}"
 
       if [ -n "${alt_home}" ]; then
@@ -766,7 +770,7 @@ symlink_overlay_gnucash_assets () {
 
   local checked_gnc_config_home=false
 
-  infuse_gnucash_conf_file_if_exists () {
+  infuse_gnucash_conf_file_if_exists() {
     local conf_file="$1"
 
     # CXREF: https://wiki.gnucash.org/wiki/Configuration_Locations#GNC_CONFIG_HOME
@@ -793,7 +797,7 @@ symlink_overlay_gnucash_assets () {
     fi
   }
 
-  infuse_gnucash_gtk_file_if_exists () {
+  infuse_gnucash_gtk_file_if_exists() {
     local gtk_file="$1"
 
     # CXREF: https://wiki.gnucash.org/wiki/Configuration_Locations#GTK_CONFIG_HOME
@@ -815,7 +819,7 @@ symlink_overlay_gnucash_assets () {
     symlink_mrinfuse_file_if_exists "${gtk_conf_home}" "${gtk_file}" "${alt_conf_home}"
   }
 
-  infuse_gnucash_assets () {
+  infuse_gnucash_assets() {
     (
       cd "${HOME}"
       MR_REPO="${HOME}"
@@ -831,4 +835,3 @@ symlink_overlay_gnucash_assets () {
 
   infuse_gnucash_assets
 }
-

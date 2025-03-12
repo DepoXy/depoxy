@@ -24,3 +24,56 @@ insert_final_newline = false
 # - I.e., it ignores this option. Ah, well....
 insert_final_newline = true
 
+# SAVVY: The only formatting I can't adjust to my liking is multi-line
+# if-conditionals. I like to dedent the final "then", so the conditional
+# is blocked separately from the branch body, e.g.,
+#   if ${this} \
+#     || ${that} \
+#   ; then
+#     do_something
+#   fi
+# but shfmt indents the last line of the conditional, e.g.,
+#   if ${this} \
+#     || ${that} \
+#     ; then
+#     do_something
+#   fi
+# which I don't find as easily readable.
+# A compromise might be to add a blank line, e.g.,
+#   if ${this} \
+#     || ${that} \
+#     ; then
+#
+#     do_something
+#   fi
+#
+# REFER: See shfmt options:
+#   https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#parser-flags
+# -i/--indent Indent      0 for tabs (default), >0 for number of spaces.
+# -ln/--language-variant  Language dialect (bash/posix/mksh/bats, default auto).
+# -bn/--binary-next-line  Binary ops like && and | may start a line.
+# -ci/--case-indent       Switch cases will be indented.
+# -sr/--space-redirects   Redirect operators will be followed by a space.
+# -kp/--keep-padding      Keep column alignment paddings.
+# -fn/--func-next-line    Function opening braces are placed on a separate line.
+#
+# REFER: Using non-conformant [[bash]] because mrconfig files are not [[*.sh]]
+# https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#examples
+[[bash]]
+#  # like -i=2 (but don't need; see [*] above)
+#  indent_style = space
+#  indent_size = 2
+#  # Leave shell_variant = auto, which will key off ft=bash modeline.
+#  shell_variant = posix
+binary_next_line = true
+switch_case_indent = true
+space_redirects = true
+# ISOFF: I get weird behavior with keep_padding. E.g., a line like this:
+#   >&2 error "foo"
+# gets indented one more than it should be. And then when I format again,
+# it gets indented again! And if I add another indent, and format again,
+# the formatter adds another indent!
+# - Though if I move the redirect to the end, e.g., `error "foo" >&2`,
+#   the issue doesn't happen, but I can also indent the line (as much
+#   as I want) and the formatter won't fix the indent.
+#  keep_padding = true
