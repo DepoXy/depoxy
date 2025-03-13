@@ -71,6 +71,7 @@ Jupyter
 K3s
 Kibana
 LM
+LSP
 LazyVim
 LazyVim's
 Lua
@@ -153,6 +154,7 @@ dotfiles
 dunamai
 envs
 errexit
+extmark
 fcn
 fcns
 fg
