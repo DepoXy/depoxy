@@ -98,7 +98,7 @@ faf() {
 }
 
 # USAGE: Run plain/stock/vanilla Neovide.
-neovide--no-plugin() {
+neovide--noplugin() {
   neovide -- --listen "/tmp/nvim.socket-${DEPOXY_GVIM_NOPLUGIN:-🙅}" --noplugin &
 }
 
