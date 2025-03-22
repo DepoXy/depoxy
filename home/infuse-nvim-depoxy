@@ -492,9 +492,16 @@ setup_vim_generate_helptags() {
   # - Neovim will just run the command and exit, regardless
   #   of startup `echom`.
   if ${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false} || ! command -v nvim >/dev/null; then
+    # Vim: Warning: Input is not from a terminal
     printf "\n" | vim -c ":helptags ALL" -c q 2>/dev/null
   else
-    nvim -c ":helptags ALL" -c q >/dev/null 2>&1
+    # This hangs:
+    #  nvim -c ":helptags ALL" -c q >/dev/null 2>&1
+    # This works:
+    #  nvim -c ":helptags ALL" -c q 2>&1
+    # But you still see the nvim shell momentarily.
+    # - Aha! --headless, that's the ticket.
+    nvim -c ":helptags ALL" -c q --headless
   fi
 }
 
