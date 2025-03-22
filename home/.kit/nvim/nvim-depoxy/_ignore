@@ -29,8 +29,8 @@
 /.config/nvim/lua/util/mswin.lua
 
 # SAVVY: Committed to nvim-depoxy
-# -> ../../../../../landonb/nvim-lazyb/lua/util/shiftctrl2pua-keys.lua
-/.config/nvim/lua/util/shiftctrl2pua-keys.lua
+# -> ../../../../../landonb/nvim-lazyb/lua/util/ctrl2pua-keys.lua
+/.config/nvim/lua/util/ctrl2pua-keys.lua
 
 # CXREF: 'infuse'd by and symlink to:
 # -> ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
