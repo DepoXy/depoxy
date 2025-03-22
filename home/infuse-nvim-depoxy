@@ -554,10 +554,13 @@ main() {
   # USAGE: Isolated Neovim environments:
   #   NVIM_APPNAME=nvim_depoxy nvim
   #   NVIM_APPNAME=nvim_lazyb nvim
+  #   NVIM_APPNAME=nvim_folke nvim
   # WIRES: ~/.config/nvim_depoxy → ~/.kit/nvim/nvim-depoxy/.config/nvim/
   wire_dot_config "nvim_depoxy"
   # WIRES: ~/.config/nvim_lazyb → ~/.kit/nvim/landonb/nvim-lazyb/
   wire_dot_config "nvim_lazyb"
+  # WIRES: ~/.config/nvim_folke → ~/.kit/nvim/LazyVim/starter/
+  wire_dot_config "nvim_folke"
 
   wire_dot_vimrc_and_autoload
 

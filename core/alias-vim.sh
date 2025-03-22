@@ -88,6 +88,15 @@ fa() {
     gvim-open-kindness "${DEPOXY_NVIM_ALTERNATE:-🦢}" "" "" "$@"
 }
 
+faf() {
+  # REFER:
+  # - Uses --server/socket ID: $DEPOXY_NVIM_LAZYVIM.
+  # - NVIM_APPNAME=nvim_folke refers to ~/.config/nvim_depoxy
+  #     aka ~/.kit/nvim/LazyVim/starter/
+  NVIM_APPNAME=nvim_folke \
+    gvim-open-kindness "${DEPOXY_NVIM_LAZYVIM:-💤}" "" "" "$@"
+}
+
 # USAGE: Run plain/stock/vanilla Neovide.
 neovide--no-plugin() {
   neovide -- --listen "/tmp/nvim.socket-${DEPOXY_GVIM_NOPLUGIN:-🙅}" --noplugin &
