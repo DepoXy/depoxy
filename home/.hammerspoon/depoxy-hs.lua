@@ -181,6 +181,11 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
         -- Use user Unicode character 0xE014
         return true, { e:setUnicodeString("") }
 
+      -- <Shift-Ctrl-S> Save File w/out Formatting (both modes)
+      elseif e:getKeyCode() == hs.keycodes.map["s"] then
+        -- Use user Unicode character 0xE012
+        return true, { e:setUnicodeString("") }
+
       -- <Shift-Ctrl-U> Scrolls down one page (both modes)
       elseif e:getKeyCode() == hs.keycodes.map["u"] then
         -- Use user Unicode character 0xE014
