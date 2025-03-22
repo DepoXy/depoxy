@@ -68,6 +68,7 @@ fs () {
   # REFER:
   # - Uses --server/socket ID: $NVIM_OPEN_SOCKETNAME.
   # - NVIM_APPNAME=nvim_lazyb refers to ~/.config/nvim_lazyb
+  #     aka ~/.kit/nvim/landonb/nvim-lazyb/
   NVIM_OPEN_FILE_ON_SPAWN= \
   NVIM_APPNAME=nvim_lazyb \
     gvim-open-kindness "${NVIM_OPEN_SOCKETNAME:-🧸}" "" "" "$@"
@@ -82,6 +83,7 @@ fa () {
   # REFER:
   # - Uses --server/socket ID: $DEPOXY_NVIM_ALTERNATE.
   # - NVIM_APPNAME=nvim_depoxy refers to ~/.config/nvim_depoxy
+  #     aka ~/.kit/nvim/nvim-depoxy/.config/nvim/
   NVIM_APPNAME=nvim_depoxy \
     gvim-open-kindness "${DEPOXY_NVIM_ALTERNATE:-🦢}" "" "" "$@"
 }
