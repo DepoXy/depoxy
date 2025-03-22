@@ -14,7 +14,7 @@ MSG_PREFIX_ADDED_SYMLINKS_DIR='Created symlinks for'
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
 
   local shlogg_dir="${omr_lib}/../deps/sh-logger/bin"
@@ -48,7 +48,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-seed_myrepos_mrconfig_dubs_vim () {
+seed_myrepos_mrconfig_dubs_vim() {
   local before_cd="$(pwd -L)"
 
   # CXREF: ~/.kit/nvim/.mrconfig — loaded via 'chain = true'
@@ -70,8 +70,8 @@ seed_myrepos_mrconfig_dubs_vim () {
   local private_conf
   for private_conf in \
     "${DEPOXYDIR_STINTS_FULL}/${DEPOXY_CLIENT_ID}/${vim_conf_private}" \
-    "${ambers_path}/${vim_conf_private}" \
-  ; do
+    "${ambers_path}/${vim_conf_private}"; do
+
     if [ -f "${private_conf}" ]; then
       symlink_overlay_file "${private_conf}" "mrconfig/$(basename -- "${vim_conf_private}")"
 
@@ -84,14 +84,14 @@ seed_myrepos_mrconfig_dubs_vim () {
 
 # ***
 
-seed_myrepos_mrinfuse_dubs_vim_plug () {
+seed_myrepos_mrinfuse_dubs_vim_plug() {
   # CXREF: ~/.kit/nvim/.mrinfuse
   symlink_overlay_dir "nvim-depoxy/mrinfuse" ".mrinfuse"
 }
 
 # ***
 
-setup_private_git_exclude () {
+setup_private_git_exclude() {
   local before_cd="$(pwd -L)"
 
   cd -- "${nvim_repos}/nvim-depoxy"
@@ -106,7 +106,7 @@ setup_private_git_exclude () {
 
 # ***
 
-setup_vim_plugs_fdignore () {
+setup_vim_plugs_fdignore() {
   # CXREF: ~/.kit/nvim/.fdignore
   # ALTLY: But uses full path:
   #   MR_REPO="${nvim_repos}" symlink_mrinfuse_file "_fdignore" ".fdignore"
@@ -116,7 +116,7 @@ setup_vim_plugs_fdignore () {
 # ***
 
 # Place ~/.kit/nvim/.gitignore
-setup_kit_nvim_git_exclude () {
+setup_kit_nvim_git_exclude() {
   # MAYBE/2023-11-11: Make `link_hard_mrinfuse_file`, akin to `symlink_mrinfuse_file`.
   # - This hard-links .gitignore (sorta like `link_private_exclude`, except that
   #   function hard-links .git/info/exclude).
@@ -128,7 +128,7 @@ setup_kit_nvim_git_exclude () {
 # ***
 
 # Place ~/.kit/nvim/.ignore
-setup_kit_nvim_grep_ignore () {
+setup_kit_nvim_grep_ignore() {
   # CXREF: ~/.kit/nvim/.ignore
   # ALTLY: But uses full path:
   #   MR_REPO="${nvim_repos}" link_private_ignore "_ignore"
@@ -138,7 +138,7 @@ setup_kit_nvim_grep_ignore () {
 # ***
 
 # Place ~/.kit/nvim/nvim-depoxy/.ignore
-setup_private_grep_ignore () {
+setup_private_grep_ignore() {
   local before_cd="$(pwd -L)"
 
   cd -- "${nvim_repos}/nvim-depoxy"
@@ -150,7 +150,7 @@ setup_private_grep_ignore () {
 
 # ***
 
-setup_nvim_depoxy_lua_config () {
+setup_nvim_depoxy_lua_config() {
   local before_cd="$(pwd -L)"
 
   cd -- "${nvim_repos}/nvim-depoxy"
@@ -168,7 +168,7 @@ setup_nvim_depoxy_lua_config () {
 
 # ***
 
-setup_nvim_lazyb_lua_config () {
+setup_nvim_lazyb_lua_config() {
   local before_cd="$(pwd -L)"
 
   cd -- "${nvim_repos}/landonb/nvim-lazyb"
@@ -193,7 +193,7 @@ setup_nvim_lazyb_lua_config () {
 # CXREF:
 # ~/.depoxy/ambers/home/.local/share/nvim_lazyb/lazy/_ignore
 
-setup_nvim_lazyb_lazy_ignore () {
+setup_nvim_lazyb_lazy_ignore() {
   local before_cd="$(pwd -L)"
 
   cd -- "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim_lazyb/lazy"
@@ -206,7 +206,7 @@ setup_nvim_lazyb_lazy_ignore () {
 # ***
 
 # Link ~/.config/<target>/ → ~/.depoxy/ambers/home/.config/<target>/
-wire_dot_config () {
+wire_dot_config() {
   local dir="$1"
 
   local before_cd="$(pwd -L)"
@@ -223,7 +223,7 @@ wire_dot_config () {
 # Link ~/.vimrc → ~/.depoxy/ambers/home/.vim/.vimrc
 #      ~/.vim/.vimrc →  "      "     "    "     "
 #      ~/.vim/autoload → ~/.depoxy/ambers/home/.vim/autoload
-wire_dot_vimrc_and_autoload () {
+wire_dot_vimrc_and_autoload() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local dxyambs_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
@@ -250,7 +250,7 @@ wire_dot_vimrc_and_autoload () {
 
 # ***
 
-infuse_this_infuser () {
+infuse_this_infuser() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
   symlink_overlay_file "${DEPOXYAMBERS_DIR:-${ambers_path}}/home/infuse-nvim-depoxy" "infuse"
@@ -258,7 +258,7 @@ infuse_this_infuser () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-populate_run_generator () {
+populate_run_generator() {
   # E.g., .mrinfuse/plugs/landonb/dubs_project_tray/generate_links.sh
   local generator="$1"
 
@@ -277,7 +277,7 @@ populate_run_generator () {
 
   info "Running symlink generator: $(font_highlight "$(realpath -- "${generator}")") …"
 
-  ${generator} > /dev/null
+  ${generator} >/dev/null
 
   info " ${MSG_PREFIX_ADDED_SYMLINKS_DIR} $(font_highlight "${symldir}/")"
 }
@@ -293,7 +293,7 @@ populate_run_generator () {
 
 # CXREF:
 #   ~/.kit/nvim/landonb/.whilom/dubs_file_finder/plugin/dubs_file_finder.vim
-setup_private_plug_file_dubs_file_finder () {
+setup_private_plug_file_dubs_file_finder() {
   # Unexpected, because no longer called from main().
   >&2 echo "ISOFF: dubs_file_finder is disabled! Skipping generator: cmdt_paths/"
 
@@ -353,7 +353,7 @@ setup_private_plug_file_dubs_file_finder () {
 
 # dubs_cuts is searched on #9 search (aka #9 grep aka #9 grep-steady).
 
-populate_dubs_cuts_generate () {
+populate_dubs_cuts_generate() {
   # MEH/2019-10-27: This infuser takes a hot second to run (possibly
   # because I could not make the script POSIX-compliant, or more likely
   # because of the for-loop on find with regex).
@@ -373,7 +373,7 @@ populate_dubs_cuts_generate () {
 
 # ***
 
-setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
+setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts() {
   # Unexpected, because no longer called from main().
   >&2 echo "ISOFF: dubs_project_tray/dubs_cuts generator is disabled!"
 
@@ -401,7 +401,7 @@ setup_private_plug_file_dubs_project_tray_symlink_dubs_cuts () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-setup_project_plug_vim_depoxy () {
+setup_project_plug_vim_depoxy() {
   local depoxy_vim_org="DepoXy"
 
   local depoxy_vim_start="${nvim_repos}/${depoxy_vim_org}/start"
@@ -427,7 +427,7 @@ setup_project_plug_vim_depoxy () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-setup_project_plug_vim_landonb () {
+setup_project_plug_vim_landonb() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
   local landonb_vim_org="landonb"
@@ -453,7 +453,7 @@ setup_project_plug_vim_landonb () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-setup_private_coc_config () {
+setup_private_coc_config() {
 
   # FIXME/2025-01-30: Revisit this; disabling now because switched to Neovim.
   return 0
@@ -474,7 +474,7 @@ setup_private_coc_config () {
 # - SAVVY: If there's an error with this call, we
 #   won't know, because it's `echom`'d within Vim
 #   and won't be captured on stdout.
-setup_vim_generate_helptags () {
+setup_vim_generate_helptags() {
   info "Rebuilding Vim helptags: $(font_highlight ":helptags ALL")"
 
   DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM=${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false}
@@ -492,7 +492,7 @@ setup_vim_generate_helptags () {
   # - Neovim will just run the command and exit, regardless
   #   of startup `echom`.
   if ${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false} || ! command -v nvim >/dev/null; then
-    printf "\n" | vim -c ":helptags ALL" -c q 2> /dev/null
+    printf "\n" | vim -c ":helptags ALL" -c q 2>/dev/null
   else
     nvim -c ":helptags ALL" -c q >/dev/null 2>&1
   fi
@@ -500,7 +500,7 @@ setup_vim_generate_helptags () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   set -e
 
   local nvim_repos="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}"
@@ -610,4 +610,3 @@ if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
 fi
 
 unset -f main
-

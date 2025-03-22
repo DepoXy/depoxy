@@ -64,13 +64,13 @@
 #
 # - nvim_depoxy is my old Neovim environment, based on 15 years of Vim.
 
-fs () {
+fs() {
   # REFER:
   # - Uses --server/socket ID: $NVIM_OPEN_SOCKETNAME.
   # - NVIM_APPNAME=nvim_lazyb refers to ~/.config/nvim_lazyb
   #     aka ~/.kit/nvim/landonb/nvim-lazyb/
   NVIM_OPEN_FILE_ON_SPAWN= \
-  NVIM_APPNAME=nvim_lazyb \
+    NVIM_APPNAME=nvim_lazyb \
     gvim-open-kindness "${NVIM_OPEN_SOCKETNAME:-🧸}" "" "" "$@"
 }
 
@@ -79,7 +79,7 @@ fs () {
 # - But now it opens the author's *older* Neovim config, aka nvim-depoxy.
 # - If you want to run a separate instance of whichever environment you
 #   prefer, use the newer `fss` command instead (see below).
-fa () {
+fa() {
   # REFER:
   # - Uses --server/socket ID: $DEPOXY_NVIM_ALTERNATE.
   # - NVIM_APPNAME=nvim_depoxy refers to ~/.config/nvim_depoxy
@@ -89,7 +89,7 @@ fa () {
 }
 
 # USAGE: Run plain/stock/vanilla Neovide.
-neovide--no-plugin () {
+neovide--no-plugin() {
   neovide -- --listen "/tmp/nvim.socket-${DEPOXY_GVIM_NOPLUGIN:-🙅}" --noplugin &
 }
 
@@ -154,7 +154,7 @@ neovide--no-plugin () {
 #   whenever it's run. But it could be used to start separate
 #   instances each time
 
-fss () {
+fss() {
   local file_or_profile="$1"
 
   # ISOFF: The `fss` command originally used a different socket ID
@@ -174,7 +174,7 @@ fss () {
     #   hs.application("🤡"):setFrontmost()
     local server_ids="👹👺👻👽👾🤖"
 
-    _dxy_fss_print_server_id () {
+    _dxy_fss_print_server_id() {
       local app_cfg_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/ambers"
       local cfg_ids_file="${app_cfg_dir}/neovim.ids"
 
@@ -183,7 +183,8 @@ fss () {
       if ! [ -e "${cfg_ids_file}" ] \
         || ! [ -s "${cfg_ids_file}" ] \
         || [ -z "$(cat -- "${cfg_ids_file}")" ] \
-      ; then
+        ; then
+
         echo "${server_ids}" > "${cfg_ids_file}"
       fi
 
@@ -237,7 +238,7 @@ fss () {
     #   Please check your shell configuration.
     #   $SHELL -lc '{bin} -v'
     # USYNC: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
-    _dxy_kludge_treesitter_lib () {
+    _dxy_kludge_treesitter_lib() {
       # This worked until brew-update removed the old tree-sitter version:
       #   local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
       # But we can just reference the current library using the old version
@@ -274,7 +275,8 @@ fss () {
   fi
 
   if ${NVIM_OPEN_ECHO:-false}; then
-    ( cat <<EOF
+    (
+      cat << EOF
   NVD_PROFILE="${profile}" \
   NEOVIM_BIN="${nvim_bin}" \
   NVIM_OPEN_FILE_ON_SPAWN="${open_file}" \
@@ -286,9 +288,9 @@ EOF
   echo "Launching ${server_id}"
 
   NVD_PROFILE="${profile}" \
-  NEOVIM_BIN="${nvim_bin}" \
-  NVIM_OPEN_FILE_ON_SPAWN="${open_file}" \
-  NVIM_APPNAME="${NVIM_APPNAME:-${nvim_cfg}}" \
+    NEOVIM_BIN="${nvim_bin}" \
+    NVIM_OPEN_FILE_ON_SPAWN="${open_file}" \
+    NVIM_APPNAME="${NVIM_APPNAME:-${nvim_cfg}}" \
     gvim-open-kindness "${server_id}" "" ""
 
   unset -f _dxy_fss_print_server_id
@@ -300,8 +302,8 @@ EOF
 #   # /opt/homebrew/Cellar/neovim/0.10.4/bin/nvim
 #   $ brew install --HEAD neovim  # v0.11.0-dev-{sha}-Homebrew
 #   # /opt/homebrew/Cellar/neovim/HEAD-228fe50_1/bin/nvim
-_dxy_nvim_release_bin () {
-  nvim_bin="$( \
+_dxy_nvim_release_bin() {
+  nvim_bin="$(
     find "${HOMEBREW_PREFIX}/Cellar/neovim/" \
       -mindepth 1 \
       -maxdepth 1 \
@@ -333,7 +335,7 @@ _dxy_nvim_release_bin () {
 # ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua
 # ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
 
-_dxy_alias_vim_wire_vim_minimal () {
+_dxy_alias_vim_wire_vim_minimal() {
   local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
 
   claim_alias_or_warn "vim.minimal" "${nvimd}/bin/editor-vim-0-0-insert-minimal"
@@ -341,18 +343,17 @@ _dxy_alias_vim_wire_vim_minimal () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_aliases () {
+_dxy_wire_aliases() {
   _dxy_alias_vim_wire_vim_minimal
   unset -f _dxy_alias_vim_wire_vim_minimal
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_wire_aliases
   unset -f _dxy_wire_aliases
 }
 
 main "$@"
 unset -f main
-
