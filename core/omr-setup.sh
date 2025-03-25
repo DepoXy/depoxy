@@ -10,7 +10,7 @@
 # Assign sf-* and st-* aliases:
 # - sf-client sf-work sf-home sf-user sf-vim sf-sh sf-git sf-kit
 # - st-client st-work st-home st-user st-vim st-sh st-git st-kit
-_dxy_wire_aliases_omr_status () {
+_dxy_wire_aliases_omr_status() {
   # NOTE: "sf-*" are fancy status mappings.
   # HINT: "st-" is unique prefix, type `st-<TAB>` to list options.
   for omr_group in "client" "work" "home" "user" "vim" "sh" "git" "kit"; do
@@ -21,7 +21,7 @@ _dxy_wire_aliases_omr_status () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_omr_status_snip_cd () {
+_dxy_wire_omr_status_snip_cd() {
   # For copy-paste printed by:
   #   ~/.kit/git/ohmyrepos/lib/git-my-merge-status.sh
   #   ~/.kit/git/ohmyrepos/lib/sync-travel-remote.sh
@@ -30,7 +30,7 @@ _dxy_wire_omr_status_snip_cd () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_check_if_omr_infuse_run_since_latest_macos_update () {
+_dxy_check_if_omr_infuse_run_since_latest_macos_update() {
   if ! os_is_macos; then
 
     return 0
@@ -58,7 +58,7 @@ _dxy_check_if_omr_infuse_run_since_latest_macos_update () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_wire_aliases_omr_status
   unset -f _dxy_wire_aliases_omr_status
 
@@ -71,4 +71,3 @@ main () {
 
 main "$@"
 unset -f main
-
