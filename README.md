@@ -71,6 +71,14 @@ DepoXy 🍯 Developer Experience Orchestrator
 
     https://www.chezmoi.io/comparison-table/
 
+    - On a related note, while DepoXy relies on
+    [Password Store][Password Store] aka `pass`, *chezmoi* works with [`gopass`][gopass],
+    another terminal-based password manager solution.
+
+[Password Store]: https://www.passwordstore.org/
+
+[gopass]: https://www.gopass.pw/
+
 ## AUTHOR
 
 Copyright (c) 2015-2025 Landon Bouma &lt;depoxy@tallybark.com&gt;
