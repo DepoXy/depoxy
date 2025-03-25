@@ -75,8 +75,9 @@
 /.projlns/
 # /work/
 
-# Other top-level directories.
+# Uninteresting (in that no files we care about editing therein) Third-party directories.
 
+/.ansible/collections/
 /.bash_sessions/
 /.cache/
 /.config/
@@ -102,6 +103,7 @@
 # /.vim/
 /.vim_backups/
 /.virtualenvs/
+/.vscode/
 /.zsh_sessions/
 /Applications/
 # /Desktop/
@@ -146,6 +148,49 @@
 # ***
 
 # DepoXy paths.
+
+# -> ~/.depoxy/stints/XXXX
+/.depoxy/running/
+
+# For less noisy FZF user home.
+# - MAYBE: Generate this list...
+#   - You could use ~/.projlns OMR wiring...
+/.kit/clang/vim/
+/.kit/dob/.whilom/
+/.kit/docs/build/
+/.kit/js/nvm/versions/node/
+/.kit/js/react/ant-design/
+/.kit/js/react/material-ui/
+/.kit/js/typescript-language-server/
+/.kit/mOS/Karabiner-Elements/
+/.kit/mOS/alt-tab-macos/
+/.kit/mOS/hammerspoon/
+/.kit/nvim/*/opt/
+/.kit/nvim/doctorfree/nvim-lazyman/
+/.kit/nvim/landonb/.whilom
+/.kit/nvim/nvim-treesitter/start/nvim-treesitter/
+/.kit/odd/containers/lazydocker/
+/.kit/py/.archived/
+/.kit/py/aws-cli/
+/.kit/py/pandas/
+/.kit/py/poetry/
+/.kit/py/projecthamster/
+/.kit/py/pyfiglet/
+/.kit/py/restview/
+/.kit/py/sphinx_rtd_theme/
+/.kit/py/sqlalchemy/
+/.kit/rust/alacritty/
+/.kit/rust/zed/
+/.kit/txt/diff-so-fancy/
+
+# Doesn't work:
+#   /.kit/nvim/
+#   !/.kit/nvim/DepoXy/
+#   !/.kit/nvim/dubs-vim/
+#   !/.kit/nvim/embrace-vim/
+#   !/.kit/nvim/folke/
+#   !/.kit/nvim/landonb/
+#   !/.kit/nvim/LazyVim/
 
 # Ignore intentionally broken symlink to avoid `rg`
 # complaint: "No such file or directory (os error 2)".
