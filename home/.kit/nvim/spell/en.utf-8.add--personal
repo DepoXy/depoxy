@@ -188,6 +188,7 @@ kubeadm
 kubectl
 kubelet
 launchd
+lazyb
 lazydocker
 lazygit
 letterlike
