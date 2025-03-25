@@ -42,6 +42,7 @@ _dxy_check_if_omr_infuse_run_since_latest_macos_update() {
 
   if ! "${verify_cache_macos_version}"; then
     # Reset cursor in case HOMEFRIES_LOADINGDOTS.
+    # - ALTLY: See c388045 for previous `sudo -v && infuse` message.
     printf '\r'
     echo "$(attr_emphasis)Please run$(attr_reset)" \
       "\`$(attr_bold)sudo -v && ~/.depoxy/ambers/home/infuse-platform-macOS$(attr_reset)\`" \
