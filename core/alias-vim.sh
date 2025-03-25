@@ -93,7 +93,8 @@ faf() {
   # - Uses --server/socket ID: $DEPOXY_NVIM_LAZYVIM.
   # - NVIM_APPNAME=nvim_folke refers to ~/.config/nvim_depoxy
   #     aka ~/.kit/nvim/LazyVim/starter/
-  NVIM_APPNAME=nvim_folke \
+  NVIM_OPEN_FILE_ON_SPAWN= \
+    NVIM_APPNAME=nvim_folke \
     gvim-open-kindness "${DEPOXY_NVIM_LAZYVIM:-💤}" "" "" "$@"
 }
 
