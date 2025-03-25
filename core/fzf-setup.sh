@@ -72,7 +72,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   # Pre-cleanup.
   unset -f main
 
@@ -83,13 +83,12 @@ main () {
   # - Here we prefer source checkout first.
   #   - This looks for the conventional DepoXy path (under ~/.kit/go).
   # - We'll also check $(brew prefix), in case `brew install fzf`.
-  fzf_base_path () {
+  fzf_base_path() {
     local system_prefix="$(fzf_usr_local_path)"
 
     for try_path in \
       "${DOPP_KIT:-${HOME}/.kit}/go/fzf" \
-      "${system_prefix}/opt/fzf" \
-    ; do
+      "${system_prefix}/opt/fzf"; do
       if [ -d "${try_path}" ]; then
         echo "${try_path}"
 
@@ -100,7 +99,7 @@ main () {
     echo ""
   }
 
-  fzf_usr_local_path () {
+  fzf_usr_local_path() {
     if command -v brew > /dev/null; then
       brew --prefix
     else
@@ -122,7 +121,7 @@ main () {
 
   # Setup fzf
   # ---------
-  fzf_update_path () {
+  fzf_update_path() {
     # 2022-11-05: Prefer ~/.local/bin/fzf, which is how DepoXy wires
     # fzf using OMR `infuse` task.
     # - SAVVY: This block skipped in normal DepoXy environment,
@@ -142,14 +141,14 @@ main () {
   # Auto-completion
   # ---------------
   # Only apply if [i]nteractive shell.
-  fzf_wire_completion () {
+  fzf_wire_completion() {
     # CXREF: ~/.kit/go/fzf/shell/completion.bash
     [[ $- == *i* ]] && . "${fzf_path}/shell/completion.bash" 2> /dev/null
   }
 
   # Key bindings
   # ------------
-  fzf_wire_key_bindings () {
+  fzf_wire_key_bindings() {
     # CXREF: ~/.kit/go/fzf/shell/key-bindings.bash
     . "${fzf_path}/shell/key-bindings.bash"
   }
@@ -184,11 +183,11 @@ main () {
   #
   #     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 
-  fzf_wire_default_cmd_fd () {
+  fzf_wire_default_cmd_fd() {
     if ${is_fzf_setup:-false} \
       || ! ${DEPOXY_FZF_PREFER_FD:-false} \
-      ! command -v fd > /dev/null \
-    ; then
+        ! command -v fd > /dev/null \
+      ; then
 
       return
     fi
@@ -211,11 +210,11 @@ main () {
   # - If we later discover `rg` includes a lot of noise, perhaps it'll
   #   encourage us to tweak our .ignore rules.
 
-  fzf_wire_default_cmd_rg () {
+  fzf_wire_default_cmd_rg() {
     if ${is_fzf_setup:-false} \
       || ${DEPOXY_FZF_PREFER_FD:-false} \
-      ! command -v rg > /dev/null \
-    ; then
+        ! command -v rg > /dev/null \
+      ; then
 
       return
     fi
@@ -291,7 +290,7 @@ main () {
       file_globs="${file_globs}${fglob}"
     done
 
-    export FZF_DEFAULT_COMMAND="$( \
+    export FZF_DEFAULT_COMMAND="$(
       echo "
         rg
           --files
@@ -302,7 +301,7 @@ main () {
           --glob '!**/{${dir_globs}}/**'
           --glob '!**/{${file_globs}}'
         2> /dev/null" \
-      | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
+        | tr -d '$\n' | sed 's/  \+/ /g' | sed 's/^ \+//'
     )"
 
     export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
@@ -356,8 +355,8 @@ main () {
   # re-runs the query, so maybe not something you want to do on a path with
   # lots of files beneath it).
 
-  fzf_wire_ctrl_f_cmd_fs () {
-    __fzf_select_with_sort__ () {
+  fzf_wire_ctrl_f_cmd_fs() {
+    __fzf_select_with_sort__() {
       FZF_CTRL_T_OPTS="--bind 'ctrl-f:reload(${FZF_CTRL_T_COMMAND} | sort)'" __fzf_select__
     }
 
@@ -375,7 +374,7 @@ main () {
   # CXREF: Wired by junegunn/fzf, found locally in DepoXy environment at:
   #   ~/.kit/go/fzf/shell/key-bindings.bash
 
-  fzf_wire_alt_c_cmd_bfs () {
+  fzf_wire_alt_c_cmd_bfs() {
     command -v bfs > /dev/null \
       || return
 
@@ -390,7 +389,7 @@ main () {
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-  fzf_wire () {
+  fzf_wire() {
     # Setup fzf wiring
     fzf_update_path
     fzf_wire_completion
@@ -409,7 +408,7 @@ main () {
   # SAVVY: An outer function scope does not shadow functions, they
   # still pollute the shell, so unset 'em to keep your env. tidy.
 
-  fzf_unset_fs () {
+  fzf_unset_fs() {
     unset -f fzf_base_path
     unset -f fzf_usr_local_path
 
@@ -442,7 +441,7 @@ main () {
 
 # SAVVY: Try connecting to existing session to test, then <Ctrl-A>d to detach.
 
-tx () {
+tx() {
   local target_client_or_session="$1"
 
   local change
@@ -454,18 +453,17 @@ tx () {
   fi
 
   if [ -n "${target_client_or_session}" ]; then
-     tmux ${change} -t "${target_client_or_session}" 2>/dev/null \
-       || (tmux new-session -d -s "${target_client_or_session}" \
-       && tmux ${change} -t "${target_client_or_session}")
+    tmux ${change} -t "${target_client_or_session}" 2> /dev/null \
+      || (tmux new-session -d -s "${target_client_or_session}" \
+        && tmux ${change} -t "${target_client_or_session}")
 
-     return
+    return
   fi
 
-  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) \
+  session=$(tmux list-sessions -F "#{session_name}" 2> /dev/null | fzf --exit-0) \
     && tmux ${change} -t "${session}" || echo "No sessions found"
 }
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main "$@"
-
