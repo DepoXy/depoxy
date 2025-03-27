@@ -8,7 +8,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # Load: warn, etc.
   # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
   . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
@@ -48,7 +48,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_user_home_dotconfig () {
+infuse_symlinks_user_home_dotconfig() {
   # Install ${XDG_CONFIG_HOME:-${HOME}/.config}/* symlinks
 
   mkdir -p '.config/alacritty'
@@ -87,7 +87,7 @@ infuse_symlinks_user_home_dotconfig () {
 
 # ***
 
-infuse_symlinks_user_home_dotconfig_skhd () {
+infuse_symlinks_user_home_dotconfig_skhd() {
   if ! os_is_macos; then
 
     return 0
@@ -111,7 +111,7 @@ infuse_symlinks_user_home_dotconfig_skhd () {
   local sourcep
   if sourcep="$(path_to_mrinfuse_resolve ".config/skhd/skhdrc--client")" \
     && [ -f "${sourcep}" ] \
-  ; then
+    ; then
     symlink_mrinfuse_file ".config/skhd/skhdrc--client"
   fi
 
@@ -125,7 +125,7 @@ infuse_symlinks_user_home_dotconfig_skhd () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_user_home_dothammerspoon () {
+infuse_symlinks_user_home_dothammerspoon() {
   mkdir -p '.hammerspoon'
 
   # Symlink to a symlink ->
@@ -139,7 +139,7 @@ infuse_symlinks_user_home_dothammerspoon () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Collect all tig config/bindings under ~/.mrinfuse/.config/tig/
-infuse_symlinks_user_home_tigconfig () {
+infuse_symlinks_user_home_tigconfig() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
@@ -211,7 +211,7 @@ infuse_symlinks_user_home_tigconfig () {
   infuse_symlinks_home_mrinfuse_tigconfig "${ambers_root}"
 }
 
-infuse_symlinks_home_mrinfuse_tigconfig () {
+infuse_symlinks_home_mrinfuse_tigconfig() {
   local ambers_root="$1"
 
   # Add a convenience symlink, so all configs discoverable
@@ -228,7 +228,7 @@ infuse_symlinks_home_mrinfuse_tigconfig () {
 # - The template eval sets DXY_TIG_NEWTONS_PATH (copied here)
 #   and expects DXY_DEPOXYAMBERS_DIR (which we'll supply).
 # - Beware the exit, use (subprocess).
-tigconfig_generate_depoxy_tig_config () {
+tigconfig_generate_depoxy_tig_config() {
   local ambers_root="$1"
 
   # CXREF: ~/.depoxy/ambers/archetype/deploy-archetype.sh
@@ -241,9 +241,9 @@ tigconfig_generate_depoxy_tig_config () {
   # m4_shim adds DEPOXY_CLIENT_FULL/ prefix to target path,
   # so creates ~/.depoxy/running/home/.config/tig/config
 
-  ( \
+  (
     DXY_DEPOXY_CLIENT_FULL="${ambers_root}" \
-    m4_shim \
+      m4_shim \
       "+12" "${archetype_path}/home/.config/tig/config.EVAL" \
       "home/.config/tig/config" \
       "DXY_TIG_NEWTONS_PATH" "${tnewtons}" \
@@ -256,7 +256,7 @@ tigconfig_generate_depoxy_tig_config () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_user_home_dotfiles () {
+infuse_symlinks_user_home_dotfiles() {
   # Note that go-to-definition (e.g., `gd`) from LSP servers (i.e.,
   # neoclide/coc.nvim and the servers it runs) is very useful, but
   # Ctags is still useful for DepoXy as a whole (such as being any
@@ -267,9 +267,9 @@ infuse_symlinks_user_home_dotfiles () {
   # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
 
   # 2024-06-23: Erstwhile ~/.homefries path (that someday maybe we'll remove).
-  local rel_path="$( \
+  local rel_path="$(
     echo "${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}" \
-    | sed -E "s@^${HOME}/@@"
+      | sed -E "s@^${HOME}/@@"
   )"
   symlink_overlay_dir "${rel_path}" "${HOME}/.homefries"
 
@@ -285,7 +285,7 @@ infuse_symlinks_user_home_dotfiles () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_user_home_dotlocal () {
+infuse_symlinks_user_home_dotlocal() {
   if ! os_is_macos; then
     symlink_mrinfuse_file '.local/share/applications/fussy.desktop'
   fi
@@ -293,7 +293,7 @@ infuse_symlinks_user_home_dotlocal () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
+infuse_symlinks_depoxy_ambers_git_smart_gitconfig() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
 
   local before_cd="$(pwd -L)"
@@ -307,14 +307,14 @@ infuse_symlinks_depoxy_ambers_git_smart_gitconfig () {
 
 # ***
 
-infuse_symlinks_user_home_gitconfig () {
+infuse_symlinks_user_home_gitconfig() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local mrinfuse_real="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
 
   infuse_symlinks_user_home_gitconfig_from_base "${mrinfuse_real}"
 }
 
-infuse_symlinks_user_home_gitconfig_from_base () {
+infuse_symlinks_user_home_gitconfig_from_base() {
   local mrinfuse_real="$1"
 
   # - DEPRECATED: I used to store this at ~/.mrinfuse/.gitconfig:
@@ -356,7 +356,7 @@ infuse_symlinks_user_home_gitconfig_from_base () {
 #       to run this code.)
 # - CXREF: See symlink_overlay_dir "${MR_REPO}/home/_git" "${HOME}/.mrinfuse/_git" in:
 #     ~/.depoxy/ambers/archetype/_mrconfig.EVAL.omr
-infuse_symlinks_user_home_gitignore_local () {
+infuse_symlinks_user_home_gitignore_local() {
   if [ -f "${HOME}/.mrinfuse/_git/info/exclude" ]; then
     link_private_exclude "$@"
   fi
@@ -364,7 +364,7 @@ infuse_symlinks_user_home_gitignore_local () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_user_home_gitsmart () {
+infuse_symlinks_user_home_gitsmart() {
   local before_cd="$(pwd -L)"
 
   local git_smart_dir="${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}"
@@ -406,7 +406,7 @@ infuse_symlinks_user_home_gitsmart () {
 
   # ***
 
-  symlink_tig_completion_readlink_guess () {
+  symlink_tig_completion_readlink_guess() {
     # tig, on @macOS, the long way, to not worry about versions, e.g.,
     #   /usr/local/Cellar/tig/2.5.1/etc/bash_completion.d/tig-completion.bash
     # (lb): Doesn't work me on Linux because tig at /usr/bin/tig and not a
@@ -430,7 +430,7 @@ infuse_symlinks_user_home_gitsmart () {
     symlink_overlay_file "${tig_bash}"
   }
 
-  symlink_tig_completion_from_source () {
+  symlink_tig_completion_from_source() {
     # E.g., ~/.kit/git/tig/contrib/tig-completion.bash
 
     local tig_bash=${GITREPOSPATH:-${HOME}/.kit/git}/tig/contrib/tig-completion.bash
@@ -441,9 +441,9 @@ infuse_symlinks_user_home_gitsmart () {
     symlink_overlay_file "${tig_bash}"
   }
 
-  symlink_tig_completion_from_source ||
-    symlink_tig_completion_readlink_guess ||
-      warn 'UNFOUND: Could not locate ‘tig-completion.bash’'
+  symlink_tig_completion_from_source \
+    || symlink_tig_completion_readlink_guess \
+    || warn 'UNFOUND: Could not locate ‘tig-completion.bash’'
 
   # ***
 
@@ -452,7 +452,7 @@ infuse_symlinks_user_home_gitsmart () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_home_tmux_dotfiles () {
+infuse_symlinks_home_tmux_dotfiles() {
   local tmux_clone="${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/.tmux"
 
   if [ ! -d "${tmux_clone}" ]; then
@@ -489,7 +489,7 @@ infuse_symlinks_home_tmux_dotfiles () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_home_tmux_completion () {
+infuse_symlinks_home_tmux_completion() {
   local before_cd="$(pwd -L)"
   cd "${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/completions"
 
@@ -503,12 +503,12 @@ infuse_symlinks_home_tmux_completion () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Populate ~/.projlns for Vim dubs_grep_steady path #9, etc.
-infuse_symlinks_home_projlns () {
+infuse_symlinks_home_projlns() {
   # USAGE: E.g.,
   #   cx && DEPOXY_INFUSE_PROJLNS=true infuse .
-  if ( ! is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-false} ) \
-    || ( is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-true} ) \
-  ; then
+  if (! is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-false}) \
+    || (is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-true}) \
+    ; then
     info " $(font_info_skipped "Skipped") regenerating $(font_highlight "~/.projlns/") [because not \`mr -d /\` aka not all-project \`infuse\`, and/or not \${DEPOXY_INFUSE_PROJLNS}]"
 
     return 0
@@ -556,7 +556,7 @@ infuse_symlinks_home_projlns () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_all_the_symlinks () {
+infuse_all_the_symlinks() {
   infuse_symlinks_user_home_dotconfig
 
   infuse_symlinks_user_home_dothammerspoon
@@ -586,7 +586,7 @@ infuse_all_the_symlinks () {
 
 PROG_NAME="infuse-user-home"
 
-main () {
+main() {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
@@ -618,4 +618,3 @@ fi
 
 unset -f main
 unset -f source_deps
-
