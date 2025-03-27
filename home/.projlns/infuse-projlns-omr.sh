@@ -79,7 +79,7 @@ infuse_create_symlinks_omr_scattered () {
   #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
   #   ~/.kit/sh/home-fries/lib/alias/alias_fd.sh
-  #   ~/.vim/plugs/landonb/start/dubs_project_tray/plugin/dubs_project.vim
+  #   ~/.kit/nvim/landonb/dubs_project_tray/plugin/dubs_project.vim
   # - MAYBE: DRY the -prune list.
   # - INERT: Remove *.EVAL files from DXA (though probably not an issue).
   # - The prune below also includes the ~/.kit/git/mrepos project sources,
