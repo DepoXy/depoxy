@@ -13,7 +13,7 @@ DepoXy 🍯 Developer Experience Orchestrator
   like how you might use Ansible, Puppet, Chef, etc., but far more
   simply).
 
-  A main goal of this project is to make it easy to combine separate
+  A primary goal of this project is to make it easy to combine separate
   public config (what you'll find in this repo) and private config
   (what you won't find because it's private). The latter is kept in
   the "DepoXy Client", a separate repo created by the Archetype that
@@ -52,18 +52,17 @@ DepoXy 🍯 Developer Experience Orchestrator
 
 ## SIMILAR PROJECTS
 
-  Obviously you'll find tons of dot-file repos on GitHub and elsewhere (10s of thousands? 100s?).
+  DepoXy leverages [myrepos][myrepos] to do most of the heavy lifting, such
+  as cloning/updating Git repos, and deploying (e.g., symlinking) dot-files.
 
-  Below are just a few of the notable ones I've found and cared to mention here.
+  Depoxy also relies on other projects for additional functionality, such as
+  using [Password Store][Password Store] (aka `pass`) to access credentials
+  when necessary. For instance, the `grip-pass` command wraps the [`grip`][grip]
+  command and uses `pass` to fetch a token for the `--pass` parameter.
 
-  - Prolific Neovim streamer `@linkarzu`'s publishes their dot-files
-    and a video demonstrating how they deploy them:
-
-    https://github.com/linkarzu/dotfiles-latest
-
-    https://www.youtube.com/@linkarzu
-
-    https://linkarzu.com/posts/2024-macos-workflow/clone-dotfiles/
+  The following projects offer similar or a subset of similar functionality
+  to what DepoXy does. You might be interested in using these projects to
+  help manage your own dot-files.
 
   - *chezmoi* — *Manage your dotfiles across multiple diverse machines, securely.*
 
@@ -71,23 +70,21 @@ DepoXy 🍯 Developer Experience Orchestrator
 
     https://www.chezmoi.io/comparison-table/
 
-    - On a related note, while DepoXy relies on
-    [Password Store][Password Store] aka `pass`, *chezmoi* works with [`gopass`][gopass],
+    - On a related note, while DepoXy relies on `pass`,
+    *chezmoi* works with [`gopass`][gopass],
     another terminal-based password manager solution.
+
+[myrepos]: https://myrepos.branchable.com/
 
 [Password Store]: https://www.passwordstore.org/
 
 [gopass]: https://www.gopass.pw/
+
+[grip]: https://github.com/joeyespo/grip
 
 ## AUTHOR
 
 Copyright (c) 2015-2025 Landon Bouma &lt;depoxy@tallybark.com&gt;
 
 This software is released under the MIT license (see `LICENSE` file for more)
-
-## REPORTING BUGS
-
-&lt;https://github.com/DepoXy/depoxy/issues&gt;
-
-[myrepos]: https://myrepos.branchable.com/
 
