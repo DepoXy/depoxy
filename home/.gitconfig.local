@@ -64,7 +64,8 @@
   #   ~/.depoxy/ambers/bin/git-rebase-sort-by-scope-protected-private
   #
   sort-by-scope = rebase-sort-by-scope-protected-private
-  pwip = ! git add -A && git commit --no-verify -m '"PRIVATE: WIP"'
+  pwip = ! ( ! git diff --cached --quiet || git add -A ) && \
+    git commit --no-verify -m '"PRIVATE: WIP"'
 
 [interactive]
 
