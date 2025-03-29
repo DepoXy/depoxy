@@ -77,7 +77,7 @@
 
   # *** See similar aliases in the top-level .gitconfig.
   #
-  #   - These aliases are those aliases but with an added `--no-verify`. 
+  #   - These aliases are those aliases but with an added `--no-verify`.
   #
   # -n, --no-verify / This option bypasses the pre-commit and commit-msg hooks.
 
