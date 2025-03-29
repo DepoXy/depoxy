@@ -376,6 +376,62 @@
   fu = commit --no-verify --fixup
 
 # #######################################################################
+# ***                           GIT ABSORB                            ***
+# #######################################################################
+
+[absorb]
+
+  # Search deeper for a match than default (maxStack=10), otherwise, e.g.:
+  #   WARN stack limit reached, use --base or configure absorb.maxStack...
+  # (though you'll see that message regardless, it seems...).
+  # FTREQ: Use git-put-wise to identify upstream commit, and use its count.
+  # - BWARE: For now, it's up to you to avoid refactoring into released code.
+  maxStack = 100
+
+  # "Auto-stage all changes if nothing staged".
+  # - ISOFF: I doubt I'd appreciate this. (I don't mind `git add .` first.)
+  #
+  #  autoStageIfNothingStaged = true
+
+  # Instead of "fixup! {message}", "fixup! {SHA}".
+  # - UCASE: Makes it easier to fixup using tig-newtons,
+  #   or `git ria {SHA}` or git rebase --autosquash {SHA}`.
+  fixupTargetAlwaysSHA = true
+
+[alias]
+
+  # USAGE: git-abs prefers to squash into commits since upstream
+  # ref (so you don't overwrite published history). If there's no
+  # upstream, it'll search as many as absorb.maxStack commits
+  # (which might target history older than you really want, but
+  # this alias does not currently --autosquash, so you'll get to
+  # review proposed changes).
+
+  # MAYBE: Add -r/--and-rebase (to avoid extra rebase step).
+
+  # USAGE: If you want to squash into commit with last change
+  # to a file, use:
+  #
+  #   -w, --whole-file
+  #
+  #     "Match the first commit touching the same file as the
+  #      current hunk.  Use this with care!"
+  #
+  # - UCASE: As an example, if you previously made a PRIVATE
+  #   commit with, say, trace messages, and now you've added
+  #   more trace message, this'll commit the new messages to
+  #   the previous PRIVATE commit.
+
+  abs = "!f() { \
+    local base_opt=\"\"; \
+    local upstream; \
+    if upstream=\"$(git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\" 2> /dev/null)\"; then \
+      base_opt=\"--base ${upstream}\"; \
+    fi; \
+    git absorb ${base_opt} \"$@\"; \
+  }; f"
+
+# #######################################################################
 # ***                          GIT LOG -S/-G                          ***
 # #######################################################################
 
