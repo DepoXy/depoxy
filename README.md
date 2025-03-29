@@ -74,6 +74,12 @@ DepoXy 🍯 Developer Experience Orchestrator
     *chezmoi* works with [`gopass`][gopass],
     another terminal-based password manager solution.
 
+  - *stow* — *a symlink farm manager program*
+
+    https://github.com/aspiers/stow
+
+    https://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html
+
 [myrepos]: https://myrepos.branchable.com/
 
 [Password Store]: https://www.passwordstore.org/
