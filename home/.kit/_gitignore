@@ -260,6 +260,7 @@
 # *** [R]u[s]t
 
 /rust/alacritty/
+/rust/neovide/
 /rust/rustup.rs/
 /rust/zed/
 
