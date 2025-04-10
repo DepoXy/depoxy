@@ -103,6 +103,11 @@ neovide--noplugin() {
   neovide -- --listen "/tmp/nvim.socket-${DEPOXY_GVIM_NOPLUGIN:-🙅}" --noplugin &
 }
 
+# REFER: |--clean|
+neovide--clean() {
+  neovide -- --listen "/tmp/nvim.socket-${DEPOXY_GVIM_NOPLUGIN:-🙅}" --clean &
+}
+
 # ***
 
 # REFER: You can easily switch between Neovim distros using NVIM_APPNAME.
