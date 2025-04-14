@@ -87,9 +87,7 @@ include =
 
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy]
 order = 141
-# FIXME/2025-01-30: LATER: Publish nvim-depoxy
-#  lib = remote_set publish https://github.com/DepoXy/nvim-depoxy.git
-lib = remote_set_private
+lib = remote_set publish https://github.com/landonb/nvim-depoxy.git
 skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
 infuse = link_private_exclude "$@"
 
