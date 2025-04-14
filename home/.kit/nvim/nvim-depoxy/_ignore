@@ -29,6 +29,10 @@
 /.config/nvim/lua/util/mswin.lua
 
 # SAVVY: Committed to nvim-depoxy
+# -> ../../../../../landonb/nvim-lazyb/lua/util/shifted.lua
+/.config/nvim/lua/util/shifted.lua
+
+# SAVVY: Committed to nvim-depoxy
 # -> ../../../../../landonb/nvim-lazyb/lua/util/ctrl2pua-keys.lua
 /.config/nvim/lua/util/ctrl2pua-keys.lua
 
