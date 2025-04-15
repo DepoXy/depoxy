@@ -10,15 +10,15 @@ CLEARED_ACI="${CLEARED_ACI:-Entrust: autoci}"
 PRIVATE_ACI="${PRIVATE_ACI:-PRIVATE: autoci*}"
 
 git_auto_commit_one_docs () {
-  git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: Docs: ${2:-$1}"
+  git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: docs: ${2:-$1}"
 }
 
 git_auto_commit_one_omr () {
-  git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: OMR: Update: ${2:-$1}"
+  git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: update(omr): ${2:-$1}"
 }
 
 git_auto_commit_one_update () {
-  git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: Update: ${2:-$1}"
+  git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: update: ${2:-$1}"
 }
 
 # SAVVY: The `git_auto_commit_many` calls below assume no spaces in paths.
