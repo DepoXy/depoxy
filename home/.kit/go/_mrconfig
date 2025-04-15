@@ -26,7 +26,7 @@ infuse =
   elif [ -n "${HOMEBREW_PREFIX}" ] && [ -e "${HOMEBREW_PREFIX}/bin/fzf" ]; then
     # Fallback Homebrew.
     # - Interestingly, on @macOS after `brew install fzf`, when you run
-    #     ~/.kit/go/fzf/install 
+    #     ~/.kit/go/fzf/install
     #   it prefers the `fzf` on PATH (or at least Homebrew's fzf). It'll
     #   simply symlink bin/fzf to the one of PATH. (Whereas, if you do
     #   not have fzf installed from brew, ./install will build `bin/fzf`.)

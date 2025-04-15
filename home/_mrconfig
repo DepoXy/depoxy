@@ -152,7 +152,7 @@ include =
 #  Client-specific config.
 
 # So that an `include =` block can use mr_exclusive, source 'skip-grouping.sh'
-# within it. (This is because the `. skip-grouping.sh` from `cat skip-grouping`, 
+# within it. (This is because the `. skip-grouping.sh` from `cat skip-grouping`,
 # which is previously called by .mrconfig-omr, is in a `lib` block, and lib
 # blocks are not processed until after `include` blocks.)
 #
