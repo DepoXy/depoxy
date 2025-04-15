@@ -36,6 +36,8 @@ include =
 # ------------------------------------------------------------------------
 
 [DEFAULT]
+# CPYST: List project order values:
+#   mr -d / run sh -c 'echo "$MR_ORDER: ${MR_REPO}"'
 # Default order is 10.
 order = 100
 
