@@ -150,7 +150,8 @@ install =
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 #  Ye Olde Dubs Vim (~/.vim foundation and lightweight ~/.vimrc)
 #  - Active: 2009-2024
-#  - Tho it still has mega-doc: README-USING.rst
+#  - Mostly rolled into nvim-depoxy (which itself is superseded by
+#    nvim-lazyb), though still has the mega-doc: README-USING.rst.
 
 # HSTRY/2025-01-30: For eons, found at ~/.vim:
 #   [${MR_HOME:-${HOME}}/.vim]
