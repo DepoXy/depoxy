@@ -9,15 +9,15 @@
 CLEARED_ACI="${CLEARED_ACI:-Entrust: autoci}"
 PRIVATE_ACI="${PRIVATE_ACI:-PRIVATE: autoci*}"
 
-git_auto_commit_one_docs () {
+git_auto_commit_one_docs() {
   git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: docs: ${2:-$1}"
 }
 
-git_auto_commit_one_omr () {
+git_auto_commit_one_omr() {
   git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: update(omr): ${2:-$1}"
 }
 
-git_auto_commit_one_update () {
+git_auto_commit_one_update() {
   git_auto_commit_one "$1" -m "${3:-${CLEARED_ACI}}: update: ${2:-$1}"
 }
 
@@ -36,12 +36,12 @@ git_auto_commit_one_update () {
 # client _mrconfig, hence it's just one big function. Feel free to
 # refactor into smaller functions if you're so inspired.
 
-_dxc_client_autocommit () {
+_dxc_client_autocommit() {
   local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
 
   # SAVVY: This autocommit matches the order from `git ls-files` and
   # auto-commits *all* repo files, or documents those that are skipped.
-  # 
+  #
   # - SAVVY: Don't spent time crafting more helpful commits for the DXC project.
   #   You can craft better commits if/when you merge back to the DXA template
   #   project, but the client itself is ephemeral (you'll abandon the project
@@ -82,10 +82,10 @@ _dxc_client_autocommit () {
   # - Auto-commit just ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}":
   #     git_auto_commit_one_omr ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" "" "${PRIVATE_ACI}"
   # - Auto-commit ".mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" and the project-specific configs:
-  local bizconfs="$(\
+  local bizconfs="$(
     find ".mrconfigs/" \
       -name "_mrconfig-${DEPOXY_VENDOR_NAME:-acme}" \
-      -o -name "_mrconfig-${DEPOXY_VENDOR_NAME:-acme}--*" \
+      -o -name "_mrconfig-${DEPOXY_VENDOR_NAME:-acme}--*"
   )"
   if [ -n "${bizconfs}" ]; then
     git_auto_commit_many ${bizconfs} \
@@ -102,8 +102,8 @@ _dxc_client_autocommit () {
 
   for path in \
     "README"* \
-    ".whilom/README"* \
-  ; do
+    ".whilom/README"*; do
+
     if [ -f "${path}" ]; then
       git_auto_commit_one_docs "${path}"
     fi
@@ -232,7 +232,7 @@ _dxc_client_autocommit () {
 
   # *** GPG Keys
 
-  aci_gnupg () {
+  aci_gnupg() {
     local before_cd="$(pwd -L)"
     #
     # Load: git_auto_commit_one_* fcns.
@@ -247,7 +247,7 @@ _dxc_client_autocommit () {
     local bkup_private="${dxy_target}/private.gpg"
     local bkup_trust="${dxy_target}/trust.gpg"
 
-    local mru_private_key="${HOME}/.gnupg/$( \
+    local mru_private_key="${HOME}/.gnupg/$(
       command ls -1t "${HOME}/.gnupg/private-keys-v1.d/" | head -n 1
     )"
 
@@ -255,7 +255,8 @@ _dxc_client_autocommit () {
       && [ "${bkup_public}" -nt "${HOME}/.gnupg/pubring.gpg" ] \
       && [ "${bkup_private}" -nt "${mru_private_key}" ] \
       && [ "${bkup_trust}" -nt "${HOME}/.gnupg/trustdb.gpg" ] \
-    ; then
+      ; then
+
       debug "$(fg_mintgreen)$(attr_emphasis)bkups uptodate$(attr_reset)" \
         "$(fg_lavender)$(pwd -L)/${dxy_target}/*.gpg$(attr_reset)"
 
@@ -268,7 +269,8 @@ _dxc_client_autocommit () {
     # GPG exports.
     if [ -f "${HOME}/.gnupg/.git/HEAD" ] \
       || [ -f "$(realpath -- "${HOME}/.gnupg")/../.git/HEAD" ] \
-    ; then
+      ; then
+
       debug "$(fg_mintgreen)$(attr_emphasis)already repoed$(attr_reset)" \
         "$(fg_lavender)${HOME}/.gnupg$(attr_reset)"
 
@@ -338,13 +340,13 @@ _dxc_client_autocommit () {
 
   # *** SSH
 
-  aci_ssh () {
+  aci_ssh() {
     local dxy_target="home/.ssh"
 
     for ssh_path in \
       "${HOME}/.ssh/config" \
-      "${HOME}/.ssh/id_"* \
-    ; do
+      "${HOME}/.ssh/id_"*; do
+
       local source="${ssh_path}"
       local target="${dxy_target}/$(basename -- "${ssh_path}")"
 
@@ -367,7 +369,7 @@ _dxc_client_autocommit () {
 
   # *** Password Store
 
-  aci_password_store () {
+  aci_password_store() {
     # USAGE: Uncomment and customize if you want to backup
     #        part of ~/.password-store to the DepoXy Client.
 
@@ -390,8 +392,8 @@ _dxc_client_autocommit () {
 
     for pass_path in \
       ".gpg-id" \
-      "${DEPOXY_VENDOR_NAME:-acme}/teams.gpg" \
-    ; do
+      "${DEPOXY_VENDOR_NAME:-acme}/teams.gpg"; do
+
       local source="${HOME}/.password-store/${pass_path}"
       local target="${dxy_target}/${pass_path}"
 
@@ -413,7 +415,7 @@ _dxc_client_autocommit () {
   # *** VIM
 
   # User Vim config.
-  depoxy_client_autocommit_vimprojects () {
+  depoxy_client_autocommit_vimprojects() {
     # CXREF: ~/.depoxy/ambers/bin/vimprojects-filter
     ${ambers_path}/bin/vimprojects-filter
 
@@ -453,7 +455,7 @@ _dxc_client_autocommit () {
   #         | $(command -v ghead || command -v head) -n -1 ...
   #   - Noting that built-in macOS `head` lacks `-n` feature.
   SHCOLORS_OFF=false \
-  SPF_PRINT_SPELLS=false mr -d . -n -mM spells "$@" 2>&1 \
+    SPF_PRINT_SPELLS=false mr -d . -n -mM spells "$@" 2>&1 \
     | sed 's/^/  /'
 
   # ***
@@ -478,7 +480,7 @@ _dxc_client_autocommit () {
   #     - One idea: Have user update environ or rules file to specifiy
   #       top-level BM Folder names to include in the "purged" copy.
 
-  depoxy_client_autocommit_chrome_bookmarks () {
+  depoxy_client_autocommit_chrome_bookmarks() {
     local chrome_dir
     if [ "$(uname)" = "Darwin" ]; then
       chrome_dir="Library/Application Support/Google/Chrome/Default"
@@ -499,7 +501,8 @@ _dxc_client_autocommit () {
       # Throttle commits to `-mtime +n` 24-hour periods since now.
       if [ ! -f "home/${chrome_bms_json}" ] \
         || [ -n "$(find "home/${chrome_bms_json}" -mtime +1 -print)" ] \
-      ; then
+        ; then
+
         command cp -- "${HOME}/${chrome_bms_json}" "home/${chrome_bms_json}"
       fi
     fi
@@ -537,9 +540,10 @@ _dxc_client_autocommit () {
     local bms_file
     find "home/${chrome_dir}" -maxdepth 1 -name "Bookmarks" -prune -o -iname "bookmarks*" -print \
       | while IFS= read -r bms_file \
-    ; do
-      git_auto_commit_one_update "${bms_file}"
-    done
+        ; do
+
+        git_auto_commit_one_update "${bms_file}"
+      done
   }
   # ISOFF/2025-02-06: This causes repo bloat. (Though file is text (JSON),
   # timestamp values within regularly change.)
@@ -550,14 +554,14 @@ _dxc_client_autocommit () {
 
   # ***
 
-  depoxy_client_autocommit_dob_assets () {
+  depoxy_client_autocommit_dob_assets() {
     git_auto_commit_one_update "home/Library/Application Support/dob/dob.conf"
 
-    dob_export_db () {
+    dob_export_db() {
       local export_prog
-      export_prog="$( \
+      export_prog="$(
         DOB_REPORT_REPORT=true \
-        dob --no-color export \
+          dob --no-color export \
           -o "home/Library/Application Support/dob/dob.sqlite.export"
       )"
 
@@ -620,7 +624,7 @@ _dxc_client_autocommit () {
   # ***
 
   if [ -d "home/${DEPOXY_VENDOR_HOME_NAME:-work}" ]; then
-    git_auto_commit_many $( \
+    git_auto_commit_many $(
       find home/${DEPOXY_VENDOR_HOME_NAME:-work}/ \
         -path home/${DEPOXY_VENDOR_HOME_NAME:-work}/${DEPOXY_VENDOR_ACMESH_NAME:-acme.sh} \
         -prune -o -type f -o -type l
@@ -640,7 +644,7 @@ _dxc_client_autocommit () {
   # ***
 
   # More POSIX than `command -V`, perhaps. Note `type -t` is not.
-  is_function () {
+  is_function() {
     type "$1" 2> /dev/null | head -n 1 | grep -qe ' function$'
   }
 
@@ -679,7 +683,7 @@ _dxc_client_autocommit () {
   # also nice to have an audit trail sometimes. So long as these commits
   # are not too noisy. (INERT: Should they be, add a timeout period.)
 
-  depoxy_client_autocommit_tree_dumps () {
+  depoxy_client_autocommit_tree_dumps() {
     # Don't generate tree while spell changes outstanding,
     # because meld files come and go.
     if test -n "$(git status --porcelain -- home/.kit/nvim/spell)"; then
@@ -699,10 +703,11 @@ _dxc_client_autocommit () {
   # ***
   # ===
 
-  insist_nothing_not_committed () {
-    local ignore_spell_melds="$(echo \
-      ":!home/.kit/nvim/spell/sync-spells--*-new.sh" \
-      ":!home/.kit/nvim/spell/en.utf-8.add--*" \
+  insist_nothing_not_committed() {
+    local ignore_spell_melds="$(
+      echo \
+        ":!home/.kit/nvim/spell/sync-spells--*-new.sh" \
+        ":!home/.kit/nvim/spell/en.utf-8.add--*"
     )"
 
     if test -z "$(git status --porcelain -- ${ignore_spell_melds})"; then
@@ -717,4 +722,3 @@ _dxc_client_autocommit () {
   }
   insist_nothing_not_committed
 }
-
