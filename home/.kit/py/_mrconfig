@@ -60,9 +60,11 @@ order = 695
 #   pipx (DEPOXY_PYENV_PYVERS, below), regardless of whatever the current
 #   version is in your shell when you install and app or run it.
 [${DOPP_KIT:-${HOME}/.kit}/py/pipx]
-# Bump the order so before projects that need pipx in the echoInstallHelp list
-# (lowest-order project is git-bump-version-tag, order = 470).
-order = 469
+# ISOFF: Bump order so precedes projects that need pipx installed first.
+#   order = 410
+# - SAVVY: Add `mr -d .../pipx -n install` to those projects' 'install'
+#   tasks instead.
+#   - Currently, it's just ~/.kit/git/git-bump-version-tag that uses pipx.
 lib = remote_set starter https://github.com/pypa/pipx.git
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_all'

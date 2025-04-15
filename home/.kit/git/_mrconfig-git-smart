@@ -32,14 +32,22 @@ updateDeps = update_deps_shoilerplate
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag]
 lib = remote_set publish https://github.com/landonb/git-bump-version-tag.git
 skip = mr_exclusive "!entrusted"
-# DEPCY: Relies on pipx being ordered (installed) earlier / CXREF:
-#   ~/.depoxy/ambers/home/.kit/py/_mrconfig @ 24
-order = 470
+# ISOFF: Rather than change order, add install-pipx to 'install' task.
+# (I don't recommend `mr -d / install`, anyway; it's better that each
+#  install action handles dependencies independently instead of assuming
+#  that user is running each project's 'install' task in order.
+#  - ALTLY: Check pipx installed, and warn-tell if not; vs. what I've
+#    plumbed here, which is just calling pipx-install always.)
+# - DEPCY: Relies on pipx (order = 410) being ordered (installed) earlier / CXREF:
+#     ~/.depoxy/ambers/home/.kit/py/_mrconfig @ 65
+#   order = 411
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -h "${HOME}/.local/bin/dunamai"
 # SAVVY: Note that DepoXy appends git-bump-version-tag/bin to PATH —
 #        Otherwise this 'install' would add symlink to ~/.local/bin
 install =
+  mr -d "${DOPP_KIT:-${HOME}/.kit}/py/pipx" -n install
+  #
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
   pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
