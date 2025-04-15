@@ -123,6 +123,7 @@ order = 470
 lib =
   remote_set publish https://github.com/landonb/password-store.git
   remote_set starter https://git.zx2c4.com/password-store
+  remote_set mirrord https://github.com/zx2c4/password-store
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -x "${HOME}/.local/bin/pass"
 install =
@@ -131,7 +132,10 @@ rebase =
   local resume_cmd="$1"
   #
   local liminal_ref="-"
-  rebase_tip "${resume_cmd}" "edit-ext-and-version-bump" "starter/master" \
+  # HSTRY: Vers. v1.7.5a1:
+  #   rebase_tip "${resume_cmd}" "edit-ext-and-version-bump" "starter/master" \
+  # - Now on v1.7.5a2:
+  rebase_tip "${resume_cmd}" "edit-ext-and-hidden-files" "starter/master" \
     "${liminal_ref}" "main" "${_add_version_tag:-false}" \
     "${_skip_rebase-false}"
 
