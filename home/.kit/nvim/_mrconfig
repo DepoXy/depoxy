@@ -12,7 +12,7 @@
 # ------------------------------------------------------------------------
 
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}]
-order = 250
+order = 361
 
 checkout = mkdir -p -- "${MR_REPO}"
 # Not an actual repo

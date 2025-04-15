@@ -884,7 +884,7 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOB_OMR_DIR:-${HOME}/.kit/dob}]
-order = 211
+order = 231
 lib = remote_set publish https://github.com/doblabs/mrconfig-dob.git
 infuse =
   link_private_exclude "$@"

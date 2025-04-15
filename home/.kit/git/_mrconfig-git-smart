@@ -7,7 +7,7 @@
 # ------------------------------------------------------------------------
 
 [DEFAULT]
-order = 470
+order = 371
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -157,6 +157,7 @@ updateDeps = update_deps_shoilerplate
 
 # Interactive Git patch injector.
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-veggie-patch]
+order = 379
 lib = remote_set publish https://github.com/landonb/git-veggie-patch.git
 skip = mr_exclusive "!entrusted"
 
@@ -168,9 +169,6 @@ skip = mr_exclusive "!entrusted"
 [${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/myrepos-mredit-command]
 lib = remote_set publish https://github.com/DepoXy/myrepos-mredit-command.git
 skip = mr_exclusive "!entrusted"
-# Bump the order so first in echoInstallHelp list (b/c author finds
-# this command that useful).
-order = 370
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
   echo "- SAVVY: Restart your shell so \`MREDIT_CONFIGS=~/.projlns/mymrconfigs\`\n"
 isInstalled = test -h "${HOME}/.local/bin/mredit"
