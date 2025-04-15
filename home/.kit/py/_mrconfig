@@ -60,10 +60,10 @@ order = 695
 #   pipx (DEPOXY_PYENV_PYVERS, below), regardless of whatever the current
 #   version is in your shell when you install and app or run it.
 [${DOPP_KIT:-${HOME}/.kit}/py/pipx]
-lib = remote_set starter https://github.com/pypa/pipx.git
 # Bump the order so before projects that need pipx in the echoInstallHelp list
 # (lowest-order project is git-bump-version-tag, order = 470).
 order = 469
+lib = remote_set starter https://github.com/pypa/pipx.git
 echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_all'
   #
@@ -123,9 +123,9 @@ installPips =
 
 # https://github.com/python-poetry/poetry
 [${DOPP_KIT:-${HOME}/.kit}/py/poetry]
-lib = remote_set starter https://github.com/python-poetry/poetry.git
 # SAVVY: Ensure order precedes poetry plugin(s).
 order = 695
+lib = remote_set starter https://github.com/python-poetry/poetry.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -h "${HOME}/.local/bin/poetry"
 install =
@@ -181,9 +181,9 @@ update =
 
 # Another project I don't need locally, but I like having the install command.
 [${DOPP_KIT:-${HOME}/.kit}/py/poetry-dynamic-versioning]
-lib = remote_set starter https://github.com/mtkennerly/poetry-dynamic-versioning.git
 # Decrease the order so follows poetry (order = 470).
 order = 696
+lib = remote_set starter https://github.com/mtkennerly/poetry-dynamic-versioning.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = true
 install =
@@ -279,6 +279,9 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv]
+# Should be ordered lower than anything that uses `pyenv init`
+# (lowest-order project is pipx, order = 469).
+order = 468
 # Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 # Otherwise might be, e.g., author's Linux env. (where I don't (or
@@ -303,9 +306,6 @@ ffssh =
     # Skip (but report skipped) on macOS
     OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
   fi
-# Should be ordered lower than anything that uses `pyenv init`
-# (lowest-order project is pipx, order = 469).
-order = 468
 echoInstallHelp =
   echoInstallHelp 'os_linux' 'dxy_all'
   #
@@ -882,6 +882,7 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOB_OMR_DIR:-${HOME}/.kit/dob}]
+order = 211
 lib = remote_set publish https://github.com/doblabs/mrconfig-dob.git
 infuse =
   link_private_exclude "$@"

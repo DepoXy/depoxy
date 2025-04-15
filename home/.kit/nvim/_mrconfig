@@ -86,7 +86,7 @@ include =
 #  nvim-depoxy#🐇
 
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy]
-order = 141
+order = 142
 lib = remote_set publish https://github.com/landonb/nvim-depoxy.git
 skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
 infuse = link_private_exclude "$@"
@@ -98,7 +98,7 @@ infuse = link_private_exclude "$@"
 #  vim-depoxy#🤙
 
 [${MR_HOME:-${HOME}}/.kit/nvim/DepoXy/start/vim-depoxy]
-order = 141
+order = 143
 lib = remote_set publish "https://github.com/DepoXy/vim-depoxy.git"
 skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
 infuse = link_private_exclude "$@"
@@ -156,7 +156,7 @@ install =
 # HSTRY/2025-01-30: For eons, found at ~/.vim:
 #   [${MR_HOME:-${HOME}}/.vim]
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/dubs-vim]
-order = 140
+order = 144
 lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
 # DUNNO: Want included w/ $LOGNAME projects?:
 #   skip = mr_exclusive "vim" "dubs-vim" "vim-dubs" "github.com/landonb" "${LOGNAME}"

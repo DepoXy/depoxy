@@ -76,7 +76,7 @@ lib =
 #  Home Fries (robust dotfiles)
 
 [${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}]
-order = 120
+order = 202
 lib = remote_set publish "https://github.com/landonb/home-fries.git" "home-fries"
 infusePostRebase =
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
@@ -271,7 +271,7 @@ infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_pr
 #  Dev Dopp Kit/ (wherein you'll find lots of cloned source projects).
 
 [${MR_HOME:-${HOME}}/.kit]
-order = 204
+order = 201
 lib = remote_set_private
 ffssh = MR_FLOATING_TAGS="pw/private/in" git_merge_ffonly_ssh_mirror "$@"
 infusePostRebase =

@@ -7,7 +7,7 @@
 # ------------------------------------------------------------------------
 
 [DEFAULT]
-order = 195
+order = 203
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -41,6 +41,7 @@ autocommit =
 # HSTRY: Unsure if ~/.kit/txt is best location for this.
 # - Altly: ~/.kit/odd/perl (which doesn't exist).
 [${DOPP_KIT:-${HOME}/.kit}/txt/diff-so-fancy]
+order = 670
 lib = remote_set starter https://github.com/so-fancy/diff-so-fancy.git
 skip = no_travel
 

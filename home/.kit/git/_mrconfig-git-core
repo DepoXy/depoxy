@@ -423,7 +423,7 @@ infuseProjlns = infuse_projlns_if_personal_project "mr" "README.rst"
 
 # SLUGL: Oh, My Repos! supercharged `myrepos` multiple repository management
 [${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}]
-order = 150
+order = 202
 lib = remote_set publish https://github.com/landonb/ohmyrepos.git
 skip = mr_exclusive_git_core
 infusePostRebase =
@@ -448,6 +448,7 @@ updateDeps = update_deps_shoilerplate
 #                  T IG
 #                   TIG!
 [${GITREPOSPATH:-${HOME}/.kit/git}/tig]
+order = 570
 lib = remote_set starter https://github.com/jonas/tig.git
 # 2021-08-04: Old remote wiring in case I need to fork tig again.
 #
