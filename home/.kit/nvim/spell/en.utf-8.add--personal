@@ -135,6 +135,7 @@ blocklisted
 blocklisting
 builtins
 cd'd
+cmdline
 columnarly
 conf
 ctags
