@@ -24,6 +24,9 @@ insert_final_newline = false
 # - I.e., it ignores this option. Ah, well....
 insert_final_newline = true
 
+[*mrconfig*]
+trim_trailing_whitespace = false
+
 # SAVVY: The only formatting I can't adjust to my liking is multi-line
 # if-conditionals. I like to dedent the final "then", so the conditional
 # is blocked separately from the branch body, e.g.,
