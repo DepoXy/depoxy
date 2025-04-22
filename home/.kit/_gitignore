@@ -229,6 +229,7 @@
 # *** Python
 
 /py/asciinema/
+/py/aider/
 /py/aws-cli/
 /py/cpython/
 /py/csv2ofx/
