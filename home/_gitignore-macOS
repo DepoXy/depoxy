@@ -215,6 +215,10 @@
 #  https://github.com/johnlane/abcde
 /.abcde.conf
 
+# AI: Aider.
+# https://aider.chat/
+/.aider/
+
 # Ansible.
 /.ansible/
 /ansible_hosts
@@ -355,6 +359,10 @@
 # sqlite3
 /.sqlite_history
 /.sqliterc
+
+# AI: Supermaven.
+# https://supermaven.com/
+/.supermaven/
 
 # DUNNO: Looks like Alacritty assets but unsure what I did to
 # create these.
