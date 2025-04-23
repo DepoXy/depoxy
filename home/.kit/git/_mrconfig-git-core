@@ -456,6 +456,7 @@ lib = remote_set starter https://github.com/jonas/tig.git
 #    remote_set publish https://github.com/landonb/tig.git
 #    remote_set starter https://github.com/jonas/tig.git"
 skip = mr_exclusive_git_core
+infuse = link_private_exclude "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = test -x "${HOME}/.local/bin/tig"
 # UCASE: Linux distro tig aren't kept up to date like Homebrew.
@@ -514,9 +515,20 @@ install =
     ./configure
   fi
   #
-  make prefix=${HOME}/.local
-  make install prefix=${HOME}/.local
-  make install-doc prefix=${HOME}/.local
+  if ${OMR_TIG_DEBUG:-false}; then
+    # Enable for debugging.
+    # - E.g., macOS:
+    #     lldb ~/.kit/git/tig/src/tig
+    #     b stage.c:240
+    # - Build `compile_commands.json` via GENERATE_COMPILATION_DATABASE
+    #   for clangd LSP.
+    GENERATE_COMPILATION_DATABASE=yes \
+      make all-debug
+  else
+    make prefix=${HOME}/.local
+    make install prefix=${HOME}/.local
+    make install-doc prefix=${HOME}/.local
+  fi
   #
   bash -c "type -a tig"
   tig --version
