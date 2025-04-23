@@ -192,6 +192,7 @@ infusePostRebase =
   link_hard_dep_git_smart_git_fup
 infuse =
   mr -d . -n infusePostRebase
+  ln -sfn "${MR_REPO}" "${XDG_CONFIG_HOME:-${HOME}/.config}/tig-newtons"
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================
