@@ -496,9 +496,9 @@ install =
     if [ -d "${brew_prefix}" ]; then
       # SAVVY: For Darwin build:
       # - Set ncurses PKG_CONFIG_PATH, lest:
-      #   "configure: WARNING: The found ncurses library does not support wide-char."
+      #   "configure: WARNING∷ The found ncurses library does not support wide-char."
       # - Set readline LDFLAGS and CPPFLAGS, lest:
-      #   "configure: WARNING: Could not test version of installed readline library."
+      #   "configure: WARNING∷ Could not test version of installed readline library."
       # - Also include Perl regex (PCRE2) support using same environs.
       PKG_CONFIG_PATH="${brew_prefix}/ncurses/lib/pkgconfig/:${brew_prefix}/pcre2/lib/pkgconfig/" \
         ./configure \
