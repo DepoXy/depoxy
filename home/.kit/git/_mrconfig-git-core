@@ -521,6 +521,10 @@ install =
   bash -c "type -a tig"
   tig --version
 installDarwin =
+  # Assume if src/tig exists that so do these brew dependencies.
+  if [ -x src/tig ]; then
+    return
+  fi
   # REFER: /opt/homebrew/lib/libssl.a
   # - Generally already installed
   #  brew install openssl@3
