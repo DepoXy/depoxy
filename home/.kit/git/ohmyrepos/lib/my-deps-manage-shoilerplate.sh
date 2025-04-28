@@ -29,7 +29,7 @@
 # NOTE: If you've added link_hard_dep_* calls to infusePostRebase
 #       but haven't added the files to the repo yet, you either
 #       need to call `updateDeps` *twice*, or you need to make
-#       a call sandwich, e.g., 
+#       a call sandwich, e.g.,
 #         mr -d . -n infusePostRebase
 #         mr -d . -n updateDeps
 #         mr -d . -n infusePostRebase
@@ -41,16 +41,16 @@
 #         wouldn't (because updateDeps understands GPW scoped commits, but
 #         OMR's link_hard only knows HEAD).
 
-update_deps_shoilerplate () {
+update_deps_shoilerplate() {
   local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"
 
-  update_faithful_finish_signed () {
+  update_faithful_finish_signed() {
     local sourcerer="https://github.com/DepoXy/depoxy/blob/release/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh"
 
     update_faithful_finish "${sourcerer}"
   }
 
-  update_deps_git_smart_git_abort () {
+  update_deps_git_smart_git_abort() {
     [ -f "deps/git-smart/bin/git-abort" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${gitsmart_path}"
@@ -62,7 +62,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_git_smart_git_fup () {
+  update_deps_git_smart_git_fup() {
     [ -f "deps/git-smart/bin/git-fup" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${gitsmart_path}"
@@ -74,7 +74,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_git_update_faithful () {
+  update_deps_git_update_faithful() {
     [ -d "deps/git-update-faithful" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful"
@@ -86,7 +86,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_macOS_disktools () {
+  update_deps_macOS_disktools() {
     [ -d "deps/macOS-disktools" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools"
@@ -101,7 +101,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_ask_yesnoskip () {
+  update_deps_sh_ask_yesnoskip() {
     [ -d "deps/sh-ask-yesnoskip" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
@@ -113,7 +113,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_colors () {
+  update_deps_sh_colors() {
     [ -d "deps/sh-colors" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
@@ -125,7 +125,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_err_trap () {
+  update_deps_sh_err_trap() {
     [ -d "deps/sh-err-trap" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
@@ -137,7 +137,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_git_nubs () {
+  update_deps_sh_git_nubs() {
     [ -d "deps/sh-git-nubs" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
@@ -149,7 +149,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_humble_prompt () {
+  update_deps_sh_humble_prompt() {
     [ -d "deps/sh-humble-prompt" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt"
@@ -170,7 +170,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_logger_and_colors () {
+  update_deps_sh_logger_and_colors() {
     [ -d "deps/sh-logger/deps/sh-colors" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
@@ -183,7 +183,7 @@ update_deps_shoilerplate () {
     update_deps_sh_logger
   }
 
-  update_deps_sh_logger () {
+  update_deps_sh_logger() {
     [ -d "deps/sh-logger" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
@@ -195,7 +195,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_pather () {
+  update_deps_sh_pather() {
     [ -d "deps/sh-pather" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
@@ -213,7 +213,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_print_nanos_now () {
+  update_deps_sh_print_nanos_now() {
     [ -d "deps/sh-print-nanos-now" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
@@ -225,7 +225,7 @@ update_deps_shoilerplate () {
     update_faithful_finish_signed
   }
 
-  update_deps_sh_rm_safe () {
+  update_deps_sh_rm_safe() {
     [ -d "deps/sh-rm_safe" ] || return 0
 
     export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
@@ -268,49 +268,49 @@ update_deps_shoilerplate () {
 # ========================================================================
 # ------------------------------------------------------------------------
 
-link_hard_dep_git_smart_git_abort () {
+link_hard_dep_git_smart_git_abort() {
   link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-abort" \
     "deps/git-smart/bin/git-abort"
 }
 
-link_hard_dep_git_smart_git_fup () {
+link_hard_dep_git_smart_git_fup() {
   link_hard "${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}/bin/git-fup" \
     "deps/git-smart/bin/git-fup"
 }
 
-link_hard_dep_git_update_faithful () {
+link_hard_dep_git_update_faithful() {
   link_hard "${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful/lib/update-faithful.sh" \
     "deps/git-update-faithful/lib/update-faithful.sh"
 }
 
-link_hard_dep_macOS_disktools () {
+link_hard_dep_macOS_disktools() {
   link_hard "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools/bin/apfs-mount" \
     "deps/macOS-disktools/bin/apfs-mount"
   link_hard "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools/bin/dmg-mount" \
     "deps/macOS-disktools/bin/dmg-mount"
 }
 
-link_hard_dep_sh_ask_yesnoskip () {
+link_hard_dep_sh_ask_yesnoskip() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin/ask-yesnoskip.sh" \
     "deps/sh-ask-yesnoskip/bin/ask-yesnoskip.sh"
 }
 
-link_hard_dep_sh_colors () {
+link_hard_dep_sh_colors() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh" \
     "deps/sh-colors/bin/colors.sh"
 }
 
-link_hard_dep_sh_err_trap () {
+link_hard_dep_sh_err_trap() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap/lib/err-trap.sh" \
     "deps/sh-err-trap/lib/err-trap.sh"
 }
 
-link_hard_dep_sh_git_nubs () {
+link_hard_dep_sh_git_nubs() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh" \
     "deps/sh-git-nubs/lib/git-nubs.sh"
 }
 
-link_hard_dep_sh_humble_prompt () {
+link_hard_dep_sh_humble_prompt() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/set-shell-prompt-and-window-title.sh" \
     "deps/sh-humble-prompt/lib/set-shell-prompt-and-window-title.sh"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh" \
@@ -321,18 +321,18 @@ link_hard_dep_sh_humble_prompt () {
     "deps/sh-humble-prompt/lib/window-title--fancy-cwd-path"
 }
 
-link_hard_dep_sh_logger () {
+link_hard_dep_sh_logger() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh" \
     "deps/sh-logger/bin/logger.sh"
 }
 
-link_hard_dep_sh_logger_and_colors () {
+link_hard_dep_sh_logger_and_colors() {
   link_hard_dep_sh_logger
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/deps/sh-colors/bin/colors.sh" \
     "deps/sh-logger/deps/sh-colors/bin/colors.sh"
 }
 
-link_hard_dep_sh_pather () {
+link_hard_dep_sh_pather() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/pather.sh" \
     "deps/sh-pather/bin/pather.sh"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather/bin/path_prefix" \
@@ -341,12 +341,12 @@ link_hard_dep_sh_pather () {
     "deps/sh-pather/bin/path_suffix"
 }
 
-link_hard_dep_sh_print_nanos_now () {
+link_hard_dep_sh_print_nanos_now() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now/bin/print-nanos-now.sh" \
     "deps/sh-print-nanos-now/bin/print-nanos-now.sh"
 }
 
-link_hard_dep_sh_rm_safe () {
+link_hard_dep_sh_rm_safe() {
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/path_device" \
     "deps/sh-rm_safe/bin/path_device"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe/bin/rmrm" \
@@ -359,4 +359,3 @@ link_hard_dep_sh_rm_safe () {
 
 # ========================================================================
 # ------------------------------------------------------------------------
-

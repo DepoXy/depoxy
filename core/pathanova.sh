@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_source_deps_pather () {
+_dxy_source_deps_pather() {
   # SAVVY: Homefries sources these (from its deps/):
   #   ~/.kit/sh/home-fries/.bashrc-bin/bashrc.core.sh
 
@@ -20,50 +20,50 @@ _dxy_source_deps_pather () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-user_path_add_home_local_node_modules_bin () {
+user_path_add_home_local_node_modules_bin() {
   # Make Ansible Zoidy Pooh-installed Node/NPM executables available.
   path_prefix "${HOME}/.local/node_modules/.bin"
 }
 
 # ***
 
-user_path_add_depoxyambers_bin () {
+user_path_add_depoxyambers_bin() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   path_prefix "${DEPOXYAMBERS_DIR:-${ambers_path}}/bin"
 }
 
 # ***
 
-user_path_add_git_smart () {
+user_path_add_git_smart() {
   # Prepend, so git-undo's is found before git-extras' /usr/bin/git-undo.
   path_prefix "${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}/bin"
 }
 
-user_path_add_git_bump_version_tag () {
+user_path_add_git_bump_version_tag() {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag/bin"
 }
 
-user_path_add_git_mr_merge_status () {
+user_path_add_git_mr_merge_status() {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-my-merge-status/bin"
 }
 
-user_path_add_git_rebase_tip () {
+user_path_add_git_rebase_tip() {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-rebase-tip/bin"
 }
 
-user_path_add_git_veggie_patch () {
+user_path_add_git_veggie_patch() {
   path_prefix "${GITREPOSPATH:-${HOME}/.kit/git}/git-veggie-patch/bin"
 }
 
 # https://github.com/tj/git-extras
-user_path_add_tj_git_extras () {
+user_path_add_tj_git_extras() {
   # Append, so comes last and doesn't conflict with git-smart.
   path_suffix "${GITREPOSPATH:-${HOME}/.kit/git}/git-extras/bin"
 }
 
 # ***
 
-user_path_add_omr_lib () {
+user_path_add_omr_lib() {
   # This puts the `infuse` and `updateDeps` shortcuts on PATH.
   # - Both wrappers work similarly, e.g.,
   #   `updateDeps` same as `mr -d / updateDeps`, and
@@ -74,7 +74,7 @@ user_path_add_omr_lib () {
 
 # ***
 
-user_path_add_nvim_bins () {
+user_path_add_nvim_bins() {
   path_prefix "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy/bin"
 }
 
@@ -84,7 +84,7 @@ user_path_add_nvim_bins () {
 # symlinks for the executables you care about. / Though this PATH approach
 # isn't too bad, either, and seems like less work for the user.
 
-user_path_add_sh_bins () {
+user_path_add_sh_bins() {
   #  path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip/bin"
   # Commands: strip-colors, test-colors, test-truecolor
   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin"
@@ -108,13 +108,13 @@ user_path_add_sh_bins () {
 
 # ***
 
-user_path_add_py_bins () {
+user_path_add_py_bins() {
   path_prefix "${DOPP_KIT:-${HOME}/.kit}/py/birdseye/bin"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_depoxy_path_condense_colons () {
+_depoxy_path_condense_colons() {
   # Completely unnecessary: Condense consecutive colons. But looks nice.
   PATH="$(echo $PATH | /usr/bin/env sed -E 's/:+/:/g')"
   export PATH
@@ -123,7 +123,7 @@ _depoxy_path_condense_colons () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Adds executable commands' directories to PATH.
-user_path_extend () {
+user_path_extend() {
 
   # *** Update PATH environment variable.
 
@@ -172,14 +172,14 @@ user_path_extend () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_path () {
+_dxy_wire_path() {
   user_path_extend
   unset -f user_path_extend
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_source_deps_pather
 }
 
@@ -194,4 +194,3 @@ _dxy_wire_path
 unset -f main
 unset -f _dxy_source_deps_pather
 unset -f _dxy_wire_path
-
