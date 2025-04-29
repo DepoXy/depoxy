@@ -161,6 +161,19 @@ insist_is_correctly_wired() {
   fi
 }
 
+# Sets caller's local app_config_dir and mrinfuse_path.
+set_mrinfuse_vars_for_os_and_app() {
+  local appname="$1"
+
+  if ! os_is_macos; then
+    mrinfuse_path=".config/${appname}"
+    app_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/${appname}"
+  else
+    mrinfuse_path="Library/Application Support/${appname}"
+    app_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}/${appname}"
+  fi
+}
+
 # *** DepoXy config
 
 # "Install" the ~/.config/depoxy/depoxyrc config.
@@ -639,27 +652,19 @@ symlink_overlay_kube_assets() {
 symlink_overlay_dob_assets() {
   infuse_dob_config_if_exists() {
     local mrinfuse_path
-    local user_config_dir
-    if ! os_is_macos; then
-      mrinfuse_path=".config/dob"
-      user_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
-    else
-      mrinfuse_path="Library/Application Support/dob"
-      user_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}"
-    fi
+    local app_config_dir
+    set_mrinfuse_vars_for_os_and_app "dob"
 
     local sourcep
     if sourcep="$(path_to_mrinfuse_resolve "${mrinfuse_path}")" \
       && [ -d "${sourcep}" ] \
       ; then
 
-      local dob_config_dir="${user_config_dir}/dob"
-
-      symlink_mrinfuse_dir "${mrinfuse_path}" "${dob_config_dir}"
+      symlink_mrinfuse_dir "${mrinfuse_path}" "${app_config_dir}"
 
       if os_is_macos; then
         # Convenience link (and parity with Linux).
-        symlink_overlay_dir "${dob_config_dir}" "${HOME}/.config/dob"
+        symlink_overlay_dir "${app_config_dir}" "${HOME}/.config/dob"
       fi
     fi
   }
