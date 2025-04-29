@@ -67,7 +67,7 @@ _dxc_client_infuse() {
 
   symlink_overlay_homefries_private_bashrc
 
-  # *** VIM
+  # *** NVIM
 
   symlink_overlay_nvim_assets
 
