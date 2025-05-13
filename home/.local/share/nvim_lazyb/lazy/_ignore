@@ -5,5 +5,9 @@
 
 CHANGELOG.md
 NEWS.md
+/copilot.lua/copilot/js/main.js
+/copilot.lua/copilot/js/main.js.map
+/markdown-preview.nvim/app/out/_next/static/
+/markdown-preview.nvim/app/_static/
 /telescope.nvim/data/memes/planets/
 
