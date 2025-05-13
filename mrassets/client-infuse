@@ -71,6 +71,10 @@ _dxc_client_infuse() {
 
   symlink_overlay_nvim_assets
 
+  # *** VS Code windsurf
+
+  symlink_overlay_windsurf_assets
+
   # *** GIT
 
   symlink_overlay_git_assets
@@ -410,6 +414,21 @@ symlink_overlay_nvim_assets() {
   symlink_overlay_dir \
     "${MR_REPO}/home/vim-trap" \
     "${HOME}/.kit/nvim/DepoXy/start/vim-trap"
+}
+
+# *** VS Code windsurf
+
+# Infuses VS Code settings (~/Library/Application Support/Windsurf/User/settings.json).
+symlink_overlay_windsurf_assets() {
+  local mrinfuse_path
+  local app_config_dir
+  # Technically (AFAIK) the app. name is technically lowercase ("windsurf"),
+  # as is its own ~/.windsurf directory. But the config path is uppercased.
+  # - FIXME: Verify Debian path is ~/.config/Windsurf
+  set_mrinfuse_vars_for_os_and_app "Windsurf"
+  local settings_rel="User/settings.json"
+  MR_REPO="${HOME}" \
+    symlink_mrinfuse_file "${mrinfuse_path}/${settings_rel}" "${app_config_dir}/${settings_rel}"
 }
 
 # *** GIT

@@ -1,0 +1,6 @@
+{
+    "window.title": "${rootName}${separator}${profileName}${separator}${activeEditorShort}${separator}🍃",
+    "editor.fontFamily": "'Hack Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.wordWrap": "on",
+    "security.workspace.trust.untrustedFiles": "open"
+}
