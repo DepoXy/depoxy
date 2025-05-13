@@ -193,12 +193,19 @@ setup_nvim_lazyb_lua_config() {
 # CXREF:
 # ~/.depoxy/ambers/home/.local/share/nvim_lazyb/lazy/_ignore
 
-setup_nvim_lazyb_lazy_ignore() {
+setup_nvim_lazyb_lazy() {
   local before_cd="$(pwd -L)"
 
   cd -- "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim_lazyb/lazy"
-
   MR_REPO="$(pwd -L)" link_private_ignore_
+
+  # FIXME/2025-05-13: What did I do that ran git-status on ~/.local/share
+  # subdirs, which are not registered with OMR?
+  # - Also, do we need to do this for *all* lazy.nvim-managed plugins?
+  cd -- "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim_lazyb/lazy/bufferline.nvim"
+  # Place ~/.local/share/nvim_lazyb/lazy/bufferline.nvim/.git/info/exclude
+  #         → ~/.depoxy/ambers/home/.local/share/nvim_lazyb/lazy/bufferline.nvim/_git/info/exclude
+  MR_REPO="$(pwd -L)" link_private_exclude
 
   cd -- "${before_cd}"
 }
@@ -547,7 +554,7 @@ main() {
 
   setup_nvim_lazyb_lua_config
 
-  setup_nvim_lazyb_lazy_ignore
+  setup_nvim_lazyb_lazy
 
   wire_dot_config "nvim"
 
