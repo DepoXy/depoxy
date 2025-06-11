@@ -294,6 +294,11 @@
 # `lldb` debugger.
 /.lldb
 
+# python-matplotlib (`pip install matplotlib`)
+# - Installed in virtualenv, but maintains config herein:
+#   ~/.matplotlib/fontlist-v390.json
+/.matplotlib/
+
 # User account mail, e.g., where your cron output goes.
 /mbox
 
