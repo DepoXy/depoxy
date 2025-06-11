@@ -29,7 +29,7 @@ isInstalled = ( unset -f rustup && . "$HOME/.cargo/env" && test -n "$(type -p ru
 
 # CXREF: ~/.kit/sh/home-fries/lib/distro/default-browser.sh
 # isInstalled =
-#   test "net.kassett.finicky" = \
+#   test "se.johnste.finicky" = \
 #     "$(/usr/bin/env bash "${HOME}/.kit/sh/home-fries/lib/distro/default-browser.sh")"
 install = install_os_specific
 installLinux =
