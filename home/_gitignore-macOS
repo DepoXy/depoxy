@@ -251,7 +251,10 @@
 
 # Dropbox
 /.dropbox/
-/Dropbox/
+# HSTRY/2025-06-11: Previously ~/Dropbox/ directory, but
+# recently changed to symlink:
+#   ~/Dropbox -> /Users/user/Library/CloudStorage/Dropbox/
+/Dropbox
 
 # OpenLens (an Electron app).
 /.electron-gyp/
