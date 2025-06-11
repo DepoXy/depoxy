@@ -150,7 +150,7 @@ ignore_hotkey_slack(shift_ctrl_r)
 -- - CXREF: See associated Vim maps:
 --     ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
 
-local macvim_shift_ctrl_kludge_get_eventtap = function()
+local neovide_macvim_get_eventtap = function()
   return hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
     -- USAGE: Uncomment to debug/pry (see Hammyspoony for tableJoin def):
     --    local unmodified = false
@@ -221,9 +221,9 @@ local macvim_shift_ctrl_kludge_get_eventtap = function()
   end)
 end
 
-appTapAttach:registerApptap("MacVim", macvim_shift_ctrl_kludge_get_eventtap)
+appTapAttach:registerApptap("MacVim", neovide_macvim_get_eventtap)
 
-appTapAttach:registerApptap("neovide", macvim_shift_ctrl_kludge_get_eventtap)
+appTapAttach:registerApptap("neovide", neovide_macvim_get_eventtap)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
