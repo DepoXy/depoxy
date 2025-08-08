@@ -37,6 +37,20 @@ pass_safe() {
     shift
 
     _pass_safe_generate "$@"
+  elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
+    # Note that $0 is "bash" (being called as an alias doesn't reveal the alias name).
+    #   local PROGRAM="${0##*/}"
+    local PROGRAM="pass"
+
+    command pass "$@"
+
+    cat <<- _EOF
+
+Additional commands from DepoXy:
+    $PROGRAM gen pass-name
+        Generate a new password via prompts (for website URL, username, email, and logon URL).
+        (Although note that tab completion not currently supported.)
+_EOF
   else
     command pass "$@"
   fi
