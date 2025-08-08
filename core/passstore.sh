@@ -20,7 +20,7 @@ PASS_GEN_DEFAULT_EMAIL="${PASS_GEN_DEFAULT_EMAIL}"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-pass_safe () {
+pass_safe() {
   if [ $# -ge 1 ] && [ "$1" = "edit" ]; then
     # User called `pass edit <path>`
     shift
@@ -45,7 +45,7 @@ pass_safe () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # The `pass gen` command.
-_pass_safe_generate () {
+_pass_safe_generate() {
   local path="$1"
 
   if [ -z "${path}" ]; then
@@ -121,22 +121,21 @@ $(date +%Y-%m-%d) / ${register_url} / ${acct_uname} / ${acct_email} / ${acct_pas
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_aliases_pass () {
+_dxy_wire_aliases_pass() {
   alias pass='pass_safe'
 }
 
-_dxy_wire_aliases () {
+_dxy_wire_aliases() {
   _dxy_wire_aliases_pass
   unset -f _dxy_wire_aliases_pass
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_wire_aliases
   unset -f _dxy_wire_aliases
 }
 
 main "$@"
 unset -f main
-
