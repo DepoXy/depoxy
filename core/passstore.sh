@@ -118,9 +118,15 @@ _pass_safe_generate() {
   # Aka, `pwgen23`. And replace double-quote for our echo.
   acct_passw="$(_hf_aliases_wire_pwgen_pwgen23 | sed "s/\"/'/")"
 
+  # Highlight the password at the end of the details line.
+  # - SAVVY: ${VAR//?/ } substitutes every character with a space.
+  local pass_line_sans_pwd
+  pass_line_sans_pwd="$(date +%Y-%m-%d) / ${register_url} / ${acct_uname} / ${acct_email} / "
+
   echo -n "${acct_passw}
 
-$(date +%Y-%m-%d) / ${register_url} / ${acct_uname} / ${acct_email} / ${acct_passw}
+${pass_line_sans_pwd}${acct_passw}
+${pass_line_sans_pwd//?/ }🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺
 
 ::
   sensible-open ${logon_url}
