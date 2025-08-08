@@ -84,7 +84,7 @@ _pass_safe_generate() {
   local question="Website or new acct URL: https://"
   echo -n "${question}"
   read -e register_url
-  [ -n "${register_url}" ] || echo
+  # [ -n "${register_url}" ] || echo
   if ! echo "${register_url}" | grep -q "://"; then
     register_url="https://${register_url}"
   fi
@@ -92,14 +92,14 @@ _pass_safe_generate() {
   local question="Your user: "
   echo -n "${question}"
   read -e acct_uname
-  [ -n "${acct_uname}" ] || echo
+  # [ -n "${acct_uname}" ] || echo
 
   local question="Your email [${default_email}]: "
   echo -n "${question}"
   read -e acct_email
   if [ -z "${acct_email}" ]; then
     acct_email="${default_email}"
-    echo
+    # echo
   fi
 
   local question="Logon URL [${register_url}]: "
@@ -107,8 +107,10 @@ _pass_safe_generate() {
   read -e logon_url
   if [ -z "${logon_url}" ]; then
     logon_url="${register_url}"
-    echo
+    # echo
   fi
+
+  echo
 
   # ***
 
