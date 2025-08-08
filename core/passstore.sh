@@ -121,6 +121,7 @@ _pass_safe_generate() {
   echo -n "${acct_passw}
 
 $(date +%Y-%m-%d) / ${register_url} / ${acct_uname} / ${acct_email} / ${acct_passw}
+
 ::
   sensible-open ${logon_url}
 " | pass insert -m "${path}"
