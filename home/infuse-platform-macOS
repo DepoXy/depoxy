@@ -301,6 +301,7 @@ infuse_symlinks_macOS_create_agnostic_user_homes() {
   # ***
 
   local privy_source="${HOME}"
+  # Aka SYNTHETIC_HOME_PREFIX
   local privy_target="/private/user"
 
   # Create symlink: /private/user -> /Users/<user>
