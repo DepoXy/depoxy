@@ -193,3 +193,21 @@ lib = remote_set starter https://github.com/zed-industries/zed
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# SPIKE/2025-08-26: I'm having issues with Neovide on Linux, at least in
+# Debian and GNOME Shell on a specific laptop. I haven't tried Neovide on
+# a different host, or in a VM, or in a different shell, or on a different
+# distro, so I'm not sure if there's an issue with Neovide on Linux, or if
+# "it's me"...
+# - Here are a few alt. Neovim GUIs I demoed.
+
+[${DOPP_KIT:-${HOME}/.kit}/rust/gnvim]
+lib = remote_set starter https://github.com/vhakulinen/gnvim
+skip = true
+
+[${DOPP_KIT:-${HOME}/.kit}/rust/neovim-gtk]
+lib = remote_set starter https://github.com/Lyude/neovim-gtk
+skip = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

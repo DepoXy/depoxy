@@ -261,7 +261,9 @@
 # *** [R]u[s]t
 
 /rust/alacritty/
+/rust/gnvim/
 /rust/neovide/
+/rust/neovim-gtk/
 /rust/rustup.rs/
 /rust/zed/
 
