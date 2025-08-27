@@ -185,6 +185,11 @@ setup_nvim_lazyb_lua_config() {
   MR_REPO="$(pwd -L)" symlink_mrinfuse_file "lua/config/keymaps-private.lua"
   MR_REPO="$(pwd -L)" symlink_mrinfuse_file "lua/config/options-private.lua"
 
+  # profile.lua -> ~/.kit/nvim/nvim-depoxy/.config/nvim/lua/config/profile.lua
+  MR_REPO="$(pwd -L)" symlink_overlay_file \
+    "${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy/.config/nvim/lua/config/profile.lua" \
+    "lua/config/profile.lua"
+
   cd -- "${before_cd}"
 }
 
