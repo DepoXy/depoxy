@@ -4,7 +4,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-source_deps () {
+source_deps() {
   local before_cd="$(pwd -L)"
 
   # Load: warn, etc.
@@ -37,7 +37,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_depoxy_Karabiner_Elements_symlinks () {
+infuse_symlinks_depoxy_Karabiner_Elements_symlinks() {
   (
     # I.e., ~/.depoxy/ambers/home/.config/karabiner/assets
     cd "home/.config/karabiner/assets"
@@ -64,7 +64,7 @@ infuse_symlinks_depoxy_Karabiner_Elements_symlinks () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_symlinks_macOS_Karabiner_Elements_complex_modifications () {
+infuse_symlinks_macOS_Karabiner_Elements_complex_modifications() {
   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_prepare
   infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply
 }
@@ -78,7 +78,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications () {
 # - Also, DepoXy Client injects itself by symlinking its individual
 #   complex_modifications JSON files from within DepoXy's directory.
 # - So we'll follow suit: Inject Karabiner-Elephants into DepoXy.
-infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_prepare () {
+infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_prepare() {
   local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
 
   symlink_kbmods_using_file_symlinks \
@@ -87,7 +87,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_prepare () {
     "${ambers_dir}/home/.config/karabiner/assets/complex_modifications--DXY"
 }
 
-symlink_kbmods_using_file_symlinks () {
+symlink_kbmods_using_file_symlinks() {
   local target_root="${1:-${HOME}}"
   shift
 
@@ -134,9 +134,10 @@ symlink_kbmods_using_file_symlinks () {
 
   for source_mods in "$@"; do
     # SAVVY: On macOS, `-type f` excludes symlinks, so need `-type f -o -type l`.
-    for jsonpath in $( \
-      find "${source_mods}" -maxdepth 1 -type f -o -type l \
+    for jsonpath in $(
+      find "${source_mods}" -maxdepth 1 -type f -o -type l
     ); do
+
       symlink_overlay_file "${jsonpath}"
     done
   done
@@ -157,7 +158,7 @@ symlink_kbmods_using_file_symlinks () {
 # CXREF: DepoXy Client KB infuser:
 #   depoxy_client_id_infuse_karabiner_elements_complex_modifications
 #     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr:751
-infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
+infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply() {
   local before_cd="$(pwd -L)"
 
   local kb_assets=".config/karabiner/assets"
@@ -165,7 +166,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
 
   local home_assets="${HOME}/${kb_assets}"
 
-  ensure_target_moddir_exists () {
+  ensure_target_moddir_exists() {
     local target_moddir="$1"
 
     if [ ! -d "${target_moddir}" ]; then
@@ -179,7 +180,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
 
   cd "${home_assets}"
 
-  symlink_kbmods_using_directory_symlink () {
+  symlink_kbmods_using_directory_symlink() {
     # Remove symlinks and (if directory then empty) remove directory,
     # and use directory symlink instead of individual file symlinks.
     # - This makes it easier to maintain two sets of source JSON,
@@ -232,7 +233,7 @@ infuse_symlinks_macOS_Karabiner_Elements_complex_modifications_apply () {
 #      command (or other command that upgrades MacVim to the latest
 #      version).
 
-infuse_symlink_macOS_MacVim_latest_version_symlink () {
+infuse_symlink_macOS_MacVim_latest_version_symlink() {
   local macvim_base="/usr/local/Cellar/macvim"
   local latest_symlink="latest"
 
@@ -287,15 +288,15 @@ infuse_symlink_macOS_MacVim_latest_version_symlink () {
 # consider that /private is writeable on macOS, so a symlink
 # is also made at /private/user (in addition to /Users/user).
 
-infuse_symlinks_macOS_create_agnostic_user_homes () {
+infuse_symlinks_macOS_create_agnostic_user_homes() {
   local retcode=0
 
   local users_source="${LOGNAME}"
   local users_target="/Users/user"
 
   # Create symlink: /Users/user -> <user>
-  sudo_create_symlink_if_sudo_unlocked "${users_source}" "${users_target}" "${HOME}" \
-    || retcode=$?
+  sudo_create_symlink_if_sudo_unlocked "${users_source}" "${users_target}" "${HOME}" ||
+    retcode=$?
 
   # ***
 
@@ -303,8 +304,8 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
   local privy_target="/private/user"
 
   # Create symlink: /private/user -> /Users/<user>
-  sudo_create_symlink_if_sudo_unlocked "${privy_source}" "${privy_target}" "${HOME}" \
-    || retcode=$?
+  sudo_create_symlink_if_sudo_unlocked "${privy_source}" "${privy_target}" "${HOME}" ||
+    retcode=$?
 
   return ${retcode}
 }
@@ -334,7 +335,7 @@ infuse_symlinks_macOS_create_agnostic_user_homes () {
 #   - CXREF: _dxy_check_if_omr_infuse_run_since_latest_macos_update
 #     ~/.depoxy/ambers/home/.depoxy/ambers/bin/verify-cache-macos-version
 
-infuse_symlinks_macOS_set_var_select_sh_to_dash () {
+infuse_symlinks_macOS_set_var_select_sh_to_dash() {
   local preferred_sh="${DEPOXY_DEFAULT_SELECT_SH:-/bin/dash}"
   local sh_chooser="/var/select/sh"
 
@@ -361,7 +362,7 @@ infuse_symlinks_macOS_set_var_select_sh_to_dash () {
 # helpful message and returns nonzero if user should cache their
 # sudo password and run the script again.
 
-sudo_create_symlink_if_sudo_unlocked () {
+sudo_create_symlink_if_sudo_unlocked() {
   local syml_source="$1"
   local syml_target="$2"
   local target_real="$3"
@@ -372,18 +373,20 @@ sudo_create_symlink_if_sudo_unlocked () {
   fi
 
   if [ "$(realpath -- "${syml_target}")" = "${target_real}" ]; then
-    info "$(symlink_get_msg_informative \
-      "$(font_info_checked "Verified")" "${srctype}" \
-      "${syml_target}" "${syml_source}" \
+    info "$(
+      symlink_get_msg_informative \
+        "$(font_info_checked "Verified")" "${srctype}" \
+        "${syml_target}" "${syml_source}"
     )"
   elif ! sudo_has_cached_credentials; then
-    warn "$(symlink_get_msg_informative \
-      " $(font_highlight "Skipped")" "${srctype}" \
-      "${syml_target}" "${syml_source}" \
+    warn "$(
+      symlink_get_msg_informative \
+        " $(font_highlight "Skipped")" "${srctype}" \
+        "${syml_target}" "${syml_source}"
     )"
     warn "DO THIS: Please cache admin password (sudo -v) so we can update symlink:" \
       "$(font_highlight "${syml_target}")"
-          warn "- E.g.:"
+    warn "- E.g.:"
     warn "  sudo -v ; ~/.depoxy/ambers/home/infuse-platform-macOS"
 
     return 1
@@ -403,7 +406,7 @@ sudo_create_symlink_if_sudo_unlocked () {
 # USAGE: Set DEPOXY_DEFAULT_LOGIN_SHELL to your preferred shell,
 #        or clear it to opt-out of the `chsh` service.
 
-infuse_macOS_verify_chsh () {
+infuse_macOS_verify_chsh() {
   local default_shell
   default_shell="$(dscl . -read ~/ UserShell | sed 's/UserShell: //')"
 
@@ -466,12 +469,12 @@ _OMR_XSUM_SSHD_CONFIG_EDITED="a52475c95e80b2497dc3c6ef735d8f4fd6c25ec01856dc1be5
 
 _OMR_SSHD_CONFIG_PATH="/private/etc/ssh/sshd_config"
 
-infuse_macOS_configure_sshd_config () {
+infuse_macOS_configure_sshd_config() {
   local config_f="${_OMR_SSHD_CONFIG_PATH}"
 
   local probe_status=0
-  infuse_macOS_probe_sshd_config > /dev/null \
-    || probe_status=$?
+  infuse_macOS_probe_sshd_config >/dev/null ||
+    probe_status=$?
 
   if [ ${probe_status} -ne ${_OMR_SSHD_CONFIG_PROBE_DEFAULT:-2} ]; then
 
@@ -495,7 +498,7 @@ _OMR_SSHD_CONFIG_PROBE_VERIFIED=0
 _OMR_SSHD_CONFIG_PROBE_ABNORMAL=1
 _OMR_SSHD_CONFIG_PROBE_DEFAULT=2
 
-infuse_macOS_probe_sshd_config () {
+infuse_macOS_probe_sshd_config() {
   local config_f="${_OMR_SSHD_CONFIG_PATH}"
 
   local report_msg=""
@@ -539,7 +542,7 @@ infuse_macOS_probe_sshd_config () {
   return ${retcode}
 }
 
-infuse_macOS_configure_sshd_config_update () {
+infuse_macOS_configure_sshd_config_update() {
   local config_f="$1"
 
   local backup_f
@@ -567,19 +570,19 @@ infuse_macOS_configure_sshd_config_update () {
   # ***
 
   info "$(font_info_updated "Hardened") conf $(font_emphasize "options")" \
-    "$(font_highlight "${config_f}"):\n$( \
-      diff "${backup_f}" "${config_f}" \
-        | tail -n +2 \
-        | sed "s/^/                               /"
+    "$(font_highlight "${config_f}"):\n$(
+      diff "${backup_f}" "${config_f}" |
+        tail -n +2 |
+        sed "s/^/                               /"
     )"
 }
 
-infuse_macOS_configure_sshd_config_backup () {
+infuse_macOS_configure_sshd_config_backup() {
   local config_f="$1"
 
   local backup_f="${config_f}--orig"
 
-  if ! diff -q "${config_f}" "${backup_f}" > /dev/null 2>&1; then
+  if ! diff -q "${config_f}" "${backup_f}" >/dev/null 2>&1; then
     if [ -f "${backup_f}" ]; then
       # Add a UUID fragment to generate a unique name.
       backup_f="${backup_f}.$(date +%Y_%m_%d_%Hh%Mm%Ss)-$(uuidgen | head -c8)"
@@ -593,19 +596,19 @@ infuse_macOS_configure_sshd_config_backup () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-sudo_has_cached_credentials () {
-  sudo -nv 2> /dev/null
+sudo_has_cached_credentials() {
+  sudo -nv 2>/dev/null
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _infuse_platform_macos__this_filename="infuse-platform-macOS"
 
-_infuse_platform_macos__shell_sourced () {
+_infuse_platform_macos__shell_sourced() {
   [ "$(basename -- "$(realpath -- "$0")")" != "${_infuse_platform_macos__this_filename}" ]
 }
 
-main () {
+main() {
   set -e
 
   # Load: set_traps, clear_traps, exit_0, exit_1, os_is_macos.
@@ -646,17 +649,17 @@ main () {
 
     infuse_symlink_macOS_MacVim_latest_version_symlink
 
-    infuse_symlinks_macOS_create_agnostic_user_homes \
-      || retcode=$?
+    infuse_symlinks_macOS_create_agnostic_user_homes ||
+      retcode=$?
 
-    infuse_symlinks_macOS_set_var_select_sh_to_dash \
-      || retcode=$?
+    infuse_symlinks_macOS_set_var_select_sh_to_dash ||
+      retcode=$?
 
-    infuse_macOS_verify_chsh \
-      || retcode=$?
+    infuse_macOS_verify_chsh ||
+      retcode=$?
 
-    infuse_macOS_configure_sshd_config \
-      || retcode=$?
+    infuse_macOS_configure_sshd_config ||
+      retcode=$?
 
     if [ ${retcode} -eq 0 ]; then
       # Cache the OS version, for Bash startup alerts.
@@ -664,8 +667,8 @@ main () {
     fi
 
     return ${retcode}
-  ) \
-    || retcode=$?
+  ) ||
+    retcode=$?
 
   clear_traps
 
@@ -680,4 +683,3 @@ if _infuse_platform_macos__shell_sourced; then
 else
   main "$@"
 fi
-
