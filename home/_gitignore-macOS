@@ -397,6 +397,10 @@
 # Wget's HSTS database.
 /.wget-hsts
 
+# Windsurf.
+/.codeium/windsurf/
+/.windsurf/
+
 # Auto-generated file. JS pkg mgr.
 /.yarnrc
 
