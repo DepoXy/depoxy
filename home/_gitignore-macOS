@@ -21,6 +21,14 @@
 /Music/
 /Pictures/
 /Public/
+# DUNNO/2025-09-01: First time I've seen Sites/, after (re)installing macOS
+# to new external SSD and migrating everything from internal SSD.
+# - REFER: "Sites — Contains web pages used by the user’s personal site.
+#     (Web Sharing must be enabled to display these pages.)"
+#   https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html#//apple_ref/doc/uid/TP40010672-CH2-SW6
+#   - I'd assume this directory only created if Web Sharing enabled,
+#     but wouldn't necessarily exist by default.
+#   - I'd also assume we could remove it without consequence.
 /Sites/
 
 # Basic "Hidden" paths.
