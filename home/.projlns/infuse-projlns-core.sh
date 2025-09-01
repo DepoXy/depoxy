@@ -133,9 +133,20 @@ infuse_projects_links_core_generate_ctags() {
   (
     cd "${DEPOXY_PROJLNS_DEPOXY}"
 
+    # REFER:
+    # - -R aka --recurse
+    # - --quiet Writes fewer messages, incl. null-tag warnings, e.g.,
+    #     ctags: Notice: ignoring null tag in {path}.js(line: 1, language: JavaScript)
+    # - --exclude FYI: --exclude=docs/_build may not work in all envs.
+    #   - Author saw null-tag warnings on files under docs/_build/ dirs,
+    #     so I added --exclude=_build.
+    #     - MAYBE: Remove this comment and --exclude=docs/_build
+    #       - Tho really I'm curious: I assume this used to work?
+
     ${ctags_groom} \
       \
       -R \
+      --quiet \
       \
       --totals=no \
       \
@@ -145,6 +156,7 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=.coverage \
       --exclude=dist \
       --exclude=docs/_build \
+      --exclude=_build \
       --exclude='*.egg-info' \
       --exclude=htmlcov \
       --exclude=__pycache__ \
