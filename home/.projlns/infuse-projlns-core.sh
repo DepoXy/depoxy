@@ -21,7 +21,7 @@ DEPOXY_PROJLNS_SH_LIB="${DEPOXY_PROJLNS_SH_LIB:-${DEPOXY_PROJLNS}/sh-lib}"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # B/c overlay-symlink.sh expects its root on PATH (I know, right).
   local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   PATH="${PATH}:${omr_lib}"
@@ -47,7 +47,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-populate_links_directory () {
+populate_links_directory() {
   local lns_path="$1"
   local lns_func="$2"
 
@@ -70,7 +70,7 @@ populate_links_directory () {
 
 # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
 
-infuse_projects_links_core () {
+infuse_projects_links_core() {
   # HSTRY/2024-06-16: This replicates historic behavior, but it's
   # a titch slow, and only needs to run when projects are added or
   # removed, or if user edits a project's infuseProjlns action.
@@ -109,7 +109,7 @@ infuse_projects_links_core () {
 #     861265 tags added to tag file
 #     861265 tags sorted in 0.00 seconds
 
-infuse_projects_links_core_generate_ctags () {
+infuse_projects_links_core_generate_ctags() {
   # Use ctags wrapper to filter (delete afterwards) JavaScript false matches.
   # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
   local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
@@ -119,7 +119,8 @@ infuse_projects_links_core_generate_ctags () {
   if ! ctags --version 2> /dev/null \
     | head -n 1 \
     | grep -q -e "^Exuberant Ctags" -e "^Universal Ctags" \
-  ; then
+    ; then
+
     warn "Skipping ~/.projlns Ctags, because Exuberant Ctags not found."
 
     return 1
@@ -167,15 +168,19 @@ infuse_projects_links_core_generate_ctags () {
     #     stat -f %z "${DEPOXY_PROJLNS_DEPOXY}/tags"
     # - Linux/GNU: Use "total size, in bytes", aka `-c %s`:
     #     (g)stat -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags"
-    gnu_stat () {
+    gnu_stat() {
       for cmd in "gstat" "stat"; do
-        ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+        (
+          unset -f ${cmd}
+          unalias ${cmd}
+          command -v ${cmd}
+        ) 2> /dev/null \
           && break
       done
     }
 
     local tags_size
-    tags_size="$( \
+    tags_size="$(
       echo "scale=0; $($(gnu_stat) -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags") / 1024 / 1024" | bc -l
     )"
 
@@ -185,7 +190,7 @@ infuse_projects_links_core_generate_ctags () {
   fi
 }
 
-print_elapsed_mins () {
+print_elapsed_mins() {
   local time_0="$1"
   local time_n="${2:-$(date +%s.%N)}"
 
@@ -196,7 +201,7 @@ print_elapsed_mins () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 # Infuse DEPOXY_PROJLNS_USRDOC, e.g., ~/.projlns/docs-and-backlog
-infuse_projects_links_docs () {
+infuse_projects_links_docs() {
   populate_links_directory \
     "${DEPOXY_PROJLNS_USRDOC}" \
     "infuse_create_symlinks_docs"
@@ -205,7 +210,7 @@ infuse_projects_links_docs () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # USYNC: DXY_MAKE_LNS_NAME and infuse_create_symlinks_docs use same '.syml--' prefix.
-infuse_create_symlinks_docs () {
+infuse_create_symlinks_docs() {
   # E.g., ~/.depoxy/stints
   local clients_path="$(_vendorfs_path_stints_basedir_print)"
 
@@ -218,23 +223,23 @@ infuse_create_symlinks_docs () {
   # For each DepoXy Client (~/.depoxy/stints/XXXX),
   # symlink its docs/ and private/docs
   find "${clients_path}" -mindepth 1 -maxdepth 1 -type d \
-    | while read subdir_path; \
-  do
-    local subdir_name="$(basename -- "${subdir_path}")"
+    | while read subdir_path; do
 
-    if [ "${subdir_name#.syml--}" != "${subdir_name}" ]; then
-      # Ignore `.syml--XXXX' dirs (DXY_MAKE_LNS_NAME).
-      continue
-    fi
+      local subdir_name="$(basename -- "${subdir_path}")"
 
-    if [ -d "${subdir_path}/docs" ]; then
-      link_deep "${subdir_path}/docs" "client-${subdir_name}-docs"
-    fi
+      if [ "${subdir_name#.syml--}" != "${subdir_name}" ]; then
+        # Ignore `.syml--XXXX' dirs (DXY_MAKE_LNS_NAME).
+        continue
+      fi
 
-    if [ -d "${subdir_path}/private/docs" ]; then
-      link_deep "${subdir_path}/private/docs" "client-${subdir_name}-private-docs"
-    fi
-  done
+      if [ -d "${subdir_path}/docs" ]; then
+        link_deep "${subdir_path}/docs" "client-${subdir_name}-docs"
+      fi
+
+      if [ -d "${subdir_path}/private/docs" ]; then
+        link_deep "${subdir_path}/private/docs" "client-${subdir_name}-private-docs"
+      fi
+    done
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
@@ -245,7 +250,7 @@ infuse_create_symlinks_docs () {
 # have to use multiple directory listings.
 
 # Infuse DEPOXY_PROJLNS_SH_LIB, e.g., ~/.projlns/sh-lib
-infuse_projects_links_sh_lib () {
+infuse_projects_links_sh_lib() {
   populate_links_directory \
     "${DEPOXY_PROJLNS_SH_LIB}" \
     "infuse_create_symlinks_core_sh_lib"
@@ -257,7 +262,7 @@ infuse_projects_links_sh_lib () {
 
 # SAVVY: If any sh-*/bin dirs contain same-named file, you'll see, e.g.,
 #   ln: failed to create symbolic link './print-nanos-now.sh': File exists
-infuse_create_symlinks_core_sh_lib () {
+infuse_create_symlinks_core_sh_lib() {
   populate_links_directory_optional_ignore
 
   find ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-*/bin/ -type f -exec ln -s {} \;
@@ -267,18 +272,19 @@ infuse_create_symlinks_core_sh_lib () {
 
 # Look for optional private ~/.projlns/<subdir>/.ignore asset
 # (using '_ignore' filename).
-populate_links_directory_optional_ignore () {
+populate_links_directory_optional_ignore() {
   local sourcep
   if sourcep="$(path_to_mrinfuse_resolve "_ignore")" \
     && [ -f "${sourcep}" ] \
-  ; then
+    ; then
+
     symlink_mrinfuse_file "_ignore" ".ignore"
   fi
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
@@ -298,4 +304,3 @@ main () {
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
-
