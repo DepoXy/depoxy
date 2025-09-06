@@ -32,7 +32,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # `eval "$(brew shellenv)"`, essentially.
-load_brew () {
+load_brew() {
   # CXREF: ~/.depoxy/ambers/core/brewskies.sh
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/brewskies.sh"
 
@@ -43,7 +43,7 @@ load_brew () {
   _depoxy_infuse_brew_shellenv
 }
 
-set_environs () {
+set_environs() {
   # Load LOCATEDB_PATH, if user set it to an encfs path
   local client_321opencfg="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/321open.cfg"
   if [ -f "${client_321opencfg}" ]; then
@@ -55,7 +55,7 @@ set_environs () {
   LOCATEDB_PATH="${LOCATEDB_PATH:-${HOME}/.cache/locate/locate.db}"
 }
 
-run_everday_updatedb () {
+run_everday_updatedb() {
   # If the updatedb directory does not exist — and is not just
   # a broken symlink — create the directory. (If the directory
   # is a broken symlink, leave it; it might just be unmounted).
@@ -76,7 +76,7 @@ run_everday_updatedb () {
   fi
 }
 
-generate_locatedb () {
+generate_locatedb() {
   if ! os_is_macos; then
     generate_locatedb_linux
   else
@@ -93,11 +93,11 @@ generate_locatedb () {
 #   - Git commit messages from 2019 suggest `-l 0` is related to either
 #     indexing encfs paths, and/or storing the database on an encfs path.
 #   - Note that Brew's `gupdatedb` does not have this option.
-generate_locatedb_linux () {
+generate_locatedb_linux() {
   LOCATEDB_PATH="${LOCATEDB_PATH}" \
     updatedb \
-      -l 0 \
-      -o "${LOCATEDB_PATH}"
+    -l 0 \
+    -o "${LOCATEDB_PATH}"
 }
 
 # HSTRY/2024-07-14: The Brew `updatedb` seems... somewhat *obnoxious*,
@@ -148,7 +148,7 @@ generate_locatedb_linux () {
 #           - Don't index /Sustem/Volumes/Data
 #         - But we have to be a little creative to omit it, by indexing
 #           / paths individually, and /System paths, and /System/Volumes.
-generate_locatedb_macos () {
+generate_locatedb_macos() {
   if [ -z "$(command -v gupdatedb)" ]; then
     >&2 echo "ERROR: No \`gupdatedb\`: Please \`brew install findutils\`"
 
@@ -156,24 +156,24 @@ generate_locatedb_macos () {
   fi
 
   gupdatedb \
-    --localpaths="$( \
+    --localpaths="$(
       find /* -maxdepth 0 -type d -name System -prune -o -print | tr '\n' ' '
-    ) $( \
+    ) $(
       find /System/* -maxdepth 0 -type d -name Volumes -prune -o -print | tr '\n' ' '
-    ) $( \
+    ) $(
       find /System/Volumes/* -maxdepth 0 -type d -name Data -prune -o -print -type d | tr '\n' ' '
     )" \
     --prunepaths="${HOME}/.password-store ${HOME}/.gnupg ${HOME}/.ssh ${LOCATEDB_PRUNEPATHS}" \
     --output="${LOCATEDB_PATH}"
 }
 
-os_is_macos () {
+os_is_macos() {
   [ "$(uname)" = "Darwin" ]
 }
 
 # ***
 
-main () {
+main() {
   set -e
 
   load_brew
@@ -184,4 +184,3 @@ main () {
 }
 
 main "$@"
-
