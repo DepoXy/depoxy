@@ -18,7 +18,7 @@
 
 # Note: See pushd_alias_or_warn in ~/.kit/sh/home-fries/lib/path_util.sh.
 
-_dxy_wire_aliases_pushd_paths_cdprefixed () {
+_dxy_wire_aliases_pushd_paths_cdprefixed() {
   # Convention: These aliases each start with `cd`.
 
   # *** ~/.kit/sh/home-fries — Homefries
@@ -252,7 +252,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
   pushd_alias_or_warn "cdtmp" '${TMPDIR:-/tmp}'
 }
 
-_dxy_wire_aliases_pushd_paths_nvim () {
+_dxy_wire_aliases_pushd_paths_nvim() {
   # Change to Neovim directories.
   #
   # - These aliases try to follow a simple mnemonic:
@@ -332,7 +332,7 @@ _dxy_wire_aliases_pushd_paths_nvim () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # 2021-07-31: Extrapolating...
-_dxy_wire_aliases_pushd_paths_kit () {
+_dxy_wire_aliases_pushd_paths_kit() {
   pushd_alias_or_warn "cdkcl" "${DOPP_KIT:-${HOME}/.kit}/clang"
   pushd_alias_or_warn "cdkgit" "${GITREPOSPATH:-${HOME}/.kit/git}"
   pushd_alias_or_warn "cdkgo" "${DOPP_KIT:-${HOME}/.kit}/go"
@@ -362,7 +362,7 @@ _dxy_wire_aliases_pushd_paths_kit () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_new_window_sensible_open () {
+_dxy_wire_alias_new_window_sensible_open() {
   # (lb): This is a simple alias named 'new-window' that calls 'sensible-open'.
   # - I just find it quicker to type new-<Tab> than to type sensi<Tab>ble-<Tab>.
   # - See 'sensible-open' from github.com/landonb/sh-sensible-open
@@ -387,14 +387,14 @@ _dxy_wire_alias_new_window_sensible_open () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_hexdump () {
+_dxy_wire_alias_hexdump() {
   # Include ASCII.
   alias hexdump="hexdump -C"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_tree () {
+_dxy_wire_alias_tree() {
   # Include .hidden files by default on `tree`.
   # Also include .git/ subdirectories.
   alias tree="tree -a -I '.git'"
@@ -417,7 +417,7 @@ _dxy_wire_alias_tree () {
 #
 # Thankfully, using an alias and calling the path directly seems to work.
 
-_dxy_wire_alias_libreoffice () {
+_dxy_wire_alias_libreoffice() {
   if ! os_is_macos; then
 
     return 0
@@ -432,7 +432,7 @@ _dxy_wire_alias_libreoffice () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_aliases () {
+_dxy_wire_aliases() {
   _dxy_wire_aliases_pushd_paths_cdprefixed
   unset -f _dxy_wire_aliases_pushd_paths_cdprefixed
 
@@ -457,11 +457,10 @@ _dxy_wire_aliases () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_wire_aliases
   unset -f _dxy_wire_aliases
 }
 
 main "$@"
 unset -f main
-
