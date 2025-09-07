@@ -198,6 +198,81 @@ generate_locatedb_linux() {
 #           - Don't index /Sustem/Volumes/Data
 #         - But we have to be a little creative to omit it, by indexing
 #           / paths individually, and /System paths, and /System/Volumes.
+#
+# HSTRY/2025-09-06: On further realization, let's limit --localpaths even more.
+# - The --localpaths specified below used to be more inclusive (overly so,
+#   probably), but then some of author's paths are not indexed (specifically,
+#   an encrypted APFS drive that I mount after startup, under /Volumes/,
+#   is skipped, even if I add explicitly to --localpaths — although
+#   I have another /Volumes/ volume, a DMG image, that *isn't* skipped).
+# - Here's the original call, with the overly-inclusive and complicated
+#   localpaths setup:
+#     # BWARE/2025-09-06: This causes some user /Volumes/* to be skipped.
+#     gupdatedb \
+#       --localpaths="$(
+#         find /* -maxdepth 0 -type d -name System -prune -o -print | tr '\n' ' '
+#       ) $(
+#         find /System/* -maxdepth 0 -type d -name Volumes -prune -o -print | tr '\n' ' '
+#       ) $(
+#         find /System/Volumes/* -maxdepth 0 -type d -name Data -prune -o -print -type d | tr '\n' ' '
+#       )" \
+#       --prunepaths="${HOME}/.password-store ${HOME}/.gnupg ${HOME}/.ssh ${UPDATEDB_PRUNEPATHS}" \
+#       --output="${LOCATEDB_PATH}"
+# - Note that including only my two volumes indexes them both correctly, e.g.:
+#     --localpaths="
+#       /Volumes/foo/bar
+#       /Volumes/baz/bat" \
+#   but then one of those path is not indexed when I try to index most
+#   everything under / (using the --localpaths shown above).
+# - So, rather than include everything by default and exclude a few things,
+#   include fewer paths, and be explicit about them (i.e., don't find-prune,
+#   but just list the paths you want).
+#   - E.g., do you really need to index /Library ?
+# - Note this makes for a much smaller locate.db.
+#   - E.g., if I index just $HOME and $UPDATEDB_LOCALPATHS (which specifies
+#     my other /Volumes/) localte.db is 28MB (instead of 83MB if
+#     I try to index most everything under /).
+#   - Though if I include a few other paths from under /, locate.db
+#     is 43M (and I see 4 "Permission denied" lines in the err file).
+#     - We cam prune these paths explicitly:
+#         /Library/Application.Support/Apple/ParentalControls/Users
+#         /Library/Application.Support/Apple/AssetCache/Data
+#         /Library/OSAnalytics/Preferences/Library
+#         /usr/sbin/authserver
+# - MAYBE/2025-09-06: Is there utility in indexing top-level paths?
+#   - If not, we could remove the following --localpaths:
+#       /Applications
+#       /bin
+#       /Library
+#       /opt
+#       /sbin
+#       /usr
+#     - We could also then remove the related --prunepaths paths.
+
+# SAVVY: Note that --prunepaths is used in regex, e.g.:
+#   -regex \(^path1$\)\|\(^path2$\)\|...
+# - As such, you cannot use partial paths, e.g.:
+#     --prunepaths=".Trashes .fseventsd .Spotlight-V100"
+#   But you can easily add regex to match any prefix, e.g.:
+#     --prunepaths=".*/.Trashes .*/.fseventsd .*/.Spotlight-V100"
+#   - And we could technically escape the dot leaders, e.g.:
+#       --prunepaths=".*/\\.Trashes .*/\\.fseventsd .*/\\.Spotlight-V100"
+#     - But I haven't tested escaped dot leaders....
+# - Also be careful with filename spaces, e.g., if you want
+#   to ignore `/Volumes/Macintosh HD`, use a dot to match it:
+#     --prunepaths="/Volumes/Macintosh.HD"
+#   - (I tried `/Volumes/Macintosh\\ HD` but that didn't work for me.)
+#
+# SAVVY: Default PRUNEFS is "nfs NFS proc", so NFS ignored by default.
+# - Just FYI if you wanted to try to include an NFS path.
+#   - (You'd probably want to modify PRUNEFS via 321open.cfg.)
+#
+# SAVVY: Default PRUNEPATHS is "/tmp /usr/tmp /var/tmp /afs".
+# - So no need to explicitly prune /tmp, or /private/tmp, etc.
+
+# REFER: See 321open.cfg for UPDATEDB_LOCALPATHS and UPDATEDB_PRUNEPATHS:
+#   ~/.depoxy/ambers/archetype/home/.config/depoxy/321open.EVAL.cfg @ 86
+#   ~/.depoxy/running/home/.config/depoxy/321open.cfg
 generate_locatedb_macos() {
   if [ -z "$(command -v gupdatedb)" ]; then
     >&2 echo "ERROR: No \`gupdatedb\`: Please \`brew install findutils\`"
@@ -206,14 +281,32 @@ generate_locatedb_macos() {
   fi
 
   gupdatedb \
-    --localpaths="$(
-      find /* -maxdepth 0 -type d -name System -prune -o -print | tr '\n' ' '
-    ) $(
-      find /System/* -maxdepth 0 -type d -name Volumes -prune -o -print | tr '\n' ' '
-    ) $(
-      find /System/Volumes/* -maxdepth 0 -type d -name Data -prune -o -print -type d | tr '\n' ' '
-    )" \
-    --prunepaths="${HOME}/.password-store ${HOME}/.gnupg ${HOME}/.ssh ${LOCATEDB_PRUNEPATHS}" \
+    --localpaths="
+      /Applications
+      /bin
+      /Library
+      /opt
+      /sbin
+      /usr
+      ${HOME}
+      ${UPDATEDB_LOCALPATHS}
+      " \
+    --prunepaths="
+      /Library/Application.Support/Apple/ParentalControls/Users
+      /Library/Application.Support/Apple/AssetCache/Data
+      /Library/OSAnalytics/Preferences/Library
+      /usr/sbin/authserver
+      /Library/Caches
+      ${HOME}/Library/Caches
+      ${HOME}/Library/Containers
+      ${HOME}/.gnupg
+      ${HOME}/.password-store
+      ${HOME}/.ssh
+      .*/.Trashes
+      .*/.fseventsd
+      .*/.Spotlight-V100
+      ${UPDATEDB_PRUNEPATHS}
+      " \
     --output="${LOCATEDB_PATH}"
 }
 
