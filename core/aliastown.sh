@@ -228,7 +228,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed () {
 
   # *** ~/.local
 
-  pushd_alias_or_warn "cdbin" "${HOME}/.local/bin}"
+  pushd_alias_or_warn "cdbin" "${HOME}/.local/bin"
 
   # *** ~/.projlns
 
