@@ -382,6 +382,12 @@ main() {
 
   # ***
 
+  if ! ${DXY_SLATHER_SKIP_DEFAULTS:-false}; then
+    slather_macos_defaults "$@"
+  fi
+
+  # ***
+
   # LATER/2025-09-07: This preceded `slather_macos_defaults`, but
   # I think `slather_macos_defaults_hammyspoony` should be after
   # (so that `insist_is_latest_macos_version` runs earlier; also
@@ -399,11 +405,13 @@ main() {
   # though it should ideally precede it...
   # - INERT: Too big a lift for no value-add other than better-grouped output.
 
-  echo
+  if ! ${DXY_SLATHER_SKIP_DEFAULTS:-false}; then
+    echo
 
-  . "${MOSREPOSPATH:-${DOPP_IT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/bin/slather-defaults.sh"
+    . "${MOSREPOSPATH:-${DOPP_IT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/bin/slather-defaults.sh"
 
-  slather_macos_defaults_hammyspoony "$@"
+    slather_macos_defaults_hammyspoony "$@"
+  fi
 
   # ***
 
