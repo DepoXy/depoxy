@@ -27,7 +27,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-depoxy_configure () {
+depoxy_configure() {
   print_at_end+=("\
 
 🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩
@@ -62,13 +62,13 @@ depoxy_configure () {
 #   ~/.depoxy/ambers/bin/onboarder/slather-defaults--PRIVATE.sh
 # and create this function:
 #   depoxy_configure_private
-depoxy_configure_private () {
+depoxy_configure_private() {
   :
 }
 
 # ***
 
-depoxy_configure_remind_task_create_depoxy_client () {
+depoxy_configure_remind_task_create_depoxy_client() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
@@ -84,11 +84,11 @@ depoxy_configure_remind_task_create_depoxy_client () {
 }
 
 # A simple shim, to enable downstream override,
-depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel () {
+depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel() {
   _depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel
 }
 
-_depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel () {
+_depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pretzel() {
   local dxc_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
 
   print_at_end+=("\
@@ -134,7 +134,7 @@ _depoxy_configure_remind_task_setup_github_app_token_and_start_first_client_pret
 ")
 }
 
-depoxy_configure_remind_task_hydrate_personal_notes () {
+depoxy_configure_remind_task_hydrate_personal_notes() {
   print_at_end+=("\
 🔳 DepoXy: DXC: Setup Personal notes:
 
@@ -183,7 +183,7 @@ depoxy_configure_remind_task_hydrate_personal_notes () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-depoxy_configure_remind_task_install_omr_projects () {
+depoxy_configure_remind_task_install_omr_projects() {
   depoxy_configure_remind_task_install_omr_all_projects_hint
 
   depoxy_configure_remind_task_install_omr_projects_print_all
@@ -191,7 +191,7 @@ depoxy_configure_remind_task_install_omr_projects () {
 
 # ***
 
-depoxy_configure_remind_task_install_omr_all_projects_hint () {
+depoxy_configure_remind_task_install_omr_all_projects_hint() {
   print_at_end+=("\
 ⚠️  DepoXy: Feeling fearless?
 
@@ -235,7 +235,7 @@ depoxy_configure_remind_task_install_omr_all_projects_hint () {
 
 # ***
 
-depoxy_configure_remind_task_install_omr_projects_print_all () {
+depoxy_configure_remind_task_install_omr_projects_print_all() {
   if ! command -v mr > /dev/null; then
     local err_msg="ERROR: Please install \`mr\` form from https://github.com/landonb/myrepos"
 
@@ -257,7 +257,7 @@ depoxy_configure_remind_task_install_omr_projects_print_all () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-depoxy_configure_remind_task_infuse_and_wireRemotes () {
+depoxy_configure_remind_task_infuse_and_wireRemotes() {
   print_at_end+=("\
 🔳 DepoXy: OMR: Run 'infuse' and 'wireRemotes' actions to complete OMR setup::
 
@@ -274,7 +274,7 @@ depoxy_configure_remind_task_infuse_and_wireRemotes () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-depoxy_configure_remind_task_reopen_terminals_and_neovims () {
+depoxy_configure_remind_task_reopen_terminals_and_neovims() {
   print_at_end+=("\
 🔳 DepoXy: Restart shells, Neovims, etc. to realize changes
    (e.g., restart shells so myrepos-mredit-command picks up new MREDIT_CONFIGS environ,
@@ -284,8 +284,8 @@ depoxy_configure_remind_task_reopen_terminals_and_neovims () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-slather_macos_defaults () {
-  local print_at_end=()  # 🔳 ◻
+slather_macos_defaults() {
+  local print_at_end=() # 🔳 ◻
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
@@ -312,7 +312,7 @@ slather_macos_defaults () {
   )
 }
 
-os_is_macos () {
+os_is_macos() {
   [ "$(uname)" = 'Darwin' ]
 }
 
@@ -320,28 +320,28 @@ os_is_macos () {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-clear_traps () {
+clear_traps() {
   trap - EXIT INT
 }
 
-set_traps () {
+set_traps() {
   trap -- trap_exit EXIT
   trap -- trap_int INT
 }
 
-exit_0 () {
+exit_0() {
   clear_traps
 
   exit 0
 }
 
-exit_1 () {
+exit_1() {
   clear_traps
 
   exit 1
 }
 
-trap_exit () {
+trap_exit() {
   clear_traps
 
   # USAGE: Alert on unexpected error path, so you can add happy path.
@@ -351,7 +351,7 @@ trap_exit () {
   exit 2
 }
 
-trap_int () {
+trap_int() {
   clear_traps
 
   exit 3
@@ -359,7 +359,7 @@ trap_int () {
 
 # ***
 
-main () {
+main() {
   set -e
 
   set_traps
@@ -410,4 +410,3 @@ if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   # Being executed.
   main "$@"
 fi
-
