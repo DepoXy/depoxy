@@ -19,6 +19,38 @@
 #   - Also the launchd plist:
 #
 #     ~/.depoxy/ambers/home/Library/LaunchAgents/com.tallybark.daily-updatedb.plist
+#
+# - SETUP: See the OMR install task:
+#
+#     mr -d "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}" -n install
+#
+# - DEBUG: If you run this file through (ana)cron or launchd,
+#   use a log file to emit messages, or use desktop notifications,
+#   e.g.:
+#
+#     NOTIFY_SILENT=true ~/.depoxy/ambers/bin/notify "Foo bar baz"
+#
+# - USAGE/DEBUG: Here's how you might develop this script on macOS:
+#
+__CPYST__USAGE_DEBUG__="
+    rm ~/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.err
+    launchctl kickstart gui/501/com.tallybark.daily-updatedb
+    date &&
+      while true; do if ! ps aux | grep daily-updated | grep -q bash; then break; fi; done &&
+      date &&
+      ll ~/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.err &&
+      ll ${LOCATEDB_PATH}
+"
+#   - You could tail the err file from another shell:
+#       tail -F ~/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.err
+#     though you might instead expect not to have any errors, so long as your
+#     --localpaths and --prunepaths are tailored appropriately.
+#     - If not, you might see "Permission denied" errors, or even
+#       "No such file or directory",
+#       "Operation not permitted", or
+#       "Interrupted system call", though perhaps investigate if you
+#       see any of the latter errors, and adjust --localpaths and/or
+#       --prunepaths to avoid any errors.
 
 # ***
 
@@ -28,6 +60,9 @@
 #
 # - On macOS, consider using launchd (see link above),
 #             otherwise cron (still) works (as of 2024).
+#
+#   - Note you can edit this file and run the job immediately, e.g.:
+#       launchctl kickstart gui/501/com.tallybark.daily-updatedb
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -44,7 +79,10 @@ load_brew() {
 }
 
 set_environs() {
-  # Load LOCATEDB_PATH, if user set it to an encfs path
+  # Load LOCATEDB_PATH, if user set it to an encfs path.
+  # - CXREF:
+  #   ~/.config/depoxy/321open.cfg
+  #   ~/.config/depoxy/depoxyrc
   local client_321opencfg="${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/321open.cfg"
   if [ -f "${client_321opencfg}" ]; then
     . "${client_321opencfg}"
@@ -128,7 +166,8 @@ generate_locatedb_linux() {
 #         - And including '/System/Volumes' makes it fail.
 #         - And including '/System/Volumes/Data' makes it fail.
 #       - Note that '/System/Volumes/Data' is an APFS Firmlink
-#         (that macOS Catalina introduced).
+#         [macOS Catalina introduced Firmlinks, an opaque way
+#         to map a path to multiple different paths].
 #         - E.g., '/System/Volumes/Data/Users' is same as '/Users'.
 #         - REFER: See '/usr/share/firmlinks' for the list of Firmlinks.
 #           - Though the author can't quite figure out this file,
@@ -141,6 +180,17 @@ generate_locatedb_linux() {
 #               - *Something magic this way Apple leaves undocumented.*
 #           - REFER: https://eclecticlight.co/2023/07/22/how-macos-depends-on-firmlinks/
 #             - Among other articles.
+#         - REFER/2025-09-06: A few observations that may or may not
+#           be Firmlink-related:
+#           - Some /Volumes/Data/ paths appear the same as other system paths, e.g.:
+#               /Volumes/Data/Library          appears same as /Library, I think
+#               /Volumes/Data/opt              appears same as /opt
+#               /Volumes/Data/private/etc      appears same as /private/etc
+#               /Volumes/Data/private/var      appears same as /private/var
+#           - But not all /Volumes/Data/ paths appear same as what you'd expect, e.g.:
+#               /Volumes/Data/System/Library   not same as /System/Library
+#                 though /Volumes/Data/System empty except for Library/, and
+#                 /System is definitely not the same as /Volumes/Data/System
 #       - All that "said" (I can't write a line of code without 10 lines
 #         of comments, apparently), we'll use crafty `find` sub-commands
 #         to weed out these *inappropriate* paths:
