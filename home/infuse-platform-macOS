@@ -398,6 +398,18 @@ sudo_create_symlink_if_sudo_unlocked() {
   fi
 }
 
+# ***
+
+# UCASE/2025-09-07: So we can use the same Alacritty terminal.shell:
+#   ~/.depoxy/ambers/home/.config/alacritty/alacritty.toml
+# - Note that /opt/local/bin/bash is otherwise first on PATH,
+#   so we don't need ~/.local/bin/bash for `bash` to resolve
+#   correctly normally when PATH is setup correctly.
+
+infuse_symlinks_macOS_home_local_bin_symlink() {
+  symlink_overlay_file "/opt/local/bin/bash" "${HOME}/.local/bin/bash"
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Per ~/.depoxy/ambers/docs/README-macOS-onboarding.rst:
@@ -654,6 +666,9 @@ main() {
       retcode=$?
 
     infuse_symlinks_macOS_set_var_select_sh_to_dash ||
+      retcode=$?
+
+    infuse_symlinks_macOS_home_local_bin_symlink ||
       retcode=$?
 
     infuse_macOS_verify_chsh ||
