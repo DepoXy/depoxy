@@ -293,13 +293,6 @@ slather_macos_defaults() {
   #
   # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
   "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@"
-
-  # Unless @Linux, previous call generated output. Distance ourselves 1 line.
-  ! os_is_macos || echo
-}
-
-os_is_macos() {
-  [ "$(uname)" = 'Darwin' ]
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
