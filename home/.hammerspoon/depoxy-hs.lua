@@ -16,7 +16,7 @@
 
 -------
 
--- Opens a path in GVim using `gvim-open-kindness`.
+-- Opens a path in Neovim or GVim using `gvim-open-kindness`.
 --
 -- - The `. depoxyrc` lets us honor user environs,
 --   like DOPP_KIT.
