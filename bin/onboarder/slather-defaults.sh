@@ -289,10 +289,6 @@ depoxy_configure_remind_task_reopen_terminals_and_neovims() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 slather_macos_defaults() {
-  local print_at_end=() # 🔳 ◻
-
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
   # Run the core `defaults` slatherer, and reminder-printer.
   #
   # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
@@ -300,12 +296,18 @@ slather_macos_defaults() {
 
   # Unless @Linux, previous call generated output. Distance ourselves 1 line.
   ! os_is_macos || echo
+}
 
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+os_is_macos() {
+  [ "$(uname)" = 'Darwin' ]
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+slather_depoxy_reminders() {
+  local print_at_end=() # 🔳 ◻
 
   depoxy_configure
-
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
   [ -z "${print_at_end}" ] || (
     echo "CPYST: Please perform the following tasks manually (DepoXy):"
@@ -314,10 +316,6 @@ slather_macos_defaults() {
       echo -e "${print_ln}"
     done
   )
-}
-
-os_is_macos() {
-  [ "$(uname)" = 'Darwin' ]
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -391,19 +389,32 @@ main() {
 
   # ***
 
+  # LATER/2025-09-07: This preceded `slather_macos_defaults`, but
+  # I think `slather_macos_defaults_hammyspoony` should be after
+  # (so that `insist_is_latest_macos_version` runs earlier; also
+  # because it seems like this should run after).
+  # - LATER: Next time you setup macOS host, verify, then remove
+  #   this comment.
+
   # Hammyspoony uses `eventtap` to remap bindings for non-Cocoa apps
   # that do not honor `defaults` NSUserKeyEquivalents changes.
   # - But here we add NSUserKeyEquivalents changes so that the application
   #   drop-down menus show the keybindings that Hammerspoon uses.
   #   - I know, right! Convoluted sol'n A'F.
 
-  . "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/bin/slather-defaults.sh"
+  # INERT/2025-09-07: This prints after macOS-onboarder manual tasks list,
+  # though it should ideally precede it...
+  # - INERT: Too big a lift for no value-add other than better-grouped output.
+
+  echo
+
+  . "${MOSREPOSPATH:-${DOPP_IT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony/bin/slather-defaults.sh"
 
   slather_macos_defaults_hammyspoony "$@"
 
   # ***
 
-  slather_macos_defaults "$@"
+  slather_depoxy_reminders
 
   # ***
 
