@@ -207,7 +207,7 @@ that the ``updatedb`` agent creates.
 
     ~/.depoxy/ambers/core/locate-db.sh
 
-- The private database is stored at ``~/.cache/locate/locate.db``.
+- The private database path defaults to ``~/.cache/locate/locate.db``.
 
   - You can override the default location using the ``LOCATEDB_PATH``
     environ.
