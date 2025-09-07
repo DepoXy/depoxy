@@ -244,11 +244,15 @@ depoxy_configure_remind_task_install_omr_projects_print_all() {
     return 0
   fi
 
-  printf "Gathering copy-pasta..."
+  echo
+  echo "mr-install tasks / from: mr -d / -M echoInstallHelp"
+  printf "Gathering copy-pasta... (give this a few minutes...)"
 
   print_at_end+=("$(mr -d / -M echoInstallHelp)")
 
   printf "\r"
+  echo "=================================================== "
+  echo
 
   # DUNNO: Even though the final `echoInstallHelp` includes a blank line,
   # it's not printed. So add one here.
