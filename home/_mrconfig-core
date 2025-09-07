@@ -193,9 +193,16 @@ autocommit =
   git_auto_commit_one 'home/.kit/nvim/spell/en.utf-8.add--personal' -m "conjure: spells"
 
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' \
-  "Linux: fussy.desktop def't browser / macOS: allow term. notifs"
-isInstalled = os_is_macos \
-  || [ "$(xdg-settings get default-web-browser)" = "fussy.desktop" ]
+  "\n     Linux: fussy.desktop def't browser / macOS: allow term. notifs\n   "
+# FTREQ/2025-09-07: Wire isInstalled logic for macOS (seems
+# complicated — Can you check toasts are enabled?; Check
+# 2 symlinks; Check 2 LaunchAgents enabled).
+isInstalled =
+  if os_is_macos; then
+    false
+  else
+    [ "$(xdg-settings get default-web-browser)" = "fussy.desktop" ]
+  fi
 install = install_os_specific
 installDarwin =
   # Trigger popup so user can enable terminal toasts.
@@ -229,6 +236,7 @@ installLinux =
   #   just one <Alt-w> to close the new window, vs. <Alt-w>
   #   only closing one tab and then needing to <Alt-space n>
   #   to minimize the window.)
+  # - SAVVY/2025-09-07: On author's Debian, defaults "google-chrome.desktop".
   xdg-settings set default-web-browser "fussy.desktop"
 
 # Let user override or extend the [~/.depoxy/ambers] config.
