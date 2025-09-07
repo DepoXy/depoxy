@@ -117,30 +117,30 @@ updateDeps = update_deps_shoilerplate
 #
 skip = mr_exclusive "bash" "sh" "home" "${LOGNAME}" "DXC"
 #
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-install =
-  install_bash_history_to_noise () {
-    local orig_file="${HOME}/.bash_history"
-    if [ -f "${orig_file}" ] && [ ! -h "${orig_file}" ]; then
-      local noise_home="${NOISE_DUMP:-${HOME}/.noise}/home"
-      local noise_hist="${noise_home}/.bash_history"
-      #
+# MAYBE/2025-09-07: Move this to ~/.noise 'infuse' task.
+lib =
+  bhist_file="${HOME}/.bash_history"
+  noise_home="${NOISE_DUMP:-${HOME}/.noise}/home"
+  noise_hist="${noise_home}/.bash_history"
+  relative_hist="$(echo "${noise_hist}" | sed -E "s@^${HOME}/@@")"
+  #
+  install_bash_history_to_noise() {
+    if [ -f "${bhist_file}" ] && [ ! -h "${bhist_file}" ]; then
       if [ -f "${noise_hist}" ]; then
         error "ERROR: Target already exists: ${noise_hist}"
         #
         return 1
       fi
-      mkdir -p "${noise_home}"
-      command mv -- "${orig_file}" "${noise_hist}"
       #
-      local relative_hist="$( \
-        echo "${noise_hist}" \
-        | sed -E "s@^${HOME}/@@"
-      )"
-      command ln -s -- "${relative_hist}" "${orig_file}"
+      mkdir -p "${noise_home}"
+      command mv -- "${bhist_file}" "${noise_hist}"
+      #
+      command ln -s -- "${relative_hist}" "${bhist_file}"
     fi
   }
-  install_bash_history_to_noise
+isInstalled = test "$(realpath -- "${bhist_file}")" = "$(realpath -- "${HOME}/${relative_hist}")"
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '~/.noise bash_history'
+install = install_bash_history_to_noise
 
 # ========================================================================
 # ------------------------------------------------------------------------
