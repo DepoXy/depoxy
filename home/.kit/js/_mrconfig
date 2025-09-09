@@ -129,9 +129,20 @@ order = 689
 skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 echoInstallHelp =
-  echoInstallHelp 'os_all' 'dxy_all'
+  which_os="os_all"
+  dxy_scope="dxy_all"
   #
-  echo "🔳 DepoXy: Install current and active Node versions::
+  echoInstallHelp "${which_os}" "${dxy_scope}"
+  #
+  # DUNNO/2025-09-07: -Mq still leaks output, e.g.:
+  # - stdout: mr isInstalledNVMNodes: /home/landonb/.kit/js/nvm
+  # - stderr: mr isInstalledNVMNodes: command failed
+  is_installed=$(
+    mr -Mq -d "${MR_REPO}" -n isInstalledNVMNodes >/dev/null 2>&1 &&
+      echo "true" || echo "false"
+  )
+  local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
+  echo "${checkbox} DepoXy: Install latest supported Node versions::
     mr -d \"${MR_REPO}\" -n installNVMNodes
  "
 isInstalled =
@@ -154,6 +165,16 @@ install =
   # - If we called ./install.sh, then pinning branch would not matter,
   #   because ./install.sh downloads files.
   #  ./install.sh
+
+# USYNC: nvm_versions
+isInstalledNVMNodes =
+  . "${MR_REPO}/nvm.sh"
+  # These print "N/A" and return nonzero unless that version installed.
+  # And we can probe just the major version, no need to specify minor
+  # or patch.
+  nvm version 20
+  nvm version 22
+  nvm version 24
 
 # Install current and active/maintenance Node versions.
 # - TIMED: Very fast!
