@@ -200,6 +200,9 @@ skip = no_travel
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you mechanical keyboard lubbers' 'VIA'
+isInstalled =
+  echo "\$ command -v via-nativia"
+  command -v via-nativia
 install = install_os_specific
 installDarwin =
   install_using_web_app () {
@@ -309,6 +312,9 @@ skip = no_travel
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you ZSA mechanical keyboard owners' 'Wally'
+isInstalled =
+  echo "\$ command -v wally"
+  command -v wally
 install = install_os_specific
 installDarwin =
   local latest_wally_url_macos="https://configure.zsa.io/wally/osx"
