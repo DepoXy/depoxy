@@ -37,7 +37,7 @@
 #
 # whereas when run from a local terminal, neither of those environs are set.
 
-aci () {
+aci() {
   local proj_path="${1:-/}"
   shift || true
 
@@ -85,7 +85,7 @@ aci () {
 # ***
 
 # Local directory `aci.` and `infuse.`.
-_dxy_aliases_wire_omr_wraps () {
+_dxy_aliases_wire_omr_wraps() {
   claim_alias_or_warn "aci." "mr -d . -n autocommit -y"
   # CALSO: `infuse .` works similarly.
   claim_alias_or_warn "infuse." "mr -d . -n infuse"
@@ -93,16 +93,16 @@ _dxy_aliases_wire_omr_wraps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-function omr-is-registered () {
+function omr-is-registered() {
   (
     # CXREF: ~/.kit/git/ohmyrepos/bin/omr-report
     . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-is-registered"
 
     OMR_VERBOSE=true omr_is_registered "$@"
-  )  
+  )
 }
 
-function omr-report () {
+function omr-report() {
   (
     # CXREF: ~/.kit/git/ohmyrepos/bin/omr-report
     . "${OHMYREPOS_DIR:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/ohmyrepos}/bin/omr-report"
@@ -115,8 +115,8 @@ function omr-report () {
       "/*-TBD" -prune \
       "${HOME}/.downloads" -prune \
       "${HOME}/.gopath" -prune \
-      "${HOME}/.trash*" -prune \
-  )  
+      "${HOME}/.trash*" -prune
+  )
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -134,7 +134,7 @@ function omr-report () {
 # - This is useful to audit the auditor, e.g., to make sure you aren't
 #   missing any paths passed to `omr_report` (see `omr-report`, above).
 
-function omr-list-projects () {
+function omr-list-projects() {
   # DUNNO: How does this echo out-of-band? I cannot pipe the output...
   # - I.e., the `mr` command immediately emits output if you run
   #     `mr -d / -f run sh -c '...' 2>&1 | sed ...`
@@ -202,7 +202,7 @@ function omr-list-projects () {
 #     usage: install [-bCcpSsUv] [-f flags] [-g group] [-m mode] [-o owner]
 #     ...
 
-install () {
+install() {
   if [ $# -eq 1 ] && [ "$1" = "." ]; then
     mr -d . -n install
   else
@@ -212,7 +212,7 @@ install () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_unset_f_omr_wraps () {
+_dxy_unset_f_omr_wraps() {
   unset -f main
   unset -f _dxy_aliases_wire_omr_wraps
   # So meta.
@@ -221,11 +221,10 @@ _dxy_unset_f_omr_wraps () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_aliases_wire_omr_wraps
 
   _dxy_unset_f_omr_wraps
 }
 
 main "$@"
-
