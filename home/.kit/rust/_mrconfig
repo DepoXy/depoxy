@@ -42,7 +42,7 @@ installLinux =
   for rc_file in "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.zshenv"; do
     canon_file="$(realpath -- "${rc_file}")"
     if [ "$(tail -n2 "${canon_file}")" = "$(echo; echo '. "$HOME/.cargo/env"')" ]; then
-      info "Removing rustup-added cargo-load from file: ${rc_file}"
+      info "Remove last line \"\$HOME/.cargo/env\": ${rc_file}"
       gnu_sed () {
         for cmd in "gsed" "sed"; do
           ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
@@ -50,15 +50,21 @@ installLinux =
         done
       }
       $(gnu_sed) -i '$ d' "${canon_file}"
+    else
+      debug "Last line is not \"\$HOME/.cargo/env\": ${rc_file}"
     fi
   done
   # Or if you didn't already have one of these files.
   for rc_file in "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.zshenv"; do
     if [ $(cat "${rc_file}" | wc -l) -eq 1 ]; then
       if [ "$(cat "${rc_file}")" = '. "$HOME/.cargo/env"' ]; then
-        info "Removing rustup-created cargo-load file: ${rc_file}"
+        info "Remove file created by install-rust: ${rc_file}"
         command rm -- "${rc_file}"
+      else
+        debug "Sole line is not \"\$HOME/.cargo/env\": ${rc_file}"
       fi
+    else
+      debug "Verified file should not be removed: ${rc_file}"
     fi
   done
 
