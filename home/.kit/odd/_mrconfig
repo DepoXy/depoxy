@@ -268,7 +268,7 @@ lib =
     local udevd_rules_path="etc/udev/rules.d/50-zsa.rules"
     #
     echo
-    echo "BWARE: When you run \`via-nativia\` for the first time, it'll prompt"
+    echo "STEPS: When you run \`via-nativia\` for the first time, it'll prompt"
     echo "       you to create a udev rule, and then for your admin password."
     echo
     echo "- You'll find the new rule at:"
