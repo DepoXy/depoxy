@@ -140,7 +140,8 @@ installPips =
 order = 695
 lib = remote_set starter https://github.com/python-poetry/poetry.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/poetry"
+# Note we don't need to pyenv-shell here; poetry runs through its own venv.
+isInstalled = test -h "${HOME}/.local/bin/poetry" && test -x "${HOME}/.local/bin/poetry"
 install =
   pull_latest "starter" "main"
   # Call `deactivate` function (and ignore Brew command on PATH).
@@ -832,7 +833,7 @@ install =
 lib = remote_set starter https://github.com/aws/aws-cli.git
 # ISOFF/2024-04-23: I haven't used this tool in years.
 echoInstallHelp = echoInstallHelp 'os_off' 'dxy_limit' 'if that‘s something you‘ll use'
-isInstalled = test -h "${HOME}/.local/bin/aws"
+isInstalled = test -h "${HOME}/.local/bin/aws" && test -x "${HOME}/.local/bin/aws"
 install =
   local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
   mkdir -p "${downloads_dir}"
