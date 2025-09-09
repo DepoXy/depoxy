@@ -248,6 +248,17 @@ depoxy_configure_remind_task_install_omr_projects_print_all() {
   echo "mr-install tasks / from: mr -d / -M echoInstallHelp"
   printf "Gathering copy-pasta... (give this a few minutes...)"
 
+  # - REFER: -M/--more-minimal: Like -m/--minimal, but also
+  #   inhibits "action: path". / CALSO: -q/--quiet.
+  # - LOPRI/FTREQ/2025-09-07: Run in background; use wait (see
+  #   `WAITPIDS` usage through DepoXy shell projects); report
+  #   progress.
+  # - INERT/FTREQ/2025-09-08: If any path fails, try again with
+  #   --no-cd, e.g., `mr --no-cd -d ${MR_REPO} -n install`.
+  #   - UCASE: The key paddock (ONEOPEN_KEYS_PADDOCK) does
+  #     not exist until created with `321open` (and its
+  #     'echoInstallHelp' task can tell user that, but
+  #     only if called via `mr --no-cd`).
   print_at_end+=("$(mr -d / -M echoInstallHelp)")
 
   printf "\r"
