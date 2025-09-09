@@ -134,11 +134,14 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install current and active Node versions::
     mr -d \"${MR_REPO}\" -n installNVMNodes
  "
-# USYNC: nvm_versions
 isInstalled =
-  nvm version 18.20.2 > /dev/null
-  nvm version 20.12.2 > /dev/null
-  nvm version 21.7.3 > /dev/null
+  # CXREF: Wired on shell startup using repo assets:
+  #   ~/.depoxy/ambers/core/nvm-setup.sh
+  # - Aka, there's nothing to install, just a script to source.
+  . "${MR_REPO}/nvm.sh"
+  # "nvm is a shell function"
+  type nvm
+  test "$(command -v nvm)" = "nvm"
 install =
   pull_latest "starter" "master" "" "main"
   #
