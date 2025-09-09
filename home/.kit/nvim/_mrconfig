@@ -179,7 +179,9 @@ infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_pr
 # See also MR_INCLUDE usage gaiting mr_cat calls, below.
 skip = mr_exclusive "vim"
 
-echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_maybe'
+# ISOFF/2025-09-08: This was 'os_linux' 'dxy_maybe';
+#   but I'm all setup and comfy in Neovim & Neovide.
+echoInstallHelp = echoInstallHelp 'os_off' 'dxy_all'
 # On @Linux, `vim --version` reports:
 #   Compiled by ${USERNAME}@$(hostname)
 # but on @macOS, reports:
