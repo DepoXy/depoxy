@@ -81,6 +81,14 @@ isInstalled =
   test -x "${HOME}/.local/bin/pipx"
   echo "\$ head -1 ~/.local/bin/pipx | grep \"\/${DEPOXY_PYENV_PYVERS:-3.12.8}\/\""
   head -1 "${HOME}/.local/bin/pipx" | grep "\/${DEPOXY_PYENV_PYVERS:-3.12.8}\/"
+install =
+  eval "$(pyenv init -)"
+  # USYNC: DEPOXY_PYENV_PYVERS
+  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.8}
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
+  # pip install --upgrade pip
+  python3 -m pip install --upgrade pip
+  python3 -m pip install --user pipx
 isInstalledPips =
   # The symlink targets each follow the same pattern:
   #   ~/.local/bin/{pipx-app} -> ~/.local/share/pipx/venvs/{pipx-app}/bin/{pipx-app}
@@ -95,14 +103,6 @@ isInstalledPips =
   ; do
     test -x "${HOME}/.local/bin/${app}"
   done
-install =
-  eval "$(pyenv init -)"
-  # USYNC: DEPOXY_PYENV_PYVERS
-  pyenv install -s ${DEPOXY_PYENV_PYVERS:-3.12.8}
-  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
-  # pip install --upgrade pip
-  python3 -m pip install --upgrade pip
-  python3 -m pip install --user pipx
 installPips =
   eval "$(pyenv init -)"
   # USYNC: DEPOXY_PYENV_PYVERS
