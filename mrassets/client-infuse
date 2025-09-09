@@ -69,6 +69,8 @@ _dxc_client_infuse() {
 
   # *** NVIM
 
+  symlink_overlay_nvim_spells
+
   symlink_overlay_nvim_assets
 
   # *** VS Code windsurf
@@ -358,7 +360,7 @@ symlink_overlay_homefries_private_bashrc() {
 
 # *** NVIM
 
-symlink_overlay_nvim_assets() {
+symlink_overlay_nvim_spells() {
   # Replace (n)vim spell file(s) with symlink(s) to user's version in DXC.
   # - ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
   local dxc_spell_file="${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add"
@@ -372,7 +374,9 @@ symlink_overlay_nvim_assets() {
   cast_private_spell "nvim"
   cast_private_spell "nvim_depoxy"
   cast_private_spell "nvim_lazyb"
+}
 
+symlink_overlay_nvim_assets() {
   # Developer Vim tray: Custom Project Tray (Shift-Alt-3) Paths file.
   # - Add vendor-specific project listing to this file.
   symlink_overlay_file \
