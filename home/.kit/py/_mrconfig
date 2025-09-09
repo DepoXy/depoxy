@@ -388,26 +388,29 @@ installLinux =
   src/configure
   make -C src
   #
-  # TRACK/2024-02-22: I removed a stray "man/index.db", not sure
-  # what from, its date didn't match other build assets, e.g.,
-  #   Feb 17 23:40 man/index.db
-  # Vs.
-  #   Nov 13 00:46 libexec/pyenv
-  #   ...
-  #   Sep 29  2022 libexec/pyenv-realpath.dylib
-  # TRACK/2024-03-20 22:26: Again!
-  #   Mar 20 21:54 man/index.db
-  # - I ran `PREFIX=~/.local make install` at that time (per ~/.bash_history)
-  #   from a separate shell project, don't see how that wouldn't caused it...
-  #   - Though I wonder if it could've been this command:
-  #       2024-03-20 21:54:26 PREFIX=~/.local make installMan
-  #     Nope, rerunning that didn't recreate man/index.db. Huh...
-  # - So keep an eye out for it. If it is make related, since there's
-  #   no `make clean`, do it yourself, e.g.,
-  #     command rm -f -- "man/index.db"
-  # TRACK/2024-02-26 23:04: Removed man/index.db again, but unsure if
-  # from `src/configure` or `make -C src`, because after re-running the
-  # build, man/index.db was not recreated.
+  # - TRACK/2024-02-22: I removed a stray "man/index.db", not sure
+  #   what from, its date didn't match other build assets, e.g.,
+  #     Feb 17 23:40 man/index.db
+  #   Vs. the most recent build date:
+  #     Nov 13 00:46 libexec/pyenv
+  #     ...
+  #   S  ep 29  2022 libexec/pyenv-realpath.dylib
+  # - TRACK/2024-03-20 22:26: Again!
+  #     Mar 20 21:54 man/index.db
+  #   - I ran `PREFIX=~/.local make install` at that time (per ~/.bash_history)
+  #     from a separate shell project, don't see how that wouldn't caused it...
+  #     - Though I wonder if it could've been this command:
+  #         2024-03-20 21:54:26 PREFIX=~/.local make installMan
+  #       Nope, rerunning that didn't recreate man/index.db. Huh...
+  #   - So keep an eye out for it. If it is make related, since there's
+  #     no `make clean`, do it yourself, e.g.,
+  #       command rm -f -- "man/index.db"
+  # - TRACK/2024-02-26: Removed man/index.db again, but unsure if
+  #   from `src/configure` or `make -C src`, because after re-running the
+  #   build, man/index.db was not recreated.
+  # - TRACK/2025-09-08: Ugh, again, from last night, and `history` doesn't
+  #   finger anything obvious:
+  #     Sep  8 02:24 man/index.db
   #
   # SAVVY: We don't also install Python versions now, which takes a while, e.g.,
   #   mr -d ${MR_REPO} -n installpythons
