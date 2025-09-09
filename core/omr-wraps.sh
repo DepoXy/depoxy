@@ -212,6 +212,21 @@ install() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# SAVVY: 'wireRemotes' uses MR_REMOTE from your environ.
+
+wireRemotes() {
+  local proj_path="${1:-/}"
+
+  local no_recurse=""
+  if [ "${proj_path}" != "/" ]; then
+    no_recurse="-n"
+  fi
+
+  mr -d "${proj_path}" ${no_recurse} wireRemotes
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_unset_f_omr_wraps() {
   unset -f main
   unset -f _dxy_aliases_wire_omr_wraps
