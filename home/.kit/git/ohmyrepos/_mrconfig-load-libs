@@ -29,6 +29,7 @@ lib =
   . "${_omr_dxy_lib_dir}/my-deps-manage-vim.sh"
   . "${_omr_dxy_lib_dir}/prepare-guard-repo.sh"
   . "${_omr_dxy_lib_dir}/pyenv-shell-unset.sh"
+  . "${_omr_dxy_lib_dir}/pyenv-venv-activate.sh"
   . "${_omr_dxy_lib_dir}/rebase-tip.sh"
   . "${_omr_dxy_lib_dir}/stub-checkout.sh"
   #
