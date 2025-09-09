@@ -33,7 +33,7 @@ __dxy_nvm_source_nvm_and_completion() {
   fi
 
   # Load its completioner.
-  if [ -s "${NVM_DIR}/bash_completion" ]; then
+  if [ -n "${BASH}" ] && [ -s "${NVM_DIR}/bash_completion" ]; then
     . "${NVM_DIR}/bash_completion"
   fi
 }
