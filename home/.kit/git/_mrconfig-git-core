@@ -287,7 +287,10 @@ installLinux =
   # characters for holding line breaks.
   #
   # INERT/2024-02-18: I use tig-newtons to rebase, otherwise I'd automate this.
-  cat <<[DEFAULT]
+  #
+  # - SIMLY: Similar to `cat << EOF | tail +2 | sed 's/^# \?//'`
+  #   but that syntax not possible in OMR config.
+  cat <<[DEFAULT] | cut -c3-
     *** Install git-interactive-rebase-tool
     #
     These instructions are current as of 2024-02-26 version 2.3.0@ea756cf.
