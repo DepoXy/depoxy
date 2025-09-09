@@ -38,14 +38,35 @@ infuse =
 lib = remote_set publish https://github.com/DepoXy/321open.git
 order = 481
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+lib =
+  proj_binnees="bin/321open bin/23skidoo bin/ssh-agent-kick bin/ssh-agent-kill"
 install =
-  # CALSO: `make install` copies to ~/.local/bin; there's no `make link`:
+  # USAGE: User can override any of these files by creating same-named
+  # file in their DepoXy Client bin/, e.g., ~/.depoxy/running/bin/321open
+  #
+  # CALSO: odd/321open/Makefile's `make install` copies to ~/.local/bin
+  # (and there's no `make link`):
   #   PREFIX="${HOME}/.local" make install
-  symlink_overlay_file "${MR_REPO}/bin/321open" "${HOME}/.local/bin/321open"
-  symlink_overlay_file "${MR_REPO}/bin/23skidoo" "${HOME}/.local/bin/23skidoo"
-  # I rarely use these, but no reason not to.
-  symlink_overlay_file "${MR_REPO}/bin/ssh-agent-kick" "${HOME}/.local/bin/ssh-agent-kick"
-  symlink_overlay_file "${MR_REPO}/bin/ssh-agent-kill" "${HOME}/.local/bin/ssh-agent-kill"
+  #
+  # NOTED: I rarely use the ssh-agent-kick/-kill scripts, but no
+  # reason not to wire 'em.
+  #
+  dxc_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
+  for subpath in ${proj_binnees}; do
+    src_binnee="${dxc_dir}/${subpath}"
+    if ! [ -f "${src_binnee}" ]; then
+      src_binnee="${MR_REPO}/${subpath}"
+    fi
+    if [ -x "${src_binnee}" ]; then
+      symlink_overlay_file "${src_binnee}" "${HOME}/.local/${subpath}"
+    elif [ -h "${HOME}/.local/${subpath}" ]; then
+      # This path prob. never followed, but allows user to opt-out
+      # wiring specific commands to ~/.local/bin... though not sure
+      # why it'd be used. It's a branch in search of a use case!
+      debug "Removing obsolete symlink: ${HOME}/.local/${subpath}"
+      command rm -- "${HOME}/.local/${subpath}"
+    fi
+  done
 # CXREF: link_hard_dep_macOS_disktools, update_deps_shoilerplate:
 #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh
 infuse = mr -d . -n infusePostRebase
