@@ -98,7 +98,7 @@ infuse = link_private_exclude "$@"
 #   source, and you probably don't want them installed system-
 #   wide, anyway, but should use a venv; also DepoXy omits these:
 #     python3-pip python3-setuptools python3-wheel
-echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+echoInstallHelp = echoInstallHelp 'os_off' 'dxy_all'
 install = install_os_specific
 installLinux =
   local venv_name=".venv-quicktile"
