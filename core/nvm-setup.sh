@@ -28,10 +28,14 @@ __dxy_nvm_source_nvm_and_completion() {
   export NVM_DIR
 
   # Load `nvm`.
-  [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh"
+  if [ -s "${NVM_DIR}/nvm.sh" ]; then
+    . "${NVM_DIR}/nvm.sh"
+  fi
 
   # Load its completioner.
-  [ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"
+  if [ -s "${NVM_DIR}/bash_completion" ]; then
+    . "${NVM_DIR}/bash_completion"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
