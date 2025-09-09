@@ -38,7 +38,7 @@ installLinux =
   chmod 775 install-rust.sh
   ./install-rust.sh -y
   # Remove final line Rust install added to ~/.bashrc and ~/.profile:
-  #   . "$HOME/.cargo/env"
+  #   . "$HOME/.cargo/env"  # CRUMB: REVERT THIS CHANGE
   for rc_file in "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.zshenv"; do
     canon_file="$(realpath -- "${rc_file}")"
     if [ "$(tail -n2 "${canon_file}")" = "$(echo; echo '. "$HOME/.cargo/env"')" ]; then
