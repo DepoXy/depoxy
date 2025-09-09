@@ -329,9 +329,17 @@ ffssh =
     OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
   fi
 echoInstallHelp =
-  echoInstallHelp 'os_linux' 'dxy_all'
+  which_os="os_linux"
+  dxy_scope="dxy_all"
   #
-  echo "🔳 DepoXy: Install \`pyenv\` Python versions::
+  echoInstallHelp "${which_os}" "${dxy_scope}"
+  #
+  is_installed=$(
+    mr -Mq -d "${MR_REPO}" -n isInstalledPythons >/dev/null 2>&1 &&
+      echo "true" || echo "false"
+  )
+  local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
+  echo "${checkbox} DepoXy: Install \`pyenv\` Python versions::
     mr -d \"${MR_REPO}\" -n installpythons
  "
 # Similarly:
@@ -406,6 +414,18 @@ installLinux =
 # USYNC:
 #   depoxy_configure_remind_task_install_omr_projects_python_pyenv
 #     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
+isInstalledPythons =
+  command -v pyenv >/dev/null
+  eval "$(pyenv init -)"
+  # THANX: `pcregrep -M` incantation inspired by:
+  #   https://stackoverflow.com/questions/2686147/how-to-find-patterns-across-multiple-lines-using-grep
+  # - BEGET: https://www.google.com/search?q=linux+grep+must+match+multiple+lines
+  # ALTLY: See pyenv versions installed via file system:
+  #   ll ~/.pyenv/versions/
+  # USYNC: DEPOXY_PYENV_PYVERS
+  # Yikes... (this is a beast of a hardcoded regular expression).
+  pyenv versions |
+    pcregrep -M '..3\.9.*(\n|.)*..3\.10.*(\n|.)*..3\.11.*(\n|.)*..3\.12.*(\n|.)*..3\.13.*(\n|.)*..3\.14'
 installpythons =
   pyenv_shell_unset
   # Install all supported Pythons so they're at the ready.
@@ -421,8 +441,6 @@ installpythons =
   #   See virtualenvwrapper project, below
   # CXREF: https://devguide.python.org/versions/
   #   pyenv install -l | grep "^  3\."
-  # ALTLY: See pyenv versions installed:
-  #   ll ~/.pyenv/versions/
   pyenv install -s 3.9
   pyenv install -s 3.10
   pyenv install -s 3.11
