@@ -497,6 +497,8 @@ symlink_overlay_git_assets() {
 
 # Note this overwrites DepoXy's ~/.depoxy/ambers/home/.config/tig/config
 # fallback symlink.
+# - CXREF: infuse_symlinks_user_home_tigconfig
+#   ~/.depoxy/ambers/home/infuse-user-home @ 207
 
 symlink_overlay_tig_assets() {
   mkdir -p "${HOME}/.config/tig"
