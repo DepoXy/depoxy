@@ -40,6 +40,10 @@ lib = remote_set publish https://github.com/DepoXy/macOS-disktools.git
 order = 481
 # If you run either script on Linux, err-exits: "ERROR: Requires @macOS".
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all'
+isInstalled =
+  for subpath in "bin/apfs-mount" "bin/dmg-mount"; do
+    is_symlinked_locally_and_targets_proper_overlay "${subpath}"
+  done
 install = install_os_specific
 installDarwin =
   # CALSO: `make install` copies to ~/.local/bin; there's no `make link`:
