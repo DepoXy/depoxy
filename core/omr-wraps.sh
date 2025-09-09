@@ -70,7 +70,20 @@ aci() {
   # project. So cd to root (and still use `-n`).
 
   if [ "${proj_path}" = "/" ]; then
-    mr -d / autocommit -y "$@"
+    if ! mr -d / autocommit -y "$@"; then
+      # Note that autocommit inhibits printing the project path,
+      # so if a project's autocommit fails, especially if nothing
+      # was committed and so never logged a message, it might not
+      # be obvious who's the culprit.
+      # - Also note that `aci / -x` won't work, because the "-x"
+      #   is passed to the overlay-symlink functions as an arg.
+      #   (So user should call `mr` directly.)
+      >&2 warn "ERROR: The auto-commit failed!"
+      >&2 info "- DEBUG: If the project isn't fingered above, run --exitfirst:"
+      >&2 info "  mr -x -d / autocommit -y"
+
+      return 1
+    fi
   else
     local no_recurse="-n"
 
