@@ -340,7 +340,7 @@ echoInstallHelp =
   )
   local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
   echo "${checkbox} DepoXy: Install \`pyenv\` Python versions::
-    mr -d \"${MR_REPO}\" -n installpythons
+    mr -d \"${MR_REPO}\" -n installPythons
  "
 # Similarly:
 #  isInstalled = ( unset -f pyenv && test "$(type -t pyenv)" = "file" )
@@ -413,7 +413,7 @@ installLinux =
   #     Sep  8 02:24 man/index.db
   #
   # SAVVY: We don't also install Python versions now, which takes a while, e.g.,
-  #   mr -d ${MR_REPO} -n installpythons
+  #   mr -d ${MR_REPO} -n installPythons
   # - Have the user call that deliberately, on their own time.
 
 isInstalledPythons =
@@ -428,7 +428,7 @@ isInstalledPythons =
   # Yikes... (this is a beast of a hardcoded regular expression).
   pyenv versions |
     pcregrep -M '..3\.9.*(\n|.)*..3\.10.*(\n|.)*..3\.11.*(\n|.)*..3\.12.*(\n|.)*..3\.13.*(\n|.)*..3\.14'
-installpythons =
+installPythons =
   pyenv_shell_unset
   # Install all supported Pythons so they're at the ready.
   #   -s: --skip-existing
@@ -439,7 +439,7 @@ installpythons =
   # USYNC: DEPOXY_PYENV_PYVERS
   #   ~/.config/depoxy/depoxyrc
   #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL
-  # USYNC: Other 'installpythons' task(s):
+  # USYNC: Other 'installPythons' task(s):
   #   See virtualenvwrapper project, below
   #
   # CXREF: USYNC:
@@ -735,7 +735,7 @@ echoInstallHelp =
   #
   # ISOFF/2024-04-23: Now part of pyenv 'install':
   #   echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
-  #     mr -d \"${MR_REPO}\" -n installpythons
+  #     mr -d \"${MR_REPO}\" -n installPythons
   #   "
 # CPYST: For more trace, try:
 #   MR_LOG_LEVEL=0 mr -d . -n merge
@@ -835,10 +835,10 @@ install =
 # ISOFF/2024-04-23: Added to pyenv project. See:
 #   mr -d "${DOPP_KIT:-${HOME}/.kit}/py/pyenv" -n installVirtualenvwrapper
 #
-#   installpythons =
+#   installPythons =
 #     eval "$(pyenv init -)"
 #     #
-#     # USYNC: See pyenv installpythons versions, above.
+#     # USYNC: See pyenv installPythons versions, above.
 #     for pyver in \
 #       3.8 \
 #       3.9 \
