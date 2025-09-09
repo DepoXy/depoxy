@@ -128,6 +128,11 @@ infuse_projects_links_core_generate_ctags() {
 
   LOG_MSG_NO_NEWLINE=true info "Creating Exuberant Ctags file... "
 
+  local quiet=""
+  if ctags --version | head -1 | grep -q "^Universal Ctags"; then
+    quiet="--quiet"
+  fi
+
   local time_0="$(date +%s.%N)"
 
   (
@@ -137,6 +142,8 @@ infuse_projects_links_core_generate_ctags() {
     # - -R aka --recurse
     # - --quiet Writes fewer messages, incl. null-tag warnings, e.g.,
     #     ctags: Notice: ignoring null tag in {path}.js(line: 1, language: JavaScript)
+    #     - Works on Universal Ctags (e.g., from Homebrew), but
+    #       not classic Exuberant Ctags (e.g., from Debian apt).
     # - --exclude FYI: --exclude=docs/_build may not work in all envs.
     #   - Author saw null-tag warnings on files under docs/_build/ dirs,
     #     so I added --exclude=_build.
@@ -146,7 +153,7 @@ infuse_projects_links_core_generate_ctags() {
     ${ctags_groom} \
       \
       -R \
-      --quiet \
+      ${quiet} \
       \
       --totals=no \
       \
