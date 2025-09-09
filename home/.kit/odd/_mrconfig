@@ -64,10 +64,19 @@ lib = remote_set starter https://github.com/Homebrew/install.git
 # CXREF: On macOS, installed via macOS-onboarder:
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+isInstalled = isInstalled_os_specific
+# Meh, this assumes Apple Silicon path, but b/c echoInstallHelp 'os_linux',
+# slather-defaults won't call this action. (It's just here for completeness.)
+isInstalledDarwin = test "$(command -v brew)" = "/opt/homebrew/bin/brew"
+isInstalledLinux = test "$(command -v brew)" = "/home/linuxbrew/.linuxbrew/bin/brew"
 install = install_os_specific
+installDarwin =
+  # REFER: See macOS-onboarder `install_homebrew`.
+  >&2 warn "ERROR: Please use macOS-onboarder to install Homebrew:"
+  >&2 warn "  ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh"
+  #
+  return 1
 # REFER: https://docs.brew.sh
-# CXREF: See macOS-onboarder `install_homebrew`:
-#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 installLinux = "${MR_REPO}/install.sh"
 
 # ========================================================================
