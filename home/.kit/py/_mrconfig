@@ -72,9 +72,20 @@ echoInstallHelp =
   echo "🔳 DepoXy: Install \`pipx\` applications::
     mr -d \"${MR_REPO}\" -n installPips
  "
+# Check for the executable, and that the shim shebang
+# calls the expected Python version.
+# - E.g.,
+#   $ head -1 ~/.local/bin/pipx
+#   #!/home/user/.pyenv/versions/3.12.8/bin/python3
 isInstalled =
-  for app in "pipx" "asciinema" "glances" "grip"; do
-    test -h "${HOME}/.local/bin/${app}"
+  test -x "${HOME}/.local/bin/pipx"
+  echo "\$ head -1 ~/.local/bin/pipx | grep \"\/${DEPOXY_PYENV_PYVERS:-3.12.8}\/\""
+  head -1 "${HOME}/.local/bin/pipx" | grep "\/${DEPOXY_PYENV_PYVERS:-3.12.8}\/"
+isInstalledPips =
+  # The symlink targets each follow the same pattern:
+  #   ~/.local/bin/{pipx-app} -> ~/.local/share/pipx/venvs/{pipx-app}/bin/{pipx-app}
+  for app in "asciinema" "dunamai" "glances" "grip" "pycobertura"; do
+    test -h "${HOME}/.local/bin/${app}" && test -x "${HOME}/.local/bin/${app}"
   done
   # For `argcomplete`:
   for app in \
