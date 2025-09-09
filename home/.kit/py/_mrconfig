@@ -416,9 +416,6 @@ installLinux =
   #   mr -d ${MR_REPO} -n installpythons
   # - Have the user call that deliberately, on their own time.
 
-# USYNC:
-#   depoxy_configure_remind_task_install_omr_projects_python_pyenv
-#     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 421
 isInstalledPythons =
   command -v pyenv >/dev/null
   eval "$(pyenv init -)"
@@ -444,13 +441,16 @@ installpythons =
   #   ~/.depoxy/ambers/archetype/home/.config/depoxy/depoxyrc.EVAL
   # USYNC: Other 'installpythons' task(s):
   #   See virtualenvwrapper project, below
-  # CXREF: https://devguide.python.org/versions/
+  #
+  # CXREF: USYNC:
   #   pyenv install -l | grep "^  3\."
+  # https://devguide.python.org/versions/
   pyenv install -s 3.9
   pyenv install -s 3.10
   pyenv install -s 3.11
   pyenv install -s 3.12
   pyenv install -s 3.13
+  #
   # Pre-release Python only installable by full version.
   # This installs the non-dev version, e.g., '3.14.0a3t', not '3.13-dev'.
   pyenv install -s $(pyenv install -l | grep '^ \+3\.14\.' | tail -1)
@@ -671,9 +671,6 @@ ffssh =
   else
     OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
   fi
-# USYNC:
-#   depoxy_configure_remind_task_install_omr_projects_python_pyenv_virtualenv
-#     file://~/.depoxy/ambers/bin/onboarder/slather-defaults.sh @ 428
 echoInstallHelp =
   local install_scope='os_all'
   local addendum=''
