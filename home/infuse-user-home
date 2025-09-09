@@ -191,15 +191,18 @@ infuse_symlinks_user_home_tigconfig() {
 
   # So long as OMR config order is valid, DXC runs after this script,
   # and will replace this ~/.config/tig/config symlink with its own
-  # (so that user tig is included; the symlink here is a fallback in
-  # case there's no DXC).
+  # (so that user tig is included). The symlink here is a fallback in
+  # case there's no DXC config.
   # - infuse-user-home (this script) called by DXY OMR project:
   #     ~/.depoxy/ambers/home/_mrconfig-core
   #   via: ~/.depoxy/ambers/home/_mrconfig
   #   Where 'order = 131'
-  # - DepoXy Client [~/.depoxy/stints/XXXX]
+  # - CXREF: DXC config [~/.depoxy/stints/XXXX] sets order = 133:
   #     ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig.EVAL.omr
-  #   Where 'order = 133'
+  # - CXREF: DXC 'infuse' calls:
+  #     symlink_overlay_tig_assets
+  #   from
+  #     ~/.depoxy/ambers/mrassets/client-infuse @ 499
   #
   # Wire ~/.config/tig/config → ~/.depoxy/ambers/home/.config/tig/config
   # - DXC will change to → ~/.depoxy/running/home/.config/tig/config
