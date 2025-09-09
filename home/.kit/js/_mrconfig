@@ -156,15 +156,15 @@ install =
   #  ./install.sh
 
 # Install current and active/maintenance Node versions.
-#
-# - CXREF/2024-04-09::
+# - TIMED: Very fast!
+# - CXREF/2024-04-09: USYNC:
 #   https://nodejs.org/en/about/previous-releases
 installNVMNodes =
   # USYNC: nvm_versions
   for node_ver in \
-    18.20.2 \
-    20.12.2 \
-    21.7.3 \
+    20.19.5 \
+    22.19.0 \
+    24.7.0 \
   ; do
     echo
     echo "Installing Node v${node_ver}..."
