@@ -40,6 +40,10 @@ order = 481
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 lib =
   proj_binnees="bin/321open bin/23skidoo bin/ssh-agent-kick bin/ssh-agent-kill"
+isInstalled =
+  for subpath in ${proj_binnees}; do
+    is_symlinked_locally_and_targets_proper_overlay "${subpath}"
+  done
 install =
   # USAGE: User can override any of these files by creating same-named
   # file in their DepoXy Client bin/, e.g., ~/.depoxy/running/bin/321open
