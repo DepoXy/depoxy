@@ -24,6 +24,20 @@ skip = mr_exclusive_git_core
 #     'liminal' branches, a collection of feature branches that is often
 #     rebased and force-pushed.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all' 'on macOS, use system git'
+isInstalled = isInstalled_os_specific
+isInstalledDarwin =
+  echo "\$ brew info git >/dev/null 2>&1"
+  brew info git >/dev/null 2>&1
+isInstalledLinux =
+  # Not using is_symlinked_locally_and_targets_proper_overlay to check
+  # build matches, e.g.,
+  #   `diff -b ~/.local/bin/git ~/.kit/git/git/git`
+  # and not git-fetching to check if newer version available (that's
+  # really the purview of an unexisting OMR action to check for updates).
+  git_vers="$(git version | sed 's/^git version /v/')"
+  tag_vers="$(git-latest-version)"
+  echo "git_vers: ${git_vers} / tag_vers: ${tag_vers}"
+  test "${git_vers}" = "${tag_vers}"
 install = install_os_specific
 # MAYBE/2021-05-30: Add Darwin support. See at least `package` list below.
 installDarwin = false
