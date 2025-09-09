@@ -344,6 +344,8 @@ echoInstallHelp =
  "
 # Similarly:
 #  isInstalled = ( unset -f pyenv && test "$(type -t pyenv)" = "file" )
+# SAVVY: `type -p` prints path to command if resolves to file path,
+# otherwise prints empty string if command is a function or alias.
 isInstalled = ( unset -f pyenv && test -n "$(type -p pyenv)" )
 install = install_os_specific
 installDarwin =
