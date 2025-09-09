@@ -41,7 +41,7 @@ installLinux =
   #   . "$HOME/.cargo/env"  # CRUMB: REVERT THIS CHANGE
   for rc_file in "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.zshenv"; do
     canon_file="$(realpath -- "${rc_file}")"
-    if [ "$(tail -n2 "${canon_file}")" = "$(echo; echo '. "$HOME/.cargo/env"')" ]; then
+    if [ "$(tail -n1 "${canon_file}")" = "$(printf "%s" '. "$HOME/.cargo/env"')" ]; then
       info "Remove last line \"\$HOME/.cargo/env\": ${rc_file}"
       gnu_sed () {
         for cmd in "gsed" "sed"; do
@@ -57,7 +57,7 @@ installLinux =
   # Or if you didn't already have one of these files.
   for rc_file in "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.zshenv"; do
     if [ $(cat "${rc_file}" | wc -l) -eq 1 ]; then
-      if [ "$(cat "${rc_file}")" = '. "$HOME/.cargo/env"' ]; then
+      if [ "$(cat "${rc_file}")" = "" ]; then
         info "Remove file created by install-rust: ${rc_file}"
         command rm -- "${rc_file}"
       else
