@@ -61,7 +61,7 @@ _dxc_client_infuse() {
 
   # *** DEPOXY
 
-  symlink_overlay_depoxy_stings_ignore
+  symlink_overlay_depoxy_stints_ignore
 
   # *** BASH
 
@@ -306,7 +306,7 @@ alert_if_missing_vendor_mrconfig() {
 
 # *** DEPOXY
 
-symlink_overlay_depoxy_stings_ignore() {
+symlink_overlay_depoxy_stints_ignore() {
   symlink_overlay_file \
     "${MR_REPO}/home/.depoxy/stints/_ignore" \
     "${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/.ignore"
