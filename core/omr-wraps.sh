@@ -212,6 +212,20 @@ install() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+echoInstallHelp() {
+  local proj_path="${1:-/}"
+
+  local no_recurse=""
+  if [ "${proj_path}" != "/" ]; then
+    no_recurse="-n"
+  fi
+
+  # SAVVY: Note the `-M` to inhibit printing every project path.
+  mr -d "${proj_path}" ${no_recurse} -M echoInstallHelp
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # SAVVY: 'wireRemotes' uses MR_REMOTE from your environ.
 
 wireRemotes() {
