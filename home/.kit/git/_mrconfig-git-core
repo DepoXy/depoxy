@@ -562,16 +562,23 @@ install =
     #     b stage.c:240
     # - Build `compile_commands.json` via GENERATE_COMPILATION_DATABASE
     #   for clangd LSP.
+    echo "\n\$ GENERATE_COMPILATION_DATABASE=yes make all-debug\n"
     GENERATE_COMPILATION_DATABASE=yes \
       make all-debug
   else
+    echo "\n\$ make prefix=${HOME}/.local\n"
     make prefix=${HOME}/.local
+    echo "\n\$ make install prefix=${HOME}/.local\n"
     make install prefix=${HOME}/.local
+    echo "\n\$ make install-doc prefix=${HOME}/.local\n"
     make install-doc prefix=${HOME}/.local
   fi
   #
+  echo "\n\$ type -a tig"
   bash -c "type -a tig"
+  echo "\n\$ type --version"
   tig --version
+  echo
 installDarwin =
   # Assume if src/tig exists that so do these brew dependencies.
   if [ -x src/tig ]; then
