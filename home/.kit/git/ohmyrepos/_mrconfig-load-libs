@@ -121,7 +121,7 @@ skip = mr_exclusive
 
 [DEFAULT]
 
-# *** isInstalled helper.
+# *** isInstalled helpers.
 
 lib =
   is_installed_locally_and_same_as_repo_build () {
@@ -132,6 +132,36 @@ lib =
     test -x "${HOME}/${local_path}"
     echo "diff -b \"${HOME}/${local_path}\" \"${MR_REPO}/${repo_path}\""
     diff -b "${HOME}/${local_path}" "${MR_REPO}/${repo_path}"
+  }
+
+lib =
+  is_symlinked_locally_and_targets_proper_overlay () {
+    local local_path="$1"
+    local repo_path="${2:-$1}"
+    #
+    local dxc_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
+    #
+    # (Overengineered:) If DXC/bin/target present but not executable,
+    # then doesn't populate ~/.local/bin/target (but does depopulate).
+    local is_absent=false
+    test -f "${dxc_dir}/${local_path}" &&
+      ! test -x "${dxc_dir}/${local_path}" &&
+      is_absent=true
+    #
+    if ${is_absent}; then
+      echo "! test -f \"${HOME}/.local/${local_path}\" && ! test -h \"${HOME}/.local/${local_path}\""
+      ! test -f "${HOME}/.local/${local_path}" && ! test -h "${HOME}/.local/${local_path}"
+    else
+      echo "test -x \"${HOME}/.local/${local_path}\""
+      test -x "${HOME}/.local/${local_path}"
+      #
+      echo "test \"$(realpath -- "${HOME}/.local/${local_path}")\"" \
+        "= \"$(realpath -- "${dxc_dir}/${local_path}")\" ||"
+      echo "  test \"$(realpath -- "${HOME}/.local/${local_path}")\"" \
+        "= \"$(realpath -- "${MR_REPO}/${repo_path}")\""
+      test "$(realpath -- "${HOME}/.local/${local_path}")" = "$(realpath -- "${dxc_dir}/${local_path}")" ||
+        test "$(realpath -- "${HOME}/.local/${local_path}")" = "$(realpath -- "${MR_REPO}/${repo_path}")"
+    fi
   }
 
 # ========================================================================

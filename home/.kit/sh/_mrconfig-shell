@@ -21,7 +21,7 @@ order = 710
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
 lib = remote_set publish http://github.com/landonb/parT.git
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/parT"
+isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/parT" "parT"
 install =
   make -f protoMakefile clean
   # What ./build.sh calls:

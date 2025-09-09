@@ -107,7 +107,7 @@ install =
 lib = remote_set publish https://github.com/DepoXy/git-put-wise.git
 skip = mr_exclusive "entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/git-put-wise"
+isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/git-put-wise"
 install = PREFIX=~/.local make install
 infusePostRebase =
   link_hard_dep_git_smart_git_abort
@@ -173,7 +173,7 @@ lib = remote_set publish https://github.com/DepoXy/myrepos-mredit-command.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
   echo "- SAVVY: Restart your shell so \`MREDIT_CONFIGS=~/.projlns/mymrconfigs\`\n"
-isInstalled = test -h "${HOME}/.local/bin/mredit"
+isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/mredit"
 install = PREFIX="${HOME}/.local" make install
 infusePostRebase =
   link_hard_dep_sh_colors

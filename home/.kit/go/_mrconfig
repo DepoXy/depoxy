@@ -44,7 +44,7 @@ infuse =
 # On @macOS, installed via Homebrew.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 # Either -> ~/.kit/go/fzf/bin/fzf OR -> /opt/homebrew/bin/fzf
-isInstalled = test -h "${HOME}/.local/bin/fzf"
+isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/fzf"
 install = install_os_specific
 installLinux =
   pull_latest "starter" "master"

@@ -110,7 +110,7 @@ skip = mr_exclusive "!entrusted"
 lib = remote_set publish https://github.com/DepoXy/gvim-open-kindness.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/gvim-open-kindness"
+isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/gvim-open-kindness"
 install =
   symlink_overlay_file \
     "${MR_REPO}/bin/gvim-open-kindness" \
@@ -161,7 +161,7 @@ infuse =
 lib = remote_set publish https://github.com/landonb/fries-findup.git
 skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -h "${HOME}/.local/bin/fries-findup"
+isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/fries-findup"
 install = PREFIX="${HOME}/.local" make link
 
 # ========================================================================
