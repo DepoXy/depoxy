@@ -343,10 +343,12 @@ installLinux =
     #
       version=\$(grep -e "^version =" Cargo.toml \\
         | sed "s/^version = [\"']\?\([^\"']*\)[\"']\?$/\1/")
+      echo "Installing version: \${version}"
       #
       # E.g.,
       #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.2.1_amd64.deb
       #  sudo dpkg -i target/debian/git-interactive-rebase-tool_2.3.0-1_amd64.deb
+      echo dpkg -i target/debian/interactive-rebase-tool_\${version}*_amd64.deb
       sudo dpkg -i target/debian/interactive-rebase-tool_\${version}*_amd64.deb
     #
  [DEFAULT]
