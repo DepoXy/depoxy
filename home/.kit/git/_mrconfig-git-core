@@ -45,6 +45,11 @@ installLinux =
   # Update to the latest version.
   pull_latest "starter" "master"
   #
+  # Unwire pyenv, lest `make ... all doc info` complain, e.g.,
+  #   /home/user/.pyenv/versions/3.12.8/bin/python3: No module named asciidoc
+  # - This is effectively `pyenv system`.
+  pyenv_shell_unset
+  #
   # Install packages necessary to build the app.
   # - For `make all`: libssl-dev
   # - For `make doc`: asciidoc xmlto
