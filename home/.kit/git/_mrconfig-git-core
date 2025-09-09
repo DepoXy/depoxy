@@ -395,7 +395,7 @@ update = git pull --ff-only
 lib = remote_set starter https://github.com/github/hub.git
 skip = mr_exclusive_git_core
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
-  'Very Probably unnecessary for any development environment; see `gh` instead'
+  '\n     Very Probably unnecessary for any development environment; see `gh` instead\n'
 isInstalled = test -x "${HOME}/.local/bin/hub"
 install =
   # SKPID/2024-02-26: Not calling `pull_latest "starter" "master" because
