@@ -40,6 +40,83 @@ __dxy_nvm_source_nvm_and_completion() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+svgo() {
+  (
+    if [ -z "$(unset -f svgo && type -p svgo)" ]; then
+      svgo_prepare || return 1
+
+      >&2 echo -e "HINT: Change env to speedup svgo: nvm use \$(nvm_latest_version)\n"
+    fi
+
+    command svgo "$@"
+  )
+}
+
+svgo_activate_env() {
+  # See also: nvm use --lts
+  # - Though note --lts is not necessarily latest, e.g.,
+  #   --lts will pick v22.19.0, even when v24.7.0 installed.
+  local nvm_vers
+  if ! nvm_vers="$(nvm_latest_version)"; then
+
+    return 1
+  fi
+
+  nvm use ${nvm_vers} > /dev/null
+}
+
+svgo_install() {
+  svgo_activate_env
+
+  npm install -g svgo
+}
+
+svgo_prepare() {
+  svgo_activate_env || return 1
+
+  if [ -z "$(unset -f svgo && type -p svgo)" ]; then
+    >&2 echo "ERROR: Missing \`svgo\`"
+    >&2 echo "- Install it:"
+    >&2 echo "  svgo_install"
+
+    return 1
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+nvm_latest_version() {
+  if ! command -v nvm > /dev/null; then
+    >&2 echo "ERROR: Missing \`nvm\`"
+    >&2 echo "- Repo not found at:"
+    >&2 echo "  ${NVM_DIR}"
+
+    return 1
+  elif test $(nvm ls v | wc -l) -le 1; then
+    # E.g.,
+    #   $ nvm ls v
+    #          v20.19.5
+    #          v22.19.0
+    #           v24.7.0
+    #   ->       system
+    >&2 echo "ERROR: Missing user-space \`npm\`"
+    >&2 echo "- Install 'em:"
+    >&2 echo "  mr -d ${DOPP_KIT:-${HOME}/.kit}/js/nvm -n installNVMNodes"
+
+    return 1
+  fi
+
+  nvm ls v --no-colors \
+    | sed 's/^\(\->\)\?\s\+//g' \
+    | sed 's/\s\+\*\?$//g' \
+    | grep -v system \
+    | sort -V \
+    | tail -1 \
+    | sed 's/^\s\+\(.*\)\( .*\)/\1/g'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # `nvm` lazy-loader. Saves ~0.09 secs. on session standup! #profiling
 nvm() {
   unset -f nvm
