@@ -124,6 +124,9 @@ lib = remote_set starter https://github.com/9mm/dotfiles.git '9mm'
 lib = remote_set starter https://github.com/neovim/neovim
 order = 810
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+isInstalled =
+  echo "\$ command -v nvim"
+  command -v nvim
 install =
   # Assumes user previously ran `brew install neovim` to install the
   # stable releave. Here we install the "nightly" build (nightly to
