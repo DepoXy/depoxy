@@ -118,3 +118,21 @@ skip = mr_exclusive
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[DEFAULT]
+
+# *** isInstalled helper.
+
+lib =
+  is_installed_locally_and_same_as_repo_build () {
+    local local_path="$1"
+    local repo_path="${2:-$1}"
+    #
+    echo "test -x \"${HOME}/${local_path}\""
+    test -x "${HOME}/${local_path}"
+    echo "diff -b \"${HOME}/${local_path}\" \"${MR_REPO}/${repo_path}\""
+    diff -b "${HOME}/${local_path}" "${MR_REPO}/${repo_path}"
+  }
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

@@ -396,7 +396,7 @@ lib = remote_set starter https://github.com/github/hub.git
 skip = mr_exclusive_git_core
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   '\n     Very Probably unnecessary for any development environment; see `gh` instead\n'
-isInstalled = test -x "${HOME}/.local/bin/hub"
+isInstalled = is_installed_locally_and_same_as_repo_build ".local/bin/hub" "bin/hub"
 install =
   # SKPID/2024-02-26: Not calling `pull_latest "starter" "master" because
   # latest version, v2.14.2, tagged 3 years, but lots of code since then.
@@ -498,7 +498,10 @@ lib = remote_set starter https://github.com/jonas/tig.git
 skip = mr_exclusive_git_core
 infuse = link_private_exclude "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
-isInstalled = test -x "${HOME}/.local/bin/tig"
+# Note that ~/.local/bin/tig is a copy of the built executable.
+# - This check is "good enough", but won't tell you if you need
+#   to update.
+isInstalled = is_installed_locally_and_same_as_repo_build ".local/bin/tig" "src/tig"
 # UCASE: Linux distro tig aren't kept up to date like Homebrew.
 # - E.g., Linux Mint 19.3 was not EOL'd until early 2023, and
 #   it shipped with tig 2.3.0, while 2.5.3 was the latest.
