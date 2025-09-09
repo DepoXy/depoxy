@@ -5,7 +5,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-pyenv_shell_unset () {
+pyenv_shell_unset() {
   if ! command -v pyenv > /dev/null; then
     >&2 error "ERROR: Where's \`pyenv\`?"
 
@@ -16,4 +16,3 @@ pyenv_shell_unset () {
 
   pyenv shell --unset
 }
-

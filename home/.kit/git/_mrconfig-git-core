@@ -227,7 +227,7 @@ infuse =
   link_private_ignore_ "$@"
 # On @macOS, installed via Homebrew.
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
-isInstalled = command -v interactive-rebase-tool > /dev/null
+isInstalled = command -v interactive-rebase-tool >/dev/null
 install = install_os_specific
 # 2021-06-01: Both Brew and sources are at v2.1.0. I think maintainers update
 # Brew when tagging new versions, so no need to worry about falling behind.

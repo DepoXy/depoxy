@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-__dxy_nvm_locate_and_set_nvm_dir_environ () {
+__dxy_nvm_locate_and_set_nvm_dir_environ() {
   if [ -d "${HOME}/.nvm" ]; then
     NVM_DIR="${HOME}/.nvm"
   elif [ -d "${DOPP_KIT:-${HOME}/.kit}/js/nvm" ]; then
@@ -17,7 +17,7 @@ __dxy_nvm_locate_and_set_nvm_dir_environ () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-__dxy_nvm_source_nvm_and_completion () {
+__dxy_nvm_source_nvm_and_completion() {
   [ -d "${NVM_DIR}" ] || return 0
 
   # These are the 3 steps from nvm/install.sh, which it tacks onto
@@ -37,7 +37,7 @@ __dxy_nvm_source_nvm_and_completion () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # `nvm` lazy-loader. Saves ~0.09 secs. on session standup! #profiling
-nvm () {
+nvm() {
   unset -f nvm
 
   __dxy_nvm_locate_and_set_nvm_dir_environ
@@ -50,4 +50,3 @@ nvm () {
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
