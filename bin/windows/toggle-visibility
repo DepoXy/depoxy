@@ -8,13 +8,6 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps() {
-  # Load: _hf_probe_desktop_environment
-  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
-}
-
-# ***
-
 toggle_window_focus() {
   local win_before
 
@@ -237,6 +230,35 @@ minimize_window_XWindow() {
 
 # ***
 
+# COPYD/2025-09-09: From sh-humble-prompt:
+#   _hf_probe_desktop_environment
+#     https://github.com/DepoXy/sh-humble-prompt#🙇
+# - CXREF: For DepoXy users, at:
+#   ~/.kit/sh/sh-humble-prompt/lib/show-command-name-in-window-title.sh
+_humb_probe_desktop_environment() {
+  # Colon-separated list, uppercased.
+  local currdes
+  currdes="$(echo "${XDG_CURRENT_DESKTOP}" | tr '[:lower:]' '[:upper:]')"
+
+  (
+    IFS=:
+    for denv in ${currdes}; do
+      if [ "${denv}" = "GNOME" ]; then
+        echo "GNOME"
+      elif [ "${denv}" = "MATE" ]; then
+        echo "MATE"
+      else
+
+        continue
+      fi
+
+      break
+    done
+  )
+}
+
+# ***
+
 os_is_linux() {
   [ "$(uname)" = "Linux" ]
 }
@@ -286,10 +308,8 @@ check_deps_XWindow() {
 # ***
 
 main() {
-  source_deps
-
   local de_name
-  de_name="$(_hf_probe_desktop_environment)"
+  de_name="$(_humb_probe_desktop_environment)"
 
   if ! check_deps; then
 
@@ -306,11 +326,8 @@ _dxybwtv_shell_sourced() { [ "$(basename -- "$0")" != "${_dxybwtv_this_file_name
 
 if ! _dxybwtv_shell_sourced; then
   main "$@"
-else
-  source_deps
 fi
 
 unset -f main
-unset -f source_deps
 unset -v _dxybwtv_this_file_name
 unset -f _dxybwtv_shell_sourced
