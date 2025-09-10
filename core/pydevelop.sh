@@ -154,7 +154,7 @@ _depoxy_python_prefix_PS1_with_venv_name() {
     #     this file's functions below (i.e., none of these functions exist
     #     longer than shell startup, so user cannot call them).
     #   - If we disabled the `unset` calls below, then then user could call
-    #     _hf_prompt_customize_shell_prompts_and_window_title directly, in
+    #     _humb_prompt_customize_shell_prompts_and_window_title directly, in
     #     which case we wouldn't want to inject the virtualenv name into PS1
     #     if `activate` already did it, which we deduce by testing `deactivate`.
     #   - See also VIRTUAL_ENV_DISABLE_PROMPT, but that's trickier to use,
