@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_depoxy_python_wire_aliases () {
+_depoxy_python_wire_aliases() {
   # CXREF: See the EAPP Makefile task:
   # https://github.com/doblabs/easy-as-pypi#🥧
   #   ~/.kit/py/easy-as-pypi/Makefile
@@ -28,7 +28,7 @@ _depoxy_python_wire_aliases () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_depoxy_python_doc8 () {
+_depoxy_python_doc8() {
   if type -P doc8 > /dev/null; then
     command doc8 "$@"
   elif make -n doc8 > /dev/null 2>&1; then
@@ -52,8 +52,8 @@ _depoxy_python_doc8 () {
 #
 #     /home/user/path/to/project/.venv/lib/python3.10/site-packages
 
-_depoxy_python_site_packages_path_print_and_clip () {
-  _depoxy_python_must_find_python_virtualenvwrapper () {
+_depoxy_python_site_packages_path_print_and_clip() {
+  _depoxy_python_must_find_python_virtualenvwrapper() {
     command -v virtualenvwrapper_get_site_packages_dir > /dev/null \
       && return
 
@@ -85,7 +85,7 @@ _depoxy_python_site_packages_path_print_and_clip () {
 # CXREF:
 #   ~/.kit/py/virtualenvwrapper/virtualenvwrapper.sh
 
-_depoxy_python_lazy_load_virtualenvwrapper () {
+_depoxy_python_lazy_load_virtualenvwrapper() {
   local virtualenvwrappersh
   local wrapper_source_lazy
 
@@ -141,7 +141,7 @@ _depoxy_python_lazy_load_virtualenvwrapper () {
 # So unless we want to customize the prompt (e.g., use something other
 # than parentheses), we can cue off and use only VIRTUAL_ENV_PROMPT.
 
-_depoxy_python_prefix_PS1_with_venv_name () {
+_depoxy_python_prefix_PS1_with_venv_name() {
   _depoxy_python_format_PS1_venv_name() {
     [ -z "${VIRTUAL_ENV}" ] && return
 
@@ -159,7 +159,7 @@ _depoxy_python_prefix_PS1_with_venv_name () {
     #     if `activate` already did it, which we deduce by testing `deactivate`.
     #   - See also VIRTUAL_ENV_DISABLE_PROMPT, but that's trickier to use,
     #     because then we would need to wire into activate and deactivate.
-    if ! typeset -f deactivate >/dev/null; then
+    if ! typeset -f deactivate > /dev/null; then
       # (Child) Shell within a shell.
       # - Format:
       #     (.venv) user@host:dir ⚓ $
@@ -179,7 +179,7 @@ _depoxy_python_prefix_PS1_with_venv_name () {
 
 # REFER: https://github.com/doblabs/easy-as-pypi#🥧
 
-_depoxy_python_easy_as_pypi_report_cascade () {
+_depoxy_python_easy_as_pypi_report_cascade() {
   local report_cascade="${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/report-cascade"
 
   if [ ! -x "${report_cascade}" ]; then
@@ -194,7 +194,7 @@ _depoxy_python_easy_as_pypi_report_cascade () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _depoxy_python_wire_aliases
   unset -f _depoxy_python_wire_aliases
 
@@ -210,4 +210,3 @@ main () {
 
 main "$@"
 unset -f main
-
