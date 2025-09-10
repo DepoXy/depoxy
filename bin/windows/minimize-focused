@@ -8,7 +8,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # Load: check_deps, get_focused_window_id, _hf_probe_desktop_environment, minimize_window
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/windows/toggle-visibility"
 }
@@ -19,7 +19,7 @@ source_deps () {
 #   xdotool windowminimize $(xdotool getactivewindow)
 # On Wayland, calls third-party plugin over gdbus.
 
-minimize_focused () {
+minimize_focused() {
   local win_focused
   # E.g., '65012405'
   if win_focused="$(get_focused_window_id "${de_name}")"; then
@@ -29,7 +29,7 @@ minimize_focused () {
 
 # ***
 
-main () {
+main() {
   source_deps
 
   local de_name
@@ -44,4 +44,3 @@ main () {
 }
 
 main "$@"
-

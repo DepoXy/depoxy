@@ -51,14 +51,14 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # Load: `_hf_probe_desktop_environment`
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
 }
 
 # ***
 
-toogle_window_numbered () {
+toogle_window_numbered() {
   local title_num="$1"
 
   local de_name
@@ -82,7 +82,7 @@ toogle_window_numbered () {
 
 # ***
 
-check_deps () {
+check_deps() {
   if ! os_is_linux; then
     >&2 echo "ERROR: This script only runs on Linux"
 
@@ -90,13 +90,13 @@ check_deps () {
   fi
 }
 
-os_is_linux () {
+os_is_linux() {
   [ "$(uname)" = "Linux" ]
 }
 
 # ***
 
-main () {
+main() {
   if ! check_deps; then
 
     return 1
@@ -108,4 +108,3 @@ main () {
 }
 
 main "$@"
-
