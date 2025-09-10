@@ -90,6 +90,11 @@ order = 142
 lib = remote_set publish https://github.com/landonb/nvim-depoxy.git
 skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
 infuse = link_private_exclude "$@"
+autocommit =
+  # Prepare args, e.g., `autocommit -y`, or `autocommit -f`.
+  git_auto_commit_parse_args "$@"
+  #
+  git_auto_commit_one ".config/nvim/lazy-lock.json" -m "chore(aci): update lazy-lock.json"
 
 # ========================================================================
 # ------------------------------------------------------------------------
