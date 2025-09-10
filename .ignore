@@ -5,6 +5,9 @@
 
 /.git/
 
+# -> /private/user/.kit/sh/gvim-open-kindness/bin/raise-lower-desktop-window*
+/bin/windows/toggle-visibility
+
 # -> ../home/.kit/sh/home-fries/.bashrc-bin/bashrx.private.sh
 /core/wire-bash.sh
 
