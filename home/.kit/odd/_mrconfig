@@ -138,11 +138,11 @@ installLinux =
   local venv_name=".venv-quicktile"
   local user_bin="${HOME}/.local/bin/quicktile.sh"
   #
-  # Load: _hf_probe_desktop_environment
+  # Load: _humb_probe_desktop_environment
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
   #
   local de_name
-  de_name="$(_hf_probe_desktop_environment)"
+  de_name="$(_humb_probe_desktop_environment)"
   #
   if [ "${de_name}" = "GNOME" ]; then
     echo "Uninstalling quicktile on GNOME environment"

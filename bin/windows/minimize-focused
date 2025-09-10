@@ -9,7 +9,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps() {
-  # Load: check_deps, get_focused_window_id, _hf_probe_desktop_environment, minimize_window
+  # Load: check_deps, get_focused_window_id, _humb_probe_desktop_environment, minimize_window
   . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/windows/toggle-visibility"
 }
 
@@ -33,7 +33,7 @@ main() {
   source_deps
 
   local de_name
-  de_name="$(_hf_probe_desktop_environment)"
+  de_name="$(_humb_probe_desktop_environment)"
 
   if ! check_deps; then
 

@@ -52,7 +52,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps() {
-  # Load: `_hf_probe_desktop_environment`
+  # Load: `_humb_probe_desktop_environment`
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
 }
 
@@ -62,7 +62,7 @@ toogle_window_numbered() {
   local title_num="$1"
 
   local de_name
-  de_name="$(_hf_probe_desktop_environment)"
+  de_name="$(_humb_probe_desktop_environment)"
 
   # On GNOME Shell, we match using grep, which lets us ensure the number-dot
   # is at the start of the title; we also escape the ASCII period to match
