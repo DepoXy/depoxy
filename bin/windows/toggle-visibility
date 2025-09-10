@@ -8,19 +8,19 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # Load: _hf_probe_desktop_environment
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
 }
 
 # ***
 
-toggle_window_focus () {
+toggle_window_focus() {
   local win_before
 
   # E.g., '65012405'
-  win_before="$(get_focused_window_id "${de_name}")" \
-    || true
+  win_before="$(get_focused_window_id "${de_name}")" ||
+    true
 
   if ! raise_window "${de_name}" "$@"; then
 
@@ -49,7 +49,7 @@ toggle_window_focus () {
 # REFER: Depends on GNOME Shell Extension:
 #   https://extensions.gnome.org/extension/4724/window-calls/
 #   https://github.com/ickyicky/window-calls
-get_focused_window_id () {
+get_focused_window_id() {
   local de_name="$1"
 
   if [ "${de_name}" = "GNOME" ]; then
@@ -59,26 +59,27 @@ get_focused_window_id () {
   fi
 }
 
-get_focused_window_id_Wayland () {
+get_focused_window_id_Wayland() {
   if ! gdbus call --session --dest org.gnome.Shell \
     --object-path /org/gnome/Shell/Extensions/Windows \
-    --method org.gnome.Shell.Extensions.Windows.List \
-    | head -c -4 | tail -c +3 \
-    | jq '.[] | select(.focus == true) | .id' \
-  ; then
+    --method org.gnome.Shell.Extensions.Windows.List |
+    head -c -4 | tail -c +3 |
+    jq '.[] | select(.focus == true) | .id' \
+    ; then
+
     alert_missing_gnome_extension_window_calls
 
     return 1
   fi
 }
 
-get_focused_window_id_XWindow () {
+get_focused_window_id_XWindow() {
   xdotool getactivewindow
 }
 
 # ***
 
-raise_window () {
+raise_window() {
   local de_name="$1"
   shift
 
@@ -92,9 +93,9 @@ raise_window () {
 # CXREF: See similar gdbus calls:
 #   _hf_print_terminal_window_title_prefixes_Wayland
 # ~/.kit/sh/sh-humble-prompt/lib/show-command-name-in-window-title.sh
-raise_window_Wayland () {
+raise_window_Wayland() {
   local windows_list
-  if ! windows_list="$( \
+  if ! windows_list="$(
     gdbus call --session --dest org.gnome.Shell \
       --object-path /org/gnome/Shell/Extensions/Windows \
       --method org.gnome.Shell.Extensions.Windows.List
@@ -113,14 +114,14 @@ raise_window_Wayland () {
   # manually replaying windows_list you captured previously.
 
   local windows_details
-  windows_details="$( \
-    echo "${windows_list}" | head -c -4 | tail -c +3 \
-    | jq '.[] | .id' \
-    | xargs -I{} \
-      gdbus call --session --dest org.gnome.Shell \
+  windows_details="$(
+    echo "${windows_list}" | head -c -4 | tail -c +3 |
+      jq '.[] | .id' |
+      xargs -I{} \
+        gdbus call --session --dest org.gnome.Shell \
         --object-path /org/gnome/Shell/Extensions/Windows \
         --method org.gnome.Shell.Extensions.Windows.Details \
-          {} 2> /dev/null
+        {} 2>/dev/null
   )"
 
   # SAVVY: If window title contains single quotes, gdbus
@@ -150,11 +151,11 @@ raise_window_Wayland () {
   # So in addition to \" -> " also convert \\" -> \" (or at least WFM).
 
   local title_and_ids
-  title_and_ids="$( \
-    echo "${windows_details}" \
-    | gawk 'match($0, /\{.*\}/, a) {print a[0]}' \
-    | sed -e 's/\\"/"/g' -e 's/\\\\"/\\"/g' \
-    | jq -r '"\(.title)\t\(.id)"'
+  title_and_ids="$(
+    echo "${windows_details}" |
+      gawk 'match($0, /\{.*\}/, a) {print a[0]}' |
+      sed -e 's/\\"/"/g' -e 's/\\\\"/\\"/g' |
+      jq -r '"\(.title)\t\(.id)"'
   )"
 
   local window_id
@@ -164,7 +165,7 @@ raise_window_Wayland () {
     local title_and_id
     # Use Perl regex, or \t doesn't work (though literal "${pattern}.*	"
     # works, but not "${pattern}.*"$'\t', which is a Bashism anyway).
-    title_and_id="$( \
+    title_and_id="$(
       echo "${title_and_ids}" | grep -P -e "${pattern}.*\t" | head -n1
     )"
 
@@ -179,7 +180,7 @@ raise_window_Wayland () {
     gdbus call --session --dest org.gnome.Shell \
       --object-path /org/gnome/Shell/Extensions/Windows \
       --method org.gnome.Shell.Extensions.Windows.Activate \
-        -- "${window_id}"
+      -- "${window_id}"
   else
     >&2 echo "ALERT: No matching window identified for: $@"
 
@@ -187,7 +188,7 @@ raise_window_Wayland () {
   fi
 }
 
-raise_window_XWindow () {
+raise_window_XWindow() {
   local found_window=false
 
   local win_title
@@ -195,7 +196,7 @@ raise_window_XWindow () {
     if wmctrl -a "${win_title}"; then
       found_window=true
 
-      break;
+      break
     fi
   done
 
@@ -207,7 +208,7 @@ raise_window_XWindow () {
 
 # ***
 
-minimize_window () {
+minimize_window() {
   local de_name="$1"
   shift
 
@@ -218,17 +219,17 @@ minimize_window () {
   fi
 }
 
-minimize_window_Wayland () {
+minimize_window_Wayland() {
   local window_id="$1"
 
   # OUTPUTs: ()
   gdbus call --session --dest org.gnome.Shell \
     --object-path /org/gnome/Shell/Extensions/Windows \
     --method org.gnome.Shell.Extensions.Windows.Minimize \
-      -- "${window_id}" > /dev/null
+    -- "${window_id}" >/dev/null
 }
 
-minimize_window_XWindow () {
+minimize_window_XWindow() {
   local window_id="$1"
 
   xdotool windowminimize "${window_id}"
@@ -236,11 +237,11 @@ minimize_window_XWindow () {
 
 # ***
 
-os_is_linux () {
+os_is_linux() {
   [ "$(uname)" = "Linux" ]
 }
 
-check_deps () {
+check_deps() {
   if ! os_is_linux; then
     >&2 echo "ERROR: This script only runs on Linux"
 
@@ -254,7 +255,7 @@ check_deps () {
   fi
 }
 
-check_deps_Wayland () {
+check_deps_Wayland() {
   if ! [ -d "${HOME}/.local/share/gnome-shell/extensions/window-calls@domandoman.xyz" ]; then
     alert_missing_gnome_extension_window_calls
 
@@ -262,20 +263,20 @@ check_deps_Wayland () {
   fi
 }
 
-alert_missing_gnome_extension_window_calls () {
+alert_missing_gnome_extension_window_calls() {
   >&2 echo "ERROR: Missing GNOME Extension: window-calls"
   >&2 echo "  https://extensions.gnome.org/extension/4724/window-calls/"
   >&2 echo "  https://github.com/ickyicky/window-calls"
 }
 
-check_deps_XWindow () {
-  if ! command -v wmctrl > /dev/null; then
+check_deps_XWindow() {
+  if ! command -v wmctrl >/dev/null; then
     >&2 echo "ERROR: Missing comand \`wmctrl\`"
 
     return 1
   fi
 
-  if ! command -v xdotool > /dev/null; then
+  if ! command -v xdotool >/dev/null; then
     >&2 echo "ERROR: Missing comand \`xdotool\`"
 
     return 1
@@ -284,7 +285,7 @@ check_deps_XWindow () {
 
 # ***
 
-main () {
+main() {
   source_deps
 
   local de_name
@@ -301,7 +302,7 @@ main () {
 # ***
 
 _dxybwtv_this_file_name="toggle-visibility"
-_dxybwtv_shell_sourced () { [ "$(basename -- "$0")" != "${_dxybwtv_this_file_name}" ]; }
+_dxybwtv_shell_sourced() { [ "$(basename -- "$0")" != "${_dxybwtv_this_file_name}" ]; }
 
 if ! _dxybwtv_shell_sourced; then
   main "$@"
@@ -313,4 +314,3 @@ unset -f main
 unset -f source_deps
 unset -v _dxybwtv_this_file_name
 unset -f _dxybwtv_shell_sourced
-
