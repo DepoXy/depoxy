@@ -129,6 +129,15 @@ lib = remote_set starter https://github.com/9mm/dotfiles.git '9mm'
 lib = remote_set starter https://github.com/neovim/neovim
 order = 810
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+lib =
+  # This lib is on-demand.
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/print-homebrew-prefix.sh"
+infuse =
+  # Redundant, but lots faster than 'install' (though adds a step
+  # to the lengthy 'mr -d / infuse' operation, but doesn't add any
+  # time, because the bottleneck is load each project's `mr` envi-
+  # ronment, and not generally running the action itself.
+  ln -sf "$(print_homebrew_prefix)/bin/nvim" "${HOME}/.local/bin/nvim"
 isInstalled =
   echo "\$ command -v nvim"
   command -v nvim
@@ -141,6 +150,8 @@ install =
   #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
   brew unlink neovim
   brew install --HEAD neovim
+  # E.g., /home/linuxbrew/.linuxbrew/bin/nvim
+  ln -sf "$(print_homebrew_prefix)/bin/nvim" "${HOME}/.local/bin/nvim"
   # USYNC: ~/.depoxy/ambers/core/alias-vim.sh
   _dxy_kludge_treesitter_lib () {
     local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
