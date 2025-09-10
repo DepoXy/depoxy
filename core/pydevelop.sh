@@ -70,14 +70,12 @@ _depoxy_python_site_packages_path_print_and_clip() {
 
   local os_clip=""
 
-  # Adjust for macOS (pbcopy) and X11 (xclip).
-  command -v pbcopy > /dev/null \
-    && os_clip="pbcopy" \
-    || os_clip="xclip -selection c"
+  # CXREF: _hf_clip et al:
+  # ~/.kit/sh/home-fries/lib/alias/alias_clip.sh
 
   # Caller prints `distutils.sysconfig.get_python_lib()`
   # - Equivalent to: `site.getsitepackages()[0]`
-  virtualenvwrapper_get_site_packages_dir | tee >(tr -d "\n" | ${os_clip})
+  virtualenvwrapper_get_site_packages_dir | _hf_clip_echo
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
