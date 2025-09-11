@@ -21,7 +21,7 @@
 # "This window is already docked.\nClick on system tray icon to toggle docking."
 # https://github.com/user-none/KDocker/blob/master/src/trayitemmanager.cpp#L305
 
-marco_toggle_spotify () {
+marco_toggle_spotify() {
   # E.g., '65012405'
   local win_before
   win_before="$(xdotool getactivewindow)"
@@ -59,8 +59,8 @@ marco_toggle_spotify () {
       -m \
       -q \
       env \
-        BAMF_DESKTOP_FILE_HINT=/usr/share/spotify/spotify.desktop \
-        /usr/bin/spotify %U
+      BAMF_DESKTOP_FILE_HINT=/usr/share/spotify/spotify.desktop \
+      /usr/bin/spotify %U
   else
     wmctrl -i -a "${spotify_win}"
 
@@ -76,33 +76,33 @@ marco_toggle_spotify () {
 
 # ***
 
-check_deps () {
+check_deps() {
   if ! os_is_linux; then
     >&2 echo "ERROR: This script only runs on Linux"
 
     return 1
   fi
 
-  if ! command -v wmctrl > /dev/null; then
+  if ! command -v wmctrl >/dev/null; then
     >&2 echo "ERROR: Missing comand \`wmctrl\`"
 
     return 1
   fi
 
-  if ! command -v xdotool > /dev/null; then
+  if ! command -v xdotool >/dev/null; then
     >&2 echo "ERROR: Missing comand \`xdotool\`"
 
     return 1
   fi
 }
 
-os_is_linux () {
+os_is_linux() {
   [ "$(uname)" = "Linux" ]
 }
 
 # ***
 
-main () {
+main() {
   if ! check_deps; then
 
     return 1
@@ -112,4 +112,3 @@ main () {
 }
 
 main "$@"
-

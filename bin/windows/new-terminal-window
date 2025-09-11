@@ -16,7 +16,7 @@
 # - Now it *prefers* Alacritty, but falls-back built-in mate-terminal
 #   or gnome-terminal.
 
-new_terminal_window () {
+new_terminal_window() {
   local screen_w
   local screen_h
   probe_screen_dimensions
@@ -29,7 +29,7 @@ new_terminal_window () {
 }
 
 # SAVVY: Because <() redirection, this script requires Bash (shebang).
-probe_screen_dimensions () {
+probe_screen_dimensions() {
   # E.g., Lenovo T480:
   #   $ cat /sys/class/graphics/*/virtual_size
   #   1920,1080
@@ -54,7 +54,7 @@ probe_screen_dimensions () {
   ! ${TRACE:-false} || echo "screen: width: ${screen_w} / height: ${screen_h}"
 }
 
-new_alacritty_window () {
+new_alacritty_window() {
   if ! command -v alacritty > /dev/null; then
 
     return 1
@@ -96,8 +96,8 @@ new_alacritty_window () {
   #   alacritty --working-directory <DIR>
 
   ITERM_SESSION_ID= \
-  DUBS_ALWAYS_ON_VISIBLE=false \
-  HOMEFRIES_CD="${HOME}" \
+    DUBS_ALWAYS_ON_VISIBLE=false \
+    HOMEFRIES_CD="${HOME}" \
     alacritty \
     -o "terminal.shell='${term_shell}'" \
     -o 'font.normal={ family = "'${font_family}'", style = "Regular" }' \
@@ -106,53 +106,52 @@ new_alacritty_window () {
     &
 }
 
-new_mate_terminal_window () {
+new_mate_terminal_window() {
   if ! command -v mate-terminal > /dev/null; then
 
     return 1
   fi
 
   ITERM_SESSION_ID= \
-  DUBS_ALWAYS_ON_VISIBLE=false \
-  HOMEFRIES_CD="${HOME}" \
+    DUBS_ALWAYS_ON_VISIBLE=false \
+    HOMEFRIES_CD="${HOME}" \
     mate-terminal \
-      --geometry="130x48+402+89" \
-      -e "${HOME}/.local/bin/bash" \
-      &
+    --geometry="130x48+402+89" \
+    -e "${HOME}/.local/bin/bash" \
+    &
 }
 
-new_gnome_terminal_window () {
+new_gnome_terminal_window() {
   if ! command -v gnome-terminal > /dev/null; then
 
     return 1
   fi
 
   ITERM_SESSION_ID= \
-  DUBS_ALWAYS_ON_VISIBLE=false \
-  HOMEFRIES_CD="${HOME}" \
+    DUBS_ALWAYS_ON_VISIBLE=false \
+    HOMEFRIES_CD="${HOME}" \
     gnome-terminal \
-      -- "${HOME}/.local/bin/bash" \
-      &
+    -- "${HOME}/.local/bin/bash" \
+    &
 }
 
-alert_terminal_whatnow () {
+alert_terminal_whatnow() {
   >&2 echo "ERROR: Unable to find terminal application"
   >&2 echo "- None found: Alaritty, mate-terminal, gnome-terminal"
 
   exit 1
 }
 
-os_is_macos () {
+os_is_macos() {
   [ "$(uname)" = "Darwin" ]
 }
 
 # ***
 
-main () {
+main() {
   set -e
 
   new_terminal_window "$@"
 }
 
 main "$@"
-
