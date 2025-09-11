@@ -29,16 +29,28 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-fussy () {
-  local path="/usr/bin/google-chrome-stable"
+# REFER/2025-09-11: Debian 12:
+#   $ ll /usr/bin/google-chrome
+#   -> /etc/alternatives/google-chrome*
+#   $ ll /etc/alternatives/google-chrome*
+#   -> /usr/bin/google-chrome-stable
+#   $ ll /usr/bin/google-chrome-stable
+#   -> /opt/google/chrome/google-chrome
+#   $ ll /opt/google/chrome/google-chrome
+#   # Itself.
+#   $ dpkg -S /opt/google/chrome/google-chrome
+#   google-chrome-stable: /opt/google/chrome/google-chrome
 
-  if [ ! -x "${path}" ]; then
+fussy() {
+  local chrome_bin="/usr/bin/google-chrome"
+
+  if [ ! -x "${chrome_bin}" ]; then
     >&2 echo "ERROR: Where's Chrome? It's not at ${path}"
 
     return 1
   fi
 
-  /usr/bin/google-chrome-stable --new-window "$@"
+  "${chrome_bin}" --new-window "$@"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
