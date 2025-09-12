@@ -172,6 +172,8 @@ include =
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/_mrconfig
     # CXREF: ~/.depoxy/ambers/home/.kit/odd/containers/_mrconfig-containers
     mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/containers/_mrconfig-containers
+    # CXREF: ~/.depoxy/ambers/home/.kit/odd/gnome/_mrconfig
+    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig
   fi
 
 # ========================================================================

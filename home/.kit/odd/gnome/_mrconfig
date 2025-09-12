@@ -1,0 +1,579 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 678
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** GNOME Shell Extensions
+
+# **** GNOME Shell Extension `lib`s
+
+# REFER: Determine your GNOME Shell version, e.g.:
+#   # E.g., on Debian 12
+#   $ gnome-shell --version
+#   GNOME Shell 43.9
+# - Note that GNOME Shell is managed by the distro, and if your
+#   version lags, you'll want to upgrade your distro to upgrade
+#   GNOME Shell.
+#
+# SAVVY: You'll occasionally need to upgrade your distro if you
+# need to upgrade GNOME Shell.
+# - E.g., circa 2025-09-12, Debian 12 still on GNOME Shell 43,
+#   but a log of the extensions below have already been updated
+#   to GNOME Shell 48. This broke at least danigm/hide-minimized
+#   and adrienverge/gnome-magic-window, and they had to change
+#   their implementations. This gives you two choices for
+#   installing from sources: checkout old versions of the source
+#   code, or upgrade to GNOME Shell 48 by upgrading to Debian 13.
+
+# REFER: Testing GNOME Shell Extensions:
+# https://gjs.guide/extensions/development/creating.html#testing-the-extension
+#
+# REFER: *A Guide to JavaScript for GNOME*
+# https://gjs.guide/
+
+lib =
+  shell_exts="${HOME}/.local/share/gnome-shell/extensions"
+  #
+  gnome_shellext_enable_extension() {
+    local uuid_name="$1"
+    local ext_path="${shell_exts}/${uuid_name}"
+    if [ ! -d "${ext_path}" ]; then
+      >&2 error "ERROR: Extension directory or symlink missing"
+      >&2 error "- Not found at: ${ext_path}"
+      #
+      exit 1
+    fi
+    # SAVVY: When first installed, must Log Out GNOME Shell
+    # before it can be enabled, or, e.g.:
+    #   Extension “name@domain” does not exist
+    if gnome-extensions enable "${uuid_name}"; then
+      info "GNOME Shell Extension is ON: ${uuid_name}"
+    else
+      >&2 warn "ALERT: You must Log Out, Log In GNOME Shell to finish"
+      >&2 warn "- NTHEN: Run 'install' again to enable each extension"
+    fi
+    # TSHOOT: "In case it doesn't work, you may need to add your
+    # gnome version in metadata.json and reload your session, or
+    # debug further."
+    # https://github.com/adrienverge/gnome-magic-window#4-debug
+    # - E.g., how you might debug gnome-magic-window:
+    #   - Alt+F2↵ r↵
+    #     gdbus call --session --dest org.gnome.Shell
+    #     --object-path /org/gnome/Shell/Extensions/GnomeMagicWindow
+    #     --method org.gnome.Shell.Extensions.GnomeMagicWindow.magic_key_pressed
+    #     Terminator terminator
+  }
+  #
+  gnome_shellext_disable_extension() {
+    local uuid_name="$1"
+    local ext_path="${shell_exts}/${uuid_name}"
+    if [ ! -d "${ext_path}" ]; then
+      >&2 error "ERROR: Extension directory or symlink missing"
+      >&2 error "- Not found at: ${ext_path}"
+      #
+      exit 1
+    fi
+    #
+    if gnome-extensions disable "${uuid_name}"; then
+      info "GNOME Shell Extension is OFF: ${uuid_name}"
+    else
+      >&2 warn "ALERT: Failed to disable extension: ${uuid_name}"
+    fi
+  }
+  #
+  gnome_shellext_is_installed() {
+    local uuid_name
+    uuid_name="$(gnome_shellext_uuid_name)"
+    #
+    gnome-extensions info "${uuid_name}" > /dev/null 2>&1
+  }
+  #
+  gnome_shellext_uuid_name() {
+    cd -- "${MR_REPO}"
+    # If no metadata file, probably the core library, e.g.:
+    #   ~/.kit/odd/gnome-extensions/gnome-shell-extensions
+    if [ ! -f "metadata.json" ]; then
+      if [ -z "${OMR_GNOME_EXT_UUID}" ]; then
+        >&2 echo "GAFFE: No metadata.json: Please use OMR_GNOME_EXT_UUID"
+        #
+        exit 1
+      else
+        uuid_name="${OMR_GNOME_EXT_UUID}"
+      fi
+    else
+      # USYNC: Use the same "uuid" as specified by the manifest.
+      local uuid_name
+      uuid_name="$(jq -r -s '.[].uuid' "metadata.json")"
+      if test "${uuid_name}" = "null"; then
+        >&2 echo "ERROR: Could not determine 'uuid' from metadata.json"
+        #
+        exit 1
+      fi
+      if [ -n "${OMR_GNOME_EXT_UUID}" ] && [ "${uuid_name}" != "${OMR_GNOME_EXT_UUID}" ]; then
+        >&2 echo "ALERT: uuid_name != OMR_GNOME_EXT_UUID: ${uuid_name} != ${OMR_GNOME_EXT_UUID}"
+      fi
+    fi
+    #
+    printf "%s" "${uuid_name}"
+  }
+  #
+  gnome_shellext_symlink_and_enable() {
+    local uuid_name
+    uuid_name="$(gnome_shellext_uuid_name)"
+    #
+    mkdir -p -- "${shell_exts}"
+    cd -- "${shell_exts}"
+    symlink_overlay_dir "${MR_REPO}" "${shell_exts}/${uuid_name}"
+    #
+    gnome_shellext_enable_extension "${uuid_name}"
+  }
+  #
+  gnome_shellext_disable() {
+    local uuid_name
+    uuid_name="$(gnome_shellext_uuid_name)"
+    #
+    if [ -d "${shell_exts}/${uuid_name}" ]; then
+      gnome_shellext_disable_extension "${uuid_name}"
+    fi
+  }
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# **** GNOME Shell Extension repos
+
+# REFER: Look for more extensions:
+# https://extensions.gnome.org
+# - Also google +reddit is nice.
+
+# Mid-level project so that `mropen` from this dir. works,
+# and to offer some blather-help:
+#
+# - REFER: Extensions are installed to or symlinked from:
+#
+#   cd ~/.local/share/gnome-shell/extensions
+#
+# - REFER: List enabled extensions:
+#
+#   dconf read /org/gnome/shell/enabled-extensions 
+#
+#   gsettings get org.gnome.shell enabled-extensions
+#
+#   - Each Extension uses its own schema, e.g.,:
+#
+#     gsettings list-recursively org.gnome.shell.extensions.apps-menu
+#
+# - CPYST: Show OMR GNOME Shell Extension Statuses:
+#
+#   mr -M -d ~/.kit/odd/gnome-extensions echoInstallHelp
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions]
+skip = test "${MR_ACTION}" != "echoInstallHelp"
+echoInstallHelp =
+  # local checkbox="$(echoInstallHelpWidget 'os_linux' 'dxy_all' true)"
+  local infosphere="🕯️" # ⚠️ ℹ️ 💡
+  echo "${infosphere} DepoXy [${MR_ORDER}]: REFER: Manage GNOME Shell extensions *via Firefox*::
+    firefox --new-window https://extensions.gnome.org/local/ &
+ "
+
+# GNMXT: *Window Calls*
+#
+# UCASE: This was my first *favorite* GNOME Extension (before I discovered
+# run-or-raise some months later), because it effectively provides
+# functionality you'd find in XWindows' `wmctrl` and `xdotool`,
+# and lets you probe window titles and to raise/lower specific windows
+# (and I wire lots of keybinding accelerators that raise/lower windows).
+#
+# REFER: https://extensions.gnome.org/extension/4724/window-calls/
+# - dbus calls which can return list of windows, move, resize, close them etc
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/window-calls]
+lib = remote_set starter https://github.com/ickyicky/window-calls.git
+# ISOFF/2025-09-13: Install from gnome.org (no need to fork project).
+lib =
+  OMR_GNOME_EXT_NAME="*Window Calls* by *domandoman*"
+  OMR_GNOME_EXT_UUID="window-calls@domandoman.xyz"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/4724/window-calls/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# GNMXT: *Hide minimized*
+#
+# UCASE: Don't show minimized windows when Alt-Tabbing.
+# - ALTHO: I'd rather that not hide windows when tabbing through
+#   application windows, but only when tabbing through all windows
+#   (i.e., exclude minimized when using the feature associated with
+#    GNOME Settings > Keyboard Shortcuts > Navigation > Switch windows
+#    but include minimized windows with the feature associated with
+#    GNOME Settings > Keyboard Shortcuts > Navigation > Switch applications
+#    and
+#    GNOME Settings > Keyboard Shortcuts > Navigation > Switch windows of an app directly
+#
+# USAGE: Setup via Firefox:
+# - VISIT: https://extensions.gnome.org/extension/2639/hide-minimized/
+#   - Click ON.
+# - ALTLY: Setup from sources:
+#     cd ~/.local/share/gnome-shell/extensions
+#     git clone https://github.com/danigm/hide-minimized.git
+#     # Match the uuid field in the metadata.json file.
+#     mv hide-minimized hide-minimized@danigm.net
+#     # Reload gnome-shell: <Alt-F2>, type "r", hit <Enter>
+#     # - You can now enable the exention.
+#
+# REFER: https://extensions.gnome.org/extension/2639/hide-minimized/
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/hide-minimized]
+lib =
+  remote_set publish https://github.com/landonb/hide-minimized.git
+  remote_set starter https://github.com/danigm/hide-minimized.git
+# FIXME/2025-09-19: Unfork. Upstream proj. in GNOME 48 is perfect <chef's kiss>.
+lib =
+  OMR_GNOME_EXT_NAME="*Hide minimized* by *danigm*"
+  # Note that I forked this project and changed the UUID from:
+  #   OMR_GNOME_EXT_UUID="hide-minimized@danigm.net"
+  OMR_GNOME_EXT_UUID="hide-minimized@tallybark.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/2639/hide-minimized/"
+  OMR_GNOME_EXT_LOCAL="required"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# GNMXT: *Hide Top Bar*
+#
+# BWARE: This extension may conflict with other extensions — when author
+# was testing extensions and had lots more enabled than they do now,
+# sometimes the top bar would be hidden but never reveal itself, and
+# I'd have to use <Cmd> to run Firefox so I could disable extensions,
+# and then I'd have to reboot (I know, right! Seems like GNOME should
+# do better than requiring a reboot to recover when two extensions
+# collide).
+#
+# REFER: https://extensions.gnome.org/extension/545/hide-top-bar/
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/hidetopbar]
+lib = remote_set starter https://gitlab.gnome.org/tuxor1337/hidetopbar
+# ISOFF/2025-09-13: Install from gnome.org (no need to fork project).
+lib =
+  OMR_GNOME_EXT_NAME="*Hide Top Bar* by *tuxor1337*"
+  OMR_GNOME_EXT_UUID="hidetopbar@mathieu.bidon.ca"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/545/hide-top-bar/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+
+# GNMXT: *Switcher*
+#
+# REFER: https://extensions.gnome.org/extension/973/switcher/
+# - switch windows quickly by typing
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/switcher]
+lib =
+  remote_set publish https://github.com/landonb/switcher.git
+  remote_set starter https://github.com/daniellandau/switcher.git
+  # MAYBE/2025-09-19: Unfork project.
+lib =
+  OMR_GNOME_EXT_NAME="*Switcher* by *dlandau*"
+  # Note that I forked this project and changed the UUID from:
+  #  OMR_GNOME_EXT_UUID="switcher@landau.fi"
+  OMR_GNOME_EXT_UUID="switcher@tallybark.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/973/switcher/"
+  OMR_GNOME_EXT_LOCAL="required"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# GNMXT: *Apps Menu*
+#
+# REFER: https://extensions.gnome.org/extension/6/applications-menu/
+# - A collection of extensions:
+#   ~/.kit/odd/gnome-extensions/gnome-shell-extensions/extensions
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/gnome-shell-extensions]
+lib = remote_set starter https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git
+# ADDED/2025-09-17: Enable one of the core GNOME Shell extensions.
+# - REFER:
+#   ~/.kit/odd/gnome-extensions/gnome-shell-extensions/extensions/system-monitor
+lib =
+  OMR_GNOME_EXT_NAME="*System Monitor* by *fmuellner*"
+  OMR_GNOME_EXT_UUID="system-monitor@gnome-shell-extensions.gcampax.github.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/6807/system-monitor/"
+  OMR_GNOME_EXT_LOCAL=""
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# GNMXT: *Browser tabs*
+#
+# REFER: https://extensions.gnome.org/extension/4733/browser-tabs/
+# - browser tab search provider for GNOME
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/searchprovider-for-browser-tabs]
+lib = remote_set starter https://github.com/harshadgavali/searchprovider-for-browser-tabs.git
+
+# GNMXT: *Just Perfection*
+#
+# REFER: https://extensions.gnome.org/extension/3843/just-perfection/
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/just-perfection]
+lib = remote_set starter https://gitlab.gnome.org/jrahmatzadeh/just-perfection
+# SKIPD: gnome_shellext_enable_extension "just-perfection-desktop@just-perfection"
+
+# GNMXT: *VIM Alt-Tab*
+#
+# REFER: https://extensions.gnome.org/extension/2212/vim-alt-tab/
+# - switch between windows or applications using h, j, k and l
+#    instead of the standards arrows
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/vim-altTab]
+lib = remote_set starter https://github.com/koko-ng/vim-altTab.git
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# BEGET/2025-09-12: Ha, surprised I hadn't found run-or-raise sooner!
+# - It feels like a replacement for my Ansible task that writes all
+#   the Keyboard Shortcut actions.
+# - It might even be the GNOME/Wayland equivalent of Hammerspoon/
+#   skhdrc/Karabiner Elements!
+#
+# - BEGET: https://www.google.com/search?q=wayland+bring+application+to+front
+# https://www.reddit.com/r/gnome/comments/mpwm50/gnomemagicwindow_handy_script_to_bring_a_window/
+#
+# - CALSO: To send GUI events to windows, use `ydotool`.
+#     https://github.com/ReimuNotMoe/ydotool
+#       ~/.depoxy/stints/1509/home/.kit/clang/_mrconfig-code-C
+
+# GNMXT: *Run or raise*
+#
+# CXREF:
+# ~/.config/run-or-raise/shortcuts.conf
+#
+# REFER: https://extensions.gnome.org/extension/1336/run-or-raise/
+# - "Launch or focus the window or define custom shortcuts in a text file"
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/run-or-raise]
+lib = remote_set starter https://github.com/CZ-NIC/run-or-raise.git
+infuse =
+  os_is_macos \
+    || MR_REPO="${HOME}" symlink_mrinfuse_file ".config/run-or-raise/shortcuts.conf"
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+isInstalled = isInstalled_os_specific
+isInstalledLinux = gnome_shellext_is_installed
+install = install_os_specific
+# CRUMB: gnome_shellext_enable_extension "run-or-raise@edvard.cz"
+installLinux = 
+  # Recreate shortcuts.conf.
+  runorraise_generate_depoxy_ror_shortcuts_conf
+  # Ensure ~/.config/run-or-raise/shortcuts.conf symlink.
+  mr -d "${MR_REPO}" -n infuse
+  # Disable extension if previously enabled,
+  # so that shortcuts.conf reloaded.
+  gnome_shellext_disable
+  # Ensure extension symlink under
+  #   ~/.local/share/gnome-shell/extensions/{name@domain}
+  # and (re)enable the RoR extension.
+  gnome_shellext_symlink_and_enable
+lib =
+  # CALSO/CXREF: See the 1 other m4_shim user outside deploy-archetype.sh:
+  #   tigconfig_generate_depoxy_tig_config
+  # ~/.depoxy/ambers/home/infuse-user-home
+  #
+  tilde_for_home() {
+    sed -E "s#^${HOME}(/|$)#~\1#"
+  }
+  # Generate ~/.depoxy/running/home/.config/run-or-raise/shortcuts.conf
+  runorraise_generate_depoxy_ror_shortcuts_conf() {
+    local ambers_root="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
+    local archetype_path="${DEPOXYARCHETYPE_DIR:-${ambers_root}/archetype}"
+    local active_dxc="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
+    #
+    local dxc_shortcuts="${active_dxc}/home/.config/run-or-raise/shortcuts-client"
+    # USAGE: The user can include their own 'shortcuts-depoxy' to inhibit
+    # the one from DepoXy being used.
+    # - SAVVY: There's no way for user to override DepoXy's keybindings (if
+    #   the 'run-or-raise/shortcuts.conf' config specifies two separate actions
+    #   for the same keybindings, RoR runs them both). And there's no way to
+    #   *undefine* a binding. So if user wants to disable or redefine a DepoXy
+    #   accelerator, currently, they have to exclude the DepoXy config, and
+    #   then they have to define all the shortcuts in their client config.
+    # - If user's DXC directory contains a 'shortcuts-depoxy' file, we'll
+    #   use that file instead of DepoXy's.
+    #   - One approach is for the user to copy 'shortcuts-depoxy' to their
+    #     client directory, and then to remove, comment-out, or change the
+    #     keybindings they care about.
+    #   - Another approach is for the user to copy everything they care
+    #     about to their own 'shortcuts-client', and then create an empty
+    #     'shortcuts-depoxy' file in the DXC directory.
+    # Check if user has overridden 'shortcuts-depoxy' with their own copy.
+    local dxy_shortcuts="${active_dxc}/home/.config/run-or-raise/shortcuts-depoxy"
+    if ! [ -f "${dxy_shortcuts}" ]; then
+      # Not overridden. Use 'shortcuts-depoxy' from the DepoXy directory.
+      dxy_shortcuts="${ambers_root}/home/.config/run-or-raise/shortcuts-depoxy"
+    fi
+    #
+    # m4_shim uses DEPOXY_CLIENT_FULL/ prefix to format the
+    # target path, so creates ${active_dxc}/${gen_shortcuts} aka
+    # ~/.depoxy/running/home/.config/run-or-raise/shortcuts.conf
+    local gen_shortcuts="home/.config/run-or-raise/shortcuts.conf"
+    #
+    local bewareness="# ================================================================= #
+  
+ # BWARE: **This file is GENERATED**
+ #
+ #   mr -d $(echo "${MR_REPO}" | tilde_for_home) -n install
+ #
+ # Please edit the source files to make changes:
+ #
+ #   $(echo "${dxc_shortcuts}" | tilde_for_home)
+ #   $(echo "${dxy_shortcuts}" | tilde_for_home)
+  
+ # ================================================================= #"
+    #
+    # m4_shim is a wrapper around m4. It uses the environ,
+    # DXY_DEPOXY_CLIENT_FULL, to set the target base directory
+    # for generated files, which we set appropriately to ensure
+    # that the generated file is saved to the client directory,
+    # at: ~/.depoxy/running/home/.config/run-or-raise/shortcuts.conf
+    # We also specify a number of two-argument key-value pairs
+    # that m4_shim uses to set m4 variables used to substitute
+    # variables specified in the template file.
+    #
+  bash -s <<[DEFAULT]
+    # CXREF: Load m4_shim and load_and_register_* commands:
+    #   ~/.depoxy/ambers/archetype/deploy-archetype.sh
+    . "${archetype_path}/deploy-archetype.sh"
+    #
+    # CXREF: (Safely) Load DXY_* environs (optional) from:
+    #   ${archetype_path}/user-settable.envs
+    # aka ~/.depoxy/ambers/archetype/user-settable.envs
+    # and set m4 --define vars, like DXY_USER_HOME.
+    load_and_register_and_prepare_envs
+    #
+    # DEVEL: Uncomment to debug the precarious filter
+    # below that sanitizes 'shortcuts-depoxy' for use
+    # as a string argument.
+    #   echo -e "\ndxy_shortcuts/1\n"
+    #   cat "${dxy_shortcuts}" \
+    #     | sed 's/"/\\\\"/g' \
+    #     | sed 's/\\\$/\\\\$/g' \
+    #     | sed 's/\`/\\\\\`/g'
+    #   echo -e "\ndxy_shortcuts/2\n"
+    #   #
+    #   echo "active_dxc: ${active_dxc}"
+    #   echo "dxc_shortcuts: ${dxc_shortcuts}"
+    #   echo "gen_shortcuts: ${gen_shortcuts}"
+    #   echo "ambers_root: ${ambers_root}"
+    #   echo "dxy_shortcuts: ${dxy_shortcuts}"
+    #   echo -e "bewareness:\n${bewareness}"
+    #
+    DXY_DEPOXY_CLIENT_FULL="${active_dxc}" \
+      DXY_RUN_LNS_ONLY=false \
+      DXY_RUN_MAKE_LNS=false \
+      \
+      m4_shim "+0" "${dxc_shortcuts}" "${gen_shortcuts}" \
+      \
+      "DXY_DEPOXYAMBERS_DIR" "${ambers_root}" \
+      \
+      "DXY_ROR_ALERT_GENERATED_FILE" "${bewareness}" \
+      "DXY_ROR_DXY_SHORTCUTS" "\$(
+        cat "${dxy_shortcuts}" \
+          | sed 's/"/\\\\"/g' \
+          | sed 's/\\\$/\\\\$/g' \
+          | sed 's/\`/\\\\\`/g')"
+ [DEFAULT]
+  }
+#↓↓↓ So ft=bash stops highlighting the Heredoc.
+[DEFAULT]
+#↑↑↑ So ft=bash stops highlighting the Heredoc.
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# **** Relatedly, some helpers you might call from run-or-raise config.
+
+# - "Bind a key to a specific program in Gnome Shell."
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/gnome-magic-window]
+lib = remote_set starter https://github.com/adrienverge/gnome-magic-window.git
+# ISOFF: We don't need this.
+# - Via extension.js, you specify a set of bindings;
+#   each binding is a keysequence, a window title to
+#   match, and a command to run.
+# - When binding pressed, searches for window with
+#   matching title and brings it to front.
+#   - If already fronted, brings MRU window back to
+#     front.
+#   - If not found, runs command.
+# - By default, binds gnome-terminal to <F12> (which
+#   blocks a Neovim abbrev I use regularly). E.g.,
+#       const BINDINGS = [
+#         {
+#           shortcut: 'F12',
+#           title: 'Terminator',
+#           command: 'terminator'
+#         },
+#         // more bindings can be added
+#       ];
+# - This is basically a less featureful (simpler?)
+#   run-or-raise.
+# - But it's also another example one could reference
+#   to learn how to write a GNOME Shell Extension
+#   (especially one that intercepts keypresses and
+#   looks for matching window titles).
+#
+#  echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+#  isInstalled = isInstalled_os_specific
+#  isInstalledLinux = gnome_shellext_is_installed
+#  install = install_os_specific
+#  installLinux = gnome_shellext_symlink_and_enable
+skip = true
+
+# Not actually an Extension, but related. Just a simple
+# script to minimize or close the active window:
+#   gnome-active-window min|close
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/gnome-active-window]
+lib = remote_set starter https://github.com/vslobodyan/gnome-active-window.git
+# ISOFF: I don't think this does anything that windows-calls doesn't do.
+skip = true
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# ILIKE/2025-09-16: Love it! Just like GeekTool, perfect!
+# - REFER: I use this GNOME Shell Extension to show two widgets:
+#   - The date: date '+%a %Y-%m-%d %H:%M'
+#   - The (local) weather: ~/.depoxy/ambers/archetype/bin/weather-mpls.EVAL
+# - REFER: *Desktop Widgets (Desktop Clock)*
+#     ~/.kit/odd/gnome-extensions/azclock@azclock.gitlab.com
+#   https://extensions.gnome.org/extension/5156/desktop-clock/
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/azclock]
+lib = remote_set starter https://gitlab.com/AndrewZaech/azclock.git
+lib =
+  OMR_GNOME_EXT_NAME="*Desktop Widgets (Desktop Clock)* by *andrew_z*"
+  OMR_GNOME_EXT_UUID="azclock@azclock.gitlab.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/5156/desktop-clock/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  # SAVVY: Use normal cat here, not mr_cat.
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/window-is-ready-remover]
+lib =
+  remote_set starter https://github.com/nunofarruca/WindowIsReady_Remover.git \
+    "window-is-ready-remover"
+lib =
+  # OMR_GNOME_EXT_NAME="*Window Is Ready - Notification Remover* by *nunofarruca*"
+  OMR_GNOME_EXT_NAME="*Window Is Ready - Notification Remover*"
+  OMR_GNOME_EXT_UUID="windowIsReady_Remover@nunofarruca@gmail.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/1007/window-is-ready-notification-remover/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+

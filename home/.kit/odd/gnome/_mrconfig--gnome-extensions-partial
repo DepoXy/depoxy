@@ -1,0 +1,46 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# USAGE: Common GNOME Shell extension project config.
+# - Load from qualifying GNOME Shell extensions:
+#   ~/.depoxy/ambers/home/.kit/odd/gnome/_mrconfig
+
+echoInstallHelp =
+  # echoInstallHelp 'os_linux' 'dxy_all'
+  which_os="os_linux"
+  dxy_scope="dxy_all"
+  is_installed=$(
+    mr -Mq -d "${MR_REPO}" -n isInstalled >/dev/null 2>&1 &&
+      echo "true" || echo "false"
+  )
+  local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
+  echo "${checkbox} DepoXy [${MR_ORDER}]: Install ${OMR_GNOME_EXT_NAME} GNOME Shell Extension::"
+  if [ -n "${OMR_GNOME_EXT_LOCAL}" ]; then
+    echo "   mr -d \"${MR_REPO}\" -n installFromSources"
+    if [ "${OMR_GNOME_EXT_LOCAL}" = "optional" ]; then
+      echo "  - ALTLY: Install via Firefox (benefit: auto-updates)::"
+    fi
+  fi
+  if [ "${OMR_GNOME_EXT_LOCAL}" != "required" ]; then
+    echo "   firefox --new-window ${OMR_GNOME_EXT_URL}"
+  fi
+  echo
+isInstalled = isInstalled_os_specific
+isInstalledLinux = gnome_shellext_is_installed
+install = install_os_specific
+installLinux =
+  # Uses OMR_GNOME_EXT_UUID if set, otherwise deduces from metadata.json.
+  local uuid_name
+  uuid_name="${OMR_GNOME_EXT_UUID:-$(gnome_shellext_uuid_name)}"
+  gnome_shellext_enable_extension "${uuid_name}"
+# ALTLY: Install from sources:
+installFromSources = gnome_shellext_symlink_and_enable
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
