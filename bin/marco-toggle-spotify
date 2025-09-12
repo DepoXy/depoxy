@@ -15,11 +15,18 @@
 #   kdocker task). Then use wmctrl to get the window ID, and then to
 #   focus it.
 
-# FIXME/2020-01-07: Figure out how to tell kdocker to restore from tray.
+# ANNUL/FIXME/2020-01-07: Figure out how to tell kdocker to restore from tray.
 # - For now, only works if Spotify is windowed, and not solely docked.
-# 2020-04-28 19:32: Doesn't appear possible via CLI. And it tells you to click:
-# "This window is already docked.\nClick on system tray icon to toggle docking."
-# https://github.com/user-none/KDocker/blob/master/src/trayitemmanager.cpp#L305
+# - SAVVY/2020-04-28: Doesn't appear possible via CLI. And it tells you to click:
+#   "This window is already docked.\nClick on system tray icon to toggle docking."
+#   https://github.com/user-none/KDocker/blob/master/src/trayitemmanager.cpp#L305
+# ANNUL/2025-09-11: Author no longer supports MATE (long live GNOME, and Darwin!).
+
+# CXREF/2025-09-11:
+# - Debian: `apt install spotify-client`:
+#   ~/.kit/ansible/roles/zoidy_mintyfresh/tasks/install-desktop-spotify.yml
+# - macOS: `BREW_INCLUDE_SPOTIFY`:
+#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 
 marco_toggle_spotify() {
   # E.g., '65012405'
