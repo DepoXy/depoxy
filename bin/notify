@@ -354,19 +354,26 @@ ${notif_subby}"
 # NOTE: The Author runs Linux Mint MATE, without plans to support other OSes.
 #       - Feel free to add support for your favorite distro herein.
 random_notif_sound_name_linux() {
-  random_notif_sound_name_from_mate_alerts
+  random_notif_sound_name_from_mate_alerts_dynamic
+  # ALTLY:
+  #  random_notif_sound_name_from_mate_alerts_static
 }
+
+# ***
 
 # CXREF:
 #   /usr/share/sounds/
 #   /usr/share/sounds/mate/default/alerts/
 #     bark.ogg, drip.ogg, glass.ogg, sonar.ogg
-random_notif_sound_name_from_mate_alerts() {
-  local alert_dir="/usr/share/sounds/mate/default/alerts"
+#   /usr/share/sounds/gnome/default/alerts/
+#     click.ogg, hum.ogg, string.ogg, swing.ogg
+
+random_notif_sound_name_from_mate_alerts_dynamic() {
+  local alert_dir="/usr/share/sounds/*/default/alerts"
 
   # ***
 
-  if [ ! -d "${alert_dir}" ]; then
+  if [ ! -d ${alert_dir} ]; then
     notify-send "FIXME: Unable to locate alert sounds
 
 No such directory: ${alert_dir}"
@@ -374,7 +381,7 @@ No such directory: ${alert_dir}"
     return 1
   fi
 
-  if [ -z "$(command ls -1 "${alert_dir}"/*.ogg 2> /dev/null)" ]; then
+  if [ -z "$(command ls -1 ${alert_dir}/*.ogg 2> /dev/null)" ]; then
     notify-send "FIXME: Alert sounds directory is empty, wha??!
 
 No .ogg files: ${alert_dir}"
@@ -384,8 +391,48 @@ No .ogg files: ${alert_dir}"
 
   # ***
 
-  command ls -1 "${alert_dir}/"*.ogg | shuf -n 1
+  command ls -1 ${alert_dir}/*.ogg | shuf -n 1
 }
+
+if false; then
+  random_notif_sound_name_from_mate_alerts_static() {
+    # Load: `_humb_probe_desktop_environment`
+    . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/show-command-name-in-window-title.sh"
+
+    local de_name
+    de_name="$(_humb_probe_desktop_environment)"
+
+    local alert_dir
+    if [ "${de_name}" = "GNOME" ]; then
+      # Debian 13: click.ogg, hum.ogg, string.ogg, swing.off
+      alert_dir="/usr/share/sounds/gnome/default/alerts/"
+    elif [ "${de_name}" = "MATE" ]; then
+      alert_dir="/usr/share/sounds/mate/default/alerts"
+    fi
+
+    # ***
+
+    if [ ! -d "${alert_dir}" ]; then
+      notify-send "FIXME: Unable to locate alert sounds
+
+No such directory: ${alert_dir}"
+
+      return 1
+    fi
+
+    if [ -z "$(command ls -1 "${alert_dir}"/*.ogg 2> /dev/null)" ]; then
+      notify-send "FIXME: Alert sounds directory is empty, wha??!
+
+No .ogg files: ${alert_dir}"
+
+      return 1
+    fi
+
+    # ***
+
+    command ls -1 "${alert_dir}/"*.ogg | shuf -n 1
+  }
+fi
 
 # ***
 
