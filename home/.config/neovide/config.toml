@@ -83,4 +83,3 @@ edging = "subpixelantialias"
 [font.features]
 "MonaspiceRn Nerd Font" = ["-liga"]
 "MonaspiceNe Nerd Font" = ["-liga"]
-
