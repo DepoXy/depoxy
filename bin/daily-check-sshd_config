@@ -89,8 +89,20 @@ EOF
 
 # ***
 
+os_is_macos() {
+  [ "$(uname)" = 'Darwin' ]
+}
+
+# ***
+
 main() {
   set -e
+
+  if ! os_is_macos; then
+    >&2 echo "ERROR: Please try again on macOS"
+
+    return 0
+  fi
 
   source_deps
 
