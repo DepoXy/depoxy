@@ -77,7 +77,7 @@
 #
 #   say -v "${voice}" "${notif_messg}"
 
-notify () {
+notify() {
   display_notification "$@"
 
   if ! ${NOTIFY_SILENT:-false} && ! ${NOTIFY_NO_SAY:-false}; then
@@ -89,29 +89,29 @@ notify () {
 
 # ***
 
-random_notif_sound_name () {
+random_notif_sound_name() {
   os_is_macos && random_notif_sound_name_macos "$@" || random_notif_sound_name_linux "$@"
 }
 
-display_notification () {
+display_notification() {
   os_is_macos && display_notification_macos "$@" || display_notification_linux "$@"
 }
 
-say_it_and_spray_it () {
+say_it_and_spray_it() {
   os_is_macos && say_it_and_spray_it_macos "$@" || say_it_and_spray_it_linux "$@"
 }
 
-random_voice () {
+random_voice() {
   os_is_macos && random_voice_macos "$@" || random_voice_linux "$@"
 }
 
 # ***
 
-os_is_macos () {
+os_is_macos() {
   [ "$(uname)" = "Darwin" ]
 }
 
-os_is_linux () {
+os_is_linux() {
   [ "$(uname)" = "Linux" ]
 }
 
@@ -119,7 +119,7 @@ os_is_linux () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # ================================================================= #
 
-display_notification_macos () {
+display_notification_macos() {
   local notif_messg="$1"
   local notif_title="$2"
   local notif_subby="$3"
@@ -144,8 +144,7 @@ display_notification_macos () {
 
 # ***
 
-
-random_notif_sound_name_macos () {
+random_notif_sound_name_macos() {
   # I sampled all the sounds but really I only like a few on them.
   #  random_notif_sound_name_from_favorites
   # - ORNOT: Actually, they're not *that* bad. And variety is nice.
@@ -159,14 +158,14 @@ random_notif_sound_name_macos () {
 #   I use this wired, called via cron to as a sort of calendar
 #   reminder.
 
-random_notif_sound_name_from_favorites () {
+random_notif_sound_name_from_favorites() {
   case $((RANDOM % 2)) in
-    0) printf "Hero";;
-    1) printf "Submarine";;
+    0) printf "Hero" ;;
+    1) printf "Submarine" ;;
   esac
 }
 
-random_notif_sound_name_from_all () {
+random_notif_sound_name_from_all() {
   declare -a MACOS_SOUNDS
 
   # CXREF: /System/Library/Sounds/
@@ -248,7 +247,7 @@ random_notif_sound_name_from_all () {
 #       [AVSpeechSynthesisProviderVoice 0x6000030196d0] Name: Shelley,
 #     ...
 
-say_it_and_spray_it_macos () {
+say_it_and_spray_it_macos() {
   local notif_messg="$1"
   local _notif_title="$2"
   local _notif_subby="$3"
@@ -278,9 +277,9 @@ say_it_and_spray_it_macos () {
   if [ $? -ne 0 ] || [ -n "${say_said}" ]; then
     local blabbering="wooooot woot wowowowo wowowo"
     # - Fallback default voice: This so far has always worked.
-    say_said="$( \
+    say_said="$(
       say "Gather 'round rats, this monster before you has FAILED... ${blabbering}" 2>&1 \
-      && say "${notif_messg}" 2>&1
+        && say "${notif_messg}" 2>&1
     )"
   fi
 
@@ -293,8 +292,9 @@ say_it_and_spray_it_macos () {
   if ${ANNOUNCE_VOICE:-false}; then
     sleep 0.22
     say -r 187 "Thank you, Voice of, ${voice}"
-    say -r 255 "shoo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo" \
-                    "oo oo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
+    say -r 255 \
+      "shoo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo oo" \
+      "oo oo oo oo oo oo oo oo oo oo oo oo oo oo oosh bot"
   fi
 }
 
@@ -307,8 +307,8 @@ say_it_and_spray_it_macos () {
 #     Fiona, Flo, Fred, Good, Grandma, Grandpa, Jester, Junior, Karen, Kathy,
 #     Matilda, Moira, Organ, Superstar, Ralph, Reed, Rishi, Rocko, Samantha,
 #     Sandy, Shelley, Tessa, Trinoids, Whisper, Zarvox
-# 
-random_voice_macos () {
+#
+random_voice_macos() {
   IFS=$'\r\n' GLOBIGNORE='*' command eval "VOICES=(\$(say -v ? | grep en_ | awk '{ print \$1 }' | uniq))"
 
   local n_voices=${#VOICES[@]}
@@ -320,7 +320,7 @@ random_voice_macos () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # ================================================================= #
 
-display_notification_linux () {
+display_notification_linux() {
   local notif_messg="$1"
   local notif_title="$2"
   local notif_subby="$3"
@@ -353,7 +353,7 @@ ${notif_subby}"
 
 # NOTE: The Author runs Linux Mint MATE, without plans to support other OSes.
 #       - Feel free to add support for your favorite distro herein.
-random_notif_sound_name_linux () {
+random_notif_sound_name_linux() {
   random_notif_sound_name_from_mate_alerts
 }
 
@@ -361,7 +361,7 @@ random_notif_sound_name_linux () {
 #   /usr/share/sounds/
 #   /usr/share/sounds/mate/default/alerts/
 #     bark.ogg, drip.ogg, glass.ogg, sonar.ogg
-random_notif_sound_name_from_mate_alerts () {
+random_notif_sound_name_from_mate_alerts() {
   local alert_dir="/usr/share/sounds/mate/default/alerts"
 
   # ***
@@ -403,7 +403,7 @@ No .ogg files: ${alert_dir}"
 #       /usr/share/icons/Mint-L/categories/48@2x
 
 __CPYST__="$(
-cat <<'EOF'
+  cat << 'EOF'
   icon_theme="$( \
     ( gsettings get org.gnome.desktop.interface icon-theme 2> /dev/null \
       || gsettings get org.mate.interface icon-theme 2> /dev/null ) \
@@ -419,11 +419,11 @@ EOF
 # Not sure what path(s) are searched, but you'll find icons,
 # e.g., "face-wink", under /usr/share/icons/, e.g.,
 #   /usr/share/icons/mate/48x48/emotes/face-wink.png
-random_notif_image_name_linux () {
-  local icon_theme="$( \
-    ( gsettings get org.gnome.desktop.interface icon-theme 2> /dev/null \
-      || gsettings get org.mate.interface icon-theme 2> /dev/null ) \
-    | sed "s/^'//" | sed "s/'\$//"
+random_notif_image_name_linux() {
+  local icon_theme="$(
+    (gsettings get org.gnome.desktop.interface icon-theme 2> /dev/null \
+      || gsettings get org.mate.interface icon-theme 2> /dev/null) \
+      | sed "s/^'//" | sed "s/'\$//"
   )"
   local image_dir="/usr/share/icons/${icon_theme}/"
 
@@ -463,7 +463,7 @@ No .png files: ${image_dir}"
 # Espeak (`sudo apt install espeak`) ranked highest on the two text-to-speech
 # articles that I read, so I installed that, and it works great, great.
 
-say_it_and_spray_it_linux () {
+say_it_and_spray_it_linux() {
   local notif_messg="$1"
   local _notif_title="$2"
   local _notif_subby="$3"
@@ -530,7 +530,7 @@ say_it_and_spray_it_linux () {
 #     e.g.,
 #       espeak "Get Coffee Before Lunch Today" -ven-sc -a 25 -s 140
 #       espeak "Get Coffee Before Lunch Today" -ven+f3 -s 140 -g 5
-random_voice_linux () {
+random_voice_linux() {
   local speech_opts="$1"
 
   # First line is header:
@@ -554,7 +554,7 @@ en-westindies" | shuf -n 1
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # ================================================================= #
 
-source_deps () {
+source_deps() {
   # Put Homebrew bin/ on PATH, for `shuf`.
   # - Note that `brew shellenv` (via _depoxy_infuse_brew_shellenv) calls
   # `sudo --reset-timestamp` so we'll avoid this unless necessary.
@@ -571,7 +571,7 @@ source_deps () {
   fi
 
   # notify-send from libnotify-bin. Not installed by default on at least Debian.
-  if os_is_linux && ! command -v notify-send >/dev/null; then
+  if os_is_linux && ! command -v notify-send > /dev/null; then
     >&2 echo "ERROR: Missing \`notify-send\`"
     >&2 echo "- HINT: E.g., \`apt install libnotify-bin\`"
 
@@ -581,11 +581,10 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   source_deps
 
   notify "$@"
 }
 
 main "$@"
-

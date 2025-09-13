@@ -42,11 +42,11 @@ SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"SSHd_Config Probe\" <$(basename -- "$0")@$
 SEND_EMAIL_SUBJECT="The sshd_config file on @$(hostname) is not configured properly"
 
 # SAVVY: macOS Chrome doesn't recog. 'monospace' or "monospace".
-SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; font-size: 13px;\"";
+SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; font-size: 13px;\""
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   local before_cd="$(pwd -L)"
 
   # For infuse-platform-macOS source to work
@@ -60,7 +60,7 @@ source_deps () {
   cd -- "${before_cd}"
 }
 
-run_everday_check_sshd_config () {
+run_everday_check_sshd_config() {
   local cfg_errs
   cfg_errs="$(infuse_macOS_probe_sshd_config 2> /dev/null)" \
     || true
@@ -71,7 +71,7 @@ run_everday_check_sshd_config () {
   fi
 
   sendmail -oi "${SEND_EMAIL_TO}" \
-<<EOF
+    << EOF
 From: ${SEND_EMAIL_FROM}
 To: ${SEND_EMAIL_TO_FRIENDLY}
 Subject: ${SEND_EMAIL_SUBJECT}
@@ -89,7 +89,7 @@ EOF
 
 # ***
 
-main () {
+main() {
   set -e
 
   source_deps
@@ -98,4 +98,3 @@ main () {
 }
 
 main "$@"
-
