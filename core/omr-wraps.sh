@@ -102,6 +102,8 @@ _dxy_aliases_wire_omr_wraps() {
   claim_alias_or_warn "aci." "mr -d . -n autocommit -y"
   # CALSO: `infuse .` works similarly.
   claim_alias_or_warn "infuse." "mr -d . -n infuse"
+
+  claim_alias_or_warn "whereami" "_dxy_whereami"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -130,6 +132,16 @@ function omr-report() {
       "${HOME}/.gopath" -prune \
       "${HOME}/.trash*" -prune
   )
+}
+
+function _dxy_whereami() {
+  local mrrepo
+  mrrepo="$(mr -m -d . run sh -c 'echo $MR_REPO')"
+  if [ -n "${mrrepo}" ]; then
+    echo "${mrrepo}"
+  else
+    mr -f -m -d . run sh -c 'echo "${MR_REPO}" [skipped-parent]'
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
