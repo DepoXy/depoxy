@@ -337,6 +337,34 @@ _dxy_nvim_release_bin() {
   printf "%s" "${nvim_bin}/bin/nvim"
 }
 
+# ***
+
+# DUNNO/2025-09-14: On author's Debian env,
+# `killall nvim` doesn't kill nvim.
+# - And while I rarely need to kill Neovide,
+#   at least now I'm won't have to manually
+#   kill off each nvim process.
+#
+# Get list of all process IDs and their commands,
+# filter on just PID and command path (assumes no
+# spaces in the command path!), and filter for
+# command names that *end* with " nvim" or "/nvim".
+# - It's a fragile command, but it works in
+#   ninety-nine percent of situations.
+
+killneovide() {
+  killall "neovide"
+
+  ps ax -o pid= -o command= \
+    | awk '{print $1 " " $2}' \
+    | grep -e "\( \|/\)nvim$" \
+    | awk '{print $1}' \
+    | xargs kill -9
+
+  # CRUMB: ${NVIM_OPEN_SOCKETNAME:-🧸}"
+  command rm /tmp/nvim.socket*
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # CPYST: You can also run the GUI using the "minimal" plugin profile,
