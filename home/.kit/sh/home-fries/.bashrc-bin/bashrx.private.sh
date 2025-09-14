@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_source_script () {
+_dxy_source_script() {
   local ambers_file="$1"
   local ambers_core="${2:-${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core}"
   local ambers_name="${3:-AMBERS}"
@@ -17,7 +17,7 @@ _dxy_source_script () {
   local before_cd="$(pwd -L)"
   cd "${ambers_core}"
 
-  _source_script () {
+  _source_script() {
     local ambers_file="$1"
 
     if ! [ -f "${ambers_file}" ]; then
@@ -45,13 +45,13 @@ _dxy_source_script () {
 _DEPOXY_SOURCE_IT_BEGIN=true
 _DEPOXY_SOURCE_IT_FINIS=true
 
-_dxy_source () {
+_dxy_source() {
   _dxy_source_script "$@"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-_source_scripts_preceding_homefries_dxy () {
+_source_scripts_preceding_homefries_dxy() {
   # ${HOMEFRIES_TRACE} && echo "Depoxy Ambers Preceding Homefries"
 
   # Use environment variables to store paths to other repos (Git, OMR,
@@ -59,7 +59,7 @@ _source_scripts_preceding_homefries_dxy () {
   # USYNC: Set _SOURCE_IT_BEGIN for first source_it from
   #   _source_scripts_preceding_homefries_dxy
   _SOURCE_IT_BEGIN=${_DEPOXY_SOURCE_IT_BEGIN} \
-  _dxy_source "path_vars.sh"
+    _dxy_source "path_vars.sh"
 
   # Vendor encfs paths, and identify if DepoXy Client.
   # - Also sources environs from two files:
@@ -98,19 +98,19 @@ _source_scripts_preceding_homefries_dxy () {
 }
 
 # A wrapper function, so private DepoXy Client can monkey patch the standup.
-source_scripts_preceding_homefries () {
+source_scripts_preceding_homefries() {
   _source_scripts_preceding_homefries_dxy
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_source_scripts_following_homefries_dxy () {
+_source_scripts_following_homefries_dxy() {
   # ${HOMEFRIES_TRACE} && echo "Depoxy Ambers Following Homefries"
 
   # GVim `fs` and `fa` commands.
   # USYNC: For the last call
   _SOURCE_IT_BEGIN=${_DEPOXY_SOURCE_IT_BEGIN} \
-  _dxy_source "alias-vim.sh"
+    _dxy_source "alias-vim.sh"
 
   # DepoXy Ambers aliases (lots of `cd /some/path` aliases).
   _dxy_source "aliastown.sh"
@@ -189,14 +189,14 @@ _source_scripts_following_homefries_dxy () {
   # Run background tasks to keep desktop session active.
   # USYNC: For the last call
   _SOURCE_IT_FINIS=${_DEPOXY_SOURCE_IT_FINIS} \
-  _dxy_source "stayalive.sh"
+    _dxy_source "stayalive.sh"
 
   # Just a symlink to this file:
   #          "wire-bash.sh"
 }
 
 # A wrapper function, so private DepoXy Client can monkey patch the standup.
-source_scripts_following_homefries () {
+source_scripts_following_homefries() {
   _source_scripts_following_homefries_dxy
   unset -f _source_scripts_following_homefries_dxy
 
@@ -206,7 +206,7 @@ source_scripts_following_homefries () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_source_scripts () {
+_dxy_source_scripts() {
   local time_outer_0=$(print_nanos_now)
   SOURCE_CNT=0
 
@@ -225,7 +225,7 @@ _dxy_source_scripts () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-_dxy_unset_functions_dxy () {
+_dxy_unset_functions_dxy() {
   unset -f _dxy_source_script
   unset -f _dxy_source
 
@@ -239,7 +239,7 @@ _dxy_unset_functions_dxy () {
   unset -f _dxy_source_scripts
 }
 
-_dxy_unset_functions () {
+_dxy_unset_functions() {
   _dxy_unset_functions_dxy
   unset -f _dxy_unset_functions_dxy
 
@@ -253,11 +253,10 @@ _dxy_unset_functions () {
 # - We use `_homefries_private_main_core` and not `_homefries_private_main`
 #   so that the DepoXy Client can monkey patch this file if it needs to
 #   before this function is invoked.
-_homefries_private_main_core () {
+_homefries_private_main_core() {
   _dxy_source_scripts
 
   if ! ${HOME_FRIES_PRELOAD:-false}; then
     _dxy_unset_functions
   fi
 }
-

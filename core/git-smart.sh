@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_git_safe () {
+_dxy_wire_alias_git_safe() {
   local git_safe_sh="${GITSMARTPATH:-${GITREPOSPATH:-${HOME}/.kit/git}/git-smart}/lib/git_safe.sh"
   if [ -f "${git_safe_sh}" ]; then
     . "${git_safe_sh}"
@@ -19,7 +19,7 @@ _dxy_wire_alias_git_safe () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_git_no_pager () {
+_dxy_wire_alias_git_no_pager() {
   local gnp_alias="gnp"
 
   claim_alias_or_warn "${gnp_alias}" "git --no-pager"
@@ -29,7 +29,7 @@ _dxy_wire_alias_git_no_pager () {
 
 # Adds 2 aliases, `pwip` and `pp`, that both call `git pwip`, I know,
 # all the ways.
-_dxy_wire_alias_git_wip_pwip () {
+_dxy_wire_alias_git_wip_pwip() {
   claim_alias_or_warn "wip" "git wip"
   claim_alias_or_warn "pwip" "git pwip"
 
@@ -54,33 +54,33 @@ _dxy_wire_alias_git_wip_pwip () {
 #   ~/.depoxy/running/home/.config/depoxy/depoxyrc
 
 # Complement `git civ` with a plain `civ`.
-_dxy_wire_alias_git_civ () {
+_dxy_wire_alias_git_civ() {
   local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
 
   claim_alias_or_warn "civ" "EDITOR='${nvimd}/bin/editor-vim-0-0-insert-minimal' git commit -v"
 }
 
 # Complement `git cim` with a plain `cim`.
-_dxy_wire_alias_git_cim () {
+_dxy_wire_alias_git_cim() {
   local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
 
   claim_alias_or_warn "cim" "EDITOR='${nvimd}/bin/editor-vim-0-0-insert-minimal' git commit --amend"
 }
 
 # Complement `git cin` with a plain `cin`.
-_dxy_wire_alias_git_cin () {
+_dxy_wire_alias_git_cin() {
   claim_alias_or_warn "cin" "git commit --amend --no-edit"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_git_rc () {
+_dxy_wire_alias_git_rc() {
   claim_alias_or_warn "rc" "git rc"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_git_rh () {
+_dxy_wire_alias_git_rh() {
   claim_alias_or_warn "rh" "git reset HEAD"
 }
 
@@ -95,7 +95,7 @@ _dxy_wire_alias_git_abort() {
 # Create l1..l9 aliases, e.g.,
 #
 #   claim_alias_or_warn "l1" "git --no-pager log -1"
-_dxy_wire_alias_git_logX () {
+_dxy_wire_alias_git_logX() {
   local ord
 
   for ord in {1..9}; do
@@ -108,7 +108,7 @@ _dxy_wire_alias_git_logX () {
 # Create p1..p9 aliases, e.g.,
 #
 #   claim_alias_or_warn "p1" "git pop1"
-_dxy_wire_alias_git_popX () {
+_dxy_wire_alias_git_popX() {
   local ord
 
   if git help popn > /dev/null 2>&1; then
@@ -118,7 +118,7 @@ _dxy_wire_alias_git_popX () {
   fi
 }
 
-_dxy_git_popX () {
+_dxy_git_popX() {
   local ord="$1"
 
   git pop${ord}
@@ -129,7 +129,7 @@ _dxy_git_popX () {
   # etc. To keep egg of the user's face in case then <Up> and <Enter>
   # too fast in their terminal, or otherwise accidently run a history
   # item.
-  history -s "#$( \
+  history -s "#$(
     history 1 | /usr/bin/env sed -E 's/^ *[0-9]+ +[-0-9]+ +[:0-9]+ //'
   )"
 }
@@ -148,7 +148,7 @@ _dxy_git_popX () {
 #
 # CXREF: See also `git ria`: 'ria' is aliased to 'rebase -i --autosquash'.
 # - git-ria is shortest alternative to these, e.g., `git ria @^^` is `r2`.
-_dxy_wire_alias_git_riaX () {
+_dxy_wire_alias_git_riaX() {
   local ord
 
   for ord in {2..9}; do
@@ -158,7 +158,7 @@ _dxy_wire_alias_git_riaX () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_just_t_for_tig () {
+_dxy_wire_alias_just_t_for_tig() {
   # 2023-01-15: This feels so intimate!!
   # - Are we really one a first-character basis now?
   #   - With this call I 't' alias.
@@ -168,7 +168,7 @@ _dxy_wire_alias_just_t_for_tig () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # REFER: https://github.com/landonb/sh-git-nubs#🌰
-_dxy_add_on_demand_source_git_nubs () {
+_dxy_add_on_demand_source_git_nubs() {
   local git_nubs="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs/lib/git-nubs.sh"
   local common_pw="${GITREPOSPATH:-${HOME}/.kit/git}/git-put-wise/lib/common_put_wise.sh"
   # source_dep "lib/dep_apply_confirm_patch_base.sh"
@@ -189,9 +189,9 @@ _dxy_add_on_demand_source_git_nubs () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # REFER: https://github.com/DepoXy/git-put-wise#🥨
-_dxy_add_on_demand_source_git_put_wise () {
+_dxy_add_on_demand_source_git_put_wise() {
   # CXREF: ~/.kit/git/git-put-wise/bin/git-put-wise
-  eval-git-put-wise () {
+  eval-git-put-wise() {
     local gpw="$(realpath -- "$(command -v git-put-wise)")"
     cd "$(dirname -- "$(dirname -- "${gpw}")")"
     . "${gpw}"
@@ -202,7 +202,7 @@ _dxy_add_on_demand_source_git_put_wise () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # REFER: https://github.com/DepoXy/macOS-onboarder#🏂
-_dxy_add_on_demand_source_macOS_defaults_commands () {
+_dxy_add_on_demand_source_macOS_defaults_commands() {
   # CXREF: ~/.kit/mOS/macOS-onboarder/lib/macOS-defaults-commands.sh
   local defaults_cmds="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/lib/macOS-defaults-commands.sh"
 
@@ -215,14 +215,14 @@ _dxy_add_on_demand_source_macOS_defaults_commands () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_configure_git_my_merge_status () {
+_dxy_configure_git_my_merge_status() {
   GITSMART_MYST_BRANCH_HIERARCHY="${GITSMART_MYST_BRANCH_HIERARCHY:-release develop proving}"
   GITSMART_MYST_REMOTE_HIERARCHY="${GITSMART_MYST_REMOTE_HIERARCHY:-release 👍 👆 protected 🌟 🌛}"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_disable_git_completion_dwim_suggestions () {
+_dxy_disable_git_completion_dwim_suggestions() {
   # 2021-02-16: Don't include remote branch names when auto-completing.
   # - E.g., if you have local 'foo' and there's also 'upstream/far', then
   #   `git co f<Tab>` shows both 'foo' and 'far'.
@@ -255,7 +255,7 @@ _dxy_disable_git_completion_dwim_suggestions () {
 
 # CXREF:
 #   ~/.kit/git/git-put-wise/deps/sh-git-nubs/lib/git-nubs.sh
-git_rebase_set_committer_same_as_author () {
+git_rebase_set_committer_same_as_author() {
   unset -f git_rebase_set_committer_same_as_author
 
   eval-git-nubs
@@ -270,23 +270,23 @@ git_rebase_set_committer_same_as_author () {
 # I copied this from _git_branch and then removed the stuff dealing
 # with options. This turned out to be the simplest case.
 # Ref: ~/.kit/sh/home-fries/bin/completions/git-completion.bash
-_git_t_bag () {
+_git_t_bag() {
   case "$cur" in
-  --*)
-    __gitcomp_builtin branch
-    ;;
-  *)
-    # From _git_branch, this is the case:
-    #  if [ $only_local_ref = "y" -a $has_r = "n" ]; then ...
-    # i.e., only complete local branch names.
-    __gitcomp_direct "$(__git_heads "" "$cur" " ")"
-    ;;
+    --*)
+      __gitcomp_builtin branch
+      ;;
+    *)
+      # From _git_branch, this is the case:
+      #  if [ $only_local_ref = "y" -a $has_r = "n" ]; then ...
+      # i.e., only complete local branch names.
+      __gitcomp_direct "$(__git_heads "" "$cur" " ")"
+      ;;
   esac
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   unset -f main
 
   _dxy_wire_alias_git_safe
@@ -346,4 +346,3 @@ main () {
 
 main "$@"
 unset -f main
-
