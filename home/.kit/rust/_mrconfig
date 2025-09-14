@@ -42,7 +42,7 @@ installLinux =
   for rc_file in "${HOME}/.bashrc" "${HOME}/.profile" "${HOME}/.zshenv"; do
     canon_file="$(realpath -- "${rc_file}")"
     if [ "$(tail -n1 "${canon_file}")" = "$(printf "%s" '. "$HOME/.cargo/env"')" ]; then
-      info "Remove last line \"\$HOME/.cargo/env\": ${rc_file}"
+      info "Remove last line \"\$HOME/.cargo/env\": ${canon_file}"
       gnu_sed () {
         for cmd in "gsed" "sed"; do
           ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
@@ -51,7 +51,7 @@ installLinux =
       }
       $(gnu_sed) -i '$ d' "${canon_file}"
     else
-      debug "Last line is not \"\$HOME/.cargo/env\": ${rc_file}"
+      debug "Last line is not \"\$HOME/.cargo/env\": ${canon_file}"
     fi
   done
   # Or if you didn't already have one of these files.
