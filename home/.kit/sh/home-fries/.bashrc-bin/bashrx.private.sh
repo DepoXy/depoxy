@@ -130,6 +130,9 @@ _source_scripts_following_homefries_dxy() {
   # dob reports (brief me!).
   _dxy_source "dob-brief.sh"
 
+  # `<cmd> | fzf` pipelines.
+  _dxy_source "fzf-wraps.sh"
+
   # Fuzzy finder wiring.
   _dxy_source "fzf-setup.sh"
 
