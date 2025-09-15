@@ -606,11 +606,11 @@ main() {
   infuser_prepare "${HOME}" "$@"
 
   local before_cd="$(pwd -L)"
-  cd ${MR_REPO}
+  cd -- ${MR_REPO}
 
   infuse_all_the_symlinks
 
-  cd "${before_cd}"
+  cd -- "${before_cd}"
 }
 
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
