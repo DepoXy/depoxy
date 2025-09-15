@@ -249,6 +249,8 @@ tigconfig_generate_depoxy_tig_config() {
 
   (
     DXY_DEPOXY_CLIENT_FULL="${ambers_root}" \
+      DXY_RUN_LNS_ONLY=false \
+      DXY_RUN_MAKE_LNS=false \
       m4_shim \
       "+12" "${archetype_path}/home/.config/tig/config.EVAL" \
       "home/.config/tig/config" \
