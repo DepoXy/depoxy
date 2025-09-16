@@ -298,7 +298,15 @@ wind_to_arrow() {
 round_to_nearest_integer() {
   local num="$1"
 
-  bc -le "r(${num}, 0)"
+  # INERT: We could remove the if and use the non-macOS
+  # path, but author finds this `bc` usage curious. (Also
+  # one of those rare instances where macOS (Apple BSD)
+  # command is more featureful that GNU command! =)
+  if os_is_macos; then
+    bc -le "r(${num}, 0)"
+  else
+    printf "%1.f" "${num}"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -415,6 +423,12 @@ print_current_weather() {
   echo "${location_name}, ${country}" \
     "— ${weather_emoji} ${temp_sign}${temp} ${temp_units}" \
     "💨 ${wind_speed} ${wind_arrow}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+os_is_macos() {
+  [ "$(uname)" = 'Darwin' ]
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
