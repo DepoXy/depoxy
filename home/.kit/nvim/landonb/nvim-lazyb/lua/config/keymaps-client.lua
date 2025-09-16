@@ -7,7 +7,7 @@
 -- CXREF: Optional user config:
 -- ~/.depoxy/running/home/.kit/nvim/landonb/nvim-lazyb/lua/config/keymaps-private.lua
 pcall(function()
-	require("config.keymaps-private").setup()
+  require("config.keymaps-private").setup()
 end)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
