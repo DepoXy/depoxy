@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2025 Landon Bouma. All Rights Reserved.
+
+# USAGE: This cmd wrapper loads DepoXy environs before
+# running what's effectively the fs() command to open
+# the indicated file in (probably) Neovide.
+#
+# - UCASE: Call from OS accelerator (Keyboard Shortcut),
+#   (because OS accelerators are run from generic shell).
+#
+#   - CXREF: As used by the run-or-raise actions:
+#     ~/.depoxy/ambers/home/.config/run-or-raise/shortcuts-depoxy
+#     ~/.depoxy/running/home/.config/run-or-raise/shortcuts-client
+
+# CALSO: See similar utility function used by Hammerspoon bindings:
+#   gvim_open_kindness = function(path)
+# ~/.depoxy/ambers/home/.hammerspoon/depoxy-hs.lua @ 36
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+accelerate_fs() {
+  # Load depoxyrc, similar to: ~/.depoxy/ambers/bin/accelerate-cmd
+  local client_dxyrc="${DEPOXY_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc}"
+
+  if [ -f "${client_dxyrc}" ]; then
+    . "${client_dxyrc}"
+  fi
+
+  # Open the specified file in (Neo)vim (prob. Neovide unless
+  # you've configured your DepoXy environment specially).
+  # - USYNC: See DXY fs() command:
+  #   ~/.depoxy/ambers/core/alias-vim.sh
+  NVIM_OPEN_FILE_ON_SPAWN= \
+    NVIM_APPNAME=nvim_lazyb \
+    gvim-open-kindness "${NVIM_OPEN_SOCKETNAME:-🧸}" "" "" "$@"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main() {
+  accelerate_fs "$@"
+}
+
+main "$@"

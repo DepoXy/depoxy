@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2025 Landon Bouma. All Rights Reserved.
+
+# USAGE: This cmd wrapper loads DepoXy environs before
+# running the indicated command.
+#
+# - UCASE: Call from OS accelerator (Keyboard Shortcut)
+#   to run commands as though you ran them from your
+#   shell (because OS accelerators are not run from
+#   your normal shell).
+#
+#   - CXREF: As used by the run-or-raise actions:
+#     ~/.depoxy/ambers/home/.config/run-or-raise/shortcuts-depoxy
+#     ~/.depoxy/running/home/.config/run-or-raise/shortcuts-client
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+accelerate_cmd() {
+  local client_dxyrc="${DEPOXY_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc}"
+
+  if [ -f "${client_dxyrc}" ]; then
+    . "${client_dxyrc}"
+  fi
+
+  "$@"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main() {
+  accelerate_cmd "$@"
+}
+
+main "$@"
