@@ -53,7 +53,9 @@ infuse_symlinks_depoxy_Karabiner_Elements_symlinks() {
 
     # ***
 
-    local active_dxc="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/running"
+    # CRUMB: "depoxy}running":
+    #   local active_dxc="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/running"
+    local active_dxc="${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/running}"
     local dxc_mods="${active_dxc}/home/.config/karabiner/assets/complex_modifications"
 
     if [ -d "${dxc_mods}" ]; then
