@@ -74,39 +74,39 @@ print_usage() {
   echo "  https://home.openweathermap.org/users/sign_up"
 }
 
-process_args () {
+process_args() {
   local end_of_options_indicator="--"
 
   while [ "$1" != "" ] && [ "$1" != "${end_of_options_indicator}" ]; do
     case $1 in
-      --trace | --debug)
-        WX_TRACE=true
-        ;;
+    --trace | --debug)
+      WX_TRACE=true
+      ;;
 
-      --fake | --faker)
-        WX_FAKER=true
-        ;;
+    --fake | --faker)
+      WX_FAKER=true
+      ;;
 
-      --key | --api-key)
-        if [ -z "$2" ]; then
-          >&2 echo "ERROR: Missing API key"
+    --key | --api-key)
+      if [ -z "$2" ]; then
+        >&2 echo "ERROR: Missing API key"
 
-          exit 1
-        fi
-        WX_OPENWEATHER_KEY="$2"
+        exit 1
+      fi
+      WX_OPENWEATHER_KEY="$2"
 
-        shift
-        ;;
+      shift
+      ;;
 
-      -h | --help | help | usage)
-        print_usage
+    -h | --help | help | usage)
+      print_usage
 
-        exit 0
-        ;;
+      exit 0
+      ;;
 
-      *)
-        WX_LOCATION="$1"
-        ;;
+    *)
+      WX_LOCATION="$1"
+      ;;
     esac
 
     shift
@@ -132,7 +132,7 @@ process_args () {
   fi
 }
 
-insist_location_and_api_key () {
+insist_location_and_api_key() {
   # Insist that the location is specified
   if [ -z "${WX_LOCATION}" ]; then
     >&2 print_usage
@@ -149,8 +149,8 @@ insist_location_and_api_key () {
 }
 
 # Ensure `jq` and `bc` installed.
-check_deps () {
-  if ! command -v jq > /dev/null 2>&1; then
+check_deps() {
+  if ! command -v jq >/dev/null 2>&1; then
     >&2 printf "%s\n%s\n" \
       "ERROR: Missing ‘jq’" \
       "- HINT: Try ‘brew install jq’, or ‘apt install jq’, etc."
@@ -158,7 +158,7 @@ check_deps () {
     exit 1
   fi
 
-  if ! command -v bc > /dev/null 2>&1; then
+  if ! command -v bc >/dev/null 2>&1; then
     >&2 printf "%s\n%s\n" \
       "ERROR: Missing ‘bc’" \
       "- HINT: Try ‘apt install bc’, etc."
@@ -181,121 +181,121 @@ check_deps () {
 #   https://www.nerdfonts.com/cheat-sheet?q=nf-weather-
 #     https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points
 
-weather_to_emoji () {
+weather_to_emoji() {
   local weather_main="$1"
   local sunrise="$2"
   local sunset="$3"
 
   case "${weather_main}" in
-    "Thunderstorm")
-      # description: "thunderstorm with light rain", "... with rain",
-      # "... with heavy rain", "light thunderstorm", "thunderstorm",
-      # "heavy thunderstorm", "ragged thunderstorm", "... with light
-      # drizzle", "... with drizzle", "... with heavy drizzle"
-      echo "🌀"
-      ;;
-    "Drizzle")
-      # description: "light intensity drizzle", "drizzle", "heavy
-      # intensity drizzle", "light intensity drizzle rain", "drizzle
-      # rain", "heavy intensity drizzle rain", "shower rain and drizzle",
-      # "heavy shower rain and drizzle", "shower drizzle"
-      echo "🌦"
-      ;;
-    "Rain")
-      # description: "[light|moderate|heavy intensity|very heavy|
-      # extreme|freezing|light intensity shower|shower|heavy
-      # intensity shower|ragged shower] rain"
-      echo "🌧"
-      ;;
-    "Snow")
-      # description: "snow", "shower snow", "[light|heavy] [shower] snow",
-      # "sleet", "[light shower|shower] sleet", "[light] rain and snow"
-      echo "🏒"
-      ;;
-    "Mist")
-      # description: "mist"
-      echo "💦"
-      ;;
-    "Smoke")
-      # description: "smoke"
-      echo "🌿"  # 🚬
-      ;;
-    "Haze")
-      # description: "haze"
-      echo "💫"
-      ;;
-    "Dust")
-      # description: "sand/dust whirls", "dust"
-      echo "🤧"
-      ;;
-    "Fog")
-      # description: "fog"
-      echo "🥴"  # 🌁
-      ;;
-    "Sand")
-      # description: "sand"
-      echo "🏖️"
-      ;;
-    "Ash")
-      # description: "volcanic ash"
-      echo "🌋"
-      ;;
-    "Squall")
-      # description: "squalls"
-      echo "🌬️"  # 💨 🌬️ 
-      ;;
-    "Tornado")
-      # description: "tornado"
-      echo "🌪️"
-      ;;
-    "Clear")
-      # description: "clear sky"
-      local time_now="$(date +%s)"
-      if [ ${time_now} -ge ${sunrise} ] && [ ${time_now} -lt ${sunset} ]; then
-        echo "🌞"
-      else
-        # Show different icon at nighttime.
-        #   echo "🌃  🌌  🌝  🌛  🌓  ⭐  🌙"
-        #         ✓✓  ✓✓  ✓✓  ✓✓  ✓✓      ✓✓
-        echo "🌓"
-      fi
-      ;;
-    "Clouds")
-      # description: "few clouds: 11-25%", "scattered clouds: 25-50%",
-      # "broken clouds: 51-84%", "overcast clouds: 85-100%"
-      echo "⛅"
-      ;;
-    *)
-      # Unreachable/Unexpected (at least per docs)
-      echo "❓"  # ✨
-      ;;
+  "Thunderstorm")
+    # description: "thunderstorm with light rain", "... with rain",
+    # "... with heavy rain", "light thunderstorm", "thunderstorm",
+    # "heavy thunderstorm", "ragged thunderstorm", "... with light
+    # drizzle", "... with drizzle", "... with heavy drizzle"
+    echo "🌀"
+    ;;
+  "Drizzle")
+    # description: "light intensity drizzle", "drizzle", "heavy
+    # intensity drizzle", "light intensity drizzle rain", "drizzle
+    # rain", "heavy intensity drizzle rain", "shower rain and drizzle",
+    # "heavy shower rain and drizzle", "shower drizzle"
+    echo "🌦"
+    ;;
+  "Rain")
+    # description: "[light|moderate|heavy intensity|very heavy|
+    # extreme|freezing|light intensity shower|shower|heavy
+    # intensity shower|ragged shower] rain"
+    echo "🌧"
+    ;;
+  "Snow")
+    # description: "snow", "shower snow", "[light|heavy] [shower] snow",
+    # "sleet", "[light shower|shower] sleet", "[light] rain and snow"
+    echo "🏒"
+    ;;
+  "Mist")
+    # description: "mist"
+    echo "💦"
+    ;;
+  "Smoke")
+    # description: "smoke"
+    echo "🌿" # 🚬
+    ;;
+  "Haze")
+    # description: "haze"
+    echo "💫"
+    ;;
+  "Dust")
+    # description: "sand/dust whirls", "dust"
+    echo "🤧"
+    ;;
+  "Fog")
+    # description: "fog"
+    echo "🥴" # 🌁
+    ;;
+  "Sand")
+    # description: "sand"
+    echo "🏖️"
+    ;;
+  "Ash")
+    # description: "volcanic ash"
+    echo "🌋"
+    ;;
+  "Squall")
+    # description: "squalls"
+    echo "🌬️" # 💨 🌬️
+    ;;
+  "Tornado")
+    # description: "tornado"
+    echo "🌪️"
+    ;;
+  "Clear")
+    # description: "clear sky"
+    local time_now="$(date +%s)"
+    if [ ${time_now} -ge ${sunrise} ] && [ ${time_now} -lt ${sunset} ]; then
+      echo "🌞"
+    else
+      # Show different icon at nighttime.
+      #   echo "🌃  🌌  🌝  🌛  🌓  ⭐  🌙"
+      #         ✓✓  ✓✓  ✓✓  ✓✓  ✓✓      ✓✓
+      echo "🌓"
+    fi
+    ;;
+  "Clouds")
+    # description: "few clouds: 11-25%", "scattered clouds: 25-50%",
+    # "broken clouds: 51-84%", "overcast clouds: 85-100%"
+    echo "⛅"
+    ;;
+  *)
+    # Unreachable/Unexpected (at least per docs)
+    echo "❓" # ✨
+    ;;
   esac
 }
 
 # Map wind direction in degrees to arrows
-wind_to_arrow () {
+wind_to_arrow() {
   local deg="$1"
 
   if ([ $deg -ge 0 ] && [ $deg -lt 23 ]) || [ $deg -ge 338 ]; then
-    echo "→"  # ➡️
+    echo "→" # ➡️
   elif [ $deg -ge 23 -a $deg -lt 68 ]; then
-    echo "↗"  # ↗️
+    echo "↗" # ↗️
   elif [ $deg -ge 68 -a $deg -lt 113 ]; then
-    echo "↑"  # ⬆️
+    echo "↑" # ⬆️
   elif [ $deg -ge 113 -a $deg -lt 158 ]; then
-    echo "↖"  # ↖️
+    echo "↖" # ↖️
   elif [ $deg -ge 158 -a $deg -lt 203 ]; then
-    echo "←"  # ⬅️
+    echo "←" # ⬅️
   elif [ $deg -ge 203 -a $deg -lt 248 ]; then
-    echo "↙"  # ↙️
+    echo "↙" # ↙️
   elif [ $deg -ge 248 -a $deg -lt 293 ]; then
-    echo "↓"  # ⬇️
-  else  # [ $deg -ge 293 -a $deg -lt 338 ]; then
-    echo "↘"  # ↘️
+    echo "↓" # ⬇️
+  else       # [ $deg -ge 293 -a $deg -lt 338 ]; then
+    echo "↘" # ↘️
   fi
 }
 
-round_to_nearest_integer () {
+round_to_nearest_integer() {
   local num="$1"
 
   bc -le "r(${num}, 0)"
@@ -303,7 +303,7 @@ round_to_nearest_integer () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-fetch_location () {
+fetch_location() {
   local location="$1"
 
   if ! ${WX_FAKER}; then
@@ -313,7 +313,7 @@ fetch_location () {
   fi
 }
 
-fetch_weather () {
+fetch_weather() {
   local lat="$1"
   local lon="$2"
 
@@ -330,7 +330,7 @@ fetch_weather () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-print_current_weather () {
+print_current_weather() {
   # URL-encode spaces
   local location
   location="$(echo "${WX_LOCATION}" | sed 's/ /%20/g')"
@@ -396,7 +396,7 @@ print_current_weather () {
   # Print the one-liner
   #
   # - github.com/nogara's one-liner, e.g.,
-  #   
+  #
   #     Minneapolis, US: ☀️  🌡️  +12.56°C 🌬️  ←9.22mph
   #
   #   echo "$location_name, $country:" \
@@ -421,7 +421,7 @@ print_current_weather () {
 
 PROG_NAME="weather.sh"
 
-main () {
+main() {
   check_deps
 
   # Set WX_* vars.
@@ -438,4 +438,3 @@ if [ "$(basename -- "$(realpath -- "$0")")" = "${PROG_NAME}" ]; then
 fi
 
 unset -f main
-
