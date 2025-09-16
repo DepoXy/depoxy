@@ -21,8 +21,26 @@
 
 # *** Clang
 
+/clang/clib/
+/clang/cryfs/
+/clang/gtksourceview/
+/clang/gtk-update-icon-cache/
+/clang/kcov/
+/clang/KDocker/
+/clang/libgit2/
+/clang/multitail/
 /clang/neovim/
+/clang/tmux/
+/clang/ttygif/
 /clang/vim/
+/clang/phc-winner-argon2/
+/clang/tmux/
+/clang/ttygif/
+/clang/vim/
+/clang/vim-clean/
+/clang/xcalib/
+/clang/xrandr-invert-colors/
+/clang/ydotool/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -88,8 +106,22 @@
 
 # **** Go development
 
+/go/beanstalk/
+/go/beanstalkd/
 /go/cobra/
 /go/delve/
+/go/direnv/
+/go/gitbatch/
+/go/gocovmerge/
+/go/go-jira/
+/go/golang-contract/
+/go/golang-github-oauth-example/
+/go/gopherlabs/
+/go/go-presents-dave-cheney_s-junk/
+/go/termbox-go/
+/go/timeit/
+/go/uiprogress/
+/go/viper/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -117,6 +149,8 @@
 # For digging into internals when you Need To Know.
 /js/nvm/
 
+/js/pampermonkey/
+
 # An awesome JS LS that blew my mind.
 # - And settles any question of whether I need to use VS Code.
 #   (*Nope!*)
@@ -126,14 +160,26 @@
 
 /js/nodejs/babel/
 /js/nodejs/chakram/
+/js/nodejs/js-logger/
+/js/nodejs/log4js/
 /js/nodejs/loglevel/
 /js/nodejs/material-ui/
 /js/nodejs/mocha/
+/js/nodejs/parcel/
+/js/nodejs/rbushlb/
+
+# **** Chrome Web Store extensions
+
+/js/ctrlw-extensions/
 
 # **** React
 
+/js/react/ant-design/
 /js/react/material-ui/
+/js/react/nextjs-firebase-authentication/
 /js/react/react/
+/js/react/react-tooltip/
+/js/react/todolist_frontend/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -175,6 +221,7 @@
 # **** Android
 
 /odd/android/planning-time-android/
+/odd/android/react-native/
 
 # **** Containers
 
@@ -189,6 +236,22 @@
 # **** Fonts
 
 /odd/fonts/
+
+# **** GNOME Shell Extensions
+
+/odd/gnome-extensions/azclock/
+/odd/gnome-extensions/gnome-active-window/
+/odd/gnome-extensions/gnome-magic-window/
+/odd/gnome-extensions/gnome-shell-extensions/
+/odd/gnome-extensions/hide-minimized/
+/odd/gnome-extensions/hidetopbar/
+/odd/gnome-extensions/just-perfection/
+/odd/gnome-extensions/rounded-window-corners/
+/odd/gnome-extensions/run-or-raise/
+/odd/gnome-extensions/searchprovider-for-browser-tabs/
+/odd/gnome-extensions/switcher/
+/odd/gnome-extensions/vim-altTab/
+/odd/gnome-extensions/window-calls/
 
 # **** Homebrew
 
@@ -213,12 +276,25 @@
 # **** Ruby
 
 /odd/ruby/byebug/
+/odd/ruby/commander/
+/odd/ruby/eventmachine/
+/odd/ruby/faye-websocket-ruby/
 /odd/ruby/gli/
 /odd/ruby/highline/
 /odd/ruby/httparty/
+/odd/ruby/methadone/
 /odd/ruby/pry/
 /odd/ruby/rake/
 /odd/ruby/rspec-core/
+/odd/ruby/ruby_dig/
+/odd/ruby/ruby-progressbar/
+/odd/ruby/terminal-table/
+/odd/ruby/websocket-driver-ruby/
+/odd/ruby/work_queue/
+
+# **** Rust
+
+/odd/rust/ripgrep-all/
 
 # **** Scala
 
@@ -228,21 +304,34 @@
 
 # *** Python
 
+/py/argcomplete/
 /py/asciinema/
 /py/aider/
 /py/aws-cli/
+/py/aws-glacier-sha256-tree-hash/
+/py/beets/
+/py/chjson/
+/py/colors/
 /py/cpython/
 /py/csv2ofx/
+/py/daemonize/
+/py/dateparser/
+/py/dbus-python/
+/py/gcalcli/
 /py/gimp-plugin-export-layers/
+/py/glyr/
 /py/gnucash-qif-import/
 /py/install.python-poetry.org/
 /py/mdm2_many_doge_meme_maker/
 /py/meld/
+/py/OCRmyPDF/
 /py/pandas/
+/py/pdm/
 /py/pipgrip/
 /py/pipx/
 /py/poetry/
 /py/poetry-dynamic-versioning/
+/py/pyenv/
 /py/pyenv/.keep--omr-stub
 /py/pyenv-virtualenv/
 /py/pyfiglet/
@@ -301,6 +390,7 @@
 /sh/tmuxinator/
 /sh/tmux-sensible/
 /sh/tpm/
+/sh/trust_me/
 /sh/unix-tree/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
