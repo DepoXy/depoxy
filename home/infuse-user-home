@@ -138,7 +138,8 @@ infuse_symlinks_user_home_dothammerspoon() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# Collect all tig config/bindings under ~/.mrinfuse/.config/tig/
+# Create symlinks to all tig config/bindings under
+# ~/.depoxy/ambers/.config/tig/ and generate tig/config
 infuse_symlinks_user_home_tigconfig() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
@@ -229,11 +230,12 @@ infuse_symlinks_home_mrinfuse_tigconfig() {
 # Generate ~/.depoxy/ambers/home/.config/tig/config
 #
 # - m4_shim uses DXY_DEPOXY_CLIENT_FULL for target base,
-#   which deploy-archetype.sh would set ~/.depoxy/stints/XXXX
-#   but we'll set to target ~/.depoxy/ambers/home/.config/tig
+#   which deploy-archetype.sh sets to ~/.depoxy/stints/XXXX
+#   but we use ~/.depoxy/ambers so that this creates
+#   ~/.depoxy/ambers/home/.config/tig
 # - The template eval sets DXY_TIG_NEWTONS_PATH (copied here)
 #   and expects DXY_DEPOXYAMBERS_DIR (which we'll supply).
-# - Beware the exit, use (subprocess).
+# - Beware errexit, use (subprocess).
 tigconfig_generate_depoxy_tig_config() {
   local ambers_root="$1"
 
