@@ -1,53 +1,206 @@
-# Here you list all the shortcuts. To reload, turn the extension off and on.
+# ================================================================= #
+# BEG: shortcuts-depoxy
+# ================================================================= #
+
+# USAGE: After editing this file, to recreate and reload the
+# ~/.config/run-or-raise/shortcuts.conf file, run the OMR
+# 'install' task:
 #
+#   mr -d "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/run-or-raise" -n install
+#
+# - SAVVY: The 'install' task combines the two shortcuts sources:
+#
+#     ~/.depoxy/ambers/home/.config/run-or-raise/shortcuts-depoxy
+#     ~/.depoxy/running/home/.config/run-or-raise/shortcuts-client
+#
+#   to create the run-or-raise config file:
+#
+#     ~/.config/run-or-raise/shortcuts.conf
+#
+#   and then toggles the extension so that it reloads the config:
+#
+#     gnome-extensions disable "run-or-raise@edvard.cz" &&
+#      gnome-extensions enable "run-or-raise@edvard.cz"
+
+# ================================================================= #
+
+# REFER: The following comments are adapted from an example
+# config (note that FIVERs are the DepoXy author's thoughts):
+#
+#   https://github.com/CZ-NIC/run-or-raise
+#
+#   https://github.com/CZ-NIC/run-or-raise/blob/main/shortcuts.default
+
 # The shortcuts may be defined in two ways:
 #
 # 1. Run-or-raise form: shortcut,command,[wm_class],[title]
-#        * `wm_class` and `title` are optional and case sensitive
-#        * if none is set, lowercased launch `command` is compared with lowercased windows wm_classes and titles
+#    * `wm_class` and `title` are optional and case sensitive
+#    * if none is set, lowercased launch `command` is compared
+#      with lowercased windows wm_classes and titles
 #
-# 2. Run only form: shortcut,command
+# 2. Run-only form: shortcut,command
 #
+# The full form is: shortcut[ char][:mode],command,[wm_class],[title]
+#    * `char` allows you to use layered shortcuts
+#    * `mode` is used to further specify circumstances
 #
-# In fact, the full form is `shortcut[ char][:mode],command,[wm_class],[title]`
-# while `char` allows you to use layered shortcuts and `mode` to further specify circumstances.
+# - REFER: Find wm_class by using Looking Glass:
+#   Press <Alt-F2>, run 'lg', then click Windows to see list of
+#   open windows and their wm_class IDs.
+#   - X users can use `xprop` instead.
 #
+# - REFER: modes:
+#   https://github.com/CZ-NIC/run-or-raise?tab=readme-ov-file#modes
+#
+#   - One such mode, switch-back-when-focused, will switch
+#     back to the previous window if there's only one app.
+#     window, e.g., consider this binding:
+#       <Shift><Super>f:switch-back-when-focused,firefox,firefox-esr
+#     If there's only one Firefox window and you run this
+#     binding, it'll either switch to the Firefox window,
+#     or it'll switch back to the MRU app's window. But if
+#     there is more than one Firefox window, it'll cycle
+#     through all the Firefox windows.
+#     - UCASE: The best use case for this mode is if you
+#       know that an application will only ever have one
+#       window, and then the binding works like a nice
+#       focus/unfocus control. [Though the author generally
+#       prefers a focus/minimize toggle instead (i.e.,
+#       ~/.depoxy/ambers/bin/windows/toggle-visibility does).]
+#       But if an application might have multiple windows,
+#       I'd suggest not using this mode, because the
+#       behavior is different depending on how many app
+#       windows you've opened (and I personally don't
+#       like the disparity).
+#
+#   - TSHŌT: Use the :verbose mode for a debug-info toast,
+#     e.g.,
+#       <Shift><Super>f:verbose,firefox,firefox-esr
+#     - Though I'm not sure how useful these details will
+#       be (so far, the DepoXy author hasn't needed to use
+#       this mode).
+
 # =================
 # Run or raise form
 # =================
 #
+# This line cycles any firefox window (matched by "firefox" in the
+# window title) OR if not found, launches new firefox instance.
 #
-# This line cycles any firefox window (matched by "firefox" in the window title) OR if not found, launches new firefox instance.
-<Super>f,firefox,,
-# This line cycles any open gnome-terminal (matched by wm_class = Gnome-terminal on Ubuntu 17.10) OR if not found, launches new one.
-# If you're using Arch, you may want to match by wm_class = gnome-terminal-server , just check yourself by Alt+F2/lg/Windows
-<Super>r,gnome-terminal,Gnome-terminal,
-
+# - ILIKE: This is like a nifty app-window Alt-Tabber, albeit it fronts
+#   on every press, unlike GNOME's "Switch windows of an app directly"
+#   (defaults <Alt-F6>, via /org/gnome/desktop/wm/keybindings/cycle-group)
+#   which doesn't change window order while you're previewing windows.
+#
+#  <Super>f,firefox,,
+#
+# This cycles any open gnome-terminal OR if not found, launches new one.
+# - Ubuntu 17.10: wm_class = Gnome-terminal
+# - Debian 13:    wm_class = org.gnome.Terminal
+# - Arch:         wm_class = gnome-terminal-server
+# - REMEM: Use Looking Glass to glean the Window Manager Class,
+#   <Alt+F2> → [Enter] lg → [Click] Windows
+#
+#  <Super>r,gnome-terminal,org.gnome.Terminal
 
 # You may use regular expression in title or wm_class.
 # Just put the regular expression between slashes.
 # E.g. to jump to pidgin conversation window you may use this line
 # (that means any windows of wm_class Pidgin, not containing the title Buddy List)"
-<Super>KP_1,pidgin,Pidgin,/^((?!Buddy List).)*$/
-
+#
+#  <Super>KP_1,pidgin,Pidgin,/^((?!Buddy List).)*$/
 
 # Have the mail always at numpad-click.
-<Super>KP_2,chromium-browser --app=https://mail.google.com/mail/u/0/#inbox,mail.google.com,
-
+#
+#  <Super>KP_2,chromium-browser --app=https://mail.google.com/mail/u/0/#inbox,mail.google.com,
 
 # =============
 # Run only form
 # =============
 #
+# REFER: Run-only is of the form: keybinding-comma-command
+
 # This line will launch the `notify-send` command.
-<Super>y,notify-send Hello world
+#
+#  <Shift><Super>y,notify-send "Salut, tout le monde"
 
-# This layered shortcut will output the text only when you write `hello` after hitting <Super>e.
-<Super>e h e l l o,notify-send Layered hello
+# This layered shortcut works only when you type `hello`
+# after hitting <Super>e.
+#
+#  <Super>a h e l l o,notify-send Layered hello
+#
+# A similar layered shortcut that works when you press
+# <Super-a> followed (quickly) by <Super-r>.
+#
+#  <Super>a <Super>r,notify-send Layered 'Terminal was not launched.'
+#
+# Note you can use the same prefix for multiple bindings, and
+# they won't interfere with one another (though the RoR timeout
+# between inputs is pretty quick, so if you type <Super-a> but
+# pause briefly before <Super-r>, then this command runs, and
+# not the binding above; but if you type <Super-a> <Super-r>
+# quick enough, the previous binding runs, not this one).
+#
+#   <Super>a,gnome-terminal,org.gnome.Terminal
 
-# This layered shortcut will not interfere with the shorcut above that is launching a terminal.
-<Super>e <Super>r,notify-send Layered 'Terminal was not launched.'
+# =================
+# REFER: Add't help
+# =================
 
-# Blank lines are allowed. Line starting with "#" means a comment.
-# Now delete these shortcuts and put here yours.
-# How to know wm_class? Using xprop or the looking glass tool, see README.md
+# TSHŌT: If RoR cannot bind to a specific keybinding, it'll
+# alert you via a popup notification (toast), e.g.:
+#
+#   Unable to grab accelerator: <Control><Super>2
+#
+# The (DepoXy) author has only seen this happen with "hidden"
+# keybindings that GNOME claims for opening the Nth application
+# from the Dock (Dash), specifically the <Cmd-1>..<Cmd-9> and
+# <Shift-Cmd-1>..<Shift-Cmd-9> bindings.
+# - You can disable these bindings by running the following:
+#     for ord in {1..9}; do
+#       dconf write "/org/gnome/shell/keybindings/switch-to-application-${ord}" "@as []"
+#       dconf write "/org/gnome/shell/keybindings/open-new-window-application-${ord}" "@as []"
+#    done
+# - See also an Anisble task the author uses, at the bottom of this file:
+#   https://github.com/landonb/zoidy_matecocido/blob/1.4.0/tasks/keybinding-circus.yml#L236-L243
+
+# ================================================================= #
+# DEPOXY ACCELERATORS
+
+# Cycle Firefox windows (using firefox-esr wm_class), or start Firefox.
+#
+# BNDNG: <Shift-Cmd-F>
+<Shift><Super>f,firefox,firefox-esr
+
+# Use <Shift-Cmd-T> to front Google Chrome.
+# - If Google Chrome is not active, and if one or more
+#   Chrome windows are visible, it'll front the MRU
+#   visible window.
+#   - Otherise, if no Chrome windows are visible,
+#     it'll unminimize one of them.
+# - Once Google Chrome has focus, running this binding
+#   will bring another Chrome window to the front,
+#   which might unminimize a minimized window (and it
+#   won't cycle through visible windows first).
+# - If you don't want to start Chrome if not running,
+#   you could omit the command portion, e.g.:
+#     <Shift><Super>t,,google-chrome
+# - If you run the author's Hammerspoon bindings on
+#   macOS, you'll find it has a similar binding.
+#   - The macOS binding only brings Chrome to the
+#     front; it does not cycle through Chrome windows.
+#   - So this GNOME Shell binding only works the
+#     same if Google Chrome is not already active;
+#     once Chrome is active, the GNOME binding
+#     cycles windows, unlike the macOS binding.
+# - I tried the isolate-workspace mode (which restricts
+#   windows to those on the current workspace), but it
+#   includes minimized windows. E.g.,
+#     <Shift><Super>f:isolate-workspace,firefox,firefox-esr
+#
+# BNDNG: <Shift-Cmd-T>
+<Shift><Super>t,/usr/bin/google-chrome --profile-directory=Default,google-chrome
+
+# ================================================================= #
+# END: shortcuts-depoxy
+# ================================================================= #
