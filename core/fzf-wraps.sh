@@ -36,8 +36,24 @@
 #                               defined by Homefries)
 
 _dxy_wire_aliases_fd_fzf() {
+  # REFER: On macOS: fdp: *filter for drawing undirected graphs*
+  # - I don't use built-in fdp... will anyone care or will I
+  #   ever be future-confused if I claim that command name?
+  # MAYBE/2025-09-16: This query might be costly, or at least
+  # the first time I ran `fdp --help` it took a few seconds.
+  # REFER:
+  #   @macOS $ fdp -V
+  #   fdp - graphviz version 9.0.0 (20230911.1827)
+  local force=false
+  if [ "$(type -t /opt/local/bin/fdp)" = "file" ] \
+    && fdp -V 2>&1 | grep -q -e "^fdp - graphviz" \
+    ; then
+
+    force=true
+  fi
   # Copies picked path from `fd` results.
-  claim_alias_or_warn "fdp" "_dxy_fdfind_clip_path"
+  claim_alias_or_warn "fdp" "_dxy_fdfind_clip_path" ${force}
+
   # Opens picked path from `fd` results (using `fs`).
   claim_alias_or_warn "fdo" "_dxy_fdfind_open_path"
 }
