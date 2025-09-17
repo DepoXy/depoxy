@@ -133,6 +133,13 @@ generate_locatedb() {
 #     indexing encfs paths, and/or storing the database on an encfs path.
 #   - Note that Brew's `gupdatedb` does not have this option.
 generate_locatedb_linux() {
+  # REFER: /usr/bin/plocate /usr/sbin/updatedb.plocate
+  if [ -z "$(command -v plocate)" ]; then
+    >&2 echo "ERROR: No \`plocate\`: Please \`apt install plocate\`"
+
+    exit 1
+  fi
+
   LOCATEDB_PATH="${LOCATEDB_PATH}" \
     updatedb \
     -l 0 \
