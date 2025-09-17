@@ -33,6 +33,7 @@
 # - USAGE/DEBUG: Here's how you might develop this script on macOS:
 #
 __CPYST__USAGE_DEBUG__="
+    # @macOS
     rm ~/Library/Logs/com.tallybark.daily-updatedb/daily-updatedb.err
     launchctl kickstart gui/501/com.tallybark.daily-updatedb
     date &&
