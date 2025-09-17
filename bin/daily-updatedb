@@ -140,10 +140,73 @@ generate_locatedb_linux() {
     exit 1
   fi
 
+  # REFER:
+  # - Debugging: --debug-pruning, --verbose
+  # - Change base dir: -U, --database-root PATH
+  # - Adding vs. replacing:
+  #   --add-prunefs --add-prunenames --add-prunepaths
+  #       --prunefs     --prunenames     --prunepaths
+  #         PRUNEFS       PRUNENAMES       PRUNEPATHS
+  # - --prune-bind-mounts (PRUNE_BIND_MOUNTS)
+  # - If spaces in path, use: --add-single-prunepath
+  # REFER: See defaults:
+  # /etc/updatedb.conf
+  # - Default #PRUNENAMES=".git .bzr .hg .svn"
+  # - Default PRUNEPATHS="/tmp /var/spool /media
+  #   /var/lib/os-prober /var/lib/ceph /home/.ecryptfs
+  #   /var/lib/schroot"
+  # - Default PRUNEFS contains fuse.gocryptfs,
+  #   which I want to not ignore.
+  #   - The --prunefs below is everything from Debian 13
+  #     /etc/updatedb.conf except for fuse.gocryptfs.
+
+  # USYNC: See rg --glob's for sim. rules (found locally w/in DepoXy at):
+  #   ~/.depoxy/ambers/core/fzf-setup.sh
+  #   ~/.kit/sh/home-fries/lib/alias/alias_rg_tag.sh
+  #   ~/.kit/nvim/landonb/dubs_grep_steady/bin/vim-grepprg-rg-sort
+  #   ~/.kit/nvim/landonb/.whilom/dubs_file_finder/plugin/dubs_file_finder.vim
+  #
+  # DUNNO/2025-09-17: I doubt ".venv*" rule works.
+
+  # DEVEL: Add these to see deets:
+  #
+  #  --debug-pruning \
+  #  --verbose \
+  #  \
+
   LOCATEDB_PATH="${LOCATEDB_PATH}" \
     updatedb \
-    -l 0 \
-    -o "${LOCATEDB_PATH}"
+    \
+    --prunefs="
+      NFS afs autofs binfmt_misc ceph cgroup cgroup2 cifs coda configfs curlftpfs
+      debugfs devfs devpts devtmpfs ecryptfs ftpfs fuse.ceph fuse.cryfs fuse.encfs
+      fuse.glusterfs fuse.gvfsd-fuse fuse.mfs fuse.rclone fuse.rozofs fuse.sshfs
+      fusectl fusesmb hugetlbfs iso9660 lustre lustre_lite mfs mqueue ncpfs nfs
+      nfs4 ocfs ocfs2 proc pstore rpc_pipefs securityfs shfs smbfs sysfs tmpfs
+      tracefs udev udf usbfs
+      " \
+    --prunenames="
+      .git .bzr .hg .svn
+      .tox
+      node_modules
+      .crypt
+      site-packages
+      " \
+    \
+    --prunepaths="
+      ${HOME}/.cache
+      ${HOME}/.cargo
+      ${HOME}/.gnupg
+      ${HOME}/.local/state
+      ${HOME}/.password-store
+      ${HOME}/.ssh
+      ${HOME}/.trash
+      ${HOME}/.trash0
+      ${UPDATEDB_PRUNEPATHS}
+      " \
+    \
+    --require-visibility 0 \
+    --output="${LOCATEDB_PATH}"
 }
 
 # HSTRY/2024-07-14: The Brew `updatedb` seems... somewhat *obnoxious*,
