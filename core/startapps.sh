@@ -250,7 +250,12 @@ main() {
   #   startup time... not significant considering the overall time.
   #   We can at least run in the background since it's just `open`
   #   calls.
-  _dxy_run_background_openers &
+  if [ -z "${SSH_CLIENT}" ] && [ -z "${SSH_TTY}" ]; then
+    # Not running over SSH.
+
+    _dxy_run_background_openers &
+  fi
+  # else, Don't run Desktop apps when loaded over SSH.
   unset -f _dxy_run_background_openers
 
   _dxy_source_shell_goodies
