@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_start_background_apps_macos_alttab () {
+_dxy_start_background_apps_macos_alttab() {
   ${DEPOXYAMBERS_AUTO_START_ALTTAB:-true} || return 0
 
   local alttab_app="/Applications/AltTab.app"
@@ -22,7 +22,7 @@ _dxy_start_background_apps_macos_alttab () {
   open "${alttab_app}"
 }
 
-_dxy_start_background_apps_macos_easy_move_plus_resize () {
+_dxy_start_background_apps_macos_easy_move_plus_resize() {
   ${DEPOXYAMBERS_AUTO_START_EASY_MOVE_PLUS_RESIZE:-true} || return 0
 
   local ezmove_app="/Applications/Easy Move+Resize.app"
@@ -37,7 +37,7 @@ _dxy_start_background_apps_macos_easy_move_plus_resize () {
   open "${ezmove_app}"
 }
 
-_dxy_start_background_apps_macos_karabiner_elements () {
+_dxy_start_background_apps_macos_karabiner_elements() {
   ${DEPOXYAMBERS_AUTO_START_KARABINER_ELEMENTS:-true} || return 0
 
   local ke_app="/Applications/Karabiner-Elements.app"
@@ -62,7 +62,7 @@ _dxy_start_background_apps_macos_karabiner_elements () {
   open "${ke_app}"
 }
 
-_dxy_start_background_apps_macos_rectangle () {
+_dxy_start_background_apps_macos_rectangle() {
   ${DEPOXYAMBERS_AUTO_START_RECTANGLE:-true} || return 0
 
   local rectangle_app="/Applications/Rectangle.app"
@@ -85,7 +85,7 @@ _dxy_start_background_apps_macos_rectangle () {
 # terminal session after a reboot (or after earlier quiting Activity Monitor).
 # - Just close the window (click the red (x) in the title bar; or type Cmd-w).
 
-_dxy_start_background_apps_macos_activity_monitor () {
+_dxy_start_background_apps_macos_activity_monitor() {
   local actmon_app="/System/Applications/Utilities/Activity Monitor.app"
 
   [ -d "${actmon_app}" ] || return
@@ -115,7 +115,7 @@ _dxy_start_background_apps_macos_activity_monitor () {
 
 # COPYD: As deposited in ~/.bashrc by `lazyman.sh` install:
 #   https://github.com/doctorfree/nvim-lazyman
-_dxy_source_shell_goodies_nvim_Lazyman () {
+_dxy_source_shell_goodies_nvim_Lazyman() {
   # ISOFF/2025-02-24: Load nvim-Lazyman manually if you care...
 
   # CXREF: nvim-Lazyman installs nvm to its default ~/.nvm location,
@@ -123,8 +123,8 @@ _dxy_source_shell_goodies_nvim_Lazyman () {
   # (see core/nvm-setup.sh).
   if ${HECK_NO:-false}; then
     export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
   fi
 
   # ISOFF/2025-02-24: (lb): This nvim-Lazyvim shell file overwrites some
@@ -201,15 +201,15 @@ _dxy_source_shell_goodies_nvim_Lazyman () {
 #
 # _ZO_RESOLVE_SYMLINKS
 #   - "When set to 1, z will resolve symlinks before adding dirs to the db"
-_dxy_source_shell_goodies_zoxide () {
-  if command -v zoxide >/dev/null; then
+_dxy_source_shell_goodies_zoxide() {
+  if command -v zoxide > /dev/null; then
     eval "$(zoxide init bash)"
   fi
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-_dxy_run_background_openers () {
+_dxy_run_background_openers() {
   # *** "System tray" (Notification area) items
 
   _dxy_start_background_apps_macos_alttab
@@ -230,7 +230,7 @@ _dxy_run_background_openers () {
   unset -f _dxy_start_background_apps_macos_activity_monitor
 }
 
-_dxy_source_shell_goodies () {
+_dxy_source_shell_goodies() {
   _dxy_source_shell_goodies_nvim_Lazyman
   unset -f _dxy_source_shell_goodies_nvim_Lazyman
 
@@ -238,7 +238,7 @@ _dxy_source_shell_goodies () {
   unset -f _dxy_source_shell_goodies_zoxide
 }
 
-main () {
+main() {
   unset -f main
 
   # DUNNO: I'd expect this to print the job ID, e.g.,
@@ -258,4 +258,3 @@ main () {
 }
 
 main "$@"
-
