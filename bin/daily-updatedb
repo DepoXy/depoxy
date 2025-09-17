@@ -351,6 +351,9 @@ generate_locatedb_macos() {
     exit 1
   fi
 
+  # MAYBE/2025-09-17: Does @macOS need PRUNENAMES like GNU/Linux uses:
+  #  --prunenames=".git .bzr .hg .svn"
+
   gupdatedb \
     --localpaths="
       /Applications
