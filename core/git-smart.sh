@@ -39,10 +39,15 @@ _dxy_wire_alias_git_wip_pwip() {
   #     head -1 /usr/bin/pp | grep -q -e perl
   #   But it's expensive to access files on Bash session startup.
   #   - Using command might also be expensive while boot strapping.
-  if [ "$(command -v pp)" = "/usr/bin/pp" ]; then
-    alias pp="git pwip"
-  else
-    claim_alias_or_warn "pp" "git pwip"
+  # ISOFF/2025-09-18: I've forgotten about `pp`.
+  # - `pwip` is more memorable, esp. for command not run often.
+  # - `pp` is too short and too valuable for cmd not run often.
+  if false; then
+    if [ "$(command -v pp)" = "/usr/bin/pp" ]; then
+      alias pp="git pwip"
+    else
+      claim_alias_or_warn "pp" "git pwip"
+    fi
   fi
 }
 
