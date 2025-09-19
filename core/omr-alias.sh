@@ -5,7 +5,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-home_fries_aliases_wire_git () {
+home_fries_aliases_wire_git() {
   # See also functions below: `sf`, `sff`, `st`, `stt`.
 
   # 2022-11-11: I use `g` occassionally (added 2020-03-25, but only
@@ -22,29 +22,29 @@ home_fries_aliases_wire_git () {
   claim_alias_or_warn "g" "_hf_git_print_summary_g"
 }
 
-_hf_git_print_summary_g () {
+_hf_git_print_summary_g() {
   sf
 
   # The '*' marking current branch is redundant: it's also a different color.
-  git_brs_no_star_and_indented () {
+  git_brs_no_star_and_indented() {
     local new_indent="${1:-    }"
 
     git branch --color=always | sed "s/^../${new_indent}/"
   }
 
   # git-re aka `git r`.
-  git_remotes_indented () {
+  git_remotes_indented() {
     local new_indent="$1"
 
     git-re | sed "s/^/${new_indent}/"
   }
 
-  git_latest_commit_message () {
+  git_latest_commit_message() {
     git --no-pager log --format=%s -1 HEAD
   }
 
-  printf "🔀" &&
-    git_brs_no_star_and_indented " " | head -1
+  printf "🔀" \
+    && git_brs_no_star_and_indented " " | head -1
   git_brs_no_star_and_indented "   " | tail +2
 
   printf "📠 " && git_remotes_indented "" | head -1
@@ -92,18 +92,18 @@ _hf_git_print_summary_g () {
 # `sf` alone shows just local repo's fancy report;
 # `sff` alone shows all project fancy report one-liners;
 # `sf <>` or `sff <>` shows fancy report on group <>.
-sf () {
+sf() {
   [ -n "$1" ] && OMR_MYSTATUS_FANCY=true stt "$@" || git my-merge-status
 }
 
-sff () {
+sff() {
   OMR_MYSTATUS_FANCY=true stt "$@"
 }
 
 # `st` alone shows just local repo's fancy report;
 # `stt` alone shows all repos quick tidiness report;
 # `st <>` or `stt <>` shows quick tidiness report on dir <> or group <>.
-st () {
+st() {
   [ -n "$1" ] && OMR_MYSTATUS_FANCY=false stt "$@" || git my-merge-status
 }
 
@@ -117,7 +117,7 @@ st () {
 #   its name) is not exactly like this `stt` alias. It shows a column-aligned
 #   fancy status like the `st` and `sf` reports show (where the spacing might
 #   look a little weird for a single line, when not appearing alongside others).
-stt () {
+stt() {
   local exclusive_or_path="$1"
 
   local exclusive=""
@@ -148,7 +148,7 @@ stt () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-unset_f_alias_ohmyrepos () {
+unset_f_alias_ohmyrepos() {
   unset -f main
   unset -f home_fries_aliases_wire_git
   # So meta.
@@ -157,7 +157,7 @@ unset_f_alias_ohmyrepos () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   home_fries_aliases_wire_git
 
   unset_f_alias_ohmyrepos
@@ -165,4 +165,3 @@ main () {
 
 main "$@"
 unset -f main
-
