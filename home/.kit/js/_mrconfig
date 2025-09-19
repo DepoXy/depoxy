@@ -142,7 +142,7 @@ echoInstallHelp =
       echo "true" || echo "false"
   )
   local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
-  echo "${checkbox} DepoXy: Install latest supported Node versions::
+  echo "${checkbox} DepoXy [${MR_ORDER}]: Install latest supported Node versions::
     mr -d \"${MR_REPO}\" -n installNVMNodes
  "
 isInstalled =

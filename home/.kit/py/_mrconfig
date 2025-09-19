@@ -77,7 +77,7 @@ echoInstallHelp =
       echo "true" || echo "false"
   )
   local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
-  echo "${checkbox} DepoXy: Install \`pipx\` applications::
+  echo "${checkbox} DepoXy [${MR_ORDER}]: Install \`pipx\` applications::
     mr -d \"${MR_REPO}\" -n installPips
  "
 # Check for the executable, and that the shim shebang
@@ -339,7 +339,7 @@ echoInstallHelp =
       echo "true" || echo "false"
   )
   local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
-  echo "${checkbox} DepoXy: Install \`pyenv\` Python versions::
+  echo "${checkbox} DepoXy [${MR_ORDER}]: Install \`pyenv\` Python versions::
     mr -d \"${MR_REPO}\" -n installPythons
  "
 # Similarly:
@@ -734,7 +734,7 @@ echoInstallHelp =
   echoInstallHelp 'os_all' 'dxy_all'
   #
   # ISOFF/2024-04-23: Now part of pyenv 'install':
-  #   echo "🔳 DepoXy: Install \`virtualenvwrapper\` to all Python versions::
+  #   echo "🔳 DepoXy [${MR_ORDER}]: Install \`virtualenvwrapper\` to all Python versions::
   #     mr -d \"${MR_REPO}\" -n installPythons
   #   "
 # CPYST: For more trace, try:
