@@ -69,10 +69,10 @@ include =
   false; then
     if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
       # CXREF: ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-core
-      mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-core
+      mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-core"
     fi
     # CXREF: ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-smart
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-smart
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-smart"
   fi
 
 # ========================================================================
@@ -90,7 +90,7 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/go/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/go/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/go/_mrconfig"
   fi
 
 lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=false
@@ -107,7 +107,7 @@ include =
      [ "${MR_INCLUDE}" = "entrusted" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/js/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/js/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/js/_mrconfig"
   fi
 
 # ========================================================================
@@ -121,10 +121,10 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig"
     if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
       # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig-excess
-      mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig-excess
+      mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig-excess"
     fi
   fi
 
@@ -154,7 +154,7 @@ include =
      \
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/nvim/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/nvim/_mrconfig"
   fi
 
 # ========================================================================
@@ -169,11 +169,11 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/odd/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/_mrconfig"
     # CXREF: ~/.depoxy/ambers/home/.kit/odd/containers/_mrconfig-containers
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/containers/_mrconfig-containers
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/containers/_mrconfig-containers"
     # CXREF: ~/.depoxy/ambers/home/.kit/odd/gnome/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig"
   fi
 
 # ========================================================================
@@ -187,9 +187,9 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/py/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig"
     # CXREF: ~/.depoxy/ambers/home/.kit/py/_mrconfig--meld
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig--meld
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/py/_mrconfig--meld"
   fi
 
 # ========================================================================
@@ -203,7 +203,7 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/rust/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/rust/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/rust/_mrconfig"
   fi
 
 # ========================================================================
@@ -219,10 +219,10 @@ include =
      [ "${MR_INCLUDE}" = "entrusted" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/sh/_mrconfig-bash
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-bash
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-bash"
     if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
       # CXREF: ~/.depoxy/ambers/home/.kit/sh/_mrconfig-shell
-      mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-shell
+      mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-shell"
     fi
   fi
 
@@ -237,7 +237,7 @@ include =
      [ "${MR_INCLUDE}" = "DXC" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/txt/_mrconfig
-    mr_cat ${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/txt/_mrconfig
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/txt/_mrconfig"
   fi
 
 # ========================================================================
