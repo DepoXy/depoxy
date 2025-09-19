@@ -146,11 +146,19 @@ stt() {
   true
 }
 
+# ***
+
+_wf_aliases_wire_omr_gnome() {
+  claim_alias_or_warn "reload-run-or-raise" \
+    'mr -d "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/run-or-raise" -n install'
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 unset_f_alias_ohmyrepos() {
   unset -f main
   unset -f home_fries_aliases_wire_git
+  unset -f _wf_aliases_wire_omr_gnome
   # So meta.
   unset -f unset_f_alias_ohmyrepos
 }
@@ -159,6 +167,8 @@ unset_f_alias_ohmyrepos() {
 
 main() {
   home_fries_aliases_wire_git
+
+  _wf_aliases_wire_omr_gnome
 
   unset_f_alias_ohmyrepos
 }
