@@ -1,6 +1,14 @@
 # ================================================================= #
 # BEG: shortcuts-depoxy
 # ================================================================= #
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2025 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # USAGE: After editing this file, to recreate and reload the
 # ~/.config/run-or-raise/shortcuts.conf file, run the OMR
