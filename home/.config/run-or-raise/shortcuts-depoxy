@@ -209,6 +209,13 @@
 # BNDNG: <Shift-Cmd-T>
 <Shift><Super>t,/usr/bin/google-chrome --profile-directory=Default,google-chrome
 
+# FEATR: Open Firefox window to manage GNOME Shell Extensions.
+# - Opens *GNOME Shell Extensions > Installed Extensions*
+# - CALSO: Compare to GNOME Settings accelerator
+#   at <Shift-Cmd-Alt-comma>.
+# BNDNG: <Shift-Ctrl-Cmd-comma> (<Shift-Ctrl-Cmd-,> <C-D-lt>)
+<Shift><Primary><Super>comma,/usr/bin/firefox --new-window https://extensions.gnome.org/local/
+
 # ================================================================= #
 # END: shortcuts-depoxy
 # ================================================================= #
