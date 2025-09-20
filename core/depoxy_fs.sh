@@ -105,6 +105,11 @@ _dxy_wire_aliases_pushd_paths_depoxy() {
   # Go to ~/.depoxy/ambers/archetype (or ${DEPOXYARCHETYPE_DIR}).
   pushd_alias_or_warn "cxa" "${archetype_path}"
 
+  # `cba` → [C]hange directory to Depo[X]y [b]in/.
+  # - ADDED/2025-09-20: Though doubt I'll really use,
+  #   just seemed like it should be a thing.
+  pushd_alias_or_warn "cxb" "${ambers_root}/bin"
+
   # `cxx` → [C]hange directory to Depo[X]y radi[X] directory.
   #
   # Change to ~/.depoxy (or ${DEPOXYDIR_BASE_FULL}), the DepoXy home directory.
