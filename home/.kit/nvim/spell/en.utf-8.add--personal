@@ -22,6 +22,7 @@ Caja
 CalDAV
 Calibri
 CamelCase
+Cantarell
 Carlito
 CentOS
 Chakram
@@ -135,10 +136,12 @@ blocklisted
 blocklisting
 builtins
 cd'd
+cmd
 cmdline
 columnarly
 conf
 ctags
+deb822
 dedents
 dep
 depoxy
@@ -167,8 +170,11 @@ firmlinks
 fixup
 foregrounder
 frontmost
+funcs
 geeklet
 geeklets
+genAI
+genai
 gitconfig
 gitignore
 globbing
@@ -247,6 +253,8 @@ txns
 txt
 ungroup
 uppercasing
+vals
+var's
 venv
 venv's
 venvs
