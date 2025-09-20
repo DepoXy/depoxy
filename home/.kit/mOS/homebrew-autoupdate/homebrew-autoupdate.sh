@@ -113,7 +113,7 @@ dxy_homebrew_autoupdate() {
     local rerun_hint=""
     if [ ${retcode} -ne 0 ]; then
       what_failed="${what_failed}
-<li>\`<tt class=\"mono\">mr</tt>\` failed!! (exit: ${retcode})</li>"
+<li>\`<tt class=\"mono\">infuse</tt>\` failed!! (exit: ${retcode})</li>"
     fi
     if [ ${update_status} -ne 0 ]; then
       what_failed="${what_failed}
