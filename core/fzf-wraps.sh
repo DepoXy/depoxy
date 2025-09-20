@@ -65,6 +65,13 @@ _dxy_wire_aliases_st_fzf() {
   claim_alias_or_warn "sto" "_dxy_git_status_open_path"
 }
 
+_dxy_wire_aliases_ad_fzf() {
+  # If no args, `add`, will git-add picked path(s) from
+  # `git status` results, or if one path, auto-add. If
+  # args specified, skips FZF and passes args to git-add.
+  claim_alias_or_warn "add" "_dxy_git_status_git_add_path"
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # CXREF: See `fd` commands in Homefries:
@@ -175,6 +182,8 @@ _dxy_git_status_open_path() {
 # SAMEZ: Similar to _dxy_fd_prompt_paths (above).
 _dxy_git_status_prompt_paths() {
   local path_filter="${1:-tilde_for_home}"
+  local extra_fzf_args="$2"
+
   if ! _wf_fzf_command > /dev/null; then
 
     return 1
@@ -201,14 +210,41 @@ _dxy_git_status_prompt_paths() {
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
     echo "${paths}"
   else
-    echo "${paths}" | _wf_fzf
+    echo "${paths}" | _wf_fzf "${extra_fzf_args}"
   fi
 }
 
 _dxy_git_status_prompt_paths_single() {
   local path_filter="tilde_for_home"
+  local extra_fzf_args=""
+
   _dxy_git_status_prompt_paths "${path_filter}" "${extra_fzf_args}" \
     | tr -d "\n"
+}
+
+_dxy_git_status_prompt_paths_multi() {
+  local path_filter="cat"
+  local extra_fzf_args="--multi"
+
+  _dxy_git_status_prompt_paths "${path_filter}" "${extra_fzf_args}"
+}
+
+# ***
+
+# UCASE: Author normally git-add's with tig,
+# except when I'm resolving rebase conflicts.
+
+_dxy_git_status_git_add_path() {
+  if test -z "$(git status --porcelain=v1)"; then
+
+    return 0
+  fi
+
+  if test $# -eq 0; then
+    _dxy_git_status_prompt_paths_multi | xargs git add --
+  else
+    git add "$@"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -259,11 +295,13 @@ _wf_fzf_command() {
 #       easy for user to tailor `fzf` to their tastes)).
 
 _wf_fzf() {
+  local extra_fzf_args="$1"
+
   if [ "${HOMEFRIES_FZF:-fzf}" = "fzf" ]; then
     # Rather than use a full-screen overlay, put
     # picker below cursor, and use just enough
     # rows to show all choices.
-    fzf --height=~100% --info=hidden --no-separator --layout=reverse
+    fzf --height=~100% --info=hidden --no-separator --layout=reverse ${extra_fzf_args}
   elif [ "${HOMEFRIES_FZF:-fzy}" = "fzy" ]; then
     fzy
   fi
@@ -281,6 +319,9 @@ main() {
 
   _dxy_wire_aliases_st_fzf
   unset -f _dxy_wire_aliases_st_fzf
+
+  _dxy_wire_aliases_ad_fzf
+  unset -f _dxy_wire_aliases_ad_fzf
 }
 
 main "$@"
