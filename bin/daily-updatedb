@@ -123,6 +123,35 @@ generate_locatedb() {
   fi
 }
 
+generate_locatedb_linux() {
+  # REFER: /usr/bin/plocate /usr/sbin/updatedb.plocate
+  if [ -z "$(command -v plocate)" ]; then
+    >&2 echo "ERROR: No \`plocate\`: Please \`apt install plocate\`"
+
+    exit 1
+  fi
+
+  # KLUGY: If /etc/updatedb.conf contains path(s) to /user/home,
+  # use it for settings. Otherwise we'll use --args for setting
+  # behavior. (The author suggests the latter; I just happen to
+  # have an old host that uses the former.)
+  if cat /etc/updatedb.conf | grep -q -e "\(^\| \)${HOME}"; then
+    # Configure `locatedb` via /etc/updatedb.conf.
+    generate_locatedb_linux_conf
+  else
+    # Configure `locatedb` via CLI args.
+    generate_locatedb_linux_args
+  fi
+}
+
+# Build plocate database per /etc/updatedb.conf settings.
+generate_locatedb_linux_conf() {
+  LOCATEDB_PATH="${LOCATEDB_PATH}" \
+    updatedb \
+    -l 0 \
+    -o "${LOCATEDB_PATH}"
+}
+
 # HSTRY/2024-07-14: I don't quite remember why I added `-l 0`...
 # - It was added 2019-04-11 when this script was in a private repo.
 # - `-l 0`: "outputs the database entries even if the user running
@@ -132,14 +161,7 @@ generate_locatedb() {
 #   - Git commit messages from 2019 suggest `-l 0` is related to either
 #     indexing encfs paths, and/or storing the database on an encfs path.
 #   - Note that Brew's `gupdatedb` does not have this option.
-generate_locatedb_linux() {
-  # REFER: /usr/bin/plocate /usr/sbin/updatedb.plocate
-  if [ -z "$(command -v plocate)" ]; then
-    >&2 echo "ERROR: No \`plocate\`: Please \`apt install plocate\`"
-
-    exit 1
-  fi
-
+generate_locatedb_linux_args() {
   # REFER:
   # - Debugging: --debug-pruning, --verbose
   # - Change base dir: -U, --database-root PATH
