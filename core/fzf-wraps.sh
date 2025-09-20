@@ -142,7 +142,7 @@ _dxy_git_status_clip_path() {
   fi
 
   local path
-  path="$(_dxy_git_status_prompt_paths)"
+  path="$(_dxy_git_status_prompt_paths_single)"
 
   if test -n "${path}"; then
     printf "%s" "${path}" | _hf_clip
@@ -158,7 +158,7 @@ _dxy_git_status_open_path() {
   fi
 
   local path
-  path="$(_dxy_git_status_prompt_paths)"
+  path="$(_dxy_git_status_prompt_paths_single)"
 
   if test -n "${path}"; then
     # INERT: Should this fcn. also copy the path?
@@ -194,10 +194,16 @@ _dxy_git_status_prompt_paths() {
   )"
 
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
-    echo "${paths}" | tr -d "\n"
+    echo "${paths}"
   else
-    echo "${paths}" | _wf_fzf | tr -d "\n"
+    echo "${paths}" | _wf_fzf
   fi
+}
+
+_dxy_git_status_prompt_paths_single() {
+  local path_filter="tilde_for_home"
+  _dxy_git_status_prompt_paths "${path_filter}" "${extra_fzf_args}" \
+    | tr -d "\n"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
