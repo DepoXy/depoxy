@@ -124,9 +124,12 @@ generate_locatedb() {
 }
 
 generate_locatedb_linux() {
-  # REFER: /usr/bin/plocate /usr/sbin/updatedb.plocate
-  if [ -z "$(command -v plocate)" ]; then
-    >&2 echo "ERROR: No \`plocate\`: Please \`apt install plocate\`"
+  # REFER: /usr/bin/plocate
+  #        /usr/bin/updatedb
+  #        /usr/sbin/updatedb.plocate
+  # - SAVVY: plocate replaced mlocate.
+  if [ -z "$(command -v plocate)" ] && [ -z "$(command -v mlocate)" ]; then
+    >&2 echo "ERROR: Missing \`plocate\` (or \`mlocate\`): Please \`apt install plocate\`"
 
     exit 1
   fi
