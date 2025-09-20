@@ -174,6 +174,7 @@ _dxy_git_status_open_path() {
 
 # SAMEZ: Similar to _dxy_fd_prompt_paths (above).
 _dxy_git_status_prompt_paths() {
+  local path_filter="${1:-tilde_for_home}"
   if ! _wf_fzf_command > /dev/null; then
 
     return 1
@@ -185,7 +186,12 @@ _dxy_git_status_prompt_paths() {
   fi
 
   local paths
-  paths="$(git status --porcelain=v1 | cut -c3- | xargs realpath | tilde_for_home)"
+  paths="$(
+    git status --porcelain=v1 \
+      | cut -c3- \
+      | xargs realpath \
+      | ${path_filter}
+  )"
 
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
     echo "${paths}" | tr -d "\n"
