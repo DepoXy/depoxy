@@ -20,10 +20,10 @@ source_deps() {
 # On Wayland, calls third-party plugin over gdbus.
 
 minimize_focused() {
-  local win_focused
+  local window_id
   # E.g., '65012405'
-  if win_focused="$(get_focused_window_id "${de_name}")"; then
-    minimize_window "${de_name}" "${win_focused}"
+  if window_id="$(get_focused_window_id "${de_name}")"; then
+    minimize_window "${de_name}" "${window_id}"
   fi
 }
 
