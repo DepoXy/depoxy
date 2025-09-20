@@ -97,7 +97,7 @@
 #   - CPYST: Find the running process:
 #       ps aux | grep infuse
 
-dxy_homebrew_autoupdate () {
+dxy_homebrew_autoupdate() {
   local core_logs="$1"
   local core_name="$2"
   local update_status="$3"
@@ -105,8 +105,8 @@ dxy_homebrew_autoupdate () {
   retcode=0
   OHMYREPOS_LIB="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}" \
     MR_LOG_LEVEL=30 \
-      mr -d / --quiet --stats infuse \
-    || retcode=$?
+    mr -d / --quiet --stats infuse ||
+    retcode=$?
 
   if [ ${retcode} -ne 0 ] || [ ${update_status} -ne 0 ]; then
     local what_failed=""
@@ -131,7 +131,7 @@ dxy_homebrew_autoupdate () {
     #   log_out = "#{Autoupdate::Core.logs}/#{Autoupdate::Core.name}.out"
     AUTOUPDATE_LOG="${core_logs}/${core_name}.out"
     sendmail -oi "${SEND_EMAIL_TO}" \
-<<EOF
+      <<EOF
 From: ${SEND_EMAIL_FROM}
 To: ${SEND_EMAIL_TO_FRIENDLY}
 Subject: ${subject}
@@ -159,9 +159,8 @@ EOF
   fi
 }
 
-main () {
+main() {
   dxy_homebrew_autoupdate "$@"
 }
 
 main "$@"
-
