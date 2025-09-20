@@ -12,7 +12,7 @@
 #   - The base directory name (defaults ~/.depoxy); and
 #   - The directories therein (defaults ambers, stints).
 
-_vendorfs_define_environs () {
+_vendorfs_define_environs() {
   # OPSEC: Is this a security risk we should care about,
   #        just blindly sourcing a file from user home?
   #        - I suppose this whole project is a secrisk.
@@ -89,7 +89,7 @@ _vendorfs_define_environs () {
 # (rather than use the 'D' in 'DepoXy' and collide with, ahem, `cd`).
 # - Note, too, that the `cx` and 'cdx` names and prefixes are unused
 #   in stock Ubuntu. So we have free reign of cx* and cdx* namespace.
-_dxy_wire_aliases_pushd_paths_depoxy () {
+_dxy_wire_aliases_pushd_paths_depoxy() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
@@ -118,7 +118,7 @@ _dxy_wire_aliases_pushd_paths_depoxy () {
     "${DEPOXYDIR_RUNNING_FULL:-${HOME}/.depoxy/${DEPOXYDIR_RUNNING_NAME:-running}}"
 }
 
-_dxy_wire_aliases_pushd_paths_client () {
+_dxy_wire_aliases_pushd_paths_client() {
   # `cxc` → [C]hange directory to Depo[X]y [C]lient alias.
   #
   # We'll use two aliases and two different implementations for changing
@@ -126,8 +126,8 @@ _dxy_wire_aliases_pushd_paths_client () {
   # - This simple approach is nice in that it won't be wired if the
   #   DEPOXY_CLIENT_ID isn't set, which would be odd, and something
   #   the user would want to know about.
-  [ -n "${DEPOXY_CLIENT_ID}" ] &&
-    pushd_alias_or_warn "cxc" \
+  [ -n "${DEPOXY_CLIENT_ID}" ] \
+    && pushd_alias_or_warn "cxc" \
       "${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}/${DEPOXY_CLIENT_ID}"
   #
   # This more robust approach can try to suss out the DepoXy Client path
@@ -164,7 +164,7 @@ _dxy_wire_aliases_pushd_paths_client () {
 #
 # - E.g., cd ~/.depoxy/stints
 
-_vendorfs_path_stints_basedir_pushd () {
+_vendorfs_path_stints_basedir_pushd() {
   local stints_basedir
   stints_basedir="$(_vendorfs_path_stints_basedir_print)"
 
@@ -182,7 +182,7 @@ _vendorfs_path_stints_basedir_pushd () {
 
 # Prints the path to said directory.
 
-_vendorfs_path_stints_basedir_print () {
+_vendorfs_path_stints_basedir_print() {
   #_vendorfs_define_environs
 
   printf %s "${DEPOXYDIR_STINTS_FULL}"
@@ -194,14 +194,14 @@ _vendorfs_path_stints_basedir_print () {
 #
 # - E.g., ~/.depoxy/stints/XXXX
 
-_vendorfs_path_running_client_pushd () {
+_vendorfs_path_running_client_pushd() {
   local running_client
   running_client="$(_vendorfs_path_running_client_print)" || return 1
 
   if [ ! -d "${running_client}" ]; then
     ${_VENDORFS_WARN_ON_ERROR:-true} && (
-      >&2 echo "ERROR: Please remount the DepoXy Client repo to “${running_client}”" &&
-      >&2 echo "(and/or set \$DEPOXYDIR_STINTS_FULL and \$DEPOXY_CLIENT_ID appropriately)."
+      >&2 echo "ERROR: Please remount the DepoXy Client repo to “${running_client}”" \
+        && >&2 echo "(and/or set \$DEPOXYDIR_STINTS_FULL and \$DEPOXY_CLIENT_ID appropriately)."
     )
 
     return 1
@@ -212,7 +212,7 @@ _vendorfs_path_running_client_pushd () {
 
 # Prints the path to said directory.
 
-_vendorfs_path_running_client_print () {
+_vendorfs_path_running_client_print() {
   #_vendorfs_define_environs
 
   # Determine the current client name.
@@ -245,7 +245,7 @@ _vendorfs_path_running_client_print () {
 #
 # Read contents of DEPOXYDIR_STINTS_FULL and print the highest numbered directory name.
 
-_vendorfs_resolve_client_name_underway () {
+_vendorfs_resolve_client_name_underway() {
   if [ -n "${DEPOXY_CLIENT_ID}" ]; then
     # Allows user to override/be explicit about active vendor.
     _vendorfs_current_client_verify_environ_and_print
@@ -255,7 +255,7 @@ _vendorfs_resolve_client_name_underway () {
   fi
 }
 
-_vendorfs_current_client_verify_environ_and_print () {
+_vendorfs_current_client_verify_environ_and_print() {
   local running_client="${DEPOXYDIR_STINTS_FULL}/${DEPOXY_CLIENT_ID}"
 
   if ! _vendorfs_must_verify_client_path_exists_and_nonempty "${running_client}"; then
@@ -271,7 +271,7 @@ _vendorfs_current_client_verify_environ_and_print () {
   echo "${DEPOXY_CLIENT_ID}"
 }
 
-_vendorfs_must_verify_client_path_exists_and_nonempty () {
+_vendorfs_must_verify_client_path_exists_and_nonempty() {
   local running_client="$1"
 
   if [ ! -d "${running_client}" ] || [ -z "$(ls -A "${running_client}")" ]; then
@@ -291,7 +291,7 @@ _vendorfs_must_verify_client_path_exists_and_nonempty () {
 # (underway) client. If this doesn't work for you, use DEPOXY_CLIENT_ID.
 # - So this find matches directories named with numbers only, found in
 #   the clients basedir, and it picks the one with the largest number.
-_vendorfs_current_client_find_directory_and_print () {
+_vendorfs_current_client_find_directory_and_print() {
   #_vendorfs_define_environs
 
   if [ ! -d "${DEPOXYDIR_STINTS_FULL}" ]; then
@@ -343,14 +343,14 @@ _vendorfs_current_client_find_directory_and_print () {
 # Do a kindness (or is this assuming too much?) and
 # put the client bin/ at the front of PATH.
 
-_dxy_wire_client_bin_to_path_if_client_host () {
+_dxy_wire_client_bin_to_path_if_client_host() {
   # This function is run when being sourced by the shell, so generally
   # it'll prefer path_prefix from the user's session. But if the user
   # is standing up their machine, they might be using OMR to fetch
   # projects (other than myrepos and OMR itself, and core DepoXy).
   # So still prefer path_prefix, but offer simple substitution.
   if ! type path_prefix > /dev/null 2>&1; then
-    path_prefix () {
+    path_prefix() {
       PATH="$1:${PATH}"
       export PATH
     }
@@ -373,7 +373,7 @@ _dxy_wire_client_bin_to_path_if_client_host () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_vendorfs_host_is_depoxy_client_id () {
+_vendorfs_host_is_depoxy_client_id() {
   # Verify the running_client directory exists, or print an error.
   _vendorfs_path_running_client_pushd || return 1
 
@@ -387,15 +387,15 @@ _vendorfs_host_is_depoxy_client_id () {
   local hostnames_path="${running_client}/${DEPOXY_HOSTNAMES_NAME}"
 
   if [ ! -f "${hostnames_path}" ]; then
-    ${_VENDORFS_WARN_ON_ERROR:-false} &&
-      _vendorfs_host_is_client_warn_no_file "${hostnames_path}"
+    ${_VENDORFS_WARN_ON_ERROR:-false} \
+      && _vendorfs_host_is_client_warn_no_file "${hostnames_path}"
 
     return 1
   fi
 
   if ! grep -e "^$(hostname)\$" -q "${hostnames_path}"; then
-    ${_VENDORFS_WARN_ON_ERROR:-false} &&
-      _vendorfs_host_is_client_warn_no_auth "${hostnames_path}"
+    ${_VENDORFS_WARN_ON_ERROR:-false} \
+      && _vendorfs_host_is_client_warn_no_auth "${hostnames_path}"
 
     return 1
   fi
@@ -405,11 +405,11 @@ _vendorfs_host_is_depoxy_client_id () {
   echo "${running_client}"
 }
 
-_vendorfs_host_is_depoxy_client_id_or_warn () {
+_vendorfs_host_is_depoxy_client_id_or_warn() {
   _VENDORFS_WARN_ON_ERROR=true _vendorfs_host_is_depoxy_client_id
 }
 
-_vendorfs_host_is_client_warn_no_file () {
+_vendorfs_host_is_client_warn_no_file() {
   >&2 echo 'ERROR: Missing hostnames file!'
   >&2 echo
   >&2 echo "       Nothing found at: “${1}”"
@@ -422,7 +422,7 @@ _vendorfs_host_is_client_warn_no_file () {
   >&2 echo "               echo \"\$(hostname)\" >> \"${1}\""
 }
 
-_vendorfs_host_is_client_warn_no_auth () {
+_vendorfs_host_is_client_warn_no_auth() {
   >&2 echo 'ERROR: Unauthorized machine!'
   >&2 echo
   >&2 echo '       This script is not allowed to run on this machine.'
@@ -435,7 +435,7 @@ _vendorfs_host_is_client_warn_no_auth () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_load_depoxy_fs () {
+_dxy_load_depoxy_fs() {
   if ${HOME_FRIES_PRELOAD:-true}; then
     _vendorfs_define_environs
     # Leave _vendorfs_define_environs defined.
@@ -459,11 +459,10 @@ _dxy_load_depoxy_fs () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_load_depoxy_fs
   unset -f _dxy_load_depoxy_fs
 }
 
 main "$@"
 unset -f main
-
