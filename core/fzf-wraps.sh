@@ -185,9 +185,14 @@ _dxy_git_status_prompt_paths() {
     return 0
   fi
 
+  # Return files changed in working tree,
+  # but ignore index (staged) changes.
+  local filter="^ [^ ]"
+
   local paths
   paths="$(
     git status --porcelain=v1 \
+      | grep -e "${filter}" \
       | cut -c3- \
       | xargs realpath \
       | ${path_filter}
