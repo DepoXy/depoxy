@@ -54,6 +54,8 @@ installDarwin =
 #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/my-deps-manage-shoilerplate.sh
 infuse = mr -d . -n infusePostRebase
 infusePostRebase = link_hard_dep_sh_err_trap
+# REFER:
+#   update_deps_sh_err_trap
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================

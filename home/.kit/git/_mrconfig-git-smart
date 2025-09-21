@@ -23,6 +23,8 @@ infusePostRebase =
 #   ~/.depoxy/ambers/home/infuse-user-home
 infuse =
   mr -d . -n infusePostRebase
+# REFER:
+#   update_deps_sh_git_nubs
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================
@@ -61,6 +63,10 @@ infusePostRebase =
   link_hard_dep_sh_git_nubs
 infuse =
   mr -d . -n infusePostRebase
+# REFER:
+#   update_deps_sh_ask_yesnoskip
+#   update_deps_sh_err_trap
+#   update_deps_sh_git_nubs
 updateDeps = update_deps_shoilerplate
 
 # GH Slugln.:
@@ -76,6 +82,8 @@ infuse =
   link_private_exclude "$@"
   #
   symlink_mrinfuse_file 'bin/.my-merge-status-nochores'
+# REFER:
+#   update_deps_sh_git_nubs
 updateDeps = update_deps_shoilerplate
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled =
@@ -130,6 +138,11 @@ infuse =
   # Not so much a "convenience" symlink as a reminder it exists.
   local ambers_root="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
   symlink_overlay_file "${ambers_root}/core/putwisely.sh" "${MR_REPO}/bin/putwisely.sh"
+# REFER:
+#   update_deps_git_smart_git_abort
+#   update_deps_sh_err_trap
+#   update_deps_sh_git_nubs
+#   update_deps_sh_logger
 updateDeps = update_deps_shoilerplate
 
 # SLUGL: "Esoteric fork management"
@@ -141,6 +154,8 @@ infusePostRebase =
   link_hard_dep_sh_logger_and_colors
 infuse =
   mr -d . -n infusePostRebase
+# REFER:
+#   update_deps_sh_git_nubs
 updateDeps = update_deps_shoilerplate
 
 # Brilliantly-hacky cross-project same-filesystem dependency-maintainer.
@@ -155,6 +170,8 @@ infuse =
   mr -d . -n infusePostRebase
   #
   link_private_exclude "$@"
+# REFER:
+#   update_deps_sh_logger
 updateDeps = update_deps_shoilerplate
 
 # Interactive Git patch injector.
@@ -180,6 +197,9 @@ infusePostRebase =
   link_hard_dep_sh_logger
 infuse =
   mr -d . -n infusePostRebase
+# REFER:
+#   update_deps_sh_colors
+#   update_deps_sh_logger
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================
@@ -195,6 +215,8 @@ infusePostRebase =
 infuse =
   mr -d . -n infusePostRebase
   ln -sfn "${MR_REPO}" "${XDG_CONFIG_HOME:-${HOME}/.config}/tig-newtons"
+# REFER:
+#   update_deps_git_smart_git_fup
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================

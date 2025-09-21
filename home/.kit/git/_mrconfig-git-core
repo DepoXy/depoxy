@@ -478,6 +478,10 @@ infuse =
   #
   # FIXME/2023-01-15: Missing infuse task for open patch:
   #   ohmyrepos/lib/js-npm-patch-opn-sensible-open
+# REFER:
+#   update_deps_sh_err_trap
+#   update_deps_sh_logger
+#   update_deps_sh_print_nanos_now
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================

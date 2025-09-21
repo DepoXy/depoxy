@@ -79,6 +79,11 @@ infusePostRebase =
   link_hard_dep_sh_err_trap
   link_hard_dep_sh_logger_and_colors
   link_hard_dep_sh_print_nanos_now
+# REFER:
+#   update_deps_macOS_disktools
+#   update_deps_sh_err_trap
+#   update_deps_sh_logger
+#   update_deps_sh_print_nanos_now
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================

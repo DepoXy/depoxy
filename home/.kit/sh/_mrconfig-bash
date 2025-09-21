@@ -60,6 +60,7 @@ skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
 infuse = mr -d . -n infusePostRebase
+# REFER: update_deps_sh_colors
 updateDeps = update_deps_shoilerplate
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
@@ -81,6 +82,7 @@ skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
 infuse = mr -d . -n infusePostRebase
+# REFER: update_deps_sh_colors
 updateDeps = update_deps_shoilerplate
 
 # ========================================================================
