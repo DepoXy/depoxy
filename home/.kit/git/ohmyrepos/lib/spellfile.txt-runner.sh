@@ -29,6 +29,9 @@ commit_sorted_spells_and_alert_if_conflicts() {
   #   local homeish_path="${MR_REPO}/home"
   # But now it finds nvim/spells under home/.kit/:
   #   E.g., ~/.depoxy/ambers/home/.kit, or ~/.depoxy/running/home/.kit
+  # (which follows DepoXy convention to keep (almost) all
+  #  projects under ~/.kit, and their infused files under
+  #  DXY/home/.kit or DXC/home/.kit).
   local homeish_path="${MR_REPO}/home/.kit"
 
   # Assumes ~/.depoxy/ambers/bin/spells.sh on PATH. Should be.
