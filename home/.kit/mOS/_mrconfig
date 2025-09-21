@@ -196,8 +196,7 @@ isInstalled =
     | grep -q -e "^Autoupdate is installed and running.$"
 # FIXME/2025-02-15: Test 'install' on Debian.
 install =
-  # OMR/lib already on PATH, but explicit is descriptive.
-  # - CXREF: ~/.kit/git/ohmyrepos/lib/print-homebrew-prefix.sh
+  # This lib is on-demand.
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/print-homebrew-prefix.sh"
   local inject_path
   # Side-effect: Triggers errexit if print_homebrew_prefix cannot suss.

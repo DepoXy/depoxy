@@ -644,6 +644,8 @@ main() {
   local ambers_dir="${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}"
   infuser_prepare "${ambers_dir}" "$@"
 
+  # Note the (subshell) inhibits errexit, so the code below,
+  # including the called funcs., need to explicitly check $?.
   local retcode=0
   (
     cd "${MR_REPO}"
