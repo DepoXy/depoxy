@@ -34,9 +34,12 @@ Cython
 DBeaver
 DXY # aka "DepoXy Ambers"
 Datadog
+DeepSeek
+DejaVu
 DepoXy's
 DisplayPort
 Dockerfile
+EOL
 EditorConfig
 Esc
 FaceTime
@@ -55,6 +58,7 @@ GPLv3
 GVim
 GeoParquet
 GeoServer
+Gi
 GraphQL
 HSTRY
 Hammerspoon
@@ -79,6 +83,8 @@ LazyVim's
 LocalLeader
 Lua
 Luc
+M2
+MLOps
 MacDown
 MacPorts
 MacVim
@@ -89,9 +95,11 @@ MongoDB
 Monokle
 Moonlander
 NERDCommenter
+NVMe
 Neovide
 Neovide's
 Neovim
+NotebookLM
 Nvidia
 OpenTelemetry
 OpenWeather
@@ -109,6 +117,7 @@ RubyGems
 S3
 SSHd
 SSHing
+SageMaker
 Squoosh
 StubHub
 TextEdit
@@ -124,6 +133,7 @@ Visualping
 WRKLG
 Webex
 a11y
+ai
 allowlisted
 allowlisting
 arg
@@ -170,6 +180,7 @@ firmlinks
 fixup
 foregrounder
 frontmost
+fses
 funcs
 geeklet
 geeklets
@@ -190,6 +201,7 @@ inputrc
 io
 iterm
 jq
+json
 k9s
 keycode
 kubeadm
@@ -211,6 +223,7 @@ mrconfig
 mrconfigs
 mrtrust
 msg
+mturk
 myrepos
 nav
 neovim
@@ -235,7 +248,9 @@ pyproject
 pytest
 python3
 readmes
+regexes
 repo's
+rm'd
 rsync
 rsynced
 sed
