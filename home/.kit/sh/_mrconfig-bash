@@ -48,6 +48,10 @@ skip = mr_exclusive "!entrusted"
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt]
 lib = remote_set publish https://github.com/DepoXy/sh-humble-prompt.git
 skip = mr_exclusive "!aci" "!entrusted"
+infuse = mr -d . -n infusePostRebase
+infusePostRebase = link_hard_dep_gnome_window_calls
+# REFER: update_deps_gnome_window_calls
+updateDeps = update_deps_shoilerplate
 
 # CXREF: link_hard_dep_sh_logger
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
@@ -118,6 +122,16 @@ install =
   symlink_overlay_file \
     "${MR_REPO}/bin/nvim-open-kindness" \
     "${HOME}/.local/bin/nvim-open-kindness"
+infuse = mr -d . -n infusePostRebase
+infusePostRebase = link_hard_dep_gnome_window_calls
+# REFER: update_deps_gnome_window_calls
+updateDeps = update_deps_shoilerplate
+
+# ***
+
+# https://github.com/DepoXy/gnome-window-calls#🪟
+[${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls]
+lib = remote_set publish https://github.com/DepoXy/gnome-window-calls.git
 
 # ========================================================================
 # ------------------------------------------------------------------------

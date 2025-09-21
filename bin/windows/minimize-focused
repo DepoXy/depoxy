@@ -10,12 +10,18 @@
 
 source_deps() {
   # Load:
+  #   check_deps_raise_lower
   #   get_focused_window_id
   #   _humb_probe_desktop_environment
   #   minimize_window
   # Aka: (Convience) Symlinked from:
   #   ~/.depoxy/ambers/bin/windows/toggle-visibility
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness/bin/raise-lower-desktop-window"
+
+  # Load: check_deps_gnome_extension_window_calls
+  # - CXREF: Canon at:
+  #   ~/.kit/sh/gnome-window-calls/lib/gnome-window-calls.sh
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness/deps/gnome-window-calls/lib/gnome-window-calls.sh"
 }
 
 # ***
@@ -40,7 +46,7 @@ main() {
   local de_name
   de_name="$(_humb_probe_desktop_environment)"
 
-  if ! check_deps; then
+  if ! check_deps_raise_lower; then
 
     return 1
   fi

@@ -86,6 +86,18 @@ update_deps_shoilerplate() {
     update_faithful_finish_signed
   }
 
+  update_deps_gnome_window_calls() {
+    [ -d "deps/gnome-window-calls" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls"
+
+    update_faithful_file \
+      "deps/gnome-window-calls/lib/gnome-window-calls.sh" \
+      "lib/gnome-window-calls.sh"
+
+    update_faithful_finish_signed
+  }
+
   update_deps_macOS_disktools() {
     [ -d "deps/macOS-disktools" ] || return 0
 
@@ -166,6 +178,11 @@ update_deps_shoilerplate() {
     update_faithful_file \
       "deps/sh-humble-prompt/lib/window-title--fancy-cwd-path" \
       "lib/window-title--fancy-cwd-path"
+
+    # Akin to: update_deps_gnome_window_calls
+    update_faithful_file \
+      "deps/sh-humble-prompt/deps/gnome-window-calls/lib/gnome-window-calls.sh" \
+      "deps/gnome-window-calls/lib/gnome-window-calls.sh"
 
     update_faithful_finish_signed
   }
@@ -252,6 +269,7 @@ update_deps_shoilerplate() {
   update_deps_git_smart_git_abort
   update_deps_git_smart_git_fup
   update_deps_git_update_faithful
+  update_deps_gnome_window_calls
   update_deps_macOS_disktools
   update_deps_sh_ask_yesnoskip
   update_deps_sh_colors
@@ -281,6 +299,11 @@ link_hard_dep_git_smart_git_fup() {
 link_hard_dep_git_update_faithful() {
   link_hard "${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-update-faithful/lib/update-faithful.sh" \
     "deps/git-update-faithful/lib/update-faithful.sh"
+}
+
+link_hard_dep_gnome_window_calls() {
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls/lib/gnome-window-calls.sh" \
+    "deps/gnome-window-calls/lib/gnome-window-calls.sh"
 }
 
 link_hard_dep_macOS_disktools() {
@@ -319,6 +342,10 @@ link_hard_dep_sh_humble_prompt() {
     "deps/sh-humble-prompt/lib/window-title--alacritty-number.osa"
   link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt/lib/window-title--fancy-cwd-path" \
     "deps/sh-humble-prompt/lib/window-title--fancy-cwd-path"
+
+  # Akin to: link_hard_dep_gnome_window_calls
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls/lib/gnome-window-calls.sh" \
+    "deps/sh-humble-prompt/deps/gnome-window-calls/lib/gnome-window-calls.sh"
 }
 
 link_hard_dep_sh_logger() {
