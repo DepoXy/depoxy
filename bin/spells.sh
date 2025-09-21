@@ -8,11 +8,11 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # Load: logger.sh, and colors.sh, for link_deep.
   # CXREF: ~/.kit/sh/sh-logger/bin/logger.sh
   . "${SHOILERPLATE:-${DOPP_KIT:-${HOME}/.kit}/sh}/sh-logger/bin/logger.sh"
-  
+
   # Load: _vendorfs_path_running_client_print.
   # - CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
@@ -21,7 +21,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-init_spellssh () {
+init_spellssh() {
   # CXREF: ~/.kit/txt/spellfile.txt/bin/spells.sh
   SPF_SPELLS="${SPELLFILE_DIR:-${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt}/bin/spells.sh"
 
@@ -48,7 +48,7 @@ init_spellssh () {
 #   because "~/.depoxy/running/home" (client_homeish
 #   below) is first arg passed to upstream compile-spells.
 
-compile_spells () {
+compile_spells() {
   local homeish_path="$1"
 
   local client_homeish=""
@@ -66,7 +66,7 @@ compile_spells () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_print_client_basedir () {
+_print_client_basedir() {
   client_basedir="$(_vendorfs_path_running_client_print)"
 
   if [ $? -eq 0 ]; then
@@ -80,7 +80,7 @@ _print_client_basedir () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-dispatch_command () {
+dispatch_command() {
   local command="$1"
   shift
 
@@ -97,7 +97,7 @@ dispatch_command () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   source_deps
 
   init_spellssh
@@ -109,4 +109,3 @@ main () {
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
-

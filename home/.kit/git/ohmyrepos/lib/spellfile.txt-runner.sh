@@ -14,7 +14,7 @@
 
 # Sort the spell file, for easy diff'ing, or merging/meld'ing.
 # - Your .vimrc code should remake the .spl file when you restart Vim.
-commit_sorted_spells_and_alert_if_conflicts () {
+commit_sorted_spells_and_alert_if_conflicts() {
   local active_spell="home/.kit/nvim/spell/en.utf-8.add"
 
   # If user standing up a new DXC, or if ~/.kit/nvim/spell/en.utf-8.add
