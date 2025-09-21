@@ -123,8 +123,8 @@ install =
     "${MR_REPO}/bin/nvim-open-kindness" \
     "${HOME}/.local/bin/nvim-open-kindness"
 infuse = mr -d . -n infusePostRebase
-infusePostRebase = link_hard_dep_gnome_window_calls
-# REFER: update_deps_gnome_window_calls
+infusePostRebase = link_hard_dep_raise_or_lower
+# REFER: update_deps_raise_or_lower
 updateDeps = update_deps_shoilerplate
 
 # ***
@@ -132,6 +132,18 @@ updateDeps = update_deps_shoilerplate
 # https://github.com/DepoXy/gnome-window-calls#🪟
 [${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls]
 lib = remote_set publish https://github.com/DepoXy/gnome-window-calls.git
+
+# ***
+
+# https://github.com/DepoXy/raise-or-lower#📈📉
+[${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower]
+lib = remote_set publish https://github.com/DepoXy/raise-or-lower.git
+# There is no 'install' task for a ~/.local/bin/raise-or-lower symlink.
+# See instead: gvim-open-kindness, sh-humble-prompt, & OS accelerators.
+infuse = mr -d . -n infusePostRebase
+infusePostRebase = link_hard_dep_gnome_window_calls
+# REFER: update_deps_gnome_window_calls
+updateDeps = update_deps_shoilerplate
 
 # ========================================================================
 # ------------------------------------------------------------------------

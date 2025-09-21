@@ -113,6 +113,23 @@ update_deps_shoilerplate() {
     update_faithful_finish_signed
   }
 
+  update_deps_raise_or_lower() {
+    [ -d "deps/raise-or-lower" ] || return 0
+
+    export UPDEPS_CANON_BASE_ABSOLUTE="${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower"
+
+    update_faithful_file \
+      "deps/raise-or-lower/bin/raise-or-lower" \
+      "bin/raise-or-lower"
+
+    # Akin to: update_deps_gnome_window_calls
+    update_faithful_file \
+      "deps/raise-or-lower/deps/gnome-window-calls/lib/gnome-window-calls.sh" \
+      "deps/gnome-window-calls/lib/gnome-window-calls.sh"
+
+    update_faithful_finish_signed
+  }
+
   update_deps_sh_ask_yesnoskip() {
     [ -d "deps/sh-ask-yesnoskip" ] || return 0
 
@@ -271,6 +288,7 @@ update_deps_shoilerplate() {
   update_deps_git_update_faithful
   update_deps_gnome_window_calls
   update_deps_macOS_disktools
+  update_deps_raise_or_lower
   update_deps_sh_ask_yesnoskip
   update_deps_sh_colors
   update_deps_sh_err_trap
@@ -311,6 +329,15 @@ link_hard_dep_macOS_disktools() {
     "deps/macOS-disktools/bin/apfs-mount"
   link_hard "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-disktools/bin/dmg-mount" \
     "deps/macOS-disktools/bin/dmg-mount"
+}
+
+link_hard_dep_raise_or_lower() {
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower/bin/raise-or-lower" \
+    "deps/raise-or-lower/bin/raise-or-lower"
+
+  # Akin to: link_hard_dep_gnome_window_calls
+  link_hard "${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls/lib/gnome-window-calls.sh" \
+    "deps/raise-or-lower/deps/gnome-window-calls/lib/gnome-window-calls.sh"
 }
 
 link_hard_dep_sh_ask_yesnoskip() {

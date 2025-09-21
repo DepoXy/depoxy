@@ -16,12 +16,12 @@ source_deps() {
   #   minimize_window
   # Aka: (Convience) Symlinked from:
   #   ~/.depoxy/ambers/bin/windows/toggle-visibility
-  . "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness/bin/raise-lower-desktop-window"
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower/bin/raise-or-lower"
 
   # Load: check_deps_gnome_extension_window_calls
   # - CXREF: Canon at:
   #   ~/.kit/sh/gnome-window-calls/lib/gnome-window-calls.sh
-  . "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness/deps/gnome-window-calls/lib/gnome-window-calls.sh"
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower/deps/gnome-window-calls/lib/gnome-window-calls.sh"
 }
 
 # ***
