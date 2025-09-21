@@ -10,6 +10,13 @@
 #
 #   ~/.depoxy/ambers/bin/spells.sh
 
+# CPYST: After casting spells, check all the updates:
+#
+#   ll ~/.local/share/nvim*/site/spell/
+#   ll ~/.depoxy/stints/*/home/.kit/nvim/site/spell/
+#   # Previous, nvim-v0.11-and-earlier spells:
+#   ll ~/.config/nvim*/spell/
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Sort the spell file, for easy diff'ing, or merging/meld'ing.
