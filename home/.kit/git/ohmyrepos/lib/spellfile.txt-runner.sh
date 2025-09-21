@@ -25,10 +25,10 @@ commit_sorted_spells_and_alert_if_conflicts() {
 
   sort_file_then_commit "${active_spell}"
 
-  # HSTRY: spells.sh used to find check .vim/spells/ under home/:
+  # HSTRY: spells.sh previously found .vim/spells/ under home/:
   #   local homeish_path="${MR_REPO}/home"
   # But now it finds nvim/spells under home/.kit/:
-  # E.g., ~/.depoxy/ambers/home/.kit, or ~/.depoxy/running/home/.kit
+  #   E.g., ~/.depoxy/ambers/home/.kit, or ~/.depoxy/running/home/.kit
   local homeish_path="${MR_REPO}/home/.kit"
 
   # Assumes ~/.depoxy/ambers/bin/spells.sh on PATH. Should be.
