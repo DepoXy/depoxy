@@ -407,9 +407,44 @@ sudo_create_symlink_if_sudo_unlocked() {
 # - Note that /opt/local/bin/bash is otherwise first on PATH,
 #   so we don't need ~/.local/bin/bash for `bash` to resolve
 #   correctly normally when PATH is setup correctly.
+#
+# REFER/2025-09-21: Sequoia 15.X
+#   @macOS $ /bin/bash --version
+#   GNU bash, version 3.2.57(1)-release (arm64-apple-darwin24)
+#   Copyright (C) 2007 Free Software Foundation, Inc.
+#
+#   # DUNNO: Where's /opt/local/bin/bash from?
+#   @macOS $ /opt/local/bin/bash --version
+#   GNU bash, version 5.2.32(1)-release (aarch64-apple-darwin23.2.0)
+#   Copyright (C) 2022 Free Software Foundation, Inc.
+#
+#   @macOS $ /opt/homebrew/bin/bash --version
+#   GNU bash, version 5.3.3(1)-release (aarch64-apple-darwin24.4.0)
+#   Copyright (C) 2025 Free Software Foundation, Inc.
+#
+# - REFER: This script (and `infuse`) called from env-less LaunchAgent,
+#   and most of DXY/core/*.sh is not loaded, incl. core/brewskies.sh.
+#   So no ${HOMEBREW_PREFIX} var., but OMR defines print_homebrew_prefix.
 
 infuse_symlinks_macOS_home_local_bin_symlink() {
-  symlink_overlay_file "/opt/local/bin/bash" "${HOME}/.local/bin/bash"
+  local bin_bash
+
+  # Load: print_homebrew_prefix.
+  # - This lib is sourced on-demand, unlike most of OMR/lib.
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/print-homebrew-prefix.sh"
+
+  # E.g., /opt/homebrew/bin/bash
+  bin_bash="$(print_homebrew_prefix)/bin/bash"
+  if ! [ -x "${bin_bash}" ]; then
+    >&2 warn "ALERT: Where's Homebrew bash? — Not it: ${bin_bash}"
+    bin_bash="/opt/local/bin/bash"
+  fi
+  if ! [ -x "${bin_bash}" ]; then
+    >&2 warn "ALERT: Where's opt-local bash? — Not it: ${bin_bash}"
+    bin_bash="/bin/bash"
+  fi
+
+  symlink_overlay_file "${bin_bash}" "${HOME}/.local/bin/bash"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
