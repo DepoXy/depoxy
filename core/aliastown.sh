@@ -169,6 +169,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
   # 2024-09-27: I typed `cdhs` just now before remembering `cdmh`...
   pushd_alias_or_warn "cdhs" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-Hammyspoony"
 
+  # «Mwu-ha-ha-ha»
   pushd_alias_or_warn "cdmha" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/homebrew-autoupdate"
 
   pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
