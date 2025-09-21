@@ -9,8 +9,13 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps() {
-  # Load: check_deps, get_focused_window_id, _humb_probe_desktop_environment, minimize_window
-  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/bin/windows/toggle-visibility"
+  # Load:
+  #   get_focused_window_id
+  #   _humb_probe_desktop_environment
+  #   minimize_window
+  # Aka: (Convience) Symlinked from:
+  #   ~/.depoxy/ambers/bin/windows/toggle-visibility
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness/bin/raise-lower-desktop-window"
 }
 
 # ***
