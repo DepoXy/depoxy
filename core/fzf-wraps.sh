@@ -196,7 +196,10 @@ _dxy_git_status_prompt_paths() {
 
   # Return files changed in working tree,
   # but ignore index (staged) changes.
-  local filter="^ [^ ]"
+  # - Include unstaged and untracked files:
+  #     local filter="^\( \|?\)[^ ]"
+  # Include all files:
+  local filter="^\(M\|U\|?\| \)\(M\|U\|?\| \)"
 
   local paths
   paths="$(
