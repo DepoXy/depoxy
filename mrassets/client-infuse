@@ -365,15 +365,28 @@ symlink_overlay_nvim_spells() {
   # - ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
   local dxc_spell_file="${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add"
   touch "${dxc_spell_file}"
-  cast_private_spell() {
+  cast_private_spell_v0_dot_11() {
     local nvim_appname="$1"
-    local config_dir="${HOME}/.config/${nvim_appname}"
+    local config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/${nvim_appname}"
     mkdir -p "${config_dir}/spell"
     symlink_overlay_file "${dxc_spell_file}" "${config_dir}/spell/en.utf-8.add"
   }
-  cast_private_spell "nvim"
-  cast_private_spell "nvim_depoxy"
-  cast_private_spell "nvim_lazyb"
+  # CHNGD/2025-09-20: Per |news-changed| (not yet? |spell-load|),
+  # Neovim v0.12.0-dev relocates the spell file from &rtp[0] . "spell/"
+  # to stdpath("data") . "/site/spell/".
+  # - LATER/2025-09-20: For now, and for backward compatibility, we'll
+  #   continue to maintain the v0.11.0-and-before (and Vim) location.
+  cast_private_spell_v0_dot_12() {
+    local nvim_appname="$1"
+    local data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/${nvim_appname}"
+    mkdir -p "${data_dir}/site/spell"
+    symlink_overlay_file "${dxc_spell_file}" "${data_dir}/site/spell/en.utf-8.add"
+  }
+  local nvim_appname
+  for nvim_appname in "nvim" "nvim_depoxy" "nvim_lazyb"; do
+    cast_private_spell_v0_dot_11 "${nvim_appname}"
+    cast_private_spell_v0_dot_12 "${nvim_appname}"
+  done
 }
 
 symlink_overlay_nvim_assets() {

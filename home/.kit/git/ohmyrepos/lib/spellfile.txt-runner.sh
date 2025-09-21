@@ -34,9 +34,32 @@ commit_sorted_spells_and_alert_if_conflicts() {
   #  DXY/home/.kit or DXC/home/.kit).
   local homeish_path="${MR_REPO}/home/.kit"
 
+  # CURLY/2025-09-20: Currently, in a DepoXy env:
+  #   ~/.config/nvim        -> ~/.kit/nvim/nvim-depoxy/.config/nvim/
+  #   ~/.config/nvim_depoxy -> ~/.kit/nvim/nvim-depoxy/.config/nvim/
+  #   ~/.config/nvim_folke  -> ~/.kit/nvim/LazyVim/starter/
+  #   ~/.config/nvim_lazyb  -> ~/.kit/nvim/landonb/nvim-lazyb/
+  # - Though note that ~/.local/share/nvim* are not symlinks.
+  # - SAVVY/2025-09-20: If not running Neovim v0.12.0-dev or better,
+  #   the ~/.local/share/nvim*/site directory does not exist (or at
+  #   least none exist in author's directories).
+  for nvim_appname in "nvim" "nvim_depoxy" "nvim_lazyb"; do
+    _commit_sorted_spells_and_alert_if_conflicts \
+      "${active_spell}" "${homeish_path}" "${nvim_appname}"
+  done
+}
+
+_commit_sorted_spells_and_alert_if_conflicts() {
+  local active_spell="$1"
+  local homeish_path="$2"
+  local nvim_appname="$3"
+
   # Assumes ~/.depoxy/ambers/bin/spells.sh on PATH. Should be.
   local compiled_spells
-  compiled_spells="$(spells.sh compile-spells "${homeish_path}")"
+  compiled_spells="$(
+    NVIM_APPNAME="${nvim_appname}" \
+      spells.sh compile-spells "${homeish_path}"
+  )"
 
   debug "$(fg_mintgreen)$(attr_emphasis)cast spellfile$(attr_reset)" \
     "$(fg_lightblue)${compiled_spells}$(attr_reset)"
