@@ -103,6 +103,7 @@ _depoxy_python_lazy_load_virtualenvwrapper() {
   if [ -f "${virtualenvwrappersh}" ] && [ -f "${wrapper_source_lazy}" ]; then
     VIRTUALENVWRAPPER_SCRIPT="${virtualenvwrappersh}"
 
+    # Define lazy wrappers for `workon`, `mkvirtualenv`, `cdproject`, etc.
     . "${wrapper_source_lazy}"
   # else, it's up to the user to find out it wasn't loaded.
   fi
