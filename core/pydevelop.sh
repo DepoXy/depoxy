@@ -105,8 +105,40 @@ _depoxy_python_lazy_load_virtualenvwrapper() {
 
     # Define lazy wrappers for `workon`, `mkvirtualenv`, `cdproject`, etc.
     . "${wrapper_source_lazy}"
+
+    _depoxy_python_monkey_patch_workon
   # else, it's up to the user to find out it wasn't loaded.
   fi
+}
+
+_depoxy_python_monkey_patch_workon() {
+  # Remove the first two lines and last line, e.g.,:
+  #   function()
+  #   {
+  #     ...
+  #   }
+  # - SAVVY: `sed '$d'` omits last line (not `head -n -1` b/c macOS 🙅)
+  _dxy_python_workon=$(declare -f workon | tail -n +3 | sed '$d')
+
+  # Note that `workon` relies on the virtualenvwrapper module
+  # being installed in the active Python.
+  # - So if shell is on system Python, switch versions to the
+  #   DepoXy Python version.
+  # - Note on macOS, if you install Homebrew, "system" Python
+  #   is in user space, so user can easily install venvwrapper.
+  #   But on GNU/Linux, system Python is generally owned by root
+  #   (and author does not suggest `sudo`-installing Py modules).
+  workon() {
+    if pyenv version | command grep -q -e "^system "; then
+      pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
+    fi
+    # Replace our shim-of-a-shim (the decorator's decorator).
+    # - Note we don't similarly shim the actual `workon`.
+    #   - The user would have to `pyenv shell system` or
+    #     `pyenv shell <some-other-version-without-venvwrapper>`
+    #     for `workon` to bark at them.
+    eval "${_dxy_python_workon}"
+  }
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -202,6 +234,7 @@ main() {
 
   _depoxy_python_lazy_load_virtualenvwrapper
   unset -f _depoxy_python_lazy_load_virtualenvwrapper
+  unset -f _depoxy_python_monkey_patch_workon
 
   _depoxy_python_prefix_PS1_with_venv_name
   unset -f _depoxy_python_prefix_PS1_with_venv_name
