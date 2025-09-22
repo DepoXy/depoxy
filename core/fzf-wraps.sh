@@ -194,21 +194,24 @@ _dxy_git_status_prompt_paths() {
     return 0
   fi
 
-  # Return files changed in working tree,
-  # but ignore index (staged) changes.
-  # - Include unstaged and untracked files:
-  #     local filter="^\( \|?\)[^ ]"
-  # Include all files:
-  local filter="^\(M\|U\|?\| \)\(M\|U\|?\| \)"
-
   local paths
-  paths="$(
-    git status --porcelain=v1 \
-      | grep -e "${filter}" \
-      | cut -c3- \
-      | xargs realpath \
-      | ${path_filter}
-  )"
+  local grep_filter=""
+  gather_paths() {
+    paths="$(
+      git status --porcelain=v1 \
+        | grep -e "${grep_filter}" \
+        | cut -c3- \
+        | xargs realpath \
+        | ${path_filter}
+    )"
+  }
+
+  # If rebasing, restrict to rebase conflicts.
+  grep_filter="^UU "
+  if ! gather_paths 2> /dev/null || [ -z "${paths}" ]; then
+    grep_filter=''
+    gather_paths
+  fi
 
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
     echo "${paths}"
