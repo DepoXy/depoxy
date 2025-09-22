@@ -436,7 +436,12 @@ _dxc_client_autocommit() {
   git_auto_commit_one_update "home/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim" \
     "" "${PRIVATE_ACI}"
 
-  # Commit the deploy-archetype.sh-generated infuse symlink:
+  # Commit the deploy-archetype.sh-generated infuse symlink (>= nvim-v0.12.0-dev spells):
+  #   ~/.depoxy/running/home/.kit/nvim/nvim-depoxy/.local/share/nvim/site/spell/en.utf-8.add
+  #     -> ~/.depoxy/running/home/.kit/nvim/site/spell/en.utf-8.add
+  git_auto_commit_one "home/.kit/nvim/nvim-depoxy/.local/share/nvim/site/spell/en.utf-8.add" \
+    -m "${CLEARED_ACI}: nvim-depoxy/.local/share/nvim/site/spell/en.utf-8.add"
+  # Commit the deploy-archetype.sh-generated infuse symlink (legacy spells):
   #   ~/.depoxy/running/home/.kit/nvim/nvim-depoxy/.config/nvim/spell/en.utf-8.add
   #     -> ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
   git_auto_commit_one "home/.kit/nvim/nvim-depoxy/.config/nvim/spell/en.utf-8.add" \
@@ -686,7 +691,7 @@ _dxc_client_autocommit() {
   depoxy_client_autocommit_tree_dumps() {
     # Don't generate tree while spell changes outstanding,
     # because meld files come and go.
-    if test -n "$(git status --porcelain -- home/.kit/nvim/spell)"; then
+    if test -n "$(git status --porcelain -- home/.kit/nvim/site/spell)"; then
       return 0
     fi
 
@@ -706,8 +711,8 @@ _dxc_client_autocommit() {
   insist_nothing_not_committed() {
     local ignore_spell_melds="$(
       echo \
-        ":!home/.kit/nvim/spell/sync-spells--*-new.sh" \
-        ":!home/.kit/nvim/spell/en.utf-8.add--*"
+        ":!home/.kit/nvim/site/spell/sync-spells--*-new.sh" \
+        ":!home/.kit/nvim/site/spell/en.utf-8.add--*"
     )"
 
     if test -z "$(git status --porcelain -- ${ignore_spell_melds})"; then

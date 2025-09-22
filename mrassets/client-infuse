@@ -362,8 +362,8 @@ symlink_overlay_homefries_private_bashrc() {
 
 symlink_overlay_nvim_spells() {
   # Replace (n)vim spell file(s) with symlink(s) to user's version in DXC.
-  # - ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
-  local dxc_spell_file="${MR_REPO}/home/.kit/nvim/spell/en.utf-8.add"
+  # - ~/.depoxy/running/home/.kit/nvim/site/spell/en.utf-8.add
+  local dxc_spell_file="${MR_REPO}/home/.kit/nvim/site/spell/en.utf-8.add"
   touch "${dxc_spell_file}"
   cast_private_spell_v0_dot_11() {
     local nvim_appname="$1"

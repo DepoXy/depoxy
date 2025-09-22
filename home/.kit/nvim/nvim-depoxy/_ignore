@@ -9,7 +9,10 @@
 /.ignore
 
 # Users spell file.
-# -> ~/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
+# HSTRY/2025-09-21: In nvim-v0.12.0-dev and later, spells now at:
+#     ~/.local/share/${NVIM_APPNAME}/site/spell/en.utf-8.add
+#   but the legacy ~/.config locations are still maintained.
+# -> ~/.depoxy/running/home/.kit/nvim/site/spell/en.utf-8.add
 /.config/nvim/spell/en.utf-8.add
 # Generated spell file used by Vim (ignored anyway because binary).
 /.config/nvim/spell/en.utf-8.add.spl

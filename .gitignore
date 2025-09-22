@@ -71,5 +71,7 @@
 /home/.kit/nvim/landonb/dubs_project_tray/dubs_cuts/
 
 # Vim spell file generated on 'infuse'.
-/home/.kit/nvim/spell/en.utf-8.add--compiled
+/home/.kit/nvim/site/spell/en.utf-8.add--compiled
+# -> site/spell
+/home/.kit/nvim/spell/
 

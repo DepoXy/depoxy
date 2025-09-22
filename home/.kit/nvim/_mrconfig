@@ -69,7 +69,8 @@ infuseProjlns =
 
 updateDeps = update_deps_vim
 
-# CXREF: The autocommit for ~/.config/nvim/spell/en.utf-8.add is within:
+# CXREF: The autocommit for ~/.local/share/${NVIM_APPNAME}/site/spell/en.utf-8.add
+#                      (née ~/.config/${NVIM_APPNAME}/spell/en.utf-8.add) is within:
 #
 #   ~/.depoxy/running/.mrconfigs/_mrconfig
 

@@ -198,7 +198,7 @@ infuseProjlns = OMR_INFUSE_PROJLNS_ROOT=true infuse_projlns_if_personal_project
 
 autocommit =
   git_auto_commit_parse_args "$@"
-  git_auto_commit_one 'home/.kit/nvim/spell/en.utf-8.add--personal' -m "conjure: spells"
+  git_auto_commit_one 'home/.kit/nvim/site/spell/en.utf-8.add--personal' -m "conjure: spells"
 
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' \
   "\n     Linux: fussy.desktop def't browser / macOS: allow term. notifs\n   "
