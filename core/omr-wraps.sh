@@ -103,7 +103,22 @@ _dxy_aliases_wire_omr_wraps() {
   # CALSO: `infuse .` works similarly.
   claim_alias_or_warn "infuse." "mr -d . -n infuse"
 
-  claim_alias_or_warn "whereami" "_dxy_whereami"
+  # Author has legacy ~/.local/node_modules/.bin on an old host.
+  # - Nice:
+  #   $ whereami
+  #   47° 56' 07" N,89° 10' 29" W
+  # - ~/.local/node_modules/.bin/whereami ->
+  #   ~/.local/node_modules/@rafaelrinaldi/whereami/cli.js
+  local node_bin_whereami="${HOME}/.local/node_modules/.bin/whereami"
+  local force=false
+  if test -x "${node_bin_whereami}" \
+    && [ "$(realpath -- "$(command -v whereami)" 2> /dev/null)" \
+      = "$(realpath -- "${node_bin_whereami}")" \
+      ]; then
+
+    force=true
+  fi
+  claim_alias_or_warn "whereami" "_dxy_whereami" ${force}
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
