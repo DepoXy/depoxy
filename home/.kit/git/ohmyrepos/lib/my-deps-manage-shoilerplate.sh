@@ -26,20 +26,20 @@
 #       This is useful because update-faithful breaks hard-links,
 #       but it doesn't remake them.
 #
-# NOTE: If you've added link_hard_dep_* calls to infusePostRebase
-#       but haven't added the files to the repo yet, you either
-#       need to call `updateDeps` *twice*, or you need to make
-#       a call sandwich, e.g.,
-#         mr -d . -n infusePostRebase
-#         mr -d . -n updateDeps
-#         mr -d . -n infusePostRebase
-#       So that the first 'infusePostRebase' creates the deps/
-#       hard links, the 'updateDeps' adds-commits them to the repo,
-#       and the second 'infusePostRebase' re-creates the hard links.
-#       - MAYBE: Perhaps `updateDeps` shell command can do the sandwich,
-#         but I wonder if the infusePostRebase might fail where updateDeps
-#         wouldn't (because updateDeps understands GPW scoped commits, but
-#         OMR's link_hard only knows HEAD).
+# SAVVY: If you've added link_hard_dep_* calls to infusePostRebase
+#        but haven't added the files to the repo yet, you either
+#        need to call `updateDeps` *twice*, or you need to make
+#        a call sandwich, e.g.,
+#          mr -d . -n infusePostRebase
+#          mr -d . -n updateDeps
+#          mr -d . -n infusePostRebase
+#        So that the first 'infusePostRebase' creates the deps/
+#        hard links, the 'updateDeps' adds-commits them to the repo,
+#        and the second 'infusePostRebase' re-creates the hard links.
+#        - MAYBE: Perhaps `updateDeps` shell command can do the sandwich,
+#          but I wonder if the infusePostRebase might fail where updateDeps
+#          wouldn't (because updateDeps understands GPW scoped commits, but
+#          OMR's link_hard only knows HEAD).
 
 update_deps_shoilerplate() {
   local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"

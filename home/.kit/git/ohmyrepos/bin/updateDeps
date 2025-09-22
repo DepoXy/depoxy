@@ -12,7 +12,7 @@ if [ -z "$1" ]; then
   #  mr -d / updateDeps
   # But if you're hacking on the EAPP Python stack (22 projects that
   # share the same boilerplate!), you have tools to help you process
-  # each project after running ``updateDeps``.
+  # each project after running `updateDeps`.
   MR_INCLUDE=eapp mr -d / updateDeps
   mr -d / infusePostRebase
 else
