@@ -134,13 +134,27 @@ function omr-report() {
   )
 }
 
+# Print the project path, without additional blather.
+# - E.g., here's what `mr` says from a subdir:
+#     $ /home/user/path/to/project/subdir
+#     $ mr -m -d . -n run sh -c 'echo $MR_REPO'
+#     mr run: cannot run action from subdir when -n/--no-recurse
+#     mr run: project root detected at: /home/user/path/to/project
+# - You can specify a --no-recurse level to avoid the error:
+#     $ mr -m -d . -n 1 run sh -c 'echo $MR_REPO'
+#     /home/user/path/to/project
+#   But that'll also descend and report subdir projects.
+#   - So we'll parse the error message.
+
 function _dxy_whereami() {
   local mrrepo
-  mrrepo="$(mr -m -d . run sh -c 'echo $MR_REPO')"
-  if [ -n "${mrrepo}" ]; then
-    echo "${mrrepo}"
-  else
+  if ! mrrepo="$(mr -m -d . -n run sh -c 'echo $MR_REPO' 2>&1)"; then
+    echo "${mrrepo}" | tail -1 | sed 's/^mr run: project root detected at: //'
+  elif [ -z "${mrrepo}" ]; then
+    # Add -f|--force to allow running action from subdir.
     mr -f -m -d . run sh -c 'echo "${MR_REPO}" [skipped-parent]'
+  else
+    echo "${mrrepo}"
   fi
 }
 
