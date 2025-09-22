@@ -40,6 +40,11 @@
 #          but I wonder if the infusePostRebase might fail where updateDeps
 #          wouldn't (because updateDeps understands GPW scoped commits, but
 #          OMR's link_hard only knows HEAD).
+#
+# HINT: Activate a virtualenv before calling updateDeps for better performance.
+#       - update-faithful needs the jinja2 module, and it'll setup
+#         its own virtualenv if necessary.
+#       - The EAPP Python projects (under ~/.kit/dob) also need `yq`.
 
 update_deps_shoilerplate() {
   local gitsmart_path="${GITSMARTPATH:-${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-smart}"
