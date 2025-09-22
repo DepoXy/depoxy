@@ -577,3 +577,21 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# *Makes "Picture-in-Picture" windows stay on top (even on Wayland session).
+#  Compatible with Firefox, but may work with few other browsers too.*
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/pip-on-top]
+lib =
+  remote_set starter https://github.com/Rafostar/gnome-shell-extension-pip-on-top \
+    "pip-on-top"
+lib =
+  # OMR_GNOME_EXT_NAME="*Window Is Ready - Notification Remover* by *nunofarruca*"
+  OMR_GNOME_EXT_NAME="*PiP on top* by *Rafostar*"
+  OMR_GNOME_EXT_UUID="pip-on-top@rafostar.github.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/4691/pip-on-top/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
