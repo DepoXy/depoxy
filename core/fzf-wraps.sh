@@ -130,7 +130,7 @@ _dxy_fd_prompt_paths() {
   fi
 
   local paths
-  paths="$(fd "$@" | xargs realpath | tilde_for_home)"
+  paths="$(fd "$@" | xargs realpath | sort | uniq | tilde_for_home)"
 
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
     # Only one result, so return it without prompting.
