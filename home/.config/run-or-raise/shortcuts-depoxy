@@ -216,6 +216,8 @@
 # BNDNG: <Shift-Ctrl-Cmd-comma> (<Shift-Ctrl-Cmd-,> <C-D-lt>)
 <Shift><Primary><Super>comma,/usr/bin/firefox --new-window https://extensions.gnome.org/local/
 
+<Shift><Primary><Super>x,spotify,Spotify
+
 # ================================================================= #
 # END: shortcuts-depoxy
 # ================================================================= #
