@@ -29,6 +29,14 @@
 #   terminal-notifier -list ALL
 #   terminal-notifier -message foo -group bar
 
+# SETUP:
+#
+#   # GNU/Linux (notify-send) (shuf)    (paplay)
+#   apt install libnotify-bin coreutils pulseaudio-utils
+#
+#   # macOS      (shuf)
+#   brew install coreutils
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Notification alert sounds (macOS):
@@ -345,8 +353,10 @@ ${notif_subby}"
     notify-send -i "${notif_image}" "${notif_messg}"
   fi
 
-  # paplay from pulseaudio-utils, standard (AFAIK) on Desktop distros.
-  [ -z "${notif_sound}" ] || paplay "${notif_sound}"
+  # paplay from pulseaudio-utils.
+  if command -v paplay > /dev/null; then
+    [ -z "${notif_sound}" ] || paplay "${notif_sound}"
+  fi
 }
 
 # ***
