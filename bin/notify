@@ -332,7 +332,7 @@ display_notification_linux() {
     notif_sound="$(random_notif_sound_name)"
   fi
 
-  # notify-send only has summary and body, no subtitle.
+  # notify-send accepts summary and body, no subtitle.
   [ -z "${notif_subby}" ] || notif_title="${notif_title}
 ${notif_subby}"
 
@@ -361,11 +361,11 @@ random_notif_sound_name_linux() {
 
 # ***
 
-# CXREF:
-#   /usr/share/sounds/
-#   /usr/share/sounds/mate/default/alerts/
+# CXREF: GNU/Linux:
+#   tree /usr/share/sounds/
+#   ls /usr/share/sounds/mate/default/alerts/
 #     bark.ogg, drip.ogg, glass.ogg, sonar.ogg
-#   /usr/share/sounds/gnome/default/alerts/
+#   ls /usr/share/sounds/gnome/default/alerts/
 #     click.ogg, hum.ogg, string.ogg, swing.ogg
 
 random_notif_sound_name_from_mate_alerts_dynamic() {
