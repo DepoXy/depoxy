@@ -181,7 +181,7 @@ _dxy_git_status_open_path() {
 
 # SAMEZ: Similar to _dxy_fd_prompt_paths (above).
 _dxy_git_status_prompt_paths() {
-  local path_filter="${1:-tilde_for_home}"
+  local show_full_paths="${1:-true}"
   local extra_fzf_args="$2"
 
   if ! _wf_fzf_command > /dev/null; then
@@ -194,15 +194,28 @@ _dxy_git_status_prompt_paths() {
     return 0
   fi
 
+  # --porcelain=v1 prints paths relative from project root,
+  # so must prefix paths if called from subdir.
+  local cdup="$(git rev-parse --show-cdup)"
+
+  # CXREF: _hf_realpath_logical:
+  # ~/.kit/sh/home-fries/lib/alias/alias_pwd.sh @ 90
+
   local paths
   local grep_filter=""
   gather_paths() {
     paths="$(
+      export -f tilde_for_home
+      export -f _hf_realpath_logical_tilded
       git status --porcelain=v1 \
         | grep -e "${grep_filter}" \
-        | cut -c3- \
-        | xargs realpath \
-        | ${path_filter}
+        | cut -c4- \
+        | sed "s#^#${cdup}#" \
+        | if ${show_full_paths}; then
+          xargs -I {} bash -c '_hf_realpath_logical_tilded "$@"' _ {}
+        else
+          cat
+        fi
     )"
   }
 
@@ -221,18 +234,19 @@ _dxy_git_status_prompt_paths() {
 }
 
 _dxy_git_status_prompt_paths_single() {
-  local path_filter="tilde_for_home"
   local extra_fzf_args=""
 
-  _dxy_git_status_prompt_paths "${path_filter}" "${extra_fzf_args}" \
+  # Because called by `stp` (also `sto`), print
+  # full path, so it's "portable".
+  _dxy_git_status_prompt_paths "${_show_full_paths:-true}" "${extra_fzf_args}" \
     | tr -d "\n"
 }
 
 _dxy_git_status_prompt_paths_multi() {
-  local path_filter="cat"
   local extra_fzf_args="--multi"
 
-  _dxy_git_status_prompt_paths "${path_filter}" "${extra_fzf_args}"
+  # Only called for `add`, so don't need full paths.
+  _dxy_git_status_prompt_paths "${_show_full_paths:-false}" "${extra_fzf_args}"
 }
 
 # ***
