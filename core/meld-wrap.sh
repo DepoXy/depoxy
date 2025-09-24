@@ -18,19 +18,19 @@
 
 # USYNC: See print_meld_command:
 #   ~/.kit/txt/spellfile.txt/bin/spells.sh
-meld () {
+meld() {
   # SAVVY: Just check dir., as flatpak-info is slower. E.g., not:
   #
   #   if command -v "flatpak" > /dev/null 2>&1; then
   #     # CXREF: ${HOME}/.local/share/flatpak/app/org.gnome.meld
   #     if flatpak info org.gnome.meld > /dev/null 2>&1; then
   #       ...
-  is_meld_flatpak_installed () {
+  is_meld_flatpak_installed() {
     [ -d "${HOME}/.local/share/flatpak/app/org.gnome.meld" ] \
       || [ -d "/var/lib/flatpak/app/org.gnome.meld" ]
   }
 
-  meld_flatpak () {
+  meld_flatpak() {
     flatpak run org.gnome.meld "$@"
   }
 
@@ -47,7 +47,7 @@ meld () {
   local py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}"
   local py_path="/opt/homebrew/lib/python${py_vers%.*}/site-packages"
 
-  is_meld_sources_installed () {
+  is_meld_sources_installed() {
     [ -x "${user_meld}/bin/meld" ] \
       && [ -x "${brew_home}/bin/meld" ] \
       && [ -d "${py_path}/meld" ]
@@ -56,7 +56,7 @@ meld () {
   # ALTLY: Because of #!/usr/bin/python3 in brew executable,
   # we could instead call brew module via python3 directly:
   #   PYTHONPATH="${py_path}" python3 ${brew_home}/bin/meld "$@"
-  meld_sources () {
+  meld_sources() {
     # Avoid same-named Homebrew executable with `command` preflight.
     test "$(command -v deactivate)" = "deactivate" && deactivate
     eval "$(pyenv init -)"
@@ -70,19 +70,19 @@ meld () {
 
   # ***
 
-  is_meld_application_installed () {
+  is_meld_application_installed() {
     [ -d "/Applications/Meld.app/" ]
   }
 
   # ALTLY: `open` could work, but fails on relative paths.
   #   open /Applications/Meld.app/ --args "$@"
-  meld_application () {
+  meld_application() {
     /Applications/Meld.app/Contents/MacOS/Meld "$@"
   }
 
   # ***
 
-  meld_command () {
+  meld_command() {
     /usr/bin/env meld "$@"
   }
 
@@ -122,4 +122,3 @@ meld () {
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
