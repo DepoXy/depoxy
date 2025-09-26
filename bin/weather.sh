@@ -451,4 +451,5 @@ if [ "$(basename -- "$(realpath -- "$0")")" = "${PROG_NAME}" ]; then
   main "$@"
 fi
 
+# SAVVY: This script always exits zero.
 unset -f main
