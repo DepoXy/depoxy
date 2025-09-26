@@ -1,0 +1,145 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright © 2025 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Toggle between 2 of the focus modes.
+# - REFER: GNOME Tweaks > Windows > Window Focus:
+#   - Click to Focus ('click')
+#   - Focus on Hover ('sloppy')
+#   - Focus Follows Mouse ('mouse')
+
+# REFER: See also 'auto-raise', which is enabled when not 'click':
+#   # Defaults: false
+#   gsettings get org.gnome.desktop.wm.preferences auto-raise
+# - DUNNO: Seems to raise window when clicked in content area,
+#   but not consistently, though note that I've disabled RoC:
+#     org.gnome.desktop.wm.preferences raise-on-click
+#   so normally clicking content area only sends focus and
+#   doesn't also raise the clicked window (you can click
+#   the titlebar or alt-click the content area to raise;
+#   re: the latter, see "mouse-button-modifier").
+
+# OBSRV/2025-09-26: Hrm, 'sloopy' mode is a titch laggy,
+# like, move mouse, wait ½ to 1 second for focus to follow.
+
+DXY_GNOME_FOCUS_MODE_SCHEMA="org.gnome.desktop.wm.preferences"
+DXY_GNOME_FOCUS_MODE_KEY="focus-mode"
+
+toggle_focus_mode() {
+  local new_mode="$1"
+
+  # Note gsettings-get/dconf-read return single-quoted value,
+  # e.g., "'sloppy'".
+  local old_mode
+  old_mode="$(
+    gsettings get \
+      "${DXY_GNOME_FOCUS_MODE_SCHEMA}" \
+      "${DXY_GNOME_FOCUS_MODE_KEY}" |
+      sed "s/^'\\(.*\\)'\$/\\1/"
+  )"
+
+  if [ -n "${new_mode}" ]; then
+    # Verify the specified node, or print error and exit nonzero.
+    local _mode
+    _mode="$(print_new_mode "${new_mode}")"
+  else
+    new_mode="$(print_new_mode "${old_mode}" ${_exit_on_error:-false})"
+  fi ||
+    exit 1
+
+  gsettings set \
+    "${DXY_GNOME_FOCUS_MODE_SCHEMA}" \
+    "${DXY_GNOME_FOCUS_MODE_KEY}" \
+    "${new_mode}"
+
+  toast_user "${new_mode}"
+}
+
+print_new_mode() {
+  local old_mode="$1"
+  local exit_on_error="$2"
+
+  local new_mode
+  if [ -z "${old_mode}" ]; then
+    new_mode="sloppy"
+  else
+    case "${old_mode}" in
+    click)
+      new_mode="sloppy"
+      shift
+      ;;
+    sloppy)
+      new_mode="click"
+      shift
+      ;;
+      # INERT: Try a three-way toggle, or make OPTINABLE.
+    mouse)
+      new_mode="click"
+      shift
+      ;;
+    *)
+      new_mode="click"
+
+      >&2 echo "ERROR: Unknown mode: ${old_mode}"
+
+      if ${exit_on_error:-true}; then
+        exit 1
+      fi
+      ;;
+    esac
+  fi
+
+  printf "%s" "${new_mode}"
+}
+
+toast_user() {
+  local new_mode"$1"
+
+  local user_msg="GNOME focus mode is now '${new_mode}'"
+
+  echo "${user_msg}"
+
+  NOTIFY_SILENT=true "$(dirname -- "$(realpath -- "$0")")/../notify" "${user_msg}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+check_deps() {
+  if os_is_macos || [ "${XDG_CURRENT_DESKTOP}" != "GNOME" ]; then
+    >&2 echo "ERROR: Requires GNOME"
+
+    exit 1
+  fi
+}
+
+os_is_macos() {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# ***
+
+PROG_NAME="toggle-focus-mode"
+
+main() {
+  check_deps
+
+  toggle_focus_mode "$@"
+}
+
+_dx_sourcing=true
+
+# Run the command unless being sourced.
+if [ "$(basename -- "$(realpath -- "$0")")" = "${PROG_NAME}" ]; then
+  _dx_sourcing=false
+fi
+
+${_dx_sourcing} && {
+  unset -v _dx_sourcing
+  unset -f main
+} || main "$@"
