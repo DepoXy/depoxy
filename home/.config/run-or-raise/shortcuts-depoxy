@@ -213,8 +213,9 @@
 # - Opens *GNOME Shell Extensions > Installed Extensions*
 # - CALSO: Compare to GNOME Settings accelerator
 #   at <Shift-Cmd-Alt-comma>.
-# BNDNG: <Shift-Ctrl-Cmd-comma> (<Shift-Ctrl-Cmd-,> <C-D-lt>)
-<Shift><Primary><Super>comma,/usr/bin/firefox --new-window https://extensions.gnome.org/local/
+# REFER: REMEM: FRMAT: SHORTCUT[ char][:mode],COMMAND,[wm_class],[TITLE]
+# BNDNG: <Shift-Ctrl-Cmd-Comma> (<Shift-Ctrl-Cmd-,> <C-D-lt>)
+<Shift><Primary><Super>comma,/usr/bin/firefox --new-window https://extensions.gnome.org/local/,,Installed Extensions
 
 <Shift><Primary><Super>x,spotify,Spotify
 
