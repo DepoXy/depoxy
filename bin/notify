@@ -477,32 +477,39 @@ EOF
 # e.g., "face-wink", under /usr/share/icons/, e.g.,
 #   /usr/share/icons/mate/48x48/emotes/face-wink.png
 random_notif_image_name_linux() {
-  local icon_theme="$(
+  local icon_theme
+  icon_theme="$(
     (gsettings get org.gnome.desktop.interface icon-theme 2> /dev/null \
       || gsettings get org.mate.interface icon-theme 2> /dev/null) \
       | sed "s/^'//" | sed "s/'\$//"
   )"
   local image_dir="/usr/share/icons/${icon_theme}/"
 
-  local random_icon="$(find "${image_dir}" -path *48/*.png | shuf -n 1)"
+  if ! [ -d "${image_dir}" ]; then
+    notify-send "GAFFE: Cannot locate theme directory
 
-  if [ ${PIPESTATUS[0]} -ne 0 ]; then
-    notify-send "FIXME: Unable to locate icon images
-
-No such directory: ${image_dir}"
+No such path: ${image_dir}"
 
     return 1
   fi
 
-  # ***
+  local icons
+  icons="$(find "${image_dir}" -path *48/*.png)"
 
-  if [ -z "${random_icon}" ]; then
-    notify-send "FIXME: Icon images directory is empty, wha??!
+  if [ -z "${icons}" ]; then
+    icons="$(find "${image_dir}" -path *16/*.png)"
+  fi
 
-No .png files: ${image_dir}"
+  if [ -z "${icons}" ]; then
+    notify-send "FIXME: Cannot find any icons
+
+No 48x48 or 16x16 icons under: ${image_dir}"
 
     return 1
   fi
+
+  local random_icon
+  random_icon="$(echo "${icons}" | shuf -n 1)"
 
   # ***
 
