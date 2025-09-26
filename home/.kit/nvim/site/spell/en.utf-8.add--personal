@@ -55,6 +55,7 @@ GMail
 GNC
 GPG
 GPLv3
+GSettings
 GVim
 GeoParquet
 GeoServer
@@ -152,6 +153,7 @@ cmdline
 columnarly
 conf
 ctags
+dconf
 deb822
 dedents
 dep
