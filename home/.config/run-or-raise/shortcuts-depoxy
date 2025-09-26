@@ -217,6 +217,7 @@
 # BNDNG: <Shift-Ctrl-Cmd-Comma> (<Shift-Ctrl-Cmd-,> <C-D-lt>)
 <Shift><Primary><Super>comma,/usr/bin/firefox --new-window https://extensions.gnome.org/local/,,Installed Extensions
 
+# BNDNG: <Shift-Ctrl-Cmd-X>
 <Shift><Primary><Super>x,spotify,Spotify
 
 # ================================================================= #
