@@ -63,7 +63,8 @@ os_is_macos() {
 
 main() {
   if os_is_macos; then
-    >&2 echo "ERROR: Use finicky on macOS"
+    local url="https://github.com/johnste/finicky"
+    >&2 echo "ERROR: Use finicky on macOS: ${url}"
 
     return 1
   fi
