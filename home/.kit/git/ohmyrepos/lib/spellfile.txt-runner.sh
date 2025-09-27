@@ -88,8 +88,12 @@ _commit_sorted_spells_and_alert_if_conflicts() {
   if [ "${n_lines_diff}" -gt 0 ]; then
     warn "Spell Work: There are ${n_lines_diff} spell changes to process"
     warn "- HINT: Run these sync helpers to put words where they belong:"
-    warn "    \$ ls -la $(dirname -- "${compiled_spells}")/sync-spells--*"
+    warn "    \$ ls -la $(dirname -- "${compiled_spells}" | tilde_for_home)/sync-spells--*"
 
-    ls -la $(dirname -- "${compiled_spells}")/sync-spells--*
+    ls -la $(dirname -- "${compiled_spells}")/sync-spells--* | tilde_for_home
   fi
+}
+
+tilde_for_home() {
+  sed -E "s#(^| )${HOME}(/|$)#\1~\2#"
 }
