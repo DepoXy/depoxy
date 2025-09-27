@@ -173,6 +173,8 @@ dotfiles
 dunamai
 envs
 errexit
+ext3
+ext4
 extmark
 fcn
 fcns
