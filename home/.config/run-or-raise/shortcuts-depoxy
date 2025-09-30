@@ -224,6 +224,10 @@
 # - Dunno, "o" as in circled?
 <Shift><Primary><Alt>o,/home/user/.depoxy/ambers/bin/gnome/toggle-focus-mode
 
+# BNDNG: <Shift-Cmd-Ctrl-Q>
+# - Dunno, <Ctrl-Cmd-Q> is locks, but <Shift>ing doesn't? Seems weird.
+<Shift><Primary><Super>q,/home/user/.depoxy/ambers/bin/gnome/toggle-idle-delay
+
 # ================================================================= #
 # END: shortcuts-depoxy
 # ================================================================= #

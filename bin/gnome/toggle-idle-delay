@@ -1,0 +1,83 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright © 2025 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+DXY_GNOME_IDLE_DELAY_SCHEMA="org.gnome.desktop.session"
+DXY_GNOME_IDLE_DELAY_KEY="idle-delay"
+
+toggle_idle_delay() {
+  # Note gsettings-get/dconf-read return single-quoted value,
+  # e.g., "'sloppy'".
+  local old_delay
+  old_delay="$(get_idle_delay)"
+
+  if [ -z "${old_delay}" ]; then
+    >&2 echo "GAFFE: Unexpected: No idle-delay?!"
+    # Default: 15 mins. (Not that this path reachable.)
+    old_delay=900
+  fi
+
+  # 3..2..1.
+  local new_delay=1
+  set_idle_delay ${new_delay}
+  sleep $((${new_delay} + 1))
+  set_idle_delay ${old_delay}
+}
+
+get_idle_delay() {
+  gsettings get \
+    "${DXY_GNOME_IDLE_DELAY_SCHEMA}" \
+    "${DXY_GNOME_IDLE_DELAY_KEY}" |
+    sed 's/^uint32 \([0-9]\+\)$/\1/'
+}
+
+set_idle_delay() {
+  local idle_delay="$1"
+
+  gsettings set \
+    "${DXY_GNOME_IDLE_DELAY_SCHEMA}" \
+    "${DXY_GNOME_IDLE_DELAY_KEY}" \
+    "${idle_delay}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+check_deps() {
+  if os_is_macos || [ "${XDG_CURRENT_DESKTOP}" != "GNOME" ]; then
+    >&2 echo "ERROR: Requires GNOME"
+
+    exit 1
+  fi
+}
+
+os_is_macos() {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# ***
+
+PROG_NAME="toggle-idle-delay"
+
+main() {
+  check_deps
+
+  toggle_idle_delay "$@"
+}
+
+_dx_sourcing=true
+
+# Run the command unless being sourced.
+if [ "$(basename -- "$(realpath -- "$0")")" = "${PROG_NAME}" ]; then
+  _dx_sourcing=false
+fi
+
+${_dx_sourcing} && {
+  unset -v _dx_sourcing
+  unset -f main
+} || main "$@"
