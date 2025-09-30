@@ -139,6 +139,11 @@ if [ "$(basename -- "$(realpath -- "$0")")" = "${PROG_NAME}" ]; then
   _dx_sourcing=false
 fi
 
+# REFER/2025-09-26: Ha, this is the template I should use when
+# choosing to source vs. run — this ensures main() exit code
+# is properly returned, without using a 'retcode' variable,
+# and without creating main() or _dx_sourcing in the user's
+# environment.
 ${_dx_sourcing} && {
   unset -v _dx_sourcing
   unset -f main
