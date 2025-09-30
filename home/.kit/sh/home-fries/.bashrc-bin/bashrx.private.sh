@@ -141,6 +141,8 @@ _source_scripts_following_homefries_dxy() {
 
   # grip wired to GH token.
   _dxy_source "grip-pass.sh"
+  # restview wired to sensible-open.
+  _dxy_source "rest-view.sh"
 
   # Easy linting, you jest.
   _dxy_source "js-dev-up.sh"
