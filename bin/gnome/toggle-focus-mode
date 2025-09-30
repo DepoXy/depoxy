@@ -37,12 +37,7 @@ toggle_focus_mode() {
   # Note gsettings-get/dconf-read return single-quoted value,
   # e.g., "'sloppy'".
   local old_mode
-  old_mode="$(
-    gsettings get \
-      "${DXY_GNOME_FOCUS_MODE_SCHEMA}" \
-      "${DXY_GNOME_FOCUS_MODE_KEY}" |
-      sed "s/^'\\(.*\\)'\$/\\1/"
-  )"
+  old_mode="$(get_focus_mode)"
 
   if [ -n "${new_mode}" ]; then
     # Verify the specified node, or print error and exit nonzero.
@@ -53,12 +48,25 @@ toggle_focus_mode() {
   fi ||
     exit 1
 
+  set_focus_mode "${new_mode}"
+
+  toast_user "${new_mode}"
+}
+
+get_focus_mode() {
+  gsettings get \
+    "${DXY_GNOME_FOCUS_MODE_SCHEMA}" \
+    "${DXY_GNOME_FOCUS_MODE_KEY}" |
+    sed "s/^'\\(.*\\)'\$/\\1/"
+}
+
+set_focus_mode() {
+  local focus_mode="$1"
+
   gsettings set \
     "${DXY_GNOME_FOCUS_MODE_SCHEMA}" \
     "${DXY_GNOME_FOCUS_MODE_KEY}" \
-    "${new_mode}"
-
-  toast_user "${new_mode}"
+    "${focus_mode}"
 }
 
 print_new_mode() {
