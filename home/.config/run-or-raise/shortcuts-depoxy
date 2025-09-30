@@ -221,7 +221,7 @@
 <Shift><Primary><Super>x,spotify,Spotify
 
 # BNDNG: <Shift-Ctrl-Alt-O>
-# - Dunno, "o" as in circled?
+# - Mnemonic: Dunno, "o" as in circled?
 <Shift><Primary><Alt>o,/home/user/.depoxy/ambers/bin/gnome/toggle-focus-mode
 
 # BNDNG: <Shift-Cmd-Ctrl-Q>
