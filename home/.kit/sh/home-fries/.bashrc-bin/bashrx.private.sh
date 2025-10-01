@@ -110,7 +110,7 @@ _source_scripts_following_homefries_dxy() {
   # GVim `fs` and `fa` commands.
   # USYNC: For the last call
   _SOURCE_IT_BEGIN=${_DEPOXY_SOURCE_IT_BEGIN} \
-    _dxy_source "alias-vim.sh"
+    _dxy_source "launchvim.sh"
 
   # DepoXy Ambers aliases (lots of `cd /some/path` aliases).
   _dxy_source "aliastown.sh"

@@ -153,7 +153,7 @@ install =
   brew install --HEAD neovim
   # E.g., /home/linuxbrew/.linuxbrew/bin/nvim
   ln -sf "$(print_homebrew_prefix)/bin/nvim" "${HOME}/.local/bin/nvim"
-  # USYNC: ~/.depoxy/ambers/core/alias-vim.sh
+  # USYNC: ~/.depoxy/ambers/core/launchvim.sh
   _dxy_kludge_treesitter_lib () {
     local prev="0.24.7/lib/libtree-sitter.0.24.dylib"
     local curr="0.25.2/lib/libtree-sitter.0.24.dylib"

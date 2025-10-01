@@ -34,7 +34,7 @@ accelerate_fs() {
   # Open the specified file in (Neo)vim (prob. Neovide unless
   # you've configured your DepoXy environment specially).
   # - USYNC: See DXY fs() command:
-  #   ~/.depoxy/ambers/core/alias-vim.sh
+  #   ~/.depoxy/ambers/core/launchvim.sh
   NVIM_OPEN_FILE_ON_SPAWN= \
     NVIM_APPNAME=nvim_lazyb \
     gvim-open-kindness "${NVIM_OPEN_SOCKETNAME:-🧸}" "" "" "$@"

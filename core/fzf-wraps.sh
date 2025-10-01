@@ -115,7 +115,7 @@ _dxy_fdfind_open_path() {
     #  printf "%s" "${path}" | _hf_clip
 
     # CXREF: `fs` func:
-    # ~/.depoxy/ambers/core/alias-vim.sh
+    # ~/.depoxy/ambers/core/launchvim.sh
     # - MAYBE: Make the EDITOR choice more configurable,
     #   e.g., GUI_EDITOR.
     fs "${path}"
@@ -172,7 +172,7 @@ _dxy_git_status_open_path() {
     #  printf "%s" "${path}" | _hf_clip
 
     # CXREF: `fs` func:
-    # ~/.depoxy/ambers/core/alias-vim.sh
+    # ~/.depoxy/ambers/core/launchvim.sh
     # - MAYBE: Make the EDITOR choice more configurable,
     #   e.g., GUI_EDITOR.
     fs "${path}"
