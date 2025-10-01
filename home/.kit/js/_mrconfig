@@ -24,101 +24,13 @@ lib = remote_set starter https://github.com/anuraag016/Jest-Coverage-Diff.git
 # ========================================================================
 # ------------------------------------------------------------------------
 
-# ISDED/2024-04-26: Deprecated:
-#   "The Lens Desktop product by Mirantis is still actively developed and
-#    supported by Mirantis, but contributions are now made through extensions
-#    using the Lens extension API, rather than directly to the core product.
-#
-#   "The legacy source code for the open source version is still available
-#    in the repository's 'master'-branch."
-#
-#   https://github.com/lensapp/lens?tab=readme-ov-file#history-of-this-repository
-
-# Lens aka OpenLens aka Electron Lens.
+# ISOFF/ISDED/2024-04-26: Deprecated: Mirantis no longer supports open source Lens Desktop.
+# https://github.com/lensapp/lens?tab=readme-ov-file#history-of-this-repository
 [${DOPP_KIT:-${HOME}/.kit}/js/lens]
 lib = remote_set starter https://github.com/lensapp/lens.git
-# ISOFF/2025-02-05: ¾GB and I have a small SSD.
+# ISOFF/2025-02-05: Legacy project; no longer supported...
 skip = true
 deleted = true
-echoInstallHelp =
-  echoInstallHelp 'os_off' 'dxy_off'
-  #
-  echo "$(echoInstallHelpWidget 'os_off' 'dxy_off') DepoXy: Configure OpenLens icons::
-    # Pick an icon for each cluster.
-    ll ~/.depoxy/ambers/home/.kube/*.png
-    # See the README.rst if you want to generate more icons
-    fs ~/.depoxy/ambers/home/.kube/README.rst
- "
-install =
-  local version_tag="$(git rev-parse HEAD)"
-  pull_latest "starter" "master" "${version_tag}" "main"
-  #
-  install_os_specific
-installLinux =
-  >&2 echo "INERT: FTREQ: Plumb @Linux OpenLens 'install'"
-  #
-  exit 1
-installDarwin =
-  >&2 echo "FIXME: OpenLens stopped publishing community build"
-  #
-  exit 1
-  #
-  # Alternatively to building and installing, you could run from sources:
-  #   $ _depoxy_run_or_front_electron_lens
-  # Just be sure to kill `lens` and `node` if you run from source and later
-  # decide to build and install Lens (else `open /Applications/OpenLens.app`
-  # will beach-ball the cursor but not open Lens).
-  #
-  echo "Building OpenLens..."
-  echo "- This installer known to work on:"
-  echo "  - node version: v16.18.1"
-  echo "    yarn version: 1.22.19"
-  echo "- This host:"
-  echo "  - node version: $(node -v)"
-  echo "    yean version: $(yarn -v)"
-  #
-  local node_vers="v16.18.1"
-  echo "- Using node version: ${node_vers}"
-  echo "  - YOU: Periodically bump Node version as appropriate."
-  #
-  NVM_DIR="${DOPP_KIT:-${HOME}/.kit}/js/nvm"
-  . "${NVM_DIR}/nvm.sh"
-  #
-  nvm install ${node_vers}
-  nvm use ${node_vers}
-  #
-  # FIXME/2023-01-01: Resolve this comment next time you ONBRD.
-  echo "MAYBE/2023-01-01: Is this install task missing an \`nvm\` call?"
-  #
-  # 2023-01-01: First time I ran this, first time it failed.
-  echo "- HINT: If build fails, try it again."
-  #
-  build_lens () {
-    env ELECTRON_BUILDER_EXTRA_ARGS="--arm64 --x64 --config.dmg.sign=false" \
-      make build
-  }
-  #
-  build_lens
-  if [ $? -ne 0 ]; then
-    echo && echo "Build failed. Trying again!" && echo
-    #
-    build_lens
-  fi
-  if [ $? -ne 0 ]; then
-    echo && echo "YOU: Drag-drop Lens to Applications to install Lens." && echo
-    open dist/OpenLens-6.2.0-alpha.0-arm64.dmg
-    echo
-    # Sit in sleep-loop polling until user completes their action.
-    while [ ! -d "/Applications/OpenLens.app" ]; do
-      sleep 1
-    done
-    echo "Lens is now installed. You can run it thusly:"
-    echo
-    echo "  open /Applications/OpenLens.app"
-  else
-    >&2 echo
-    >&2 echo "Failed! Please resolve the issue and fix this install task."
-  fi
 
 # ========================================================================
 # ------------------------------------------------------------------------
