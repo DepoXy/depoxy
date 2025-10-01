@@ -5,6 +5,9 @@
 
 [DEFAULT]
 order = 761
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_mOS() { mr_exclusive "kit" "mOS" "kit-mOS" "DXC"; }
+skip = mr_exclusive_mOS
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -65,7 +68,7 @@ updateDeps = update_deps_shoilerplate
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/finicky]
 checkout = stub_checkout_directory
 # Not an actual repo
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp =
@@ -102,7 +105,7 @@ installDarwin =
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/GeekTool]
 checkout = stub_checkout_directory
 # Not an actual repo
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp =
@@ -286,7 +289,7 @@ infuseProjlns =
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Karabiner-Elements]
 lib = remote_set starter https://github.com/pqrs-org/Karabiner-Elements.git
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 
 # ***
 
@@ -308,11 +311,11 @@ lib = remote_set starter https://github.com/Hammerspoon/hammerspoon.git
 # Hammerspoon executable installed via Brew:
 #   brew install --cask hammerspoon
 # But we'll keep a local copy for reference.
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/hammerspoons]
 lib = remote_set starter https://github.com/Hammerspoon/Spoons.git "hammerspoons"
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 infuse = link_private_exclude "$@"
 
 # “Opinionated `~/.hammerspoon/init.lua`”
@@ -384,19 +387,22 @@ updateDeps =
 # https://github.com/lwouis/alt-tab-macos
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/alt-tab-macos]
 lib = remote_set starter https://github.com/lwouis/alt-tab-macos
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 
 # https://github.com/dmarcotte/easy-move-resize
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/easy-move-resize]
 lib = remote_set starter https://github.com/dmarcotte/easy-move-resize
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 
 # https://rectangleapp.com/
 # https://github.com/rxhanson/Rectangle
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Rectangle]
 lib = remote_set starter https://github.com/rxhanson/Rectangle
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

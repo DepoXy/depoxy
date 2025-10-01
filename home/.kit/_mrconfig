@@ -36,6 +36,7 @@ order = 590
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "dob" ] ||
      [ "${MR_INCLUDE}" = "eapp" ] ||
@@ -60,17 +61,15 @@ include =
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "git" ] ||
      [ "${MR_INCLUDE}" = "kit-git" ] ||
      [ "${MR_INCLUDE}" = "git-smart" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
-     [ "${MR_INCLUDE}" = "entrusted" ] ||
   false; then
-    if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
-      # CXREF: ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-core
-      mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-core"
-    fi
+    # CXREF: ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-core
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-core"
     # CXREF: ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-smart
     mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/git/_mrconfig-git-smart"
   fi
@@ -84,6 +83,7 @@ lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "go" ] ||
      [ "${MR_INCLUDE}" = "kit-go" ] ||
@@ -100,11 +100,11 @@ lib = OMR_INFUSE_PROJLNS_TOGGLE_OFF=false
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "js" ] ||
      [ "${MR_INCLUDE}" = "kit-js" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
-     [ "${MR_INCLUDE}" = "entrusted" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/js/_mrconfig
     mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/js/_mrconfig"
@@ -115,6 +115,7 @@ include =
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "mOS" ] ||
      [ "${MR_INCLUDE}" = "kit-mOS" ] ||
@@ -122,17 +123,18 @@ include =
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig
     mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig"
-    if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
-      # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig-excess
-      mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig-excess"
-    fi
+    # CXREF: ~/.depoxy/ambers/home/.kit/mOS/_mrconfig-excess
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/mOS/_mrconfig-excess"
   fi
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# INERT/2025-09-30: These MR_INCLUDE are not all maintained... they're a mess
+# - Also not a very useful feature, IMO.
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "nvim" ] ||
      [ "${MR_INCLUDE}" = "kit-nvim" ] ||
@@ -140,13 +142,12 @@ include =
      \
      [ "${MR_INCLUDE}" = "vim" ] ||
      [ "${MR_INCLUDE}" = "dubs-vim" ] ||
-     [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
      [ "${MR_INCLUDE}" = "vim-dubs" ] ||
      [ "${MR_INCLUDE}" = "github.com/landonb" ] ||
+     [ "${MR_INCLUDE}" = "vim-3rdp" ] ||
      [ "${MR_INCLUDE}" = "vim-lsp" ] ||
      [ "${MR_INCLUDE}" = "vim-private" ] ||
      [ "${MR_INCLUDE}" = "vim-plugins" ] ||
-     [ "${MR_INCLUDE}" = "DXC" ] ||
      [ "${MR_INCLUDE}" = "${LOGNAME}" ] ||
      \
      [ "${MR_INCLUDE}" = "vim_active" ] ||
@@ -181,6 +182,7 @@ include =
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "py" ] ||
      [ "${MR_INCLUDE}" = "kit-py" ] ||
@@ -197,6 +199,7 @@ include =
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "rust" ] ||
      [ "${MR_INCLUDE}" = "kit-rust" ] ||
@@ -216,14 +219,11 @@ include =
      [ "${MR_INCLUDE}" = "sh" ] ||
      [ "${MR_INCLUDE}" = "kit-sh" ] ||
      [ "${MR_INCLUDE}" = "DXC" ] ||
-     [ "${MR_INCLUDE}" = "entrusted" ] ||
   false; then
     # CXREF: ~/.depoxy/ambers/home/.kit/sh/_mrconfig-bash
     mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-bash"
-    if [ -z ${MR_INCLUDE+x} ] || [ "${MR_INCLUDE}" != "entrusted" ]; then
-      # CXREF: ~/.depoxy/ambers/home/.kit/sh/_mrconfig-shell
-      mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-shell"
-    fi
+    # CXREF: ~/.depoxy/ambers/home/.kit/sh/_mrconfig-shell
+    mr_cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/sh/_mrconfig-shell"
   fi
 
 # ========================================================================
@@ -231,6 +231,7 @@ include =
 
 include =
   if [ -z ${MR_INCLUDE+x} ] ||
+     [ "${MR_INCLUDE}" = "aci" ] ||
      [ "${MR_INCLUDE}" = "kit" ] ||
      [ "${MR_INCLUDE}" = "txt" ] ||
      [ "${MR_INCLUDE}" = "kit-txt" ] ||

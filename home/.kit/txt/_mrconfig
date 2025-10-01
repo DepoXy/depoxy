@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 203
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_txt() { mr_exclusive "kit" "txt" "kit-txt" "DXC"; }
+skip = mr_exclusive_txt
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -29,6 +32,7 @@ lib = remote_set publish https://github.com/DepoXy/emoji-lookup.git
 # https://github.com/DepoXy/spellfile.txt#🧙
 [${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt]
 lib = remote_set publish https://github.com/DepoXy/spellfile.txt.git
+skip = mr_exclusive "aci" && mr_exclusive_txt
 infuse = link_private_exclude "$@"
 autocommit =
   git_auto_commit_parse_args "$@"
@@ -43,8 +47,11 @@ autocommit =
 [${DOPP_KIT:-${HOME}/.kit}/txt/diff-so-fancy]
 order = 670
 lib = remote_set starter https://github.com/so-fancy/diff-so-fancy.git
-skip = no_travel
+skip = no_travel || mr_exclusive_txt
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

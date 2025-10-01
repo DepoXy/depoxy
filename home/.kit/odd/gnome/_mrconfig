@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 678
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_odd() { mr_exclusive "kit" "odd" "kit-odd" "DXC"; }
+skip = mr_exclusive_odd
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -177,7 +180,7 @@ lib =
 #   mr -M -d ~/.kit/odd/gnome-extensions echoInstallHelp
 
 [${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions]
-skip = test "${MR_ACTION}" != "echoInstallHelp"
+skip = test "${MR_ACTION}" != "echoInstallHelp" || mr_exclusive_odd
 echoInstallHelp =
   # local checkbox="$(echoInstallHelpWidget 'os_linux' 'dxy_all' true)"
   local infosphere="🕯️" # ⚠️ ℹ️ 💡
@@ -594,4 +597,7 @@ include =
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

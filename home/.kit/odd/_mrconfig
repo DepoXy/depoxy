@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 771
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_odd() { mr_exclusive "kit" "odd" "kit-odd" "DXC"; }
+skip = mr_exclusive_odd
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -18,7 +21,7 @@ order = 771
 #   (see also stub_checkout_directory).
 checkout = mkdir -p -- "${MR_REPO}"
 # Not an actual repo
-skip = no_travel
+skip = no_travel || mr_exclusive_odd
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 
 # CXREF/2025-01-30: This psuedo-project approach intended to replace
@@ -116,7 +119,7 @@ installLinux = "${MR_REPO}/install.sh"
 #  WinSplit Revolution for people who don't want to use Compiz Grid)"
 [${DOPP_KIT:-${HOME}/.kit}/odd/x11/quicktile]
 lib = remote_set starter https://github.com/ssokolow/quicktile.git
-skip = os_is_macos || no_travel
+skip = os_is_macos || no_travel || mr_exclusive_odd
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 infuse = link_private_exclude "$@"
@@ -235,7 +238,7 @@ installLinux =
 # - On @linux, web app won't connect, so using AppImage.
 [${DOPP_KIT:-${HOME}/.kit}/odd/keyboard/via-nativia]
 checkout = stub_checkout_directory
-skip = no_travel
+skip = no_travel || mr_exclusive_odd
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you mechanical keyboard lubbers' 'VIA'
@@ -347,7 +350,7 @@ lib =
 #   - Note that OS X, Linux, and Windows releases are released separately.
 [${DOPP_KIT:-${HOME}/.kit}/odd/keyboard/wally]
 checkout = stub_checkout_directory
-skip = no_travel
+skip = no_travel || mr_exclusive_odd
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'for you ZSA mechanical keyboard owners' 'Wally'
@@ -438,4 +441,7 @@ installLinux =
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 699
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_odd() { mr_exclusive "kit" "odd" "kit-odd" "DXC"; }
+skip = mr_exclusive_odd
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -42,7 +45,7 @@ order = 699
 
 [${DOPP_KIT:-${HOME}/.kit}/odd/containers/containerd]
 lib = remote_set starter https://github.com/containerd/containerd
-skip = skip_unless_linux || no_travel
+skip = no_travel || skip_unless_linux || mr_exclusive_odd
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -66,13 +69,16 @@ skip = skip_unless_linux || no_travel
 #         lazyteam/lazydocker
 [${DOPP_KIT:-${HOME}/.kit}/odd/containers/lazydocker]
 lib = remote_set starter https://github.com/jesseduffield/lazydocker.git
-skip = no_travel
+skip = no_travel || mr_exclusive_odd
 
 [${DOPP_KIT:-${HOME}/.kit}/odd/containers/monokle/monokle-demo]
 lib = remote_set starter https://github.com/kubeshop/monokle-demo.git
-skip = no_travel
+skip = no_travel || mr_exclusive_odd
 infuse = link_private_exclude "$@"
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

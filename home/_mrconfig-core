@@ -168,7 +168,7 @@ install = install_bash_history_to_noise
 [${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}]
 order = 131
 lib = remote_set publish "https://github.com/DepoXy/depoxy.git" "ambers"
-skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
+skip = mr_exclusive "aci" "bash" "sh" "home" "depoxy" "DXC" "${LOGNAME}"
 # CXREF: The client might monkey-patch 'infuse':
 # ~/.depoxy/running/home/.depoxy/ambers/_mrconfig-include
 infuse =
@@ -267,7 +267,7 @@ include =
 [${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers/archetype]
 order = 132
 lib = remote_set publish "https://github.com/DepoXy/depoxy-archetype.git" "archetype"
-skip = mr_exclusive "bash" "sh" "home" "depoxy" "entrusted" "DXC" "${LOGNAME}"
+skip = mr_exclusive "bash" "sh" "home" "depoxy" "DXC" "${LOGNAME}"
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"

@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 480
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_sh() { mr_exclusive "kit" "sh" "kit-sh" "DXC"; }
+skip = mr_exclusive_sh
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -17,19 +20,16 @@ order = 480
 # CXREF: link_hard_dep_sh_ask_yesnoskip
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip]
 lib = remote_set publish https://github.com/landonb/sh-ask-yesnoskip.git
-skip = mr_exclusive "!entrusted"
 
 # CXREF: link_hard_dep_sh_colors
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors]
 lib = remote_set publish https://github.com/landonb/sh-colors.git
-skip = mr_exclusive "!entrusted"
 
 # https://github.com/DepoXy/sh-err-trap#🪤
 # "Bash `trap` boilerplate"
 # CXREF: link_hard_dep_sh_err_trap
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap]
 lib = remote_set publish https://github.com/DepoXy/sh-err-trap.git
-skip = mr_exclusive "!entrusted"
 
 # CXREF: link_hard_dep_sh_git_nubs
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs]
@@ -41,13 +41,11 @@ skip = mr_exclusive "!entrusted"
 #     ~/.depoxy/ambers/home/.kit/git/_mrconfig-git-smart
 order = 501
 lib = remote_set publish https://github.com/landonb/sh-git-nubs.git
-skip = mr_exclusive "!entrusted"
 
 # https://github.com/DepoXy/sh-humble-prompt#🙇
 # Shell prompt and terminal window title enhancements
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt]
 lib = remote_set publish https://github.com/DepoXy/sh-humble-prompt.git
-skip = mr_exclusive "!aci" "!entrusted"
 infuse = mr -d . -n infusePostRebase
 infusePostRebase = link_hard_dep_gnome_window_calls
 # REFER: update_deps_gnome_window_calls
@@ -56,7 +54,6 @@ updateDeps = update_deps_shoilerplate
 # CXREF: link_hard_dep_sh_logger
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger]
 lib = remote_set publish https://github.com/landonb/sh-logger.git
-skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
 infuse = mr -d . -n infusePostRebase
@@ -65,20 +62,16 @@ updateDeps = update_deps_shoilerplate
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather]
 lib = remote_set publish https://github.com/landonb/sh-pather.git
-skip = mr_exclusive "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now]
 lib = remote_set publish https://github.com/landonb/sh-print-nanos-now.git
-skip = mr_exclusive "!entrusted"
 
 # Shell dependency loading boilerplate
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-source-deps-template]
 lib = remote_set publish https://github.com/DepoXy/sh-source-deps-template.git
-skip = mr_exclusive "!aci" "!entrusted"
 
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe]
 lib = remote_set publish https://github.com/landonb/sh-rm_safe.git
-skip = mr_exclusive "!entrusted"
 infusePostRebase =
   link_hard_dep_sh_colors
 infuse = mr -d . -n infusePostRebase
@@ -105,7 +98,6 @@ updateDeps = update_deps_shoilerplate
 # `sensible-browser` for Linux and macOS with new-window default
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
 lib = remote_set publish https://github.com/landonb/sh-sensible-open.git
-skip = mr_exclusive "!entrusted"
 
 # ***
 
@@ -114,7 +106,6 @@ skip = mr_exclusive "!entrusted"
 # https://github.com/DepoXy/gvim-open-kindness#🐬
 [${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness]
 lib = remote_set publish https://github.com/DepoXy/gvim-open-kindness.git
-skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/gvim-open-kindness"
 install =
@@ -154,7 +145,6 @@ updateDeps = update_deps_shoilerplate
 # https://github.com/DepoXy/dot-inputrc#🎛️
 [${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc]
 lib = remote_set publish https://github.com/DepoXy/dot-inputrc.git
-skip = mr_exclusive "!entrusted"
 infusePostRebase =
   local inputrc_path=".inputrc"
   #
@@ -187,11 +177,13 @@ infuse =
 # 2023-01-01: Not that I ever use fries-findup.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup]
 lib = remote_set publish https://github.com/landonb/fries-findup.git
-skip = mr_exclusive "!entrusted"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 isInstalled = is_symlinked_locally_and_targets_proper_overlay "bin/fries-findup"
 install = PREFIX="${HOME}/.local" make link
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

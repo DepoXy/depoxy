@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 690
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_go() { mr_exclusive "kit" "go" "kit-go" "DXC"; }
+skip = mr_exclusive_go
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -136,4 +139,7 @@ lib = remote_set starter https://github.com/waucka/secretshare.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

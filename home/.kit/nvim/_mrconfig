@@ -11,6 +11,33 @@
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[DEFAULT]
+# NSURE: Reset `skip` at end of this file.
+# INERT: The (n)vim MR_INCLUDE tags are not really maintained.
+lib =
+  mr_exclusive_nvim_all_tags() {
+    mr_exclusive \
+      "aci" "kit" "nvim" "kit-nvim" "DXC" \
+      \
+      "vim" "dubs-vim" "vim-dubs" "github.com/landonb" \
+      "vim-3rdp" "vim-lsp" "vim-private" "vim-plugins" \
+      "${LOGNAME}" \
+      \
+      "vim_active" "!vim_active"
+  }
+  mr_exclusive_nvim_depoxy() {
+    mr_exclusive \
+      "aci" "kit" "nvim" "kit-nvim" "DXC" \
+      \
+      "github.com/landonb" \
+      "${LOGNAME}"
+  }
+  mr_exclusive_nvim_core() { mr_exclusive "kit" "nvim" "kit-nvim" "DXC"; }
+skip = mr_exclusive_nvim_core
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}]
 order = 361
 
@@ -26,10 +53,7 @@ unpack = true
 
 # USYNC: Because 'chain', use all MR_INCLUDE values from the Vim config:
 #   ~/.kit/nvim/.mrconfig
-skip = mr_exclusive "vim" "dubs-vim" "vim-3rdp" "vim-dubs" \
-  "github.com/landonb" "vim-lsp" "vim-private" "vim-plugins" \
-  "DXC" "${LOGNAME}" \
-  "vim_active" "!vim_active"
+skip = mr_exclusive_nvim_all_tags
 
 # So that nvim OMR config can use relative paths, which makes it more
 # easily reusable and maintainable.
@@ -89,7 +113,7 @@ include =
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy]
 order = 142
 lib = remote_set publish https://github.com/landonb/nvim-depoxy.git
-skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
+skip = mr_exclusive_nvim_depoxy
 infuse = link_private_exclude "$@"
 autocommit =
   # Prepare args, e.g., `autocommit -y`, or `autocommit -f`.
@@ -106,7 +130,7 @@ autocommit =
 [${MR_HOME:-${HOME}}/.kit/nvim/DepoXy/start/vim-depoxy]
 order = 143
 lib = remote_set publish "https://github.com/DepoXy/vim-depoxy.git"
-skip = mr_exclusive "depoxy" "DXC" "vim" "dubs-vim" "vim-dubs" "vim-plugins"
+skip = mr_exclusive_nvim_depoxy
 infuse = link_private_exclude "$@"
 
 # ========================================================================
@@ -119,15 +143,18 @@ infuse = link_private_exclude "$@"
 
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-config/Wansmer]
 lib = remote_set starter https://github.com/Wansmer/nvim-config.git 'Wansmer'
+skip = mr_exclusive_nvim_core
 
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-config/9mm]
 lib = remote_set starter https://github.com/9mm/dotfiles.git '9mm'
+skip = mr_exclusive_nvim_core
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/clang/neovim]
 lib = remote_set starter https://github.com/neovim/neovim
+skip = mr_exclusive_nvim_core
 order = 810
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 lib =
@@ -178,8 +205,6 @@ install =
 [${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/dubs-vim]
 order = 144
 lib = remote_set publish "https://github.com/landonb/dubs-vim.git" ".vim"
-# DUNNO: Want included w/ $LOGNAME projects?:
-#   skip = mr_exclusive "vim" "dubs-vim" "vim-dubs" "github.com/landonb" "${LOGNAME}"
 skip = mr_exclusive "vim" "dubs-vim" "vim-dubs" "github.com/landonb"
 
 # ========================================================================
@@ -190,11 +215,9 @@ order = 810
 lib =
   remote_set publish https://github.com/landonb/vim.git
   remote_set starter https://github.com/vim/vim.git
+skip = mr_exclusive "vim"
 # Don't symlink under ~/.projlns
 infuseProjlns = OMR_INFUSE_PROJLNS_TOGGLE_OFF=true infuse_projlns_if_personal_project
-
-# See also MR_INCLUDE usage gaiting mr_cat calls, below.
-skip = mr_exclusive "vim"
 
 # ISOFF/2025-09-08: This was 'os_linux' 'dxy_maybe';
 #   but I'm all setup and comfy in Neovim & Neovide.
@@ -333,7 +356,11 @@ order = 810
 lib =
   # remote_set publish https://github.com/landonb/neovide.git
   remote_set starter https://github.com/neovide/neovide.git
+skip = mr_exclusive_nvim_core
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

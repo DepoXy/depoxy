@@ -8,6 +8,9 @@
 
 [DEFAULT]
 order = 690
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_js() { mr_exclusive "kit" "js" "js" "kit-js" "DXC"; }
+skip = mr_exclusive_js
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -17,7 +20,6 @@ order = 690
 
 [${DOPP_KIT:-${HOME}/.kit}/js/Jest-Coverage-Diff]
 lib = remote_set starter https://github.com/anuraag016/Jest-Coverage-Diff.git
-skip = mr_exclusive "!entrusted"
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -36,7 +38,6 @@ skip = mr_exclusive "!entrusted"
 [${DOPP_KIT:-${HOME}/.kit}/js/lens]
 lib = remote_set starter https://github.com/lensapp/lens.git
 # ISOFF/2025-02-05: ¾GB and I have a small SSD.
-#  skip = mr_exclusive "!entrusted"
 skip = true
 deleted = true
 echoInstallHelp =
@@ -126,7 +127,6 @@ installDarwin =
 lib = remote_set starter https://github.com/nvm-sh/nvm.git
 # Bump the order so before projects that need nvm (like fzf, OpenLens).
 order = 689
-skip = mr_exclusive "!entrusted"
 # Checkout the latest tagged release, so we're not running "unreleased" code.
 echoInstallHelp =
   which_os="os_all"
@@ -206,8 +206,10 @@ installNVMNodes =
 #   ~/.kit/nvim/ryanolsonx/start/vim-lsp-javascript
 [${DOPP_KIT:-${HOME}/.kit}/js/typescript-language-server]
 lib = remote_set starter https://github.com/theia-ide/typescript-language-server.git
-skip = mr_exclusive "!entrusted"
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

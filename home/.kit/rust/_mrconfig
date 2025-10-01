@@ -11,6 +11,9 @@
 
 [DEFAULT]
 order = 711
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_rust() { mr_exclusive "kit" "rust" "kit-rust" "DXC"; }
+skip = mr_exclusive_rust
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -20,7 +23,7 @@ order = 711
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/rust}/rustup.rs]
 checkout = stub_checkout_directory
 # Not an actual repo
-skip = no_travel
+skip = no_travel || mr_exclusive_rust
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
@@ -216,4 +219,7 @@ skip = true
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

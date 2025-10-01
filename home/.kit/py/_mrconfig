@@ -11,6 +11,9 @@
 
 [DEFAULT]
 order = 695
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_py() { mr_exclusive "kit" "py" "kit-py" "DXC"; }
+skip = mr_exclusive_py
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -952,4 +955,7 @@ lib = remote_set starter https://github.com/Aider-AI/aider
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

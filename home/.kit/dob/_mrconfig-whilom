@@ -123,7 +123,7 @@ lib = remote_set starter https://github.com/projecthamster/hamster.git
 [${DOB_OMR_DIR:-${HOME}/.kit/dob}/.whilom/release-ghub-pypi]
 lib = remote_set publish https://github.com/doblabs/release-ghub-pypi.git
 # # Exclude from MR_INCLUDE=eapp, etc.
-# skip = mr_exclusive "!dob" || mr_exclusive "!eapp" || mr_exclusive "!eapp-test"
+# skip = mr_exclusive "!dob" "!eapp" "!eapp-test"
 skip = skip_unless_archiving
 infusePostRebase =
   link_hard_dep_sh_ask_yesnoskip

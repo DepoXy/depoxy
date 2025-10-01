@@ -5,6 +5,9 @@
 
 [DEFAULT]
 order = 761
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_mOS() { mr_exclusive "kit" "mOS" "kit-mOS" "DXC"; }
+skip = mr_exclusive_mOS
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -12,7 +15,7 @@ order = 761
 # Old school magical file (magically undocumented).
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/.whilom/DefaultKeybindings.dict]
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS 
 
 # LATER/2024-07-22: Remove this after migrating dirs on all hosts
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
@@ -36,7 +39,7 @@ deleted = true
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/Docker-Desktop-OMR-install]
 checkout = stub_checkout_directory
 # Not an actual repo
-skip = no_travel
+skip = no_travel || mr_exclusive_mOS
 ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
 #
 echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all' 'if that‘s something you‘ll use'
@@ -76,4 +79,7 @@ installDarwin =
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 

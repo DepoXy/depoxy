@@ -8,15 +8,15 @@
 
 [DEFAULT]
 order = 670
-
+# NSURE: Reset `skip` at end of this file.
 lib = mr_exclusive_git_core () { mr_exclusive "kit" "git" "kit-git" "DXC"; }
+skip = mr_exclusive_git_core
 
 # ========================================================================
 # ------------------------------------------------------------------------
 
 [${GITREPOSPATH:-${HOME}/.kit/git}/git]
 lib = remote_set starter https://github.com/git/git.git
-skip = mr_exclusive_git_core
 # REFER: https://github.com/git/git/blob/master/Documentation/SubmittingPatches
 # - Git uses four branches: maint > master > next > seen
 #   - 'master' is more bleeding edge, but it has same version tags as
@@ -124,7 +124,6 @@ installLinux =
 # commands, so pulling it all in.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-extras]
 lib = remote_set starter https://github.com/tj/git-extras.git
-skip = mr_exclusive_git_core
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' '`git-show-tree`, etc.'
 # SAVVY: We'll suss installed by the last 'install' command.
 isInstalled =
@@ -216,7 +215,6 @@ install =
 # CXREF: https://github.com/newren/git-filter-repo
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo]
 lib = remote_set starter https://github.com/newren/git-filter-repo.git
-skip = mr_exclusive_git_core
 infuse =
   symlink_overlay_file \
     "${GITREPOSPATH:-${HOME}/.kit/git}/git-filter-repo/git-filter-repo" \
@@ -231,7 +229,6 @@ update = git pull --ff-only
 # SAVVY/2024-02-18: Not updated since 2010-10-11.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-heads]
 lib = remote_set starter https://github.com/seschwar/git-heads.git
-skip = mr_exclusive_git_core
 
 # ========================================================================
 # ------------------------------------------------------------------------
@@ -246,7 +243,6 @@ skip = mr_exclusive_git_core
 # - Node clone: https://github.com/sjurba/rebase-editor
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-interactive-rebase-tool]
 lib = remote_set starter https://github.com/MitMaro/git-interactive-rebase-tool.git
-skip = mr_exclusive_git_core
 infuse =
   link_private_exclude "$@"
   link_private_ignore_ "$@"
@@ -362,7 +358,6 @@ installLinux =
 # 2020-01-17: Like `cloc`, but for git code authors.
 [${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats]
 lib = remote_set starter https://github.com/arzzen/git-quick-stats.git
-skip = mr_exclusive_git_core
 infuse =
   symlink_overlay_file \
     "${GITREPOSPATH:-${HOME}/.kit/git}/git-quick-stats/git-quick-stats" \
@@ -393,7 +388,6 @@ update = git pull --ff-only
 #     https://github.com/github/hub.git
 # - But per `man git-config`, these all default 'false' already.
 lib = remote_set starter https://github.com/github/hub.git
-skip = mr_exclusive_git_core
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   '\n     Very Probably unnecessary for any development environment; see `gh` instead\n'
 isInstalled = is_installed_locally_and_same_as_repo_build ".local/bin/hub" "bin/hub"
@@ -407,7 +401,6 @@ install =
 # 2021-01-30: The `hub` competitor, the "official" 'cli'. Er, `gh`.
 [${GITREPOSPATH:-${HOME}/.kit/git}/cli]
 lib = remote_set starter https://github.com/cli/cli.git
-skip = mr_exclusive_git_core
 # Build requires Go 1.13+.
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_limit_maybe' \
   'aka `gh` — may or may not be necessary for your @biz client'
@@ -465,7 +458,6 @@ infuseProjlns = infuse_projlns_if_personal_project "mr" "README.rst"
 [${OHMYREPOS_DIR:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos}]
 order = 202
 lib = remote_set publish https://github.com/landonb/ohmyrepos.git
-skip = mr_exclusive_git_core
 infusePostRebase =
   link_hard_dep_sh_err_trap
   link_hard_dep_sh_logger_and_colors
@@ -499,7 +491,6 @@ lib = remote_set starter https://github.com/jonas/tig.git
 #  lib =
 #    remote_set publish https://github.com/landonb/tig.git
 #    remote_set starter https://github.com/jonas/tig.git"
-skip = mr_exclusive_git_core
 infuse = link_private_exclude "$@"
 echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 # Note that ~/.local/bin/tig is a copy of the built executable.
@@ -710,4 +701,7 @@ lib = remote_set starter https://github.com/dandavison/delta.git
 
 # ========================================================================
 # ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
 
