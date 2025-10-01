@@ -17,7 +17,8 @@
 #   the --purged copy you have @home against the template.
 /home/.kit/nvim/landonb/dubs_project_tray/.vimprojects.EVAL
 # Same for project-specific Vimprojects files.
-/home/.kit/nvim/landonb/dubs_project_tray/.vimprojects--dob
+# - E.g., ./.vimprojects--dob
+/home/.kit/nvim/landonb/dubs_project_tray/.vimprojects--*
 
 # Convenience symlink -> "Application Support" so we can use
 # Vim `gf` command on paths thereunder, e.g.,
