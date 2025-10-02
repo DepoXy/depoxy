@@ -39,6 +39,11 @@ toggle_focus_mode() {
   local old_mode
   old_mode="$(get_focus_mode)"
 
+  if [ -z "${old_mode}" ]; then
+    >&2 echo "GAFFE: Unexpected: No focus-mode?!"
+    old_mode="sloppy"
+  fi
+
   if [ -n "${new_mode}" ]; then
     # Verify the specified node, or print error and exit nonzero.
     local _mode
