@@ -116,7 +116,9 @@ lib =
 # On macOS at /opt/homebrew/bin/meld, and from apt
 # at /usr/bin/meld, so on PATH. Or check if installed
 # via Flatpak.
-isInstalled = command -v meld || is_meld_flatpak_installed_deb
+isInstalled = isInstalled_specific
+isInstalledDarwin = command -v meld
+isInstalledLinux = is_meld_flatpak_installed_deb
 install = install_os_specific
 installLinux =
   # SAVVY/2025-09-24: Recent apt meld packages (e.g., meld 3.22.3)
