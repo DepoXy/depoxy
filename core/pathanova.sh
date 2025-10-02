@@ -30,6 +30,10 @@ user_path_add_home_local_node_modules_bin() {
 user_path_add_depoxyambers_bin() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   path_prefix "${DEPOXYAMBERS_DIR:-${ambers_path}}/bin"
+
+  if [ "${XDG_CURRENT_DESKTOP}" = "GNOME" ]; then
+    path_prefix "${ambers_path}/bin/gnome"
+  fi
 }
 
 # ***
