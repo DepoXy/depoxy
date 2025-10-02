@@ -1,0 +1,120 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright © 2025 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+DXY_GNOME_SEND_EVENTS_SCHEMA="org.gnome.desktop.peripherals.touchpad"
+DXY_GNOME_SEND_EVENTS_KEY="send-events"
+
+toggle_send_events() {
+  local arg_val="$1"
+
+  # Note gsettings-get/dconf-read return single-quoted value,
+  # e.g., "'sloppy'".
+  local old_val
+  old_val="$(get_send_events)"
+
+  if [ -z "${old_val}" ]; then
+    >&2 echo "GAFFE: Unexpected: No send-events?!"
+    old_val="enabled"
+  fi
+
+  local cur_val
+  if ! cur_val="$(normalize_value "${arg_val:-${old_val}}")"; then
+    >&2 echo "ERROR: Unexpected arg: ${arg_val:-${old_val}}"
+    >&2 echo "USAGE: ${PROG_NAME} [<enabled|true|on|1|disabled|false|off|0>]"
+
+    return 1
+  fi
+
+  if [ -z "${arg_val}" ]; then
+    if [ "${cur_val}" = "enabled" ]; then
+      cur_val="disabled"
+    else
+      cur_val="enabled"
+    fi
+  fi
+
+  set_send_events "${cur_val}"
+}
+
+get_send_events() {
+  gsettings get \
+    "${DXY_GNOME_SEND_EVENTS_SCHEMA}" \
+    "${DXY_GNOME_SEND_EVENTS_KEY}" |
+    sed "s/'\\(.*\\)'/\\1/"
+}
+
+set_send_events() {
+  local send_events="$1"
+
+  gsettings set \
+    "${DXY_GNOME_SEND_EVENTS_SCHEMA}" \
+    "${DXY_GNOME_SEND_EVENTS_KEY}" \
+    "${send_events}"
+}
+
+normalize_value() {
+  local val="$1"
+
+  if [ -z "${val}" ]; then
+    echo "disabled"
+  elif false ||
+    [ "${val}" = "enabled" ] ||
+    [ "${val}" = "true" ] ||
+    [ "${val}" = "on" ] ||
+    [ "${val}" = "1" ] \
+    ; then
+    echo "enabled"
+  elif false ||
+    [ "${val}" = "disabled" ] ||
+    [ "${val}" = "false" ] ||
+    [ "${val}" = "off" ] ||
+    [ "${val}" = "0" ] \
+    ; then
+    echo "disabled"
+  else
+    false
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+check_deps() {
+  if os_is_macos || [ "${XDG_CURRENT_DESKTOP}" != "GNOME" ]; then
+    >&2 echo "ERROR: Requires GNOME"
+
+    exit 1
+  fi
+}
+
+os_is_macos() {
+  [ "$(uname)" = "Darwin" ]
+}
+
+# ***
+
+PROG_NAME="toggle-touchpad"
+
+main() {
+  check_deps
+
+  toggle_send_events "$@"
+}
+
+_dx_sourcing=true
+
+# Run the command unless being sourced.
+if [ "$(basename -- "$(realpath -- "$0")")" = "${PROG_NAME}" ]; then
+  _dx_sourcing=false
+fi
+
+${_dx_sourcing} && {
+  unset -v _dx_sourcing
+  unset -f main
+} || main "$@"
