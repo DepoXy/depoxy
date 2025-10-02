@@ -107,7 +107,7 @@ rebase =
 
 # ***
 
-echoInstallHelp = echoInstallHelp 'os_macos' 'dxy_all'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
 lib =
   is_meld_flatpak_installed_deb () {
     [ -d "${HOME}/.local/share/flatpak/app/org.gnome.meld" ] \
