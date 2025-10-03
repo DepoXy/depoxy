@@ -163,6 +163,41 @@ _dxy_wire_alias_git_riaX() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# E.g., `dsub "s/<pat>/<sub>/g"` and `dsub "s#foo#bar#g"` calls this or that:
+#   git ls-files -z | xargs -0 -I '{}' -S 4096 bash -c '[ -h "{}" ] \
+#     || sed -i -e "s/<pat>/<sub>/g" "{}"'
+#   git ls-files -z | xargs -0 -I '{}' -S 4096 bash -c '[ -h "{}" ] \
+#     || sed -i -e "s#foo#bar#g" "{}"'
+# SAVVY: `-S 4096` avoids "xargs: command line cannot be assembled, too long".
+# - REFER: -S|replsize — "Specify the amount of space (in bytes) that
+#   `-I` can use for replacements. The default for `replsize` is 255."
+# DUNNO: What's a good alias? `sub`? Or `gsub` b/c git-ls-files used?
+# - Maybe avoid "sub" because not as easily greppable.
+# - Maybe avoid "gsub" because same-named awk command.
+# - We'll try "dsub", which is unique, has "DepoXy" mnemonic, but also
+#   I don't really like the name... but we'll try it for now.
+_dxy_wire_alias_git_ls_files_sed_replace() {
+  local replsize=""
+  ! os_is_macos || replsize="-S 4096"
+
+  # MAYBE: Promote to a new function, e.g., _dxy_substitute().
+  # - ORNOT: Keep as living example why not to do it this way.
+  claim_alias_or_warn "dsub" 'f() {
+    local sed_script=\"\$1\";
+    \\
+    if [ -z \"\${sed_script}\" ]; then
+      >&2 echo \"ERROR: Missing arg: Please specify the sed script\";
+      \\
+      return 1;
+    fi;
+    \\
+    git ls-files -z \\
+      | xargs -0 -I \"{}\" ${replsize} \\
+      bash -c \"[ -h \\\"{}\\\" ] || sed -i -e \\\"\${sed_script}\\\" \\\"{}\\\"\"; }; f'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_alias_just_t_for_tig() {
   # 2023-01-15: This feels so intimate!!
   # - Are we really one a first-character basis now?
@@ -351,6 +386,9 @@ main() {
 
   _dxy_wire_alias_git_riaX
   unset -f _dxy_wire_alias_git_riaX
+
+  _dxy_wire_alias_git_ls_files_sed_replace
+  unset -f _dxy_wire_alias_git_ls_files_sed_replace
 
   _dxy_wire_alias_just_t_for_tig
   unset -f _dxy_wire_alias_just_t_for_tig
