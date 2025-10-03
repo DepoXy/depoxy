@@ -181,12 +181,20 @@ _dxy_wire_alias_git_ls_files_sed_replace() {
 }
 
 _dxy_substitute() {
-  local sed_script="$1"
+  local script_or_regexp="$1"
+  local optl_replacement="$2"
 
-  if [ -z "${sed_script}" ]; then
-    >&2 echo "ERROR: Missing arg: Please specify the sed script string."
+  if [ -z "${script_or_regexp}" ]; then
+    >&2 echo "ERROR: Missing arg(s)."
+    >&2 echo "- USAGE: dsub <sed script or regexp> [<replacement>]"
+    >&2 echo "  - E.g., \`dsub s/foo/bar/g\`, or \`dsub foo bar\`."
 
     return 1
+  fi
+
+  local sed_script="${script_or_regexp}"
+  if [ -n "${optl_replacement}" ]; then
+    sed_script="s/${script_or_regexp}/${optl_replacement}/g"
   fi
 
   local replsize=""
