@@ -177,23 +177,24 @@ _dxy_wire_alias_git_riaX() {
 # - We'll try "dsub", which is unique, has "DepoXy" mnemonic, but also
 #   I don't really like the name... but we'll try it for now.
 _dxy_wire_alias_git_ls_files_sed_replace() {
+  claim_alias_or_warn "dsub" "_dxy_substitute"
+}
+
+_dxy_substitute() {
+  local sed_script="$1"
+
+  if [ -z "${sed_script}" ]; then
+    >&2 echo "ERROR: Missing arg: Please specify the sed script string."
+
+    return 1
+  fi
+
   local replsize=""
   ! os_is_macos || replsize="-S 4096"
 
-  # MAYBE: Promote to a new function, e.g., _dxy_substitute().
-  # - ORNOT: Keep as living example why not to do it this way.
-  claim_alias_or_warn "dsub" 'f() {
-    local sed_script=\"\$1\";
-    \\
-    if [ -z \"\${sed_script}\" ]; then
-      >&2 echo \"ERROR: Missing arg: Please specify the sed script\";
-      \\
-      return 1;
-    fi;
-    \\
-    git ls-files -z \\
-      | xargs -0 -I \"{}\" ${replsize} \\
-      bash -c \"[ -h \\\"{}\\\" ] || sed -i -e \\\"\${sed_script}\\\" \\\"{}\\\"\"; }; f'
+  git ls-files -z \
+    | xargs -0 -I "{}" ${replsize} \
+      bash -c "[ -h \"{}\" ] || sed -i -e \"${sed_script}\" \"{}\""
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
