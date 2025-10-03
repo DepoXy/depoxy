@@ -167,7 +167,29 @@ _dxy_wire_alias_just_t_for_tig() {
   # 2023-01-15: This feels so intimate!!
   # - Are we really one a first-character basis now?
   #   - With this call I 't' alias.
-  claim_alias_or_warn "t" "tig"
+  claim_alias_or_warn "t" "_dxy_tig"
+}
+
+_dxy_tig() {
+  local eoa="$1"
+  local path="$2"
+
+  if false \
+    || [ $# -ne 2 ] \
+    || [ "${eoa}" != "--" ] \
+    || [ -e "${path}" ] \
+    || ! echo "${path}" | grep -q -e "^\(a\|b\)/"; then
+
+    command tig "$@"
+  else
+    # User called `t -- {path}` but {path} does not exist,
+    # and it's an a/- or b/-prefixed path.
+    # - UCASE: Author double-clicks tig diff paths, then
+    #   wants to view just that file's history.
+    #   - SPIKE: Can you accomplish similar without leaving
+    #     tig and running a new instance?
+    command tig -- "${path#*/}"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
