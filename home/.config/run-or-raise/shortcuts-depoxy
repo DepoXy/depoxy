@@ -180,7 +180,7 @@
 # BNDNG: <Shift-Cmd-F>
 <Shift><Super>f,firefox,firefox-esr
 
-# Use <Shift-Cmd-T> to front Google Chrome.
+# Use <Shift-Cmd-W> to front Google Chrome.
 # - If Google Chrome is not active, and if one or more
 #   Chrome windows are visible, it'll front the MRU
 #   visible window.
@@ -206,8 +206,8 @@
 #   includes minimized windows. E.g.,
 #     <Shift><Super>f:isolate-workspace,firefox,firefox-esr
 #
-# BNDNG: <Shift-Cmd-T>
-<Shift><Super>t,/usr/bin/google-chrome --profile-directory=Default,google-chrome
+# BNDNG: <Shift-Cmd-W>
+<Shift><Super>w,/usr/bin/google-chrome --profile-directory=Default,google-chrome
 
 # FEATR: Open Firefox window to manage GNOME Shell Extensions.
 # - Opens *GNOME Shell Extensions > Installed Extensions*
