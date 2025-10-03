@@ -427,7 +427,7 @@ install =
 
 # SLUGL: myrepos fork for ohmyrepos
 [${GITREPOSPATH:-${HOME}/.kit/git}/myrepos]
-order = 470
+order = 460
 # Note that 'checkout' on this project is pretty much impossible: You can't clone the cloner!
 # - Well, not unless you previously cloned it elsewhere and can run it.
 # - At least you can still run `wireRemotes`, though.

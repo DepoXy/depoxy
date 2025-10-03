@@ -65,6 +65,7 @@ skip = mr_exclusive_py
 [${DOPP_KIT:-${HOME}/.kit}/py/pipx]
 # ISOFF: Bump order so precedes projects that need pipx installed first.
 #   order = 410
+order = 695
 # - SAVVY: Add `mr -d .../pipx -n install` to those projects' 'install'
 #   tasks instead.
 #   - Currently, it's just ~/.kit/git/git-bump-version-tag that uses pipx.
@@ -304,9 +305,7 @@ install =
 # ------------------------------------------------------------------------
 
 [${DOPP_KIT:-${HOME}/.kit}/py/pyenv]
-# Should be ordered lower than anything that uses `pyenv init`
-# (lowest-order project is pipx, order = 469).
-order = 468
+order = 694
 # Skip if using Homebrew pyenv, prob. b/c user ran @macOS onboarder
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 # Otherwise might be, e.g., author's Linux env. (where I don't (or
