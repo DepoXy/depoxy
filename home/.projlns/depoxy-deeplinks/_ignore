@@ -49,6 +49,14 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Always ignore '.gitignore.local'
+# - Each .gitignore.local is always a symlink to .git/info/exclude,
+#   and each .git/info/exclude symlinks a _git/info/exclude under
+#   ~/.depoxy/ambers/home/ or under user's ~/.depoxy/stints/XXXX/home/.
+.gitignore.local
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # Top-level, uber-Universal/Exuberant Ctags tags file made on `infuse`.
 # - CXREF: See OMR 'infuseProjlns' actions.
 #   infuse_projects_links_core_generate_ctags:
@@ -90,19 +98,11 @@
 
 # See actuals under ~/.waffle/home/.kit/sh/home-fries/
 
-# -> .git/info/exclude
-# Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/_git/info/exclude
-/Users/user/.kit/sh/home-fries/.gitignore.local
-
 # -> ../.mrinfuse/.kit/sh/home-fries/.ignore
 # Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/.ignore
 /Users/user/.kit/sh/home-fries/.ignore
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-# -> .git/info/exclude
-# Aka: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/_git/info/exclude
-/Users/user/.kit/git/ohmyrepos/.gitignore.local
 
 # -> ../../../.mrinfuse/.kit/git/ohmyrepos/_ignore
 # Aka: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/_ignore
