@@ -72,6 +72,8 @@
   # Project: https://github.com/landonb/git-veggie-patch
   #
   # Add a visual break (colorful flower bed) between interactive patch hunks.
+  #
+  # USYNC: ~/.kit/git/git-veggie-patch/git-veggie-patch/.gitconfig.example
   diffFilter = diff-filter-garden
 
 # AWAIT/2022-10-25: This comment and the useBuiltin setting are transitory,
