@@ -76,27 +76,6 @@
   # USYNC: ~/.kit/git/git-veggie-patch/git-veggie-patch/.gitconfig.example
   diffFilter = diff-filter-garden
 
-# AWAIT/2022-10-25: This comment and the useBuiltin setting are transitory,
-#                   and will be removed after macOS updates to Git >v.37.
-# - The issue: Git v2.37 activated new `git add -p` code rewritten in C,
-#   but there was a regression with interactive patch using color codes.
-#   - The issue was fixed in the following release, Git v.238.
-#   - REFER: https://github.com/so-fancy/diff-so-fancy/issues/437
-# - Note that Homebrew Git at v2.38, but Brew git is slow to run some of
-#   my custom commands. For instance, `git st` (my-merge-status) and the
-#   `git add -p` interactive patch filter (git-veggie-patch) each run
-#   very slowly with Brew git. (I've seen similar slowness sourcing files
-#   with Brew Bash, while seems like a file read bottleneck (if you try
-#   to source a no-op shell script file, it takes half a second). I've
-#   also noticed that ggrep is slow.) So I like to use system Git, which
-#   is snappy, and I wouldn't recommend using Brew bash as a work-around.
-# This *temporary* work-around re-enables the old behavior (so Git uses
-# the old interactive code, and not the new C implementation). And while
-# I read that the C code is faster, it's not like the old impl. was slow.
-[add "interactive"]
-
-  useBuiltin = false
-
 # #######################################################################
 # =======================================================================
 # #######################################################################
