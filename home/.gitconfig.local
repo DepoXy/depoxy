@@ -309,26 +309,34 @@
 
 [alias]
 
-  # FIXME/UTEST/2020-11-24: I just threw this together...
+  # INERT/FIXME/2020-11-24: Test this.
+  # - INERT/2025-10-04: I haven't had a project with pre-commit hooks
+  #   in a long time, so I haven't tested this func. in years. I've
+  #   also since added an improved `git rc` command in git-smart.
+  #   - Until revived, I've added a guard clause to error-echo-return.
   #
-  # This is like the `git rc` alias (git rebase --continue)
-  # but with a --no-verify twist, à la commit-no-verify.gitconfig,
-  # except the cherry-pick command has no such option, so we
-  # wang it oursmelves.
+  # This is like `git rc` (git rebase|cherry-pick|merge --continue),
+  # but with a --no-verify twist, à la commit-no-verify.gitconfig.
+  # Except git-cherry-pick has no such option, hence this kludge.
 
-  # Hrmm: I have the other command as `git rc`, not `git rbc`,
-  # so not sure this should be `git cpc` and not `git cc`, except
-  # "cc" doesn't seem like something I'll remember. But if you
-  # consider train case for the abbreviation, then the two make
-  # sense (feel more complementary), i.e.,
-  #      `rebase --continue` → `git rc` / `cherry-pick --continue` → `git cpc`
-  #       *        *                **     *      *      *                ***
+  # Mnemonics:
+  # - cpc: `cherry-pick --continue` → `git cpc`
+  #         *      *      *                ***
+  # - rc: `rebase --continue` → `git rc`
+  #        *        *                **
   cpc = "! f() { \
     local hook_orig=\".git/hooks/pre-commit\"; \
     local hook_temp=\"${hook_orig}.OFF\"; \
     \
+    if true; then \
+      >&2 echo \"FIXME: Untested: Remove this guard, and test\"; \
+      \
+      return 1; \
+    fi; \
+    \
     if [ -e \"${hook_temp}\" ]; then \
       >&2 echo \"tempfile exists!: ${hook_temp}\"; \
+      \
       return 1; \
     fi; \
     \
