@@ -7,7 +7,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_aliases () {
+_dxy_wire_aliases() {
   # DUNNO/2022-12-05:
   # - SPIKE: Is this on PATH @home?
   #  claim_alias_or_warn "pw" "putwisely --is-client ${DEPOXY_IS_CLIENT}"
@@ -17,11 +17,10 @@ _dxy_wire_aliases () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_wire_aliases
   unset -f _dxy_wire_aliases
 }
 
 main "$@"
 unset -f main
-
