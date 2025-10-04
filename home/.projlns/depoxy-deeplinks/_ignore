@@ -142,7 +142,14 @@ deps/
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # Build assets
-/Users/user/.kit/odd/scala/bfg-repo-cleaner/bfg/target
+/Users/user/.kit/odd/scala/bfg-repo-cleaner/bfg/target/
+/Users/user/.kit/odd/scala/bfg-repo-cleaner/bfg-library/target/
+/Users/user/.kit/odd/scala/bfg-repo-cleaner/project/project/
+/Users/user/.kit/odd/scala/bfg-repo-cleaner/project/target/
+
+/Users/user/.kit/odd/android/LeafPic/app/build/
+
+/Users/user/.kit/js/nodejs/chakram/dist/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
