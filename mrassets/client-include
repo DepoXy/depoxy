@@ -12,7 +12,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   local before_cd="$(pwd -L)"
 
   # CXREF: https://github.com/landonb/sh-logger
@@ -35,7 +35,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxc_client_include () {
+_dxc_client_include() {
   local ambers_path="${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}"
   local stints_dir="${DEPOXYDIR_STINTS_FULL:-${HOME}/.depoxy/stints}"
   local client_dir="${stints_dir}/${DEPOXY_CLIENT_ID}"
@@ -45,7 +45,7 @@ _dxc_client_include () {
 
   # ***
 
-  include_git_hooks_rewire () {
+  include_git_hooks_rewire() {
     cat "${OHMYREPOS_LIB:-${HOME}/.kit/git/ohmyrepos/lib}/git-hooks-rewire"
   }
   include_git_hooks_rewire
@@ -53,7 +53,7 @@ _dxc_client_include () {
   # ***
 
   # Load lib fcn `hack_patch_opn_to_call_sensible_open`.
-  include_js_npm_patch_opn_sensible_open () {
+  include_js_npm_patch_opn_sensible_open() {
     # CXREF: ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/js-npm-patch-opn-sensible-open
     cat "${ambers_path}/home/.kit/git/ohmyrepos/lib/js-npm-patch-opn-sensible-open"
   }
@@ -62,17 +62,16 @@ _dxc_client_include () {
   # ***
 
   # Load vendor-specific OMR project config.
-  include_depoxy_client_mr_business () {
+  include_depoxy_client_mr_business() {
     . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
 
     # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}
     #        ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig-VENDOR_NAME.EVAL
     local mr_business="${client_dir}/.mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}"
     if [ -f "${mr_business}" ] && ! (
-        mr_exclusive "aci" "business" "vendor" "${DEPOXY_VENDOR_HOME_NAME:-work}" &&
-        true
-      );
-    then
+      mr_exclusive "aci" "business" "vendor" "${DEPOXY_VENDOR_HOME_NAME:-work}" \
+        && true
+    ); then
       mr_cat "${mr_business}"
     else
       >&2 debug "Skipping absent client config: ${mr_business}"
@@ -83,17 +82,15 @@ _dxc_client_include () {
   # ***
 
   # Load user-specific OMR project config.
-  include_depoxy_client_mr_personal () {
+  include_depoxy_client_mr_personal() {
     . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
 
     # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-${DEPOXY_USERNAME:-${LOGNAME}}
     #        ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig-USERNAME.EVAL
     local mr_personal="${client_dir}/.mrconfigs/_mrconfig-${DEPOXY_USERNAME}"
     if [ -f "${mr_personal}" ] && ! (
-        mr_exclusive "aci" "personal" "user" "${DEPOXY_USERNAME}" &&
-        true
-      );
-    then
+      mr_exclusive "aci" "personal" "user" "${DEPOXY_USERNAME}"
+    ); then
       mr_cat "${mr_personal}"
     else
       >&2 debug "Skipping absent client config: ${mr_personal}"
@@ -112,11 +109,10 @@ _dxc_client_include () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   source_deps
   unset -f source_deps
 }
 
 main
 unset -f main
-
