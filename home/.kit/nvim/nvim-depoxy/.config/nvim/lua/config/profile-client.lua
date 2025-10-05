@@ -18,9 +18,8 @@ function obj:profile(profile)
     ["vim-depoxy"] = not minimal,
     ["vim-trap"] = not minimal,
   }
-  
+
   return lazy_profile
 end
 
 return obj
-
