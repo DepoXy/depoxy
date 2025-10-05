@@ -426,13 +426,14 @@
 
 [alias]
 
-# FIXME/2020-12-17: Move all the gross `! f() ...` to their own
-# Bash files (1 each), maybe even on PATH (then you don't have to source!).
-#
-# At least I think so... or, if you want to keep them grouped,
-# maybe move to a separate Git config file and [include]...
-# or maybe add to Bash file to be sourced, so you can use non-
-# escaped functions...
+  # INERT/2020-12-17: Move all the (gross?) `! f() ...` to their own
+  # shell scripts (1 each, named git-{alias}), maybe even on PATH (then
+  # you wouldn't have to wire from gitconfig).
+  # - "Gross" because you have to use escaped strings in gitconfig,
+  #   and you don't get syntax highlighting, auto-formatting, etc.
+  # - Alternatively, if you want to keep them grouped, move to a
+  #   single shell file, then each !f() herein could "." source
+  #   that file and call a specific func.
 
   # ***
 
@@ -604,7 +605,8 @@
 
   # FIXME/2021-05-30: Audit these.
 
-  # 2021-05-30: Haven't tried this. From:
+  # THANX/2021-05-30: An interesting display (though looks basically
+  # like the main`tig` view):
   #   https://itnext.io/advanced-git-features-you-didnt-know-you-needed-ed8455c45495
   graph = log --graph --abbrev-commit --decorate --all \
     --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)'
@@ -668,19 +670,21 @@
 
   # ***
 
-  # 2020-12-11: 'git clear upstream', 'stop tracking a remote branch',
-  # USE CASE: I renamed branch locally after pushing previous commit or
-  # something, and git-status says, Your branch is based on 'release/branch-name',
-  # but the upstream is gone.
-  # See also: git branch -d -r origin/<remote branch name> &&
-  #           git config --unset branch.<branch>.remote &&
-  #           git config --unset branch.<branch>.merge
+  # ADDED/2020-12-11:
+  # - UCASE: For when git-status says, "Your branch is based
+  #   on 'release/branch-name', but the upstream is gone."
+  # - CALSO:
+  #     git branch -d -r origin/<remote branch name> &&
+  #       git config --unset branch.<branch>.remote &&
+  #       git config --unset branch.<branch>.merge
   bruu = branch --unset-upstream
 
   # ***
 
-  # 2020-12-13:
-  # aka status --short --branch
+  # ADDED/2020-12-13:
+  # - Aka: git status --short --branch
+  # - Essentially a colorful `git status --porcelain=v1`
+  #   with header (first line) indicates current branch.
   short-format-status = status -s -b
 
   # ***
