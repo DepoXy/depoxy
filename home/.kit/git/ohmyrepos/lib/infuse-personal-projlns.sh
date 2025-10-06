@@ -40,7 +40,7 @@ TRACE=""
 
 # ***
 
-_infuse_personal_projlns_source_deps () {
+_infuse_personal_projlns_source_deps() {
   # Load: link_deep, and remove_symlink_hierarchy_safe.
   # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
   . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
@@ -53,7 +53,7 @@ _infuse_personal_projlns_source_deps () {
 # contain projects within (no .git/ sub-sub-directories),
 # or symlinks each of ls-files if contains embedded .git/.
 
-infuse_projlns_if_personal_project () {
+infuse_projlns_if_personal_project() {
   verify_environment
 
   prepare_projlns_depoxy_if_infuse_all
@@ -63,7 +63,7 @@ infuse_projlns_if_personal_project () {
 
 # ***
 
-verify_environment () {
+verify_environment() {
   if false \
     || [ -z "${MR_REPO}" ] \
     || [ -z "${MR_ORDER}" ] \
@@ -77,7 +77,7 @@ verify_environment () {
 
 # ***
 
-prepare_projlns_depoxy_if_infuse_all () {
+prepare_projlns_depoxy_if_infuse_all() {
   mkdir -p ${DEPOXY_PROJLNS_DEPOXY}
 
   # Only if `-d / infuseProjlns` or `--directory / infuseProjlns`
@@ -96,7 +96,7 @@ prepare_projlns_depoxy_if_infuse_all () {
 }
 
 # Prepare ~/.projlns so projects can symlink thereunder
-reset_personal_projlns_if_infuse_all () {
+reset_personal_projlns_if_infuse_all() {
   debug "Removing past infused symlinks: ${DEPOXY_PROJLNS_DEPOXY}"
 
   # Depopulate:
@@ -127,27 +127,27 @@ infuse_create_symlinks_core_ignore () {
     "$(fg_lightorange)${target}$(attr_reset)"
 }
 
-log_intro_message_if_infuse_all () {
-  debug                       "+------------------------------+---+--------------+\n" \
-  "                            | Decision-making              |or-| MR_REPO      |\n" \
-  "                            |   process                    |der|   path       |\n" \
-  "                            +------------------------------+---+--------------+"
+log_intro_message_if_infuse_all() {
+  debug "+------------------------------+---+--------------+\n" \
+    "                            | Decision-making              |or-| MR_REPO      |\n" \
+    "                            |   process                    |der|   path       |\n" \
+    "                            +------------------------------+---+--------------+"
 }
 
 # Assumes $HOME is first project, with order = 1
-is_first_project () {
-   [ "${MR_REPO}" = "${HOME}" ] \
+is_first_project() {
+  [ "${MR_REPO}" = "${HOME}" ] \
     && [ "${MR_ORDER}" -eq 1 ]
 }
 
 # Returns true if `-d / infuse` or `--directory / infuse`
-is_infuse_all () {
+is_infuse_all() {
   echo "${MR_SWITCHES}" | grep -q "\(\s\|^\)\(\-d\|\-\-directory\) \+\/\(\s\|$\)"
 }
 
 # ***
 
-infuse_personal_projlns () {
+infuse_personal_projlns() {
   local branch
   if ! branch="$(git_branch_name)"; then
     error "${MR_REPO}: Skipping — no active branch"
@@ -173,14 +173,15 @@ infuse_personal_projlns () {
 
 # ***
 
-is_personal_project () {
+is_personal_project() {
   local is_personal=false
 
   # CXREF: ~/.kit/git/git-put-wise/lib/common_put_wise.sh
   local private_branch="${LOCAL_BRANCH_PRIVATE:-private}"
   local release_remote
-  release_remote="$(dirname -- \
-    "${REMOTE_BRANCH_RELEASE:-publish/${LOCAL_BRANCH_RELEASE:-release}}"
+  release_remote="$(
+    dirname -- \
+      "${REMOTE_BRANCH_RELEASE:-publish/${LOCAL_BRANCH_RELEASE:-release}}"
   )"
 
   # ***
@@ -216,35 +217,35 @@ is_personal_project () {
 # CXREF: See also familiar OMR highlights, repo_highlight, font_info_*:
 #         ~/.git/ohmyrepos/lib/overlay-symlink.sh
 
-repo_highlight () {
+repo_highlight() {
   echo "$(fg_mintgreen)${1}$(attr_reset)"
 }
 
-font_personal_publish () {
+font_personal_publish() {
   echo "$(fg_mintgreen)${1}$(attr_reset)"
 }
 
-font_personal_no_gh () {
+font_personal_no_gh() {
   echo "$(fg_lightcyan)${1}$(attr_reset)"
 }
 
-font_personal_private () {
+font_personal_private() {
   echo "$(fg_lavender)${1}$(attr_reset)"
 }
 
-font_personal_has_git_interiorly () {
+font_personal_has_git_interiorly() {
   echo "$(fg_lightred)${1}$(attr_reset)"
 }
 
-font_not_personal () {
+font_not_personal() {
   echo "$(fg_lightyellow)${1}$(attr_reset)"
 }
 
-font_personal_toggled_off () {
+font_personal_toggled_off() {
   echo "$(fg_lightorange)${1}$(attr_reset)"
 }
 
-font_personal_limit_links () {
+font_personal_limit_links() {
   echo "$(fg_skyblue)${1}$(attr_reset)"
 }
 
@@ -253,17 +254,17 @@ font_personal_limit_links () {
 # COPYD/2024-06-16: Poached from git-nubs.sh:
 #   ~/.kit/sh/sh-git-nubs/lib/git-nubs.sh
 
-git_branch_exists () {
+git_branch_exists() {
   local branch_name="$1"
 
   git rev-parse --verify --end-of-options "refs/heads/${branch_name}" > /dev/null 2>&1
 }
 
-git_branch_name () {
+git_branch_name() {
   git rev-parse --abbrev-ref HEAD 2> /dev/null
 }
 
-git_remote_exists () {
+git_remote_exists() {
   local remote="$1"
 
   git remote get-url ${remote} > /dev/null 2>&1
@@ -271,7 +272,7 @@ git_remote_exists () {
 
 # ***
 
-add_project_deep_links () {
+add_project_deep_links() {
   local infuse_root=false
   local infuse_files=false
 
@@ -354,7 +355,7 @@ add_project_deep_links () {
 # - The command is essentially:
 #     find . -mindepth 2 -name .git -type d -print -quit
 #   but with a common prune.
-find_one_git_directory () {
+find_one_git_directory() {
   # USYNC: Similar ignore lists (in different DepoXy projects):
   #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
@@ -394,4 +395,3 @@ find_one_git_directory () {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _infuse_personal_projlns_source_deps
-
