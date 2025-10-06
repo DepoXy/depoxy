@@ -128,10 +128,11 @@ infuse_create_symlinks_core_ignore () {
 }
 
 log_intro_message_if_infuse_all() {
+  local s="                            "
   debug "+------------------------------+---+--------------+\n" \
-    "                            | Decision-making              |or-| MR_REPO      |\n" \
-    "                            |   process                    |der|   path       |\n" \
-    "                            +------------------------------+---+--------------+"
+    "${s}| Decision-making              |or-| MR_REPO      |\n" \
+    "${s}|   process                    |der|   path       |\n" \
+    "${s}+------------------------------+---+--------------+"
 }
 
 # Assumes $HOME is first project, with order = 1
