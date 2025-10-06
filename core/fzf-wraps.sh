@@ -143,6 +143,8 @@ _dxy_fd_prompt_paths() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_git_status_clip_path() {
+  local path_hint="$1"
+
   if test -z "$(git status --porcelain=v1)"; then
     >&2 echo "Nothing to copy — No changes"
 
@@ -150,7 +152,7 @@ _dxy_git_status_clip_path() {
   fi
 
   local path
-  path="$(_dxy_git_status_prompt_paths_single)"
+  path="$(_dxy_git_status_prompt_paths_single "${path_hint}")"
 
   if test -n "${path}"; then
     printf "%s" "${path}" | _hf_clip
@@ -160,6 +162,8 @@ _dxy_git_status_clip_path() {
 # CALSO: <Ctrl-F> FZF-prompts file to open from those under current path.
 # SAMEZ: Similar to _dxy_fdfind_open_path (above).
 _dxy_git_status_open_path() {
+  local path_hint="$1"
+
   if test -z "$(git status --porcelain=v1)"; then
     >&2 echo "Nothing to open — No changes"
 
@@ -167,7 +171,7 @@ _dxy_git_status_open_path() {
   fi
 
   local path
-  path="$(_dxy_git_status_prompt_paths_single)"
+  path="$(_dxy_git_status_prompt_paths_single "${path_hint}")"
 
   if test -n "${path}"; then
     # INERT: Should this fcn. also copy the path?
@@ -185,6 +189,9 @@ _dxy_git_status_open_path() {
 _dxy_git_status_prompt_paths() {
   local show_full_paths="${1:-true}"
   local extra_fzf_args="$2"
+  # path_hint used to filter git-status results.
+  # - Note that `grep -e ""` matches everything.
+  local path_hint="$3"
 
   if ! _wf_fzf_command > /dev/null; then
 
@@ -212,6 +219,7 @@ _dxy_git_status_prompt_paths() {
       git status --porcelain=v1 \
         | grep -e "${status_filter}" \
         | cut -c4- \
+        | grep -e "${path_hint}" \
         | sed "s#^#${cdup}#" \
         | if ${show_full_paths}; then
           xargs -I {} bash -c '_hf_realpath_logical_tilded "$@"' _ {}
@@ -236,19 +244,25 @@ _dxy_git_status_prompt_paths() {
 }
 
 _dxy_git_status_prompt_paths_single() {
+  local path_hint="$1"
+
   local extra_fzf_args=""
 
   # Because called by `stp` (also `sto`), print
   # full path, so it's "portable".
-  _dxy_git_status_prompt_paths "${_show_full_paths:-true}" "${extra_fzf_args}" \
+  _dxy_git_status_prompt_paths "${_show_full_paths:-true}" \
+    "${extra_fzf_args}" "${path_hint}" \
     | tr -d "\n"
 }
 
 _dxy_git_status_prompt_paths_multi() {
+  local path_hint="$1"
+
   local extra_fzf_args="--multi"
 
   # Only called for `add`, so don't need full paths.
-  _dxy_git_status_prompt_paths "${_show_full_paths:-false}" "${extra_fzf_args}"
+  _dxy_git_status_prompt_paths "${_show_full_paths:-false}" \
+    "${extra_fzf_args}" "${path_hint}"
 }
 
 # ***
@@ -257,17 +271,17 @@ _dxy_git_status_prompt_paths_multi() {
 # except when I'm resolving rebase conflicts.
 
 _dxy_git_status_git_add_path() {
+  local path_hint="$1"
+
   if test -z "$(git status --porcelain=v1)"; then
     >&2 echo "Nothing to add — No changes"
 
     return 0
   fi
 
-  if test $# -eq 0; then
-    _dxy_git_status_prompt_paths_multi | xargs git add --
-  else
-    git add "$@"
-  fi
+  # Note if path_hint set and matches an exact path, we'll
+  # still check for other path matches.
+  _dxy_git_status_prompt_paths_multi "${path_hint}" | xargs git add --
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
