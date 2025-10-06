@@ -69,8 +69,7 @@ _dxc_client_include() {
     #        ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig-VENDOR_NAME.EVAL
     local mr_business="${client_dir}/.mrconfigs/_mrconfig-${DEPOXY_VENDOR_NAME:-acme}"
     if [ -f "${mr_business}" ] && ! (
-      mr_exclusive "aci" "business" "vendor" "${DEPOXY_VENDOR_HOME_NAME:-work}" \
-        && true
+      mr_exclusive "aci" "business" "vendor" "${DEPOXY_VENDOR_HOME_NAME:-work}"
     ); then
       mr_cat "${mr_business}"
     else
