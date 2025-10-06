@@ -107,9 +107,10 @@ _dxc_client_include() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 main() {
+  unset -f main
+
   source_deps
   unset -f source_deps
 }
 
 main
-unset -f main
