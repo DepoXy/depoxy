@@ -382,6 +382,13 @@
   # review proposed changes).
 
   # MAYBE: Add -r/--and-rebase (to avoid extra rebase step).
+  # - SAVVY: This raises rebase EDITOR, and does not
+  #   include DepoXy OMR infusePostRebase 'exec', so
+  #   not super convenient.
+  # - REFER: For now, Git-Smart's `ria`, and DepoXy's
+  #   enhanced `ria` (which calls `ria-interactive`)
+  #   run with `--autosquash`.
+  # - LATER: Author is mulling a tig-newtons solution.
 
   # USAGE: If you want to squash into commit with last change
   # to a file, use:
@@ -389,12 +396,22 @@
   #   -w, --whole-file
   #
   #     "Match the first commit touching the same file as the
-  #      current hunk.  Use this with care!"
+  #      current hunk. Use this with care!"
   #
   # - UCASE: As an example, if you previously made a PRIVATE
   #   commit with, say, trace messages, and now you've added
   #   more trace message, this'll commit the new messages to
   #   the previous PRIVATE commit.
+
+  # USAGE: Use git-absorb --force if you want to rebase over
+  # commits from other authors (obvi. use with caution, or
+  # when those other authors are you, e.g., if you use
+  # host-specific user.name and user.email values).
+  # - You might see this message, for instance:
+  #   $ git abs
+  #   MMM DD HH:MM:SS.SSS WARN Will not fix up past commits not authored by you,
+  #     use --force to override, commit: 44ce341c0bd742c9a08fbfae9b719be80bddbb22
+  #   MMM DD HH:MM:SS.SSS CRIT No commits available to fix up, exiting
 
   abs = "!f() { \
     local base_opt=\"\"; \
