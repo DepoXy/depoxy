@@ -14,7 +14,7 @@ MREDIT_CONFIGS="${MREDIT_CONFIGS:-${DEPOXY_PROJLNS:-${HOME}/.projlns}/mymrconfig
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # B/c overlay-symlink.sh expects its root on PATH (I know, right).
   local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   PATH="${PATH}:${omr_lib}"
@@ -30,7 +30,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_projects_links_omr_config () {
+infuse_projects_links_omr_config() {
   local before_cd="$(pwd -L)"
 
   mkdir -p "${MREDIT_CONFIGS}"
@@ -51,7 +51,7 @@ infuse_projects_links_omr_config () {
 
 # Usually the root ~/.mrconfig is a symlink elsewhere, but just in
 # case it's not, we'll deep-link it.
-infuse_create_symlinks_omr_entrypoint () {
+infuse_create_symlinks_omr_entrypoint() {
   local home_mrconfig="${HOME}/.mrconfig"
 
   if [ -f "${home_mrconfig}" ] && [ ! -h "${home_mrconfig}" ]; then
@@ -74,7 +74,7 @@ infuse_create_symlinks_omr_entrypoint () {
 
 # USAGE: Pass-through args: Additional search directories.
 
-infuse_create_symlinks_omr_scattered () {
+infuse_create_symlinks_omr_scattered() {
   # USYNC: Similar ignore lists (in different DepoXy projects):
   #   ~/.depoxy/ambers/home/.kit/git/ohmyrepos/lib/infuse-personal-projlns.sh
   #   ~/.depoxy/ambers/home/.projlns/infuse-projlns-omr.sh
@@ -98,7 +98,7 @@ infuse_create_symlinks_omr_scattered () {
     fi
 
     link_deep "${path}"
-  done < <( \
+  done < <(
     find \
       -L \
       "${HOME}/.depoxy" \
@@ -106,42 +106,46 @@ infuse_create_symlinks_omr_scattered () {
       "$@" \
       \
       \( \
-        -name "TBD-*" -o -name "*-TBD" \
-        \
-        -o -name ".git" \
-        -o -name "htmlcov" \
-        -o -name "node_modules" \
-        -o -name ".nyc_output" \
-        -o -name "__pycache__" \
-        -o -name ".pytest_cache" \
-        -o -name "site-packages" \
-        -o -name ".tox" \
-        -o -name ".trash" \
-        -o -name ".venv" \
-        -o -path "*.venv-*" \
-        -o -name ".vscode" \
-        \
-        -o -name ".archived" \
-        -o -name ".whilom" \
-        \
-        -o -name "myrepos" \
-        -o -path "*.example" \
+      -name "TBD-*" -o -name "*-TBD" \
+      \
+      -o -name ".git" \
+      -o -name "htmlcov" \
+      -o -name "node_modules" \
+      -o -name ".nyc_output" \
+      -o -name "__pycache__" \
+      -o -name ".pytest_cache" \
+      -o -name "site-packages" \
+      -o -name ".tox" \
+      -o -name ".trash" \
+      -o -name ".venv" \
+      -o -path "*.venv-*" \
+      -o -name ".vscode" \
+      \
+      -o -name ".archived" \
+      -o -name ".whilom" \
+      \
+      -o -name "myrepos" \
+      -o -path "*.example" \
       \) -prune -o \
       -name "*mrconfig*" \
       -type f \
       -exec /bin/sh -c 'printf "%s\0" "$(realpath -- "{}")"' \; \
-    2> /dev/null | sort -z | $(gnu_uniq) -z
+      2> /dev/null | sort -z | $(gnu_uniq) -z
   )
 }
 
-gnu_uniq () {
+gnu_uniq() {
   for cmd in "guniq" "uniq"; do
-    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+    (
+      unset -f ${cmd}
+      unalias ${cmd}
+      command -v ${cmd}
+    ) 2> /dev/null \
       && break
   done
 }
 
-has_mredit_optout_file () {
+has_mredit_optout_file() {
   local path="$1"
 
   local exclude_signal="$(dirname -- "${path}")/${MREDIT_OPTOUT_FILE:-.mredit-optout}"
@@ -151,7 +155,7 @@ has_mredit_optout_file () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
@@ -195,4 +199,3 @@ main () {
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
-

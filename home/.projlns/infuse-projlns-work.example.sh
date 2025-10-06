@@ -14,7 +14,7 @@ DEPOXY_PROJLNS_EXAMPLE="${DEPOXY_PROJLNS_EXAMPLE:-${DEPOXY_PROJLNS}/work.example
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-source_deps () {
+source_deps() {
   # B/c overlay-symlink.sh expects its root on PATH (I know, right).
   local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   PATH="${PATH}:${omr_lib}"
@@ -32,7 +32,7 @@ source_deps () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_projects_links_work () {
+infuse_projects_links_work() {
   local before_cd="$(pwd -L)"
 
   mkdir -p "${DEPOXY_PROJLNS_EXAMPLE}"
@@ -48,7 +48,7 @@ infuse_projects_links_work () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-infuse_create_symlinks_work () {
+infuse_create_symlinks_work() {
   # YOU: Replace this and customize with your own project paths.
   link_deep "${HOME}/work/division1/project-AA"
   link_deep "${HOME}/work/projectZ/superflycool"
@@ -56,7 +56,7 @@ infuse_create_symlinks_work () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
@@ -73,4 +73,3 @@ main () {
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   main "$@"
 fi
-

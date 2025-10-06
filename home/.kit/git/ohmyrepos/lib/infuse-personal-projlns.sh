@@ -352,21 +352,21 @@ add_project_deep_links() {
       #   caveat: the `while` runs in a subprocess (because piped).
       #   - I also assumed the following would break input on
       #     whitespace in path names, but they seem to work fine.
-      ( cd "${MR_REPO}" && git ls-files ) \
-      | while IFS= read -r fname; do
-        # NOTED: Can we assume symlinks are duplicates?
-        # - IFNOT: We'll change this if necessary.
-        # - XCEPT: Keep .ignore files in place (since those aren't
-        #   searched by `rg`, but rather serve to config `rg`).
-        if [ -h "${MR_REPO}/${fname}" ] \
-          && [ "$(basename -- "${fname}")" != ".ignore" ] \
-        ; then
+      (cd "${MR_REPO}" && git ls-files) \
+        | while IFS= read -r fname; do
+          # NOTED: Can we assume symlinks are duplicates?
+          # - IFNOT: We'll change this if necessary.
+          # - XCEPT: Keep .ignore files in place (since those aren't
+          #   searched by `rg`, but rather serve to config `rg`).
+          if [ -h "${MR_REPO}/${fname}" ] \
+            && [ "$(basename -- "${fname}")" != ".ignore" ] \
+            ; then
 
-          continue
-        fi
+            continue
+          fi
 
-        ${TRACE} link_deep "${MR_REPO}/${fname}"
-      done
+          ${TRACE} link_deep "${MR_REPO}/${fname}"
+        done
     fi
   )
 }
@@ -389,22 +389,22 @@ find_one_git_directory() {
     -mindepth 2 \
     \
     \( \
-      -name "TBD-*" -o -name "*-TBD" \
-      \
-      -o -name "htmlcov" \
-      -o -name "node_modules" \
-      -o -name ".nyc_output" \
-      -o -name "__pycache__" \
-      -o -name ".pytest_cache" \
-      -o -name "site-packages" \
-      -o -name ".tox" \
-      -o -name ".trash" \
-      -o -name ".venv" \
-      -o -path "*.venv-*" \
-      -o -name ".vscode" \
-      \
-      -o -name ".archived" \
-      -o -name ".whilom" \
+    -name "TBD-*" -o -name "*-TBD" \
+    \
+    -o -name "htmlcov" \
+    -o -name "node_modules" \
+    -o -name ".nyc_output" \
+    -o -name "__pycache__" \
+    -o -name ".pytest_cache" \
+    -o -name "site-packages" \
+    -o -name ".tox" \
+    -o -name ".trash" \
+    -o -name ".venv" \
+    -o -path "*.venv-*" \
+    -o -name ".vscode" \
+    \
+    -o -name ".archived" \
+    -o -name ".whilom" \
     \) -prune -o \
     \
     -name ".git" \
