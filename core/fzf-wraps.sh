@@ -202,13 +202,13 @@ _dxy_git_status_prompt_paths() {
   # ~/.kit/sh/home-fries/lib/alias/alias_pwd.sh @ 90
 
   local paths
-  local grep_filter=""
+  local status_filter=""
   gather_paths() {
     paths="$(
       export -f tilde_for_home
       export -f _hf_realpath_logical_tilded
       git status --porcelain=v1 \
-        | grep -e "${grep_filter}" \
+        | grep -e "${status_filter}" \
         | cut -c4- \
         | sed "s#^#${cdup}#" \
         | if ${show_full_paths}; then
@@ -220,9 +220,9 @@ _dxy_git_status_prompt_paths() {
   }
 
   # If rebasing, restrict to rebase conflicts.
-  grep_filter="^UU "
+  status_filter="^UU "
   if ! gather_paths 2> /dev/null || [ -z "${paths}" ]; then
-    grep_filter=''
+    status_filter=''
     gather_paths
   fi
 
