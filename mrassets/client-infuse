@@ -291,6 +291,8 @@ symlink_overlay_vendor_home_assets() {
     symlink_overlay_file \
       "${dxy_home_work}/_ignore" \
       "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}/.ignore"
+    link_hard "${dxy_home_work}/_gitignore" \
+      "${DEPOXYDIR_VENDOR_FULL:-${HOME}/work}/.gitignore"
   fi
 }
 
