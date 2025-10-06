@@ -10,7 +10,7 @@
 # - Used post-rebase to remake hard links.
 # SAVYY: Call link_hard from infusePostRebase, not infuse.
 
-_dxc_client_infusePostRebase () {
+_dxc_client_infusePostRebase() {
 
   # *** DepoXy filespace
 
@@ -35,4 +35,3 @@ _dxc_client_infusePostRebase () {
     fi
   done
 }
-
