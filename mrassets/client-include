@@ -100,10 +100,8 @@ _dxc_client_include() {
   # ***
 
   # SAVVY: Include this last so that its projects override previous config.
-  if echo "${MR_ACTION}" | grep -q "Remotes$"; then
-    # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-remotes
-    mr_cat "${client_dir}/.mrconfigs/_mrconfig-remotes"
-  fi
+  # - CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-remotes
+  mr_cat "${client_dir}/.mrconfigs/_mrconfig-remotes"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
