@@ -40,7 +40,7 @@ return {
   },
 
   -- vim-trap is the user's private DepoXy Client plugin.
-  -- - The `infuse` command creates the vim-trap symlink
+  -- - The DepoXy OMR `infuse` command creates the vim-trap symlink
   --   that targets user's ~/.depoxy/running/home/vim-trap/
   {
     dir = "~/.kit/nvim/DepoXy/start/vim-trap",
