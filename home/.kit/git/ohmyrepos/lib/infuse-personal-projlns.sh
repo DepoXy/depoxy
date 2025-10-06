@@ -111,7 +111,7 @@ reset_personal_projlns_if_infuse_all() {
   #
   #   ~/.projlns/depoxy-deeplinks/
   (
-    cd "${DEPOXY_PROJLNS_DEPOXY}"
+    cd -- "${DEPOXY_PROJLNS_DEPOXY}"
 
     ${TRACE} remove_symlink_hierarchy_safe
   )
