@@ -144,6 +144,7 @@ _dxy_fd_prompt_paths() {
 
 _dxy_git_status_clip_path() {
   if test -z "$(git status --porcelain=v1)"; then
+    >&2 echo "Nothing to copy — No changes"
 
     return 0
   fi
@@ -160,6 +161,7 @@ _dxy_git_status_clip_path() {
 # SAMEZ: Similar to _dxy_fdfind_open_path (above).
 _dxy_git_status_open_path() {
   if test -z "$(git status --porcelain=v1)"; then
+    >&2 echo "Nothing to open — No changes"
 
     return 0
   fi
@@ -256,6 +258,7 @@ _dxy_git_status_prompt_paths_multi() {
 
 _dxy_git_status_git_add_path() {
   if test -z "$(git status --porcelain=v1)"; then
+    >&2 echo "Nothing to add — No changes"
 
     return 0
   fi
