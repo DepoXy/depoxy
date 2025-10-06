@@ -416,7 +416,9 @@
   abs = "!f() { \
     local base_opt=\"\"; \
     local upstream; \
-    if upstream=\"$(git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\" 2> /dev/null)\"; then \
+    if upstream=\"$( \
+      git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\" 2> /dev/null \
+    )\"; then \
       base_opt=\"--base ${upstream}\"; \
     fi; \
     git absorb ${base_opt} \"$@\"; \
