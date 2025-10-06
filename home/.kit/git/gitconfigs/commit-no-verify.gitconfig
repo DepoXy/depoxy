@@ -126,6 +126,20 @@
 
 [alias]
 
+  # HSTRY: Added `fu` fixup alias on 2020-12-03, but rarely used.
+  # - REFER: You can fixup faster using `git-absorb`, or the
+  #   --no-verify variant, `git absorb --force`, at least for
+  #   simple fixups.
+  # - REFER: For other fixups, use tig with tig-newtons.
+  #   - You can easily/quickly fixup staged changes, or
+  #     any commit or range of commits.
+  # - SAVVY: There's no non---no-verify 'fu' variant (you won't find
+  #   `fu = commit --fixup` in either ~/.kit/git/git-smart/.gitconfig
+  #   or ~/.depoxy/ambers/home/.gitconfig.local) (b/c tig, git-absorb).
+  fu = commit --no-verify --fixup
+
+[alias]
+
   # Interactive, Auto-squash (and auto-fixup) Rebase, without hooks.
   #
   # - From man git-rebase:

@@ -350,21 +350,6 @@
   }; f"
 
 # #######################################################################
-# ***                            GIT FIXUP                            ***
-# #######################################################################
-
-[alias]
-
-  # ***
-
-  # HSTRY: Added 2020-12-03, but rarely used b/c I use tig to fixup staged
-  #        without using --fixup commits.
-  # CALSO: `git-absorb`
-  # INERT/2020-12-03: Move to commit-no-verify.gitconfig, and base .gitconfig.
-  #  fu = commit --fixup
-  fu = commit --no-verify --fixup
-
-# #######################################################################
 # ***                           GIT ABSORB                            ***
 # #######################################################################
 
