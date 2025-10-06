@@ -113,6 +113,8 @@ reset_personal_projlns_if_infuse_all() {
   (
     cd -- "${DEPOXY_PROJLNS_DEPOXY}"
 
+    command rm -f "tags"
+
     ${TRACE} remove_symlink_hierarchy_safe
   )
 }
