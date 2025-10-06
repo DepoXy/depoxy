@@ -126,6 +126,9 @@
 
 # -> ../../../../landonb/nvim-lazyb/lua/plugins/
 /Users/user/.kit/nvim/nvim-depoxy/.config/nvim/lua/plugins/
+# -> /private/user/.depoxy/ambers/home/.kit/nvim/nvim-depoxy/.config/
+#      nvim/lua/specs/group--depoxy-client.lua
+/Users/user/.kit/nvim/nvim-depoxy/.config/nvim/lua/specs/group--depoxy-client.lua
 
 # Both of these target the active spell file:
 #   -> /private/user/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
