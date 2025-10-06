@@ -272,7 +272,7 @@ infuse_create_symlinks_docs() {
 infuse_projects_links_sh_lib() {
   populate_links_directory \
     "${DEPOXY_PROJLNS_SH_LIB}" \
-    "infuse_create_symlinks_core_sh_lib"
+    "infuse_create_projlns_ignore_symlinks_sh_lib"
 
   info " Created sh-lib links $(fg_lightorange)${DEPOXY_PROJLNS_SH_LIB}$(attr_reset)"
 }
@@ -281,7 +281,7 @@ infuse_projects_links_sh_lib() {
 
 # SAVVY: If any sh-*/bin dirs contain same-named file, you'll see, e.g.,
 #   ln: failed to create symbolic link './print-nanos-now.sh': File exists
-infuse_create_symlinks_core_sh_lib() {
+infuse_create_projlns_ignore_symlinks_sh_lib() {
   populate_links_directory_optional_ignore
 
   find ${SHOILERPLATE:-${HOME}/.kit/sh}/sh-*/bin/ -type f -exec ln -s {} \;

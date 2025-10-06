@@ -30,6 +30,7 @@
 #   infuse_projects_links_core_generate_ctags
 #     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
 
+# E.g., $HOME/.projlns/depoxy-deeplinks
 DEPOXY_PROJLNS_DEPOXY="${DEPOXY_PROJLNS_DEPOXY:-${DEPOXY_PROJLNS}/depoxy-deeplinks}"
 
 # ***
@@ -44,6 +45,13 @@ _infuse_personal_projlns_source_deps() {
   # Load: link_deep, and remove_symlink_hierarchy_safe.
   # CXREF: ~/.kit/git/myrepos-mredit-command/lib/link_deep.sh
   . "${GITREPOSPATH:-${HOME}/.kit/git}/myrepos-mredit-command/lib/link_deep.sh"
+
+  # B/c overlay-symlink.sh expects its root on PATH (I know, right).
+  local omr_lib="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+  PATH="${PATH}:${omr_lib}"
+  # Load: symlink_mrinfuse_file_optional
+  # CXREF: ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
+  . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/overlay-symlink.sh"
 }
 
 # ***
@@ -90,7 +98,7 @@ prepare_projlns_depoxy_if_infuse_all() {
       "[for ‘infuse-personal-projlns.sh’]"
 
     reset_personal_projlns_if_infuse_all
-    infuse_create_symlinks_core
+    infuse_create_projlns_ignore_symlinks
     log_intro_message_if_infuse_all
   fi
 }
@@ -109,16 +117,29 @@ reset_personal_projlns_if_infuse_all() {
   )
 }
 
-infuse_create_symlinks_core () {
-  # 2020-03-01: Top-level file data ignore rules.
-  infuse_create_symlinks_core_ignore \
-    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/depoxy-deeplinks/_ignore"
+infuse_create_projlns_ignore_symlinks() {
+  # Create ${DEPOXY_PROJLNS_DEPOXY}/.ignore symlink, e.g.,
+  #     ~/.projlns/depoxy-deeplinks/.ignore
+  # - These are shared DepoXy ignore rules.
+  infuse_create_symlinks_ignore \
+    "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/home/.projlns/depoxy-deeplinks/_ignore" \
+    "${DEPOXY_PROJLNS_DEPOXY}"
+
+  # Create ${DEPOXY_PROJLNS_DEPOXY}/${LINK_DEEP_SUB_HOME}/.ignore symlink, e.g.,
+  #     ~/.projlns/depoxy-deeplinks/Users/user/.ignore
+  # - There are private DepoXy Client (end user) ignore rules.
+  # - Note that the only path under Users/ is Users/user/, so user can add rules
+  #   for any paths (and rules don't need to be prefixed with "/Users/user/" path).
+  local sub_home="${LINK_DEEP_SUB_HOME:-/Users/user}"
+  MR_REPO="${DEPOXY_PROJLNS_DEPOXY}" symlink_mrinfuse_file_optional \
+    "${sub_home##/}/_ignore" "${sub_home##/}/.ignore"
 }
 
-infuse_create_symlinks_core_ignore () {
+infuse_create_symlinks_ignore() {
   local source="$1"
+  local basedir="$2"
 
-  local target="${DEPOXY_PROJLNS_DEPOXY}/.ignore"
+  local target="${basedir}/.ignore"
 
   command ln -sfn "${source}" "${target}"
 
@@ -216,7 +237,7 @@ is_personal_project() {
 # CXREF: OMR loads logger.sh and color.sh (or if you source this file
 #         into your shell, assumes your shell has sourced 'em)
 # CXREF: See also familiar OMR highlights, repo_highlight, font_info_*:
-#         ~/.git/ohmyrepos/lib/overlay-symlink.sh
+#         ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
 
 repo_highlight() {
   echo "$(fg_mintgreen)${1}$(attr_reset)"

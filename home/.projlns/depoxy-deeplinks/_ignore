@@ -44,7 +44,7 @@
 #   ~/.depoxy/ambers/home/.projlns/depoxy-deeplinks/_ignore
 # Appears twice under ~/.projlns/depoxy-deeplinks:
 #   ~/.projlns/depoxy-deeplinks/.ignore
-#   ~/.projlns/depoxy-deeplinks/.depoxy-ambers/home/.projlns/depoxy-deeplinks/_ignore
+#   ~/.projlns/depoxy-deeplinks/Users/user/.depoxy/ambers/home/.projlns/depoxy-deeplinks/_ignore
 /.ignore
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -67,6 +67,8 @@
 
 # 2021-08-04: Private KE JSON symlinked via private infuse function.
 /Users/user/.depoxy/ambers/home/.config/karabiner/assets/complex_modifications/*-private.json
+
+/Users/user/.depoxy/ambers/archetype/home/.kit/nvim/landonb/dubs_project_tray/.vimprojects--*
 
 # DepoXy Client docs are stored under {client}/docs and wired to search
 # at #13, to keep separate from (a) code and (b) open-source projects.
@@ -102,6 +104,9 @@
 # Aka: ~/.depoxy/ambers/home/.kit/sh/home-fries/.ignore
 /Users/user/.kit/sh/home-fries/.ignore
 
+# -> ~/.kit/git/git-smart/bin/completions/git-completion.bash
+/Users/user/.kit/sh/home-fries/bin/completions/git-completion.bash
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # -> ../../../.mrinfuse/.kit/git/ohmyrepos/_ignore
@@ -118,6 +123,14 @@
 
 # -> ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
 /Users/user/.kit/nvim/nvim-depoxy/mrconfig/depoxy-mrconfig
+
+# -> ../../../../landonb/nvim-lazyb/lua/plugins/
+/Users/user/.kit/nvim/nvim-depoxy/.config/nvim/lua/plugins/
+
+# Both of these target the active spell file:
+#   -> /private/user/.depoxy/running/home/.kit/nvim/spell/en.utf-8.add
+/Users/user/.kit/nvim/nvim-depoxy/.config/nvim/spell/en.utf-8.add
+/Users/user/.kit/nvim/nvim-depoxy/.local/share/nvim/site/spell/en.utf-8.add
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -140,6 +153,8 @@
 deps/
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# MAYBE/2025-09-17: Move these rules under ~/.kit, e.g., ~/.kit/odd/.ignore, etc.
 
 # Build assets
 /Users/user/.kit/odd/scala/bfg-repo-cleaner/bfg/target/
