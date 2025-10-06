@@ -229,10 +229,17 @@ _dxy_git_status_prompt_paths() {
     )"
   }
 
-  # If rebasing, restrict to rebase conflicts.
-  status_filter="^UU "
+  # When rebasing, restrict to rebase conflicts.
+  # - REFER: Possible 'U' values: AU|UD|UA|DU|UU
+  #   - I.e., 'U' in either X or Y position means unmerged.
+  status_filter="^\(U.\|.U\|DD\|AA\) "
   if ! gather_paths 2> /dev/null || [ -z "${paths}" ]; then
-    status_filter=''
+    # When adding files, ignore those already added.
+    if [ "${extra_fzf_args}" = "--multi" ]; then
+      status_filter="^.[^ ] "
+    else
+      status_filter=''
+    fi
     gather_paths
   fi
 
