@@ -497,6 +497,11 @@
 
   ff = "!f() { git --no-pager log -S \"$*\" --source -m --reverse; }; f"
 
+  # Use `git ffa` to find matches in --all commits: any commit, any branch/ancestry.
+  # - MNMNC: Mnemonic: git-ffa: Find (and print starting with the) First match in
+  #   Any commit/all commits.
+  ffa = "!f(){ git --no-pager log -S \"$*\" --source --all -m --reverse; }; f"
+
   # Like `git ff`, but one-liners, and sorted newest commits to oldest.
   #
   # CALSO/2021-05-30: I'm not the only one who finds such commands
@@ -583,9 +588,6 @@
     echo; \
   }; f"
 
-
-  # All --all to find matches in any commit, any branch/ancestry.
-  ffa = "!f(){ git --no-pager log -S \"$*\" --source --all -m --reverse; }; f"
   # Tell `tig` which commits to show: send it commit hashes.
   # - Tell git-log to print hashes (format:%H),
   #   and tell tig to look for 'em (--stdin).
