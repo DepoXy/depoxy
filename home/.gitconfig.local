@@ -25,6 +25,11 @@
 # REFER: https://github.com/landonb/git-smart
 # - And that project's lengthy Git config:
 #     https://github.com/landonb/git-smart/blob/release/.gitconfig
+#
+# INERT: Ideally, many of these aliases would be `git-foo` commands
+# on PATH, including `man git-foo` help (how git-extras rolls), but
+# there's currently no plan for that.
+# - Though feel free to promote aliases accordingly and submit a PR!
 
 # #######################################################################
 # =======================================================================
