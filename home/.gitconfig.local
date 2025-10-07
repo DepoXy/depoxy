@@ -901,7 +901,8 @@
     git checkout -b \"${branch}\"; \
     git branch -u \"${remote}/${upstream_head}\"; \
   }; f"
-  new = wire-for-work
+  # ISOFF/2025-10-04: I haven't used this feature in eons.
+  #  new = wire-for-work
 
 # ***
 
