@@ -447,6 +447,13 @@
   # run the rebase with a single keypress).
   # - Calls, e.g.,
   #   EDITOR="interactive-rebase-tool" git absorb --force --and-rebase --base {ref}
+
+  # SAVVY/2025-10-07: We cannot inject our post-rebase rebase-todo 'exec'
+  # (see GIT_SEQUENCE_EDITOR usage in other aliases).
+  # - So we'll run post-rebase manually.
+  # - ALTLY: Remove --and-rebase and call, e.g., `git ria`,
+  #   though you'd have to determine the base ref to use.
+
   fabs = "!f() { \
     local base_ref=\"$1\"; \
     \
@@ -469,6 +476,7 @@
     fi; \
     \
     git absorb --force --and-rebase ${base_opt}; \
+    mr -d . -n infusePostRebase; \
   }; f"
 
 # #######################################################################
