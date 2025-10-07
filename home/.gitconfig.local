@@ -426,6 +426,13 @@
     )\"; then \
       base_opt=\"--base ${upstream}\"; \
     fi; \
+    \
+    if command -v \"interactive-rebase-tool\" >/dev/null; then \
+      export EDITOR=\"interactive-rebase-tool\"; \
+    elif test -n \"${TNEWTONS_EDITOR}\"; then \
+      export EDITOR=\"${TNEWTONS_EDITOR}\"; \
+    fi; \
+    \
     git absorb ${base_opt} \"$@\"; \
   }; f"
 
