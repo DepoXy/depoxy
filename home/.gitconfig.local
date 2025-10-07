@@ -904,6 +904,21 @@
   # ISOFF/2025-10-04: I haven't used this feature in eons.
   #  new = wire-for-work
 
+  # ALTLY/2023-01-03: See instead --track=inherit, which inherits
+  # current branch's upstream (whereas `git co -b new old` sets
+  # "new" branch's upstream to "old").
+  # - This could be useful if the upstream isn't always remote/head,
+  #   but should be the same as the current branch's (i.e., don't
+  #   use start-point for upstream, and don't use default remote
+  #   branch, but keep using current branch's upstream).
+  #   - This feels more flexible than git-wire-for-work.
+
+  feature-branch = "!f() { \
+    local name=\"$1\"; \
+    git branch --track=inherit \"${name}\" && \
+      git checkout \"${name}\"; \
+  }; f"
+
 # ***
 
 [alias]
