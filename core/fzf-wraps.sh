@@ -277,6 +277,10 @@ _dxy_git_status_prompt_paths_multi() {
 # UCASE: Author normally git-add's with tig,
 # except when I'm resolving rebase conflicts.
 
+# FTREQ: `add` won't work on file in directory that hasn't been
+# added yet. E.g., `mkdir foo && touch foo/bar && add bar` will
+# not work.
+
 _dxy_git_status_git_add_path() {
   local path_hint="$1"
 
