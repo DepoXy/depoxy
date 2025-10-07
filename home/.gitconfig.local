@@ -697,12 +697,15 @@
 
   # ***
 
-  # 2020-12-04: ??? I've found myself doing this more frequently...
-  # - 2023-03-05: Today I cannot recall last time I invoked this.
-  # git push -u release HEAD
-  pur = push -u release HEAD
-  # FIXME/2020-12-04: `purh`? What about other remotes?
-  pup = push -u proving HEAD
+  # ISOFF/2025-10-04: Added circa 2020-12-04, but unused recently,
+  # because the rise of GPW scoped commits. Nowadays, I publish
+  # using tig-newtons and git-bump. And I don't necessarily push
+  # HEAD, but I skip scoped commits (e.g., those titled "PRIVATE:"
+  # and "PROTECTED:") and push only up to a specific "older"
+  # commit, and not HEAD.
+  #
+  #  pur = push -u release HEAD
+  #  pup = push -u proving HEAD
 
   # ***
 
