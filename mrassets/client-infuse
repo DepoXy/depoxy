@@ -401,8 +401,8 @@ symlink_overlay_nvim_assets() {
     "${nvim_repos}/landonb/dubs_project_tray/.vimprojects"
   # For the convenience.
   symlink_overlay_file \
-    "home/.kit/nvim/landonb/dubs_project_tray/.vimprojects" \
-    "home/.vimprojects"
+    "${MR_REPO}/home/.kit/nvim/landonb/dubs_project_tray/.vimprojects" \
+    "${MR_REPO}/home/.vimprojects"
 
   # Developer Vim grep: Custom Project Grep (\g) Paths list.
   # - Add vendor-specific project paths to this file.
@@ -427,8 +427,8 @@ symlink_overlay_nvim_assets() {
   fi
   # For the convenience.
   symlink_overlay_file \
-    "home/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim" \
-    "home/dubs_projects.vim"
+    "${MR_REPO}/home/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim" \
+    "${MR_REPO}/home/dubs_projects.vim"
 
   # Developer Vim plug: Custom plug at ~/.kit/nvim/DepoXy/start/vim-trap
   # - Use this plugin for vendor-specific Vim config and commands.
