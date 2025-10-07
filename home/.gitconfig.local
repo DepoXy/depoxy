@@ -436,7 +436,11 @@
 [alias]
 
   # Find occurrences of a string in Git history w/ these commands.
-  # - `git ff`, `git ffa`, `git fc`, `git fm`, `git lg1`.
+  # - `git ff`,   `git ffa`;       -S search, long output, --reverse; a: --all.
+  #   `git fc`,   `git fm`;        --oneline -S and -G searches.
+  #   `git lg1`,  `git lga1`; and  --oneline --reverse; 'a' as in --all.
+  #   `git tigf`, `git tigfa`.     Show -S search matches to tig.
+  #                        └→ 'a' as in `--all`.
   #
   # REFER: `git ff` and `git ffa`:
   # - Prints all commits that add or delete/change the indicated text.
