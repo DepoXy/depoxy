@@ -513,6 +513,11 @@
   #
   # *Find commits by source code* aka "find-commit"
   fc = "!f() { \
+    if ! test -n \"$1\"; then \
+      echo \"ERROR: Please specify the query string (for \\`git-log -S\\`)\"; \
+      return 1; \
+    fi; \
+    \
     local matching_commits=\"\"; \
     matching_commits=\"$( \
       git --no-pager log --decorate --date=short --color=always \
@@ -526,6 +531,11 @@
   #
   # *Find commits by commit message*
   fm = "!f() { \
+    if ! test -n \"$1\"; then \
+      echo \"ERROR: Please specify the query string (for \\`git-log -S\\`)\"; \
+      return 1; \
+    fi; \
+    \
     git log --decorate --date=short \
       --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d%n' \
       --grep=\"$*\"; \
@@ -557,6 +567,11 @@
   #    $* \
 #      -S \"${term}\" --source --reverse \
   lg1 = "!f() { \
+    if ! test -n \"$1\"; then \
+      echo \"ERROR: Please specify the query string (for \\`git-log -S\\`)\"; \
+      return 1; \
+    fi; \
+    \
     local term=\"$1\"; \
     [ -z \"$1\" ] || shift 1; \
     [ -n \"$1\" ] || set -- HEAD; \
@@ -578,6 +593,11 @@
 # No wait filepath -- ... ???
 #      -S \"${term}\" --source --all --reverse \
   lga1 = "!f() { \
+    if ! test -n \"$1\"; then \
+      echo \"ERROR: Please specify the query string (for \\`git-log -S\\`)\"; \
+      return 1; \
+    fi; \
+    \
     local term=\"$1\"; \
     [ -z \"$1\" ] || shift 1; \
     git \
