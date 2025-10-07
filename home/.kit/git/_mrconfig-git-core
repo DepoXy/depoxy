@@ -287,45 +287,45 @@ installLinux =
   # - SIMLY: Similar to `cat << EOF | tail +2 | sed 's/^# \?//'`
   #   but that syntax not possible in OMR config.
   cat <<[DEFAULT] | cut -c3-
-    *** Install git-interactive-rebase-tool
+    # *** Install git-interactive-rebase-tool
     #
-    **** These instructions are current as of 2025-09-07 (2.4.1 at HEAD~51 “30c7199”)
-         - Latest tag dated 2024-06-26 <2.4.1> (30c7199),
-           but they have been many (51) commits since it.
+    # **** These instructions are current as of 2025-09-07 (2.4.1 at HEAD~51 “30c7199”)
+    #      - Latest tag dated 2024-06-26 <2.4.1> (30c7199),
+    #        but they have been many (51) commits since it.
     #
-    **** Enter repo
+    # **** Enter repo
     #
       cd "${MR_REPO}"
     #
-    **** Update source
+    # **** Update source
     #
       git pull
     #
-    **** Install (a) or Update (b) Rust
-         https://www.rust-lang.org/tools/install
+    # **** Install (a) or Update (b) Rust
+    #      https://www.rust-lang.org/tools/install
     #
-    ***** (a) Install Rust:
+    # ***** (a) Install Rust:
     #
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
       #
       # Press [Enter] when prompted:
       # 1) Proceed with standard installation (default - just press enter)
     #
-    ***** (b) Update Rust (and cargo):
-    #
-      rustup update
-    #
-    **** Prepare the current shell:
+    # ***** (b.1) Prepare the current shell:
     #
       . "\${HOME}/.cargo/env"
     #
-    **** Install release build dependencies:
+    # ***** (b.2) Update Rust (and cargo):
+    #
+      rustup update
+    #
+    # **** Install release build dependencies:
     #
       sudo apt install pkg-config liblzma-dev
       cargo install --force cargo-make
       cargo install cargo-deb
     #
-    **** Build the tool:
+    # **** Build the tool:
     #
       cd "${MR_REPO}"
       cargo clean
@@ -335,7 +335,7 @@ installLinux =
       # - REFER: See Makefile.toml for task names.
       cargo make build-deb
     #
-    **** Install the package:
+    # **** Install the package:
     #
       version=\$(grep -e "^version =" Cargo.toml \\
         | sed "s/^version = [\"']\?\([^\"']*\)[\"']\?$/\1/")
