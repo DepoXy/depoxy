@@ -639,7 +639,7 @@
 
   # ***
 
-  # FIXME/2021-05-30: Audit these.
+  # HSTRY: These were added circa 2021-05-30, but are rarely used.
 
   # THANX/2021-05-30: An interesting display (though looks basically
   # like the main`tig` view):
