@@ -495,12 +495,12 @@
   #     - DUNNO: With or without -p, I haven't found an instance where
   #       removing -m changes output.
 
-  ff = "!f() { git --no-pager log -S \"$*\" --source -m --reverse; }; f"
+  ff = "!f() { git --no-pager log -S \"$1\" --source -m --reverse; }; f"
 
   # Use `git ffa` to find matches in --all commits: any commit, any branch/ancestry.
   # - MNMNC: Mnemonic: git-ffa: Find (and print starting with the) First match in
   #   Any commit/all commits.
-  ffa = "!f(){ git --no-pager log -S \"$*\" --source --all -m --reverse; }; f"
+  ffa = "!f(){ git --no-pager log -S \"$1\" --source --all -m --reverse; }; f"
 
   # Like `git ff`, but one-liners, and sorted newest commits to oldest.
   #
@@ -522,7 +522,7 @@
     matching_commits=\"$( \
       git --no-pager log --decorate --date=short --color=always \
         --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d' \
-        -S \"$*\"; \
+        -S \"$1\"; \
     )\"; \
     if test -n \"${matching_commits}\"; then \
       echo \"${matching_commits}\"; \
@@ -546,7 +546,7 @@
     matching_commits=\"$( \
       git --no-pager log --decorate --date=short --color=always --oneline \
         --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d%n' \
-        --grep=\"$*\"; \
+        --grep=\"$1\"; \
     )\"; \
     if test -n \"${matching_commits}\"; then \
       echo \"${matching_commits}\" | sed '/^$/d'; \
@@ -564,20 +564,10 @@
   #   $ git show :/^Merge
   #   # shows the last merge commit
 
-  # 2020-12-01:
-  # -1 not working?
-  #ff1 = "!f(){ git --no-pager log -S \"$*\" --source --reverse -1; }; f"
-  # What about just using lg1? (But no --reverse w/ --graph... or do not use -S w/ --graph)
-  #   --graph \
-  # Don't want pager either, though...
-  #   | less -S -R; \
-  # Can I specify commit?
-  #   -S \"$*\" --source --reverse \
-  # HRMM: do not quote if no more args, else git sees empty {commit} string
-  #    \"$*\" \
-  # (Or specify HEAD as last arg)
-  #    $* \
-#      -S \"${term}\" --source --reverse \
+  # `git lg1` is a --oneline-like `git ff`.
+  #
+  # INERT: If you want to add pass-through args to `git ff`, `git ffa`, etc.,
+  # check out this approach.
   lg1 = "!f() { \
     if ! test -n \"$1\"; then \
       echo \"ERROR: Please specify the query string (for \\`git-log -S\\`)\"; \
@@ -586,7 +576,6 @@
     \
     local term=\"$1\"; \
     [ -z \"$1\" ] || shift 1; \
-    [ -n \"$1\" ] || set -- HEAD; \
     git \
       --no-pager \
       log \
@@ -596,14 +585,12 @@
       \
       --date=\"format:%a %F %H:%M %z\" \
       --pretty=\"format:%h %C(blue)%cd %C(green)%<(22)%an%C(reset)%C(blue)o%C(reset)%C(red)%d%C(reset) %s\" \
-      $* \
+      \"$@\" \
     ; \
     echo; \
   }; f"
 
-# All args are terms; no need for commit because --all.
-# No wait filepath -- ... ???
-#      -S \"${term}\" --source --all --reverse \
+  # Like `git lg1`, but searches all commits (like `git ffa`).
   lga1 = "!f() { \
     if ! test -n \"$1\"; then \
       echo \"ERROR: Please specify the query string (for \\`git-log -S\\`)\"; \
@@ -621,7 +608,7 @@
       \
       --date=\"format:%a %F %H:%M %z\" \
       --pretty=\"format:%h %C(blue)%cd %C(green)%<(22)%an%C(reset)%C(blue)o%C(reset)%C(red)%d%C(reset) %s\" \
-      $* \
+      \"$@\" \
     ; \
     echo; \
   }; f"
@@ -638,15 +625,12 @@
   #     In addition to the <commit> listed on the command line, read them from the
   #     standard input (until -- separator is seen, which signifies path arguments).
 
-#    git --no-pager log -S \"$*\" --pretty=format:%H | tig --no-walk --stdin; \
   tigf = "!f() { \
-    git --no-pager log -S \"$*\" -m --pretty=format:%H | tig --no-walk --stdin; \
+    git --no-pager log -S \"$1\" -m --pretty=format:%H | tig --no-walk --stdin; \
   }; f"
 
-# FIXME/2021-01-04:  \"$*\" really? and not \"$@\" ??
-#    git --no-pager log -S \"$*\" --pretty=format:%H --all | tig --no-walk --stdin; \
   tigfa = "!f() { \
-    git --no-pager log -S \"$*\" -m --pretty=format:%H --all | tig --no-walk --stdin; \
+    git --no-pager log -S \"$1\" -m --pretty=format:%H --all | tig --no-walk --stdin; \
   }; f"
 
   # ***
