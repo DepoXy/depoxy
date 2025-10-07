@@ -202,7 +202,7 @@
 
 [alias]
 
-  ria-interactive = "! f() { \
+  ria-interactive = "!f() { \
     GIT_SEQUENCE_EDITOR=\"seqedit () { \
       local rebase_todo_path=\\\"\\$1\\\"; \
       \
@@ -329,7 +329,7 @@
   #         *      *      *                ***
   # - rc: `rebase --continue` → `git rc`
   #        *        *                **
-  cpc = "! f() { \
+  cpc = "!f() { \
     local hook_orig=\".git/hooks/pre-commit\"; \
     local hook_temp=\"${hook_orig}.OFF\"; \
     \
@@ -473,7 +473,7 @@
   # git-search and git-find are available, and smell obvious.
   # But I do like how easy `git ff` is to type... fixup-finder, how's that?
 #  ff = "!f(){ git --no-pager log -S \"$*\" --source --reverse; }; f"
-  ff = "!f(){ git --no-pager log -S \"$*\" --source -m --reverse; }; f"
+  ff = "!f() { git --no-pager log -S \"$*\" --source -m --reverse; }; f"
 
   # 2021-05-30: I'm not the only one who finds such commands useful!
   #
@@ -484,11 +484,12 @@
   # you don't have to quote the search string if you'd rather not.
   #
   # *Find commits by source code* aka "find-commit"
-  fc = "!f(){ \
+  fc = "!f() { \
     git --no-pager log --decorate --date=short \
       --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d%n' \
       -S \"$*\"; \
   }; f"
+  #
   # *Find commits by commit message*
   fm = "!f() { \
     git log --decorate --date=short \
@@ -521,7 +522,7 @@
   # (Or specify HEAD as last arg)
   #    $* \
 #      -S \"${term}\" --source --reverse \
-  lg1 = "! f() { \
+  lg1 = "!f() { \
     local term=\"$1\"; \
     [ -z \"$1\" ] || shift 1; \
     [ -n \"$1\" ] || set -- HEAD; \
@@ -542,7 +543,7 @@
 # All args are terms; no need for commit because --all.
 # No wait filepath -- ... ???
 #      -S \"${term}\" --source --all --reverse \
-  lga1 = "! f() { \
+  lga1 = "!f() { \
     local term=\"$1\"; \
     [ -z \"$1\" ] || shift 1; \
     git \
@@ -600,13 +601,13 @@
   #     standard input (until -- separator is seen, which signifies path arguments).
 
 #    git --no-pager log -S \"$*\" --pretty=format:%H | tig --no-walk --stdin; \
-  tigf = "! f() { \
+  tigf = "!f() { \
     git --no-pager log -S \"$*\" -m --pretty=format:%H | tig --no-walk --stdin; \
   }; f"
 
 # FIXME/2021-01-04:  \"$*\" really? and not \"$@\" ??
 #    git --no-pager log -S \"$*\" --pretty=format:%H --all | tig --no-walk --stdin; \
-  tigfa = "! f() { \
+  tigfa = "!f() { \
     git --no-pager log -S \"$*\" -m --pretty=format:%H --all | tig --no-walk --stdin; \
   }; f"
 
@@ -699,7 +700,7 @@
   # ***
 
   # 2020-12-14:
-  dated-tags = "! f() { \
+  dated-tags = "!f() { \
     local glob_dated_tag='[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'; \
     local re_dateparts='^[0-9]\\{4\\}\\-[0-9]\\{2\\}\\-[0-9]\\{2\\}\\-'; \
     git tag -l \"${glob_dated_tag}\" | \
@@ -723,7 +724,7 @@
 
   squash-all = "!f(){ git reset $(git commit-tree HEAD^{tree} -m \"${1:-Squashed!}\");};f"
 
-  squash-most = "! f() { \
+  squash-most = "!f() { \
     local second_commit=\"$(git --no-pager log --format='%H' --reverse | head -2 | tail -1)\"; \
     git reset --soft \"${second_commit}\"; \
     git commit --amend -m \"${1:-Squashed!}\"; \
