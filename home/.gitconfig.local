@@ -435,49 +435,72 @@
 
 [alias]
 
-  # INERT/2020-12-17: Move all the (gross?) `! f() ...` to their own
-  # shell scripts (1 each, named git-{alias}), maybe even on PATH (then
-  # you wouldn't have to wire from gitconfig).
-  # - "Gross" because you have to use escaped strings in gitconfig,
-  #   and you don't get syntax highlighting, auto-formatting, etc.
-  # - Alternatively, if you want to keep them grouped, move to a
-  #   single shell file, then each !f() herein could "." source
-  #   that file and call a specific func.
+  # Find occurrences of a string in Git history w/ these commands.
+  # - `git ff`, `git ffa`, `git fc`, `git fm`, `git lg1`.
+  #
+  # REFER: `git ff` and `git ffa`:
+  # - Prints all commits that add or delete/change the indicated text.
+  # - Prints in --reverse order, so the first commit printed is the
+  #   first commit in which the string occurs.
+  #   - There was previously a non-reverse version, but it did not
+  #     prove to be useful. And git-log doesn't have a --no-reverse.
+  # - You'll have to excuse the aliases — your humble author uses
+  #   these frequently [at least circa 2020 to 2025/Present], so
+  #   I appreciate the somewhat obscure alias names.
+  #   - Mnemonic: `git ff` — I think, "Find First", though the
+  #     command finds all matches; it just prints the first
+  #     occurrence first (per `git log --reverse`). (And try not
+  #     to think that 'ff' means 'fast-forward'.)
+  #   - Mnemonic: `git ffa` — I think of the "a" as in "all" or
+  #     "any", i.e., find matches in any/all branches and commits,
+  #     and not just the current branch.
+  #   - SYNYM: Some synonyms for these commands might be
+  #     `git search-first`, `git first-occurrence`, `git first`, or
+  #     `git earliest`; or perhaps `git deep-find`, `git deep-probe`.
+  #     - I'd also considered `git fixup-finder`, or `git fully-find`.
+  # - HSTRY/2020-10-21: I originally added these to help find fixup
+  #   commits (back in the day when I used to manually --fixup *the
+  #   hard way*), but I now use tig and git-absorb for fixups.
+  #   - Nonetheless, I still use these two commands frequently,
+  #     sometimes out of curiosity, or when fixing a regression
+  #     and identifying when the faul was introduced.
+  # - REFER:
+  #   - -S<string> "Look for differences that change the number of
+  #         occurrences of the specified <string> (i.e. addition/deletion)
+  #         in a file. Intended for the scripter’s use."
+  #     - DUNNO: Old comment (2020-12-02) says `git log -S` does not
+  #       search merge commits by default, though years later I cannot
+  #       locate that ref. info. So just be aware that this might miss
+  #       merge commits.
+  #         https://stackoverflow.com/questions/37142920/
+  #           git-log-s-does-not-show-anything
+  #     - CALSO: --first-parent: "When finding commits to include,
+  #       follow only the first parent commit upon seeing a merge commit."
+  #   - -G<regex> "Look for differences whose patch text contains added/removed
+  #         lines that match <regex>."
+  #     - Note -G will report when a *line* that changed matches the query,
+  #       whereas -S reports only when the actual query changes.
+  #       - REFER: Compare `log -S<string>` vs. `log -G<regex>`:
+  #         - Suppose you have this change:
+  #             -export const fooBar = (baz) => ({
+  #             +export const fooBar = (baz, bat) => ({
+  #           - `git log -S fooBar` will *not* match that commit; but
+  #           - `git log -G fooBar` (or `git log -S bat`) will match.
+  #   - --pickaxe-all "When -S or -G finds a change, show all the changes in
+  #       that changeset, not just the files that contain the change in <string>."
+  #   - -m "Show diffs for merge commits in the default format.
+  #         This is similar to --diff-merges=on, except -m will
+  #         produce no output unless -p is given as well."
+  #   - -p|-u|--patch "Generate patch."
+  #     - DUNNO: With or without -p, I haven't found an instance where
+  #       removing -m changes output.
 
-  # ***
-
-  # 2020-10-21: New sauce, to help find --fixup commit when rebasing.
-
-  #search-first = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
-  #first-occurrence = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
-  #first = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
-
-  #search-last = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
-  #last-occurrence = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
-  #last = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
-
-  # Use earliest, or rename first-commit? "init-commit"? show-init-commit git log-first-commit ! git log-first
-  #earliest = "!f(){ git --no-pager log -S \"$*\" --source --all; }; f"
-  #latest = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
-
-# *** 2020-11-24: WHAT I'VE BEEN SPINNING "AT WORK" (ON WORK MACHINE) RECENTLY: ***
-
-  # 2020-10-21: New sauce, to help find --fixup commit when rebasing.
-  # `git find-first` or `git earliest` or `git latest` or `git deep-find`
-  # or however you want to think about it.
-  # 2020-11-20: I'm finding this useful, so promoting to `git ff`
-  # which also clarifies a bit, because it finds all matches, not just
-  # first or last, so thereskies.
-  # Aka I dunno, it's not really 'find-first', it prints log of all commits
-  # with matches, maybe fully-find, fun-find, ugh.
-  # git-search and git-find are available, and smell obvious.
-  # But I do like how easy `git ff` is to type... fixup-finder, how's that?
-#  ff = "!f(){ git --no-pager log -S \"$*\" --source --reverse; }; f"
   ff = "!f() { git --no-pager log -S \"$*\" --source -m --reverse; }; f"
 
-  # 2021-05-30: I'm not the only one who finds such commands useful!
+  # Like `git ff`, but one-liners, and sorted newest commits to oldest.
   #
-  # Here are similar find-commit-containing-text commands,
+  # CALSO/2021-05-30: I'm not the only one who finds such commands
+  # useful! / Here are similar find-commit-containing-text commands,
   # but with a more compact report, using one line per match.
   #   https://github.com/jessfraz/dotfiles/blob/master/.gitconfig
   # I added a newline to the format (%n), and changed $1 to $* so
@@ -560,34 +583,9 @@
     echo; \
   }; f"
 
-# FIXME/2020-12-02: `git log -S` does not search merge commits by default!
-#
-# See:  -m --first-parent
-#
-# - Think -m without the --first-parent works best...
-#
-# https://stackoverflow.com/questions/37142920/git-log-s-does-not-show-anything
-
 
   # All --all to find matches in any commit, any branch/ancestry.
-  #  find-anywhere = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
-  # 2020-11-25: Oy, So Obvious!: ffa.
-  #ffa = "!f(){ git --no-pager log -S \"$*\" --source --all --reverse; }; f"
   ffa = "!f(){ git --no-pager log -S \"$*\" --source --all -m --reverse; }; f"
-# 2020-11-20: Nice!: git find-first 'foo bar' | tig
-# MAYBE/2020-11-20: find-first → ff ?? (but fast-forward?)
-# fuzzy find first find fuhhh
-
-# FIXME/2020-11-23: `log -S<string>` vs. `log -G<regex>`.
-#
-# Suppose you have change:
-#
-#   -export const fooBar = (baz) => ({
-#   +export const fooBar = (baz, bat) => ({
-#
-# then `git log -S fooBar` will *not* match that commit,
-# but `git log -G fooBar` (or `git log -S bat`) would.
-
   # Tell `tig` which commits to show: send it commit hashes.
   # - Tell git-log to print hashes (format:%H),
   #   and tell tig to look for 'em (--stdin).
