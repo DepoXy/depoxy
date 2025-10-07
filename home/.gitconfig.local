@@ -893,10 +893,13 @@
 [alias]
 
   wire-for-work = "!f() { \
-    local remote=${2:-origin}; \
-    local upstream_head=$(git remote show ${remote} | grep 'HEAD branch' | cut -d' ' -f5); \
-    git checkout -b $1; \
-    git branch -u ${remote}/${upstream_head}; \
+    local branch=\"$1\"; \
+    local remote=\"${2:-origin}\"; \
+    local upstream_head=\"$( \
+      git remote show \"${remote}\" | grep 'HEAD branch' | cut -d' ' -f5 \
+    ); \
+    git checkout -b \"${branch}\"; \
+    git branch -u \"${remote}/${upstream_head}\"; \
   }; f"
   new = wire-for-work
 
