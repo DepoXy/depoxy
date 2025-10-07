@@ -432,6 +432,9 @@ symlink_overlay_nvim_assets() {
 
   # Developer Vim plug: Custom plug at ~/.kit/nvim/DepoXy/start/vim-trap
   # - Use this plugin for vendor-specific Vim config and commands.
+  # - CXREF/2025-10-07: Better yet, use new Neovim private config:
+  #     ~/.depoxy/ambers/home/.kit/nvim/landonb/nvim-lazyb/lua/config/keymaps-private.lua
+  #     ~/.depoxy/ambers/home/.kit/nvim/landonb/nvim-lazyb/lua/config/options-private.lua
   symlink_overlay_dir \
     "${MR_REPO}/home/vim-trap" \
     "${nvim_repos}/DepoXy/start/vim-trap"
