@@ -436,6 +436,41 @@
     git absorb ${base_opt} \"$@\"; \
   }; f"
 
+  # UCASE: Force (ignores author) absorb up to upstream ref,
+  # or the ref. user passes, then opens sequence-editor. If
+  # the interactive-rebase-tool is installed, just press 'w'
+  # to run the rebase, and you're done. Or, if rebase-tool
+  # is not available, and you are using nvim-depoxy/bin/'s
+  # editor-vim-0-0-insert-minimal as TNEWTONS_EDITOR, you
+  # can <Ctrl-S> to save and close the sequence editor (in
+  # either case, you can dismiss the sequence editor and
+  # run the rebase with a single keypress).
+  # - Calls, e.g.,
+  #   EDITOR="interactive-rebase-tool" git absorb --force --and-rebase --base {ref}
+  fabs = "!f() { \
+    local base_ref=\"$1\"; \
+    \
+    local base_opt=\"\"; \
+    if test -n \"${base_ref}\"; then \
+      base_opt=\"--base ${base_ref}\"; \
+    else \
+      local upstream; \
+      if upstream=\"$( \
+        git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\" 2> /dev/null \
+      )\"; then \
+        base_opt=\"--base ${upstream}\"; \
+      fi; \
+    fi; \
+    \
+    if command -v \"interactive-rebase-tool\" >/dev/null; then \
+      export EDITOR=\"interactive-rebase-tool\"; \
+    elif test -n \"${TNEWTONS_EDITOR}\"; then \
+      export EDITOR=\"${TNEWTONS_EDITOR}\"; \
+    fi; \
+    \
+    git absorb --force --and-rebase ${base_opt}; \
+  }; f"
+
 # #######################################################################
 # ***                          GIT LOG -S/-G                          ***
 # #######################################################################
