@@ -6,6 +6,8 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+nvim_repos="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}"
+
 # HSTRY/2024-07-03: This was originally an 'autocommit =' block in the
 # client _mrconfig, hence it's just one big function. Feel free to
 # refactor into smaller functions if you're so inspired.
@@ -396,7 +398,7 @@ symlink_overlay_nvim_assets() {
   # - Add vendor-specific project listing to this file.
   symlink_overlay_file \
     "${MR_REPO}/home/.kit/nvim/landonb/dubs_project_tray/.vimprojects" \
-    "${HOME}/.kit/nvim/landonb/dubs_project_tray/.vimprojects"
+    "${nvim_repos}/landonb/dubs_project_tray/.vimprojects"
   # For the convenience.
   symlink_overlay_file \
     "home/.kit/nvim/landonb/dubs_project_tray/.vimprojects" \
@@ -406,7 +408,7 @@ symlink_overlay_nvim_assets() {
   # - Add vendor-specific project paths to this file.
   symlink_overlay_file \
     "${MR_REPO}/home/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim" \
-    "${HOME}/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim"
+    "${nvim_repos}/landonb/dubs_grep_steady/dubs_projects.vim"
   # Reload <\g> search list.
   # - If no such instance:
   #     E247: No registered server named "GVIM": Send failed.
@@ -432,7 +434,7 @@ symlink_overlay_nvim_assets() {
   # - Use this plugin for vendor-specific Vim config and commands.
   symlink_overlay_dir \
     "${MR_REPO}/home/vim-trap" \
-    "${HOME}/.kit/nvim/DepoXy/start/vim-trap"
+    "${nvim_repos}/DepoXy/start/vim-trap"
 }
 
 # *** VS Code windsurf
