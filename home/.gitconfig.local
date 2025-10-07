@@ -513,9 +513,15 @@
   #
   # *Find commits by source code* aka "find-commit"
   fc = "!f() { \
-    git --no-pager log --decorate --date=short \
-      --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d%n' \
-      -S \"$*\"; \
+    local matching_commits=\"\"; \
+    matching_commits=\"$( \
+      git --no-pager log --decorate --date=short --color=always \
+        --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d' \
+        -S \"$*\"; \
+    )\"; \
+    if test -n \"${matching_commits}\"; then \
+      echo \"${matching_commits}\"; \
+    fi; \
   }; f"
   #
   # *Find commits by commit message*
