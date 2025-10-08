@@ -109,6 +109,72 @@ _dxy_mindencfs_source_ssh_environs() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Reminds user when starting a new shell if they need to reboot,
+# based on /var/run/reboot-required* existence.
+# - If your host is configured to automatically install updates,
+#   there might not be a mechanism to alert you when a new kernel
+#   is installed, and a reboot is required (at least on Debian;
+#   macOS uses Desktop Notifications to alert you when an OS
+#   update it ready to be installed, and afterwards if you need
+#   to reboot but haven't).
+# - INERT: Ideally, after running apt-upgrade, or when waking
+#   from suspend, etc., we'd alert user if a reboot is required.
+#   - E.g., use Anacron to poll /var/run/reboot-required, or hook
+#     wake-from-suspend (I think there's a mechanism).
+#   - INERT: Because not something I'm gonna "waste" time on!
+#     - I've never had an issue not rebooting, and sometimes I've
+#       gone months after upgrading the kernel before rebooting.
+#
+# THANX:
+# https://www.cyberciti.biz/faq/how-to-find-out-if-my-ubuntudebian-linux-server-needs-a-reboot/
+
+remind_restart_required() {
+  local rr_base="/var/run/reboot-required"
+
+  local reminded=false
+  local days_since_rr=0
+
+  print_restart_reminder() {
+    if ${reminded}; then
+
+      return
+    fi
+
+    echo "$(attr_underline)Ahoy hoy!$(attr_reset)" \
+      "$(attr_emphasis)Please reboot your machine$(attr_reset)" \
+      "$(attr_bold)sudo reboot$(attr_reset)  🔌"
+    echo "- You've needed to reboot for ${days_since_rr} day$(
+      test ${days_since_rr} -eq 1 || printf "%s" "s!"
+    )"
+
+    reminded=true
+  }
+
+  local rr_file
+  for rr_file in $(command ls ${rr_base}* 2> /dev/null); do
+    local mod=$(date -r "${rr_file}" +%s)
+    local now=$(date +%s)
+    local days=$(expr \( ${now} - ${mod} \) / 86400)
+    if test ${days} -gt ${days_since_rr}; then
+      days_since_rr=${days}
+    fi
+
+    print_restart_reminder
+
+    echo
+    echo "  \$ ls -l -- ${rr_file}"
+    command ls -l -- "${rr_file}" | sed 's/^/  /'
+
+    if [ -s "${rr_file}" ]; then
+      echo
+      echo "  \$ cat -- ${rr_file}"
+      cat -- "${rr_file}" | sed 's/^/  /'
+    fi
+  done
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 main() {
   unset -f main
 
@@ -117,6 +183,10 @@ main() {
 
   prepare_ssh_keys
   unset -f prepare_ssh_keys
+
+  remind_restart_required
+  unset -f print_restart_reminder
+  unset -f remind_restart_required
 }
 
 main "$@"
