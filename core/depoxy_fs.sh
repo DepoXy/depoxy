@@ -16,12 +16,14 @@ _vendorfs_define_environs() {
   # OPSEC: Is this a security risk we should care about,
   #        just blindly sourcing a file from user home?
   #        - I suppose this whole project is a secrisk.
+  # CXREF: ~/.config/depoxy/depoxyrc
   local client_dxyrc="${DEPOXY_CONFIG_HOME:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy}/depoxyrc"
   if [ -f "${client_dxyrc}" ]; then
     . "${client_dxyrc}"
   fi
 
   # Also include `321open` config in user's shell.
+  # CXREF: ~/.config/depoxy/321open.cfg
   local client_321rc="${DEPOXY_CONFIG_HOME:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy}/321open.cfg"
   if [ -f "${client_321rc}" ]; then
     . "${client_321rc}"
