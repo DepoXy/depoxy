@@ -226,6 +226,7 @@
 
 # BNDNG: <Shift-Cmd-Ctrl-Q>
 # - Dunno, <Ctrl-Cmd-Q> is locks, but <Shift>ing doesn't? Seems weird.
+# CXREF: ~/.depoxy/ambers/bin/gnome/toggle-idle-delay
 <Shift><Primary><Super>q,/home/user/.depoxy/ambers/bin/gnome/toggle-idle-delay
 
 # ================================================================= #
