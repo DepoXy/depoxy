@@ -467,9 +467,10 @@ _dxy_load_depoxy_fs() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main() {
+  unset -f main
+
   _dxy_load_depoxy_fs
   unset -f _dxy_load_depoxy_fs
 }
 
 main "$@"
-unset -f main
