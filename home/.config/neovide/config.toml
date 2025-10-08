@@ -83,6 +83,7 @@ normal = [
   # - ISOFF/2025-02-02: I like Monaspice, but I'm seeing a few weird artifacts with it.
   #     { family = "MonaspiceNe Nerd Font", style = "Retina" },
   { family = "Hack Nerd Font", style = "Regular" },
+  { family = "JoyPixels", style = "Regular" },
   # CALSO:
   # - "The icon font for Visual Studio Code"
   #     brew install --cask font-codicon
