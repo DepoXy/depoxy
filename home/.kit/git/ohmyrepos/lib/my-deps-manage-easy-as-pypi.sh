@@ -224,7 +224,17 @@ infuse_easy_as_pypi_gh_repo_set_default() {
   # Prints, e.g.,
   #   ✓ Set doblabs/easy-as-pypi as the default repository for the current directory
   # unless pipelined, then prints nothing.
-  if gh repo set-default "${gh_repo}" > /dev/null; then
+
+  # Check if the default repo already set.
+  # - Note that `gh repo set-default` will fail if your credentials
+  #   are wrong or expired.
+  # - So this'll avoid an unnecessary network call if the default
+  #   is already set correctly (I assume), and it'll avoid failing
+  #   'infuse' just because `gh` is logged out.
+  local cur_default
+  cur_default="$(gh repo set-default -v)"
+
+  if [ "${cur_default}" = "${gh_repo}" ] || gh repo set-default "${gh_repo}" >/dev/null; then
     info "✓ $(font_emphasize "gh repo set-default") $(font_info_created "${gh_repo}")"
   else
     # Print error and fail.
