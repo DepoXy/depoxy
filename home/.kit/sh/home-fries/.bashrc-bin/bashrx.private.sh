@@ -159,6 +159,9 @@ _source_scripts_following_homefries_dxy() {
   # Backgrounds meld if you don't; avoids virtualenv 'gi' issue.
   _dxy_source "meld-wrap.sh"
 
+  # Remind user to 321open.
+  _dxy_source "mindencfs.sh"
+
   # nvm.
   _dxy_source "nvm-setup.sh"
 
