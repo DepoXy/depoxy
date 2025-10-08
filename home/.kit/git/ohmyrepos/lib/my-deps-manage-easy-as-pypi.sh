@@ -26,13 +26,13 @@
 # - CXREF: See update-defs for these FIVER defs:
 #     ~/.kit/py/easy-as-pypi/bin/update-faithful
 
-infuse_easy_as_pypi_follower () {
+infuse_easy_as_pypi_follower() {
   infuse_easy_as_pypi_follower_links "$@"
   infuse_easy_as_pypi_git_aliases
   infuse_easy_as_pypi_gh_configure
 }
 
-infuse_easy_as_pypi_follower_links () {
+infuse_easy_as_pypi_follower_links() {
   link_private_exclude "$@"
 
   # Only look for ./.ignore if not part of the repo.
@@ -165,10 +165,10 @@ infuse_easy_as_pypi_follower_links () {
   # BUILD: ".trustme/.trustme.lock/"
   # BUILD: ".trustme/.trustme.log"
   (
-    symlink_mrinfuse_file ".trustme/.trustme.plugin" \
-    && symlink_mrinfuse_file ".trustme/.trustme.sh" \
-    && symlink_mrinfuse_file ".trustme/.trustme.vim"
-  ) 2> /dev/null || true
+    symlink_mrinfuse_file ".trustme/.trustme.plugin" &&
+      symlink_mrinfuse_file ".trustme/.trustme.sh" &&
+      symlink_mrinfuse_file ".trustme/.trustme.vim"
+  ) 2>/dev/null || true
   # This used to warn, but those that care will figure it out if these
   # are missing. It also nice not to warn during 'infuse' on something
   # that's not that important, especially if 'infuse' takes a while to
@@ -177,7 +177,7 @@ infuse_easy_as_pypi_follower_links () {
   #   warn "└→ Ignore the last warning, $(attr_emphasis)I'll allow this!$(attr_reset)"
 }
 
-infuse_easy_as_pypi_git_aliases () {
+infuse_easy_as_pypi_git_aliases() {
   # Project: https://github.com/landonb/git-bump-version-tag
   # - Easily apply a semantic version tag.
   git config alias.bump "! ${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/git-bump-version-tag"
@@ -185,7 +185,7 @@ infuse_easy_as_pypi_git_aliases () {
 
 # ***
 
-infuse_easy_as_pypi_gh_configure () {
+infuse_easy_as_pypi_gh_configure() {
   infuse_easy_as_pypi_gh_repo_set_default
 }
 
@@ -201,9 +201,9 @@ infuse_easy_as_pypi_gh_configure () {
 #   [remote "publish"]
 #     ...
 #     gh-resolved = base
-#    
+#
 # REFER: gh help environment | less
-infuse_easy_as_pypi_gh_repo_set_default () {
+infuse_easy_as_pypi_gh_repo_set_default() {
   local gh_org="${INFUSE_GH_ORG:-doblabs}"
   local gh_repo="${gh_org}/$(basename -- "$(git rev-parse --show-toplevel)")"
 
@@ -214,7 +214,7 @@ infuse_easy_as_pypi_gh_repo_set_default () {
     return 0
   fi
 
-  if ! command -v gh > /dev/null; then
+  if ! command -v gh >/dev/null; then
     >&2 echo "ERROR: Please install \`gh\` to wire EAPP repos"
     >&2 echo "  mr -d ~/.kit/git/cli -n install"
 
@@ -235,7 +235,7 @@ infuse_easy_as_pypi_gh_repo_set_default () {
 # ========================================================================
 # ------------------------------------------------------------------------
 
-update_easy_as_pypi_follower () {
+update_easy_as_pypi_follower() {
   # CXREF: ~/.kit/py/easy-as-pypi/bin/update-faithful
   ${DOPP_KIT:-${HOME}/.kit}/py/easy-as-pypi/bin/update-faithful
 }
@@ -243,8 +243,8 @@ update_easy_as_pypi_follower () {
 # ========================================================================
 # ------------------------------------------------------------------------
 
-onboard_easy_as_pypi_follower_2023 () {
-  must_insist_nothing_staged () {
+onboard_easy_as_pypi_follower_2023() {
+  must_insist_nothing_staged() {
     if ! git_nothing_staged; then
       >&2 echo "ERROR: Please commit or rollback staged changes"
 
@@ -252,27 +252,27 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  git_nothing_staged () {
+  git_nothing_staged() {
     git diff --cached --quiet
   }
 
-  git_rm_gentle () {
+  git_rm_gentle() {
     local filepath="$1"
     shift
 
-    git rm -q -f $@ "${filepath}" 2> /dev/null \
-      || true
+    git rm -q -f $@ "${filepath}" 2>/dev/null ||
+      true
   }
 
   # ***
 
-  is_canon () {
+  is_canon() {
     [ "$(basename -- "$(realpath -- "$(pwd)")")" = "easy-as-pypi" ]
   }
 
   # ***
 
-  remove_coveragerc () {
+  remove_coveragerc() {
     git_rm_gentle ".coveragerc"
 
     if git_nothing_staged; then
@@ -284,7 +284,7 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  remove_localized_sphinx_rtd_theme () {
+  remove_localized_sphinx_rtd_theme() {
     git_rm_gentle -r docs/_themes/sphinx_rtd_theme/
 
     if git_nothing_staged; then
@@ -296,7 +296,7 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  remove_Makefile_local_example () {
+  remove_Makefile_local_example() {
     is_canon || git_rm_gentle "Makefile.local.example"
 
     if git_nothing_staged; then
@@ -308,7 +308,7 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  remove_travis_config () {
+  remove_travis_config() {
     git_rm_gentle ".travis.yml"
 
     if git_nothing_staged; then
@@ -322,7 +322,7 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  remove_pytest_ini () {
+  remove_pytest_ini() {
     git_rm_gentle "pytest.ini"
 
     if git_nothing_staged; then
@@ -336,7 +336,7 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  commit_pyproject_toml_and_decommission_setup_py () {
+  commit_pyproject_toml_and_decommission_setup_py() {
     git_rm_gentle ".flake8"
     git_rm_gentle "MANIFEST.in"
     git_rm_gentle "setup.cfg"
@@ -359,7 +359,7 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  commit_poetry_lock () {
+  commit_poetry_lock() {
     [ -f "poetry.lock" ] || return 0
 
     git add "poetry.lock"
@@ -373,25 +373,25 @@ onboard_easy_as_pypi_follower_2023 () {
     fi
   }
 
-  remove_release_symlink () {
+  remove_release_symlink() {
     # CXREF: See *ISOFF/2023-10-24 16:55* comment, above.
     # - We no longer use dev-side `release` script, but leverage CI instead.
-    [ -h "release" ] \
-      && command rm "release" \
-      || echo "SKIPD: release"
+    [ -h "release" ] &&
+      command rm "release" ||
+      echo "SKIPD: release"
   }
 
-  mv_trustme_to_subdir_local () {
-    if ls ./.trustme.* > /dev/null 2>&1; then
+  mv_trustme_to_subdir_local() {
+    if ls ./.trustme.* >/dev/null 2>&1; then
       mkdir -p ./.trustme
 
-      command mv ./.trustme.* ./.trustme 2> /dev/null \
-        && echo "MOVED: → .trustme/ files" \
-        || echo "SKIPD: .trustme/ files"
+      command mv ./.trustme.* ./.trustme 2>/dev/null &&
+        echo "MOVED: → .trustme/ files" ||
+        echo "SKIPD: .trustme/ files"
     fi
   }
 
-  mv_trustme_to_subdir_mrinfuse () {
+  mv_trustme_to_subdir_mrinfuse() {
     local project_name="$(basename -- "${MR_REPO}")"
     local mrinfuse_dir="../.mrinfuse/${project_name}"
 
@@ -400,9 +400,9 @@ onboard_easy_as_pypi_follower_2023 () {
 
       mkdir -p ./.trustme
 
-      git mv ./.trustme.* ./.trustme 2> /dev/null \
-        && echo "MOVED: → .mrinfuse/'s .trustme.* files" \
-        || echo "ABSNT: .mrinfuse/'s .trustme.* files"
+      git mv ./.trustme.* ./.trustme 2>/dev/null &&
+        echo "MOVED: → .mrinfuse/'s .trustme.* files" ||
+        echo "ABSNT: .mrinfuse/'s .trustme.* files"
 
       if git_nothing_staged; then
         echo "SKIPD: .mrinfuse/'s .trustme/ files"
@@ -445,4 +445,3 @@ onboard_easy_as_pypi_follower_2023 () {
 
 # ========================================================================
 # ------------------------------------------------------------------------
-
