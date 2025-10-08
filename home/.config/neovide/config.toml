@@ -27,8 +27,18 @@
 # mouse-cursor-icon = "arrow"
 mouse-cursor-icon = "i-beam"
 #
-# neovim-bin = "/usr/bin/nvim" # in reality found dynamically on $PATH if unset
-neovim-bin = "/opt/homebrew/bin/nvim"
+# By default, Neovide uses first nvim on PATH, but we'll
+# use ~/.local/bin/nvim, which DepoXy ensures (on 'infuse')
+# is a symlink to the latest build.
+# - On DepoXy Linux, ~/.local/bin/nvim is first on PATH
+#   (and symlinks /home/linuxbrew/.linuxbrew/bin/nvim).
+#   - And /usr/bin/nvim is second on PATH (an older version
+#     from Debian/Apt, e.g., v0.7.2, vs. Homebrew's v0.11.1).
+# - On DepoXy macOS, ~/.local/bin/nvim is first on PATH
+#   (and symlinks /opt/homebrew/bin/nvim).
+#   - And /opt/homebrew/bin/nvim is second is on PATH (and
+#     there is no Neovim from Apple/BSD).
+neovim-bin = "/private/user/.local/bin/nvim"
 # no-multigrid = false
 # srgb = false
 # tabs = true
