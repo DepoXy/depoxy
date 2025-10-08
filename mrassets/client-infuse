@@ -409,14 +409,36 @@ symlink_overlay_nvim_assets() {
   symlink_overlay_file \
     "${MR_REPO}/home/.kit/nvim/landonb/dubs_grep_steady/dubs_projects.vim" \
     "${nvim_repos}/landonb/dubs_grep_steady/dubs_projects.vim"
-  # Reload <\g> search list.
+  # Reload <LocalLeader>g grep-steady search location list.
+  #
+  # NTRST: Running `nvim --remote-send` over SSH resets Alacritty
+  # terminal *and breaks scrollback* (such that neither the mouse
+  # scroll-wheel nor <Shift-PageUp|PageDown> works at all).
+  # - So use `--headless`.
+  # - If you capture output without `--headless`, you might see, e.g.:
+  #     $ cd ~/.depoxy/running
+  #     $ infuse .
+  #     ...
+  #     [INFO] 2025-10-08 @ 18:30:11   Used absolute path  /private/user/.../dubs_projects.vim
+  #     ppppp$qm4;0m[INFO] 2025-10-08 @ 18:30:13  Updated file symlink /Users/.../dubs_projects.vim
+  #
   # - If no such instance:
   #     E247: No registered server named "GVIM": Send failed.
   if command -v nvim > /dev/null; then
     # REFER: Assumes user started instance with gvim-open-kindess,
     # or uses the same socket path format.
     #   ~/.kit/sh/gvim-open-kindness/bin/gvim-open-kindness
-    nvim --server "/tmp/nvim.socket-${NVIM_OPEN_SOCKETNAME:-🧸}" \
+    #
+    # BWARE: If you're using Neovim while running 'infuse', this'll change
+    # your session to Normal mode. (During one run, I also saw it literally
+    # inserted (e.g., ":GrepSteadyReload<CR>"), but I think I somehow hit
+    # 'a' or 'i' while the command was being received (so the <ESC> ran,
+    # but then I hit 'a' or 'i', and then the rest of the --remote-send
+    # was inserted, such unlikely timing!).
+    # - MAYBE: Disable this? Feels weird to interact with user session.
+    #   - I've since added ${diff_projects} check, so this call happens
+    #     only when "necessary".
+    nvim --headless --server "/tmp/nvim.socket-${NVIM_OPEN_SOCKETNAME:-🧸}" \
       --remote-send "<ESC>:GrepSteadyReload<CR>" \
       2> /dev/null || true
   fi
