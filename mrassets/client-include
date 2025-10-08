@@ -84,6 +84,12 @@ _dxc_client_include() {
   include_depoxy_client_mr_personal() {
     . ${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/skip-grouping.sh
 
+    if test -z "${DEPOXY_USERNAME}"; then
+      >&2 echo "GAFFE: DEPOXY_USERNAME unset"
+
+      return 1
+    fi
+
     # CXREF: ~/.depoxy/running/.mrconfigs/_mrconfig-${DEPOXY_USERNAME:-${LOGNAME}}
     #        ~/.depoxy/ambers/archetype/.mrconfigs/_mrconfig-USERNAME.EVAL
     local mr_personal="${client_dir}/.mrconfigs/_mrconfig-${DEPOXY_USERNAME}"
