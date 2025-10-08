@@ -51,49 +51,95 @@ neovim-bin = "/private/user/.local/bin/nvim"
 # normal = [] # Will use the bundled Fira Code Nerd Font by default
 # size = 14.0
 
-# REFER: See also &guifont ...
+# *** Font settings
 
-# [font]
-# size = 12
-# # hinting = "full"
-# # edging = "antialias"
+# REFER:
+# https://neovide.dev/config-file.html#font
+# https://neovide.dev/configuration.html#font
 #
-# [[font.normal]]
-# # family = "JetBrainsMono Nerd Font Propo"
-# family = "Hack Nerd Font Mono"
-# # style = "W400"
-# style = "Normal"
+# An example, showing alternative [[nested table]] declaration,
+# using a second table to specify the fallback font, and setting
+# font features:
 #
-# # You can set a different font for fallback
-# [[font.normal]]
-# family = "Noto Sans CJK SC"
-# style = "Normal"
+#   [[font.normal]]
+#   family = "JetBrainsMono Nerd Font Propo"
+#   style = "W400"
 #
-# # [font.features]
-# # "MonoLisa Nerd Font" = [ "+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14" ]
+#   # Fallback font (e.g., for emoji).
+#   [[font.normal]]
+#   family = "Noto Sans CJK SC"
+#   style = "Normal"
+#
+#   [font.features]
+#   "MonoLisa Nerd Font" = [ "+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14" ]
 
+# SAVVY: If you want to change the font and/or the font size,
+# consider overriding from your options-private.lua:
+#   ~/.depoxy/running/home/.kit/nvim/landonb/nvim-lazyb/lua/config/options-private.lua
+# E.g.,
+#   vim.opt.guifont = "Hack Nerd Font,JoyPixels:h12:#e-subpixelantialias:#h-none"
+
+# HSTRY/2025-01-28: I've been using Hack for over a decade, love it!
+# - But I hadn't been using an alternative italic font until now,
+#   and MonaspiceRn is nice! It's got a pleasant elegance to it.
+#   - ISOFF/2025-02-02: I tried MonaspiceNe for the Regular font —
+#     it's nice — but I'm seeing a few weird artifacts with it.
+#       { family = "MonaspiceNe Nerd Font", style = "Retina" },
+#
 # THANX: Using Monaspice for italic inspired by:
 #   https://github.com/augustocdias/dotfiles/blob/main/.config/alacritty/alacritty.toml
 # - Via: https://www.reddit.com/r/neovim/comments/16ug1jf/very_slow_startup_in_macos_sonoma/
+#
+# CALSO:
+# - "The icon font for Visual Studio Code"
+#     brew install --cask font-codicon
+#   https://github.com/microsoft/vscode-codicons/
+#  { family = "codicon" },
+
+# TSHŌT: Author needs to use a fallback font (JoyPixels) on
+# GNU/Linux Debian, otherwise emoji rendering is wonky.
+# - Specifically, only some characters are colorful, but most
+#   emoji are rendered in black & white only (VS15 variants).
+#   But it's not consistent, sometimes it's fine, but usually
+#   not.
+# - See more comments in nvim-lazyb:
+#
+#   ~/.kit/nvim/landonb/nvim-lazyb/lua/config/options.lua @ 176
+#
+# SETUP/2025-10-07: DepoXy does not handle JoyPixels install.
+# - But Neovide silently ignores fonts it doesn't find, so no
+#   harm specifying the font.
 
 [font]
+
 normal = [
-  # HSTRY/2025-01-28: I've been using Hack for over a decade, trying
-  # something new, Monaspice has a pleasant feel to it.
-  # - ISOFF/2025-02-02: I like Monaspice, but I'm seeing a few weird artifacts with it.
-  #     { family = "MonaspiceNe Nerd Font", style = "Retina" },
+  # We could use instead "Hack Nerd Font Mono", or even "Hack" seems
+  # to look the same, including emoji, even without JoyPixels (Deb).
   { family = "Hack Nerd Font", style = "Regular" },
+  #
+  # Fallback font fixes emoji rendering on Debian (see comment above).
   { family = "JoyPixels", style = "Regular" },
-  # CALSO:
-  # - "The icon font for Visual Studio Code"
-  #     brew install --cask font-codicon
-  #   https://github.com/microsoft/vscode-codicons/
-  #  { family = "codicon" },
 ]
 italic = { family = "MonaspiceRn Nerd Font", style = "italic" }
+
+# In author's experience, one host's 11pt. might be another's 12pt.
+# even using the same display and same resolution (Debian 11pt.
+# is same size as macOS 12pt. for me; so I use options-private.lua
+# to change the font size to 11pt. on Debian).
 size = 12
+
+# Edging — "Sets edge pixels to be drawn opaquely
+#           or with partial transparency."
+# - Options: antialias (default) | subpixelantialias | alias
 edging = "subpixelantialias"
+
+# Hinting — "Sets level of glyph outline adjustment."
+# - Options: full (default) | normal | slight | none
+#
+#  hinting = "full"
 
 [font.features]
 "MonaspiceRn Nerd Font" = ["-liga"]
 "MonaspiceNe Nerd Font" = ["-liga"]
+
+# ***
