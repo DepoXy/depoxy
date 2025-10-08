@@ -151,7 +151,7 @@ insist_is_correctly_wired() {
     warn "  - This project's name: ${project_client_id}"
     warn "  - Vs DEPOXY_CLIENT_ID: ${DEPOXY_CLIENT_ID}"
     warn "- The DEPOXY_CLIENT_ID likely read from the depoxyrc:"
-    warn "    ${DEPOXY_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc}"
+    warn "    ${DEPOXY_CONFIG_HOME:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy}/depoxyrc"
     warn "- How you want to fix this is up to you"
     warn "  - You can either fix the “running” symlink"
     warn "    to point to the other project:"

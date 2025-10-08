@@ -21,7 +21,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 accelerate_cmd() {
-  local client_dxyrc="${DEPOXY_CONFIG:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy/depoxyrc}"
+  local client_dxyrc="${DEPOXY_CONFIG_HOME:-${XDG_CONFIG_HOME:-${HOME}/.config}/depoxy}/depoxyrc"
 
   if [ -f "${client_dxyrc}" ]; then
     . "${client_dxyrc}"

@@ -57,8 +57,8 @@ _dxc_client_autocommit() {
   # CXREF: ~/.depoxy/ambers/core/depoxy_fs.sh
   #   ~/.depoxy/running/home/.config/depoxy
   # ALTLY:
-  #   DEPOXY_CONFIG="${MR_REPO}/home/.config/depoxy" _vendorfs_define_environs
-  DEPOXY_CONFIG="${MR_REPO}/home/.config/depoxy/depoxyrc" . "${ambers_path}/core/depoxy_fs.sh"
+  #   DEPOXY_CONFIG_HOME="${MR_REPO}/home/.config/depoxy" _vendorfs_define_environs
+  DEPOXY_CONFIG_HOME="${MR_REPO}/home/.config/depoxy" . "${ambers_path}/core/depoxy_fs.sh"
 
   # Prepare args, e.g., `autocommit -y`, or `autocommit -f`.
   git_auto_commit_parse_args "$@"
