@@ -2,10 +2,13 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
+# *** Neovide config sourced from docs
+
 # REFER: https://neovide.dev/config-file.html
 # https://neovide.dev/command-line-reference.html
 #
-# backtraces_path = "/path/to/neovide_backtraces.log" # see below for the default platform specific location
+# # see below for the default platform specific location
+# backtraces_path = "/path/to/neovide_backtraces.log"
 # fork = false
 # frame = "full"
 # idle = true
