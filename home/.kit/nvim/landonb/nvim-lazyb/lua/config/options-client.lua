@@ -53,6 +53,23 @@ SetTagsProjlnsDepoxydeeplinks()
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+-- *** Configure your GUI's font.
+
+-- CXREF: DepoXy uses Neovide config to set the font:
+--   ~/.config/neovide/config.toml
+-- ~/.depoxy/ambers/home/.config/neovide/config.toml
+--
+-- - CXREF: See also longer comment in nvim-lazyb:
+--   ~/.kit/nvim/landonb/nvim-lazyb/lua/config/options.lua @ 176
+--
+-- If you want to change the font, or change the size,
+-- (and you don't just change neovide/config.toml), you
+-- can set |guifont| from your options-private.lua, e.g.:
+--
+--   vim.opt.guifont = "Hack Nerd Font,JoyPixels:h12:#e-subpixelantialias:#h-none"
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
 -- CXREF: Optional private user config (i.e., from DepoXy Client):
 -- ~/.depoxy/running/home/.kit/nvim/landonb/nvim-lazyb/lua/config/options-private.lua
 pcall(function()
