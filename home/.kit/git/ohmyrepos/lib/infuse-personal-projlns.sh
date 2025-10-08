@@ -135,6 +135,15 @@ infuse_create_projlns_ignore_symlinks() {
   local sub_home="${LINK_DEEP_SUB_HOME:-/Users/user}"
   MR_REPO="${DEPOXY_PROJLNS_DEPOXY}" symlink_mrinfuse_file_optional \
     "${sub_home##/}/_ignore" "${sub_home##/}/.ignore"
+  # Create an intermediate ignore file, too.
+  # - UCASE: Author has 2 DXCs that share some resources, including
+  #   Users/user/.ignore, but I want to define unique rules for one
+  #   host without needing to use separate User/user/.ignore files.
+  local intermediate_home="$(dirname -- "${LINK_DEEP_SUB_HOME:-/Users/user}")"
+  if [ "${intermediate_home}" != "${sub_home}" ]; then
+    MR_REPO="${DEPOXY_PROJLNS_DEPOXY}" symlink_mrinfuse_file_optional \
+      "${intermediate_home##/}/_ignore" "${intermediate_home##/}/.ignore"
+  fi
 }
 
 infuse_create_symlinks_ignore() {
