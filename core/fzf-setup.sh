@@ -112,7 +112,7 @@ main() {
   # Global variable and Guard clause.
   local fzf_path="$(fzf_base_path)"
 
-  [ -d "${fzf_path}" ] || return
+  [ -d "${fzf_path}" ] || return 0
 
   # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -376,7 +376,7 @@ main() {
 
   fzf_wire_alt_c_cmd_bfs() {
     command -v bfs > /dev/null \
-      || return
+      || return 0
 
     # Run __fzf_cd__ on current dir., and convert relative paths to full.
     export FZF_ALT_C_COMMAND="bfs -type d | sed s#^\.#\$(pwd)#"

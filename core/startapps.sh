@@ -12,7 +12,7 @@ _dxy_start_background_apps_macos_alttab() {
 
   local alttab_app="/Applications/AltTab.app"
 
-  [ -d "${alttab_app}" ] || return
+  [ -d "${alttab_app}" ] || return 0
 
   # This works:
   #   ps x | grep -q -e " /Applications/AltTab.app/Contents/MacOS/AltTab$" && return
@@ -27,7 +27,7 @@ _dxy_start_background_apps_macos_easy_move_plus_resize() {
 
   local ezmove_app="/Applications/Easy Move+Resize.app"
 
-  [ -d "${ezmove_app}" ] || return
+  [ -d "${ezmove_app}" ] || return 0
 
   # This works:
   #   ps x | grep -q -e " /Applications/Easy Move+Resize.app/Contents/MacOS/Easy Move+Resize$" && return
@@ -42,7 +42,7 @@ _dxy_start_background_apps_macos_karabiner_elements() {
 
   local ke_app="/Applications/Karabiner-Elements.app"
 
-  [ -d "${ke_app}" ] || return
+  [ -d "${ke_app}" ] || return 0
 
   # There are a number of KE components that run, e.g., I see 8 processes
   # when I run `ps ax | grep -i karabiner` (only half if just `ps x | ...`).
@@ -67,7 +67,7 @@ _dxy_start_background_apps_macos_rectangle() {
 
   local rectangle_app="/Applications/Rectangle.app"
 
-  [ -d "${rectangle_app}" ] || return
+  [ -d "${rectangle_app}" ] || return 0
 
   # This works:
   #   ps x | grep -q -e " /Applications/Rectangle.app/Contents/MacOS/Rectangle$" && return
@@ -88,7 +88,7 @@ _dxy_start_background_apps_macos_rectangle() {
 _dxy_start_background_apps_macos_activity_monitor() {
   local actmon_app="/System/Applications/Utilities/Activity Monitor.app"
 
-  [ -d "${actmon_app}" ] || return
+  [ -d "${actmon_app}" ] || return 0
 
   # Look for the process, e.g.:
   #   /System/Applications/Utilities/Activity Monitor.app/Contents/MacOS/Activity Monitor

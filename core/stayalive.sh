@@ -25,7 +25,7 @@
 
 # CXREF: man 8 caffeinate
 _dxy_start_background_apps_macos_caffeinate() {
-  [ "$(uname)" = "Darwin" ] || return
+  [ "$(uname)" = "Darwin" ] || return 0
 
   ${DEPOXY_ENABLE_KEEP_ALIVE:-false} \
     || ${DEPOXY_ENABLE_KEEP_ALIVE_CAFFEINATE:-false} \
@@ -54,7 +54,7 @@ _dxy_start_background_apps_macos_caffeinate() {
 #   noidle ... is deprecated in favor of caffeinate(8).
 #     Please use caffeinate(8) instead.
 _dxy_start_background_apps_macos_pmset() {
-  [ "$(uname)" = "Darwin" ] || return
+  [ "$(uname)" = "Darwin" ] || return 0
 
   ${DEPOXY_ENABLE_KEEP_ALIVE:-false} \
     || ${DEPOXY_ENABLE_KEEP_ALIVE_PMSET:-false} \
