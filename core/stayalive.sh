@@ -24,12 +24,12 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # CXREF: man 8 caffeinate
-_dxy_start_background_apps_macos_caffeinate () {
+_dxy_start_background_apps_macos_caffeinate() {
   [ "$(uname)" = "Darwin" ] || return
 
-  ${DEPOXY_ENABLE_KEEP_ALIVE:-false} ||
-  ${DEPOXY_ENABLE_KEEP_ALIVE_CAFFEINATE:-false} ||
-    return 0
+  ${DEPOXY_ENABLE_KEEP_ALIVE:-false} \
+    || ${DEPOXY_ENABLE_KEEP_ALIVE_CAFFEINATE:-false} \
+    || return 0
 
   if ! type caffeinate > /dev/null 2>&1; then
     >&2 echo
@@ -53,12 +53,12 @@ _dxy_start_background_apps_macos_caffeinate () {
 # DEPRECATED: Per `man pmset`:
 #   noidle ... is deprecated in favor of caffeinate(8).
 #     Please use caffeinate(8) instead.
-_dxy_start_background_apps_macos_pmset () {
+_dxy_start_background_apps_macos_pmset() {
   [ "$(uname)" = "Darwin" ] || return
 
-  ${DEPOXY_ENABLE_KEEP_ALIVE:-false} ||
-  ${DEPOXY_ENABLE_KEEP_ALIVE_PMSET:-false} ||
-    return 0
+  ${DEPOXY_ENABLE_KEEP_ALIVE:-false} \
+    || ${DEPOXY_ENABLE_KEEP_ALIVE_PMSET:-false} \
+    || return 0
 
   if ! type pmset > /dev/null 2>&1; then
     >&2 echo
@@ -80,7 +80,7 @@ _dxy_start_background_apps_macos_pmset () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_start_background_apps_macos_keep_awake () {
+_dxy_start_background_apps_macos_keep_awake() {
   _dxy_start_background_apps_macos_pmset
   unset -f _dxy_start_background_apps_macos_pmset
 
@@ -90,7 +90,7 @@ _dxy_start_background_apps_macos_keep_awake () {
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   unset -f main
 
   _dxy_start_background_apps_macos_keep_awake
@@ -98,4 +98,3 @@ main () {
 }
 
 main "$@"
-
