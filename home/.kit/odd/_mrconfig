@@ -442,6 +442,94 @@ installLinux =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/odd/office/libre-office]
+# FTREQ/2025-01-30: DRY: Make common include for this common
+#   checkout|skip|ffssh pattern for pseudo-repos
+#   (see also stub_checkout_directory).
+checkout = mkdir -p -- "${MR_REPO}"
+# Not an actual repo
+skip = no_travel || mr_exclusive_odd
+ffssh = OMR_TRAVEL_BLOCKLISTED=true git_merge_ffonly_ssh_mirror "$@"
+
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+isInstalled = isInstalled_os_specific
+isInstalledDarwin = test -x "/Applications/LibreOffice.app/Contents/MacOS/soffice"
+# FIXME:
+#  isInstalledLinux = test "$(command -v brew)" = "/home/linuxbrew/.linuxbrew/bin/brew"
+install = install_os_specific
+installDarwin =
+  # REFER: See macOS-onboarder `install_homebrew`.
+  >&2 warn "ERROR: Please use macOS-onboarder to install LibreOffice Homebrew cask:"
+  >&2 warn "  ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh"
+  #
+  return 1
+installLinux =
+  # REFER: Bump LIBRE_LATEST version below, per:
+  # https://www.libreoffice.org/download/download-libreoffice/
+  install_libreoffice_from_archive () {
+    local downloads_dir="${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
+    #
+    cd -- "${downloads_dir}"
+    #
+    # Remove old installs, lest their binaries clash on tab-complete.
+    # E.g.,
+    #  sudo apt-get remove --purge libreoffice5.2*
+    #  # Or:
+    #  dpkg -S /usr/bin/libreoffice
+    #  sudo apt-get remove --purge libreoffice-common
+    #
+    # sudo apt-get remove --purge libreoffice*
+    #
+    # - Past versions author has used (for regression testing, if needed):
+    #     LIBRE_LATEST="5.2.6"
+    #     LIBRE_LATESTT="5.2.6.2"
+    #     LIBRE_LATEST="5.4.1"
+    #     LIBRE_LATESTT="5.4.1.2"
+    #     LIBRE_LATEST="5.4.2"
+    #     LIBRE_LATESTT="5.4.2.2"
+    #     local fname="LibreOffice_${LIBRE_LATEST}_Linux_x86-64_deb.tar.gz"
+    #     wget -N http://download.documentfoundation.org/libreoffice/stable/${LIBRE_LATEST}/deb/x86_64/${fname}
+    #
+    # REFER: See mirror list for checksums:
+    # https://download.documentfoundation.org/libreoffice/stable/25.8.2/deb/x86_64/LibreOffice_25.8.2_Linux_x86-64_deb.tar.gz.mirrorlist
+    #
+    LIBRE_LATEST="25.8.2"
+    # LIBRE_SHA256="d703ce5d6760684061f7d22e2b8df91320c2fe3601a8472975b4b05b22af43ba"
+    #
+    local fname="LibreOffice_${LIBRE_LATEST}_Linux_x86-64_deb.tar.gz"
+    local dname="LibreOffice_${LIBRE_LATEST}.2_Linux_x86-64_deb"
+    if ${OMR_FORCE_DOWNLOAD:-false} || [ ! -f "${fname}" ]; then
+      wget -N "https://download.documentfoundation.org/libreoffice/stable/${LIBRE_LATEST}/deb/x86_64/${fname}"
+    fi
+    #
+    wget -N "https://download.documentfoundation.org/libreoffice/stable/${LIBRE_LATEST}/deb/x86_64/${fname}.sha256"
+    # Exit via errexit if checksum doesn't match.
+    # - DUNNO: Archive and checksum are both on the same server...
+    #   so how do you know you can trust the checksum?
+    sha256sum -c "${fname}.sha256"
+    #
+    tar xvzf "${fname}"
+    #
+    # SAVVY: I've only seen ".2" postfix, so hardcoding, e.g.,
+    #   version 25.8.2 unpacks to dir. w/ substring "25.8.2.2":
+    #   .../LibreOffice_25.8.2.2_Linux_x86-64_deb/
+    cd -- "${dname}/DEBS"
+    #
+    sudo dpkg -i *.deb
+    #
+    # Installs on PATH using executable with version in the name,
+    # e.g.,: /usr/local/bin/libreoffice25.8
+    symlink_overlay_file "/usr/local/bin/libreoffice25.8" "${HOME}/.local/bin/libreoffice"
+  }
+  #
+  echo "Enter sudo password to install LibreOffice:"
+  sudo -v
+  #
+  install_libreoffice_from_archive
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [DEFAULT]
 skip = mr_exclusive
 
