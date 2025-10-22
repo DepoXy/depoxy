@@ -249,6 +249,7 @@ pkgs
 popups
 proj
 pw
+px
 py3
 pydoc
 pyproject
