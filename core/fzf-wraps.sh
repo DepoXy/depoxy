@@ -185,6 +185,12 @@ _dxy_git_status_open_path() {
   fi
 }
 
+# REFER: Normal git-status escapes extended ASCII characters,
+# but git-add does not accept those same escaped characters.
+# - E.g., if you have a path named "résumé", git-status reports
+#   that as "r\303\251sum\303\251", which git-add rejects.
+# - So we use -z to use null breaks, and `tr` to change to newlines.
+
 # SAMEZ: Similar to _dxy_fd_prompt_paths (above).
 _dxy_git_status_prompt_paths() {
   local show_full_paths="${1:-true}"
@@ -216,8 +222,9 @@ _dxy_git_status_prompt_paths() {
     paths="$(
       export -f tilde_for_home
       export -f _hf_realpath_logical_tilded
-      git status --porcelain=v1 \
-        | grep -e "${status_filter}" \
+      git status -z --porcelain=v1 \
+        | grep -z -e "${status_filter}" \
+        | tr '\0' '\n' \
         | cut -c4- \
         | grep -e "${path_hint}" \
         | sed "s#^#${cdup}#" \
