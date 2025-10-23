@@ -156,9 +156,10 @@ _dxy_wire_aliases() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main() {
+  unset -f main
+
   _dxy_wire_aliases
   unset -f _dxy_wire_aliases
 }
 
 main "$@"
-unset -f main
