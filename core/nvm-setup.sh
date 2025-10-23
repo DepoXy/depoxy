@@ -74,6 +74,22 @@ svgo_prepare() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# REFER:
+# https://www.claude.com/product/claude-code
+claude() {
+  _dxy_nvm_use_latest_node || return 1
+
+  if ! (unset -f claude && type -p claude > /dev/null); then
+    echo "Installing claude-code..."
+
+    npm install -g @anthropic-ai/claude-code || return 1
+  fi
+
+  command claude "$@"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # `nvm` lazy-loader. Saves ~0.09 secs. on session standup! #profiling
 nvm() {
   unset -f nvm
