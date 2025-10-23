@@ -79,6 +79,8 @@ neovim-bin = "/private/user/.local/bin/nvim"
 # E.g.,
 #   vim.opt.guifont = "Hack Nerd Font,JoyPixels:h12:#e-subpixelantialias:#h-none"
 
+# REFER: To see font names on Debian, run `font-manager`.
+
 # HSTRY/2025-01-28: I've been using Hack for over a decade, love it!
 # - But I hadn't been using an alternative italic font until now,
 #   and MonaspiceRn is nice! It's got a pleasant elegance to it.
@@ -119,8 +121,16 @@ normal = [
   #
   # Fallback font fixes emoji rendering on Debian (see comment above).
   { family = "JoyPixels", style = "Regular" },
+  #
+  #
+  { family = "Font Awesome 7 Brands", style = "Regular" },
+  { family = "Font Awesome 7 Free", style = "Regular" },
 ]
 italic = { family = "MonaspiceRn Nerd Font", style = "italic" }
+
+# USAGE: After saving this file, if you don't reload Neovide,
+# and you're on Debian, run this:
+#  vim.opt.guifont = "Hack Nerd Font,JoyPixels,Font Awesome 7 Brands,Font Awesome 7 Free:h11:#e-subpixelantialias:#h-none"
 
 # In author's experience, one host's 11pt. might be another's 12pt.
 # even using the same display and same resolution (Debian 11pt.
