@@ -7,6 +7,12 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# USYNC: Lazy installers below are proactively installed via OMR:
+#   installNPMPackages, isInstalledNPMPackages
+# ~/.depoxy/ambers/home/.kit/js/_mrconfig
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 __dxy_nvm_locate_and_set_nvm_dir_environ() {
   if [ -d "${HOME}/.nvm" ]; then
     NVM_DIR="${HOME}/.nvm"

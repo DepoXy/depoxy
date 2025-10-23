@@ -57,6 +57,15 @@ echoInstallHelp =
   echo "${checkbox} DepoXy [${MR_ORDER}]: Install latest supported Node versions::
     mr -d \"${MR_REPO}\" -n installNVMNodes
  "
+   #
+  is_installed=$(
+    mr -Mq -d "${MR_REPO}" -n isInstalledNPMPackages >/dev/null 2>&1 &&
+      echo "true" || echo "false"
+  )
+  local checkbox="$(echoInstallHelpWidget "${which_os}" "${dxy_scope}" ${is_installed})"
+  echo "${checkbox} DepoXy [${MR_ORDER}]: Install select npm packages into latest Node::
+    mr -d \"${MR_REPO}\" -n installNPMPackages
+ "
 isInstalled =
   # CXREF: Wired on shell startup using repo assets:
   #   ~/.depoxy/ambers/core/nvm-setup.sh
@@ -87,7 +96,6 @@ isInstalledNVMNodes =
   nvm version 20
   nvm version 22
   nvm version 24
-
 # Install current and active/maintenance Node versions.
 # - TIMED: Very fast!
 # - CXREF/2024-04-09: USYNC:
@@ -105,6 +113,22 @@ installNVMNodes =
     . "${MR_REPO}/nvm.sh"
     nvm install "v${node_ver}"
   done
+
+isInstalledNPMPackages =
+  . "${MR_REPO}/nvm.sh"
+  nvm use node > /dev/null
+  # USYNC: installNPMPackages, isInstalledNPMPackages, nvm-setup.sh.
+  (unset -f svgo && command -v svgo)
+  (unset -f claude && command -v claude)
+  (unset -f amp && command -v amp)
+# CXREF: Otherwise installed lazily:
+#   ~/.depoxy/ambers/core/nvm-setup.sh
+installNPMPackages =
+  nvm use node > /dev/null
+  # USYNC: installNPMPackages, isInstalledNPMPackages, nvm-setup.sh.
+  npm install -g svgo
+  npm install -g @anthropic-ai/claude-code
+  npm install -g @sourcegraph/amp
 
 # ========================================================================
 # ------------------------------------------------------------------------
