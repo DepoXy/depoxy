@@ -87,4 +87,15 @@ nvm() {
   nvm "$@"
 }
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+
+main() {
+  unset -f main
+
+  # Startup using latest installed Node.
+  _dxy_nvm_use_latest_node
+  # - And keep the func. for continued usage:
+  #  unset -f _dxy_nvm_use_latest_node
+}
+
+main "$@"
