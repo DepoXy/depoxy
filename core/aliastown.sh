@@ -390,6 +390,12 @@ _dxy_wire_alias_new_window_sensible_open() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_dxy_wire_alias_batcat() {
+  claim_alias_or_warn "bat" "batcat"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_alias_hexdump() {
   # Include ASCII.
   alias hexdump="hexdump -C"
@@ -447,6 +453,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_new_window_sensible_open
   unset -f _dxy_wire_alias_new_window_sensible_open
+
+  _dxy_wire_alias_batcat
+  unset -f _dxy_wire_alias_batcat
 
   _dxy_wire_alias_hexdump
   unset -f _dxy_wire_alias_hexdump
