@@ -170,10 +170,10 @@ isInstalled =
   echo "\$ command -v nvim"
   command -v nvim
 install =
-  # Assumes user previously ran `brew install neovim` to install the
-  # stable releave. Here we install the "nightly" build (nightly to
+  # Assumes user previously ran `brew install neovim` that installs
+  # stable release. Here we install the "nightly" build (nightly to
   # us because homebrew-autoupdate will update it, well, every 24h,
-  # so not necessarily "nightly").
+  # so not necessarily "nightly", more correctly actually "daily").
   # - CXREF: See original brew-install task:
   #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
   brew unlink neovim
