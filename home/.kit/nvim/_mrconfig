@@ -358,6 +358,48 @@ lib =
   remote_set starter https://github.com/neovide/neovide.git
 skip = mr_exclusive_nvim_core
 
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+isInstalled = test -x "${HOME}/.local/bin/neovide"
+install = install_os_specific
+# ONGNG/2025-10-24: This might be the new 'install' approach:
+# - Use external shell script, to (somewhat) decouple OMR config
+#   from install scripts. (They'll both still live in the DepoXy
+#   repo, but it makes it easier for other users to reuse the
+#   install script; whereas it's extremely unlikely any user
+#   will reuse the DepoXy OMR config (at least as-is, without
+#   copying and modifying.)
+lib =
+  ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  dxy_neovide_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/nvim/neovide/neovide"
+  # CXREF: ~/.depoxy/ambers/home/.kit/nvim/neovide/neovide/installLinux.sh
+  install_neovide="${dxy_neovide_dir}/installLinux.sh"
+installLinux =
+  # Ensure privileged, otherwise apt-install skipped.
+  if ! sudo -n -v 2> /dev/null; then
+    echo "Privileges please, for apt-install —"
+    sudo -v
+  fi
+  #
+  "${install_neovide}" --force --profile release
+  #
+  symlink_overlay_file "${HOME}/.cargo/bin/neovide" "${HOME}/.local/bin/neovide"
+upgrade = upgrade_os_specific
+upgradeLinux =
+  # We'll maintain upgrades history.
+  # - E.g.,
+  #   "Sat 2025-10-25 00:28 — Upgraded Neovide from 0.15.1 at HEAD~8 “0089f61” → 0.15.2 at HEAD~9 “0df980b”"
+  # - Unsure where I want this, maybe under ~/.noise/ref/,
+  #   or maybe under DepoXy is fine.
+  # - Note that author generally leaves Neovide long-running,
+  #   so process won't upgrade until quitted and restarted.
+  #   - MAYBE: Alert user in Neovim if upgrade installed.
+  local upgrade_hist="${dxy_neovide_dir}/upgrade.log"
+  local capture_path
+  capture_path=$(mktemp --suffix='.out' --tmpdir 'DXY-OMR-Install-Neovide-XXXXXXX')
+  "${install_neovide}" --profile release | tee "${capture_path}"
+  echo "$(date "+%a %Y-%m-%d %H:%M") — $(tail -n 1 "${capture_path}")" >> "${upgrade_hist}"
+  command rm -- "${capture_path}"
+
 # ========================================================================
 # ------------------------------------------------------------------------
 
