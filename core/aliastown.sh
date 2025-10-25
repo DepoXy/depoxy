@@ -308,7 +308,8 @@ _dxy_wire_aliases_pushd_paths_nvim() {
   local cd_alias="cnu"
   if [ -z "${DEPOXY_CD_ALIAS_NVIM_PLUG_ORG}" ]; then
     if ! type "${cd_alias}" > /dev/null 2>&1; then
-      eval "alias ${cd_alias}='echo \"Please set DEPOXY_CD_ALIAS_NVIM_PLUG_ORG to enable this alias\"'"
+      claim_alias_or_warn "${cd_alias}" \
+        "echo 'Please set DEPOXY_CD_ALIAS_NVIM_PLUG_ORG to enable this alias'"
     else
       >&2 echo "WARNING: Cannot alias: “${cd_alias}” already assigned"
     fi
@@ -398,7 +399,7 @@ _dxy_wire_alias_batcat() {
 
 _dxy_wire_alias_hexdump() {
   # Include ASCII.
-  alias hexdump="hexdump -C"
+  claim_alias_or_warn "hexdump" "hexdump -C" ${_force:-true}
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -406,7 +407,7 @@ _dxy_wire_alias_hexdump() {
 _dxy_wire_alias_tree() {
   # Include .hidden files by default on `tree`.
   # Also include .git/ subdirectories.
-  alias tree="tree -a -I '.git'"
+  claim_alias_or_warn "tree" "tree -a -I '.git'" ${_force:-true}
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
