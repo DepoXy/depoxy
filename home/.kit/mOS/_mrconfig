@@ -288,6 +288,8 @@ installDarwin =
   # - "WARNING You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
   #    gem executables will not run."
 # SAVVY: Just to be clear, this script is macOS-specific.
+# - On GNU/Linux, use ~/.anacron/daily/ script instead:
+#   ~/.depoxy/ambers/bin/daily-homebrew-autoupdate
 installLinux =
   >&2 echo "WRONG: homebrew-autoupdate is macOS-specific (because LaunchAgents)"
   false

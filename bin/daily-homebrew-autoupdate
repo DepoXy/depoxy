@@ -1,0 +1,218 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/landonb/waffle-fries#🥞
+# License: PROPRIETARY AND CONFIDENTIAL.
+
+# ***
+
+# CALSO: Because homebrew-autoupdate is macOS-specific (because LaunchAgents):
+#   ~/.kit/mOS/homebrew-autoupdate
+# - CXREF:
+#   ~/.depoxy/ambers/home/.kit/mOS/homebrew-autoupdate/homebrew-autoupdate.sh
+
+# ***
+
+# THOTS: On where to keep the log:
+# - I see two obvious log locations:
+#   - ~/.var/log, with obeisance to Linux's /var/log.
+#   - ~/.local/state/{app}/log, with deference to XDG.
+# - Note that ~/.var is not a standard path.
+#   - Flatpak uses it, e.g., you'll find Flatpak GIMP user
+#     cache, config, etc., under ~/.var/app/org.gimp.GIMP/.
+# - On the other hand, the XDG Specification suggests logs
+#   are stored under XDG_STATE_HOME (~/.local/state):
+#     https://specifications.freedesktop.org/basedir-spec/latest/#variables
+#   So perhaps thereunder is more sensible than ~/.var/log.
+#   - On the other hand, /var/log is for more general logs,
+#     and, even though this is a DepoXy/bin script, the log
+#     is in regards to Homebrew, which is more OS-wide, so
+#     using ~/.var/log also seems perfectly reasonable.
+#   - Nonetheless, let's use ~/.local/state/depoxy, so it's
+#     obvious which project manages the files therebelow.
+# - CALSO: macOS homebrew-autoupdate log is maintained at:
+#   ~/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
+# - CXREF:
+#   ~/.local/state/depoxy/homebrew-autoupdate.out
+DXY_STATE_HOME="${DXY_STATE_HOME:-${XDG_STATE_HOME:-${HOME}/.local/state}/depoxy}"
+DXY_HOMEBREW_AUTOUPDATE_LOG="${DXY_HOMEBREW_AUTOUPDATE_LOG:-${DXY_STATE_HOME}/log/homebrew-autoupdate.out}"
+# See comment below re: logrotate usage.
+DXY_LOGROTATE_STATUS="${DXY_LOGROTATE_STATUS:-${DXY_STATE_HOME}/lib/logrotate/status}"
+
+# COPYD: This email to-address uses the same format that our macOS script uses:
+#   ~/.depoxy/ambers/home/.kit/mOS/homebrew-autoupdate/homebrew-autoupdate.sh
+# - REFER: The email from-address that logrotate uses is the user's Full Name:
+#     getent passwd $(id -un) | cut -d ':' -f 5 | cut -d ',' -f 1
+#   And, if you use an external SMTP server, the address from the Postfix config:
+#     sudo cat sasl_passwd | sed 's/.* \(.*\):.*/\1/'
+#   formatted as "Full Name <from@host>".
+SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
+
+# ***
+
+brew_upgrade_capture_log() {
+  brew_upgrade_logrotate "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+
+  local inhibit_echo=false
+  isa_tty || inhibit_echo=true
+
+  brew_upgrade_log_annotated 2>&1 \
+    | if ${inhibit_echo}; then
+      # When run by (ana)cron, log only (so email not sent).
+      cat >> "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+    else
+      # When run by user, log and echo.
+      tee -a "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+    fi
+}
+
+# ***
+
+# REFER: man logrotate
+# - DEVEL: Use -d/--debug to verify config file.
+# - DEVEL: Use -v/--verbose for step-by-step progress messaging.
+# - SAVVY: Use -s/--state to specify user state file, otherwise:
+#     error: error opening state file /var/lib/logrotate/status: Permission denied
+#   - logrotate flock's state file to avoid parallel runnings, and to record latest
+#     operation, e.g.,:
+#       logrotate state -- version 2
+#       "/home/user/.local/state/depoxy/homebrew-autoupdate.out" 2025-10-26-11:5:24
+#   - It also accepts `--state /dev/null`, in which case a lock file is not used.
+#
+DXY_LOGROTATE_VERBOSE="${DXY_LOGROTATE_VERBOSE}"
+# DEVEL: Uncomment (or set externally) for verbose logrotate reporting:
+#  DXY_LOGROTATE_VERBOSE="--verbose"
+
+# DEVEL: To test logrotate, create sized log file:
+#   # Create 24K file of null bytes:
+#   #   dd if=/dev/zero of="${DXY_HOMEBREW_AUTOUPDATE_LOG}" bs=1K count=24
+#   # Create 24K file of random ASCII text:
+#   base64 /dev/urandom | head -c 24576 > "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+#   # Or without newlines every 76 characters:
+#   #  base64 -w 0 /dev/urandom | head -c 24576 > "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+# Set `size 1k` config setting, and exit at end of this func.
+DXY_LOGROTATE_SIZE="${DXY_LOGROTATE_SIZE:-10M}"
+# DEVEL: Uncomment to test logrotate using `base64` random date (from above CPYST):
+#  DXY_LOGROTATE_SIZE="1k"
+
+DXY_LOGROTATE_COUNT="${DXY_LOGROTATE_COUNT:-5}"
+
+# SAVVY: Cannot use <() process substitution.
+# - E.g., trying either this:
+#     logrotate --verbose <(
+#       cat << EOF
+#     compress
+#     ...
+#     EOF
+#     )
+#   Or this:
+#     cat << EOF | logrotate --verbose /dev/stdin
+#     compress
+#     ...
+#     EOF
+#     }
+#   Does not work:
+#     Ignoring /dev/stdin because it's not a regular file.
+#     error: error opening state file /var/lib/logrotate/status: Permission denied
+# - So we'll use a temp file instead.
+
+brew_upgrade_logrotate() {
+  local log_path="$1"
+
+  mkdir -p -- "$(dirname -- "${DXY_HOMEBREW_AUTOUPDATE_LOG}")"
+  mkdir -p -- "$(dirname -- "${DXY_LOGROTATE_STATUS}")"
+
+  local config_file
+  config_file=$(mktemp --suffix='.out' --tmpdir 'DXY-Daily-Homebrew-Autoupdate-Logrotate-XXXXXXX')
+
+  cat << EOF > "${config_file}"
+compress
+
+${DXY_HOMEBREW_AUTOUPDATE_LOG} {
+  # Limit to 5 max old log files.
+  rotate ${DXY_LOGROTATE_COUNT}
+  # Email old log when "log is rotated out of existence".
+  mail ${SEND_EMAIL_TO_FRIENDLY}
+  # MAYBE: Rotate on fixed schedule instead of size, e.g.:
+  #  yearly
+  size ${DXY_LOGROTATE_SIZE}
+  missingok
+  # ALTLY: nocompress
+  compress
+}
+EOF
+
+  # REFER: See comments above re: `man logrotate` highlights.
+  logrotate --state "${DXY_LOGROTATE_STATUS}" ${DXY_LOGROTATE_VERBOSE} "${config_file}"
+
+  command rm -- "${config_file}"
+}
+
+# ***
+
+brew_upgrade_log_annotated() {
+  print_header
+
+  print_command "brew update"
+  brew update
+
+  print_command "brew upgrade"
+  brew upgrade
+
+  print_command "brew cleanup"
+  brew cleanup
+
+  print_footer
+}
+
+# ***
+
+print_header() {
+  date "+# %a %Y-%m-%d %H:%M"
+}
+
+print_command() {
+  local cmd="$1"
+
+  echo "\$ ${cmd}"
+}
+
+print_footer() {
+  echo
+}
+
+# ***
+
+# This script should run on macOS (untested), but we use
+# mainstream LaunchAgests-specific Homebrew/homebrew-autoupdate
+# project instead.
+insist_os_is_linux() {
+  if os_is_linux; then
+
+    return
+  fi
+
+  >&2 echo "ERROR: Please run from Linux (not meant for $(uname))"
+
+  exit 1
+}
+
+os_is_linux() {
+  [ "$(uname)" = 'Linux' ]
+}
+
+isa_tty() {
+  ([ -t 0 ] && [ -t 1 ])
+}
+
+# ***
+
+main() {
+  set -e
+
+  insist_os_is_linux
+
+  brew_upgrade_capture_log
+}
+
+main "$@"
