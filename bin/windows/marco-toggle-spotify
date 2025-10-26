@@ -24,7 +24,7 @@
 
 # CXREF/2025-09-11:
 # - Debian: `apt install spotify-client`:
-#   ~/.kit/ansible/roles/zoidy_mintyfresh/tasks/install-desktop-spotify.yml
+#   ~/.kit/ansible/roles/zoidy_captivator/tasks/install-desktop-spotify.yml
 # - macOS: `BREW_INCLUDE_SPOTIFY`:
 #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
 
