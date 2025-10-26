@@ -287,6 +287,10 @@ installDarwin =
   # NOTED: Also never an issue with this:
   # - "WARNING You don't have /Users/user/.gem/ruby/2.6.0/bin in your PATH,
   #    gem executables will not run."
+# SAVVY: Just to be clear, this script is macOS-specific.
+installLinux =
+  >&2 echo "WRONG: homebrew-autoupdate is macOS-specific (because LaunchAgents)"
+  false
 # Add the one file we've edited to Vim grep-steady search path.
 # - CXREF:
 #     ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb
