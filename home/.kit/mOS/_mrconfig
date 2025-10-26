@@ -197,7 +197,23 @@ isInstalled =
   brew autoupdate status 2>/dev/null \
     | head -n 1 \
     | grep -q -e "^Autoupdate is installed and running.$"
-# FIXME/2025-02-15: Test 'install' on Debian.
+# NOTED: brew-autoupdate has some interesting advice:
+# - I've rebooted macOS recently, but this response suggests
+#   that that's not enough to keep the update script updated...
+#   seems weird, though: cannot the script deterministically
+#   indicate when we should definitely reinstall the command,
+#   versus this fudgey advice:
+#     $ brew autoupdate status
+#     Autoupdate is installed and running.
+#
+#     Autoupdate was initialised on 02/21/25.
+#
+#     Autoupdate has been running for more than 90 days. Please consider
+#     periodically deleting and re-starting this command to ensure the
+#     latest features are enabled for you.
+# - Note, too, we run from local sources, so if we git-pull--rebase
+#   (mr update) periodically, does that not achieve the same result?
+#   (Probably, I'd guess.)
 install = install_os_specific
 installDarwin =
   # This lib is on-demand.
