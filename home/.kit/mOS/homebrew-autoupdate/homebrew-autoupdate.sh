@@ -10,7 +10,7 @@
 #
 # - CXREF: This script normally called daily via injected fork code:
 #
-#     ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb @ 105
+#     ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb @ 160
 #
 # - CPYST: Or you can run the upgrade manually:
 #
@@ -129,6 +129,8 @@ dxy_homebrew_autoupdate() {
     subject="homebrew-autoupdate failure ❌"
     # REFER: log_out (from start.rb):
     #   log_out = "#{Autoupdate::Core.logs}/#{Autoupdate::Core.name}.out"
+    # CXREF:
+    #   ~/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
     AUTOUPDATE_LOG="${core_logs}/${core_name}.out"
     sendmail -oi "${SEND_EMAIL_TO}" \
       <<EOF
