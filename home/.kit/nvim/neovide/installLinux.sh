@@ -194,7 +194,7 @@ git_merge_ff_only() {
   fi
 
   if ! ${force_build:-false} && test "${new_head}" = "${old_head}"; then
-    echo "Skipping build because nothing fetched (use --force to build anyway)"
+    echo "Skipping build because nothing new fetched (use --force to build anyway)"
 
     return 1
   fi
