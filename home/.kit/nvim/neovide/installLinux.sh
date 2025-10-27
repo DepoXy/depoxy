@@ -193,7 +193,11 @@ git_merge_ff_only() {
     exit_1
   fi
 
-  if ! ${force_build:-false} && test "${new_head}" = "${old_head}"; then
+  if ! ${force_build:-false} \
+    && [ -x "./target/${profile_name}/neovide" ] \
+    && test "${new_head}" = "${old_head}" \
+    ; then
+
     echo "Skipping build because nothing new fetched (use --force to build anyway)"
 
     return 1
