@@ -127,6 +127,13 @@ installNPMPackages =
   nvm use node > /dev/null
   # USYNC: installNPMPackages, isInstalledNPMPackages, nvm-setup.sh.
   npm install -g svgo
+  # Note the first time you run `tldr`, it'll take a few moments to
+  # build the index.
+  npm install -g tldr
+  # Prints approximate location of your exit node IP, e.g.,
+  #   $ command whereami
+  #   59° 38' 45" N,151° 32' 36" W
+  npm install -g @rafaelrinaldi/whereami
   npm install -g @anthropic-ai/claude-code
   npm install -g @sourcegraph/amp
 
