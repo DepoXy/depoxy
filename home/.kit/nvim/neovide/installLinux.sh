@@ -148,6 +148,7 @@ print_usage() {
 
 install_deps() {
   # Support running without privileges.
+  # - UCASE: Nightly builds.
   if sudo -n -v 2> /dev/null; then
     sudo apt install -y curl \
       gnupg ca-certificates git \
