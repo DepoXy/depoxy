@@ -38,7 +38,7 @@ installLinux() {
   # DOPP_KIT is a DepoXy environ (and ~/.kit is a DepoXy convention).
   local project_dir="${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide"
   # Profiles: 'release', 'debug', 'profiling'.
-  local profile_name=release
+  local profile_name="release"
 
   parse_args "$@"
 
