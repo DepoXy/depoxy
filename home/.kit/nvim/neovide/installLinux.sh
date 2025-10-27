@@ -110,7 +110,7 @@ parse_args() {
 
           exit_1
         elif ! test -d "${project_dir}"; then
-          >&2 echo "ERROR: Bad --path dir: ${project_dir}"
+          >&2 echo "ERROR: No such --path dir: ${project_dir}"
 
           print_usage
 
