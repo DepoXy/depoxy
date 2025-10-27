@@ -17,8 +17,9 @@ skip = mr_exclusive_sh
 
 # *** Par-TY
 
-# NOTE: parT is a Clang project, perhaps belongs in .kit/clang/_mrconfig-clang
-#       but it's also a shell/stdio app, so living here is acceptable, too.
+# INERT: parT is a Clang project, so perhaps belongs under ~/.kit/clang
+# (and defined in ~/.kit/clang/_mrconfig-clang) — but it's also a shell/
+# stdio app, so living here is acceptable, too.
 
 # Dubs Vim support tool.
 [${SHOILERPLATE:-${HOME}/.kit/sh}/parT]
