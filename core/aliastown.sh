@@ -355,7 +355,9 @@ _dxy_wire_aliases_pushd_paths_kit() {
   pushd_alias_or_warn "cdkm" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
   pushd_alias_or_warn "cdkn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
   pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
+  pushd_alias_or_warn "cdkge" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
   pushd_alias_or_warn "cdkgn" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
+  pushd_alias_or_warn "cdkgs" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
   pushd_alias_or_warn "cdkr" "${DOPP_KIT:-${HOME}/.kit}/rust"
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
