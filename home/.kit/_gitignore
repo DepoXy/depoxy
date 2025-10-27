@@ -237,7 +237,7 @@
 
 /odd/fonts/
 
-# **** GNOME Shell Extensions
+# **** GNOME Shell, and Extensions
 
 /odd/gnome-extensions/azclock/
 /odd/gnome-extensions/gnome-active-window/
@@ -254,6 +254,7 @@
 /odd/gnome-extensions/vim-altTab/
 /odd/gnome-extensions/window-calls/
 /odd/gnome-extensions/window-is-ready-remover/
+/odd/gnome-shell/showmethekey/
 
 # **** Homebrew
 

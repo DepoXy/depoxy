@@ -15,6 +15,43 @@ skip = mr_exclusive_odd
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# *** GNOME Shell Apps
+
+# On screen key- and mouse-click-caster.
+# - Pairs well with OBS (Open Broadcast System).
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/showmethekey]
+lib = remote_set starter https://github.com/AlynxZhou/showmethekey.git
+# COPYD: These 'install' tasks refactored from OMR Neovide 'install'
+# (which was the first OMR project to "outsource" the install script
+#  using the following approach — a reusable installLinux.sh script
+#  located under a ~/.depoxy/ambers/home/.kit subdirectory).
+echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
+isInstalled = test -x "${HOME}/.local/bin/showmethekey-cli"
+install = install_os_specific
+lib =
+  ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
+  dxy_showmethekey_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/odd/gnome-shell/showmethekey"
+  # CXREF: ~/.depoxy/ambers/home/.kit/odd/gnome-shell/showmethekey/installLinux.sh
+  install_showmethekey="${dxy_showmethekey_dir}/installLinux.sh"
+installLinux =
+  # Ensure privileged, otherwise apt-install skipped.
+  if ! sudo -n -v 2> /dev/null; then
+    echo "Privileges please, for apt-install —"
+    sudo -v
+  fi
+  # Build with apt-install.
+  "${install_showmethekey}" --force
+upgrade = upgrade_os_specific
+upgradeLinux =
+  # Build without apt-install, unless sudo active.
+  # - The Neovide OMR 'upgrade' tasks maintains a log file, but that
+  #   project moves fast. We don't need to wire a nightly build for
+  #   this project, so skip the log file.
+  "${install_showmethekey}"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 # *** GNOME Shell Extensions
 
 # **** GNOME Shell Extension `lib`s
