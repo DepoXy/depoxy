@@ -299,7 +299,14 @@ _dxy_git_status_git_add_path() {
 
   # Note if path_hint set and matches an exact path, we'll
   # still check for other path matches.
-  _dxy_git_status_prompt_paths_multi "${path_hint}" | xargs git add --
+  # - Except for `add .`, which we'll alias to `git add .`,
+  #   for convenience (and because user unlikely using to
+  #   match, e.g., dot-prefixed filenames).
+  if [ "${path_hint}" = "." ]; then
+    git add .
+  else
+    _dxy_git_status_prompt_paths_multi "${path_hint}" | xargs git add --
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
