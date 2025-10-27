@@ -17,6 +17,11 @@ skip = mr_exclusive_odd
 
 # *** GNOME Shell Apps
 
+# Not specifically a GNOME Shell app, but Wayland-specific (i.e., not
+# quite at home herein this GNOME Shell OMR config, but close enough).
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/foot]
+lib = remote_set starter https://codeberg.org/dnkl/foot.git
+
 # On screen key- and mouse-click-caster.
 # - Pairs well with OBS (Open Broadcast System).
 [${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/showmethekey]
