@@ -239,6 +239,7 @@
 
 # **** GNOME Shell, and Extensions
 
+/odd/gnome-extensions/appindicator-support/
 /odd/gnome-extensions/azclock/
 /odd/gnome-extensions/gnome-active-window/
 /odd/gnome-extensions/gnome-magic-window/

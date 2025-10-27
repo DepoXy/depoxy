@@ -640,6 +640,23 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# App Indicator for Dropbox tray (Top Bar) icon.
+# - ISOFF/2025-10-27: Author recommends not bothering with this.
+#   - Dropbox shows a Top Bar icon, but clicking it does nothing.
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/appindicator-support]
+lib = remote_set starter https://github.com/ubuntu/gnome-shell-extension-appindicator \
+  appindicator-support
+lib =
+  OMR_GNOME_EXT_NAME="*AppIndicator and KStatusNotifierItem Support* by *3v1n0*"
+  OMR_GNOME_EXT_UUID="appindicatorsupport@rgcjonas.gmail.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/615/appindicator-support/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [DEFAULT]
 skip = mr_exclusive
 
