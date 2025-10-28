@@ -467,6 +467,14 @@ _dxy_wire_alias_wire_countdown_and_notify() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+_dxy_wire_alias_obs() {
+  # ALTLY:
+  #  claim_alias_or_warn "obsproject" "flatpak run com.obsproject.Studio"
+  claim_alias_or_warn "obs" "flatpak run com.obsproject.Studio"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_aliases() {
   _dxy_wire_aliases_pushd_paths_cdprefixed
   unset -f _dxy_wire_aliases_pushd_paths_cdprefixed
@@ -494,6 +502,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_wire_countdown_and_notify
   unset -f _dxy_wire_alias_wire_countdown_and_notify
+
+  _dxy_wire_alias_obs
+  unset -f _dxy_wire_alias_obs
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
