@@ -444,6 +444,29 @@ _dxy_wire_alias_libreoffice() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# FEATR/2025-10-05: Just a silly countdown timer with toast on completion.
+# - Note the toast lingers until dismissed.
+# - UCASE: Author mostly uses this as reminder to unplug devices (phone,
+#   headphones) charging on USB power, so I don't over-charge 'em.
+# - REFER: `countdown` installed via install-homebrew.sh from mOSGo:
+#     https://github.com/DepoXy/macOS-GNOME-onboarder#🏂
+_dxy_wire_alias_wire_countdown_and_notify() {
+  _dxy_countdown_and_notify() {
+    local time="${1:-60s}"
+
+    # REFER: https://www.dailyscript.com/scripts/A+Clockwork+Orange.pdf
+    # local msg="${DEPOXY_COUNTDOWN_MESSAGE:-A nozh scrap any time you say.}"
+    local msg="${DEPOXY_COUNTDOWN_MESSAGE:-Long time no viddy, droog. How goes? Surprised are you?}"
+
+    countdown "${time}" \
+      && notify "${msg}"
+  }
+
+  claim_alias_or_warn "timer" "_dxy_countdown_and_notify"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_aliases() {
   _dxy_wire_aliases_pushd_paths_cdprefixed
   unset -f _dxy_wire_aliases_pushd_paths_cdprefixed
@@ -468,6 +491,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_libreoffice
   unset -f _dxy_wire_alias_libreoffice
+
+  _dxy_wire_alias_wire_countdown_and_notify
+  unset -f _dxy_wire_alias_wire_countdown_and_notify
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
