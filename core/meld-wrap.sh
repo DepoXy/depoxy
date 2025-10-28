@@ -48,7 +48,8 @@ meld() {
   local py_path="/opt/homebrew/lib/python${py_vers%.*}/site-packages"
 
   is_meld_sources_installed() {
-    [ -x "${user_meld}/bin/meld" ] \
+    true \
+      && [ -x "${user_meld}/bin/meld" ] \
       && [ -x "${brew_home}/bin/meld" ] \
       && [ -d "${py_path}/meld" ]
   }
