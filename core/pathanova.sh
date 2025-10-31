@@ -20,6 +20,13 @@ _dxy_source_deps_pather() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Note that `nvm use` will prepend appropriate Node/bin path to PATH.
+# - Otherwise, we could suss from nvm-which, e.g.:
+#     path_prefix "$(dirname -- "$(nvm which current)")"
+#   which we don't need to do.
+# - The path here is for legacy usage (e.g., I think if you
+#   install using system node to user space (but don't do
+#   that; use nvm-use and install to nvm version instead)).
 user_path_add_home_local_node_modules_bin() {
   # Make Ansible Zoidy Pooh-installed Node/NPM executables available.
   path_prefix "${HOME}/.local/node_modules/.bin"
