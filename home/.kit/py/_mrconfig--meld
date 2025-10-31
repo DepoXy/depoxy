@@ -121,8 +121,15 @@ isInstalledDarwin = command -v meld
 isInstalledLinux = is_meld_flatpak_installed_deb
 install = install_os_specific
 installLinux =
-  # SAVVY/2025-09-24: Recent apt meld packages (e.g., meld 3.22.3)
-  # are stable.
+  # SAVVY/2025-09-24: The latest APT meld package (meld 3.22.3)
+  # is stable, but we'll continue to install via Flatpak (to be
+  # fair, it is a GUI app, and GNOME Shell has been moving fast
+  # and breaking extensions for over a decade, so we will track
+  # the Flatpak package, which should be the most reliable (and
+  # hopefully we won't have to go back to building from sources)).
+  # - CXREF/2025-10-28: See the DepoXy-adjacent Ansible installer:
+  #     https://github.com/landonb/zoidy_captivator 🦞
+  #       ~/.kit/ansible/roles/zoidy_captivator/tasks/install-flatpaks.yml
   if ! is_meld_flatpak_installed_deb; then
     >&2 warn "Please install \`meld\` from Flatpak. E.g.:"
     >&2 warn "  flatpak install flathub org.gnome.meld"
