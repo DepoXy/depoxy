@@ -91,8 +91,16 @@ _dxy_wire_aliases_ad_fzf() {
 #     - E.g. use GUI_EDITOR to replace `fs`.
 
 _dxy_fdfind_clip_path() {
+  _dxy_command_clip_path "fd" "$@"
+}
+
+_dxy_fdfind_open_path() {
+  _dxy_command_open_path "fd" "$@"
+}
+
+_dxy_command_clip_path() {
   local path
-  if ! path="$(_dxy_fd_prompt_paths "$@")"; then
+  if ! path="$(_dxy_command_prompt_paths "$@")"; then
 
     return 1
   fi
@@ -103,9 +111,9 @@ _dxy_fdfind_clip_path() {
 }
 
 # SAMEZ: Similar to _dxy_git_status_open_path (below).
-_dxy_fdfind_open_path() {
+_dxy_command_open_path() {
   local path
-  if ! path="$(_dxy_fd_prompt_paths "$@")"; then
+  if ! path="$(_dxy_command_prompt_paths "$@")"; then
 
     return 1
   fi
@@ -123,14 +131,17 @@ _dxy_fdfind_open_path() {
 }
 
 # SAMEZ: Similar to _dxy_git_status_prompt_paths (below).
-_dxy_fd_prompt_paths() {
+_dxy_command_prompt_paths() {
+  local command="$1"
+  shift 1
+
   if ! _wf_fzf_command > /dev/null; then
 
     return 1
   fi
 
   local paths
-  paths="$(fd "$@" | xargs realpath | sort | uniq | tilde_for_home)"
+  paths="$(${command} "$@" | xargs realpath | sort | uniq | tilde_for_home)"
 
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
     # Only one result, so return it without prompting.
