@@ -103,20 +103,36 @@ _dxy_aliases_wire_omr_wraps() {
   # CALSO: `infuse .` works similarly.
   claim_alias_or_warn "infuse." "mr -d . -n infuse"
 
-  # Author has legacy ~/.local/node_modules/.bin on an old host.
-  # - Nice:
-  #   $ whereami
-  #   47° 56' 07" N,89° 10' 29" W
-  # - ~/.local/node_modules/.bin/whereami ->
-  #   ~/.local/node_modules/@rafaelrinaldi/whereami/cli.js
-  local node_bin_whereami="${HOME}/.local/node_modules/.bin/whereami"
+  # DepoXy uses `whereami` to print the current OMR project path.
+  # - There's also a Node project of the same name that prints
+  #   the physical-ish location of the outbound IP address, e.g.,
+  #     $ whereami
+  #     47° 56' 07" N,89° 10' 29" W
   local force=false
-  if test -x "${node_bin_whereami}" \
-    && [ "$(realpath -- "$(command -v whereami)" 2> /dev/null)" \
-      = "$(realpath -- "${node_bin_whereami}")" \
-      ]; then
-
+  # Check for legacy ~/.local/node_modules/.bin/ path (author
+  # doesn't remember what uses this location; probably system
+  # node installing to user space).
+  # - Where ~/.local/node_modules/.bin/whereami ->
+  #         ~/.local/node_modules/@rafaelrinaldi/whereami/cli.js
+  #
+  # ISOFF: This is very much overkill; let's skip, and always force.
+  # - Though Homefries/DepoXy is never gonna be a fast login, we
+  #   might as well not add more cycles until seeing the prompt.
+  if ! ${_do_overkill:-false}; then
     force=true
+  else
+    local node_bin="${HOME}/.local/node_modules/.bin"
+    if [ -d "${node_bin}" ] || node_bin="$(dirname -- "$(nvm which current)")"; then
+      # E.g., ~/.kit/js/nvm/versions/node/v24.7.0/bin/whereami
+      local node_bin_whereami="${node_bin}/whereami"
+      if test -x "${node_bin_whereami}" \
+        && [ "$(realpath -- "$(command -v whereami)" 2> /dev/null)" \
+          = "$(realpath -- "${node_bin_whereami}")" \
+          ]; then
+
+        force=true
+      fi
+    fi
   fi
   claim_alias_or_warn "whereami" "_dxy_whereami" ${force}
 }
