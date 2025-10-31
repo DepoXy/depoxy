@@ -23,6 +23,10 @@
 
 _dxy_wire_alias_locate() {
   claim_alias_or_warn "locate" "_hf_locate" ${_force:-true}
+
+  claim_alias_or_warn "loc" "_dxy_command_clip_path '_hf_locate'"
+  claim_alias_or_warn "locp" "_dxy_command_clip_path '_hf_locate'"
+  claim_alias_or_warn "loco" "_dxy_command_open_path '_hf_locate'"
 }
 
 # ***
