@@ -40,6 +40,7 @@ DejaVu
 DepoXy's
 DisplayPort
 Dockerfile
+EMB
 EOL
 EditorConfig
 Esc
@@ -54,6 +55,7 @@ GL
 GLONASS
 GMail
 GNC
+GNO
 GPG
 GPLv3
 GSettings
@@ -80,6 +82,9 @@ K3s
 Kibana
 LM
 LSP
+LZB
+LZP
+LZY
 LaunchAgents
 LaunchDaemons
 LazyVim
@@ -99,6 +104,7 @@ MongoDB
 Monokle
 Moonlander
 NERDCommenter
+NOM
 NVMe
 Neovide
 Neovide's
@@ -109,6 +115,7 @@ OpenTelemetry
 OpenWeather
 Oxipng
 PRs
+PiP
 Portainer
 PostGIS
 Powerline
