@@ -22,7 +22,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_alias_locate() {
-  alias locate="_hf_locate"
+  claim_alias_or_warn "locate" "_hf_locate" ${_force:-true}
 }
 
 # ***
