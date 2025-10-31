@@ -21,13 +21,13 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_locate () {
+_dxy_wire_alias_locate() {
   alias locate="_hf_locate"
 }
 
 # ***
 
-_hf_locate () {
+_hf_locate() {
   # USAGE: User can set custom db path any time before calling `locate`.
   local db_path="${LOCATEDB_PATH:-${HOME}/.cache/locate/locate.db}"
 
@@ -60,9 +60,8 @@ _hf_locate () {
   # REFER: E.g., mlocate --version  # mlocate 0.26
   #              plocate --version  # plocate 1.1.15
   #              glocate --version  # locate (GNU findutils) 4.10.0
-  if ! \
-    command ${locate_cmd} --database "${db_path}" "$@" 2> /dev/null \
-  ; then
+  if ! command ${locate_cmd} --database "${db_path}" "$@" 2> /dev/null \
+    ; then
     local locate_vers
     locate_vers="$(command ${locate_cmd} --version)"
 
@@ -86,20 +85,23 @@ _hf_locate () {
 
 # Linux uses `plocate` (old Lunux uses `mlocate`); Brew installs `glocate`.
 # - Don't `command -v locate` which is the alias.
-_hf_locate_command () {
+_hf_locate_command() {
   for cmd in "plocate" "glocate" "mlocate" "locate"; do
-    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+    (
+      unset -f ${cmd}
+      unalias ${cmd}
+      command -v ${cmd}
+    ) 2> /dev/null \
       && break
   done
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   _dxy_wire_alias_locate
   unset -f _dxy_wire_alias_locate
 }
 
 main "$@"
 unset -f main
-
