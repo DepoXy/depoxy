@@ -67,7 +67,7 @@ _dxy_wire_alias_git_civ() {
 
 # Complement `git cim` with a plain `cim`.
 _dxy_wire_alias_git_cim() {
-  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy}"
+  local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
 
   claim_alias_or_warn "cim" "EDITOR='${nvimd}/bin/editor-vim-0-0-insert-minimal' git commit --amend"
 }
