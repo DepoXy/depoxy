@@ -31,7 +31,7 @@ meld() {
   }
 
   meld_flatpak() {
-    flatpak run org.gnome.meld "$@"
+    flatpak run org.gnome.meld//stable "$@"
   }
 
   # ***
