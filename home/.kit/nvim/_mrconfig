@@ -371,6 +371,7 @@ install = install_os_specific
 lib =
   ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
   dxy_neovide_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/nvim/neovide/neovide"
+  dxy_state_home="${DXY_STATE_HOME:-${XDG_STATE_HOME:-${HOME}/.local/state}/depoxy}"
   # CXREF: ~/.depoxy/ambers/home/.kit/nvim/neovide/neovide/installLinux.sh
   install_neovide="${dxy_neovide_dir}/installLinux.sh"
 installLinux =
@@ -388,15 +389,14 @@ upgradeLinux =
   # We'll maintain upgrades history.
   # - E.g.,
   #   "Sat 2025-10-25 00:28 — Upgraded Neovide from 0.15.1 at HEAD~8 “0089f61” → 0.15.2 at HEAD~9 “0df980b”"
-  # - Unsure where I want this, maybe under ~/.noise/ref/,
-  #   or maybe under DepoXy is fine.
   # - Note that author generally leaves Neovide long-running,
   #   so process won't upgrade until quitted and restarted.
   #   - MAYBE: Alert user in Neovim if upgrade installed.
-  local upgrade_hist="${dxy_neovide_dir}/upgrade.log"
+  local upgrade_hist="${dxy_state_home}/log/neovide-upgrade.log"
   local capture_path
   capture_path=$(mktemp --suffix='.out' --tmpdir 'DXY-OMR-Install-Neovide-XXXXXXX')
   "${install_neovide}" --profile release | tee "${capture_path}"
+  mkdir -p -- "$(dirname -- "${upgrade_hist}")"
   echo "$(date "+%a %Y-%m-%d %H:%M") — $(tail -n 1 "${capture_path}")" >> "${upgrade_hist}"
   command rm -- "${capture_path}"
 
