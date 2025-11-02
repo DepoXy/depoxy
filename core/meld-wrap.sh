@@ -37,8 +37,11 @@ meld() {
   # ***
 
   # Aka ${HOMEBREW_PREFIX}
-  local brew_home="/opt/homebrew"
-  # Otherwise on Intel Macs it's under /usr/local.
+  # - Location on GNU/Linux:
+  local brew_home="/home/linuxbrew/.linuxbrew"
+  # - Location on Apple Silicon:
+  [ -d "${brew_home}" ] || brew_home="/opt/homebrew"
+  # - Location on Intel Macs:
   [ -d "${brew_home}" ] || brew_home="/usr/local"
 
   local user_meld="${DOPP_KIT:-${HOME}/.kit}/py/meld"
