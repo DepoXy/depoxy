@@ -33,7 +33,7 @@
 # - CALSO: macOS homebrew-autoupdate log is maintained at:
 #   ~/Library/Logs/com.github.domt4.homebrew-autoupdate/com.github.domt4.homebrew-autoupdate.out
 # - CXREF:
-#   ~/.local/state/depoxy/homebrew-autoupdate.out
+#   ~/.local/state/depoxy/log/homebrew-autoupdate.out
 DXY_STATE_HOME="${DXY_STATE_HOME:-${XDG_STATE_HOME:-${HOME}/.local/state}/depoxy}"
 DXY_HOMEBREW_AUTOUPDATE_LOG="${DXY_HOMEBREW_AUTOUPDATE_LOG:-${DXY_STATE_HOME}/log/homebrew-autoupdate.out}"
 # See comment below re: logrotate usage.
@@ -76,7 +76,7 @@ brew_upgrade_capture_log() {
 #   - logrotate flock's state file to avoid parallel runnings, and to record latest
 #     operation, e.g.,:
 #       logrotate state -- version 2
-#       "/home/user/.local/state/depoxy/homebrew-autoupdate.out" 2025-10-26-11:5:24
+#       "/home/user/.local/state/depoxy/log/homebrew-autoupdate.out" 2025-10-26-11:5:24
 #   - It also accepts `--state /dev/null`, in which case a lock file is not used.
 #
 DXY_LOGROTATE_VERBOSE="${DXY_LOGROTATE_VERBOSE}"
