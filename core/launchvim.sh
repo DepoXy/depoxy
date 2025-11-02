@@ -64,14 +64,48 @@
 #
 # - nvim_depoxy is my old Neovim environment, based on 15 years of Vim.
 
+# REFER:
+# - Uses --server/socket ID: $NVIM_OPEN_SOCKETNAME.
+# - NVIM_APPNAME=nvim_lazyb refers to ~/.config/nvim_lazyb
+#     aka ~/.kit/nvim/landonb/nvim-lazyb/
+
 fs() {
-  # REFER:
-  # - Uses --server/socket ID: $NVIM_OPEN_SOCKETNAME.
-  # - NVIM_APPNAME=nvim_lazyb refers to ~/.config/nvim_lazyb
-  #     aka ~/.kit/nvim/landonb/nvim-lazyb/
-  NVIM_OPEN_FILE_ON_SPAWN= \
-    NVIM_APPNAME=nvim_lazyb \
-    gvim-open-kindness "${NVIM_OPEN_SOCKETNAME:-🧸}" "" "" "$@"
+  local nvim_appname=nvim_lazyb
+
+  (
+    venv_activate_ansible_lint "${nvim_appname}"
+
+    NVIM_OPEN_FILE_ON_SPAWN= \
+      NVIM_APPNAME=${nvim_appname} \
+      gvim-open-kindness "${NVIM_OPEN_SOCKETNAME:-🧸}" "" "" "$@"
+  )
+}
+
+# KLUGE: When opening Ansible Yaml config file, Mason loads ansible-lint
+# virtualenv (ansiblelint) correctly, so ansible-lint works, but then
+# ansible-lint fails when it calls ansible-config (via subprocess, and
+# using env=os.environ.copy()) unless the Neovim process itself is run
+# from within the ansiblelint virtualenv.
+# - There's gotta be a better way to fix this, but I'm not sure what it
+#   is. But I found that this kludge works for me, and it avoids annoying
+#   error notifications when I open Ansible Yaml files.
+# - CXREF: See ansible-config call from ansible_compat module, which
+#   you'll find here in a DepoXy environment:
+#   ~/.local/share/nvim_lazyb/mason/packages/ansible-lint/venv/lib/python3.13/site-packages/ansible_compat/config.py
+venv_activate_ansible_lint() {
+  local nvim_appname="$1"
+
+  local ansible_lint_venv="${HOME}/.local/share/${nvim_appname}/mason/packages/ansible-lint/venv/bin/activate"
+
+  if test -f "${ansible_lint_venv}"; then
+    # ISOFF: It should be unnecessary to deactivate,
+    # as activate will do it automatically:
+    #  if test "$(command -v deactivate)" = "deactivate"; then
+    #    >&2 "ALERT: Deactivating virtualenv: ${VIRTUAL_ENV}"
+    #    deactivate
+    #  fi
+    . "${ansible_lint_venv}"
+  fi
 }
 
 # USAGE: The `fa` command was originally added so you could open
