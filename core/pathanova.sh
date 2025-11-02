@@ -125,6 +125,12 @@ user_path_add_py_bins() {
 
 # ***
 
+user_path_add_txt_bins() {
+  path_prefix "${DOPP_KIT:-${HOME}/.kit}/txt/noname-notes/bin"
+}
+
+# ***
+
 user_path_add_windsurf_bin() {
   path_prefix "${HOME}/.codeium/windsurf/bin"
 }
@@ -179,6 +185,9 @@ user_path_extend() {
 
   user_path_add_py_bins
   unset -f user_path_add_py_bins
+
+  user_path_add_txt_bins
+  unset -f user_path_add_txt_bins
 
   user_path_add_windsurf_bin
   unset -f user_path_add_windsurf_bin

@@ -52,6 +52,15 @@ skip = no_travel || mr_exclusive_txt
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/txt/noname-notes]
+# FIXME/2025-11-01: Publish this, perhaps this, or create new org:
+#  lib = remote_set starter https://github.com/DepoXy/noname-notes.git
+# - Until then:
+checkout = stub_checkout_directory
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [DEFAULT]
 skip = mr_exclusive
 
