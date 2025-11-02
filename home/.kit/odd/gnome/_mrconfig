@@ -657,6 +657,19 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/tiling-shell]
+lib = remote_set starter https://github.com/domferr/tilingshell tiling-shell
+lib =
+  OMR_GNOME_EXT_NAME="*Tiling Shell* by *domferr*"
+  OMR_GNOME_EXT_UUID="tilingshell@ferrarodomenico.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/7065/tiling-shell/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [DEFAULT]
 skip = mr_exclusive
 
