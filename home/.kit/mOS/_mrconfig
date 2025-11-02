@@ -263,8 +263,11 @@ installDarwin =
   if ${OMR_IMMEDIATE:-false}; then
     immediate="--immediate"
   fi
-  #
-  if ! brew autoupdate start 86400 --upgrade ${immediate}; then
+  # ADDED/2025-11-02: I've added --cleanup option; I cannot imagine
+  # it'll cause issues (I also ran `brew cleanup` on my machine just
+  # now, which removed 252.2MB (representing 2 years since running
+  # Homebrew for the first time on this host)).
+  if ! brew autoupdate start 86400 --upgrade --cleanup ${immediate}; then
     >&2 echo
     >&2 echo "ALERT: Failed!"
     >&2 echo "- You may need to delete the old files first:"
@@ -273,6 +276,7 @@ installDarwin =
     #
     return 1
   fi
+  #
   echo
   echo "Success!"
   echo "- Verify the installed script:"
