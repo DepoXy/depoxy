@@ -153,6 +153,9 @@ EOF
 brew_upgrade_log_annotated() {
   print_header
 
+  . "$(dirname -- "$(realpath -- "$0")")/../core/brewskies.sh"
+  _depoxy_infuse_brew_shellenv
+
   print_command "brew update"
   brew update
 
