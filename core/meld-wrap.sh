@@ -46,30 +46,36 @@ meld() {
 
   local user_meld="${DOPP_KIT:-${HOME}/.kit}/py/meld"
 
-  # USYNC: DEPOXY_PYENV_PYVERS
-  local py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}"
-  local py_path="/opt/homebrew/lib/python${py_vers%.*}/site-packages"
+  # ISOFF/2025-11-02: Using system Python now.
+  #
+  #   # USYNC: DEPOXY_PYENV_PYVERS
+  #   local py_vers="${DEPOXY_MELD_PYVERS:-${DEPOXY_PYENV_PYVERS:-3.12.8}}"
+  #   local py_path="${brew_home}/lib/python${py_vers%.*}/site-packages"
 
   is_meld_sources_installed() {
-    true \
-      && [ -x "${user_meld}/bin/meld" ] \
-      && [ -x "${brew_home}/bin/meld" ] \
-      && [ -d "${py_path}/meld" ]
+    [ -x "${user_meld}/bin/meld" ]
   }
 
   # ALTLY: Because of #!/usr/bin/python3 in brew executable,
   # we could instead call brew module via python3 directly:
   #   PYTHONPATH="${py_path}" python3 ${brew_home}/bin/meld "$@"
   meld_sources() {
-    # Avoid same-named Homebrew executable with `command` preflight.
-    test "$(command -v deactivate)" = "deactivate" && deactivate
-    eval "$(pyenv init -)"
+    (
+      # CXREF/2025-11-02: See OMR Meld 'install' action:
+      # ~/.depoxy/ambers/home/.kit/py/_mrconfig--meld
 
-    # Shouldn't be necessary/wouldn't make sense here:
-    #   pyenv install -s ${py_vers}
-    pyenv shell ${py_vers}
+      # Avoid same-named Homebrew executable with `command` preflight.
+      test "$(command -v deactivate)" = "deactivate" && deactivate
+      eval "$(pyenv init -)"
+      # SAVVY: We'll use system Python, which is Python 3.13.5
+      # on Debian 13.
+      # - HSTRY: We previously used the DepoXy default version:
+      #     pyenv shell ${py_vers}
+      #     PYTHONPATH="${py_path}" ${user_meld}/bin/meld "$@"
+      pyenv shell system
 
-    PYTHONPATH="${py_path}" ${user_meld}/bin/meld "$@"
+      ${user_meld}/bin/meld "$@"
+    )
   }
 
   # ***
@@ -95,10 +101,10 @@ meld() {
   # Prefer flatpak meld (Debian)
   # or Meld from sources (macOS).
 
-  if is_meld_flatpak_installed; then
-    meld_flatpak "$@"
-  elif is_meld_sources_installed; then
+  if is_meld_sources_installed; then
     meld_sources "$@"
+  elif is_meld_flatpak_installed; then
+    meld_flatpak "$@"
   elif is_meld_application_installed; then
     meld_application "$@"
   elif type -f "meld" > /dev/null 2>&1; then

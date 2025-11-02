@@ -122,11 +122,64 @@ isInstalledLinux = is_meld_flatpak_installed_deb
 install = install_os_specific
 installLinux =
   # SAVVY/2025-09-24: The latest APT meld package (meld 3.22.3)
-  # is stable, but we'll continue to install via Flatpak (to be
-  # fair, it is a GUI app, and GNOME Shell has been moving fast
-  # and breaking extensions for over a decade, so we will track
-  # the Flatpak package, which should be the most reliable (and
-  # hopefully we won't have to go back to building from sources)).
+  # is stable, whereas previously (years ago) the APT package
+  # wouldn't work.
+  # - But we'll still ensure Meld runs from sources, so we can
+  #   run the latest version (not that new features are being
+  #   added, but in case something breaks APT Meld).
+  # - And we'll also tell user to install Flatpak Meld, as a
+  #   backup in case APT Meld breaks, and in case installing
+  #   from sources breaks, and you need to use Meld without
+  #   being blocked by other issues.
+  #
+  # SAVVY/2025-11-02: Flatpak Meld and APT Meld are currently
+  # the same versions on Debian 13, and source Meld isn't too
+  # far ahead:
+  # - Latest Meld sources:
+  #   $ ~/.kit/py/meld/bin/meld --version
+  #   meld 3.23.1
+  # - Latest Flatpak:
+  #   $ flatpak run org.gnome.meld --version
+  #   meld 3.22.3
+  # - Debian 13:
+  #   $ /usr/bin/meld --version
+  #   meld 3.22.3
+  #
+  # *** Prepare DepoXy default Pyenv to run Meld.
+  # - Note you can also run Meld from system Meld
+  #   (`pyenv shell system`), but this shows how
+  #   to run Meld from other Pyenv versions.
+  #
+  if ! dpkg -l libgirepository-2.0-dev >/dev/null 2>&1; then
+    sudo -v -p "for the sudo: "
+    sudo apt update
+    # System Python uses APT-installed package, python3-gi, which
+    # is provided for Pyenv Pythons via pip-installed package, PyGObject.
+    # - If it's missing, you'll see this error:
+    #     $ pyenv shell 3.12.8
+    #     $ ~/.kit/py/meld/bin/meld --version
+    #     Meld requires Gtk+ 3.22.
+    # - And if libgirepository-2.0-dev is missing, trying to
+    #   install PyGObject will fail on this error:
+    #     $ pip install PyGObject
+    #     ...
+    #     ../meson.build:31:9: ERROR: Dependency 'girepository-2.0' is required but not found.
+    sudo apt install -y libgirepository-2.0-dev
+  fi
+  #
+  # ALTLY?:
+  #  pull_latest "starter" "main" "" "tip/control-key-accelerators/2024-10-03/2d69f64"
+  mr -d "${MR_REPO}" -n rebase
+  #
+  test "$(command -v deactivate)" = "deactivate" && deactivate
+  eval "$(pyenv init -)"
+  pyenv shell ${DEPOXY_PYENV_PYVERS:-3.12.8}
+  pip install PyGObject
+  #
+  # *** Redundant: Also check that Flatpak Meld installed.
+  # - This is unnecessary, but can be used as backup if Meld from sources
+  #   stops working.
+  #
   # - CXREF/2025-10-28: See the DepoXy-adjacent Ansible installer:
   #     https://github.com/landonb/zoidy_captivator 🦞
   #       ~/.kit/ansible/roles/zoidy_captivator/tasks/install-flatpaks.yml
