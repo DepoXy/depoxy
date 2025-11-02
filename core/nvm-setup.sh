@@ -13,7 +13,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-__dxy_nvm_locate_and_set_nvm_dir_environ() {
+_dxy_nvm_locate_and_set_nvm_dir_environ() {
   if [ -d "${HOME}/.nvm" ]; then
     NVM_DIR="${HOME}/.nvm"
   elif [ -d "${DOPP_KIT:-${HOME}/.kit}/js/nvm" ]; then
@@ -23,7 +23,7 @@ __dxy_nvm_locate_and_set_nvm_dir_environ() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-__dxy_nvm_source_nvm_and_completion() {
+_dxy_nvm_source_nvm_and_completion() {
   [ -d "${NVM_DIR}" ] || return 0
 
   # These are the 3 steps from nvm/install.sh, which it tacks onto
@@ -100,11 +100,11 @@ claude() {
 nvm() {
   unset -f nvm
 
-  __dxy_nvm_locate_and_set_nvm_dir_environ
-  unset -f __dxy_nvm_locate_and_set_nvm_dir_environ
+  _dxy_nvm_locate_and_set_nvm_dir_environ
+  unset -f _dxy_nvm_locate_and_set_nvm_dir_environ
 
-  __dxy_nvm_source_nvm_and_completion
-  unset -f __dxy_nvm_source_nvm_and_completion
+  _dxy_nvm_source_nvm_and_completion
+  unset -f _dxy_nvm_source_nvm_and_completion
 
   nvm "$@"
 }
