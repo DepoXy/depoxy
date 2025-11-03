@@ -119,7 +119,7 @@ DXY_LOGROTATE_COUNT="${DXY_LOGROTATE_COUNT:-5}"
 brew_upgrade_logrotate() {
   local log_path="$1"
 
-  mkdir -p -- "$(dirname -- "${DXY_HOMEBREW_AUTOUPDATE_LOG}")"
+  mkdir -p -- "$(dirname -- "${log_path}")"
   mkdir -p -- "$(dirname -- "${DXY_LOGROTATE_STATUS}")"
 
   local config_file
@@ -128,7 +128,7 @@ brew_upgrade_logrotate() {
   cat << EOF > "${config_file}"
 compress
 
-${DXY_HOMEBREW_AUTOUPDATE_LOG} {
+${log_path} {
   # Limit to 5 max old log files.
   rotate ${DXY_LOGROTATE_COUNT}
   # Email old log when "log is rotated out of existence".
