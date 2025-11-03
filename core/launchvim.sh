@@ -420,9 +420,46 @@ _dxy_alias_vim_wire_vim_minimal() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# Default Editor for git, tig, cron, dob, pass, mredit, etc.
+
+# CXREF: Overrides simpler EDITOR included in Homefries:
+#   export EDITOR="editor-vim-0-0-insert"
+# ~/.kit/sh/home-fries/lib/fries_util.sh
+#
+# Among a few other differences, `editor-vim-0-0-insert` is *very*
+# minimal — it (1) starts Insert mode, and (2) homes the cursor;
+# but it doesn't define <Ctrl-S> map to `:wq`, etc.
+
+# CXREF: See (Neo)Vim configs:
+#   ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal
+#   ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.lua
+#   ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vim
+#   ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
+# - Also EDITOR_PREFER_NVIM=true set via depoxyrc:
+#   ~/.depoxy/running/home/.config/depoxy/depoxyrc
+
+_dxy_export_editor_vim() {
+  export EDITOR="editor-vim-0-0-insert-minimal"
+}
+
+# Default editor for k9s.
+# https://k9scli.io/topics/install/
+
+_dxy_export_kube_editor_vim() {
+  export KUBE_EDITOR="editor-vim-0-0-insert-minimal"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_aliases() {
   _dxy_alias_vim_wire_vim_minimal
   unset -f _dxy_alias_vim_wire_vim_minimal
+
+  _dxy_export_editor_vim
+  unset -f export_editor_vim
+
+  _dxy_export_kube_editor_vim
+  unset -f _dxy_export_kube_editor_vim
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
