@@ -384,7 +384,9 @@ installLinux =
   "${install_neovide}" --force --profile release
   #
   symlink_overlay_file "${HOME}/.cargo/bin/neovide" "${HOME}/.local/bin/neovide"
-upgrade = upgrade_os_specific
+upgrade = upgrade_os_specific "$@"
+# USAGE: You can --force on upgrade by passing it:
+#   mr -d ~/.kit/nvim/neovide/neovide -n upgrade --force
 upgradeLinux =
   # We'll maintain upgrades history.
   # - E.g.,
@@ -395,7 +397,7 @@ upgradeLinux =
   local upgrade_hist="${dxy_state_home}/log/neovide-upgrade.log"
   local capture_path
   capture_path=$(mktemp --suffix='.out' --tmpdir 'DXY-OMR-Install-Neovide-XXXXXXX')
-  "${install_neovide}" --profile release | tee "${capture_path}"
+  "${install_neovide}" --profile release "$@" | tee "${capture_path}"
   mkdir -p -- "$(dirname -- "${upgrade_hist}")"
   echo "$(date "+%a %Y-%m-%d %H:%M") — $(tail -n 1 "${capture_path}")" >> "${upgrade_hist}"
   command rm -- "${capture_path}"
