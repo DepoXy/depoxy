@@ -190,6 +190,8 @@ install =
       command ln -sfn -- "${base}/${prev}" "${base}/${curr}"
     fi
   }
+# CALSO: Also upgraded daily via homebrew-autoupdate.
+upgrade = brew upgrade neovim
 
 # ========================================================================
 # ------------------------------------------------------------------------
