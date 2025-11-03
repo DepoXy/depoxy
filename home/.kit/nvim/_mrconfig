@@ -152,7 +152,7 @@ skip = mr_exclusive_nvim_core
 # ========================================================================
 # ------------------------------------------------------------------------
 
-[${DOPP_KIT:-${HOME}/.kit}/clang/neovim]
+[${DOPP_KIT:-${HOME}/.kit}/nvim/neovim/neovim]
 lib = remote_set starter https://github.com/neovim/neovim
 skip = mr_exclusive_nvim_core
 order = 810
