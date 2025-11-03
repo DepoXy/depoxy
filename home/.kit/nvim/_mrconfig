@@ -358,6 +358,18 @@ lib =
   remote_set starter https://github.com/neovide/neovide.git
 skip = mr_exclusive_nvim_core
 
+merge =
+  local resume_cmd="$1"
+  #
+  # This is a roundabout way to do what could be done more simply:
+  #   git fetch starter
+  #   git checkout main
+  #   git merge --ff-only starter/main
+  LOCAL_BRANCH_RELEASE=main \
+  REMOTE_BRANCH_RELEASE=- \
+  rebase_tip_merge_release "${resume_cmd}" "starter/main" \
+    "${_add_version_tag:-false}" "$@"
+
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 isInstalled = test -x "${HOME}/.local/bin/neovide"
 install = install_os_specific
@@ -388,6 +400,7 @@ upgrade = upgrade_os_specific "$@"
 # USAGE: You can --force on upgrade by passing it:
 #   mr -d ~/.kit/nvim/neovide/neovide -n upgrade --force
 upgradeLinux =
+  mr -d "${MR_REPO}" -n merge
   # We'll maintain upgrade history.
   # - E.g.,
   #   "Sat 2025-10-25 00:28 — Upgraded Neovide from 0.15.1 at HEAD~8 “0089f61” → 0.15.2 at HEAD~9 “0df980b”"
