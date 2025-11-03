@@ -6,6 +6,29 @@
 
 # ***
 
+# DEVEL/2025-11-02: Force an Anacron run (e.g., to test environment
+# prepared correctly, vs. running from your shell which can mask an
+# underprepared cron environment):
+__CPYST__="
+  mv ~/.anacron/daily ~/.anacron/daily-OFF
+  mkdir ~/.anacron/daily
+  ln -sfn ~/.depoxy/ambers/bin/daily-homebrew-autoupdate ~/.anacron/daily/
+  date -d'1 day ago' '+%Y%m%d' > ~/.anacron/spool/cron.daily
+  # From one terminal:
+  tail -F ~/.local/state/depoxy/log/homebrew-autoupdate.out
+  # From another terminal:
+  # - ALERT: Per ~/.anacron/anacrontab, anacron delays 5 minutes before
+  #   running the daily scripts, though I'm not sure how often it checks
+  #   the cron.daily date. It seems to take up to 10 minutes for the job
+  #   to finally run:
+  /usr/sbin/anacron -s -t ~/.anacron/anacrontab -S ~/.anacron/spool
+  # And then afterwards:
+  rm ~/.anacron/daily
+  mv ~/.anacron/daily-OFF ~/.anacron/daily
+"
+
+# ***
+
 # CALSO: Because homebrew-autoupdate is macOS-specific (because LaunchAgents):
 #   ~/.kit/mOS/homebrew-autoupdate
 # - CXREF:
