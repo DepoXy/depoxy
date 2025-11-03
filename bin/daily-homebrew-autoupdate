@@ -186,9 +186,9 @@ print_footer() {
 
 # ***
 
-# This script should run on macOS (untested), but we use
-# mainstream LaunchAgests-specific Homebrew/homebrew-autoupdate
-# project instead.
+# This script likely runs on macOS (though untested), but we use
+# the mainstream LaunchAgests-specific Homebrew/homebrew-autoupdate
+# project to keep macOS Homebrew formulae and casks up-to-date.
 insist_os_is_linux() {
   if os_is_linux; then
 
