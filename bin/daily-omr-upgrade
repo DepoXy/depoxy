@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/landonb/waffle-fries#🥞
+# License: PROPRIETARY AND CONFIDENTIAL.
+
+# ***
+
+# CXREF: See brew_upgrade_logrotate, related vars., and lots of
+# comments (including CPYST for testing via Anacron) defined in
+# homebrew-autoupdate script:
+#   ~/.depoxy/ambers/bin/daily-homebrew-autoupdate
+
+source_deps() {
+  . "$(dirname -- "$(realpath -- "$0")")/daily-homebrew-autoupdate"
+
+  # So that `mr` found (and so that `mr` itself can find itself, i.e.,
+  # `mr -d ~/.kit/nvim/neovide/neovide upgrade` calls `mr` 'merge' action.
+  export PATH="${HOME}/.local/bin:${PATH}"
+
+  # For correctly reporting version:
+  export PATH="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag/bin:${PATH}"
+}
+
+# USYNC: Match same path (same-named var.) as in daily-homebrew-autoupdate.
+DXY_STATE_HOME="${DXY_STATE_HOME:-${XDG_STATE_HOME:-${HOME}/.local/state}/depoxy}"
+
+DXY_OMR_UPGRADE_LOG="${DXY_OMR_UPGRADE_LOG:-${DXY_STATE_HOME}/log/omr-upgrade.out}"
+
+# ***
+
+omr_upgrade_capture_log() {
+  brew_upgrade_logrotate "${DXY_OMR_UPGRADE_LOG}"
+
+  local inhibit_echo=false
+  isa_tty || inhibit_echo=true
+
+  omr_upgrade_log_annotated 2>&1 \
+    | if ${inhibit_echo}; then
+      # When run by (ana)cron, log only (so email not sent).
+      cat >> "${DXY_OMR_UPGRADE_LOG}"
+    else
+      # When run by user, log and echo.
+      tee -a "${DXY_OMR_UPGRADE_LOG}"
+    fi
+}
+
+# ***
+
+# SAVVY/2025-11-02: There are currently only 3 DepoXy OMR projects that define an 'upgrade' action:
+#   [${DOPP_KIT:-${HOME}/.kit}/clang/neovim]
+#   [${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide]
+#   [${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/showmethekey]
+# - The homebrew-autoupdate script brew-updates Neovim daily.
+# - We don't need to rebuild showmethekey daily.
+# - All we care about (currently) is Neovide.
+
+omr_upgrade_log_annotated() {
+  print_header
+
+  print_command "mr -d ~/.kit/nvim/neovide/neovide -n upgrade"
+  mr -d ${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide -n upgrade
+
+  print_footer
+}
+
+# ***
+
+print_header() {
+  date "+# %a %Y-%m-%d %H:%M"
+}
+
+print_command() {
+  local cmd="$1"
+
+  echo "\$ ${cmd}"
+}
+
+print_footer() {
+  echo
+}
+
+# ***
+
+# This script likely runs on macOS (though untested), but we keep
+# Neovide on macOS up-to-date via homebrew-autoupdate, and there
+# are no other OMR 'upgrade' actions we care about running daily.
+insist_os_is_linux() {
+  if os_is_linux; then
+
+    return
+  fi
+
+  >&2 echo "ERROR: Please run from Linux (not meant for $(uname))"
+
+  exit 1
+}
+
+os_is_linux() {
+  [ "$(uname)" = 'Linux' ]
+}
+
+isa_tty() {
+  ([ -t 0 ] && [ -t 1 ])
+}
+
+# ***
+
+main() {
+  set -e
+
+  insist_os_is_linux
+
+  source_deps
+
+  omr_upgrade_capture_log
+}
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
