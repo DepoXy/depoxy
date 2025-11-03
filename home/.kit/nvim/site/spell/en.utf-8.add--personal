@@ -44,6 +44,7 @@ EMB
 EOL
 EditorConfig
 Esc
+FIGlet
 FaceTime
 FileType
 FileVault
@@ -114,6 +115,7 @@ Nvidia
 OpenTelemetry
 OpenWeather
 Oxipng
+PBY
 PRs
 PiP
 Portainer
@@ -143,6 +145,7 @@ VimL
 Vimprojects
 Vimscript
 Visualping
+WL
 WRKLG
 Webex
 a11y
@@ -234,6 +237,7 @@ lowercasing
 m4
 macFUSE
 maskable
+md
 monorepo
 monorepos
 mrconfig
