@@ -388,7 +388,7 @@ upgrade = upgrade_os_specific "$@"
 # USAGE: You can --force on upgrade by passing it:
 #   mr -d ~/.kit/nvim/neovide/neovide -n upgrade --force
 upgradeLinux =
-  # We'll maintain upgrades history.
+  # We'll maintain upgrade history.
   # - E.g.,
   #   "Sat 2025-10-25 00:28 — Upgraded Neovide from 0.15.1 at HEAD~8 “0089f61” → 0.15.2 at HEAD~9 “0df980b”"
   # - Note that author generally leaves Neovide long-running,
