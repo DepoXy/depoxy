@@ -57,6 +57,8 @@ installLinux() {
 
   # ***
 
+  source_deps
+
   install_deps
 
   cargo_install
@@ -144,6 +146,18 @@ parse_args() {
 
 print_usage() {
   >&2 echo "USAGE: $(basename -- "$0") [--force] [--remote {remote}] [--branch {branch}] [--path {path}]"
+}
+
+source_deps() {
+  local cargo_env="${HOME}/.cargo/env"
+
+  if ! [ -f "${cargo_env}" ]; then
+    >&2 echo "ERROR: Missing cargo: ${cargo_env}"
+
+    exit_1
+  fi
+
+  . "${cargo_env}"
 }
 
 install_deps() {
