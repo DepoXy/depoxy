@@ -370,9 +370,9 @@ install = install_os_specific
 #   copying and modifying.)
 lib =
   ambers_path="${DEPOXYDIR_BASE_FULL:-${MR_HOME:-${HOME}}/.depoxy}/ambers"
-  dxy_neovide_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/nvim/neovide/neovide"
+  dxy_neovide_dir="${DEPOXYAMBERS_DIR:-${ambers_path}}/home/.kit/nvim/neovide"
   dxy_state_home="${DXY_STATE_HOME:-${XDG_STATE_HOME:-${HOME}/.local/state}/depoxy}"
-  # CXREF: ~/.depoxy/ambers/home/.kit/nvim/neovide/neovide/installLinux.sh
+  # CXREF: ~/.depoxy/ambers/home/.kit/nvim/neovide/installLinux.sh
   install_neovide="${dxy_neovide_dir}/installLinux.sh"
 installLinux =
   # Ensure privileged, otherwise apt-install skipped.
