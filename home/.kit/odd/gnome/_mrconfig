@@ -21,6 +21,15 @@ skip = mr_exclusive_odd
 # quite at home herein this GNOME Shell OMR config, but close enough).
 [${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/foot]
 lib = remote_set starter https://codeberg.org/dnkl/foot.git
+skip = no_travel || mr_exclusive_odd
+
+# "🎮 ⌨ An easy to use tool to change the behaviour of your input devices."
+# "Supports X11, Wayland, combinations, programmable macros, joysticks, wheels,
+#   triggers, keys, mouse-movements and more. Maps any input to any other input."
+# - Compare to macOS Hammerspoon, and Karabiner Elements.
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/input-remapper]
+lib = remote_set starter https://github.com/sezanzeb/input-remapper.git
+skip = no_travel || mr_exclusive_odd
 
 # On screen key- and mouse-click-caster.
 # - Pairs well with OBS (Open Broadcast System).
