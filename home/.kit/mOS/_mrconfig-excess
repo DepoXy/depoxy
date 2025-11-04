@@ -15,7 +15,7 @@ skip = mr_exclusive_mOS
 # Old school magical file (magically undocumented).
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/.whilom/DefaultKeybindings.dict]
 lib = remote_set starter "https://github.com/ttscoff/KeyBindings.git" "DefaultKeybindings.dict"
-skip = no_travel || mr_exclusive_mOS 
+skip = no_travel || mr_exclusive_mOS
 
 # LATER/2024-07-22: Remove this after migrating dirs on all hosts
 [${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/DefaultKeybindings.dict]
