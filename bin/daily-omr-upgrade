@@ -62,8 +62,14 @@ omr_upgrade_capture_log() {
 omr_upgrade_log_annotated() {
   print_header
 
-  print_command "mr -d ~/.kit/nvim/neovide/neovide -n upgrade"
-  mr -d ${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide -n upgrade
+  # REFER: LOG_LEVEL, MR_LOG_LEVEL, TIP_LOG_LEVEL (sep. vars. for diff. projects).
+  export TIP_LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_WARNING:-30}}
+  # Tell git-put-wise not to worry about "unexpected" authors when rebasing
+  # (via rebase_tip_merge_release, though merge--ff-only would be fine alt.).
+  export PW_OPTION_IGNORE_AUTHOR=true
+
+  print_command "mr -d ~/.kit/nvim/neovide/neovide -n -M upgrade"
+  mr -d ${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide -n -M upgrade
 
   print_footer
 }
