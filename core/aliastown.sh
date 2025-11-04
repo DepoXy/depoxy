@@ -394,7 +394,11 @@ _dxy_wire_alias_new_window_sensible_open() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_alias_batcat() {
-  claim_alias_or_warn "bat" "batcat"
+  # ALTLY:
+  #   if ! [ -e "${HOMEBREW_PREFIX}/bin/bat" ]; then
+  if ! command -v bat > /dev/null; then
+    claim_alias_or_warn "bat" "batcat"
+  fi
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
