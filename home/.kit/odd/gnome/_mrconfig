@@ -26,6 +26,7 @@ lib = remote_set starter https://codeberg.org/dnkl/foot.git
 # - Pairs well with OBS (Open Broadcast System).
 [${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/showmethekey]
 lib = remote_set starter https://github.com/AlynxZhou/showmethekey.git
+skip = no_travel || mr_exclusive_odd
 # COPYD: These 'install' tasks refactored from OMR Neovide 'install'
 # (which was the first OMR project to "outsource" the install script
 #  using the following approach — a reusable installLinux.sh script
