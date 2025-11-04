@@ -529,10 +529,8 @@ installLinux =
       "${HOME}/.local/bin/soffice" \
     ; do
       if [ ! -f "${shim_path}" ]; then
-        cat <<EOF > "${shim_path}"
- #!/bin/sh
- /opt/libreoffice${LIBRE_LATEST%.*}/program/soffice "\$@"
- EOF
+        echo "#!/bin/sh" > "${shim_path}"
+        echo "/opt/libreoffice${LIBRE_LATEST%.*}/program/soffice \"\$@\"" >> "${shim_path}"
         chmod ug+x "${shim_path}"
       fi
     done
