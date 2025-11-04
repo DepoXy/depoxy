@@ -358,6 +358,7 @@ _dxy_wire_aliases_pushd_paths_kit() {
   pushd_alias_or_warn "cdkge" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
   pushd_alias_or_warn "cdkgn" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
   pushd_alias_or_warn "cdkgs" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell"
+  pushd_alias_or_warn "cdkof" "${DOPP_KIT:-${HOME}/.kit}/odd/fonts"
   pushd_alias_or_warn "cdkp" "${DOPP_KIT:-${HOME}/.kit}/py"
   pushd_alias_or_warn "cdkr" "${DOPP_KIT:-${HOME}/.kit}/rust"
   # - USYNC: These are all synonymous: cdsh, cdks, cdksh
