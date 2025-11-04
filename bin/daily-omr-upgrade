@@ -20,6 +20,10 @@ source_deps() {
 
   # For correctly reporting version:
   export PATH="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag/bin:${PATH}"
+
+  # Sets OHMYREPOS_LIB, etc.
+  # CXREF: ~/.depoxy/ambers/core/path_vars.sh
+  . "$(dirname -- "$(dirname -- "$(realpath -- "$0")")")/core/path_vars.sh"
 }
 
 # USYNC: Match same path (same-named var.) as in daily-homebrew-autoupdate.
