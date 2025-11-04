@@ -6,6 +6,12 @@
 
 # ***
 
+# DEVEL: To test from bare shell environment like cron uses, open
+# a shell without inheriting the current shell's environment,
+# then run this script:
+#   env -i HOME="$HOME" bash --noprofile --norc
+#   ~/.depoxy/ambers/bin/daily-omr-upgrade
+
 # CXREF: See brew_upgrade_logrotate, related vars., and lots of
 # comments (including CPYST for testing via Anacron) defined in
 # homebrew-autoupdate script:
