@@ -264,19 +264,44 @@ cargo_install() {
 # ***
 
 # COPYD: (I.e., not DRY):
-# ~/.kit/sh/sh-git-nubs/lib/git-nubs.sh
+# - These git_* commands from git-nubs:
+#   ~/.kit/sh/sh-git-nubs/lib/git-nubs.sh
+
 git_HEAD_commit_sha() {
   git rev-parse HEAD
 }
 
+git_sha_shorten() {
+  local string="$1"
+  local maxlen="${2:-${GITNUBS_LENGTH_SHORT_SHA:-12}}"
+
+  if [ $# -eq 0 ]; then
+    string="$(git_HEAD_commit_sha)"
+  fi
+
+  printf "%s" "${string}" | sed -E 's/^(.{'${maxlen}'}).*/\1/g'
+}
+
+git_commit_date_relative() {
+  git --no-pager log -1 --format=%cr ${1:-HEAD} 2> /dev/null
+}
+
+# ***
+
 # CPYST: Probe neovide executables:
 # ll ~/.cargo/bin/neovide ~/.local/bin/neovide ~/.kit/nvim/neovide/neovide/target/*/neovide
 print_version() {
-  if ! git-bump-version-tag --cur - 2> /dev/null; then
-    if ! ./target/${profile_name}/neovide -V 2> /dev/null; then
-      printf "%s" "N/a"
+  local version
+  if ! version="$(git-bump-version-tag --cur - 2> /dev/null)"; then
+    if ! version="$(./target/${profile_name}/neovide -V 2> /dev/null)"; then
+      version="N/a"
     fi
   fi
+
+  printf "%s [HEAD: “%s” — %s]" \
+    "${version}" \
+    "$(GITNUBS_LENGTH_SHORT_SHA=7 git_sha_shorten)" \
+    "$(git_commit_date_relative)"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
