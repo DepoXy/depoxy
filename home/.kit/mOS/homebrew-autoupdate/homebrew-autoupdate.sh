@@ -125,7 +125,11 @@ dxy_homebrew_autoupdate() {
 
     SEND_EMAIL_TO="${SEND_EMAIL_TO:-$(id -un)}"
     SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
-    SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"homebrew-autoupdate\" <$(basename -- "$0")@$(hostname)>}"
+    # If forwarding to Gmail, it changes the from-addy to
+    #   "Friendly Name" <user@gmail.com>
+    # So add host to "Friendly Name" or subject so you can see
+    # what host the email is from without opening the email.
+    SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"Homebrewer—$(hostname)\" <$(id -un)@$(hostname)>}"
     subject="homebrew-autoupdate failure ❌"
     # REFER: log_out (from start.rb):
     #   log_out = "#{Autoupdate::Core.logs}/#{Autoupdate::Core.name}.out"
