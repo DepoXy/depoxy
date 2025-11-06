@@ -487,12 +487,14 @@ setup_private_coc_config() {
 #   won't know, because it's `echom`'d within Vim
 #   and won't be captured on stdout.
 setup_vim_generate_helptags() {
+  local nvim_appname="$1"
+
   DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM=${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false}
 
   print_helptags_info_msg() {
     local which="$1"
 
-    info "Rebuilding ${which} helptags: $(font_highlight ":helptags ALL")"
+    info "Rebuilding ${which} helptags: $(font_highlight "NVIM_APPNAME=${nvim_appname} :helptags ALL")"
   }
 
   # Note that `nvim` will run the command and exit, regardless of
@@ -614,7 +616,12 @@ main() {
 
   # ***
 
-  setup_vim_generate_helptags
+  local nvim_appname
+  # USYNC: List all the NVIM_APPNAME DepoXy uses.
+  # - CXREF: ~/.depoxy/ambers/core/launchvim.sh
+  for nvim_appname in nvim_depoxy nvim_lazyb nvim_folke; do
+    setup_vim_generate_helptags "${nvim_appname}"
+  done
 
   # ***
 
