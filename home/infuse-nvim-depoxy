@@ -487,9 +487,13 @@ setup_private_coc_config() {
 #   won't know, because it's `echom`'d within Vim
 #   and won't be captured on stdout.
 setup_vim_generate_helptags() {
-  info "Rebuilding Vim helptags: $(font_highlight ":helptags ALL")"
-
   DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM=${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false}
+
+  print_helptags_info_msg() {
+    local which="$1"
+
+    info "Rebuilding ${which} helptags: $(font_highlight ":helptags ALL")"
+  }
 
   # Note that `nvim` will run the command and exit, regardless of
   # startup `echom`, whereas Vim will await user confirmation if
@@ -504,9 +508,13 @@ setup_vim_generate_helptags() {
   # - Neovim will just run the command and exit, regardless
   #   of startup `echom`.
   if ${DXY_INFUSE_VIM_BUILD_HELPTAGS_VIM:-false} || ! command -v nvim >/dev/null; then
+    print_helptags_info_msg "Vim"
+
     # Vim: Warning: Input is not from a terminal
     printf "\n" | vim -c ":helptags ALL" -c q 2>/dev/null
   else
+    print_helptags_info_msg "Neovim"
+
     # This hangs:
     #  nvim -c ":helptags ALL" -c q >/dev/null 2>&1
     # This works:
