@@ -231,6 +231,9 @@
 # CXREF: ~/.depoxy/ambers/bin/gnome/toggle-idle-delay
 <Shift><Primary><Super>q,/home/user/.depoxy/ambers/bin/gnome/toggle-idle-delay
 
+# BNDNG: <Shift-Alt-Y>
+<Shift><Alt>y,/bin/bash -c "/home/user/.depoxy/ambers/bin/windows/toggle-visibility '- YouTube - Google Chrome' || /bin/sensible-browser --new-window 'https://www.youtube.org/' --profile-directory=Default"
+
 # ================================================================= #
 # END: shortcuts-depoxy
 # ================================================================= #
