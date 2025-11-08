@@ -95,6 +95,7 @@ upgradeLinux =
 # REFER: *A Guide to JavaScript for GNOME*
 # https://gjs.guide/
 
+[DEFAULT]
 lib =
   shell_exts="${HOME}/.local/share/gnome-shell/extensions"
   #
@@ -187,7 +188,9 @@ lib =
     #
     mkdir -p -- "${shell_exts}"
     cd -- "${shell_exts}"
-    symlink_overlay_dir "${MR_REPO}" "${shell_exts}/${uuid_name}"
+    if ! [ -e "${uuid_name}" ]; then
+      symlink_overlay_dir "${MR_REPO}" "${uuid_name}"
+    fi
     #
     gnome_shellext_enable_extension "${uuid_name}"
   }
@@ -426,7 +429,7 @@ installLinux =
   # Disable extension if previously enabled,
   # so that shortcuts.conf reloaded.
   gnome_shellext_disable
-  # Ensure extension symlink under
+  # Ensure extension directory or symlink exists under
   #   ~/.local/share/gnome-shell/extensions/{name@domain}
   # and (re)enable the RoR extension.
   gnome_shellext_symlink_and_enable
