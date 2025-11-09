@@ -122,12 +122,14 @@ updateDeps = update_deps_shoilerplate
 
 # ***
 
+# *Raise & lower GNOME Shell windows by window title*
 # https://github.com/DepoXy/gnome-window-calls#🪟
 [${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls]
 lib = remote_set publish https://github.com/DepoXy/gnome-window-calls.git
 
 # ***
 
+# *Raise/minimize desktop windows on Darwin or Wayland from the command line*
 # https://github.com/DepoXy/raise-or-lower#📈📉
 [${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower]
 lib = remote_set publish https://github.com/DepoXy/raise-or-lower.git
