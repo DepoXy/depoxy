@@ -29,20 +29,33 @@
 DEPOXY_RESTVIEW_PORT=${DEPOXY_RESTVIEW_PORT:-51920}
 
 restview() {
-  if [ $# -eq 1 ] && [ "$1" != "--help" ]; then
+  if [ "$1" = "--help" ]; then
+    command restview "$@"
+  else
     local listener
-    # REFER: `ss -lntH` → `ss --listening --numeric --tcp --no-header`,
-    # respectively.
-    listener="$(ss -lntH sport = ${DEPOXY_RESTVIEW_PORT:-51920})"
+    # Find an unused port.
+    # - REFER: `ss -lntH` → `ss --listening --numeric --tcp --no-header`,
+    #   respectively.
+    local port=""
+    for ((port = ${DEPOXY_RESTVIEW_PORT:-51920}; port <= $((${DEPOXY_RESTVIEW_PORT:-51920} + 10)); port++)); do
+      listener="$(ss -lntH sport = ${port})"
 
-    if [ -z "${listener}" ]; then
-      command restview --no-browser -l ${DEPOXY_RESTVIEW_PORT:-51920} "$@" &
-      # sleep 0.01
+      if [ -z "${listener}" ]; then
+        break
+      fi
+    done
+
+    if [ -z "${port}" ]; then
+      >&2 echo "ERROR: Could not find a free port to use"
+
+      return 1
+    elif [ "${port}" != "${DEPOXY_RESTVIEW_PORT:-51920}" ]; then
+      >&2 echo "ALERT: At least one other restview instance is already running"
     fi
 
-    sensible-open "http://localhost:${DEPOXY_RESTVIEW_PORT:-51920}/"
-  else
-    command restview "$@" &
+    (sleep 0.5 && sensible-open "http://localhost:${port}/") &
+
+    command restview --no-browser -l ${port} "$@"
   fi
 }
 
