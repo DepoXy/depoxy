@@ -122,6 +122,65 @@
 # - REFER:
 #   https://github.com/junegunn/fzf/#fuzzy-completion-for-bash-and-zsh
 #
+# Examples
+#
+# - REFER: A plethora of interesting use cases and code, including:
+#
+#   - git
+#     https://github.com/junegunn/fzf/wiki/Examples#git
+#
+#   - kubectl
+#     https://github.com/junegunn/fzf/wiki/Examples#kubectl
+#
+#   - pass
+#     https://github.com/junegunn/fzf/wiki/Examples#pass-and-pass-tomb
+#
+#   - Homebrew
+#     https://github.com/junegunn/fzf/wiki/Examples#homebrew
+#     https://github.com/junegunn/fzf/wiki/Examples#homebrew-cask
+#
+#   - Flatpak
+#     https://github.com/junegunn/fzf/wiki/Examples#flatpak
+#
+#   - Conda
+#     https://github.com/junegunn/fzf/wiki/Examples#conda
+#
+#   - Google Chrome (browsing history, bookmarks)
+#     https://github.com/junegunn/fzf/wiki/Examples#google-chrome
+#
+#   - NPM
+#     https://github.com/junegunn/fzf/wiki/Examples#npm
+#
+#   - locate
+#     https://github.com/junegunn/fzf/wiki/Examples#locate
+#
+#   - readline (invoke readline funcs. by name)
+#     https://github.com/junegunn/fzf/wiki/Examples#readline
+#
+#   - Vagrant
+#     https://github.com/junegunn/fzf/wiki/Examples#vagrant
+#
+#   - Docker
+#     https://github.com/junegunn/fzf/wiki/Examples#docker
+#
+#   - Man
+#     https://github.com/junegunn/fzf/wiki/Examples#man-pages
+#
+#   - Emoji (emoji.txt)
+#     https://github.com/junegunn/fzf/wiki/Examples#emoji
+#       emojis=$(curl -sSL 'https://git.io/JXXO7')
+#       selected_emoji=$(echo $emojis | fzf)
+#       echo $selected_emoji
+#     https://git.io/JXXO7 ->
+#       https://gist.githubusercontent.com/keidarcy/128141ff30a8c3f9ddc0d6c3ecb5b334/raw/8fc6b9efe6b72e8a876639e239043d492e857746/emoji.txt
+#     From:
+#       https://gist.github.com/keidarcy/128141ff30a8c3f9ddc0d6c3ecb5b334
+#
+#   - CALSO: A collection of FZF scripts:
+#     https://github.com/DanielFGray/fzf-scripts
+#
+# - REFER:
+#   https://github.com/junegunn/fzf/wiki/Examples
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
