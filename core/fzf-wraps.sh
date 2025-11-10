@@ -65,7 +65,7 @@ _dxy_wire_aliases_st_fzf() {
   claim_alias_or_warn "sto" "_dxy_git_status_open_path"
 }
 
-_dxy_wire_aliases_ad_fzf() {
+_dxy_wire_aliases_add_fzf() {
   # If no args, `add`, will git-add picked path(s) from
   # `git status` results, or if one path, auto-add. If
   # args specified, skips FZF and passes args to git-add.
@@ -393,8 +393,8 @@ main() {
   _dxy_wire_aliases_st_fzf
   unset -f _dxy_wire_aliases_st_fzf
 
-  _dxy_wire_aliases_ad_fzf
-  unset -f _dxy_wire_aliases_ad_fzf
+  _dxy_wire_aliases_add_fzf
+  unset -f _dxy_wire_aliases_add_fzf
 }
 
 main "$@"
