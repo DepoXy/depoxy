@@ -72,6 +72,14 @@ _dxy_wire_aliases_add_fzf() {
   claim_alias_or_warn "add" "_dxy_git_status_git_add_path"
 }
 
+# CALSO: FZF has built-in **<Tab> support for a number of commands,
+# including kill:
+#   kill -s 9 **<Tab>
+_dxy_wire_aliases_kill_fzf() {
+  # THANX: https://www.reddit.com/r/commandline/comments/1evmre4/comment/lite0aq/
+  claim_alias_or_warn "fkill" "ps -e | fzf | awk '{print $1}' | xargs kill"
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # CXREF: See `fd` commands in Homefries:
@@ -395,6 +403,9 @@ main() {
 
   _dxy_wire_aliases_add_fzf
   unset -f _dxy_wire_aliases_add_fzf
+
+  _dxy_wire_aliases_kill_fzf
+  unset -f _dxy_wire_aliases_kill_fzf
 }
 
 main "$@"
