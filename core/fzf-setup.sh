@@ -53,6 +53,75 @@
 #
 # - CXREF:
 #   ~/.kit/nvim/DepoXy/start/vim-depoxy/plugin/fzf-config.vim
+#
+# Fuzzy completion for bash and zsh
+#
+#   # Files under the current directory (or [directory/]),
+#   # matching optional [match].
+#   # - You can select multiple items with TAB key.
+#   nvim [directory/][match]**<TAB>
+#
+#   # Similar, change directory (single-selection).
+#   cd [directory/][match]**<TAB>
+#
+#   # Kill process(es) by ID.
+#   # - Can select multiple processes with <TAB> or <Shift-TAB> keys.
+#   kill -9 **<TAB>
+#
+#   # Host names (from /etc/hosts and ~/.ssh/config).
+#   ssh **<Tab>
+#   telnet **<Tab>
+#
+#   # Environs & aliases.
+#   unset **<Tab>
+#   export **<Tab>
+#   unalias **<Tab>
+#
+# - You can change the trigger sequence via an environ, e.g.:
+#
+#   # Use ~~ as the trigger sequence instead of the default **.
+#   export FZF_COMPLETION_TRIGGER='~~'
+#
+# - You can modify other runtime characteristics, too, e.g.:
+#
+#   # Options to fzf command
+#   export FZF_COMPLETION_OPTS='--border --info=inline'
+#
+#   # Options for path completion (e.g. vim **<TAB>)
+#   export FZF_COMPLETION_PATH_OPTS='--walker file,dir,follow,hidden'
+#
+#   # Options for directory completion (e.g. cd **<TAB>)
+#   export FZF_COMPLETION_DIR_OPTS='--walker dir,follow'
+#
+#   # Advanced customization of fzf options via _fzf_comprun function
+#   # - The first argument to the function is the name of the command.
+#   # - You should make sure to pass the rest of the arguments ($@) to fzf.
+#   _fzf_comprun() {
+#     local command=$1
+#     shift
+#
+#     case "$command" in
+#       cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+#       export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+#       ssh)          fzf --preview 'dig {}'                   "$@" ;;
+#       *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+#     esac
+#   }
+#
+# - SAVVY: To see which commands are wired for fuzzy completion, look for
+#   `_fzf_`-prefixed commands.
+#
+#   complete | grep _fzf
+#   # Show just the command names:
+#   complete | grep _fzf | awk '{print $NF}' | sort
+#
+#   - You'll note that most commands use fzf for selecting file paths, and
+#     that just a handful are more magical (e.g., cd, export, kill, printenv,
+#     ssh, unalias, unset, etc.).
+#
+# - REFER:
+#   https://github.com/junegunn/fzf/#fuzzy-completion-for-bash-and-zsh
+#
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
