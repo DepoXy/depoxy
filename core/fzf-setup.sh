@@ -537,6 +537,79 @@ main() {
 
   # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+  # REFER:
+  # https://github.com/junegunn/fzf/wiki/Color-schemes
+  fzf_setup_colorscheme() {
+    # SAVVY: FZF_DEFAULT_OPTS is unset by default.
+
+    # Ayu Mirage
+    # https://github.com/junegunn/fzf/wiki/Color-schemes#ayu-mirage
+    # - Dark greyish background, etc.
+    fzf_setup_colorscheme_ayu_mirage() {
+      export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+        --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
+        --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
+        --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
+        --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff
+      '
+    }
+
+    # Gruvbox Dark
+    # https://github.com/junegunn/fzf/wiki/Color-schemes#gruvbox-dark
+    # - Brownish background, yellow text.
+    fzf_setup_colorscheme_gruvbox_dark() {
+      export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+        --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+        --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
+      '
+    }
+
+    # SpaceCamp
+    # https://github.com/junegunn/fzf/wiki/Color-schemes#spacecamp
+    # - Very close to the default colorscheme, except:
+    #   - Purple stats/counts hrule instead of yellow;
+    #   - Blueish HEADER names instead of tealish;
+    #   - Yellow selected "│" selected indicators instead of pinkish.
+    fzf_setup_colorscheme_spacecamp() {
+      export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+        --color=fg:#dedede,bg:#121212,hl:#666666
+        --color=fg+:#eeeeee,bg+:#282828,hl+:#cf73e6
+        --color=info:#cf73e6,prompt:#FF0000,pointer:#cf73e6
+        --color=marker:#f0d50c,spinner:#cf73e6,header:#91aadf
+      '
+    }
+
+    # TermSchool
+    # https://github.com/junegunn/fzf/wiki/Color-schemes#termschool
+    # - Greyish background, more noticeable current line indicator.
+    fzf_setup_colorscheme_termschool() {
+      export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+        --color="fg:#f0f0f0,bg:#252c31,bg+:#005f5f,hl:#87d75f,gutter:#252c31"
+        --color="query:#ffffff,prompt:#f0f0f0,pointer:#dfaf00,marker:#00d7d7"
+      '
+    }
+
+    # THOTS/2025-11-09: Author likes the default colorscheme, and there's no
+    # real value in using another colorscheme other than just trying something
+    # different.
+    # - Let's try termschool, which uses a mid-greyish-greenish background
+    #   that sets it apart from the rest of the terminal scrawl above it,
+    #   and uses a greenish-tealish selected line background that makes the
+    #   current line stand out a little more than the default colorscheme.
+    # - Pick one of the above:
+    #  fzf_setup_colorscheme_ayu_mirage
+    #  fzf_setup_colorscheme_gruvbox_dark
+    #  fzf_setup_colorscheme_spacecamp
+    fzf_setup_colorscheme_termschool
+
+    unset -f fzf_setup_colorscheme_ayu_mirage
+    unset -f fzf_setup_colorscheme_gruvbox_dark
+    unset -f fzf_setup_colorscheme_spacecamp
+    unset -f fzf_setup_colorscheme_termschool
+  }
+
+  # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
   fzf_wire() {
     # Setup fzf wiring
     fzf_update_path
@@ -549,6 +622,8 @@ main() {
     fzf_wire_ctrl_f_cmd_fs
     # Wire <Alt-C> `cd` convenience
     fzf_wire_alt_c_cmd_bfs
+    # Colorscheme.
+    fzf_setup_colorscheme
   }
 
   # ***
@@ -567,6 +642,7 @@ main() {
     unset -f fzf_wire_default_cmd_rg
     unset -f fzf_wire_ctrl_f_cmd_fs
     unset -f fzf_wire_alt_c_cmd_bfs
+    unset -f fzf_setup_colorscheme
 
     unset -f fzf_wire
     unset -f fzf_unset_fs
