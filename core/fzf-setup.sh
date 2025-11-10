@@ -314,6 +314,22 @@ main() {
   #     # want it to exclude hidden files, use the following command:
   #
   #     export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+  #
+  # CALSO: You could instead override two _fzf_* commands to adjust fd behavior:
+  #
+  #   https://github.com/junegunn/fzf/#customizing-completion-source-for-paths-and-directories
+  #
+  #     # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+  #     # - The first argument to the function ($1) is the base path to start traversal
+  #     # - See the source code (completion.{bash,zsh}) for the details.
+  #     _fzf_compgen_path() {
+  #       fd --hidden --follow --exclude ".git" . "$1"
+  #     }
+  #
+  #     # Use fd to generate the list for directory completion
+  #     _fzf_compgen_dir() {
+  #       fd --type d --hidden --follow --exclude ".git" . "$1"
+  #     }
 
   fzf_wire_default_cmd_fd() {
     if ${is_fzf_setup:-false} \
