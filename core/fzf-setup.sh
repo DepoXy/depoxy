@@ -26,6 +26,10 @@
 #
 # - CXREF: ~/.kit/go/fzf/shell/key-bindings.bash
 #
+# - REFER:
+#   https://github.com/junegunn/fzf/#key-bindings-for-command-line
+#   https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings
+#
 # Depoxy also adds its own binding(s):
 #
 #   <Ctrl-F> — Like <Ctrl-T> but opens selected file in gVim (runs
