@@ -62,11 +62,41 @@ os_is_macos() {
 # ***
 
 insist_deps() {
-  insist_realpath_or_exit
+  must_insist_git
+  must_insist_m4
+  must_insist_realpath
+}
+
+must_insist_git() {
+  if ! command -v git > /dev/null; then
+    if os_is_macos; then
+      # Note also Apple git (I think installed by xcode? Or is it stock? /shrug).
+      >&2 echo "ERROR: Please \`brew install git\`"
+    else
+      >&2 echo "ERROR: Please \`apt install git\`"
+    fi
+
+    exit 1
+  fi
+}
+
+must_insist_m4() {
+  local m4
+  m4="$(gnu_m4)"
+
+  if [ -z "${m4}" ]; then
+    if os_is_macos; then
+      >&2 echo "ERROR: Please \`brew install m4\`"
+    else
+      >&2 echo "ERROR: Please \`apt install m4\`"
+    fi
+
+    exit 1
+  fi
 }
 
 # HSTRY/2024-04-13: This check archaic; `realpath` added to macOS 13 (Ventura).
-insist_realpath_or_exit() {
+must_insist_realpath() {
   if ! command -v realpath > /dev/null; then
     >&2 echo "ERROR: Where's realpath?"
 
@@ -195,7 +225,11 @@ prepare_mrtrust() {
 
 gnu_m4() {
   for cmd in "gm4" "m4"; do
-    ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
+    (
+      unset -f ${cmd}
+      unalias ${cmd}
+      command -v ${cmd}
+    ) 2> /dev/null \
       && break
   done
 }
