@@ -11,6 +11,9 @@ source_deps() {
   cd "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin"
   . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
 
+  # Because OMR itself uses the classic path.
+  OHMYREPOS_LIB="${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
+
   # Load: link_hard.
   cd "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}"
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/link-hard.sh"
