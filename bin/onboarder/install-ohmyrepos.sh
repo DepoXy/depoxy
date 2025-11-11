@@ -61,6 +61,10 @@ os_is_macos() {
 
 # ***
 
+insist_deps() {
+  insist_realpath_or_exit
+}
+
 # HSTRY/2024-04-13: This check archaic; `realpath` added to macOS 13 (Ventura).
 insist_realpath_or_exit() {
   if ! command -v realpath > /dev/null; then
@@ -334,7 +338,7 @@ main() {
 
   # Sets BREW_PATH
   init_homebrew_or_exit_unless_not_macos
-  insist_realpath_or_exit
+  insist_deps
 
   local mr_command
   local single_dir
