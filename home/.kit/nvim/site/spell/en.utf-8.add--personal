@@ -7,6 +7,7 @@ Alacritty
 Alacritty's
 AltTab
 Ansible
+Ansible's
 AppleScript
 Arduino
 ArgoCD
@@ -116,6 +117,7 @@ Neovim
 NotebookLM
 Nvidia
 OpenAI
+OpenSSH
 OpenTelemetry
 OpenWeather
 Oxipng
@@ -171,6 +173,7 @@ cd'd
 cmd
 cmdline
 columnarly
+compcache
 conf
 ctags
 dconf
@@ -247,6 +250,7 @@ maskable
 md
 microSDHC
 microSDXC
+mobo
 monorepo
 monorepos
 mrconfig
@@ -314,3 +318,5 @@ webhooks
 whois
 worklogs
 x16
+zram
+zswap
