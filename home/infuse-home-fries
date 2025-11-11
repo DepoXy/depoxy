@@ -4,7 +4,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-source_deps () {
+source_deps() {
   local before_cd="$(pwd -L)"
 
   # Load: debug, etc.
@@ -51,7 +51,7 @@ source_deps () {
 #     from the DepoXy Client (which you likely won't publish publicly).
 #     - The truly private DepoXy Client Bashrc is created from a template:
 #         ~/.depoxy/ambers/archetype/home/bashrc.USERNAME.EVAL.sh
-setup_private_fries_bashrc () {
+setup_private_fries_bashrc() {
   # REFER: ${HOMEFRIES_DIR:-${DOPP_KIT:-${HOME}/.kit}/sh/home-fries}
   local private_bashrc=".kit/sh/home-fries/.bashrc-bin/bashrx.private.sh"
 
@@ -61,7 +61,7 @@ setup_private_fries_bashrc () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-link_hard_dep_shoilerplate () {
+link_hard_dep_shoilerplate() {
   # Local directory is $HOME, just FYI. Run from Homefries's directory.
   local before_cd="$(pwd -L)"
 
@@ -100,11 +100,11 @@ link_hard_dep_shoilerplate () {
 #   Or:
 #     ll ~ | grep " -> "
 
-setup_public_fries_dot_files () {
+setup_public_fries_dot_files() {
   local hf_dir="${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}"
-  local df_rel="$( \
-    echo "${hf_dir}" \
-    | sed "s@^${HOME}/@@"
+  local df_rel="$(
+    echo "${hf_dir}" |
+      sed "s@^${HOME}/@@"
   )"
 
   # I.e., .kit/sh/home-fries/.bashrc
@@ -118,7 +118,7 @@ setup_public_fries_dot_files () {
       ! -name "LICENSE" \
       ! -name "*README*" \
       ! -name ".gitignore" \
-      ! -name ".ignore-example" \
+      ! -name ".ignore-example"
   ); do
     # echo "${hfhfpath}"
     symlink_overlay_file "${hfhfpath}"
@@ -127,7 +127,7 @@ setup_public_fries_dot_files () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   set -e
 
   # Unset MR_CONFIG so that the OMR/lib source_deps fcns run.
@@ -161,4 +161,3 @@ if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
 fi
 
 unset -f main
-

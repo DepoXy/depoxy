@@ -36,7 +36,7 @@ MR="${GITREPOSPATH}/myrepos/mr"
 
 BREW_PATH=""
 
-init_homebrew_or_exit_unless_not_macos () {
+init_homebrew_or_exit_unless_not_macos() {
   if ! os_is_macos; then
 
     return 0
@@ -55,14 +55,14 @@ init_homebrew_or_exit_unless_not_macos () {
   fi
 }
 
-os_is_macos () {
+os_is_macos() {
   [ "$(uname)" = 'Darwin' ]
 }
 
 # ***
 
 # HSTRY/2024-04-13: This check archaic; `realpath` added to macOS 13 (Ventura).
-insist_realpath_or_exit () {
+insist_realpath_or_exit() {
   if ! command -v realpath > /dev/null; then
     >&2 echo "ERROR: Where's realpath?"
 
@@ -74,7 +74,7 @@ insist_realpath_or_exit () {
 
 # *** Clone ((oh)my)repos
 
-clone_myrepos () {
+clone_myrepos() {
   if [ -d "${GITREPOSPATH}/myrepos/.git" ]; then
     echo "Clone: myrepos is already cloned"
 
@@ -92,7 +92,7 @@ clone_myrepos () {
   echo
 }
 
-clone_ohmyrepos () {
+clone_ohmyrepos() {
   local omr_path="$(dirname -- "${OHMYREPOS_LIB}")"
   local omr_name="$(basename -- "${omr_path}")"
   local omr_root="$(dirname -- "${omr_path}")"
@@ -121,7 +121,7 @@ clone_ohmyrepos () {
 # Note that both these symlinks and the generated .mrtrust file will be
 # recreated by a `mr infuse` task, but `mr` does not run unless these
 # assets exist, so, twist my arm, we'll get the ball rolling for `mr`.
-prepare_mrconfig () {
+prepare_mrconfig() {
   cd "${HOME}"
 
   prepare_mrtrust
@@ -141,7 +141,7 @@ prepare_mrconfig () {
 
 # Generate the myrepos trust file.
 # - USYNC: mrtrust_generators
-prepare_mrtrust () {
+prepare_mrtrust() {
   $(gnu_m4) \
     --define=USER_HOME=${HOME} \
     --define=DOPP_KIT=${DOPP_KIT} \
@@ -189,7 +189,7 @@ prepare_mrtrust () {
 # Aptitude package (Debian), nor any common `gm4` Linux command
 # that the author knows).
 
-gnu_m4 () {
+gnu_m4() {
   for cmd in "gm4" "m4"; do
     ( unset -f ${cmd}; unalias ${cmd}; command -v ${cmd} ) 2> /dev/null \
       && break
@@ -198,7 +198,7 @@ gnu_m4 () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-parse_command () {
+parse_command() {
   case $1 in
 
     # If no command or 'help', show the help
@@ -209,7 +209,7 @@ parse_command () {
 
       exit
       ;;
-    help|--help)
+    help | --help)
       print_help
       shift
 
@@ -275,7 +275,7 @@ parse_command () {
   esac
 }
 
-print_help () {
+print_help() {
   echo "This script can run \`mr\` before it's wired into your environment,"
   echo "but it only recognizes a subset of available \`mr\` commands."
   echo
@@ -295,7 +295,7 @@ print_help () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-run_mr_command () {
+run_mr_command() {
   local work_on_dir
 
   # So that OMR actions can call `mr`
@@ -324,7 +324,7 @@ DEPOXYAMBERS_DIR=${DEPOXYAMBERS_DIR} \\
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   set -e
 
   # This script's repo root is up two levels from bin/onboarder/
@@ -355,4 +355,3 @@ SCRIPT_NAME="install-ohmyrepos.sh"
 if [ "$(basename -- "$(realpath -- "$0")")" = "${SCRIPT_NAME}" ]; then
   main "$@"
 fi
-
