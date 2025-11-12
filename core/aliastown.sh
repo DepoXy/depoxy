@@ -404,6 +404,49 @@ _dxy_wire_alias_batcat() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# OWELL/2025-11-12: Not sure the best location for this low-value feature.
+# - Neither Homefries nor DepoXy/core has a "miscellaneous" shell script.
+# - This only really fits here because it's technically an alias, but it
+#   could just as easily by a shell function, or its own DXY/bin command.
+
+# SAVVY: `cat<Tab>` shows `cat`, and `catman` (from man-db APT package
+# on GNU/Linux, or man-db Homebrew formula), so we'll claim `catfstab`
+# which won't conflict with existing <Tab> completion options, but
+# rather complements existing options.
+
+# REFER: As inspired by `man column` itself, after author noticing that
+# each row of /etc/fstab on fresh Debian 13 is so differently formatted
+# (different number of spaces between columns).
+# - Not that reading just a few lines of /etc/fstab is that difficult,
+#   but author does appreciate formatting (and it gives me an excuse
+#   to use `column`, which I don't think I've ever used before).
+
+# REFER: A few ways to remove/trim leading and trailing whitespace:
+#   | sed 's/^ \+//g' | sed 's/ \+$//g'  # My natural instinct
+#   | sed 's/^ \+//g;s/ \+$//g'          # I always forget about;mushing
+#   | awk '{$1=$1;print}'                # Oh, tricky awk...
+#   | awk '{$1=$1};1'                    # ... so tricky! (least readable/obvious)
+# - Close, but removes single- and double-quotes:
+#   | xargs  # WRONG
+# THANX:
+# https://unix.stackexchange.com/questions/102008/
+#   how-do-i-trim-leading-and-trailing-whitespace-from-each-line-of-some-output
+
+_dxy_wire_alias_catfstab() {
+  claim_alias_or_warn "catfstab" "$(
+    echo "
+      sed 's/#.*//' /etc/fstab \
+        | column \
+          --table \
+          --table-columns SOURCE,TARGET,TYPE,OPTIONS,FREQ,PASS \
+          --table-right FREQ,PASS" \
+      | sed 's/ \+/ /g' | sed 's/^ \+//g;s/ \+$//g' \
+      | xargs
+  )"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_alias_hexdump() {
   # Include ASCII.
   claim_alias_or_warn "hexdump" "hexdump -C" ${_force:-true}
@@ -495,6 +538,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_batcat
   unset -f _dxy_wire_alias_batcat
+
+  _dxy_wire_alias_catfstab
+  unset -f _dxy_wire_alias_catfstab
 
   _dxy_wire_alias_hexdump
   unset -f _dxy_wire_alias_hexdump
