@@ -601,7 +601,7 @@ installDarwin =
   brew install readline
   #
   # REFER: /opt/homebrew/opt/pcre2/
-  # - Already installed (pcregrep)
+  # - Already installed (pcre2grep)
   brew install pcre2
   #
   # - Already installed (autoconf)
@@ -654,7 +654,7 @@ installLinux =
     || [ ! -f "/usr/lib/x86_64-linux-gnu/libncursesw.so" ] \
     || [ ! -f "${perl_lib_path}/auto/Text/Iconv/Iconv.so" ] \
     || [ ! -f "/usr/lib/x86_64-linux-gnu/libreadline.so" ] \
-    || ! command -v pcregrep > /dev/null \
+    || ! command -v pcre2grep > /dev/null \
     || ! command -v autoconf > /dev/null \
     || ! command -v asciidoc > /dev/null \
     || ! command -v xmlto > /dev/null \
@@ -669,10 +669,7 @@ installLinux =
                                       #  the Makefile to link it into the binary"
     # Optional:
     pkgs="${pkgs} libreadline-dev"    # readline  # completion and history
-    # Not sure which PCRE package it is:
-    #   libpcre16-3 libpcre3 libpcre3:i386 libpcre3-dev libpcre32-3 libpcrecpp0v5 pcregrep
-    # - We'll just assume its the package that installs the executable.
-    pkgs="${pkgs} pcregrep"           # PCRE  # Perl Compat. Reg. Expressions, for searches...
+    pkgs="${pkgs} pcre2grep"          # PCRE  # Perl Compat. Reg. Expressions, for searches...
     pkgs="${pkgs} autoconf"           # generates configure
     pkgs="${pkgs} asciidoc"           # generates HTML and (DocBook) XML from text
     pkgs="${pkgs} xmlto"              # generates manpages

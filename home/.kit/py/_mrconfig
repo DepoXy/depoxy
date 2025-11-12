@@ -421,7 +421,7 @@ installLinux =
 isInstalledPythons =
   command -v pyenv >/dev/null
   eval "$(pyenv init -)"
-  # THANX: `pcregrep -M` incantation inspired by:
+  # THANX: `pcregrep/pcre2grep -M` incantation inspired by:
   #   https://stackoverflow.com/questions/2686147/how-to-find-patterns-across-multiple-lines-using-grep
   # - BEGET: https://www.google.com/search?q=linux+grep+must+match+multiple+lines
   # ALTLY: See pyenv versions installed via file system:
@@ -429,7 +429,7 @@ isInstalledPythons =
   # USYNC: DEPOXY_PYENV_PYVERS
   # Yikes... (this is a beast of a hardcoded regular expression).
   pyenv versions |
-    pcregrep -M '..3\.9.*(\n|.)*..3\.10.*(\n|.)*..3\.11.*(\n|.)*..3\.12.*(\n|.)*..3\.13.*(\n|.)*..3\.14'
+    pcre2grep -M '..3\.9.*(\n|.)*..3\.10.*(\n|.)*..3\.11.*(\n|.)*..3\.12.*(\n|.)*..3\.13.*(\n|.)*..3\.14'
 installPythons =
   pyenv_shell_unset
   # Install all supported Pythons so they're at the ready.
