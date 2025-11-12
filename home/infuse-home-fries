@@ -110,7 +110,7 @@ setup_public_fries_dot_files() {
       sed "s@^${HOME}/@@"
   )"
 
-  # I.e., .kit/sh/home-fries/.bashrc
+  # CXREF: ~/.kit/sh/home-fries/.bashrc
   symlink_overlay_file "${df_rel}/.bashrc"
 
   # Look for home-fries home file paths.
