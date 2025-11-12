@@ -113,6 +113,9 @@ setup_public_fries_dot_files() {
   # CXREF: ~/.kit/sh/home-fries/.bashrc
   symlink_overlay_file "${df_rel}/.bashrc"
 
+  # CXREF: ~/.kit/sh/home-fries/.bashrc-bin/.bash_logout
+  symlink_overlay_file "${df_rel}/.bashrc-bin/.bash_logout"
+
   # Look for home-fries home file paths.
   for hfhfpath in $(
     find "${hf_dir}/" \
