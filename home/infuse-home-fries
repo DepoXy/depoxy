@@ -116,16 +116,15 @@ setup_public_fries_dot_files() {
   # CXREF: ~/.kit/sh/home-fries/.bashrc-bin/.bash_logout
   symlink_overlay_file "${df_rel}/.bashrc-bin/.bash_logout"
 
-  # Look for home-fries home file paths.
-  for hfhfpath in $(
-    find "${hf_dir}/" \
-      -maxdepth 1 \
-      -type f \
-      ! -name "LICENSE" \
-      ! -name "*README*" \
-      ! -name ".gitignore" \
-      ! -name ".ignore-example"
-  ); do
+  # SAVVY/2025-11-10: Creates 3 ~/symlinks:
+  #   ~/.gitmux.conf     -> .kit/sh/home-fries/.gitmux.conf
+  #   ~/.profile         -> .kit/sh/home-fries/.profile
+  #   ~/.tmux.conf.local -> .kit/sh/home-fries/.tmux.conf.local
+  for hfhfpath in \
+    "${hf_dir}/.gitmux.conf" \
+    "${hf_dir}/.profile" \
+    "${hf_dir}/.tmux.conf.local"; do
+
     # echo "${hfhfpath}"
     symlink_overlay_file "${hfhfpath}"
   done
