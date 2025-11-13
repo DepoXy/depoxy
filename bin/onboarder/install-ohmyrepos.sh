@@ -236,7 +236,7 @@ gnu_m4() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-parse_command() {
+parse_args() {
   case $1 in
 
     # If no command or 'help', show the help
@@ -376,7 +376,7 @@ main() {
 
   local mr_command
   local single_dir
-  parse_command "$@"
+  parse_args "$@"
 
   clone_myrepos
   clone_ohmyrepos
