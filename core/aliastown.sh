@@ -211,6 +211,32 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
 
   pushd_alias_or_warn "cdrm" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
 
+  # OKILL/2025-11-12: Def. don't need all these... huh.
+  pushd_alias_or_warn "cdshdi" "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
+  pushd_alias_or_warn "cdshfcr" "${SHOILERPLATE:-${HOME}/.kit/sh}/feature-coverage-report"
+  pushd_alias_or_warn "cdshff" "${SHOILERPLATE:-${HOME}/.kit/sh}/fries-findup"
+  pushd_alias_or_warn "cdshgwc" "${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls"
+  pushd_alias_or_warn "cdshgok" "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
+  pushd_alias_or_warn "cdshhf" "${SHOILERPLATE:-${HOME}/.kit/sh}/home-fries"
+  pushd_alias_or_warn "cdshpt" "${SHOILERPLATE:-${HOME}/.kit/sh}/parT"
+  pushd_alias_or_warn "cdshps" "${SHOILERPLATE:-${HOME}/.kit/sh}/password-store"
+  pushd_alias_or_warn "cdshrol" "${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower"
+  pushd_alias_or_warn "cdshrt" "${SHOILERPLATE:-${HOME}/.kit/sh}/reputed-tiler"
+  pushd_alias_or_warn "cdshsf" "${SHOILERPLATE:-${HOME}/.kit/sh}/salvage-fiefdom"
+  pushd_alias_or_warn "cdshask" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-ask-yesnoskip"
+  pushd_alias_or_warn "cdshc" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors"
+  pushd_alias_or_warn "cdshet" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
+  pushd_alias_or_warn "cdshgn" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-git-nubs"
+  pushd_alias_or_warn "cdshhp" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-humble-prompt"
+  pushd_alias_or_warn "cdshl" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger"
+  pushd_alias_or_warn "cdshp" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-pather"
+  pushd_alias_or_warn "cdshpnn" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now"
+  pushd_alias_or_warn "cdshrs" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-rm_safe"
+  pushd_alias_or_warn "cdshso" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open"
+  pushd_alias_or_warn "cdshsdt" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-source-deps-template"
+  pushd_alias_or_warn "cdshsp" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-spinners"
+  pushd_alias_or_warn "cdshtm" "${SHOILERPLATE:-${HOME}/.kit/sh}/trust_me"
+
   # *** ~/.kit/txt — Text
 
   # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
