@@ -73,6 +73,7 @@
 #   ~/.depoxy/ambers/archetype/home/_git/info/exclude.EVAL
 
 # DepoXy- and Homefries-infused files.
+/.bash_logout
 /.bashrc
 /.ctags
 /.finicky.js
