@@ -294,6 +294,7 @@ skhd
 skhdrc
 spellfile
 sudo
+swappiness
 tig
 tig's
 tix
@@ -318,5 +319,6 @@ webhooks
 whois
 worklogs
 x16
+zeroer
 zram
 zswap
