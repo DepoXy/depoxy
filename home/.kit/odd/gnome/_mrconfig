@@ -683,6 +683,20 @@ include =
 # ========================================================================
 # ------------------------------------------------------------------------
 
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/simple-weather]
+lib = remote_set starter https://github.com/romanlefler/SimpleWeather simple-weather
+lib =
+  OMR_GNOME_EXT_NAME="*SimpleWeather* by *Roman Lefler*"
+  OMR_GNOME_EXT_UUID="simple-weather@romanlefler.com"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/8261/simpleweather/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ========================================================================
+# ------------------------------------------------------------------------
+
 [DEFAULT]
 skip = mr_exclusive
 
