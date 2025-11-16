@@ -4,7 +4,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-_infuseProjlns () {
+_infuseProjlns() {
   local proj_path="${1:-/}"
 
   local no_recurse=""
@@ -16,4 +16,3 @@ _infuseProjlns () {
 }
 
 _infuseProjlns "$@"
-

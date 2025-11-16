@@ -4,7 +4,7 @@
 # Project: https://github.com/DepoXy/depoxy#🍯
 # License: MIT
 
-_infuse () {
+_infuse() {
   local proj_path="${1:-/}"
 
   local print_order="--print-order"
@@ -19,4 +19,3 @@ _infuse () {
 }
 
 _infuse "$@"
-
