@@ -198,14 +198,14 @@ git_merge_ff_only() {
     exit_1
   fi
 
-  local new_head
-  new_head="$(git_HEAD_commit_sha)"
-
   if ! git merge --ff-only ${remote_name}/${branch_name}; then
     >&2 echo "ERROR: Failed to merge from branch: ${remote_name}/${branch_name}"
 
     exit_1
   fi
+
+  local new_head
+  new_head="$(git_HEAD_commit_sha)"
 
   if ! ${force_build:-false} \
     && [ -x "./target/${profile_name}/neovide" ] \
