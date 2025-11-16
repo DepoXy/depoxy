@@ -160,8 +160,40 @@ _dxy_command_prompt_paths() {
     return 1
   fi
 
+  # SAVVY: If the $command name is itself an alias, the alias won't be
+  # expanded if run in a subshell.
+  #
+  # - E.g., this runs `fd` and does not expand its alias:
+  #
+  #     command=fd
+  #     >&2 echo "command: $(${command} "$@")"
+  #
+  #   Where this call expands the Homefries `fd` alias
+  #   and runs `_hf_fd -I`:
+  #
+  #     >&2 echo "fd: $(fd "$@")"
+  #
+  # - REFER: See `man bash`, which warn-tells of this issue, I think,
+  #   per the following sentence:
+  #
+  #     Aliases are expanded when a command is read, not when it is executed.
+  #
+  # - This is importand so that we run our `fd` alias (`_hf_fd`), or else
+  #   `fdp foo` or `fdo foo` may not find the file that `fd foo` finds.
+  local real_cmd="${command}"
+  if alias ${command} > /dev/null 2>&1; then
+    # E.g., "alias fd='_hf_fd -I'".
+    real_cmd="$(alias ${command} | sed "s/^alias ${command}='\(.*\)'$/\1/")"
+
+    if [ -z "${real_cmd}" ]; then
+      >&2 echo "GAFFE: Cannot suss command alias: \`alias ${command}\`: $(alias ${command})"
+
+      return 1
+    fi
+  fi
+
   local paths
-  paths="$(${command} "$@" | xargs realpath | sort | uniq | tilde_for_home)"
+  paths="$(${real_cmd} "$@" | xargs realpath | sort | uniq | tilde_for_home)"
 
   if test "$(echo "${paths}" | wc -l)" -eq 1; then
     # Only one result, so return it without prompting.
