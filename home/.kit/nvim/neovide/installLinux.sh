@@ -192,13 +192,13 @@ git_merge_ff_only() {
   local old_head
   old_head="$(git_HEAD_commit_sha)"
 
-  if ! git fetch ${remote_name}; then
+  if ! git fetch ${remote_name} > /dev/null; then
     >&2 echo "ERROR: Failed to fetch from remote: ${remote_name}"
 
     exit_1
   fi
 
-  if ! git merge --ff-only ${remote_name}/${branch_name}; then
+  if ! git merge --ff-only ${remote_name}/${branch_name} > /dev/null; then
     >&2 echo "ERROR: Failed to merge from branch: ${remote_name}/${branch_name}"
 
     exit_1
