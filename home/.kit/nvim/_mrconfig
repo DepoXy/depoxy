@@ -191,7 +191,16 @@ install =
     fi
   }
 # CALSO: Also upgraded daily via homebrew-autoupdate.
-upgrade = brew upgrade neovim
+upgrade =
+  # This won't upgrade HEAD:
+  #   brew upgrade neovim
+  # Nor this:
+  #   brew upgrade --fetch-HEAD neovim
+  brew unlink neovim
+  brew install --HEAD neovim
+  # Let's also update the local repo to match our new build
+  # - Aka `git up starter/master && git p`.
+  git pull --rebase --autostash starter master > /dev/null
 
 # ========================================================================
 # ------------------------------------------------------------------------
