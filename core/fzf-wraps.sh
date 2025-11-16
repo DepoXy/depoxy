@@ -143,6 +143,18 @@ _dxy_command_prompt_paths() {
   local command="$1"
   shift 1
 
+  if [ -z "${command}" ]; then
+    >&2 echo "GAFFE: You must specify _dxy_command_prompt_paths command arg"
+
+    return 1
+  fi
+
+  if [ $# -eq 0 ]; then
+    >&2 echo "ERROR: Please specify one or more paths."
+
+    return 1
+  fi
+
   if ! _wf_fzf_command > /dev/null; then
 
     return 1
