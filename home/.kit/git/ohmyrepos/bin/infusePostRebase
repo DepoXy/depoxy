@@ -1,0 +1,18 @@
+#!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+_infusePostRebase() {
+  local proj_path="${1:-/}"
+
+  local no_recurse=""
+  if [ "${proj_path}" != "/" ]; then
+    no_recurse="-n"
+  fi
+
+  mr -d "${proj_path}" ${no_recurse} infusePostRebase
+}
+
+_infusePostRebase "$@"
