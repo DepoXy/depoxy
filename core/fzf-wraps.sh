@@ -192,6 +192,16 @@ _dxy_command_prompt_paths() {
     fi
   fi
 
+  # SAVVY: Avoid misleading or at least unhelpful error message
+  # when no paths identified, e.g.,
+  #   $ fdp no-such-path
+  #   realpath: missing operand
+  if [ -z "$(${real_cmd} "$@")" ]; then
+    >&2 echo "ALERT: No paths found for query: \`${real_cmd} $@\`"
+
+    return 1
+  fi
+
   local paths
   paths="$(${real_cmd} "$@" | xargs realpath | sort | uniq | tilde_for_home)"
 
