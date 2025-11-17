@@ -407,6 +407,22 @@ installLinux =
   "${install_neovide}" --force --profile release
   #
   symlink_overlay_file "${HOME}/.cargo/bin/neovide" "${HOME}/.local/bin/neovide"
+  #
+  # Wire desktop file (mostly so Alt-Tab icon isn't generic blue triangular gear icon).
+  # - SAVVY/DUNNO: Doesn't work:
+  #   - Using ~/.local/share/applications/neovide.desktop symlink.
+  #   - Copying icon to ~/.local/share/icons/hicolor/256x256/apps/neovide.png.
+  # - INERT/DUNNO: Do we need to wire any of the other icons?:
+  #     "assets/neovide-16x16.png"
+  #     "assets/neovide-32x32.png"
+  #     "assets/neovide-48x48.png"
+  #     "assets/neovide-256x256.png"
+  #     "assets/neovide.ico"
+  #     "assets/neovide.svg"
+  icon_path="${MR_REPO}/assets/neovide-256x256.png"
+  sed "s#^Icon=.*#Icon=${icon_path}#" \
+    "${MR_REPO}/assets/neovide.desktop" \
+    > "${XDG_DATA_HOME:-${HOME}/.local/share}/applications/neovide.desktop"
 upgrade = upgrade_os_specific "$@"
 # USAGE: You can --force on upgrade by passing it:
 #   mr -d ~/.kit/nvim/neovide/neovide -n upgrade --force
