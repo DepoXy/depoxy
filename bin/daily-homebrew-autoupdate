@@ -73,6 +73,19 @@ SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
 
 # ***
 
+source_deps() {
+  ensure_deps_brew
+
+}
+
+# Ensures `brew` on path, and shell prepared.
+ensure_deps_brew() {
+  . "$(dirname -- "$(realpath -- "$0")")/../core/brewskies.sh"
+  _depoxy_infuse_brew_shellenv
+}
+
+# ***
+
 brew_upgrade_capture_log() {
   brew_upgrade_logrotate "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
 
@@ -176,9 +189,6 @@ EOF
 brew_upgrade_log_annotated() {
   print_header
 
-  . "$(dirname -- "$(realpath -- "$0")")/../core/brewskies.sh"
-  _depoxy_infuse_brew_shellenv
-
   print_command "brew update"
   brew update
 
@@ -237,6 +247,8 @@ main() {
   set -e
 
   insist_os_is_linux
+
+  source_deps
 
   brew_upgrade_capture_log
 }
