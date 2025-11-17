@@ -33,7 +33,15 @@ source_deps() {
 ensure_deps_mr() {
   # So that `mr` found (and so that `mr` itself can find itself, i.e.,
   # `mr -d ~/.kit/nvim/neovide/neovide upgrade` calls `mr` 'merge' action.
-  export PATH="${HOME}/.local/bin:${PATH}"
+  if ! command -v mr > /dev/null; then
+    export PATH="${HOME}/.local/bin:${PATH}"
+  fi
+
+  if ! command -v mr > /dev/null; then
+    >&2 echo "ERROR: Cannot find \`mr\`"
+
+    exit_1
+  fi
 }
 
 # USYNC: Match same path (same-named var.) as in daily-homebrew-autoupdate.
