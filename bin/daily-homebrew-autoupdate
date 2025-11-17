@@ -76,12 +76,29 @@ SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
 source_deps() {
   ensure_deps_brew
 
+  ensure_deps_mr
 }
 
 # Ensures `brew` on path, and shell prepared.
 ensure_deps_brew() {
   . "$(dirname -- "$(realpath -- "$0")")/../core/brewskies.sh"
   _depoxy_infuse_brew_shellenv
+}
+
+ensure_deps_mr() {
+  if ! command -v mr > /dev/null; then
+    export PATH="${HOME}/.local/bin:${PATH}"
+  fi
+
+  if ! command -v mr > /dev/null; then
+    >&2 echo "ERROR: Cannot find \`mr\`"
+
+    exit_1
+  fi
+
+  # Sets OHMYREPOS_LIB, etc.
+  # CXREF: ~/.depoxy/ambers/core/path_vars.sh
+  . "$(dirname -- "$(realpath -- "$0")")/../core/path_vars.sh"
 }
 
 # ***
@@ -99,6 +116,21 @@ log_and_maybe_echo() {
     # When run by user, log and echo.
     tee -a "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
   fi
+}
+
+# ***
+
+# We don't necessarily *need* to run 'infuse' (at least I don't
+# think so), but macOS homebrew-autoupdate (DepoXy's fork) does;
+# and it ensures we proactively catch any issues. (We might also
+# need to do this, if, e.g., we need to recreate ~/.local/bin
+# symlinks... not sure; I just want this exercised daily).
+omr_depoxy_infuse() {
+  (
+    echo "\$ mr -d / infuse >/dev/null"
+    mr -d / infuse > /dev/null
+  ) \
+    | log_and_maybe_echo
 }
 
 # ***
@@ -255,6 +287,8 @@ main() {
   isa_tty || inhibit_echo=true
 
   brew_upgrade_capture_log
+
+  omr_depoxy_infuse
 }
 
 # Only run when executed; no-op when sourced.
