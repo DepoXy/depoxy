@@ -11,7 +11,7 @@
 # FIXME: Make the hardcoded values below more easily configurable.
 
 # REFER: How to open a shell without inheriting the current shell's environment:
-#   env -i HOME="$HOME" bash --noprofile --norc
+#   env -i HOME="$HOME" LOGNAME="$LOGNAME" bash --noprofile --norc
 
 # HSTRY/2025-01-14: "Previously on" this was hardcoded in the keybinding config:
 #   ~/.kit/ansible/roles/zoidy_matecocido/defaults/main/keybindings.yml
