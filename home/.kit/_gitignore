@@ -308,6 +308,11 @@
 
 /odd/scala/bfg-repo-cleaner/
 
+# **** VS Code
+
+/odd/vscode/foam/
+/odd/vscode/vscodium/
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** Python
