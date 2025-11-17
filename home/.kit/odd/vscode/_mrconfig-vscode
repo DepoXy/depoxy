@@ -1,0 +1,39 @@
+# vim:tw=0:ts=2:sw=2:et:norl:nospell:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+order = 699
+# NSURE: Reset `skip` at end of this file.
+lib = mr_exclusive_odd() { mr_exclusive "kit" "odd" "kit-odd" "DXC"; }
+skip = mr_exclusive_odd
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# *** VS Cod(e|ium) projects
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/vscode/vscodium]
+lib = remote_set starter https://github.com/VSCodium/vscodium.git
+skip = no_travel || mr_exclusive_odd
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/vscode/foam]
+lib = remote_set starter https://github.com/foambubble/foam.git
+skip = no_travel || mr_exclusive_odd
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+[DEFAULT]
+skip = mr_exclusive
+
