@@ -20,9 +20,7 @@
 source_deps() {
   . "$(dirname -- "$(realpath -- "$0")")/daily-homebrew-autoupdate"
 
-  # So that `mr` found (and so that `mr` itself can find itself, i.e.,
-  # `mr -d ~/.kit/nvim/neovide/neovide upgrade` calls `mr` 'merge' action.
-  export PATH="${HOME}/.local/bin:${PATH}"
+  ensure_deps_mr
 
   # For correctly reporting version:
   export PATH="${GITREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/git}/git-bump-version-tag/bin:${PATH}"
@@ -30,6 +28,12 @@ source_deps() {
   # Sets OHMYREPOS_LIB, etc.
   # CXREF: ~/.depoxy/ambers/core/path_vars.sh
   . "$(dirname -- "$(dirname -- "$(realpath -- "$0")")")/core/path_vars.sh"
+}
+
+ensure_deps_mr() {
+  # So that `mr` found (and so that `mr` itself can find itself, i.e.,
+  # `mr -d ~/.kit/nvim/neovide/neovide upgrade` calls `mr` 'merge' action.
+  export PATH="${HOME}/.local/bin:${PATH}"
 }
 
 # USYNC: Match same path (same-named var.) as in daily-homebrew-autoupdate.
