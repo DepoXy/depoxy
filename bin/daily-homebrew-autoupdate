@@ -93,13 +93,17 @@ brew_upgrade_capture_log() {
   isa_tty || inhibit_echo=true
 
   brew_upgrade_log_annotated 2>&1 \
-    | if ${inhibit_echo}; then
-      # When run by (ana)cron, log only (so email not sent).
-      cat >> "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
-    else
-      # When run by user, log and echo.
-      tee -a "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
-    fi
+    | log_and_maybe_echo
+}
+
+log_and_maybe_echo() {
+  if ${inhibit_echo}; then
+    # When run by (ana)cron, log only (so email not sent).
+    cat >> "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+  else
+    # When run by user, log and echo.
+    tee -a "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+  fi
 }
 
 # ***
