@@ -27,7 +27,7 @@ source_deps() {
 
   # Sets OHMYREPOS_LIB, etc.
   # CXREF: ~/.depoxy/ambers/core/path_vars.sh
-  . "$(dirname -- "$(dirname -- "$(realpath -- "$0")")")/core/path_vars.sh"
+  . "$(dirname -- "$(realpath -- "$0")")/../core/path_vars.sh"
 }
 
 ensure_deps_mr() {
