@@ -87,11 +87,6 @@ ensure_deps_brew() {
 # ***
 
 brew_upgrade_capture_log() {
-  brew_upgrade_logrotate "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
-
-  local inhibit_echo=false
-  isa_tty || inhibit_echo=true
-
   brew_upgrade_log_annotated 2>&1 \
     | log_and_maybe_echo
 }
@@ -253,6 +248,11 @@ main() {
   insist_os_is_linux
 
   source_deps
+
+  brew_upgrade_logrotate "${DXY_HOMEBREW_AUTOUPDATE_LOG}"
+
+  local inhibit_echo=false
+  isa_tty || inhibit_echo=true
 
   brew_upgrade_capture_log
 }
