@@ -38,6 +38,8 @@ prepare_ssh_keys() {
     echo "  $(attr_underline)Oh hi$(attr_reset)" \
       "$(attr_emphasis)please run$(attr_reset)" \
       "$(attr_bold)321open$(attr_reset)"
+    # DUNNO/2025-11-17: Print this to see it; it doesn't render properly in
+    # author's Debian Neovide, looks like string of the same Braille glyphs.
     echo "⣀⣀⣀⣐⣔⣒⣔⣳⣒⣴⣶⣾⣿⣽⣿⣺⣽⣷⢵⣥⣔⣄⣑⣁⣃⣄⣀🐌"
   else
     _dxy_mindencfs_source_ssh_environs
