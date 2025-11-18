@@ -109,4 +109,7 @@ main() {
   run_everday_check_sshd_config
 }
 
-main "$@"
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi
