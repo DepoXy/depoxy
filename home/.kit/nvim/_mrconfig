@@ -417,22 +417,56 @@ infuseAssets =
   }
   infuse_executable_on_path
   #
-  # Wire desktop file (mostly so Alt-Tab icon isn't generic blue triangular gear icon).
-  # - SAVVY/DUNNO: Doesn't work:
-  #   - Using ~/.local/share/applications/neovide.desktop symlink.
-  #   - Copying icon to ~/.local/share/icons/hicolor/256x256/apps/neovide.png.
-  # - INERT/DUNNO: Do we need to wire any of the other icons?:
-  #     "assets/neovide-16x16.png"
-  #     "assets/neovide-32x32.png"
-  #     "assets/neovide-48x48.png"
-  #     "assets/neovide-256x256.png"
-  #     "assets/neovide.ico"
-  #     "assets/neovide.svg"
+  # Wire desktop file (mostly so Alt-Tab icon isn't generic blue triangular gear icon,
+  # and so you can distinguish it from other apps lacking Desktop files (or maybe the
+  # blue icon is the generic Electron app icon?)).
+  # - SAVVY/DUNNO: Cannot symlink the desktop file, e.g.,
+  #   - ~/.local/share/applications/neovide.desktop ->
+  #     -> ~/.kit/nvim/neovide/neovide/assets/neovide.desktop
+  # - SAVVY: For relative icon path to work, e.g., `Icon=neovide`, use path at:
+  #     ~/.local/share/icons/hicolor/1024x1024/apps/neovide.png
+  #   - REFER: Wayland (is that whom?) looks for icons per XDG_DATA_DIRS.
+  #     https://specifications.freedesktop.org/icon-theme/latest/#icon_lookup
+  #     - E.g.,
+  #       $ echo $XDG_DATA_DIRS
+  #       /usr/share/gnome:
+  #         /home/user/.local/share/flatpak/exports/share:
+  #         /var/lib/flatpak/exports/share:
+  #         /usr/local/share/:
+  #         /usr/share/:
+  #         /var/lib/snapd/desktop
+  #     - Note this doesn't list ~/.local/share, though it's obviously
+  #       looking therein (for both the Desktop file, and icons).
+  #     - Note you can set that var. via ~/.profile (though I'm unsure that
+  #       Wayland (or whomever) honors that change).
   infuse_desktop_assets() {
-    icon_path="${MR_REPO}/assets/neovide-256x256.png"
-    sed "s#^Icon=.*#Icon=${icon_path}#" \
-      "${MR_REPO}/assets/neovide.desktop" \
-      > "${XDG_DATA_HOME:-${HOME}/.local/share}/applications/neovide.desktop"
+    local source_assets="${MR_REPO}/assets"
+    # CXREF: ~/.kit/nvim/neovide/neovide/assets/neovide.desktop
+    local source_dfile="${source_assets}/neovide.desktop"
+    local xdg_apps_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/applications"
+    local xdg_theme_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/icons/hicolor"
+    # REFER: See list of icons directories:
+    #   ls -1d ~/.local/share/icons/hicolor/*/apps
+    # - We'll copy the different-sized PNGs, and the SVG (though all we need for
+    #   the Alt-Tab and GNOME Shell Activities icon is the 1024x1024 path, AFAIK).
+    # - SKIPD: assets/neovide.ico.
+    local icon_dir
+    local icon_size
+    for icon_size in "16x16" "32x32" "48x48" "256x256"; do
+      icon_dir="${xdg_theme_dir}/${icon_size}/apps"
+      mkdir -p -- "${icon_dir}"
+      link_hard "${source_assets}/neovide-${icon_size}.png" "${icon_dir}/neovide.png"
+    done
+    # The 1024x1024 is named dissimilarly.
+    icon_dir="${xdg_theme_dir}/1024x1024/apps"
+    mkdir -p -- "${icon_dir}"
+    link_hard "${source_assets}/neovide-1024.png" "${icon_dir}/neovide.png"
+    # And the SVG.
+    link_hard "${source_assets}/neovide.svg" \
+      "${XDG_DATA_HOME:-${HOME}/.local/share}/icons/hicolor/scalable/apps/neovide.svg"
+    # Finally the Desktop file (as hard link, not symlink, as noted above).
+    mkdir -p -- "${xdg_apps_dir}"
+    link_hard "${source_dfile}" "${xdg_apps_dir}/$(basename -- "${source_dfile}")"
   }
   infuse_desktop_assets
 upgrade = upgrade_os_specific "$@"
