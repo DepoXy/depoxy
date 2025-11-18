@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# UCASE: Emails self reminder if /var/run/reboot-required exists.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+SEND_EMAIL_TO="${SEND_EMAIL_TO:-$(id -un)}"
+
+SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
+
+SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"RebootRequired—$(hostname)\" <$(id -un)@$(hostname)>}"
+
+SEND_EMAIL_SUBJECT="The host @$(hostname) has a pending reboot"
+
+# SAVVY: macOS Chrome doesn't recog. 'monospace' or "monospace".
+SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; font-size: 13px;\""
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+source_deps() {
+  # local before_cd="$(pwd -L)"
+
+  # Load: remind_restart_required
+  # CXREF: ~/.depoxy/ambers/core/mindencfs.sh
+  #  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/mindencfs.sh"
+  . "$(dirname -- "$0")/../core/mindencfs.sh"
+
+  # cd -- "${before_cd}"
+}
+
+email_if_reboot_required() {
+  local alert_output
+  alert_output="$(remind_restart_required)"
+
+  if [ -z "${alert_output}" ]; then
+
+    return 0
+  fi
+
+  sendmail -oi "${SEND_EMAIL_TO}" \
+    << EOF
+From: ${SEND_EMAIL_FROM}
+To: ${SEND_EMAIL_TO_FRIENDLY}
+Subject: ${SEND_EMAIL_SUBJECT}
+Content-Type: text/html
+
+<p>
+<strong>${SEND_EMAIL_SUBJECT}</strong>
+</p>
+
+<p style="color:black">
+<pre ${SEND_EMAIL_PRE_STYLE}>${alert_output}</pre>
+</p>
+EOF
+
+  return 1
+}
+
+# ***
+
+os_is_macos() {
+  [ "$(uname)" = 'Darwin' ]
+}
+
+# ***
+
+main() {
+  set -e
+
+  if os_is_macos; then
+    >&2 echo "ERROR: Please try again on GNU/Linux"
+
+    return 0
+  fi
+
+  source_deps
+
+  email_if_reboot_required \
+    || exit 1
+}
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+else
+  unset -f main
+fi
