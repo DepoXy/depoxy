@@ -177,8 +177,8 @@ remind_restart_required() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main() {
-  unset -f main
+print_mindencfs_alerts() {
+  unset -f print_mindencfs_alerts
 
   source_deps
   unset -f source_deps
@@ -190,5 +190,3 @@ main() {
   unset -f print_restart_reminder
   unset -f remind_restart_required
 }
-
-main "$@"

@@ -161,6 +161,7 @@ _source_scripts_following_homefries_dxy() {
 
   # Remind user to 321open.
   _dxy_source "mindencfs.sh"
+  print_mindencfs_alerts
 
   # nvm.
   _dxy_source "nvm-setup.sh"
