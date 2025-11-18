@@ -406,6 +406,12 @@ installLinux =
   #
   "${install_neovide}" --force --profile release
   #
+  mr -d "${MR_REPO}" -n infuseAssets
+# Create ~/.local/bin/neovide symlink and place Desktop file
+# assets. Not called 'infuse' because unlikely to change or
+# break, and so we don't add more work to `mr -d / infuse`;
+# will be called on 'install', or you can call manually.
+infuseAssets =
   infuse_executable_on_path() {
     symlink_overlay_file "${HOME}/.cargo/bin/neovide" "${HOME}/.local/bin/neovide"
   }
