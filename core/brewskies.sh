@@ -26,7 +26,7 @@
 # USYNC: See also other projects' `_depoxy_print_homebrew_path` copiers.
 # - MAYBE: Convert this fcn. to update-faithful dependency. But if/until
 #   then, we'll let this DRY violation continue to violate.
-_depoxy_print_homebrew_path () {
+_depoxy_print_homebrew_path() {
   local brew_path=""
 
   # On Apple Silicon (arm64/AArch64) Macs (M1, M2, etc.) it's /opt/homebrew
@@ -87,7 +87,7 @@ _depoxy_print_homebrew_path () {
 #   but for some reason $HOMEBREW_PREFIX is not set. So adjust PATH to
 #   force `brew shellenv` to print its goods.
 
-_depoxy_infuse_brew_shellenv () {
+_depoxy_infuse_brew_shellenv() {
   local brew_path="$(_depoxy_print_homebrew_path)"
 
   if [ -e "${brew_path}" ]; then
@@ -104,13 +104,13 @@ _depoxy_infuse_brew_shellenv () {
 # Defined by ~/.kit/sh/home-fries/lib/distro_util.sh
 # but (re-)defined here to support usage from outside
 # user's shell (e.g., via cron/launchd).
-os_is_macos () {
+os_is_macos() {
   [ "$(uname)" = "Darwin" ]
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-main () {
+main() {
   # Avoid `brew shellenv` unless necessary, because `brew` command
   # calls `sudo --reset-timestamp`, and `mr -d / infuse` needs sudo
   # to fix /var/select/sh
@@ -130,4 +130,3 @@ if [ -n "${BASH_SOURCE}" ] && [ "$0" != "${BASH_SOURCE[0]}" ]; then
 fi
 
 unset -f main
-
