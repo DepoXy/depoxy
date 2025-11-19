@@ -34,6 +34,7 @@ CoC
 Codeberg
 Codecov
 Codespaces
+Colab
 Colima
 Cython
 DBeaver
@@ -86,6 +87,7 @@ Jupyter
 K3s
 Kibana
 Kiro
+LLMs
 LM
 LSP
 LZB
@@ -180,6 +182,7 @@ cmdline
 columnarly
 compcache
 conf
+cpp
 ctags
 dconf
 deb822
