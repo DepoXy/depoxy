@@ -126,11 +126,25 @@ log_and_maybe_echo() {
 # need to do this, if, e.g., we need to recreate ~/.local/bin
 # symlinks... not sure; I just want this exercised daily).
 omr_depoxy_infuse() {
+  local stderr_file
+  stderr_file="$(mktemp -t "depoxy_daily_homebrew--XXXX")"
+
   (
     echo "\$ mr -d / infuse >/dev/null"
     mr -d / infuse > /dev/null
-  ) \
+  ) 2> "${stderr_file}" \
     | log_and_maybe_echo
+
+  # Filter captured stderr, filtering known output, and
+  # leaking unmatched output, which cron'll email to us.
+  # - Ignore broken symlinks that ctags complains about,
+  #   e.g.,
+  #     ctags: Warning: cannot open source file "Users/user/foo/bar/baz" : No such file or directory
+  cat "${stderr_file}" \
+    | >&2 grep -v "^ctags: Warning: cannot open source file" \
+    || true
+
+  command rm -- "${stderr_file}"
 }
 
 # ***
