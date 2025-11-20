@@ -26,14 +26,10 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps() {
-  # local before_cd="$(pwd -L)"
-
   # Load: remind_restart_required
   # CXREF: ~/.depoxy/ambers/core/mindencfs.sh
   #  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/mindencfs.sh"
   . "$(dirname -- "$0")/../core/mindencfs.sh"
-
-  # cd -- "${before_cd}"
 }
 
 email_if_reboot_required() {
