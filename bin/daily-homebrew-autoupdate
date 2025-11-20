@@ -223,6 +223,15 @@ brew_upgrade_log_annotated() {
   print_command "brew update"
   brew update
 
+  # ALTLY: We could instead upgrade formulae and casks separately,
+  # like macOS homebrew-autoupdate does, i.e.:
+  #   # CXREF: ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb @ 61
+  #   print_command "brew upgrade --formula -v"
+  #   brew upgrade --formula -v
+  #   # CXREF: ~/.kit/mOS/homebrew-autoupdate/lib/autoupdate/start.rb @ 75
+  #   print_command "brew upgrade --cask -v"
+  #   brew upgrade --cask -v
+
   print_command "brew upgrade"
   brew upgrade
 
