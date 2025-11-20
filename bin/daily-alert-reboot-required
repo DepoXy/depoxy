@@ -29,7 +29,7 @@ source_deps() {
   # Load: remind_restart_required
   # CXREF: ~/.depoxy/ambers/core/mindencfs.sh
   #  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/mindencfs.sh"
-  . "$(dirname -- "$0")/../core/mindencfs.sh"
+  . "$(dirname -- "$(realpath -- "$0")")/../core/mindencfs.sh"
 }
 
 email_if_reboot_required() {
