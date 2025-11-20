@@ -26,6 +26,10 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps() {
+  SHCOLORS_OFF=true
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin/colors.sh"
+  . "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-logger/bin/logger.sh"
+
   # Load: remind_restart_required
   # CXREF: ~/.depoxy/ambers/core/mindencfs.sh
   #  . "${DEPOXYAMBERS_DIR:-${HOME}/.depoxy/ambers}/core/mindencfs.sh"
