@@ -96,6 +96,25 @@ claude() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# REFER:
+# https://ampcode.com/
+#
+# - ALTLY:
+#   curl -fsSL https://ampcode.com/install.sh | bash
+amp() {
+  _dxy_nvm_use_latest_node || return 1
+
+  if ! (unset -f amp && type -p amp > /dev/null); then
+    echo "Installing amp..."
+
+    npm install -g @sourcegraph/amp@latest || return 1
+  fi
+
+  command amp "$@"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # `nvm` lazy-loader. Saves ~0.09 secs. on session standup! #profiling
 nvm() {
   unset -f nvm
