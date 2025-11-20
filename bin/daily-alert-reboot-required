@@ -18,7 +18,7 @@ SEND_EMAIL_TO_FRIENDLY="$(id -un)@$(hostname)"
 
 SEND_EMAIL_FROM="${SEND_EMAIL_FROM:-\"RebootRequired—$(hostname)\" <$(id -un)@$(hostname)>}"
 
-SEND_EMAIL_SUBJECT="The host @$(hostname) has a pending reboot"
+SEND_EMAIL_SUBJECT="The @$(hostname) has a pending reboot"
 
 # SAVVY: macOS Chrome doesn't recog. 'monospace' or "monospace".
 SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; font-size: 13px;\""
