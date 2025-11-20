@@ -258,7 +258,7 @@ installDarwin =
   brew autoupdate delete
   #
   # USAGE: If you want to run/test immediately, use an environ, e.g.,
-  #   OMR_IMMEDIATE=yes mr -d ~/.kit/mOS/homebrew-autoupdate install
+  #   OMR_IMMEDIATE=true mr -d ~/.kit/mOS/homebrew-autoupdate install
   local immediate=""
   if ${OMR_IMMEDIATE:-false}; then
     immediate="--immediate"

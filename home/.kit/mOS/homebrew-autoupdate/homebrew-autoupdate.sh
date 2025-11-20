@@ -19,7 +19,7 @@
 #
 #   - ALTLY: Add the `--immediate` option to run the upgrade now:
 #
-#       OMR_IMMEDIATE=yes mr -d ~/.kit/mOS/homebrew-autoupdate install
+#       OMR_IMMEDIATE=true mr -d ~/.kit/mOS/homebrew-autoupdate install
 #
 #     - CXREF: See OMR 'install' task:
 #
