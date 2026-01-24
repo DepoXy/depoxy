@@ -148,7 +148,7 @@ _source_scripts_following_homefries_dxy() {
   _dxy_source "js-dev-up.sh"
 
   # Electron Lens k8s GUI.
-  _dxy_source "kube-lens.sh"
+  #  _dxy_source "kube-lens.sh"
 
   # User-centric `locate`.
   _dxy_source "locate-db.sh"
