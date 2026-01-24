@@ -20,7 +20,7 @@ __CPYST__="
   mkdir ~/.anacron/daily
   ln -sfn ~/.depoxy/ambers/bin/daily-homebrew-autoupdate ~/.anacron/daily/
   date -d'1 day ago' '+%Y%m%d' > ~/.anacron/spool/cron.daily
-  # From one terminal:
+  # From one terminal (& wait ~5m for output):
   tail -F ~/.local/state/depoxy/log/homebrew-autoupdate.out
   # From another terminal:
   # - ALERT: Per ~/.anacron/anacrontab, anacron delays 5 minutes before
