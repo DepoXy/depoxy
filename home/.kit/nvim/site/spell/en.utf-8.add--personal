@@ -72,6 +72,7 @@ Django
 Dockerfile
 DocumentDB
 Docusaurus
+Dplyr
 Drupal
 DuckDB
 DynamoDB
@@ -106,6 +107,7 @@ GPG
 GPLv3
 GSettings
 GVim
+Gemma
 GeoParquet
 GeoServer
 Gi
@@ -132,6 +134,7 @@ Inkscape
 IntelliSense
 Intellisense
 JAMstack
+JS's
 Jamstack
 Jellyfin
 JetBrains
@@ -151,6 +154,7 @@ LaunchAgents
 LaunchDaemons
 LazyVim
 LazyVim's
+Lerna
 Litestream
 LiveStore
 LocalLeader
@@ -169,6 +173,7 @@ MariaDB
 Metabase
 MicroPython
 MinIO
+Modin
 MongoDB
 Monokle
 Moonlander
@@ -290,6 +295,7 @@ a11y
 ai
 allowlisted
 allowlisting
+anycast
 arg
 args
 auth
@@ -300,6 +306,7 @@ blocklisted
 blocklisting
 builtins
 cd'd
+chDB
 cmd
 cmdline
 columnarly
@@ -383,6 +390,7 @@ letterlike
 linters
 localStorage
 lowercasing
+m0n0wall
 m4
 macFUSE
 maskable
@@ -398,6 +406,7 @@ mrconfigs
 mrtrust
 msg
 mturk
+multihoming
 myrepos
 nav
 neovim
@@ -416,6 +425,7 @@ pinentry
 pkgs
 popups
 proj
+psql
 pw
 px
 py3
@@ -434,6 +444,7 @@ sed
 sendmail
 skhd
 skhdrc
+slatherer
 spellfile
 sudo
 swappiness
