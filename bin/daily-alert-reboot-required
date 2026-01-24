@@ -7,8 +7,10 @@
 # UCASE: Emails self reminder if /var/run/reboot-required exists.
 
 # DEVEL:
-#   env -i HOME="$HOME" LOGNAME="$LOGNAME" bash --noprofile --norc
-#   ~/.depoxy/ambers/bin/daily-alert-reboot-required
+__CPYST__='
+   env -i HOME="$HOME" LOGNAME="$LOGNAME" bash --noprofile --norc
+   ~/.depoxy/ambers/bin/daily-alert-reboot-required
+'
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
