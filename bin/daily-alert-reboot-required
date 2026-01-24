@@ -31,6 +31,8 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # ~/.local/state/depoxy/last-reboot-reminder.touchfile
 ALERT_REBOOT_LAST_REMINDER="${HOME}/.local/state/depoxy/last-reboot-reminder.touchfile"
 
+ALERT_REBOOT_TIMEOUT="${ALERT_REBOOT_TIMEOUT:-7 days ago}"
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 source_deps() {
@@ -107,29 +109,37 @@ should_send() {
   local do_send=1
 
   local uptime_file
+  local timeout_file
   uptime_file="$(mktemp -t "depoxy_reboot_compare--XXXX")"
+  timeout_file="$(mktemp -t "depoxy_reboot_compare--XXXX")"
 
-  rm_uptime_file() {
+  rm_datetime_files() {
     command rm -- "${uptime_file}"
+    command rm -- "${timeout_file}"
   }
 
   # CXREF: ~/.kit/sh/home-fries/lib/date/uptime-s.sh
   # - ALTLY:
   #   touch -t "$(uptime-s +"%C%y%m%d%H%M.%S")" -- "${uptime_file}"
   touch -d "$(uptime-s "+%C%y-%m-%d %H:%M")" -- "${uptime_file}"
+  touch -d "$(date -d "${ALERT_REBOOT_TIMEOUT:-7 days ago}")" \
+    -- "${timeout_file}"
 
   if [ ! -e "${ALERT_REBOOT_LAST_REMINDER}" ] \
     || [ "${ALERT_REBOOT_LAST_REMINDER}" -ot "${uptime_file}" ] \
+    || [ "${ALERT_REBOOT_LAST_REMINDER}" -ot "${timeout_file}" ] \
     ; then
 
     do_send=0
   fi
 
-  mkdir -p -- "$(dirname -- "${ALERT_REBOOT_LAST_REMINDER}")"
+  if [ "${do_send}" -eq 0 ]; then
+    mkdir -p -- "$(dirname -- "${ALERT_REBOOT_LAST_REMINDER}")"
 
-  touch -- "${ALERT_REBOOT_LAST_REMINDER}"
+    touch -- "${ALERT_REBOOT_LAST_REMINDER}"
+  fi
 
-  rm_uptime_file
+  rm_datetime_files
 
   return ${do_send}
 }
