@@ -6,7 +6,13 @@
 
 # ***
 
-# DEVEL/2025-11-02: Force an Anacron run (e.g., to test environment
+# DEVEL/2026-01-24: The easy way to test:
+__CPYST__='
+  env -i HOME="$HOME" LOGNAME="$LOGNAME" bash --noprofile --norc
+  ~/.depoxy/ambers/bin/daily-homebrew-autoupdate
+'
+
+# ALTLY/2025-11-02: Force an Anacron run (e.g., to test environment
 # prepared correctly, vs. running from your shell which can mask an
 # underprepared cron environment):
 __CPYST__="
