@@ -59,6 +59,10 @@ email_if_reboot_required() {
   alert_output="$(remind_restart_required)"
 
   if [ -z "${alert_output}" ]; then
+    command rm -f -- "${ALERT_REBOOT_LAST_REMINDER}"
+
+    return 0
+  fi
 
     return 0
   fi
