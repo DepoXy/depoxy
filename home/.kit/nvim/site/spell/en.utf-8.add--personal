@@ -304,6 +304,7 @@ befinance
 bg
 blocklisted
 blocklisting
+bsky
 builtins
 cd'd
 chDB
@@ -405,6 +406,7 @@ mrconfig
 mrconfigs
 mrtrust
 msg
+msgs
 mturk
 multihoming
 myrepos
@@ -427,6 +429,7 @@ popups
 proj
 psql
 pw
+pwd
 px
 py3
 pydoc
@@ -437,6 +440,8 @@ reCAPTCHA
 readmes
 regexes
 repo's
+req
+reqs
 rm'd
 rsync
 rsynced
