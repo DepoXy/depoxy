@@ -213,8 +213,7 @@ main() {
   local force_print=false
   parse_args "$@"
 
-  email_if_reboot_required \
-    || exit 1
+  email_if_reboot_required
 }
 
 # Only run when executed; no-op when sourced.
