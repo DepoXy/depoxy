@@ -64,12 +64,14 @@ email_if_reboot_required() {
     return 0
   fi
 
+  if ! should_send && ! ${force_print}; then
+
     return 0
   fi
 
   if isa_tty; then
     echo "${alert_output}"
-  elif should_send; then
+  else
     send_email "${alert_output}"
   fi
 
@@ -141,6 +143,38 @@ isa_tty() {
 
 # ***
 
+parse_args() {
+  local print_help=false
+
+  while [ "$1" != '' ]; do
+    case $1 in
+      --help)
+        print_help=true
+        shift
+        ;;
+      --force)
+        force_print=true
+        shift
+        ;;
+      *)
+        >&2 echo "ERROR: Unknown arg: $1"
+
+        exit 1
+        ;;
+    esac
+  done
+
+  if ${print_help}; then
+    print_usage
+
+    exit 0
+  fi
+}
+
+print_usage() {
+  >&2 echo "USAGE: $(basename -- "$0") [--force]"
+}
+
 main() {
   set -e
 
@@ -151,6 +185,9 @@ main() {
   fi
 
   source_deps
+
+  local force_print=false
+  parse_args "$@"
 
   email_if_reboot_required \
     || exit 1
