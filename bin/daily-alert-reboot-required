@@ -70,6 +70,7 @@ email_if_reboot_required() {
   fi
 
   if isa_tty; then
+    alert_output="$(amend_restart_required "${alert_output}")"
     echo "${alert_output}"
   else
     send_email "${alert_output}"
@@ -129,6 +130,17 @@ should_send() {
   rm_uptime_file
 
   return ${do_send}
+}
+
+amend_restart_required() {
+  local alert_output="$1"
+  echo "${alert_output}
+
+CPYST: Remove touchfile to reset reminder:
+
+  ls -la "${ALERT_REBOOT_LAST_REMINDER}"
+  rm "${ALERT_REBOOT_LAST_REMINDER}"
+"
 }
 
 # ***
