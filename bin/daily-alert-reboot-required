@@ -114,7 +114,9 @@ should_send() {
   }
 
   # CXREF: ~/.kit/sh/home-fries/lib/date/uptime-s.sh
-  touch -t "$(uptime-s +"%C%y%m%d%H%M.%S")" -- "${uptime_file}"
+  # - ALTLY:
+  #   touch -t "$(uptime-s +"%C%y%m%d%H%M.%S")" -- "${uptime_file}"
+  touch -d "$(uptime-s "+%C%y-%m-%d %H:%M")" -- "${uptime_file}"
 
   if [ ! -e "${ALERT_REBOOT_LAST_REMINDER}" ] \
     || [ "${ALERT_REBOOT_LAST_REMINDER}" -ot "${uptime_file}" ] \
