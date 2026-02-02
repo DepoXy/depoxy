@@ -31,7 +31,13 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # ~/.local/state/depoxy/last-reboot-reminder.touchfile
 ALERT_REBOOT_LAST_REMINDER="${HOME}/.local/state/depoxy/last-reboot-reminder.touchfile"
 
-ALERT_REBOOT_TIMEOUT="${ALERT_REBOOT_TIMEOUT:-7 days ago}"
+# SAVVY: If you want to be alerted every X days, use (X-minus-1)-days-and-23-hours-ago
+# instead, otherwise, depending on the exact timing of the cron job, you might be alerted
+# every (X + 1) days instead.
+# - So rather than 7 days ago (168 hours):
+#     ALERT_REBOOT_TIMEOUT="${ALERT_REBOOT_TIMEOUT:-7 days ago}"
+#   We'll alert after 6-days-and-23-hours... or maybe 6-days-and-16-hours, to be safe.
+ALERT_REBOOT_TIMEOUT="${ALERT_REBOOT_TIMEOUT:-160 hours ago}"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -122,7 +128,7 @@ should_send() {
   # - ALTLY:
   #   touch -t "$(uptime-s +"%C%y%m%d%H%M.%S")" -- "${uptime_file}"
   touch -d "$(uptime-s "+%C%y-%m-%d %H:%M")" -- "${uptime_file}"
-  touch -d "$(date -d "${ALERT_REBOOT_TIMEOUT:-7 days ago}")" \
+  touch -d "$(date -d "${ALERT_REBOOT_TIMEOUT:-160 hours ago}")" \
     -- "${timeout_file}"
 
   if [ ! -e "${ALERT_REBOOT_LAST_REMINDER}" ] \
