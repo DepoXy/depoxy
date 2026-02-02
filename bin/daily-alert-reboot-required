@@ -148,6 +148,10 @@ amend_restart_required() {
   local alert_output="$1"
   echo "${alert_output}
 
+CXREF: Your cron runner:
+
+  ~/.depoxy/ambers/bin/daily-alert-reboot-required
+
 CPYST: Remove touchfile to reset reminder:
 
   ls -la "${ALERT_REBOOT_LAST_REMINDER}"
