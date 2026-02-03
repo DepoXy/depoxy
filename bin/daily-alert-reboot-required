@@ -115,6 +115,11 @@ Content-Type: text/html
 <p style="color:black">
 <pre ${SEND_EMAIL_PRE_STYLE}>${alert_output}</pre>
 </p>
+
+<p style="color:black"><pre ${SEND_EMAIL_PRE_STYLE}>
+- CXREF: This email is sent by your cron runner:
+  ~/.depoxy/ambers/bin/daily-alert-reboot-required
+</pre></p>
 EOF
 }
 
@@ -164,10 +169,6 @@ should_send() {
 amend_restart_required() {
   local alert_output="$1"
   echo "${alert_output}
-
-CXREF: Your cron runner:
-
-  ~/.depoxy/ambers/bin/daily-alert-reboot-required
 
 CPYST: Remove touchfile to reset reminder:
 

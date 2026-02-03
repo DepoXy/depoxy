@@ -145,7 +145,7 @@ remind_restart_required() {
     echo "$(attr_underline)Ahoy hoy!$(attr_reset)" \
       "$(attr_emphasis)Please reboot your machine$(attr_reset) —" \
       "$(attr_bold)sudo reboot$(attr_reset) 🔌"
-    echo "- You've needed to reboot for ${days_since_rr} day$(
+    echo "- SAVVY: You've needed to reboot for ${days_since_rr} day$(
       test ${days_since_rr} -eq 1 || printf "%s" "s!"
     )"
 
