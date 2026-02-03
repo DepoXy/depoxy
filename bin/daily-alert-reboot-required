@@ -8,8 +8,12 @@
 
 # DEVEL:
 __CPYST__='
-   env -i HOME="$HOME" LOGNAME="$LOGNAME" bash --noprofile --norc
-   ~/.depoxy/ambers/bin/daily-alert-reboot-required
+  env -i HOME="$HOME" LOGNAME="$LOGNAME" bash --noprofile --norc
+  ~/.depoxy/ambers/bin/daily-alert-reboot-required
+
+  # Run without tty (test email):
+  touch /tmp/bar
+  ~/.depoxy/ambers/bin/daily-alert-reboot-required --force >/tmp/foo </tmp/bar
 '
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
