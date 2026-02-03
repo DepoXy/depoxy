@@ -73,12 +73,19 @@ email_if_reboot_required() {
   if [ -z "${alert_output}" ]; then
     command rm -f -- "${ALERT_REBOOT_LAST_REMINDER}"
 
+    # No need to reboot.
     return 0
   fi
 
+  # Reboot pending. But suppress message if alerted recently.
+  # - Return nonzero if a TTY; otherwise return truthy so cron
+  #   doesn't send a second "exited with return code 1" email.
+  local reboot_required_and_isa_tty=1
+  isa_tty || reboot_required_and_isa_tty=0
+
   if ! should_send && ! ${force_print}; then
 
-    return 0
+    return ${reboot_required_and_isa_tty}
   fi
 
   if isa_tty; then
@@ -88,7 +95,7 @@ email_if_reboot_required() {
     send_email "${alert_output}"
   fi
 
-  return 1
+  return ${reboot_required_and_isa_tty}
 }
 
 send_email() {
