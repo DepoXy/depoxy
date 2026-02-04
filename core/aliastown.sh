@@ -537,6 +537,11 @@ _dxy_wire_alias_wire_countdown_and_notify() {
   }
 
   claim_alias_or_warn "timer" "_dxy_countdown_and_notify"
+  # ALIAS/2026-02-03: I just ran `countdown`, because that seems more obvious,
+  # and I forgot it was at `timer`, but `countdown` doesn't alert on finish.
+  claim_alias_or_warn "countdown-alarm" "_dxy_countdown_and_notify"
+  # MAYBE/2026-02-03: Ha, what about `alarm`? Or `alarm-countdown`?
+  claim_alias_or_warn "alarm" "_dxy_countdown_and_notify"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
