@@ -6,9 +6,9 @@
 
 # USAGE: If diff fails, update the cache reference: CXREF:
 #
-#   ~/.local/share/weekly-omr-report/omr-report--localhost
+#   ~/.local/state/ohmyrepos/reports/omr-report--localhost
 #   # Aka:
-#   ~/.local/share/weekly-omr-report/omr-report-$(hostname)
+#   ~/.local/state/ohmyrepos/reports/omr-report-$(hostname)
 
 # CXREF:
 #

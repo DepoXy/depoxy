@@ -226,7 +226,7 @@ function omr-list-projects() {
   ' > "${tmpf}" 2>&1
 
   # COPYD: ~/.kit/git/ohmyrepos/bin/weekly-omr-report
-  local CACHE_CAPTURE_DIR="${HOME}/.local/share/weekly-omr-report"
+  local CACHE_CAPTURE_DIR="${HOME}/.local/state/ohmyrepos/reports"
   local CACHE_CAPTURE="${CACHE_CAPTURE_DIR}/omr-report-$(hostname)"
 
   # *** Print helped context
