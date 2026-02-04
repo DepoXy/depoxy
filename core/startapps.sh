@@ -203,8 +203,37 @@ _dxy_source_shell_goodies_nvim_Lazyman() {
 #   - "When set to 1, z will resolve symlinks before adding dirs to the db"
 _dxy_source_shell_goodies_zoxide() {
   if command -v zoxide > /dev/null; then
+    _dxy_source_shell_goodies_zoxide_kludge
     eval "$(zoxide init bash)"
   fi
+}
+
+# KLUGE: Avoid trailing semicolon, lest Zoxide break PROMPT_COMMAND.
+# - Zoxide naïvely adds a semicolon without checking for one first:
+#     PROMPT_COMMAND="${PROMPT_COMMAND:+${PROMPT_COMMAND};}__zoxide_hook"
+# - Which is an issue if PROMPT_COMMAND uses a trailing semicolon,
+#   and you then end up with a semicolon twofer.
+#   - You'll see a warning emitted for every shell command, e.g.:
+#     $ <whatever>
+#     -bash: PROMPT_COMMAND: line 5: syntax error near unexpected token `;;'
+#     -bash: PROMPT_COMMAND: line 5: `history -a;_hist_util_hook_bg;_pyenv_virtualenv_hook;;__zoxide_hook'
+#                                                                            THE PROBLEM: ^^
+# - FACTS: Specifically, two separate commands collide and break PROMPT_COMMAND:
+#   - Homefries extends PROMPT_COMMAND for pyenv:
+#       eval "$(pyenv virtualenv-init -)"
+#   - And DepoXy extends PROMPT_COMMAND for Zoxide:
+#       eval "$(zoxide init bash)"
+#   - But Zoxide ends up injecting an illegal double-semicolon
+#     into PROMPT_COMMAND, because pyenv uses a trailing
+#     semicolon, and then Zoxide adds another semicolon
+#     without checking if PROMPT_COMMAND already has a
+#     trailing semicolon!
+#   - So here we remove the trailing semicolon, to avoid
+#     Zoxide mucking shift up.
+#
+# FIXME/2026-02-04: Submit Zoxide PR (Avoid kludge and fix upstream).
+_dxy_source_shell_goodies_zoxide_kludge() {
+  PROMPT_COMMAND="${PROMPT_COMMAND%%+(;)}"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
@@ -236,6 +265,7 @@ _dxy_source_shell_goodies() {
 
   _dxy_source_shell_goodies_zoxide
   unset -f _dxy_source_shell_goodies_zoxide
+  unset -f _dxy_source_shell_goodies_zoxide_kludge
 }
 
 main() {
