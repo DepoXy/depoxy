@@ -16,7 +16,7 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-weekly_omr_report () {
+weekly_omr_report() {
   # CXREF: ~/.depoxy/ambers/core/omr-wraps.sh
   . "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/core/omr-wraps.sh"
 
@@ -29,16 +29,15 @@ weekly_omr_report () {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-main () {
+main() {
   # - Be verbose: Print a line for every project (includes registered
   #   projects; without verbose, the report only lists unregistered dirs).
   # - Also use the more concise path-first format.
   OMR_VERBOSE=true \
-  OMR_FORMAT_CONCISE=true \
+    OMR_FORMAT_CONCISE=true \
     weekly_omr_report "$@"
 }
 
 main "$@"
 
 unset -f main
-
