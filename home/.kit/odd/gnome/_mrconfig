@@ -694,6 +694,71 @@ include =
   cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
 
 # ========================================================================
+# ------------------------------------------------------------------------
+
+# REFER/2026-02-03: Pointer Tracker, useful for recording screencasts,
+# so the audience can obviously see the cursor.
+# - CALSO: See also Wiggle, another approach to drawing watchers'
+#   eyes to the cursor.
+#   - Wiggle by mechtifs: "Wiggle is a GNOME Shell extension that
+#     magnifies the cursor when the mouse is moved rapidly."
+#       https://extensions.gnome.org/extension/6784/wiggle/
+#       https://extensions.gnome.org/accounts/profile/mechtifs
+#       https://github.com/mechtifs/wiggle
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/pointer-tracker]
+lib = remote_set starter https://github.com/garzj/gjs-pointer-tracker.git pointer-tracker
+lib =
+  OMR_GNOME_EXT_NAME="*Pointer Tracker* by *garzj*"
+  OMR_GNOME_EXT_UUID="pointer-tracker@garz.dev"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/7645/pointer-tracker/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# REFER/2026-02-03: A customizable GNOME Shell Shortcuts dialog popup,
+# useful if you have many accelerators but don't have 'em all memorized!
+# - CALSO/2026-02-03: Here's a similar extension, but it doesn't work for me.
+#   - Says to enable via Tweaks, but I don't see any option to do so.
+#   - Also shows up under Installed Extensions marked *Error*, albeit
+#     I have a conflicting binding already on <Shift-Ctrl-Alt-O>, so
+#     maybe that's why.
+#     - The settings dialog nonetheless works, but I don't see an
+#       option to change the binding.
+#   https://github.com/slim8916/shortcuts-popup
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/shortcuts-gnome-extension]
+lib = remote_set starter https://gitlab.com/paddatrapper/shortcuts-gnome-extension.git shortcuts-gnome-extension
+lib =
+  OMR_GNOME_EXT_NAME="*Shortcuts* by *Chris*"
+  OMR_GNOME_EXT_UUID="Shortcuts@kyle.aims.ac.za"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/1144/shortcuts/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
+# ------------------------------------------------------------------------
+
+# REFER/2026-02-03: Veil lets you show/hide one or more Tob Bar
+# icons, but it also adds an icon to toggle state (so, e.g., if
+# you only want to hide a single Top Bar icon, you can hide it,
+# but then you're also adding a new Tob Bar icon for Veil...).
+
+[${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions/veil]
+lib = remote_set starter https://github.com/dagimg-dot/veil.git veil
+lib =
+  OMR_GNOME_EXT_NAME="*Veil* by *JD*"
+  OMR_GNOME_EXT_UUID="veil@dagimg-dot"
+  OMR_GNOME_EXT_URL="https://extensions.gnome.org/extension/8786/veil/"
+  OMR_GNOME_EXT_LOCAL="optional"
+include =
+  cat "${DEPOXYAMBERS_DIR:-${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers}/home/.kit/odd/gnome/_mrconfig--gnome-extensions-partial"
+
+# ========================================================================
 # ========================================================================
 # ------------------------------------------------------------------------
 
