@@ -125,10 +125,12 @@ HashiCorp
 Hasura
 Heredoc
 Hermitte
+Homebrew's
 Hono
 IPsec
 IaC
 Immich
+ImprovMX
 IndexedDB
 InfluxDB
 Inkscape
@@ -257,6 +259,7 @@ Supabase
 Symfony
 System76
 Tailscale
+Talos
 TanStack
 TextEdit
 Timeshift
@@ -379,6 +382,7 @@ iterm
 jQuery
 jq
 json
+k8s
 k9s
 keycode
 ksqlDB
