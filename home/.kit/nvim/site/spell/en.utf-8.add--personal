@@ -84,6 +84,7 @@ Elasticsearch
 ElectricSQL
 ElysiaJS
 Esc
+FFmpeg
 FIGlet
 FaceTime
 FastAPI
@@ -192,6 +193,7 @@ Netmaker
 NixOS
 NoSQL
 NotebookLM
+NumPy
 Nuxt
 Nvidia
 OAuth
@@ -251,6 +253,7 @@ SpiceDB
 SpiderMonkey
 Sqlean
 Squoosh
+StackBlitz
 StarRocks
 Strapi
 StubHub
@@ -284,6 +287,7 @@ VoidZero
 Vox
 WL
 WRKLG
+WebContainers
 WebSockets
 WebTransport
 Webex
@@ -295,7 +299,9 @@ Yjs
 ZeroTier
 Zig
 Zitron
+Zod
 ZooKeeper
+Zotero
 a11y
 ai
 allowlisted
