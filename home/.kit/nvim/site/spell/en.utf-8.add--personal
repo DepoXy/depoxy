@@ -8,6 +8,7 @@ AirDrop
 Alacritty
 Alacritty's
 AltTab
+Amavis
 AngularJS
 Ansible
 Ansible's
@@ -36,6 +37,7 @@ CPYST
 CXREF
 Caja
 CalDAV
+Calendly
 Calibri
 CamelCase
 Cantarell
@@ -50,12 +52,14 @@ CloudFormation
 CloudWatch
 Cloudflare's
 CoC
+CodeRabbit
 CodeSandbox
 Codeberg
 Codecov
 Codespaces
 Colab
 Colima
+Collabnix
 Cython
 DBeaver
 DBs
@@ -98,6 +102,7 @@ FileVault
 Firmlink
 Flathub
 Flatpak
+Flink
 GDScript
 GH
 GL
@@ -114,9 +119,11 @@ GeoServer
 Gi
 Gitea
 GraphQL
+Greptile
 HAProxy
 HN
 HSTRY
+Hacktoberfest
 Hadoop
 Hammerspoon
 Hammerspoon's
@@ -159,6 +166,7 @@ LaunchDaemons
 LazyVim
 LazyVim's
 Lerna
+Letterboxd
 Litestream
 LiveStore
 LocalLeader
@@ -246,6 +254,7 @@ RubyGems
 S3
 SSHd
 SSHing
+SVG
 SageMaker
 Siri
 SolidJS
@@ -255,6 +264,8 @@ Sqlean
 Squoosh
 StackBlitz
 StarRocks
+Stockfish
+StoryGraph
 Strapi
 StubHub
 StyleSheet
@@ -311,6 +322,7 @@ arg
 args
 auth
 backoff
+baz
 befinance
 bg
 blocklisted
@@ -425,6 +437,7 @@ myrepos
 nav
 neovim
 netrw
+nftables
 nginx
 notif
 notifs
@@ -465,6 +478,7 @@ slatherer
 spellfile
 sudo
 swappiness
+tRPC
 tig
 tig's
 tix
