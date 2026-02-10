@@ -66,6 +66,7 @@ lib = remote_set publish https://github.com/landonb/sh-pather.git
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-print-nanos-now]
 lib = remote_set publish https://github.com/landonb/sh-print-nanos-now.git
 
+# FIXME/2026-02-10: This is not published... though I don't think I use it, either.
 # Shell dependency loading boilerplate
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-source-deps-template]
 lib = remote_set publish https://github.com/DepoXy/sh-source-deps-template.git
