@@ -177,7 +177,10 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
   # - MAYBE: Rename or find new alias. Some thoughts:
   #   - `cdgo` would be complementary, but already assigned: ~/.kit/go.
   #   - `cdmg` is available, but not very compelling.
+  #     - TRYNG: We'll add `cdmg` and `cdmgo` for now, see if they get used.
   pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-GNOME-onboarder"
+  pushd_alias_or_warn "cdmg" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-GNOME-onboarder"
+  pushd_alias_or_warn "cdmgo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-GNOME-onboarder"
 
   # SOBVI/2024-06-25 02:49: Ha, BEGET: *urbandictionary skh* suggested *skibidi*
   pushd_alias_or_warn "cdms" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc"
