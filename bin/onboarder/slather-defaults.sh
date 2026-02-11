@@ -10,7 +10,7 @@
 
 # CXREF:
 #
-#   ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
+#   ~/.kit/mOS/macOS-GNOME-onboarder/bin/slather-defaults.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -302,8 +302,8 @@ depoxy_configure_remind_task_reopen_terminals_and_neovims() {
 slather_macos_defaults() {
   # Run the core `defaults` slatherer, and reminder-printer.
   #
-  # CXREF: ~/.kit/mOS/macOS-onboarder/bin/slather-defaults.sh
-  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/bin/slather-defaults.sh" "$@"
+  # CXREF: ~/.kit/mOS/macOS-GNOME-onboarder/bin/slather-defaults.sh
+  "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-GNOME-onboarder/bin/slather-defaults.sh" "$@"
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
@@ -412,7 +412,7 @@ main() {
   #   drop-down menus show the keybindings that Hammerspoon uses.
   #   - I know, right! Convoluted sol'n A'F.
 
-  # INERT/2025-09-07: This prints after macOS-onboarder manual tasks list,
+  # INERT/2025-09-07: This prints after macOS-GNOME-onboarder manual tasks list,
   # though it should ideally precede it...
   # - INERT: Too big a lift for no value-add other than better-grouped output.
 

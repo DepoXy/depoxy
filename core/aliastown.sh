@@ -172,7 +172,12 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
   # «Mwu-ha-ha-ha»
   pushd_alias_or_warn "cdmha" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/homebrew-autoupdate"
 
-  pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder"
+  # HSTRY/2026-02-11: Renamed macOS-onboarder → macOS-GNOME-onboarder.
+  # - `cdmo` is historical abbrev. for original path: ~/.kit/mOS/macOS-onboarder
+  # - MAYBE: Rename or find new alias. Some thoughts:
+  #   - `cdgo` would be complementary, but already assigned: ~/.kit/go.
+  #   - `cdmg` is available, but not very compelling.
+  pushd_alias_or_warn "cdmo" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-GNOME-onboarder"
 
   # SOBVI/2024-06-25 02:49: Ha, BEGET: *urbandictionary skh* suggested *skibidi*
   pushd_alias_or_warn "cdms" "${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-skhibidirc"

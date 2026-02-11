@@ -282,7 +282,7 @@ installDarwin =
   echo "- Verify the installed script:"
   echo "  fs \"${HOME}/Library/Application Support/com.github.domt4.homebrew-autoupdate/brew_autoupdate\""
   # NOTED/2024-06-27: This warning does not apply to us (no casks that are
-  # installed by macOS-onboarder/bin/install-homebrew.sh require sudo):
+  # installed by macOS-GNOME-onboarder/bin/install-homebrew.sh require sudo):
   # - Be aware "if you use Casks that require `sudo` to upgrade." Something
   #   something "known issues ... unless using `SUDO_ASKPASS`."
   #     https://github.com/Homebrew/homebrew-autoupdate/issues/40
@@ -370,9 +370,16 @@ order = 481
 
 # “It’s a turn, not a religion”
 # Opinionated `brew install` and `defaults` commands 🏂
-# https://github.com/DepoXy/macOS-onboarder#🏂
-[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder]
-lib = remote_set publish https://github.com/DepoXy/macOS-onboarder.git
+# https://github.com/DepoXy/macOS-GNOME-onboarder#🏂
+# - PREVY: Orig. macOS-onboarder, but then author added GNOME Shell GSettings
+#   onboarding (similar to macOS `defaults` onboard script), and also updated
+#   the install-homebrew.sh script so it supports both macOS and GNOME Shell.
+#   (I had also considered splitting the repo in three, e.g., macOS-onboarder,
+#   GNOME-onboarder, and brew-onboarder. But I also like having just one repo,
+#   which reinforces the underlying DepoXy goal to setup macOS and GNOME Shell
+#   mostly (5 nines?) identically.)
+[${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-GNOME-onboarder]
+lib = remote_set publish https://github.com/DepoXy/macOS-GNOME-onboarder.git
 order = 481
 updateDeps =
   # UNNEC: Ensure symlinks exist.

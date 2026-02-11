@@ -272,10 +272,11 @@ _dxy_add_on_demand_source_git_put_wise() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-# REFER: https://github.com/DepoXy/macOS-onboarder#🏂
+# REFER: https://github.com/DepoXy/macOS-GNOME-onboarder#🏂
 _dxy_add_on_demand_source_macOS_defaults_commands() {
-  # CXREF: ~/.kit/mOS/macOS-onboarder/lib/macOS-defaults-commands.sh
-  local defaults_cmds="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}/macOS-onboarder/lib/macOS-defaults-commands.sh"
+  # CXREF: ~/.kit/mOS/macOS-GNOME-onboarder/lib/macOS-defaults-commands.sh
+  local kit_macOS="${MOSREPOSPATH:-${DOPP_KIT:-${HOME}/.kit}/mOS}"
+  local defaults_cmds="${kit_macOS}/macOS-GNOME-onboarder/lib/macOS-defaults-commands.sh"
 
   if [ -f "${defaults_cmds}" ]; then
     eval "eval-macOS-defaults-commands () {

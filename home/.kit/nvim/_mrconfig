@@ -175,7 +175,7 @@ install =
   # us because homebrew-autoupdate will update it, well, every 24h,
   # so not necessarily "nightly", more correctly actually "daily").
   # - CXREF: See original brew-install task:
-  #   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
+  #   ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh
   brew unlink neovim
   brew install --HEAD neovim
   # E.g., /home/linuxbrew/.linuxbrew/bin/nvim

@@ -94,8 +94,8 @@ updateDeps = update_deps_shoilerplate
 
 [${DOPP_KIT:-${HOME}/.kit}/odd/homebrew/install]
 lib = remote_set starter https://github.com/Homebrew/install.git
-# CXREF: On macOS, installed via macOS-onboarder:
-#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
+# CXREF: On macOS, installed via macOS-GNOME-onboarder:
+#   ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh
 echoInstallHelp = echoInstallHelp 'os_linux' 'dxy_all'
 isInstalled = isInstalled_os_specific
 # Meh, this assumes Apple Silicon path, but b/c echoInstallHelp 'os_linux',
@@ -104,9 +104,9 @@ isInstalledDarwin = test "$(command -v brew)" = "/opt/homebrew/bin/brew"
 isInstalledLinux = test "$(command -v brew)" = "/home/linuxbrew/.linuxbrew/bin/brew"
 install = install_os_specific
 installDarwin =
-  # REFER: See macOS-onboarder `install_homebrew`.
-  >&2 warn "ERROR: Please use macOS-onboarder to install Homebrew:"
-  >&2 warn "  ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh"
+  # REFER: See macOS-GNOME-onboarder `install_homebrew`.
+  >&2 warn "ERROR: Please use macOS-GNOME-onboarder to install Homebrew:"
+  >&2 warn "  ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh"
   #
   return 1
 # REFER: https://docs.brew.sh
@@ -458,9 +458,9 @@ isInstalledDarwin = test -x "/Applications/LibreOffice.app/Contents/MacOS/soffic
 #  isInstalledLinux = test "$(command -v brew)" = "/home/linuxbrew/.linuxbrew/bin/brew"
 install = install_os_specific
 installDarwin =
-  # REFER: See macOS-onboarder `install_homebrew`.
-  >&2 warn "ERROR: Please use macOS-onboarder to install LibreOffice Homebrew cask:"
-  >&2 warn "  ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh"
+  # REFER: See macOS-GNOME-onboarder `install_homebrew`.
+  >&2 warn "ERROR: Please use macOS-GNOME-onboarder to install LibreOffice Homebrew cask:"
+  >&2 warn "  ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh"
   #
   return 1
 installLinux =

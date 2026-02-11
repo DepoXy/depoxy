@@ -26,7 +26,7 @@
 # - Debian: `apt install spotify-client`:
 #   ~/.kit/ansible/roles/zoidy_captivator/tasks/install-desktop-spotify.yml
 # - macOS: `BREW_INCLUDE_SPOTIFY`:
-#   ~/.kit/mOS/macOS-onboarder/bin/install-homebrew.sh
+#   ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh
 
 marco_toggle_spotify() {
   # E.g., '65012405'
