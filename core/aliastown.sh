@@ -250,11 +250,13 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
   # Two-letter Dopp Kit subdir jumper.  #2letter_cdjumper
   pushd_alias_or_warn "cdtx" "${DOPP_KIT:-${HOME}/.kit}/txt}"
 
-  pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
-  # Duplicate alias, because, ya know.
   pushd_alias_or_warn "cdej" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
-  # Another, b/c for some reason I can't remember either of the previous 2.
-  pushd_alias_or_warn "cdun" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
+  # ISOFF/2026-02-12: Since creating 3 aliases for same path, author
+  # finds they use `cdej` exclusively, and not `cdel` or `cdun`.
+  # - We'll remove `cdun`, but not `cdel`, because the latter follows the
+  #   typical `cd` alias convention (using the first letter of each word).
+  #   - Aside: The "un" in `cdun` stands for Unicode (I think!).
+  pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
 
   pushd_alias_or_warn "cdsp" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 
