@@ -258,6 +258,14 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
   #   - Aside: The "un" in `cdun` stands for Unicode (I think!).
   pushd_alias_or_warn "cdel" "${DOPP_KIT:-${HOME}/.kit}/txt/emoji-lookup"
 
+  # LATER/2026-02-12: Adding 3 aliases, to see which one "sticks".
+  # - While `cdnn` follows popular convention (using first letter
+  #   of each word), I'd bet I'll use `cdno`.
+  # - And don't really need `cdnom`, but it sounds fun.
+  pushd_alias_or_warn "cdnn" "${DOPP_KIT:-${HOME}/.kit}/txt/noname-notes"
+  pushd_alias_or_warn "cdno" "${DOPP_KIT:-${HOME}/.kit}/txt/noname-notes"
+  pushd_alias_or_warn "cdnom" "${DOPP_KIT:-${HOME}/.kit}/txt/noname-notes"
+
   pushd_alias_or_warn "cdsp" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 
   # *** ~/.downloads
