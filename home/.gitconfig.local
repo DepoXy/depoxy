@@ -71,6 +71,8 @@
   sort-by-scope = rebase-sort-by-scope-protected-private
   pwip = ! ( ! git diff --cached --quiet || git add -A ) && \
     git commit --no-verify -m '"PRIVATE: WIP"'
+  prip = ! ( ! git diff --cached --quiet || git add -A ) && \
+    git commit --no-verify -m '"PROTECTED: WIP"'
 
 [interactive]
 
