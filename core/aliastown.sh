@@ -532,6 +532,16 @@ _dxy_wire_alias_libreoffice() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF/2026-02-17:
+# ~/.kit/sh/raise-or-lower/bin/lower-all
+# ~/.kit/sh/raise-or-lower/bin/raise-all
+_dxy_wire_alias_raise_lower() {
+  claim_alias_or_warn "lower-all-chrome" "lower-all google-chrome"
+  claim_alias_or_warn "raise-all-chrome" "raise-all google-chrome"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_alias_tree() {
   # Include .hidden files by default on `tree`.
   # Also include .git/ subdirectories.
@@ -600,6 +610,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_libreoffice
   unset -f _dxy_wire_alias_libreoffice
+
+  _dxy_wire_alias_raise_lower
+  unset -f _dxy_wire_alias_raise_lower
 
   _dxy_wire_alias_tree
   unset -f _dxy_wire_alias_tree
