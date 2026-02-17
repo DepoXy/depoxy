@@ -502,14 +502,6 @@ _dxy_wire_alias_hexdump() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-_dxy_wire_alias_tree() {
-  # Include .hidden files by default on `tree`.
-  # Also include .git/ subdirectories.
-  claim_alias_or_warn "tree" "tree -a -I '.git'" ${_force:-true}
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
 # Wire LibreOffice aliases for macOS (`brew install --cask libreoffice`).
 # - Note on LM 21.3, LibreOffice is installed by default, and both
 #   `libreoffice` and `soffice` are on PATH (and both symlink the same
@@ -536,6 +528,14 @@ _dxy_wire_alias_libreoffice() {
   claim_alias_or_warn "soffice" "${macOS_soffice}"
 
   claim_alias_or_warn "libreoffice" "${macOS_soffice}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_wire_alias_tree() {
+  # Include .hidden files by default on `tree`.
+  # Also include .git/ subdirectories.
+  claim_alias_or_warn "tree" "tree -a -I '.git'" ${_force:-true}
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
@@ -598,11 +598,11 @@ _dxy_wire_aliases() {
   _dxy_wire_alias_hexdump
   unset -f _dxy_wire_alias_hexdump
 
-  _dxy_wire_alias_tree
-  unset -f _dxy_wire_alias_tree
-
   _dxy_wire_alias_libreoffice
   unset -f _dxy_wire_alias_libreoffice
+
+  _dxy_wire_alias_tree
+  unset -f _dxy_wire_alias_tree
 
   _dxy_wire_alias_wire_countdown_and_notify
   unset -f _dxy_wire_alias_wire_countdown_and_notify
