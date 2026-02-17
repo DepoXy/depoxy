@@ -213,7 +213,11 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
 
   pushd_alias_or_warn "cddi" "${SHOILERPLATE:-${HOME}/.kit/sh}/dot-inputrc"
 
+  pushd_alias_or_warn "cdgw" "${SHOILERPLATE:-${HOME}/.kit/sh}/gnome-window-calls"
+
   pushd_alias_or_warn "cdok" "${SHOILERPLATE:-${HOME}/.kit/sh}/gvim-open-kindness"
+
+  pushd_alias_or_warn "cdrl" "${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower"
 
   pushd_alias_or_warn "cdet" "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-err-trap"
 
