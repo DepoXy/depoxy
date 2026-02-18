@@ -330,6 +330,7 @@ befinance
 bg
 blocklisted
 blocklisting
+bool
 bsky
 builtins
 cd'd
