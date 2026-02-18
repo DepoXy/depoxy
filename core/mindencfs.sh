@@ -152,9 +152,14 @@ remind_restart_required() {
     reminded=true
   }
 
+  # Note the reboot-required file might be touched by a newer
+  # apt-upgrade, so use the birth (aka creation) time instead.
   local rr_file
   for rr_file in $(command ls ${rr_base}* 2> /dev/null); do
-    local mod=$(date -r "${rr_file}" +%s)
+    # File modification date in seconds since Epoch:
+    #   local mod=$(date -r "${rr_file}" +%s)
+    # File birth time in seconds since Epoch:
+    local mod=$(stat -c %W "${rr_file}")
     local now=$(date +%s)
     local days=$(expr \( ${now} - ${mod} \) / 86400)
     if test ${days} -gt ${days_since_rr}; then
@@ -164,8 +169,8 @@ remind_restart_required() {
     print_restart_reminder
 
     echo
-    echo "  \$ ls -l -- ${rr_file}"
-    command ls -l -- "${rr_file}" | sed 's/^/  /'
+    echo "  \$ ls -l --time=birth -- ${rr_file}"
+    command ls -l --time=birth -- "${rr_file}" | sed 's/^/  /'
 
     if [ -s "${rr_file}" ]; then
       echo
