@@ -80,6 +80,16 @@ _dxy_wire_alias_git_cin() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# This complements git-smart's `git cm` (similar to `git rc`/`rc`,
+# and `git abort`/`abort`). Alternatively, you can use `git ci -m`
+# or `git ci-m` (typo support!) from git-smart; or, in tig, press
+# 'C' to bring up commit message editor, provided by tig-newtons.
+_dxy_wire_alias_git_cm() {
+  claim_alias_or_warn "cm" "git commit --message"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_alias_git_rc() {
   claim_alias_or_warn "rc" "git rc"
 }
@@ -379,6 +389,9 @@ main() {
 
   _dxy_wire_alias_git_cin
   unset -f _dxy_wire_alias_git_cin
+
+  _dxy_wire_alias_git_cm
+  unset -f _dxy_wire_alias_git_cm
 
   _dxy_wire_alias_git_rc
   unset -f _dxy_wire_alias_git_rc
