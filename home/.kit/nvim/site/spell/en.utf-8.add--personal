@@ -367,6 +367,7 @@ dunamai
 envs
 errexit
 esbuild
+exiftool
 ext3
 ext4
 extmark
@@ -385,6 +386,8 @@ fses
 func
 funcs
 gRPC
+gThumb
+gThumb's
 geeklet
 geeklets
 genAI
@@ -484,6 +487,7 @@ skhd
 skhdrc
 slatherer
 spellfile
+sshfs
 stylua
 sudo
 swappiness
