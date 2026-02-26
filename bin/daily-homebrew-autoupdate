@@ -255,6 +255,21 @@ brew_upgrade_log_annotated() {
   print_command "brew upgrade"
   brew upgrade
 
+  # Because brew-upgrade won't fetch latest --HEAD, reinstall Neovim,
+  # which installs the latest commit.
+  # - This upgrade feels a little too specific for this mostly general
+  #   brew-upgrade script — but I don't want to add an additional cron
+  #   script; or to plumb some kind of extension option herein. On the
+  #   other hand, this is a DepoXy cron script, so feels right at home.
+  #   - Assumes you've run DepoXy's `mr -d ~/.kit/nvim/neovim/neovim/ install`,
+  #     or otherwise run `brew install --HEAD neovim`.
+  #   - CXREF: See OMR task, which installs --HEAD:
+  #       ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+  #     - See also onboarder, which installs lastest tagged release:
+  #       ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh
+  print_command "brew reinstall neovim"
+  brew reinstall neovim
+
   print_command "brew cleanup"
   brew cleanup
 
