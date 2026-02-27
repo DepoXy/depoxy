@@ -104,6 +104,7 @@ Flathub
 Flaticon
 Flatpak
 Flink
+GBs
 GDScript
 GH
 GL
@@ -118,6 +119,7 @@ Gemma
 GeoParquet
 GeoServer
 Gi
+GiBs
 Gitea
 GraphQL
 Greptile
@@ -154,6 +156,8 @@ JetBrains
 Jinja
 Jupyter
 K3s
+KBs
+KiBs
 Kibana
 Kiro
 LLMs
@@ -175,6 +179,7 @@ LocalLeader
 Lua
 Luc
 M2
+MBs
 MLOps
 MacDown
 MacPorts
@@ -185,6 +190,7 @@ MapReduce
 MapServer
 MariaDB
 Metabase
+MiBs
 MicroPython
 MinIO
 Modin
@@ -192,6 +198,7 @@ MongoDB
 Monokle
 Moonlander
 NERDCommenter
+NFSv4
 NOM
 NVMe
 Neovide
@@ -199,6 +206,7 @@ Neovide's
 Neovim
 NestJS
 NetBird
+NetFS
 Netmaker
 Nextcloud
 NixOS
@@ -277,11 +285,13 @@ StyleSheet
 Supabase
 Symfony
 System76
+TBs
 TWiT
 Tailscale
 Talos
 TanStack
 TextEdit
+TiBs
 Timeshift
 Timeshift's
 Traefik
@@ -365,6 +375,7 @@ dotenvx
 dotfile
 dotfiles
 dunamai
+eSATA
 envs
 errexit
 esbuild
@@ -459,6 +470,7 @@ patchkage
 patchkage's
 patchkages
 pdb
+peta
 pfSense
 pinentry
 pkgs
@@ -501,6 +513,9 @@ toml
 txns
 txt
 ungroup
+untrash
+untrashed
+untrashing
 uppercasing
 vCPU
 vals
