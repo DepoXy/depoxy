@@ -504,6 +504,7 @@ spellfiles
 sshfs
 stylua
 sudo
+sudoers
 swappiness
 tRPC
 tig
