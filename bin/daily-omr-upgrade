@@ -103,8 +103,12 @@ omr_upgrade_log_annotated() {
   # (via rebase_tip_merge_release, though merge--ff-only would be fine alt.).
   export PW_OPTION_IGNORE_AUTHOR=true
 
-  print_command "mr -d ~/.kit/nvim/neovide/neovide -n -M upgrade"
-  mr -d ${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide -n -M upgrade
+  if command -v neovide > /dev/null; then
+    print_command "mr -d ~/.kit/nvim/neovide/neovide -n -M upgrade"
+    mr -d ${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide -n -M upgrade
+  else
+    echo "! command -v neovide"
+  fi
 
   # ***
 
