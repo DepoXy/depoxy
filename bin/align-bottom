@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# THANX: From [GAIO], albeit I added INPUT_VAR usage, otherwise too many
+# blank lines, and nothing appears on screen:
+# https://www.google.com/search?q=linux+shell+watch+command+bottom+of+screen
+
+_USAGE__="
+  echo -e "hello\nworld" | align-bottom
+
+  # Perhaps useful for watch, e.g., if you have a terminal window poking
+  # out from below other windows, you could keep an eye on memory usage:
+  watch 'free -h | align-bottom'
+  # Or with highlight-differences:
+  watch -d 'free -k | align-bottom'
+"
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+align_bottom() {
+  local INPUT_VAR=$(cat)
+
+  local TERM_HEIGHT=$(tput lines)
+  local WATCH_BANNER_HEIGHT=2
+  let WATCH_BANNER_HEIGHT="WATCH_BANNER_HEIGHT + $(echo "${INPUT_VAR}" | wc -l)"
+  let VIS_LINES="TERM_HEIGHT - WATCH_BANNER_HEIGHT"
+
+  # Print blank lines to pad the output (pushing the output down)
+  yes "" | head -n $VIS_LINES
+
+  # Read in input and display it at the bottom
+  #  cat | tail -n $VIS_LINES
+  echo "${INPUT_VAR}" | tail -n $VIS_LINES
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main() {
+  align_bottom
+}
+
+main "$@"
