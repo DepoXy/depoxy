@@ -158,7 +158,10 @@ should_send() {
   if [ "${do_send}" -eq 0 ]; then
     mkdir -p -- "$(dirname -- "${ALERT_REBOOT_LAST_REMINDER}")"
 
-    touch -- "${ALERT_REBOOT_LAST_REMINDER}"
+    # Prevy: Was née a simple touchfile:
+    #   touch -- "${ALERT_REBOOT_LAST_REMINDER}"
+    # But now a *crumbfile*. #WORDS
+    echo "CRUMB: ALERT_REBOOT_LAST_REMINDER" > "${ALERT_REBOOT_LAST_REMINDER}"
   fi
 
   rm_datetime_files
