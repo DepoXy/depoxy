@@ -32,8 +32,8 @@ SEND_EMAIL_PRE_STYLE="style=\"font-family: Hack, 'DejaVu Sans Mono', monospace; 
 # ***
 
 # CXREF:
-# ~/.local/state/depoxy/last-reboot-reminder.touchfile
-ALERT_REBOOT_LAST_REMINDER="${HOME}/.local/state/depoxy/last-reboot-reminder.touchfile"
+# ~/.local/state/depoxy/reboot-reminder-alert.touchfile
+ALERT_REBOOT_LAST_REMINDER="${HOME}/.local/state/depoxy/reboot-reminder-alert.touchfile"
 
 # SAVVY: If you want to be alerted every X days, use (X-minus-1)-days-and-23-hours-ago
 # instead, otherwise, depending on the exact timing of the cron job, you might be alerted
