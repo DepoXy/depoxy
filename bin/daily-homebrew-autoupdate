@@ -110,8 +110,15 @@ ensure_deps_mr() {
 # ***
 
 brew_upgrade_capture_log() {
+  local brew_installed=true
+
   brew_upgrade_log_annotated 2>&1 \
     | log_and_maybe_echo
+
+  if ! ${brew_installed}; then
+
+    exit 0
+  fi
 }
 
 log_and_maybe_echo() {
@@ -239,6 +246,13 @@ EOF
 
 brew_upgrade_log_annotated() {
   print_header
+
+  if ! command -v brew > /dev/null; then
+    brew_installed=false
+    echo "! command -v brew"
+
+    return
+  fi
 
   print_command "brew update"
   brew update
