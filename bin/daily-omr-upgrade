@@ -86,9 +86,16 @@ omr_upgrade_capture_log() {
 # - The homebrew-autoupdate script brew-updates Neovim daily.
 # - We don't need to rebuild showmethekey daily.
 # - All we care about (currently) is Neovide.
+# - If we cared about not being tightly coupled,
+#   we'd run through all OMR projects:
+#     mr -d / -M upgrade
+#   but project traversal is inefficient.
+#   - So we'll target explicit projects instead.
 
 omr_upgrade_log_annotated() {
   print_header
+
+  # *** Neovide
 
   # REFER: LOG_LEVEL, MR_LOG_LEVEL, TIP_LOG_LEVEL (sep. vars. for diff. projects).
   export TIP_LOG_LEVEL=${MR_LOG_LEVEL:-${LOG_LEVEL_WARNING:-30}}
@@ -98,6 +105,8 @@ omr_upgrade_log_annotated() {
 
   print_command "mr -d ~/.kit/nvim/neovide/neovide -n -M upgrade"
   mr -d ${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide -n -M upgrade
+
+  # ***
 
   print_footer
 }
