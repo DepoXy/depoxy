@@ -189,7 +189,7 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
 
   # *** ~/.kit/nvim — Neovim and Vim plugins
 
-  # - DUPES: `cdn` and `cvp` (legacy)
+  # DUPES: `cdn` and `cvp` (legacy), `cdkn`.
   pushd_alias_or_warn "cdn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
 
   # *** ~/.kit/odd — Odd
@@ -401,6 +401,7 @@ _dxy_wire_aliases_pushd_paths_kit() {
   pushd_alias_or_warn "cdkj" "${DOPP_KIT:-${HOME}/.kit}/js"
   #  pushd_alias_or_warn "cdkm" "${DOPP_KIT:-${HOME}/.kit}/ml"
   pushd_alias_or_warn "cdkm" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
+  # DUPES: `cdn` and `cvp` (legacy), `cdkn`.
   pushd_alias_or_warn "cdkn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
   pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
   pushd_alias_or_warn "cdkge" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
