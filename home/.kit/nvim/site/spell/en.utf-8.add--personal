@@ -417,6 +417,7 @@ i11l
 iCloud
 iPadOS
 init
+inotify
 inputrc
 io
 iterm
@@ -511,6 +512,7 @@ tRPC
 tig
 tig's
 tix
+tmpfs
 tmux
 toml
 txns
