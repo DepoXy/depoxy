@@ -6,6 +6,16 @@
 
 # ***
 
+# UCASE: Upgrades Neovide nightly:
+#   mr -d ~/.kit/nvim/neovide/neovide -n -M upgrade
+
+__CPYST__="
+  # Peak at the log file.
+  less ~/.local/state/depoxy/log/omr-upgrade.out
+"
+
+# ***
+
 # DEVEL: To test from bare shell environment like cron uses, open
 # a shell without inheriting the current shell's environment,
 # then run this script:
