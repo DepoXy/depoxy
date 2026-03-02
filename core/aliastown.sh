@@ -403,6 +403,8 @@ _dxy_wire_aliases_pushd_paths_kit() {
   pushd_alias_or_warn "cdkm" "${MOSREPOSPATH:-${HOME}/.kit/mOS}"
   # DUPES: `cdn` and `cvp` (legacy), `cdkn`.
   pushd_alias_or_warn "cdkn" "${DOPP_KIT:-${HOME}/.kit}/nvim"
+  pushd_alias_or_warn "cdknv" "${DOPP_KIT:-${HOME}/.kit}/nvim/neovim/neovim"
+  pushd_alias_or_warn "cdknd" "${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide"
   pushd_alias_or_warn "cdko" "${DOPP_KIT:-${HOME}/.kit}/odd"
   pushd_alias_or_warn "cdkge" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
   pushd_alias_or_warn "cdkgn" "${DOPP_KIT:-${HOME}/.kit}/odd/gnome-extensions"
