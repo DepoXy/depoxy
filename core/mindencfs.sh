@@ -59,7 +59,7 @@ prepare_ssh_keys() {
 
   local exit_val=0
 
-  command 321open \
+  command 321open "$@" \
     || exit_val=$?
 
   if [ ${exit_val} -eq 0 ]; then
