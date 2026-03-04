@@ -266,35 +266,37 @@ brew_upgrade_log_annotated() {
   #   print_command "brew upgrade --cask -v"
   #   brew upgrade --cask -v
 
+  # ***
+
   print_command "brew upgrade"
   brew upgrade
 
   # Upgrade `brew install --HEAD` projects.
-  brew_upgrade_heads
+  # - E.g., for `brew install --HEAD neovim` users.
+  #   - CXREF: See OMR task, which installs --HEAD:
+  #       ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
+  #     - See also onboarder, which installs lastest tagged release:
+  #       ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh
+  # - Because we brew-upgrade first, these 2 commands should
+  #   not affect other installs (assuming no project happens to
+  #   push an updated formula after the previous brew-upgrade and
+  #   before the next brew-upgrade--fetch-HEAD).
+  #   - We could skip the previous `brew upgrade` and just call
+  #     `brew upgrade --fetch-HEAD`, if we wanted, because the
+  #     latter appears to update release installs, too. But it's
+  #     nice to have the two commands report separately in the log.
+  print_command "brew outdated --fetch-HEAD"
+  brew outdated --fetch-HEAD
+  #
+  print_command "brew upgrade --fetch-HEAD"
+  brew upgrade --fetch-HEAD
+
+  # ***
 
   print_command "brew cleanup"
   brew cleanup
 
   print_footer
-}
-
-# ***
-
-# Because brew-upgrade won't fetch latest --HEAD, reinstall Neovim,
-# which installs the latest commit.
-# - This upgrade feels a little too specific for this mostly general
-#   brew-upgrade script — but I don't want to add an additional cron
-#   script; or to plumb some kind of extension option herein. On the
-#   other hand, this is a DepoXy cron script, so feels right at home.
-#   - Assumes you've run DepoXy's `mr -d ~/.kit/nvim/neovim/neovim/ install`,
-#     or otherwise run `brew install --HEAD neovim`.
-#   - CXREF: See OMR task, which installs --HEAD:
-#       ~/.depoxy/ambers/home/.kit/nvim/_mrconfig
-#     - See also onboarder, which installs lastest tagged release:
-#       ~/.kit/mOS/macOS-GNOME-onboarder/bin/install-homebrew.sh
-brew_upgrade_heads() {
-  print_command "brew reinstall neovim"
-  brew reinstall neovim
 }
 
 # ***
