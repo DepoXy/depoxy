@@ -156,7 +156,7 @@ skip = mr_exclusive_nvim_core
 lib = remote_set starter https://github.com/neovim/neovim.git
 skip = mr_exclusive_nvim_core
 order = 810
-echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all'
+echoInstallHelp = echoInstallHelp 'os_all' 'dxy_all' 'brew install --HEAD'
 lib =
   # This lib is on-demand.
   . "${OHMYREPOS_LIB:-${GITREPOSPATH:-${HOME}/.kit/git}/ohmyrepos/lib}/print-homebrew-prefix.sh"
