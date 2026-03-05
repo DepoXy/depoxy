@@ -80,7 +80,7 @@ omr_upgrade_capture_log() {
 # ***
 
 # SAVVY/2025-11-02: There are currently only 3 DepoXy OMR projects that define an 'upgrade' action:
-#   [${DOPP_KIT:-${HOME}/.kit}/clang/neovim]
+#   [${DOPP_KIT:-${HOME}/.kit}/nvim/neovim/neovim]
 #   [${DOPP_KIT:-${HOME}/.kit}/nvim/neovide/neovide]
 #   [${DOPP_KIT:-${HOME}/.kit}/odd/gnome-shell/showmethekey]
 # - The homebrew-autoupdate script brew-updates Neovim daily.
