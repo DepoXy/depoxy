@@ -27,6 +27,8 @@ skip = no_travel || mr_exclusive_odd
 # ========================================================================
 # ------------------------------------------------------------------------
 
+# "A personal knowledge management and sharing system for VSCode."
+# https://foambubble.github.io/
 [${DOPP_KIT:-${HOME}/.kit}/odd/vscode/foam]
 lib = remote_set starter https://github.com/foambubble/foam.git
 skip = no_travel || mr_exclusive_odd
