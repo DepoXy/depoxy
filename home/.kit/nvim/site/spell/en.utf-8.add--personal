@@ -339,6 +339,7 @@ ai
 allowlisted
 allowlisting
 anycast
+appendable
 arg
 args
 auth
