@@ -143,7 +143,7 @@ omr_depoxy_infuse() {
   stderr_file="$(mktemp -t "depoxy_daily_homebrew--XXXX")"
 
   (
-    echo "\$ mr -d / infuse >/dev/null"
+    echo "\$ mr -d / infuse > /dev/null"
     mr -d / infuse > /dev/null
   ) 2> "${stderr_file}" \
     | log_and_maybe_echo
