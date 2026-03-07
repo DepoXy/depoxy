@@ -578,6 +578,7 @@ _dxy_wire_alias_wire_countdown_and_notify() {
   # MAYBE/2026-02-03: Ha, what about `alarm`? Or `alarm-countdown`?
   claim_alias_or_warn "alarm" "_dxy_countdown_and_notify"
 
+  # UCASE: Teabagging.
   claim_alias_or_warn "2m" "_dxy_countdown_and_notify 2m"
   claim_alias_or_warn "4m" "_dxy_countdown_and_notify 4m"
 }
