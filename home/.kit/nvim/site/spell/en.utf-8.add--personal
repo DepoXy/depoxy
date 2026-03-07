@@ -385,6 +385,7 @@ eSATA
 envs
 errexit
 esbuild
+executability
 exiftool
 ext3
 ext4
