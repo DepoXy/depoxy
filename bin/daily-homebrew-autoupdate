@@ -35,6 +35,31 @@ __CPYST__="
 
 # ***
 
+# FTREQ: Publish this file as its own project,
+#        and support running without DepoXy.
+#
+# - We'll need to add local brewskies.sh under deps/ (see ensure_deps_brew).
+#
+# - Also rename the DXY_* environs, and change the ~/.local/state
+#   subdir name to match the new project name.
+#
+# - But leave this file in DepoXy: Only spin-off the Homebrew
+#   calls, and leave the `mr` wiring herein.
+#
+#   - Then this file is still called from cron, but it'll
+#     call the new spin-off script before calling 'infuse'.
+#
+# - Perhaps: Name this project similarly to the popular macOS-only
+#   project https://github.com/Homebrew/homebrew-autoupdate — both
+#   to tie it to and distinguish it from that project — and albeit
+#   a little wordy, maybe something like:
+#
+#   Project: https://github.com/DepoXy/homebrew-autoupdate-with-linux-support#🆙
+#   Project: https://github.com/DepoXy/homebrew-autoupdate-LaunchAgents-free#🆙
+#   Project: https://github.com/DepoXy/homebrew-autoupdate-cron#🆙
+
+# ***
+
 # CALSO: Because homebrew-autoupdate is macOS-specific (because LaunchAgents):
 #   ~/.kit/mOS/homebrew-autoupdate
 # - CXREF:
