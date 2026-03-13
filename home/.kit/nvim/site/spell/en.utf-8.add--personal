@@ -465,6 +465,7 @@ mem
 memcached
 microSDHC
 microSDXC
+millis
 mobo
 monorepo
 monorepos
@@ -489,6 +490,7 @@ notif
 notifs
 nvim
 osascript
+params
 patchkage
 patchkage's
 patchkages
