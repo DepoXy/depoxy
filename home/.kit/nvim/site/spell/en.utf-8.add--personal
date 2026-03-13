@@ -126,6 +126,12 @@ GiBs
 Gitea
 GraphQL
 Greptile
+H1
+H2
+H3
+H4
+H5
+H6
 HAProxy
 HN
 HSTRY
@@ -229,6 +235,7 @@ OpenAI
 OpenAI's
 OpenAPI
 OpenClaw
+OpenMetrics
 OpenNext
 OpenSSH
 OpenSearch
@@ -354,6 +361,7 @@ bsky
 builtins
 cd'd
 chDB
+cli
 cmd
 cmdline
 columnarly
@@ -361,6 +369,7 @@ compcache
 conf
 cpp
 ctags
+d3
 dconf
 deb822
 dedents
@@ -415,6 +424,7 @@ gitconfig
 gitignore
 globbing
 gtk3
+gvim
 homefries
 hostname
 hrule
@@ -451,6 +461,7 @@ m4
 macFUSE
 maskable
 md
+mem
 memcached
 microSDHC
 microSDXC
@@ -466,11 +477,14 @@ msgs
 mturk
 multihoming
 myrepos
+nagios
 nav
+neovide
 neovim
 netrw
 nftables
 nginx
+nightlies
 notif
 notifs
 nvim
