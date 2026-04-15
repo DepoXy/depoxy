@@ -439,6 +439,7 @@ inputrc
 io
 iterm
 jQuery
+journalctl
 jq
 json
 k8s
@@ -501,6 +502,7 @@ pfSense
 pinentry
 pkgs
 popups
+printables
 proj
 psql
 pw
@@ -532,10 +534,12 @@ stylua
 sudo
 sudoers
 swappiness
+systemd
 tRPC
 tig
 tig's
 tix
+tmp
 tmpfs
 tmux
 toml
