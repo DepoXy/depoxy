@@ -441,6 +441,8 @@ _dxy_wire_alias_new_window_sensible_open() {
   # - TRICK/2022-03-09: Save a URL to file, e.g., a "*.lnk" file, then
   #   open from terminal, e.g., `ww $(cat some.lnk)`.
   claim_alias_or_warn "ww" "sensible-open"
+  # HSTRY/2026-04-20: I finally type `ww.` and not `ww .`, might as well support it.
+  claim_alias_or_warn "ww." "sensible-open ."
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
