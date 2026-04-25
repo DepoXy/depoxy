@@ -124,9 +124,11 @@ EOF
 }
 
 # Track once notified so you're not emailing day after day.
-# - Note the /tmp cleared on reboot, also maybe after some
-#   number of days (e.g., 30).
-#   — SPIKE: What service is that?
+# - Keep a touchfile under ~/.local/state/ that tells us we've notified.
+# - Note we don't use /tmp or /var/tmp for this touchfile because those
+#   might be periodically purged (e.g., files in /tmp that haven't been
+#   accessed in 10 days, or files in /var/tmp in 30 days; per config at
+#   /usr/lib/tmpfiles.d/tmp.conf and systemd-tmpfiles-clean.timer timer).
 should_send() {
   local do_send=1
 
