@@ -25,6 +25,7 @@ Asus
 Auth0
 AuthZed
 Avro
+Base64
 Bashcov
 BenQ
 BigQuery
@@ -511,6 +512,7 @@ px
 py3
 pydoc
 pyproject
+pyspread
 pytest
 python3
 reCAPTCHA
