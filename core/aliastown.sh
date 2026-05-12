@@ -500,6 +500,28 @@ _dxy_wire_alias_catfstab() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# HSTRY/2026-05-12: These commands are really more of a demo than a test...
+# (though one might run them to verify — aka test — that shell colors work).
+# - In author's shell, `dem<Tab>` has no other hits than these aliases;
+#   whereas `test<Tab>` has 7 completions (including coreutil's /bin/test).
+# - Also complements (name-wise) the new (from today) demo-pygmentize script:
+#
+# REFER: ~/.kit/sh/sh-colors/bin/
+_dxy_wire_alias_demo_colors() {
+  # ALTLY: To not rely on PATH setup (and DepoXy core/ startup timing):
+  #   local shcb="${SHOILERPLATE:-${HOME}/.kit/sh}/sh-colors/bin"
+  #   if [ -d "${shcb}" ]; then
+  #     claim_alias_or_warn "demo-colors" "${shcb}/test-colors"
+  #     claim_alias_or_warn "demo-truecolor" "${shcb}/test-truecolor"
+  #   fi
+  if command -v test-colors > /dev/null; then
+    claim_alias_or_warn "demo-colors" "test-colors"
+    claim_alias_or_warn "demo-truecolor" "test-truecolor"
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_alias_hexdump() {
   # Include ASCII.
   claim_alias_or_warn "hexdump" "hexdump -C" ${_force:-true}
@@ -613,6 +635,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_catfstab
   unset -f _dxy_wire_alias_catfstab
+
+  _dxy_wire_alias_demo_colors
+  unset -f _dxy_wire_alias_demo_colors
 
   _dxy_wire_alias_hexdump
   unset -f _dxy_wire_alias_hexdump
