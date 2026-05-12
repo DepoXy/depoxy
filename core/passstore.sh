@@ -77,7 +77,41 @@ _EOF
       echo -e "pass_safe version: $(print_head_dist_and_ref_name "${passstoresh_sha}") [${passstoresh_dat}]"
     )
   else
-    command pass "$@"
+    pass_exists() {
+      test -e "${PASSWORD_STORE_BASE:-${HOME}/.password-store}/$1.gpg"
+    }
+
+    # Ornot: We could override `pass show`, too, but let's not, so user
+    # can use for raw output. E.g., not this:
+    #   && ( ([ $# -eq 1 ] && pass_exists "$1") \
+    #     || ([ $# -eq 2 ] && [ "$1" = "${PASS_SHOW_CMD:-show}" ] && pass_exists "$2")); then
+    if command -v pygmentize > /dev/null && ([ $# -eq 1 ] && pass_exists "$1"); then
+      # Ensure (Kludge) post-:: blank lines.
+      # - Author convention, and for brevity/fewer lines: author's (Neo)Vim reST
+      #   highlighter allows `::` code blocks that do not start with blank line.
+      rst_pad_blocks() {
+        awk 'BEGIN {on=1;} /::$/{on=0; ln=$0; next} /^$/{if (!on) {next;}} {if (!on) {print ln; print ""}; on=1} on'
+      }
+
+      # Assume first line is password, 2nd blank, 3rd is (conventional) password entry
+      # details (typically: date/URL/email/login/password), 4th is 🔺🔺🔺 underline or
+      # blank, and 5th and subsequent lines may/may not be reStructuredText.
+      local ptext=""
+      if ptext="$(command pass "$@")"; then
+        # USAGE:
+        #   PASS_PYGSTYLE=github-dark pass foo
+        # local pygstyle="${PASS_PYGSTYLE:-github-dark}"
+        local pygstyle="${PASS_PYGSTYLE:-nord-darker}"
+        # local pygstyle="${PASS_PYGSTYLE:-paraiso-dark}"
+        # local pygstyle="${PASS_PYGSTYLE:-zenburn}"
+        # - Assume lexer is: restructuredtext, rst, rest
+        echo "${ptext}" | head -n 4
+        echo "${ptext}" | tail -n +5 | rst_pad_blocks \
+          | pygmentize -l ${PASS_PYGLEXER:-rst} -O style=${pygstyle}
+      fi
+    else
+      command pass "$@"
+    fi
   fi
 }
 
