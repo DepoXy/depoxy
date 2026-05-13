@@ -348,7 +348,7 @@ _dxy_pass_rst_remove_codeblock_leading_blanks__HARDC() {
 # - REFER:
 #
 #  - Demo pygmentize styles:
-#       ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#       INPUTF=/path/to/example.rst ~/.depoxy/ambers/bin/demo-pygmentize-styles
 #
 #    - See also:
 #       . ~/.depoxy/ambers/bin/demo-pygmentize-styles
@@ -364,8 +364,7 @@ _dxy_pass_rst_remove_codeblock_leading_blanks__HARDC() {
 #       cat some/file | pygmentize -l rst -O style=nord-darker
 #
 #   - Demo bat styles:
-#       . ~/.depoxy/ambers/bin/demo-pygmentize-styles
-#       demo_bat_styles__automated
+#       INPUTF=/path/to/example.rst ~/.depoxy/ambers/bin/demo-bat-styles
 #
 #   - Test bat via pass-safe:
 #     PASS_FMTR=bat PASS_BATSTYLE=DarkNeon pass <pass-name>
@@ -380,6 +379,21 @@ _dxy_pass_rst_remove_codeblock_leading_blanks__HARDC() {
 #
 # Note that DarkNeon is only bat theme that colors code blocks specially;
 # and that no bat themes italicize *italics* (though most specially color).
+#
+# SAVVY: Our code herein mostly kludges the reST document before feeding it
+# to pygmentize.
+# - E.g., it'll ensure there's exactly one blank line between the double-colon
+#   `::` line and the first line of a code block; otherwise pygmentize won't
+#   highlight the code block, e.g., if there's no blank line after the `::`
+#   line, or if there are two or more blank lines, then pygmentize won't
+#   recognize the code block (the latter of which is not in the reST spec,
+#   AFAIK; you should be allowed to use 1 or more blank lines after `::`).
+# - BWARE: If you use a single-line code block not followed by a blank line,
+#   pygementize *might not* highlight the code block (it *sometimes* works).
+#   - The is the only kludge *not* implemented herein, AFAIK (because
+#     determining the end of a code block, and afterwards deciding which
+#     blank to remove after code blocks, sounds trickier than the other
+#     kludges we've already implemented).
 
 _dxy_pass_show() {
   local fmtr="${PASS_FMTR:-pygmentize}"
