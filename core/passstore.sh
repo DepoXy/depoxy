@@ -46,24 +46,40 @@ _dxy_pass_safe() {
 
     command pass "$@"
 
+    # SAVVY/2026-05-13: Cannot source /usr/bin/pass to read environ(s)
+    # (Ucase: For help text, e.g., ${PASSWORD_STORE_CLIP_TIME}),
+    # because `pass` itself doesn't support it:
+    #   # Runs when sourced, prints entire tree, then exits (hence subshell).
+    #   $ (. ~/.local/bin/pass)
+    #   ...
+    # - DEBAR/FTREQ: You could make the pass fork sourceable, but really
+    #   not worth the effort. / CXREF:
+    #     ~/.local/bin/pass  # Copy-installed from:
+    #     ~/.kit/sh/password-store/src/password-store.sh
+
     cat <<- _EOF
 
-Additional commands from DepoXy:
+Additional 🙲 Enhanced commands from DepoXy:
     $PROGRAM pass-name
-        Like pass-show, but format output as reST. / Set PASS_FMTR to change formatter, e.g.:
+        Like pass-show, but formats output as reST. / Set PASS_FMTR to change formatter, e.g.:
             PASS_FMTR=pygmentize PASS_PYGSTYLE=nord-darker pass pass-name  # default formatter
-            PASS_FMTR=bat PASS_BATSTYLE=DarkNeon pass pass-name
-        Some other styles:
-            PASS_FMTR=pygmentize PASS_PYGSTYLE=github-dark pass pass-name
-            PASS_FMTR=pygmentize PASS_PYGSTYLE=paraiso-dark pass pass-name
-            PASS_FMTR=pygmentize PASS_PYGSTYLE=zenburn pass pass-name
-
+            PASS_FMTR=bat        PASS_BATSTYLE=DarkNeon    pass pass-name
+        Some other styles: PASS_PYGSTYLE=github-dark|paraiso-dark|zenburn|etc.
+    $PROGRAM edit [--ext=extension,-e extension] pass-name
+        Inserts a new password or edits an existing password using your preferred EDITOR
+        (currently set to: ${EDITOR}).
+        - Uses reST filetype (unless overridden via --ext) for syntax highlighting, etc.
+        - If using DepoXy's EDITOR, wires Neovim to exit on save, etc.
     $PROGRAM gen pass-name
-        Generate a new password via prompts (for website URL, username, email, and logon URL).
-        (Although note that tab completion not currently supported.)
-
+        Generates a new password via prompts (for website URL, username, email, and logon URL)
+        using conventional DepoXy pass entry structure. (Tho note tab completion unsupported.)
+    $PROGRAM help
+        Shows this text (including DepoXy enhancements).
+    $PROGRAM version
+        Shows version information (including DepoXy version).
     passcp pass-name
-        Show password; and copy first line to clipboard, for limited time.
+        Shows password entry and copies first line to clipboard, for limited time (per environ,
+        PASSWORD_STORE_CLIP_TIME, which defaults to 45s).
 _EOF
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
     command pass "$@"
