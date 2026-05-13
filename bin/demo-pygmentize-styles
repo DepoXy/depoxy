@@ -16,7 +16,6 @@
 #   ~/.depoxy/ambers/bin/demo-pygmentize-styles
 #
 #   # 2) Demo only those styles that work better with rst in the terminal (IMHO):
-#   INPUTF=~/PRINT_ME.rst
 #   . ~/.depoxy/ambers/bin/demo-pygmentize-styles
 #   demo_pygmentize_styles_best_rst
 
@@ -127,6 +126,34 @@ demo_pygmentize_style() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+pygmentize_list_all() {
+  pygmentize -L
+}
+
+pygmentize_list_lexers_raw() {
+  pygmentize -L lexers
+}
+
+pygmentize_list_formatters_raw() {
+  pygmentize -L formatters
+}
+
+pygmentize_list_styles_raw() {
+  pygmentize -L styles
+}
+
+pygmentize_list_filters_raw() {
+  pygmentize -L filters
+}
+
+# ***
+
+pygmentize_list_styles() {
+  pygmentize_list_styles_raw | grep -e "^\* " | sed 's/\* \(.*\):$/\1/'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 prompt_user_to_continue() {
   printf "Continue? [Y/n] "
 
@@ -156,34 +183,6 @@ prompt_user_to_continue() {
   fi
 
   return 1
-}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-
-pygmentize_list_all() {
-  pygmentize -L
-}
-
-pygmentize_list_lexers_raw() {
-  pygmentize -L lexers
-}
-
-pygmentize_list_formatters_raw() {
-  pygmentize -L formatters
-}
-
-pygmentize_list_styles_raw() {
-  pygmentize -L styles
-}
-
-pygmentize_list_filters_raw() {
-  pygmentize -L filters
-}
-
-# ***
-
-pygmentize_list_styles() {
-  pygmentize_list_styles_raw | grep -e "^\* " | sed 's/\* \(.*\):$/\1/'
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
