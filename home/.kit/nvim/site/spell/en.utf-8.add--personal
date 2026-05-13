@@ -515,6 +515,7 @@ pwd
 px
 py3
 pydoc
+pygmentize
 pyproject
 pyspread
 pytest
@@ -575,6 +576,7 @@ webhooks
 whois
 worklogs
 x16
+x1b
 zeroer
 zram
 zswap
