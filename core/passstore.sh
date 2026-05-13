@@ -11,6 +11,8 @@
 #   - Enable <Ctrl-S> binding that calls `:wq`, i.e., fast save-exit.
 # - Add `pass gen <path>` command, to create new password entries
 #   using a conventional formatting.
+# - Wrap default `pass` show command (but not `pass show`):
+#   - Format terminal rst output (using pygmentize or bat).
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -47,9 +49,21 @@ _dxy_pass_safe() {
     cat <<- _EOF
 
 Additional commands from DepoXy:
+    $PROGRAM pass-name
+        Like pass-show, but format output as reST. / Set PASS_FMTR to change formatter, e.g.:
+            PASS_FMTR=pygmentize PASS_PYGSTYLE=nord-darker pass pass-name  # default formatter
+            PASS_FMTR=bat PASS_BATSTYLE=DarkNeon pass pass-name
+        Some other styles:
+            PASS_FMTR=pygmentize PASS_PYGSTYLE=github-dark pass pass-name
+            PASS_FMTR=pygmentize PASS_PYGSTYLE=paraiso-dark pass pass-name
+            PASS_FMTR=pygmentize PASS_PYGSTYLE=zenburn pass pass-name
+
     $PROGRAM gen pass-name
         Generate a new password via prompts (for website URL, username, email, and logon URL).
         (Although note that tab completion not currently supported.)
+
+    passcp pass-name
+        Show password; and copy first line to clipboard, for limited time.
 _EOF
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
     command pass "$@"
@@ -76,42 +90,358 @@ _EOF
       passstoresh_dat="$(git log -1 --pretty=format:%cs -- core/passstore.sh)"
       echo -e "_dxy_pass_safe version: $(print_head_dist_and_ref_name "${passstoresh_sha}") [${passstoresh_dat}]"
     )
+  elif ([ $# -eq 1 ] && _dxy_pass_exists "$1"); then
+    # Override `pass <pass-name>`, but not `pass show <pass-name>`,
+    # so user can run latter for raw output.
+    _dxy_pass_show "$@"
   else
-    pass_exists() {
-      test -e "${PASSWORD_STORE_BASE:-${HOME}/.password-store}/$1.gpg"
+    command pass "$@"
+  fi
+}
+
+# ***
+
+_dxy_pass_exists() {
+  test -e "${PASSWORD_STORE_BASE:-${HOME}/.password-store}/$1.gpg"
+}
+
+# Strip ASCII/term color escape sequence codes, e.g., \1b[38;2;165;214;255m.
+# - USYNC: Same regex used by strip-colors:
+#     strip_colors() {
+#       /usr/bin/env sed -E "s/\x01?\x1B\[([0-9]{1,2}(;[0-9]{1,3})*)?[mGK]\x02?//g" "$@"
+#     }
+#   - CXREF:
+#     ~/.kit/sh/sh-colors/bin/strip-colors @ 18
+PASS_ESCSEQ=${PASS_ESCSEQ:-'\x01?\x1B\[([0-9]{1,2}(;[0-9]{1,3})*)?[mGK]\x02?'}
+PASS_ESCSEQ_DBL_COLON="(${PASS_ESCSEQ})*:(${PASS_ESCSEQ})*:(${PASS_ESCSEQ})*"
+
+_dxy_pass_strip_colors_blank_lines() {
+  # Maybe: Remove all lines without any printables.
+  # - It's probably safe.
+  #   - I doubt pygmentize or bat span color codes across newlines.
+  #  /usr/bin/env sed -E "s/^(${PASS_ESCSEQ})*\s+(${PASS_ESCSEQ})*$//g" "$@"
+
+  /usr/bin/env sed -E "s/^(${PASS_ESCSEQ})+\s+(${PASS_ESCSEQ})+$//g" "$@"
+}
+#
+# Prevy: Hardcoded:
+_dxy_pass_strip_colors_blank_lines__HARDC() {
+  local escseq="\x01?\x1B\[([0-9]{1,2}(;[0-9]{1,3})*)?[mGK]\x02?"
+  /usr/bin/env sed -E "s/^${escseq}\s+${escseq}$//g" "$@"
+}
+
+_dxy_pass_remove_trailing_blank_line() {
+  sed '${/^$/d;}'
+}
+
+# ***
+
+# BWARE: Note that pygmentize is stricter than reST spec about code blocks.
+#
+# - KLUGE: For pygmentize, three (out-of-spec) kludges:
+#   - †) A code-block is not recognized if `::` is on a bullet/list item line.
+#   - ‡) A single-line `::` code block is not always recognized by pygmentize.
+#   - ¶) A `::` and its code block must be separated *by exactly!* 1 blank ln.
+#
+# - On the contrary, unlike pygmentize:
+#   - The `bat` formatter honors the reST code block spec better, e.g.:
+#       echo -e "- WORKS::\n\n  This is a code block" | bat -l rst --style plain --theme DarkNeon
+#       echo -e "WORKS ✓::\n\n  Also is a code block" | bat -l rst --style plain --theme DarkNeon
+#   - It's technically too loose, however:
+#       echo -e "WORKS!::\n Ope! A code block" | bat -l rst --style plain --theme DarkNeon
+#     - I.e., it recognizes a code-block after `::` but without an intervening blank link.
+#       - (This is actually what the author prefers, and is how the author's (Neo)Vim env.
+#          is configured, to highlight code blocks after `::` without requiring blank line
+#          between `::` and the code block. But it's against spec. (Though implementing said
+#          behavior does not break anything else!))
+#
+# †) As mentioned above, `::` cannot end a list item line.
+# - I.e., a bulleted `::` line *does not* work!? (Srsly, huh).
+# - So this simpler code won't work, which ensures a blank line follows `::`:
+#     awk 'BEGIN {on=1;}
+#       /::$/{on=0; ln=$0; next}
+#       /^$/{if (!on) {next;}}
+#       {if (!on) {print ln; print ""}; on=1}
+#       on'
+# - E.g., this is not a code block to pygmentize:
+#
+#       - Wrong::
+#
+#         Not a code block
+#
+# - This works instead (`::` not bulleted):
+#
+#       Correct::
+#
+#         I'm a code block!
+#
+#   - (Ugh, pygmentize is so/too/overly strict!)
+# - An example:
+#     echo -e "- BROKN::\n\n  Why isn't this a code block??!\n " | pygmentize -l rst -O style=nord-darker
+#   - So this won't work:
+#     awk 'BEGIN {on=1;}
+#       /::$/{on=0; ln=$0; next}
+#       /^$/{if (!on) {next;}} {if (!on) {print ln; print ""}; on=1}
+#       on'
+#
+# ‡) As also mentioned above, not all single-line code blocks are recognized correctly.
+# - There must additional content, or *a line with a space*, after the single-line code block.
+#   - (This is esp. a problem for the author, who pretty ends every pass entry with a code
+#      block, specifically a copy-pasteable `sensible-open <URL>` snippet.)
+# - E.g., this won't work:
+#     echo -e "BROKN::\n\n  This *is not* a code block!?" | pygmentize -l rst -O style=nord-darker
+#     echo -e "BROKN::\n\n  Nor is this a code block  \n" | pygmentize -l rst -O style=nord-darker
+#     echo -e "BROKN::\n\n  Nor is this a code block\n\n" | pygmentize -l rst -O style=nord-darker
+#   - But if you add a trailing space, it (magically!) works!:
+#     echo -e "WORKS::\n\n  This is (*finally*) a code block\n " | pygmentize -l rst -O style=nord-darker
+#   - Or making it not single-line:
+#     echo -e "WORKS::\n\n  Adding a second line\n  also works" | pygmentize -l rst -O style=nord-darker
+
+# REFER: See `_dxy_pass_rst_pad_blocks` removers/reverters:
+#     ... |
+#     _dxy_pass_strip_colors_blank_lines |
+#     _dxy_pass_remove_trailing_blank_line |
+#     _dxy_pass_restore_double_colon_code_block_leaders
+
+# CPYST:
+#   . ~/.depoxy/ambers/core/passstore.sh ; \
+#     echo -e "foo bar buzz::\n\n\n XXX" |
+#       _dxy_pass_rst_pad_blocks
+
+_dxy_pass_rst_pad_blocks() {
+  # KLUGE: †) Ensure `::` is on its own line (kludge for pygmentize; bat works fine without).
+  # SAVVY: gsub() mutates the variable (ln), so just need to print it afterwards.
+  # SAVVY: ¶) You'd think we only need to kludge when `::` follows text, e.g.:
+  #            /[^^]${PASS_ESCSEQ_DBL_COLON}\$/ { on=0; ln=\$0; next }
+  #          But also kludge `::`-only lines (/^::$/) to ensure `::` is
+  #          *followed by only 1 blank line* to _appease_ pygmentize (/ugh).
+  awk "
+    BEGIN { on = 1; }
+    /${PASS_ESCSEQ_DBL_COLON}\$/ { on = 0; ln = \$0; next; }
+    /^\$/ { if (!on) { next; }; }
+    { if (!on) {
+        gsub(/${PASS_ESCSEQ_DBL_COLON}\$/, \"\", ln);
+        print ln;
+        print \"${PASS_CODEBLOCKMAGIC}::\";
+        print \"\";
+      };
+      on = 1;
     }
+    on"
+  # KLUGE: ‡) So trailing single-line code blocks work.
+  echo " "
+}
+#
+# Prevy: Hardcoded:
+_dxy_pass_rst_pad_blocks__HARDC() {
+  # KLUGE: †) Ensure `::` is on its own line (for pygmentize; or use bat).
+  awk '
+    BEGIN { on = 1; }
+    /::$/ { on = 0; ln = $0; next; }
+    /^$/ { if (!on) { next; }; }
+    { if (!on) { gsub(/::$/, "", ln); print "::"; print "" }; on = 1; }
+    on'
+  # KLUGE: ‡) So trailing single-line code blocks work.
+  echo " "
+}
 
-    # Ornot: We could override `pass show`, too, but let's not, so user
-    # can use for raw output. E.g., not this:
-    #   && ( ([ $# -eq 1 ] && pass_exists "$1") \
-    #     || ([ $# -eq 2 ] && [ "$1" = "${PASS_SHOW_CMD:-show}" ] && pass_exists "$2")); then
-    if command -v pygmentize > /dev/null && ([ $# -eq 1 ] && pass_exists "$1"); then
-      # Ensure (Kludge) post-:: blank lines.
-      # - Author convention, and for brevity/fewer lines: author's (Neo)Vim reST
-      #   highlighter allows `::` code blocks that do not start with blank line.
-      rst_pad_blocks() {
-        awk 'BEGIN {on=1;} /::$/{on=0; ln=$0; next} /^$/{if (!on) {next;}} {if (!on) {print ln; print ""}; on=1} on'
-      }
+# CPYST:
+#   . ~/.depoxy/ambers/core/passstore.sh ; \
+#     echo -e "\nfoo\n\nbar\n\nqux quux quuz\n${PASS_CODEBLOCKMAGIC}::\n\n\n XXX" |
+#       _dxy_pass_restore_double_colon_code_block_leaders
 
-      # Assume first line is password, 2nd blank, 3rd is (conventional) password entry
-      # details (typically: date/URL/email/login/password), 4th is 🔺🔺🔺 underline or
-      # blank, and 5th and subsequent lines may/may not be reStructuredText.
-      local ptext=""
-      if ptext="$(command pass "$@")"; then
-        # USAGE:
-        #   PASS_PYGSTYLE=github-dark pass foo
-        # local pygstyle="${PASS_PYGSTYLE:-github-dark}"
-        local pygstyle="${PASS_PYGSTYLE:-nord-darker}"
-        # local pygstyle="${PASS_PYGSTYLE:-paraiso-dark}"
-        # local pygstyle="${PASS_PYGSTYLE:-zenburn}"
-        # - Assume lexer is: restructuredtext, rst, rest
-        echo "${ptext}" | head -n 4
-        echo "${ptext}" | tail -n +5 | rst_pad_blocks \
-          | pygmentize -l ${PASS_PYGLEXER:-rst} -O style=${pygstyle}
-      fi
+PASS_CODEBLOCKMAGIC="${PASS_CODEBLOCKMAGIC:-Súper secreto mágico}"
+
+_dxy_pass_restore_double_colon_code_block_leaders() {
+  awk "
+    BEGIN { first = 1; }
+    /^(${PASS_ESCSEQ})*${PASS_CODEBLOCKMAGIC}${PASS_ESCSEQ_DBL_COLON}\$/ {
+      print prev \"::\"; first = 1; next;
+    }
+    { if (!first) { print prev; }; prev = \$0; first = 0; next; }
+    { print \"GAFFE: Unreachable\"; }
+    END { if (prev) { print prev; }; }
+  "
+}
+
+# ***
+
+# Remove all blank lines following line ending with `::`,
+# accounting for optional/possible color escape sequence.
+#
+# - E.g., remove the following characters (marked "!"):
+#
+#   $ echo "$(fg_orange)::$(attr_reset)" | hexdump
+#   ... 6d) 3a 3a 1b 5b 30 6d 0a 0a (1b 5b ...
+#   #        :  :  !  !  !  ! \n \n
+#
+# BWARE: You cannot awk /\x5b/ or /\x5c/ (or ~ "\x5b" or ~ "\x5c")
+# because it'll error, e.g.:
+#
+#   $ echo "foo" | awk '/\x5a/ {print "matchd";}'
+#
+#   $ echo "foo" | awk '/\x5b/ {print "matchd";}'
+#   awk: cmd. line:1: error: Invalid regular expression: /\/
+#
+#     # \x5b is "[", which is regex command, prob. why \x5b
+#     # doesn't work; but using "[" produces diff. error:
+#
+#     $ echo "foo" | awk '/[/ {print "matchd";}'
+#     awk: cmd. line:1: /[/ {print "matchd";}
+#     awk: cmd. line:1:  ^ unterminated regexp
+#
+#   $ echo "foo" | awk '/\x5c/ {print "matchd";}'
+#   awk: cmd. line:1: error: Trailing backslash: /\/
+#
+#     # \x5b is "\", which is regex escape, possibly why \x5c
+#     # doesn't work.
+#
+#     # - This seems like expected error:
+#     $ echo "foo" | awk '/\/ {print "matchd";}'
+#     awk: cmd. line:1: /\/ {print "matchd";}
+#     awk: cmd. line:1:  ^ unterminated regexp
+#
+#     $ echo "foo" | awk '/\\/ {print "matchd";}'
+#     # No output/error.
+#
+#   $ echo "foo" | awk '/\x5d/ {print "matchd";}'
+#
+#     # Works.
+#     # - So does using ASCII value for \x5d, "]", e.g.:
+#     $ echo "foo" | awk '/]/ {print "matchd";}'
+#     # No output/error.
+
+_dxy_pass_rst_remove_codeblock_leading_blanks() {
+  awk "
+    BEGIN { on = 1; }
+    /${PASS_ESCSEQ_DBL_COLON}\$/ { on = 0; print; next; }
+    /^\$/ { if (!on) { next; }; }
+    { on = 1; }
+    on"
+}
+#
+# Prevy: Hardcoded:
+_dxy_pass_rst_remove_codeblock_leading_blanks__HARDC() {
+  # USYNC: `strip_colors`:
+  #   ~/.kit/sh/sh-colors/bin/strip-colors @ 18
+  awk '
+    BEGIN { on = 1; }
+    /::\x01?\x1b\[([0-9]{1,2}(;[0-9]{1,3})*)?[mGK]\x02?$/ { on = 0; print; next; }
+    /^$/ { if (!on) { next; }; }
+    { on = 1; }
+    on'
+}
+
+# ***
+
+# Our pass-show wrapper formats the pass output as rst.
+#
+# - It defaults to using pygmentize, though neither pygmentize
+#   nor bat is "perfect".
+#
+# - Some pygmentize styles print reST *italics* in italics,
+#   but no bat styles do.
+#
+# - pygmentize is very particular about `::` code blocks,
+#   whereas bat is very forgiving about `::` formatting.
+#
+# - REFER:
+#
+#  - Demo pygmentize styles:
+#       ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#
+#    - See also:
+#       . ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#       demo_pygmentize_styles_best_rst
+#
+#   - Test bat via pass-safe:
+#     PASS_FMTR=pygmentize PASS_PYGSTYLE=nord-darker pass <pass-name>
+#
+#     - List pygmentize styles:
+#       pygmentize -L styles
+#
+#   - Test bat directly:
+#       cat some/file | pygmentize -l rst -O style=nord-darker
+#
+#   - Demo bat styles:
+#       . ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#       demo_bat_styles__automated
+#
+#   - Test bat via pass-safe:
+#     PASS_FMTR=bat PASS_BATSTYLE=DarkNeon pass <pass-name>
+#
+#     - List bat styles:
+#       bat --list-themes
+#       # Less verbose:
+#       bat --list-themes | cat
+#
+#   - Test bat directly:
+#       cat some/file | bat -l -rst --style plain --theme DarkNeon --color always
+#
+# Note that DarkNeon is only bat theme that colors code blocks specially;
+# and that no bat themes italicize *italics* (though most specially color).
+
+_dxy_pass_show() {
+  local fmtr="${PASS_FMTR:-pygmentize}"
+  # local fmtr="${PASS_FMTR:-bat}"
+
+  if ! command -v ${fmtr} > /dev/null; then
+    command pass "$@"
+
+    >&2 echo -e "\nERROR: Missing PASS_FMTR command: ${fmtr}"
+
+    return 0
+  fi
+
+  # Assume first line is password, 2nd blank, 3rd is (conventional) password entry
+  # details (typically: date/URL/email/login/password), 4th is 🔺🔺🔺 underline or
+  # blank, and 5th and subsequent lines may/may not be reStructuredText.
+  local partial_head_n=4
+  # E.g., partial_tail_n=5
+  local partial_tail_n
+  let 'partial_tail_n = partial_head_n + 1'
+
+  local ptext=""
+  if ptext="$(command pass "$@")"; then
+    # USAGE:
+    #   PASS_PYGSTYLE=github-dark pass foo
+    #
+    # local pygstyle="${PASS_PYGSTYLE:-github-dark}"
+    local pygstyle="${PASS_PYGSTYLE:-nord-darker}"
+    # local pygstyle="${PASS_PYGSTYLE:-paraiso-dark}"
+    # local pygstyle="${PASS_PYGSTYLE:-zenburn}"
+    #
+    # - Assume lexer is: restructuredtext, rst, rest
+    echo "${ptext}" | head -n ${partial_head_n}
+    if [ "${fmtr}" = "pygmentize" ]; then
+      echo "${ptext}" | tail -n +${partial_tail_n} \
+        | _dxy_pass_rst_pad_blocks \
+        | pygmentize -l ${PASS_PYGLEXER:-rst} -O style=${pygstyle} \
+        | _dxy_pass_strip_colors_blank_lines \
+        | _dxy_pass_remove_trailing_blank_line \
+        | _dxy_pass_restore_double_colon_code_block_leaders \
+        | _dxy_pass_rst_remove_codeblock_leading_blanks
+    elif [ "${fmtr}" = "bat" ]; then
+      # Savvy: Don't need :: followed by blank line for it to work,
+      # unlike pygmentize, so skip _dxy_pass_rst_pad_blocks
+      # and _dxy_pass_restore_double_colon_code_block_leaders.
+      #
+      # - This works from terminal:
+      #     echo -e '::\n  foo' | bat -l rst --style plain --theme DarkNeon
+      # - But not highlighted when same is piped from `pass` output.
+      echo "${ptext}" | tail -n +${partial_tail_n} \
+        | bat -l ${PASS_BATLEXER:-rst} --style plain --theme "${PASS_BATSTYLE:-DarkNeon}" --color always \
+        | _dxy_pass_strip_colors_blank_lines \
+        | _dxy_pass_remove_trailing_blank_line \
+        | _dxy_pass_rst_remove_codeblock_leading_blanks
     else
-      command pass "$@"
+      echo "${ptext}" | tail -n +${partial_tail_n}
+      >&2 echo "ERROR: Unknown PASS_FMTR: ${fmtr}"
     fi
+  else
+    echo "${ptext}" | tail -n +${partial_tail_n}
+    command pass "$@"
+    >&2 echo "ERROR: Missing PASS_FMTR: ${fmtr}"
   fi
 }
 
@@ -204,7 +534,10 @@ ${pass_line_sans_pwd//?/ }🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_aliases_pass() {
-  alias pass='_dxy_pass_safe'
+  claim_alias_or_warn "pass" "_dxy_pass_safe" ${_force:-true}
+
+  # Print password (pass-show), then copy to clipboard (pass show -c).
+  claim_alias_or_warn "passcp" '_f() { _dxy_pass_safe \"\$@\"; echo; _dxy_pass_safe show -c \"\$1\"; }; _f'
 }
 
 _dxy_wire_aliases() {
