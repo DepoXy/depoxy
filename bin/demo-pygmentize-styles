@@ -30,7 +30,6 @@
 #   - Using getopt arg parser?
 # - Use rst from stdin (not INPUTF).
 #   - E.g., ye olde "-" value for file path argument.
-# - Buggn: Dunno: The `read` prompt clears the (wl-)clipboard.
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -120,7 +119,8 @@ demo_pygmentize_styles_best_rst() {
 demo_pygmentize_style() {
   local pygstyle="$1"
 
-  clear
+  # Not `clear`, which clears the clipboard.
+  reset
   echo -e "STYLE: ${pygstyle}\n"
   pygmentize -O style=${pygstyle} "${INPUTF:-README.rst}"
   echo
