@@ -45,6 +45,17 @@ must_insist_pygmentize() {
   fi
 }
 
+cmd_bat() {
+  for cmd in "bat" "batcat"; do
+    (
+      unset -f ${cmd}
+      unalias ${cmd}
+      command -v ${cmd}
+    ) 2> /dev/null \
+      && break
+  done
+}
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 INPUTF="${INPUTF:-README.rst}"
@@ -185,7 +196,7 @@ demo_bat_styles__automated() {
 # ***
 
 bat_list_styles() {
-  bat --list-themes | cat
+  $(cmd_bat) --list-themes | cat
 }
 
 # ***
@@ -199,7 +210,7 @@ demo_bat_style() {
 
   clear
   echo -e "STYLE: ${batstyle}\n"
-  bat --style plain --theme "${batstyle}" "${INPUTF:-README.rst}"
+  $(cmd_bat) --style plain --theme "${batstyle}" "${INPUTF:-README.rst}"
   echo
 
   prompt_user_to_continue
