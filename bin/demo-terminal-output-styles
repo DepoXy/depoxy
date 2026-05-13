@@ -1,0 +1,256 @@
+#!/usr/bin/env bash
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# USAGE: E.g.,
+#
+#   # Code below reads ./README.rst by default; otherwise
+#   # specify rst source via environ, e.g.:
+#   INPUTF=~/PRINT_ME.rst
+#
+#   # 1) Demo all pygmentize styles:
+#   ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#
+#   # 2) Demo only those styles that work better with rst in the terminal (IMHO):
+#   . ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#   demo_pygmentize_styles_best_rst
+#
+#   # 3) Demo `bat` formatting:
+#   . ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#   demo_bat_styles__automated
+
+# ***
+
+# INERT/FTREQ/2026-05-12: Features I *could* add:
+# - Specify INPUTF via cli arg.
+#   - Using getopt arg parser?
+# - Use rst from stdin (not INPUTF).
+#   - E.g., ye olde "-" value for file path argument.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+insist_deps() {
+  must_insist_pygmentize
+}
+
+must_insist_pygmentize() {
+  if ! command -v "pygmentize" > /dev/null; then
+    >&2 echo "ERROR: Please install \`pygmentize\`"
+
+    exit 1
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+INPUTF="${INPUTF:-README.rst}"
+
+parse_args() {
+  if [ ! -e "${INPUTF}" ]; then
+    >&2 echo "ERROR: Please specify INPUTF or ensure local “${INPUTF}” exists"
+
+    exit 1
+  elif [ ! -s "${INPUTF}" ]; then
+    >&2 echo "ERROR: Please specify nonempty INPUTF or ensure local “${INPUTF}” nonempty"
+
+    exit 1
+  fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Script behavior when executed.
+# - Altly: Source script and run other fcns.
+demo_pygmentize_styles() {
+  demo_pygmentize_styles__automated
+}
+
+# ***
+
+demo_pygmentize_styles__automated() {
+  local pygstyle
+  for pygstyle in $(pygmentize_list_styles); do
+    if ! demo_pygmentize_style "${pygstyle}"; then
+
+      break
+    fi
+  done
+}
+
+# REFER: Styles list rom Pygments version 2.18.0 (via APT 'python3-pygments' package):
+#   pygmentize -L styles
+demo_pygmentize_styles__hardcoded() {
+  local pygstyle
+  for pygstyle in \
+    abap algol algol_nu arduino autumn bw borland coffee colorful default dracula emacs \
+    friendly_grayscale friendly fruity github-dark gruvbox-dark gruvbox-light igor inkpot \
+    lightbulb lilypond lovelace manni material monokai murphy native nord-darker nord \
+    one-dark paraiso-dark paraiso-light pastie perldoc rainbow_dash rrt sas solarized-dark \
+    solarized-light staroffice stata-dark stata-light tango trac vim vs xcode zenburn; do
+
+    if ! demo_pygmentize_style "${pygstyle}"; then
+
+      break
+    fi
+  done
+}
+
+# ***
+
+demo_pygmentize_styles_best_rst() {
+  local pygstyle
+  for pygstyle in bw dracula github-dark gruvbox-dark material native nord-darker nord paraiso-dark trac vs zenburn; do
+    # for pygstyle in github-dark gruvbox-dark material native nord-darker nord paraiso-dark trac zenburn; do
+    # for pygstyle in github-dark nord-darker paraiso-dark zenburn; do
+
+    if ! demo_pygmentize_style "${pygstyle}"; then
+
+      break
+    fi
+  done
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+demo_pygmentize_style() {
+  local pygstyle="$1"
+
+  # Not `clear`, which clears the clipboard.
+  reset
+  echo -e "STYLE: ${pygstyle}\n"
+  pygmentize -O style=${pygstyle} "${INPUTF:-README.rst}"
+  echo
+
+  prompt_user_to_continue
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+pygmentize_list_all() {
+  pygmentize -L
+}
+
+pygmentize_list_lexers_raw() {
+  pygmentize -L lexers
+}
+
+pygmentize_list_formatters_raw() {
+  pygmentize -L formatters
+}
+
+pygmentize_list_styles_raw() {
+  pygmentize -L styles
+}
+
+pygmentize_list_filters_raw() {
+  pygmentize -L filters
+}
+
+# ***
+
+pygmentize_list_styles() {
+  pygmentize_list_styles_raw | grep -e "^\* " | sed 's/\* \(.*\):$/\1/'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+demo_bat_styles__automated() {
+  local batstyle
+  # Note that we cannot use `read` if while loop is processing
+  # input itself. So `read` styles first, then iterate styles.
+  # - Note we do this because bat styles may contain spaces.
+  # Aka: batstyles=()
+  declare -a batstyles
+  # WRONG: Because subprocess:
+  #   bat_list_styles | while read -r batstyle; do
+  #     echo "batstyle/1: ${batstyle}"
+  #     batstyles+=("${batstyle}")
+  #   done
+  # - WORKS: Change the POSIX |pipe to a Bash <<<Here-String:<F5>
+  while IFS= read -r batstyle; do
+    batstyles+=("${batstyle}")
+  done <<< $(bat_list_styles)
+  for batstyle in "${batstyles[@]}"; do
+    if ! demo_bat_style "${batstyle}"; then
+
+      break
+    fi
+  done
+}
+
+# ***
+
+bat_list_styles() {
+  bat --list-themes | cat
+}
+
+# ***
+
+# E.g.:
+#
+#   bat -l rst --style plain --theme DarkNeon "${INPUTF:-README.rst}"
+
+demo_bat_style() {
+  local batstyle="$1"
+
+  clear
+  echo -e "STYLE: ${batstyle}\n"
+  bat --style plain --theme "${batstyle}" "${INPUTF:-README.rst}"
+  echo
+
+  prompt_user_to_continue
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+prompt_user_to_continue() {
+  printf "Continue? [Y/n] "
+
+  read -n 1 the_choice
+
+  # >&2 echo "the_choice: )))${the_choice}((("
+
+  # Flush stdin.
+  local its_complicated=false
+  if read -t 0 notused; then
+    local _ignored
+    read -t 0.1 _ignored
+    # Assume arrow key pressed, e.g., <Right>, and *don't* break.
+    its_complicated=true
+  fi
+
+  # ***
+
+  if false \
+    || [ -z "${the_choice}" ] \
+    || [ "${the_choice}" = "y" ] \
+    || [ "${the_choice}" = "Y" ] \
+    || ${its_complicated} \
+    ; then
+
+    return 0
+  fi
+
+  return 1
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main() {
+  set -e
+
+  insist_deps
+
+  parse_args "$@"
+
+  demo_pygmentize_styles
+}
+
+# Only run when executed; no-op when sourced.
+if [ -n "${BASH_SOURCE}" ] && [ "$0" = "${BASH_SOURCE[0]}" ]; then
+  main "$@"
+fi

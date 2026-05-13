@@ -6,7 +6,7 @@
 
 # USAGE: E.g.,
 #
-#   INPUTF=~/path/to/example.rst demo-pygmentize-styles
+#   INPUTF=~/path/to/example.rst demo-bat-styles
 
 main() {
   set -e
@@ -14,10 +14,8 @@ main() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
-  # CALSO: Subset of styles that work well with reST:
-  #   demo_pygmentize_styles_best_rst
   . "${ambers_root}/bin/demo-terminal-output-styles"
-  demo_pygmentize_styles__automated
+  demo_bat_styles__automated
 }
 
 main "$@"
