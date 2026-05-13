@@ -20,7 +20,7 @@ PASS_GEN_DEFAULT_EMAIL="${PASS_GEN_DEFAULT_EMAIL}"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-pass_safe() {
+_dxy_pass_safe() {
   if [ $# -ge 1 ] && [ "$1" = "edit" ]; then
     # User called `pass edit <path>`
     shift
@@ -36,7 +36,7 @@ pass_safe() {
     # User called `pass gen <path>`
     shift
 
-    _pass_safe_generate "$@"
+    __dxy_pass_generate "$@"
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
     # Note that $0 is "bash" (being called as an alias doesn't reveal the alias name).
     #   local PROGRAM="${0##*/}"
@@ -74,7 +74,7 @@ _EOF
       #   cr: 6 months ago ‖ ct: 1762318875
       #   ci: 2025-11-04 23:01:15 -0600 ‖ cI: 2025-11-04T23:01:15-06:00 ‖ cs: 2025-11-04 ‖ ch: Nov 4 2025
       passstoresh_dat="$(git log -1 --pretty=format:%cs -- core/passstore.sh)"
-      echo -e "pass_safe version: $(print_head_dist_and_ref_name "${passstoresh_sha}") [${passstoresh_dat}]"
+      echo -e "_dxy_pass_safe version: $(print_head_dist_and_ref_name "${passstoresh_sha}") [${passstoresh_dat}]"
     )
   else
     pass_exists() {
@@ -118,7 +118,7 @@ _EOF
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # The `pass gen` command.
-_pass_safe_generate() {
+__dxy_pass_generate() {
   local path="$1"
 
   if [ -z "${path}" ]; then
@@ -204,7 +204,7 @@ ${pass_line_sans_pwd//?/ }🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_wire_aliases_pass() {
-  alias pass='pass_safe'
+  alias pass='_dxy_pass_safe'
 }
 
 _dxy_wire_aliases() {
