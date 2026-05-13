@@ -18,6 +18,10 @@
 #   # 2) Demo only those styles that work better with rst in the terminal (IMHO):
 #   . ~/.depoxy/ambers/bin/demo-pygmentize-styles
 #   demo_pygmentize_styles_best_rst
+#
+#   # 3) Demo `bat` formatting:
+#   . ~/.depoxy/ambers/bin/demo-pygmentize-styles
+#   demo_bat_styles__automated
 
 # ***
 
@@ -150,6 +154,55 @@ pygmentize_list_filters_raw() {
 
 pygmentize_list_styles() {
   pygmentize_list_styles_raw | grep -e "^\* " | sed 's/\* \(.*\):$/\1/'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+demo_bat_styles__automated() {
+  local batstyle
+  # Note that we cannot use `read` if while loop is processing
+  # input itself. So `read` styles first, then iterate styles.
+  # - Note we do this because bat styles may contain spaces.
+  # Aka: batstyles=()
+  declare -a batstyles
+  # WRONG: Because subprocess:
+  #   bat_list_styles | while read -r batstyle; do
+  #     echo "batstyle/1: ${batstyle}"
+  #     batstyles+=("${batstyle}")
+  #   done
+  # - WORKS: Change the POSIX |pipe to a Bash <<<Here-String:<F5>
+  while IFS= read -r batstyle; do
+    batstyles+=("${batstyle}")
+  done <<< $(bat_list_styles)
+  for batstyle in "${batstyles[@]}"; do
+    if ! demo_bat_style "${batstyle}"; then
+
+      break
+    fi
+  done
+}
+
+# ***
+
+bat_list_styles() {
+  bat --list-themes | cat
+}
+
+# ***
+
+# E.g.:
+#
+#   bat -l rst --style plain --theme DarkNeon "${INPUTF:-README.rst}"
+
+demo_bat_style() {
+  local batstyle="$1"
+
+  clear
+  echo -e "STYLE: ${batstyle}\n"
+  bat --style plain --theme "${batstyle}" "${INPUTF:-README.rst}"
+  echo
+
+  prompt_user_to_continue
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
