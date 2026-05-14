@@ -9,7 +9,7 @@
 # when run, the app opens in a new browser window, and not in a new tab
 # of an existing window.
 #
-#   DEPENDS: https://github.com/landonb/sh-sensible-open#☔
+#   DEPENDS: https://github.com/landonb/sh-sensible-open#🪂
 #
 # NOTE: This might not be an issue anymore. I saw this in the older
 #       webpack-dev-server v3.x, which uses npm `opn`, not `open`.

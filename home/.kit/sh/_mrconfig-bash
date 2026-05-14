@@ -94,7 +94,7 @@ updateDeps = update_deps_shoilerplate
 # "Yes, I found myself, by insensible degrees, sincerely fond"
 #
 # DUNNO/2021-01-27: Finding an emoji for this project is a *Toughy*:
-#   sh-sensible-open#🦉🐧📂🕵🤺🧘🐂☔🔔📖
+#   sh-sensible-open#🦉🐧📂🕵🤺🧘🐂☔🔔📖🪂
 #
 # `sensible-browser` for Linux and macOS with new-window default
 [${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open]
