@@ -95,6 +95,13 @@ _source_scripts_preceding_homefries_dxy() {
   # LOG_LEVEL=${LOG_LEVEL_VERBOSE}
   # LOG_LEVEL=${LOG_LEVEL_DEBUG}
   LOG_LEVEL=${LOG_LEVEL_TRACE}
+  # SAVVY/2026-05-13: Note that LOG_LEVEL remains unset for
+  # subprocesses. User should export if they want it sticky:
+  #   export LOG_LEVEL
+  # - But usually you'll one-off the level instead:
+  #   LOG_LEVEL=0 some-script
+  # - Becuz scripts source logger.sh, which sets &
+  #   exports default LOG_LEVEL to WARNING.
 }
 
 # A wrapper function, so private DepoXy Client can monkey patch the standup.
