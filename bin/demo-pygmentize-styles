@@ -17,7 +17,7 @@ main() {
   # CALSO: Subset of styles that work well with reST:
   #   demo_pygmentize_styles_best_rst
   . "${ambers_root}/bin/demo-terminal-output-styles"
-  demo_pygmentize_styles__automated
+  demo_pygmentize_styles__automated "$@"
 }
 
 main "$@"

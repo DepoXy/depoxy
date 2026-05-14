@@ -15,7 +15,7 @@ main() {
   local ambers_root="${DEPOXYAMBERS_DIR:-${ambers_path}}"
 
   . "${ambers_root}/bin/demo-terminal-output-styles"
-  demo_bat_styles__automated
+  demo_bat_styles__automated "$@"
 }
 
 main "$@"
