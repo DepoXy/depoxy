@@ -613,12 +613,14 @@ _dxy_pass_open() {
     opener="${PASS_OPEN_CMD_CMD:-sensible-open}"
   fi
 
+  if [ -z "${opener}" ]; then
+    >&2 echo "ERROR: Please set PASS_OPEN_CMD_CMD (nonempty) to use pass-${PASS_OPEN_CMD:-open}."
+
+    return 1
+  fi
+
   if ! command -v "${opener}" > /dev/null; then
-    if [ -z "${opener}" ]; then
-      >&2 echo "ERROR: Please set PASS_OPEN_CMD_CMD (nonempty) to use pass-${PASS_OPEN_CMD:-open}."
-    else
-      >&2 echo "ERROR: The PASS_OPEN_CMD_CMD is missing: ‘${opener}’."
-    fi
+    >&2 echo "ERROR: The PASS_OPEN_CMD_CMD is missing: ‘${opener}’."
 
     return 1
   fi
