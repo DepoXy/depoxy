@@ -32,7 +32,7 @@ _dxy_pass_safe() {
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
     _dxy_pass_version "$@"
   elif ([ $# -eq 1 ] && _dxy_pass_exists "$1"); then
-    # Override `pass <pass-name>`, but not `pass show <pass-name>`,
+    # We override `pass <pass-name>`, but not `pass show <pass-name>`,
     # so user can run latter for raw output.
     _dxy_pass_show "$@"
   else
