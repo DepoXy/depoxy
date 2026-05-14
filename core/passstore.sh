@@ -28,48 +28,7 @@ _dxy_pass_safe() {
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
     __dxy_pass_generate "$@"
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
-    # Note that $0 is "bash" (being called as an alias doesn't reveal the alias name).
-    #   local PROGRAM="${0##*/}"
-    local PROGRAM="pass"
-
-    command pass "$@"
-
-    # SAVVY/2026-05-13: Cannot source /usr/bin/pass to read environ(s)
-    # (Ucase: For help text, e.g., ${PASSWORD_STORE_CLIP_TIME}),
-    # because `pass` itself doesn't support it:
-    #   # Runs when sourced, prints entire tree, then exits (hence subshell).
-    #   $ (. ~/.local/bin/pass)
-    #   ...
-    # - DEBAR/FTREQ: You could make the pass fork sourceable, but really
-    #   not worth the effort. / CXREF:
-    #     ~/.local/bin/pass  # Copy-installed from:
-    #     ~/.kit/sh/password-store/src/password-store.sh
-
-    cat <<- _EOF
-
-Additional 🙲 Enhanced commands from DepoXy:
-    $PROGRAM pass-name
-        Like pass-show, but formats output as reST. / Set PASS_FMTR to change formatter, e.g.:
-            PASS_FMTR=pygmentize PASS_PYGSTYLE=nord-darker pass pass-name  # default formatter
-            PASS_FMTR=bat        PASS_BATSTYLE=DarkNeon    pass pass-name
-        Some other styles: PASS_PYGSTYLE=github-dark|paraiso-dark|zenburn|etc.
-    $PROGRAM edit [--ext=extension,-e extension] pass-name
-        Inserts a new password or edits an existing password using your preferred EDITOR
-        (currently set to: ${EDITOR}).
-        - Uses reST filetype (unless overridden via --ext) for syntax highlighting, etc.
-        - If using DepoXy's EDITOR, wires Neovim to exit on save, etc.
-    $PROGRAM gen pass-name
-        Generates a new password via prompts (for website URL, username, email, and logon URL)
-        using conventional DepoXy pass entry structure. (Tho note tab completion unsupported.)
-        Opens URL from final line of output — if that line starts with \`sensible-open\`.
-    $PROGRAM help
-        Shows this text (including DepoXy enhancements).
-    $PROGRAM version
-        Shows version information (including DepoXy version).
-    passcp pass-name
-        Shows password entry and copies first line to clipboard, for limited time (per environ,
-        PASSWORD_STORE_CLIP_TIME, which defaults to 45s).
-_EOF
+    _dxy_pass_help "$@"
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
     command pass "$@"
     (
@@ -102,6 +61,57 @@ _EOF
   else
     command pass "$@"
   fi
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_pass_help() {
+  # Note that $0 is "bash" (being called as an alias doesn't reveal the alias name).
+  #   local PROGRAM="${0##*/}"
+  local PROGRAM="pass"
+
+  command pass "$@"
+
+  # SAVVY/2026-05-13: Cannot source /usr/bin/pass to read environ(s)
+  # (Ucase: For help text, e.g., ${PASSWORD_STORE_CLIP_TIME}),
+  # because `pass` itself doesn't support it:
+  #   # Runs when sourced, prints entire tree, then exits (hence subshell).
+  #   $ (. ~/.local/bin/pass)
+  #   ...
+  # - DEBAR/FTREQ: You could make the pass fork sourceable, but really
+  #   not worth the effort. / CXREF:
+  #     ~/.local/bin/pass  # Copy-installed from:
+  #     ~/.kit/sh/password-store/src/password-store.sh
+
+  cat <<- _EOF
+
+Additional 🙲 Enhanced commands from DepoXy:
+    $PROGRAM pass-name
+        Like pass-show, but formats output as reST. / Set PASS_FMTR to change formatter, e.g.:
+            PASS_FMTR=pygmentize PASS_PYGSTYLE=nord-darker pass pass-name  # default formatter
+            PASS_FMTR=bat        PASS_BATSTYLE=DarkNeon    pass pass-name
+        Some other styles: PASS_PYGSTYLE=github-dark|paraiso-dark|zenburn|etc.
+    $PROGRAM edit [--ext=extension,-e extension] pass-name
+        Inserts a new password or edits an existing password using your preferred EDITOR
+        (currently set to: ${EDITOR}).
+        - Uses reST filetype (unless overridden via --ext) for syntax highlighting, etc.
+        - If using DepoXy's EDITOR, wires Neovim to exit on save, etc.
+    $PROGRAM gen pass-name
+        Generates a new password via prompts (for website URL, username, email, and logon URL)
+        using conventional DepoXy pass entry structure. (Tho note tab completion unsupported.)
+    $PROGRAM open
+        Opens URL from final line of output — if that line starts with \`sensible-open\`.
+        - Requires sensible-open: https://github.com/landonb/sh-sensible-open#🪂
+    $PROGRAM help
+        Shows this text (including DepoXy enhancements).
+    $PROGRAM version
+        Shows version information (including DepoXy version).
+    passcp pass-name
+        Shows password entry and copies first line to clipboard, for limited time (per environ,
+        PASSWORD_STORE_CLIP_TIME, which defaults to 45s).
+    passo pass-name
+        Shows password entry and opens web browser using URL from final line of output.
+_EOF
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
