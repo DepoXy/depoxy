@@ -592,6 +592,9 @@ _dxy_wire_aliases_pass() {
 
   # Print password (pass-show), then copy to clipboard (pass show -c).
   claim_alias_or_warn "passcp" '_f() { _dxy_pass_safe \"\$@\" && echo && _dxy_pass_safe show -c \"\$1\"; }; _f'
+
+  # MAYBE/2026-05-14: Demoing this, b/c I almost always forget to use pass-gen!
+  claim_alias_or_warn "pg" "_dxy_pass_safe gen"
 }
 
 _dxy_wire_aliases() {
