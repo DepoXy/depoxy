@@ -26,9 +26,6 @@ _dxy_pass_safe() {
   if [ $# -ge 1 ] && [ "$1" = "edit" ]; then
     _dxy_pass_edit "$@"
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
-    # User called `pass gen <path>`
-    shift
-
     __dxy_pass_generate "$@"
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
     # Note that $0 is "bash" (being called as an alias doesn't reveal the alias name).
@@ -486,6 +483,9 @@ _dxy_pass_show() {
 
 # The `pass gen` command.
 __dxy_pass_generate() {
+  # User called `pass gen <path>`
+  shift
+
   local path="$1"
 
   if [ -z "${path}" ]; then
