@@ -27,6 +27,8 @@ _dxy_pass_safe() {
     _dxy_pass_edit "$@"
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
     _dxy_pass_gen "$@"
+  elif [ $# -ge 1 ] && [ "$1" = "${PASS_OPEN_CMD:-open}" ]; then
+    _dxy_pass_open "$@"
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
     # Note that raw `pass` does not support non-$1 --help, e.g., `pass show --help` 🙅.
     _dxy_pass_help "$@"
@@ -587,11 +589,94 @@ ${pass_line_sans_pwd//?/ }🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# SAVVY: Because passtore.sh (currently) ships with DepoXy, defaults
+# (and assumes) sensible-open on PATH — which it will by on DXY, e.g.:
+#   # ~/.depoxy/ambers/core/pathanova.sh
+#   path_prefix "${SHOILERPLATE:-${HOME}/.kit/sh}/sh-sensible-open/bin"
+# - Non-DepoXy users can set custom PASS_OPEN_CMD_CMD...
+#   - LATER: If/when this project spun-off from DepoXy, rather than
+#     default to `open` on macOS, and `sensible-browser` on Linux,
+#     use faithful-follow to add sh-sensible-open under deps/.
+
+# HSTRY/2026-05-14: Funny how I use a tool for years and years and then
+# bam-bam-bam I start implementing (silly?) last-mile conveniences....
+
+_dxy_pass_open() {
+  # User called `pass open <path>`
+  shift
+
+  local path="$1"
+
+  local opener=""
+  # Check if PASS_OPEN_CMD_CMD not set to empty string, and not unset.
+  if [ -z "${PASS_OPEN_CMD_CMD+x}" ] || [ -n "${PASS_OPEN_CMD_CMD}" ]; then
+    opener="${PASS_OPEN_CMD_CMD:-sensible-open}"
+  fi
+
+  if ! command -v "${opener}" > /dev/null; then
+    if [ -z "${opener}" ]; then
+      >&2 echo "ERROR: Please set PASS_OPEN_CMD_CMD (nonempty) to use pass-${PASS_OPEN_CMD:-open}."
+    else
+      >&2 echo "ERROR: The PASS_OPEN_CMD_CMD is missing: ‘${opener}’."
+    fi
+
+    return 1
+  fi
+
+  # Note that after set -o pipefail, pipeline still runs — enabling
+  # this shell variable only affects the final return value.
+  # - E.g., compare this pipeline's two different outputs:
+  #     $ set -o pipefail
+  #     $ (echo -n foo; false) | cat && echo -n " ✓" ; echo
+  #     foo
+  #     $ set +o pipefail
+  #     $ (echo -n foo; false) | cat && echo -n " ✓" ; echo
+  #     foo ✓
+  # Set pipefile so that pass-show failure detected (cache miss).
+  set -o pipefail
+
+  local urlln
+  if ! urlln="$(pass show "${path}" | tail -n 1)"; then
+    # `pass` already messaged, e.g., "Error: foo is not in the password store."
+
+    return 1
+  fi
+
+  local url
+  if ! url="$(
+    echo "${urlln}" \
+      | grep -e "^\s*${opener}" \
+      | sed 's/^[[:space:]]*'${opener}'[[:space:]]*\([^[:space:]]*\)[[:space:]]*.*$/\1/'
+  )"; then
+    >&2 echo "ERROR: Nothing opened — The last line should be formatted with PASS_OPEN_CMD_CMD command like this:"
+    >&2 echo "  ${opener} [url]  # additional \"args\" ignored"
+
+    return 1
+  fi
+
+  if [ -z "${url}" ]; then
+    >&2 echo "ERROR: Nothing opened — No URL found after ‘${opener}’ (the PASS_OPEN_CMD_CMD command)"
+
+    return 1
+  fi
+
+  if ${PASS_OPEN_VERBOSE:-true}; then
+    echo Running ‘${opener} \"${url}\"’
+  fi
+
+  ${opener} "${url}"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 _dxy_wire_aliases_pass() {
   claim_alias_or_warn "pass" "_dxy_pass_safe" ${_force:-true}
 
   # Print password (pass-show), then copy to clipboard (pass show -c).
   claim_alias_or_warn "passcp" '_f() { _dxy_pass_safe \"\$@\" && echo && _dxy_pass_safe show -c \"\$1\"; }; _f'
+
+  claim_alias_or_warn \
+    "passo" '_f() { _dxy_pass_safe \"\$@\" && PASS_OPEN_VERBOSE=false _dxy_pass_safe open \"\$@\"; }; _f'
 
   # MAYBE/2026-05-14: Demoing this, b/c I almost always forget to use pass-gen!
   claim_alias_or_warn "pg" "_dxy_pass_safe gen"
