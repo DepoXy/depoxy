@@ -30,30 +30,7 @@ _dxy_pass_safe() {
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
     _dxy_pass_help "$@"
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
-    command pass "$@"
-    (
-      # FIXME/2026-05-12: Srsly, there isn't a git-nubs or other util. fcn. to print SHA/HEAD dist?
-      local gbvtdir="${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
-      cd -- "${gbvtdir}"
-      # CXREF: ~/.kit/git/git-bump-version-tag/bin/git-bump-version-tag
-      . "${gbvtdir}/bin/git-bump-version-tag"
-      source_deps
-
-      local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
-      cd -- "${ambers_path}"
-
-      local passstoresh_sha passstoresh_dat
-      passstoresh_sha="$(git log -1 --pretty=format:%H -- core/passstore.sh)"
-      # WRKLG: Compare git-log committer date formats:
-      #   $ gnp log -1 \
-      #     --pretty=format:"cd: %cd ‖ cD: %cD ‖ cr: %cr ‖ ct: %ct ‖ ci: %ci ‖ cI: %cI ‖ cs: %cs ‖ ch: %ch" \
-      #     -- core/passstore.sh
-      #   cd: Tue Nov 4 23:01:15 2025 -0600 ‖ cD: Tue, 4 Nov 2025 23:01:15 -0600
-      #   cr: 6 months ago ‖ ct: 1762318875
-      #   ci: 2025-11-04 23:01:15 -0600 ‖ cI: 2025-11-04T23:01:15-06:00 ‖ cs: 2025-11-04 ‖ ch: Nov 4 2025
-      passstoresh_dat="$(git log -1 --pretty=format:%cs -- core/passstore.sh)"
-      echo -e "_dxy_pass_safe version: $(print_head_dist_and_ref_name "${passstoresh_sha}") [${passstoresh_dat}]"
-    )
+    _dxy_pass_version "$@"
   elif ([ $# -eq 1 ] && _dxy_pass_exists "$1"); then
     # Override `pass <pass-name>`, but not `pass show <pass-name>`,
     # so user can run latter for raw output.
@@ -112,6 +89,35 @@ Additional 🙲 Enhanced commands from DepoXy:
     passo pass-name
         Shows password entry and opens web browser using URL from final line of output.
 _EOF
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_pass_version() {
+  command pass "$@"
+  (
+    # FIXME/2026-05-12: Srsly, there isn't a git-nubs or other util. fcn. to print SHA/HEAD dist?
+    local gbvtdir="${GITREPOSPATH:-${HOME}/.kit/git}/git-bump-version-tag"
+    cd -- "${gbvtdir}"
+    # CXREF: ~/.kit/git/git-bump-version-tag/bin/git-bump-version-tag
+    . "${gbvtdir}/bin/git-bump-version-tag"
+    source_deps
+
+    local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+    cd -- "${ambers_path}"
+
+    local passstoresh_sha passstoresh_dat
+    passstoresh_sha="$(git log -1 --pretty=format:%H -- core/passstore.sh)"
+    # WRKLG: Compare git-log committer date formats:
+    #   $ gnp log -1 \
+    #     --pretty=format:"cd: %cd ‖ cD: %cD ‖ cr: %cr ‖ ct: %ct ‖ ci: %ci ‖ cI: %cI ‖ cs: %cs ‖ ch: %ch" \
+    #     -- core/passstore.sh
+    #   cd: Tue Nov 4 23:01:15 2025 -0600 ‖ cD: Tue, 4 Nov 2025 23:01:15 -0600
+    #   cr: 6 months ago ‖ ct: 1762318875
+    #   ci: 2025-11-04 23:01:15 -0600 ‖ cI: 2025-11-04T23:01:15-06:00 ‖ cs: 2025-11-04 ‖ ch: Nov 4 2025
+    passstoresh_dat="$(git log -1 --pretty=format:%cs -- core/passstore.sh)"
+    echo -e "_dxy_pass_safe version: $(print_head_dist_and_ref_name "${passstoresh_sha}") [${passstoresh_dat}]"
+  )
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
