@@ -431,6 +431,7 @@ gitignore
 globbing
 gtk3
 gvim
+hexdump
 homefries
 hostname
 hrule
@@ -537,6 +538,7 @@ slatherer
 spellfile
 spellfiles
 sshfs
+storeST
 stylua
 sudo
 sudoers
