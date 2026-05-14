@@ -644,6 +644,15 @@ _dxy_pass_open() {
     return 1
   fi
 
+  # Try penultimate line if necessary.
+  if [ -z "${urlln}" ]; then
+    if ! urlln="$(pass show "${path}" | tail -n 2 | head -n 1)"; then
+      # `pass` already messaged, e.g., "Error: foo is not in the password store."
+
+      return 1
+    fi
+  fi
+
   local url
   if ! url="$(
     echo "${urlln}" \
