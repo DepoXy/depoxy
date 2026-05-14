@@ -24,16 +24,7 @@ PASS_GEN_DEFAULT_EMAIL="${PASS_GEN_DEFAULT_EMAIL}"
 
 _dxy_pass_safe() {
   if [ $# -ge 1 ] && [ "$1" = "edit" ]; then
-    # User called `pass edit <path>`
-    shift
-
-    # ISOFF/2024-08-07: The minimal editor is not any quicker to start
-    # than normal Vim; and then you won't get reST highlights. Not this:
-    #   local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
-    #   EDITOR="${nvimd}/bin/editor-vim-0-0-insert-minimal" \
-    #     VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
-
-    VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
+    _dxy_pass_edit "$@"
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
     # User called `pass gen <path>`
     shift
@@ -73,6 +64,7 @@ Additional 🙲 Enhanced commands from DepoXy:
     $PROGRAM gen pass-name
         Generates a new password via prompts (for website URL, username, email, and logon URL)
         using conventional DepoXy pass entry structure. (Tho note tab completion unsupported.)
+        Opens URL from final line of output — if that line starts with \`sensible-open\`.
     $PROGRAM help
         Shows this text (including DepoXy enhancements).
     $PROGRAM version
@@ -115,7 +107,22 @@ _EOF
   fi
 }
 
-# ***
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+_dxy_pass_edit() {
+  # User called `pass edit <path>`
+  shift
+
+  # ISOFF/2024-08-07: The minimal editor is not any quicker to start
+  # than normal Vim; and then you won't get reST highlights. Not this:
+  #   local nvimd="${NEOVIM_REPOS:-${DOPP_KIT:-${HOME}/.kit}/nvim}/nvim-depoxy"
+  #   EDITOR="${nvimd}/bin/editor-vim-0-0-insert-minimal" \
+  #     VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
+
+  VIM_EDIT_JUICE_EXIT_ON_SAVE=1 command pass edit --ext=rst "$@"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 _dxy_pass_exists() {
   test -e "${PASSWORD_STORE_BASE:-${HOME}/.password-store}/$1.gpg"
