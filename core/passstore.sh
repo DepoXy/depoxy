@@ -26,7 +26,7 @@ _dxy_pass_safe() {
   if [ $# -ge 1 ] && [ "$1" = "edit" ]; then
     _dxy_pass_edit "$@"
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
-    __dxy_pass_generate "$@"
+    _dxy_pass_gen "$@"
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
     _dxy_pass_help "$@"
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
@@ -498,7 +498,7 @@ _dxy_pass_show() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # The `pass gen` command.
-__dxy_pass_generate() {
+_dxy_pass_gen() {
   # User called `pass gen <path>`
   shift
 
