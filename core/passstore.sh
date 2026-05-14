@@ -28,6 +28,7 @@ _dxy_pass_safe() {
   elif [ $# -ge 1 ] && [ "$1" = "${PASS_GEN_CMD:-gen}" ]; then
     _dxy_pass_gen "$@"
   elif [ $# -ge 1 ] && ([ "$1" = "help" ] || [ "$1" = "--help" ]); then
+    # Note that raw `pass` does not support non-$1 --help, e.g., `pass show --help` 🙅.
     _dxy_pass_help "$@"
   elif [ $# -ge 1 ] && [ "$1" = "version" ]; then
     _dxy_pass_version "$@"
