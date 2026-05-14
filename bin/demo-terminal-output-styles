@@ -58,9 +58,13 @@ cmd_bat() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-INPUTF="${INPUTF:-README.rst}"
+reset_inputf_environ() {
+  INPUTF="${INPUTF:-README.rst}"
+}
 
 parse_args() {
+  reset_inputf_environ
+
   if [ ! -e "${INPUTF}" ]; then
     >&2 echo "ERROR: Please specify INPUTF or ensure local “${INPUTF}” exists"
 
@@ -83,6 +87,8 @@ demo_pygmentize_styles() {
 # ***
 
 demo_pygmentize_styles__automated() {
+  reset_inputf_environ
+
   local pygstyle
   for pygstyle in $(pygmentize_list_styles); do
     if ! demo_pygmentize_style "${pygstyle}"; then
@@ -95,6 +101,8 @@ demo_pygmentize_styles__automated() {
 # REFER: Styles list rom Pygments version 2.18.0 (via APT 'python3-pygments' package):
 #   pygmentize -L styles
 demo_pygmentize_styles__hardcoded() {
+  reset_inputf_environ
+
   local pygstyle
   for pygstyle in \
     abap algol algol_nu arduino autumn bw borland coffee colorful default dracula emacs \
@@ -113,6 +121,8 @@ demo_pygmentize_styles__hardcoded() {
 # ***
 
 demo_pygmentize_styles_best_rst() {
+  reset_inputf_environ
+
   local pygstyle
   for pygstyle in bw dracula github-dark gruvbox-dark material native nord-darker nord paraiso-dark trac vs zenburn; do
     # for pygstyle in github-dark gruvbox-dark material native nord-darker nord paraiso-dark trac zenburn; do
@@ -170,6 +180,8 @@ pygmentize_list_styles() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 demo_bat_styles__automated() {
+  reset_inputf_environ
+
   local batstyle
   # Note that we cannot use `read` if while loop is processing
   # input itself. So `read` styles first, then iterate styles.
