@@ -699,6 +699,53 @@ _dxy_wire_aliases() {
   unset -f _dxy_wire_aliases_pass
 }
 
+# ***
+
+# DUNNO/2026-05-14: I tried to use ~/.complete_alias, but didn't work, e.g.,
+#   echo "complete -F _complete_alias passo" >> ~/.complete_alias
+# - CXREF:
+#   ~/.depoxy/ambers/home/.kit/sh/_mrconfig-shell @  107
+#
+# Fortunately, this is easy enough:
+#
+#     $ complete -p pass
+#     complete -o filenames -F _pass pass
+#
+#     $ complete -F _pass passo
+#     $ passo fp/<Tab>
+#
+# - But we can do better, but mimicking `pass` completion, e.g.:
+#
+#     $ ( _comp=$(complete -p pass); echo "${_comp% *} passo"; )
+#     complete -o filenames -F _pass passo
+#
+# THANX: [GAIO]: https://www.google.com/search?q=bash+setup+alias+completion
+
+# OWELL: `complete -p pass` and `passo <Tab>` fails until you run `pass <Tab>`,
+# e.g.:
+#     $ complete -p pass
+#     bash: complete: pass: no completion specification
+#
+# FIXME/2026-05-14: Why doesn't `complete -p pass` work (nor `passo <Tab>`)
+# until you use `pass <Tab>`? Some kinda lazy-load mechanism?
+
+_dxy_wire_alias_completion() {
+  if false; then
+    # WRONG: See comment above: Won't work.
+    # - But useful for sussing proper wiring command:
+    #     echo "${complete_cmd% *} ${PASS_PASSO_CMD:-passo}"
+    local complete_cmd
+    complete_cmd="$(complete -p pass)"
+    if [ -n "${complete_cmd}" ]; then
+      eval "${complete_cmd% *} ${PASS_PASSO_CMD:-passo}"
+    fi
+  else
+    # Note this more simpler call also works:
+    #   complete -F _pass passo
+    complete -o filenames -F _pass passo
+  fi
+}
+
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 main() {
@@ -706,6 +753,9 @@ main() {
 
   _dxy_wire_aliases
   unset -f _dxy_wire_aliases
+
+  _dxy_wire_alias_completion
+  unset -f _dxy_wire_alias_completion
 }
 
 main "$@"

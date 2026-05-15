@@ -105,6 +105,14 @@ install =
   # Completion Aliases:
   # - tig alias completions, e.g., `t <tab>`
   echo "complete -F _complete_alias t" >> ~/.complete_alias
+  # - pass alias completions, e.g., `passo <tab>`
+  #   - ALTLY/DUNNO/2026-05-14: Doesn't always work, e.g., this doesn't:
+  #       echo "complete -F _complete_alias passo" >> ~/.complete_alias
+  #   - Use instead, e.g., from `complete -p pass` output:
+  #       complete -F _pass passo
+  #   - CXREF: See better, more robust example:
+  #       _dxy_wire_alias_completion
+  #     ~/.depoxy/ambers/core/passstore.sh @ 724
   #
   # ONGNG/2023-02-02: Identify more aliases to add.
 
