@@ -89,7 +89,7 @@ Additional 🙲 Enhanced commands from DepoXy:
     passcp pass-name
         Shows password entry and copies first line to clipboard, for limited time (per environ,
         PASSWORD_STORE_CLIP_TIME, which defaults to 45s).
-    passo pass-name
+    ${PASS_PASSO_CMD:-passo} pass-name
         Shows password entry and opens web browser using URL from final line of output.
 _EOF
 }
@@ -687,7 +687,7 @@ _dxy_wire_aliases_pass() {
   claim_alias_or_warn "passcp" '_f() { _dxy_pass_safe \"\$@\" && echo && _dxy_pass_safe show -c \"\$1\"; }; _f'
 
   claim_alias_or_warn \
-    "passo" \
+    "${PASS_PASSO_CMD:-passo}" \
     '_f() { _dxy_pass_safe \"\$@\" && PASS_OPEN_VERBOSE=false _dxy_pass_safe open \"\$@\"; }; _f'
 
   # MAYBE/2026-05-14: Demoing this, b/c I almost always forget to use pass-gen!
