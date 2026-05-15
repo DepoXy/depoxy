@@ -400,6 +400,7 @@ envs
 errexit
 esbuild
 eval
+evals
 executability
 exiftool
 ext3
