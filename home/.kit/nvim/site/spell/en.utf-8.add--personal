@@ -94,6 +94,7 @@ EmojiCombos
 Esc
 FFmpeg
 FIGlet
+FIVERize
 FaceTime
 FastAPI
 Fastify
@@ -311,6 +312,7 @@ Timeshift's
 Traefik
 Trustpilot
 Turbopack
+UIs
 VBox
 VMware
 VSCodium
@@ -430,6 +432,7 @@ genai
 gitconfig
 gitignore
 globbing
+gthumb
 gtk3
 gvim
 hexdump
@@ -534,6 +537,8 @@ rsync
 rsynced
 sed
 sendmail
+sep
+seps
 skhd
 skhdrc
 slatherer
