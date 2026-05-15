@@ -687,7 +687,8 @@ _dxy_wire_aliases_pass() {
   claim_alias_or_warn "passcp" '_f() { _dxy_pass_safe \"\$@\" && echo && _dxy_pass_safe show -c \"\$1\"; }; _f'
 
   claim_alias_or_warn \
-    "passo" '_f() { _dxy_pass_safe \"\$@\" && PASS_OPEN_VERBOSE=false _dxy_pass_safe open \"\$@\"; }; _f'
+    "passo" \
+    '_f() { _dxy_pass_safe \"\$@\" && PASS_OPEN_VERBOSE=false _dxy_pass_safe open \"\$@\"; }; _f'
 
   # MAYBE/2026-05-14: Demoing this, b/c I almost always forget to use pass-gen!
   claim_alias_or_warn "pg" "_dxy_pass_safe gen"
