@@ -535,6 +535,7 @@ reqs
 rm'd
 rsync
 rsynced
+scrollback
 sed
 sendmail
 sep
