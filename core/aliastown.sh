@@ -232,6 +232,8 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
   pushd_alias_or_warn "cdshhf" "${SHOILERPLATE:-${HOME}/.kit/sh}/home-fries"
   pushd_alias_or_warn "cdshpt" "${SHOILERPLATE:-${HOME}/.kit/sh}/parT"
   pushd_alias_or_warn "cdshps" "${SHOILERPLATE:-${HOME}/.kit/sh}/password-store"
+  # └─→ Related:
+  pushd_alias_or_warn "cdpwd" "${HOME}/.password-store"
   pushd_alias_or_warn "cdshrol" "${SHOILERPLATE:-${HOME}/.kit/sh}/raise-or-lower"
   pushd_alias_or_warn "cdshrt" "${SHOILERPLATE:-${HOME}/.kit/sh}/reputed-tiler"
   pushd_alias_or_warn "cdshsf" "${SHOILERPLATE:-${HOME}/.kit/sh}/salvage-fiefdom"
