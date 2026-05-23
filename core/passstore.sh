@@ -692,6 +692,8 @@ _dxy_wire_aliases_pass() {
 
   # MAYBE/2026-05-14: Demoing this, b/c I almost always forget to use pass-gen!
   claim_alias_or_warn "pg" "_dxy_pass_safe gen"
+
+  claim_alias_or_warn "passl" "_dxy_pass_safe | less"
 }
 
 _dxy_wire_aliases() {
