@@ -1,4 +1,12 @@
 #!/bin/sh
+# vim:tw=0:ts=2:sw=2:et:norl:ft=bash
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# Copyright (c) © 2026 Landon Bouma. All Rights Reserved.
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # THANX: *Command-line Lorem Ipsum generator using curl, lipsum.com, and jq*
 # https://gist.github.com/candu/33b256292c492f154ade
@@ -10,34 +18,44 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
-AMOUNT=5
-WHAT=paras
-START=false
+print_random_lorem_ipsum() {
+  AMOUNT=5
+  WHAT=paras
+  START=false
 
-while getopts ":n:wpbls" opt; do
-  case $opt in
-  n)
-    AMOUNT=$OPTARG
-    ;;
-  w)
-    WHAT=words
-    ;;
-  p)
-    WHAT=paras
-    ;;
-  b)
-    WHAT=bytes
-    ;;
-  l)
-    WHAT=lines
-    ;;
-  s)
-    START=true
-    ;;
-  *)
-    echo "Invalid option: -$OPTARG" >&2
-    ;;
-  esac
-done
+  while getopts ":n:wpbls" opt; do
+    case $opt in
+    n)
+      AMOUNT=$OPTARG
+      ;;
+    w)
+      WHAT=words
+      ;;
+    p)
+      WHAT=paras
+      ;;
+    b)
+      WHAT=bytes
+      ;;
+    l)
+      WHAT=lines
+      ;;
+    s)
+      START=true
+      ;;
+    *)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+    esac
+  done
 
-curl -s -X POST lipsum.com/feed/json -d "amount=$AMOUNT" -d "what=$WHAT" -d"start=$START" | jq -r '.feed.lipsum'
+  curl -s -X POST lipsum.com/feed/json -d "amount=$AMOUNT" -d "what=$WHAT" -d"start=$START" | jq -r '.feed.lipsum'
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+main() {
+  print_random_lorem_ipsum "$@"
+}
+
+main "$@"
