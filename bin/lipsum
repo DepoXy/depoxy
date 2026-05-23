@@ -18,6 +18,8 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+DXY_LIPSUM_URL="lipsum.com"
+
 print_random_lorem_ipsum() {
   local AMOUNT=5
   local WHAT=paras
@@ -49,7 +51,7 @@ print_random_lorem_ipsum() {
     esac
   done
 
-  curl -s -X POST lipsum.com/feed/json \
+  curl -s -X POST "${DXY_LIPSUM_URL}/feed/json" \
     -d "amount=$AMOUNT" \
     -d "what=$WHAT" \
     -d "start=$START" |
