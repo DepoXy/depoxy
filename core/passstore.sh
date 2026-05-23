@@ -561,7 +561,7 @@ _dxy_pass_gen() {
 
   local acct_passw
   # Aka, `pwgen23`. And replace double-quote for our echo.
-  acct_passw="$(_hf_aliases_wire_pwgen_pwgen23 | sed "s/\"/'/")"
+  acct_passw="$(_hf_pwgen23 | sed "s/\"/'/")"
 
   # Highlight the password at the end of the details line.
   # - SAVVY: ${VAR//?/ } substitutes every character with a space.
