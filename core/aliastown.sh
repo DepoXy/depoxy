@@ -561,6 +561,14 @@ _dxy_wire_alias_libreoffice() {
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# CXREF/2026-05-23:
+# ~/.depoxy/ambers/bin/lipsum
+_dxy_wire_alias_lorem_ipsum() {
+  claim_alias_or_warn "lorem-ipsum" "lipsum"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 # CXREF/2026-02-17:
 # ~/.kit/sh/raise-or-lower/bin/lower-all
 # ~/.kit/sh/raise-or-lower/bin/raise-all
@@ -646,6 +654,9 @@ _dxy_wire_aliases() {
 
   _dxy_wire_alias_libreoffice
   unset -f _dxy_wire_alias_libreoffice
+
+  _dxy_wire_alias_lorem_ipsum
+  unset -f _dxy_wire_alias_lorem_ipsum
 
   _dxy_wire_alias_raise_lower
   unset -f _dxy_wire_alias_raise_lower
