@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# THANX: *Command-line Lorem Ipsum generator using curl, lipsum.com, and jq*
+# https://gist.github.com/candu/33b256292c492f154ade
+#
+# - By github.com/candu.
+#   - Without a license, I'll unjustly assume MIT (and tweak it a titch)
+#
+# - Beget: https://www.google.com/search?q=lorem+ipsum+curl
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 AMOUNT=5
 WHAT=paras
 START=false
