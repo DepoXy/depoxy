@@ -19,9 +19,9 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 print_random_lorem_ipsum() {
-  AMOUNT=5
-  WHAT=paras
-  START=false
+  local AMOUNT=5
+  local WHAT=paras
+  local START=false
 
   while getopts ":n:wpbls" opt; do
     case $opt in
