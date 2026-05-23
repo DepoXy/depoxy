@@ -49,7 +49,11 @@ print_random_lorem_ipsum() {
     esac
   done
 
-  curl -s -X POST lipsum.com/feed/json -d "amount=$AMOUNT" -d "what=$WHAT" -d"start=$START" | jq -r '.feed.lipsum'
+  curl -s -X POST lipsum.com/feed/json \
+    -d "amount=$AMOUNT" \
+    -d "what=$WHAT" \
+    -d "start=$START" |
+    jq -r '.feed.lipsum'
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
