@@ -102,11 +102,33 @@ run_everday_updatedb() {
   local locatedb_dir
   locatedb_dir="$(dirname -- "${LOCATEDB_PATH}")"
 
+  insist_locatedb_unbroken
+
   ensure_locatedb_parents
 
-  if [ -d "${locatedb_dir}" ]; then
-    generate_locatedb
+  generate_locatedb
+}
+
+# Don't create locatedb if it or its parent directory is a broken
+# symlink, which indicates that the user probably keeps the file
+# on an encrypted drive (which is not mounted).
+# - The issue is that if we create the parent directory, then when
+#   the user later tries to mount their encfs, it'll fail, because
+#   the mountpoint exists.
+# - CALSO: CXREF: See related (susses user encfs mounted via ~/.gnupg/gpg-agent.conf):
+#   - warn_unless_encfs_mounted:
+#       ~/.depoxy/ambers/bin/daily-homebrew-autoupdate @ 190
+insist_locatedb_unbroken() {
+  if (test -d "${locatedb_dir}" || ! test -L "${locatedb_dir}") \
+    && (test -f "${LOCATEDB_PATH}" || ! test -L "${LOCATEDB_PATH}"); then
+
+    return 0
   fi
+
+  >&2 echo "ERROR: Failing daily-updatedb because LOCATEDB_PATH or its parent is broken"
+  >&2 echo "- Perhaps your encfs is not yet mounted?"
+
+  exit 1
 }
 
 ensure_locatedb_parents() {
