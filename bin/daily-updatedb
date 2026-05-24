@@ -102,7 +102,8 @@ run_everday_updatedb() {
   # If the updatedb directory does not exist — and is not just
   # a broken symlink — create the directory. (If the directory
   # is a broken symlink, leave it; it might just be unmounted).
-  local locatedb_dir="$(dirname -- "${LOCATEDB_PATH}")"
+  local locatedb_dir
+  locatedb_dir="$(dirname -- "${LOCATEDB_PATH}")"
 
   if [ ! -e "${locatedb_dir}" ] && [ ! -L "${locatedb_dir}" ]; then
     mkdir -p -- "${locatedb_dir}"
