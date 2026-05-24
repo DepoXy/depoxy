@@ -164,6 +164,8 @@ log_and_maybe_echo() {
 # need to do this, if, e.g., we need to recreate ~/.local/bin
 # symlinks... not sure; I just want this exercised daily).
 omr_depoxy_infuse() {
+  warn_unless_encfs_mounted
+
   local stderr_file
   stderr_file="$(mktemp -t "depoxy_daily_homebrew--XXXX")"
 
@@ -183,6 +185,44 @@ omr_depoxy_infuse() {
     || true
 
   command rm -- "${stderr_file}"
+}
+
+# SAVVY/2026-05-24: Assume if ~/.gnupg/gpg-agent.conf missing (or
+# is a broken symlink) that not all user repos (and by extension,
+# the user's encfses, where some repos live) are mounted.
+# - We could choose not to run 'infuse',
+#     but we might as well,
+#   unless we determine in the future that it's
+#     not a good idea to run infuse on an empty
+#     stomach, er, when missing user repos;
+#   but it could also be a good stress test (and
+#     really all that might happen is a mrconfig
+#     refs. a MR_REPO that doesn't exist, and `mr`
+#     complains accordingly; but other than that,
+#     will any mistakes be made? expectedly not)
+#   (though I realize checking ~/.gnupg/gpg-agent.conf
+#    could be an imperfect/less portable approach,
+#    or at least it smells it a little kludgey).
+# - Note that the author uses a (customized) `321open` script
+#   when they logon their host, which mounts all my private
+#   repos and ensures lots of shell files are properly wired
+#   (including ~/.gnupg).
+#   - Refer:
+#     https://github.com/DepoXy/321open#👐
+# - CALSO: CXREF: See related (susses user encfs mounted via ~/.cache/locate/locate.db):
+#   - insist_locatedb_unbroken:
+#       ~/.depoxy/ambers/bin/daily-updatedb @ 112
+warn_unless_encfs_mounted() {
+  if test -f ~/.gnupg/gpg-agent.conf; then
+
+    return 0
+  fi
+
+  # Note that `mr -d / infuse` likely to generate stderr and nonzero exit,
+  # so anacron likely emailing user regardless of these messages.
+  >&2 echo "WARNY: Running daily-homebrew-autoupdate 'infuse' — although encfs(es) likely unmounted"
+  >&2 echo "- Or at least this file is missing/broken:"
+  >&2 echo "    ~/.gnupg/gpg-agent.conf"
 }
 
 # ***
