@@ -79,6 +79,8 @@ load_brew() {
   _depoxy_infuse_brew_shellenv
 }
 
+# ***
+
 set_environs() {
   # Load LOCATEDB_PATH, if user set it to an encfs path.
   # - CXREF:
@@ -93,6 +95,8 @@ set_environs() {
   #   ~/.depoxy/ambers/core/locate-db.sh
   LOCATEDB_PATH="${LOCATEDB_PATH:-${HOME}/.cache/locate/locate.db}"
 }
+
+# ***
 
 run_everday_updatedb() {
   # If the updatedb directory does not exist — and is not just
@@ -115,6 +119,8 @@ run_everday_updatedb() {
   fi
 }
 
+# ***
+
 generate_locatedb() {
   if ! os_is_macos; then
     generate_locatedb_linux
@@ -122,6 +128,8 @@ generate_locatedb() {
     generate_locatedb_macos
   fi
 }
+
+# ***
 
 generate_locatedb_linux() {
   # REFER: /usr/bin/plocate
@@ -233,6 +241,8 @@ generate_locatedb_linux_args() {
     --require-visibility 0 \
     --output="${LOCATEDB_PATH}"
 }
+
+# ***
 
 # HSTRY/2024-07-14: The Brew `updatedb` seems... somewhat *obnoxious*,
 # or at least the author doesn't totally understand all the nuances.
@@ -408,6 +418,8 @@ generate_locatedb_macos() {
       " \
     --output="${LOCATEDB_PATH}"
 }
+
+# ***
 
 os_is_macos() {
   [ "$(uname)" = "Darwin" ]
