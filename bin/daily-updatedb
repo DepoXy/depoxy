@@ -105,9 +105,7 @@ run_everday_updatedb() {
   local locatedb_dir
   locatedb_dir="$(dirname -- "${LOCATEDB_PATH}")"
 
-  if [ ! -e "${locatedb_dir}" ] && [ ! -L "${locatedb_dir}" ]; then
-    mkdir -p -- "${locatedb_dir}"
-  fi
+  ensure_locatedb_parents
 
   # If the locatedb_dir path does not exist, it could mean it's
   # stored on an (encrypted) filesystem that is not mounted.
@@ -118,6 +116,10 @@ run_everday_updatedb() {
   if [ -d "${locatedb_dir}" ]; then
     generate_locatedb
   fi
+}
+
+ensure_locatedb_parents() {
+  mkdir -p -- "${locatedb_dir}"
 }
 
 # ***
