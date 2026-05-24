@@ -99,20 +99,11 @@ set_environs() {
 # ***
 
 run_everday_updatedb() {
-  # If the updatedb directory does not exist — and is not just
-  # a broken symlink — create the directory. (If the directory
-  # is a broken symlink, leave it; it might just be unmounted).
   local locatedb_dir
   locatedb_dir="$(dirname -- "${LOCATEDB_PATH}")"
 
   ensure_locatedb_parents
 
-  # If the locatedb_dir path does not exist, it could mean it's
-  # stored on an (encrypted) filesystem that is not mounted.
-  # - So that this script runs from cron and won't bug you about such
-  #   an unimportant matter, silently just do nothing if the storage
-  #   path is absent. (The user will realize their db is offline if/
-  #   when then try to run `locate`.)
   if [ -d "${locatedb_dir}" ]; then
     generate_locatedb
   fi
