@@ -169,6 +169,7 @@ omr_depoxy_infuse() {
   local stderr_file
   stderr_file="$(mktemp -t "depoxy_daily_homebrew--XXXX")"
 
+  # Use subprocess for simpler redirection and piping.
   (
     echo "\$ mr -d / infuse > /dev/null"
     mr -d / infuse > /dev/null
