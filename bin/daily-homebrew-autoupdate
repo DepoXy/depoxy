@@ -169,12 +169,23 @@ omr_depoxy_infuse() {
   local stderr_file
   stderr_file="$(mktemp -t "depoxy_daily_homebrew--XXXX")"
 
-  # Use subprocess for simpler redirection and piping.
+  # Use pipefail so the `if` detects falsey `mr -d / infuse`.
+  # - And note `| log_and_maybe_echo` runs regardless of () status.
   (
-    echo "\$ mr -d / infuse > /dev/null"
-    mr -d / infuse > /dev/null
-  ) 2> "${stderr_file}" \
-    | log_and_maybe_echo
+    set -o pipefail
+
+    # Use subprocess for simpler redirection (2> $stderr_file)
+    # and stdio piping (| log_and_maybe_echo).
+    if ! (
+      echo "\$ mr -d / infuse > /dev/null"
+      mr -d / infuse > /dev/null
+    ) 2> "${stderr_file}" \
+      | log_and_maybe_echo; then
+
+      # Ensure Anacron email sent.
+      >&2 echo "ERROR: Failed!: mr -d / infuse"
+    fi
+  )
 
   # Filter captured stderr, filtering known output, and
   # leaking unmatched output, which cron'll email to us.
