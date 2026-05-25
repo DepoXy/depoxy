@@ -192,9 +192,16 @@ omr_depoxy_infuse() {
   # - Ignore broken symlinks that ctags complains about,
   #   e.g.,
   #     ctags: Warning: cannot open source file "Users/user/foo/bar/baz" : No such file or directory
-  cat "${stderr_file}" \
-    | >&2 grep -v "^ctags: Warning: cannot open source file" \
-    || true
+  printerr_filtered() {
+    cat "${stderr_file}" \
+      | >&2 grep -v "^ctags: Warning: cannot open source file"
+  }
+  if printerr_filtered 2> /dev/null; then
+    # Provide context to Anacron email output.
+    >&2 echo "ERROR: Unrecognized 'mr -d / infuse' output:"
+
+    printerr_filtered
+  fi
 
   command rm -- "${stderr_file}"
 }
