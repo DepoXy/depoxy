@@ -158,6 +158,7 @@ ImprovMX
 IndexedDB
 InfluxDB
 Inkscape
+InstaFonts
 IntelliSense
 Intellisense
 JAMstack
@@ -368,6 +369,7 @@ builtins
 cd'd
 chDB
 cli
+clobberable
 cmd
 cmdline
 columnarly
@@ -465,6 +467,7 @@ lazyb
 lazydocker
 lazygit
 letterlike
+lhs
 linters
 localStorage
 locatedb
@@ -482,6 +485,7 @@ millis
 mobo
 monorepo
 monorepos
+mountpoint
 mp4
 mrconfig
 mrconfigs
@@ -533,9 +537,12 @@ regexes
 repo's
 req
 reqs
+rhs
 rm'd
 rsync
 rsynced
+screencap
+screengrab
 scrollback
 sed
 sendmail
@@ -545,6 +552,7 @@ skhd
 skhdrc
 slatherer
 spellfile
+spellfile's
 spellfiles
 sshfs
 storeST
@@ -570,6 +578,7 @@ ungroup
 untrash
 untrashed
 untrashing
+updatedb
 uppercasing
 vCPU
 vals
