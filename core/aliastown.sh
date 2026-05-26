@@ -601,8 +601,20 @@ _dxy_wire_alias_wire_countdown_and_notify() {
     # local msg="${DEPOXY_COUNTDOWN_MESSAGE:-A nozh scrap any time you say.}"
     local msg="${DEPOXY_COUNTDOWN_MESSAGE:-Long time no viddy, droog. How goes? Surprised are you?}"
 
-    countdown "${time}" \
-      && notify "${msg}"
+    if countdown "${time}"; then
+      if [ -z "${DXY_COUNTDOWN_PLAY}" ]; then
+        notify "${msg}"
+      else
+        local freedsounds="/usr/share/sounds/freedesktop/stereo"
+        local freedsound="${freedsounds}/${DXY_COUNTDOWN_PLAY}"
+        if [ -f "${freedsound}" ]; then
+          paplay "${freedsound}"
+        else
+          local msg="${DXY_COUNTDOWN_NO_SOUNDS:-Ope, no audio file found. Please verify.}"
+          notify "${msg} ${freedsound}"
+        fi
+      fi
+    fi
   }
 
   claim_alias_or_warn "timer" "_dxy_countdown_and_notify"
@@ -611,6 +623,14 @@ _dxy_wire_alias_wire_countdown_and_notify() {
   claim_alias_or_warn "countdown-alarm" "_dxy_countdown_and_notify"
   # MAYBE/2026-02-03: Ha, what about `alarm`? Or `alarm-countdown`?
   claim_alias_or_warn "alarm" "_dxy_countdown_and_notify"
+  # FEATR/2026-05-25: Play sound when timer expires, rather than text-to-speaking.
+  # - Some examples:
+  #     chime 1s
+  #     DXY_COUNTDOWN_PLAY=service-logout.oga chime 1s
+  #     # This audio file is a number of seconds long.
+  #     DXY_COUNTDOWN_PLAY=alarm-clock-elapsed.oga chime 1s
+  claim_alias_or_warn "chime" \
+    "DXY_COUNTDOWN_PLAY=\\\${DXY_COUNTDOWN_PLAY:-phone-incoming-call.oga} _dxy_countdown_and_notify"
 
   # UCASE: Teabagging.
   claim_alias_or_warn "2m" "_dxy_countdown_and_notify 2m"
