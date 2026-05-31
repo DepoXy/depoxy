@@ -127,6 +127,7 @@ user_path_add_py_bins() {
 
 user_path_add_txt_bins() {
   path_prefix "${DOPP_KIT:-${HOME}/.kit}/txt/noname-notes/bin"
+  path_prefix "${DOPP_KIT:-${HOME}/.kit}/txt/todoreST/bin"
 }
 
 # ***

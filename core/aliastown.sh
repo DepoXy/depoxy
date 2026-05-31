@@ -274,6 +274,12 @@ _dxy_wire_aliases_pushd_paths_cdprefixed() {
 
   pushd_alias_or_warn "cdsp" "${DOPP_KIT:-${HOME}/.kit}/txt/spellfile.txt"
 
+  # HSTRY/2026-05-31: Pfft. Tourist. Er, todo reST. todoreST.
+  # - Aka reSTfold Reporter tho not tech'ly reSTfold /shruggie ¯\_(ツ)_/¯
+  pushd_alias_or_warn "cdto" "${DOPP_KIT:-${HOME}/.kit}/txt/todoreST"
+  pushd_alias_or_warn "cdtodo" "${DOPP_KIT:-${HOME}/.kit}/txt/todoreST"
+  pushd_alias_or_warn "cdtd" "${DOPP_KIT:-${HOME}/.kit}/txt/todoreST"
+
   # *** ~/.downloads
 
   pushd_alias_or_warn "cddl" "${DXY_DOWNLOADS_DIR:-${HF_DOWNLOADS_DIR:-${HOME}/.downloads}}"
