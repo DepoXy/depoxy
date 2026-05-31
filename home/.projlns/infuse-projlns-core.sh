@@ -127,9 +127,24 @@ infuse_projects_links_core_generate_ctags() {
   # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
   local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
 
-  local quiet=""
+  # SAVVY: Exuberant Ctags uses --verbose;
+  #        Universal Ctags uses --quiet.
+  # - REFER:
+  #   - --verbose[=yes|no]
+  #       Enable verbose mode. ...
+  #
+  #       Normally, ctags does not read command line arguments
+  #         until after options are read from the configuration files
+  #         and the CTAGS environment variable.
+  #
+  #       However, if this option is the first argument on the command
+  #         line, it will take effect before any options are read from
+  #         these sources.
+  local verbose_or_quiet=""
   if ctags --version | head -1 | grep -q "^Universal Ctags"; then
-    quiet="--quiet"
+    verbose_or_quiet="--quiet"
+  else
+    verbose_or_quiet="--verbose=yes"
   fi
 
   local time_0="$(date +%s.%N)"
@@ -149,10 +164,9 @@ infuse_projects_links_core_generate_ctags() {
     #     - MAYBE: Remove this comment and --exclude=docs/_build
     #       - Tho really I'm curious: I assume this used to work?
 
-    ${ctags_groom} \
+    ${ctags_groom} ${verbose_or_quiet} \
       \
       -R \
-      ${quiet} \
       \
       --totals=no \
       \
