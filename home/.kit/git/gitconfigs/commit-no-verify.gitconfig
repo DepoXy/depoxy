@@ -111,7 +111,7 @@
   # - You could try the memory device: CommIt aMend.
   #                                    c   i   m
   #
-  #   But a better pneumonic might be: Commit Into last commit and update Message
+  #   But a better mnemonic might be: Commit Into last commit and update Message
   #                                    c      i                           m
   cim = -c core.editor=editor-vim-0-0-insert-minimal commit --amend --no-verify
 
