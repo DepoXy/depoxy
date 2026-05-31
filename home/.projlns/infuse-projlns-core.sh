@@ -110,10 +110,6 @@ infuse_projects_links_core() {
 #     861265 tags sorted in 0.00 seconds
 
 infuse_projects_links_core_generate_ctags() {
-  # Use ctags wrapper to filter (delete afterwards) JavaScript false matches.
-  # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
-  local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
-
   # SAVVY: Universal Ctags is continuation of Exuberant Ctags.
   #   https://ctags.io/
   if ! ctags --version 2> /dev/null \
@@ -127,6 +123,9 @@ infuse_projects_links_core_generate_ctags() {
   fi
 
   LOG_MSG_NO_NEWLINE=true info "Creating Exuberant Ctags file... "
+  # Use ctags wrapper to filter (delete afterwards) JavaScript false matches.
+  # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
+  local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
 
   local quiet=""
   if ctags --version | head -1 | grep -q "^Universal Ctags"; then
