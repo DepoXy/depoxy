@@ -560,7 +560,9 @@ infuse_symlinks_home_projlns() {
   if (! is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-false}) \
     || (is_infuse_all && ! ${DEPOXY_INFUSE_PROJLNS:-true}) \
     ; then
-    info " $(font_info_skipped "Skipped") regenerating $(font_highlight "~/.projlns/") [because not \`mr -d /\` aka not all-project \`infuse\`, and/or not \${DEPOXY_INFUSE_PROJLNS}]"
+    info " $(font_info_skipped "Skipped") regenerating $(font_highlight "~/.projlns/")" \
+      "[because not \`mr -d /\` aka"
+    info " not all-project \`infuse\`, and/or not DEPOXY_INFUSE_PROJLNS]"
 
     return 0
   fi
