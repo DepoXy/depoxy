@@ -179,6 +179,7 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=htmlcov \
       --exclude=__pycache__ \
       --exclude=.pytest_cache \
+      --exclude=tags \
       --exclude=.tox \
       --exclude='.venv*' \
       \
@@ -189,6 +190,7 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=.cipher \
       --exclude=.whilom \
       --exclude=.zuppa \
+      --exclude=LICENSE \
       --exclude=TBD-* \
   )
 
