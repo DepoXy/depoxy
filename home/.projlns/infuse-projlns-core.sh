@@ -92,9 +92,7 @@ infuse_projects_links_core() {
 
   if ! mr -d / infuseProjlns; then
     warn
-    warn
     warn "ALERT: \`mr -d / infuseProjlns\` failed"
-    warn
     warn
   fi
 }
