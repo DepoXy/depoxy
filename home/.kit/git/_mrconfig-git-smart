@@ -21,7 +21,8 @@ lib = remote_set publish https://github.com/landonb/git-smart.git
 infusePostRebase =
   link_hard_dep_sh_git_nubs
 # CXREF: For the infuser that places ~/.gitconfig, see:
-#   ~/.depoxy/ambers/home/infuse-user-home
+#   infuse_symlinks_user_home_gitconfig
+#     ~/.depoxy/ambers/home/infuse-user-home
 infuse =
   mr -d . -n infusePostRebase
 # REFER:
