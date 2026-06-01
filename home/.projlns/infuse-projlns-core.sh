@@ -171,10 +171,10 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=.git \
       \
       --exclude=build \
+      --exclude=_build \
+      --exclude=docs/_build \
       --exclude=.coverage \
       --exclude=dist \
-      --exclude=docs/_build \
-      --exclude=_build \
       --exclude='*.egg-info' \
       --exclude=htmlcov \
       --exclude=__pycache__ \
@@ -189,7 +189,7 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=.cipher \
       --exclude=.whilom \
       --exclude=.zuppa \
-      --exclude=TBD-*
+      --exclude=TBD-* \
   )
 
   if [ ${LOG_LEVEL:-${LOG_LEVEL_ERROR:-40}} -le ${LOG_LEVEL_INFO:-20} ]; then
