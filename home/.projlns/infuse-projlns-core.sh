@@ -7,6 +7,10 @@
 # USAGE: Called by infuse_symlinks_home_projlns:
 #
 #   ~/.depoxy/ambers/home/infuse-user-home
+#
+# - Or call manually, e.g., to build ctags is a good reason:
+#
+#   LOG_LEVEL=0 ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -99,34 +103,52 @@ infuse_projects_links_core() {
 
 # ***
 
-# Run Ctags on ~/.projlns/depoxy-deeplinks:
+# Runs (perferably Universal, or fallsback Exuberant) Ctags
+#   on ~/.projlns/depoxy-deeplinks and creates:
+#     ~/.projlns/depoxy-deeplinks/tags
 #
-# - Inhibit final summary using --totals=no.
-#   - Omits, e.g.,
-#     25458 files, 8613434 lines (513523 kB) scanned in 146.1 seconds (3513 kB/s)
-#     861265 tags added to tag file
-#     861265 tags sorted in 0.00 seconds
+# REFER: See detailed notes in the ctags config:
+# - CXREF:
+#     ~/.ctags.d/config.ctags ->
+#       ~/.depoxy/ambers/home/.ctags.d/config.ctags
 
 infuse_projects_links_core_generate_ctags() {
+  _ctags() {
+    for cmd in "ctags-universal" "ctags"; do
+      command -v ${cmd} 2> /dev/null \
+        && break
+    done
+  }
+
+  _is_universal_ctags() {
+    $(_ctags) --version | head -1 | grep -q "^Universal Ctags"
+  }
+
+  _is_exuberant_ctags() {
+    $(_ctags) --version | head -1 | grep -q "^Exuberant Ctags"
+  }
+
   # SAVVY: Universal Ctags is continuation of Exuberant Ctags.
   #   https://ctags.io/
-  if ! ctags --version 2> /dev/null \
-    | head -n 1 \
-    | grep -q -e "^Exuberant Ctags" -e "^Universal Ctags" \
-    ; then
-
-    warn "Skipping ~/.projlns Ctags, because Exuberant Ctags not found."
+  if ! _is_universal_ctags && ! _is_exuberant_ctags; then
+    warn "Skipping ~/.projlns ctags: Found neither Universal Ctags nor Exuberant Ctags."
 
     return 1
   fi
 
-  LOG_MSG_NO_NEWLINE=true info "Creating Exuberant Ctags file... "
+  # PREVY: The only ever, now nowherever, LOG_MSG_NO_NEWLINE usage:
+  #   LOG_MSG_NO_NEWLINE=true info "Creating Exuberant Ctags file... "
+  info "                       😘🫴"
+  info "█▀▀ ▄█▄ ▄▀█ █▀▀ █▀ █   ▀▄▀ █▀█ █░█ █▀█"
+  info "█▄▄ ░█░ █▀█ █▄█ ▄█ ▄   █░█ █▄█ ▄▀▄ █▄█"
+  info " Generating ctags……!         /luvuXOXO 👐"
+
   # Use ctags wrapper to filter (delete afterwards) JavaScript false matches.
   # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
   local ctags_groom="${HOMEFRIES_BIN:-${HOMEFRIES_DIR:-${HOME}/.kit/sh/home-fries}/bin}/ctags-groom.sh"
 
-  # SAVVY: Exuberant Ctags uses --verbose;
-  #        Universal Ctags uses --quiet.
+  # SAV   █▀▀ ▀█▀ ▄▀█ █▀▀ █▀  Exuberant Ctags uses --verbose;
+  #   VY: █▄▄ ░█░ █▀█ █▄█ ▄█  Universal Ctags uses --quiet.
   # - REFER:
   #   - --verbose[=yes|no]
   #       Enable verbose mode. ...
@@ -139,19 +161,29 @@ infuse_projects_links_core_generate_ctags() {
   #         line, it will take effect before any options are read from
   #         these sources.
   local verbose_or_quiet=""
-  if ctags --version | head -1 | grep -q "^Universal Ctags"; then
+  local totals=""
+  if $(_ctags) --version | head -1 | grep -q "^Universal Ctags"; then
     verbose_or_quiet="--quiet"
+    # totals="--totals=yes"
+    totals="--totals=extra"
   else
     verbose_or_quiet="--verbose=yes"
+    totals="--totals=yes"
   fi
+
+  local dxy_state_home="${DXY_STATE_HOME:-${XDG_STATE_HOME:-${HOME}/.local/state}/depoxy}"
+  local ctags_capture="${dxy_state_home}/log/infuse-ctags.log"
+  mkdir -p -- "$(dirname -- "${ctags_capture}")"
 
   local time_0="$(date +%s.%N)"
 
   (
     cd "${DEPOXY_PROJLNS_DEPOXY}"
 
-    # REFER:
+    # REFER: Re: Universal & Exuberant Ctags:
     # - -R aka --recurse
+    #
+    # REFER: Re: Exuberant Ctags:
     # - --quiet Writes fewer messages, incl. null-tag warnings, e.g.,
     #     ctags: Notice: ignoring null tag in {path}.js(line: 1, language: JavaScript)
     #     - Works on Universal Ctags (e.g., from Homebrew), but
@@ -162,11 +194,18 @@ infuse_projects_links_core_generate_ctags() {
     #     - MAYBE: Remove this comment and --exclude=docs/_build
     #       - Tho really I'm curious: I assume this used to work?
 
+    # DEVEL: Run this script to run ctags:
+    #
+    # LOG_LEVEL=0 ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+
+    # LOPRI/FTREQ/2026-06-01: We can probably remove ctags-groom.sh shim.
+    #
+    # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
     ${ctags_groom} ${verbose_or_quiet} \
       \
       -R \
       \
-      --totals=no \
+      ${totals} \
       \
       --exclude=.git \
       \
@@ -192,6 +231,8 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=.zuppa \
       --exclude=LICENSE \
       --exclude=TBD-* \
+      2>&1 > "${ctags_capture}.stdout" \
+      | cat > "${ctags_capture}.stderr"
   )
 
   # Note that Ctags prints similar size and runtime stats.
@@ -218,8 +259,18 @@ infuse_projects_links_core_generate_ctags() {
     )"
 
     debug " Ctags done! $(print_elapsed_mins "${time_0}" "${time_n}") min, ${tags_size}M file"
+
+    if is_infuse_all; then
+
+      debug " - Run manually:"
+      debug "   LOG_LEVEL=0 $(echo "$0" | tilde_for_home)"
+    fi
   }
   print_ctags_report
+
+  # Savvy: Awkward phrasing (e.g., "outflow") for alignment w/ other trace.
+  debug " $(fg_lightcyan)Stored$(attr_reset) ctags outflow" \
+    "$(fg_lightorange)$(echo "${ctags_capture}" | tilde_for_home)$(attr_reset)"
 }
 
 print_elapsed_mins() {
@@ -228,6 +279,11 @@ print_elapsed_mins() {
 
   # SAVVY: `bc -l` loads the math library, so scale=1 reduces precision.
   echo "scale=1; ($time_n - $time_0) / 60" | bc -l | xargs printf "%.2f"
+}
+
+# COPYD: Not DRY.
+tilde_for_home() {
+  sed -E "s#^${HOME}(/|$)#~\1#"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #

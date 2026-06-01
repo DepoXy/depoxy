@@ -12,7 +12,7 @@
 /.acme.conf
 /.bash_history
 /.bashrc
-/.ctags
+/.ctags.d/config.ctags
 /.finicky.js
 /.gitconfig
 /.gitconfig.local

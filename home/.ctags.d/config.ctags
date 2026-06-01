@@ -1,3 +1,186 @@
+# Author: Landon Bouma <https://tallybark.com/>
+# Project: https://github.com/DepoXy/depoxy#🍯
+# License: MIT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# CXREF: Called by bespoke DepoXy ctags wrapper:
+#   ~/.kit/sh/home-fries/bin/ctags-groom.sh
+# - Which is called by bespoke ohmyrepos infuse:
+#   ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+# - Which generates this tags file:
+#   DEPOXY_PROJLNS_DEPOXY/tags
+#   - E.g.:
+#     ~/.projlns/depoxy-deeplinks/tags
+#   - SIZED/2026-05-31: Today, author's tags file is 887M
+#     (by Universal Ctags; or ~1.4G if by Exuberant Ctags).
+# - Also, ~/.ctags.d/config.ctags wired on 'infuse' by:
+#     infuse_symlinks_user_home_dotfiles() {
+#       ~/.depoxy/ambers/home/infuse-user-home
+#   - And ~/.ctags.d/private.ctags wired by DXC infuse:
+#       ~/.depoxy/ambers/mrassets/client-infuse
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# VERFY: After editing this file, verify it.
+#
+# - Most commands will fail if this config is broken; just run version:
+#
+#     ctags-universal --version
+
+# VRIFY: If you twiddle with --langmap, verify it, e.g.:
+#
+#   $ ctags-universal --list-maps | grep "^Sh"
+#   Sh       client-* *.sh *.SH *.bsh *.bash *.ksh *.zsh *.ash
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# REFER: Here are some of the common verification errors you might encounter:
+#
+#   $ ctags-universal --version
+#   ctags-universal: Language "css" already defined
+#
+#   $ ctags-universal --version
+#   ctags-universal: Warning: Don't reuse the kind letter `f' in a language Ruby (old: "method", new: "function")
+#
+#   $ ctags-universal --version
+#   ctags-universal: Non-alphanumeric char is used in kind name: 'static field' in "--regex-coffee" option
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# PREVY: To verify Exuberant Ctags:
+# - E.g., you don't want this:
+#
+#   $ ctags --version
+#   ctags: Warning: Ignoring non-option in /home/landonb/.ctags
+#
+#   Exuberant Ctags...
+#   ...
+#
+# - Though that particular warning is caused by comments (incl.
+#   these comments!) which Exub. does not support — and I'm
+#   unsure if the config still works... or at least I couldn't
+#   get a custom Sh file path to work from herein with Exub.:
+#     --langmap=Sh:+(client-*)
+#   But a similar CLI argument worked:
+#     ctags ... --langmap='Sh:+(client-*)'
+#   Though I didn't investigate further; I realized I needed
+#   to update to Universal Ctags on Linux like I had done on
+#   macOS DepoXy (years ago, I might add, didn't realize the
+#   DepoXy Linux ctags feature was so outta date!).
+#
+# - AWARE: Note this file is checked on --version, and
+#   Exuberant Ctags will complain about comments herein:
+#
+#   $ ctags --version
+#   ctags: Warning: Ignoring non-option in /home/landonb/.ctags
+#
+#   Exuberant Ctags 5.9~svn20110310, Copyright (C) 1996-2009 Darren Hiebert
+#     Addresses: <dhiebert@users.sourceforge.net>, http://ctags.sourceforge.net
+#     Optional compiled features: +wildcards, +regex
+#
+#   - Which, in additional to smaller file size, faster runtime, and active
+#     project maintenance, is a good reason to use Universal Ctags.
+#
+# - HSTRY/2026-05-31: This file originally found by the author
+#   circa 2010-2015, but I don't know from where, just that it
+#   was created while working on Cyclopath research project (as
+#   indicated by all the ActionScript config).
+#
+#   - Note this config was originally ~/.ctags for Exuberant Ctags,
+#     and has since been converted to ~/.ctags.d/config.ctags for
+#     Universal Ctags — but we haven't updated eveything.
+#
+#     - We've commented anything Universal complained about.
+#
+#     - And I don't think you need to worry about overriding
+#       Universal Ctags defaults that might be better than
+#       anything in here, because Universal should squawk if
+#       we try to redefine anything, e.g., a line line this:
+#
+#         --langdef=css
+#
+#       Will break ctags-universal until you fix this config:
+#
+#         $ ctags-universal --list-kinds=all
+#         ctags-universal: Language "css" already defined
+
+# INERT/FIXEM: There's disabled config below from Exub. Ctags, that
+# doesn't work with Universal Ctags, which we have no plans to fix.
+# - INERT: If we notice any issues using tags, then we might fix.
+# - Some of the issue are because Univ. Ctags defines more langs.
+#   than Exub. did.
+#   - E.g., this old config that worked with Exub.:
+#     --langdef=css
+#     --langmap=css:.css
+#     --regex-css=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/\1/d,definition/
+#   Will cause this failure with Univ.:
+#     $ ctags-universal --list-kinds=all
+#     ctags-universal: Language "css" already defined
+#   And while we could try to disable --langdef and --langmap but
+#   not --regex-css, I highly doubt we need to override or supplant
+#   anything in Universal!
+# - This file's main uses is to specify these options:
+#     --exclude
+#     --fields
+#     --extras
+#     --langmap
+#   - Though note we could also pass these as CLI args (and some
+#     we already do):
+#       infuse_projects_links_core_generate_ctags
+#         ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# REFER: Some of the Listing Options:
+#
+#   ctags-universal --list-features
+#
+#   ctags-universal --list-maps
+#   ctags-universal --list-maps | grep ^Sh
+#
+#   ctags-universal --list-kinds=all | bat
+#   ctags-universal --list-kinds-full | bat
+#
+#   ctags-universal --list-regex-flags
+#
+# - REFER: How to use a different config, at least according to GAIO, e.g.:
+#
+#     ctags-universal --options=NONE --options=~/.ctags.d/config.ctags --list-maps
+#
+# - [All of the] Listing Options:
+#     ctags-universal --list-aliases[=(<language>|all)]
+#     ctags-universal --list-excludes
+#     ctags-universal --list-extras[=(<language>|NONE|all)]
+#     ctags-universal --list-features
+#     ctags-universal --list-fields[=(<language>|NONE|all)]
+#     ctags-universal --list-kinds[=(<language>|all)]
+#     ctags-universal --list-kinds-full[=(<language>|all)]
+#     ctags-universal --list-languages
+#     ctags-universal --list-map-extensions[=(<language>|all)]
+#     ctags-universal --list-map-patterns[=(<language>|all)]
+#     ctags-universal --list-map-rexprs[=(<language>|all)]
+#     ctags-universal --list-maps[=(<language>|all)]
+#     ctags-universal --list-mline-regex-flags
+#     ctags-universal --list-output-formats
+#     ctags-universal --list-params[=(<language>|all)]
+#     ctags-universal --list-pseudo-tags
+#     ctags-universal --list-regex-flags
+#     ctags-universal --list-roles[=(<language>|all)[.(<kind-specs>|*)]]
+#     ctags-universal --list-subparsers[=(<baselang>|all)]
+#
+# - Misc. Opts.:
+#     ctags-universal --describe-language=<language>
+#     ctags-universal --help-full
+#     ctags-universal --quiet[=(yes|no)]
+#     ctags-universal --totals[=(yes|no|extra)]
+#     ctags-universal -V, --verbose[=(yes|no)]
+#
+# - REFER:
+#   https://docs.ctags.io/en/latest/man/ctags.1.html
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
 --exclude=.git
 --exclude=.svn
 --exclude=*.min.js
@@ -6,133 +189,360 @@
 --exclude=log
 --exclude=tmp
 
---languages=-javascript,sql
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+# BACON/2026-05-31: Back on: Disabling this disablement,
+# because don't remember why I would've initially disabled,
+# perhaps an issue with (old) Exuberant Ctags, maybe file
+# size, who knows, other than added for Cyclopath research
+# project, circa 2010-2015.
+#
+#  --languages=-javascript,sql
+
+# REFER: `man ctags-universal` > Extension fields:
+#
+#   - inherits/i  — When present, value is a comma-separated list of classes
+#                   from which this class is derived (i.e. inherits from).
+#   - access/a    — Indicates the visibility of this class member, where value
+#                   is specific to the language.
+#   - signature/S — When present, value is a language-dependent representation
+#                   of the signature of a routine....
 --fields=+iaS
---extra=+qf
---totals=yes
 
---langdef=actionscript
---langmap=actionscript:.as
---regex-actionscript=/^[ \t]*[(private|protected|public) ( \t)]*[(static) ( \t)]*function[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1/f,function,functions/
---regex-actionscript=/^[ \t]*[(private|protected|public) ( \t)]*[(static) ( \t)]*function[ \t]+[(set|get)]*[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1 \2/p,property,properties/
---regex-actionscript=/^[ \t]*[(private|protected|public) ( \t)]*[(static) ( \t)]*var[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/v,variable,variables/
---regex-actionscript=/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [ \t]?)*\(/\1/ f,function,functions/
---regex-actionscript=/^[ \t]*class[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/c,class,classes/
+# REFER: `man ctags-universal` > Extras:
+#
+#   - inputFile/f — Include an entry for the base file name.
+#   - qualified/q — Include an extra class-qualified or namespace-qualified
+#       tag entry for each tag which is a member of a class or a namespace.
+#       - BECUZ: This may allow easier location of a specific tags [sic] when
+#                multiple occurrences of a tag name occur in the tag file.
+#       - AWARE: This could potentially more than double the size of the tag file.
+--extras=+qf
 
---langdef=js
---langmap=js:.js
---langmap=js:+.jsx
---regex-js=/\.([A-Za-z0-9._$]+)[ \t]*=[ \t]*\{/\1/o,object/
---regex-js=/['"]*([A-Za-z0-9_$]+)['"]*[ \t]*:[ \t]*\{/\1/o,object/
---regex-js=/([A-Za-z0-9._$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*\{/\1\.\2/o,object/
---regex-js=/([A-Za-z0-9._$]+)[ \t]*=[ \t]*\(function\(\)/\1/c,class/
---regex-js=/['"]*([A-Za-z0-9_$]+)['"]*:[ \t]*\(function\(\)/\1/c,class/
---regex-js=/class[ \t]+([A-Za-z0-9._$]+)[ \t]*/\1/c,class/
---regex-js=/([A-Za-z$][A-Za-z0-9_$()]+)[ \t]*=[ \t]*[Rr]eact.createClass[ \t]*\(/\1/c,class/
---regex-js=/([A-Z][A-Za-z0-9_$]+)[ \t]*=[ \t]*[A-Za-z0-9_$]*[ \t]*[{(]/\1/c,class/
---regex-js=/([A-Z][A-Za-z0-9_$]+)[ \t]*:[ \t]*[A-Za-z0-9_$]*[ \t]*[{(]/\1/c,class/
---regex-js=/([A-Za-z$][A-Za-z0-9_$]+)[ \t]*=[ \t]*function[ \t]*\(/\1/f,function/
---regex-js=/(function)*[ \t]*([A-Za-z$_][A-Za-z0-9_$]+)[ \t]*\([^)]*\)[ \t]*\{/\2/f,function/
---regex-js=/['"]*([A-Za-z$][A-Za-z0-9_$]+)['"]*:[ \t]*function[ \t]*\(/\1/m,method/
---regex-js=/([A-Za-z0-9_$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*function[ \t]*\(/\2/m,method/
+# Because affects terminal output, let's specify from command invocation.
+# - CXREF: infuse_projects_links_core_generate_ctags:
+#     ~/.depoxy/ambers/home/.projlns/infuse-projlns-core.sh
+#
+#  --totals=yes
 
---langdef=css
---langmap=css:.css
---regex-css=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/\1/d,definition/
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
---langdef=less
---langmap=less:.less
---regex-less=/^[ \t]*.([A-Za-z0-9_-]+)/1/c,class,classes/
---regex-less=/^[ \t]*#([A-Za-z0-9_-]+)/1/i,id,ids/
---regex-less=/^[ \t]*(([A-Za-z0-9_-]+[ \t\n,]+)+)\{/1/t,tag,tags/
---regex-less=/^[ \t]*@medias+([A-Za-z0-9_-]+)/1/m,media,medias/
+# ISOFF/2026-05-31: Disabled because don't use; but valid Univ. Ctags config.
+#
+#  --langdef=actionscript
+#  --langmap=actionscript:.as
+#  --regex-actionscript=/^[ \t]*[(private|protected|public) ( \t)]*[(static) ( \t)]*function[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1/f,function,functions/
+#  --regex-actionscript=/^[ \t]*[(private|protected|public) ( \t)]*[(static) ( \t)]*function[ \t]+[(set|get)]*[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1 \2/p,property,properties/
+#  --regex-actionscript=/^[ \t]*[(private|protected|public) ( \t)]*[(static) ( \t)]*var[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/v,variable,variables/
+#  # BROKN: ctags-universal: A kind name doesn't start with an
+#  #   alphabetical character: ' f' in "--regex-actionscript" option
+#  #  --regex-actionscript=/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [ \t]?)*\(/\1/ f,function,functions/
+#  --regex-actionscript=/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [ \t]?)*\(/\1/f,function,functions/
+#  --regex-actionscript=/^[ \t]*class[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/c,class,classes/
 
---langdef=scss
---langmap=scss:.scss
---regex-scss=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/| \1/d,definition/
---langdef=sass
---langmap=sass:.scss
---regex-sass=/@mixin[ ]*([^ ({]+)/\1/m,mixin/
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
---langdef=clojure
---langmap=clojure:.clj
---regex-clojure=/\([ \t]*create-ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
---regex-clojure=/\([ \t]*def[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/d,definition/
---regex-clojure=/\([ \t]*defn-?[ \t]+(\^[-[:alnum:]*+!_:\/.?]+[ \t]+)?([-[:alnum:]*+!_:\/.?]+)/\2/f,function/
---regex-clojure=/\([ \t]*defmacro[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/m,macro/
---regex-clojure=/\([ \t]*defroutes[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/m,macro/
---regex-clojure=/\([ \t]*definline[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/i,inline/
---regex-clojure=/\([ \t]*defmulti[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/a,multimethod definition/
---regex-clojure=/\([ \t]*defmethod[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/b,multimethod instance/
---regex-clojure=/\([ \t]*defonce[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/c,definition (once)/
---regex-clojure=/\([ \t]*defstruct[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/s,struct/
---regex-clojure=/\([ \t]*intern[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/v,intern/
---regex-clojure=/\([ \t]*ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
+# DUNNO/2026-05-31: How is js not in Universal Ctags by default?
+# - I.e., I'd expect this error:
+#
+#   $ ctags-universal --version
+#   ctags-universal: Language "js" already defined
+#
+# - Though it's defined as JavaScript, prob. why...
+#   - SPIKE/DUNNO: What happens if two+ langs specify same --langmap file extension?
+#     - Do they each process file, or just one wins?
+#
+# ISOFF/2026-05-31: Although Univ. doesn't complain, let's omit this...
+# - Author only really uses ctags for Shell code; JS, Python, etc. is
+#   all handled by Language Servers nowadays...
+#
+#  --langdef=js
+#  --langmap=js:.js
+#  --langmap=js:+.jsx
+#  --regex-js=/\.([A-Za-z0-9._$]+)[ \t]*=[ \t]*\{/\1/o,object/
+#  --regex-js=/['"]*([A-Za-z0-9_$]+)['"]*[ \t]*:[ \t]*\{/\1/o,object/
+#  --regex-js=/([A-Za-z0-9._$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*\{/\1\.\2/o,object/
+#  --regex-js=/([A-Za-z0-9._$]+)[ \t]*=[ \t]*\(function\(\)/\1/c,class/
+#  --regex-js=/['"]*([A-Za-z0-9_$]+)['"]*:[ \t]*\(function\(\)/\1/c,class/
+#  --regex-js=/class[ \t]+([A-Za-z0-9._$]+)[ \t]*/\1/c,class/
+#  --regex-js=/([A-Za-z$][A-Za-z0-9_$()]+)[ \t]*=[ \t]*[Rr]eact.createClass[ \t]*\(/\1/c,class/
+#  --regex-js=/([A-Z][A-Za-z0-9_$]+)[ \t]*=[ \t]*[A-Za-z0-9_$]*[ \t]*[{(]/\1/c,class/
+#  --regex-js=/([A-Z][A-Za-z0-9_$]+)[ \t]*:[ \t]*[A-Za-z0-9_$]*[ \t]*[{(]/\1/c,class/
+#  --regex-js=/([A-Za-z$][A-Za-z0-9_$]+)[ \t]*=[ \t]*function[ \t]*\(/\1/f,function/
+#  --regex-js=/(function)*[ \t]*([A-Za-z$_][A-Za-z0-9_$]+)[ \t]*\([^)]*\)[ \t]*\{/\2/f,function/
+#  --regex-js=/['"]*([A-Za-z$][A-Za-z0-9_$]+)['"]*:[ \t]*function[ \t]*\(/\1/m,method/
+#  --regex-js=/([A-Za-z0-9_$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*function[ \t]*\(/\2/m,method/
 
---langdef=coffee
---langmap=coffee:.coffee
---regex-coffee=/(^|=[ \t])*class ([A-Za-z_][A-Za-z0-9_]+\.)*([A-Za-z_][A-Za-z0-9_]+)( extends ([A-Za-z][A-Za-z0-9_.]*)+)?$/\3/c,class/
---regex-coffee=/^[ \t]*(module\.)?(exports\.)?@?(([A-Za-z][A-Za-z0-9_.]*)+):.*[-=]>.*$/\3/m,method/
---regex-coffee=/^[ \t]*(module\.)?(exports\.)?(([A-Za-z][A-Za-z0-9_.]*)+)[ \t]*=.*[-=]>.*$/\3/f,function/
---regex-coffee=/^[ \t]*(([A-Za-z][A-Za-z0-9_.]*)+)[ \t]*=[^->\n]*$/\1/v,variable/
---regex-coffee=/^[ \t]*@(([A-Za-z][A-Za-z0-9_.]*)+)[ \t]*=[^->\n]*$/\1/f,field/
---regex-coffee=/^[ \t]*@(([A-Za-z][A-Za-z0-9_.]*)+):[^->\n]*$/\1/f,static field/
---regex-coffee=/^[ \t]*(([A-Za-z][A-Za-z0-9_.]*)+):[^->\n]*$/\1/f,field/
---regex-coffee=/((constructor|initialize):[ \t]*\()@(([A-Za-z][A-Za-z0-9_.]*)+)([ \t]*=[ \t]*[^,)]+)?/\3/f,field/
+# ***
 
---langmap=Ruby:+(Rakefile)
---regex-ruby=/.*alias(_method)?[[:space:]]+:([[:alnum:]_=!?]+),?[[:space:]]+:([[:alnum:]_=!]+)/\2/f,function/
---regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
---regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f,function,association/
---regex-ruby=/(^|;)[ \t]*(named_)?scope\(? *:([[:alnum:]_]+)/\3/f,function,named_scope/
---regex-ruby=/(^|;)[ \t]*expose\(? *:([[:alnum:]_]+)/\2/f,function,exposure/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f,function,aasm_event/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f,function,aasm_event/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f,function,aasm_event/
+# ctags-universal: Language "typescript" already defined
+#
+#  --langdef=typescript
+#  --langmap=typescript:.ts
+#  --regex-typescript=/^[ \t]*(export)?[ \t]*class[ \t]+([a-zA-Z0-9_]+)/\2/c,classes/
+#  --regex-typescript=/^[ \t]*(export)?[ \t]*module[ \t]+([a-zA-Z0-9_]+)/\2/n,modules/
+#  --regex-typescript=/^[ \t]*(export)?[ \t]*function[ \t]+([a-zA-Z0-9_]+)/\2/f,functions/
+#  --regex-typescript=/^[ \t]*export[ \t]+var[ \t]+([a-zA-Z0-9_]+)/\1/v,variables/
+#  --regex-typescript=/^[ \t]*var[ \t]+([a-zA-Z0-9_]+)[ \t]*=[ \t]*function[ \t]*\(\)/\1/v,varlambdas/
+#  --regex-typescript=/^[ \t]*(export)?[ \t]*(public|private)[ \t]+(static)?[ \t]*([a-zA-Z0-9_]+)/\4/m,members/
+#  --regex-typescript=/^[ \t]*(export)?[ \t]*interface[ \t]+([a-zA-Z0-9_]+)/\2/i,interfaces/
+#  --regex-typescript=/^[ \t]*(export)?[ \t]*enum[ \t]+([a-zA-Z0-9_]+)/\2/e,enums/
+#  --regex-typescript=/^[ \t]*import[ \t]+([a-zA-Z0-9_]+)/\1/I,imports/
 
---langdef=haskell
---langmap=haskell:.hs
---regex-haskell=/^module[ \t]*([A-Z][a-zA-Z0-9'_.]*)/\1/m,module/
---regex-haskell=/^(new)?type[ \t]*([A-Z][a-zA-Z0-9'_]*)./\2/t,type/
---regex-haskell=/^class[ \t]*([A-Z][a-zA-Z0-9'_]*)/\1/c,class/
---regex-haskell=/^data[ \t]*([A-Z][a-zA-Z0-9'_]*)/\1/d,data/
---regex-haskell=/^([a-z_][a-zA-Z0-9'_]*).*=/\1/v,function/
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
---langmap=C++:+.mm
+# ctags-universal: Language "css" already defined
+#
+#  --langdef=css
+#  --langmap=css:.css
+#  --regex-css=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/\1/d,definition/
 
---langdef=golang
---langmap=golang:.go
---regex-golang=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/
---regex-golang=/var[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,var/
---regex-golang=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/
+# ***
 
---langdef=Rust
---langmap=Rust:.rs
---regex-Rust=/^[ \t]*(#\[[^\]]\][ \t]*)*(pub[ \t]+)?(extern[ \t]+)?("[^"]+"[ \t]+)?(unsafe[ \t]+)?fn[ \t]+([a-zA-Z0-9_]+)/\6/f,functions,function definitions/
---regex-Rust=/^[ \t]*(pub[ \t]+)?type[ \t]+([a-zA-Z0-9_]+)/\2/T,types,type definitions/
---regex-Rust=/^[ \t]*(pub[ \t]+)?enum[ \t]+([a-zA-Z0-9_]+)/\2/g,enum,enumeration names/
---regex-Rust=/^[ \t]*(pub[ \t]+)?struct[ \t]+([a-zA-Z0-9_]+)/\2/s,structure names/
---regex-Rust=/^[ \t]*(pub[ \t]+)?mod[ \t]+([a-zA-Z0-9_]+)/\2/m,modules,module names/
---regex-Rust=/^[ \t]*(pub[ \t]+)?static[ \t]+([a-zA-Z0-9_]+)/\2/c,consts,static constants/
---regex-Rust=/^[ \t]*(pub[ \t]+)?trait[ \t]+([a-zA-Z0-9_]+)/\2/t,traits,traits/
---regex-Rust=/^[ \t]*(pub[ \t]+)?impl([ \t\n]*<[^>]*>)?[ \t]+(([a-zA-Z0-9_:]+)[ \t]*(<[^>]*>)?[ \t]+(for)[ \t]+)?([a-zA-Z0-9_]+)/\4 \6 \7/i,impls,trait implementations/
---regex-Rust=/^[ \t]*macro_rules![ \t]+([a-zA-Z0-9_]+)/\1/d,macros,macro definitions/
+# ctags-universal: Language "scss" already defined
+#
+#  --langdef=scss
+#  --langmap=scss:.scss
+#  --regex-scss=/^[ \t]*([^\t {][^{]{1,100})(\t| )*\{/| \1/d,definition/
+#  --langdef=sass
+#  --langmap=sass:.scss
+#  --regex-sass=/@mixin[ ]*([^ ({]+)/\1/m,mixin/
 
---langdef=typescript
---langmap=typescript:.ts
---regex-typescript=/^[ \t]*(export)?[ \t]*class[ \t]+([a-zA-Z0-9_]+)/\2/c,classes/
---regex-typescript=/^[ \t]*(export)?[ \t]*module[ \t]+([a-zA-Z0-9_]+)/\2/n,modules/
---regex-typescript=/^[ \t]*(export)?[ \t]*function[ \t]+([a-zA-Z0-9_]+)/\2/f,functions/
---regex-typescript=/^[ \t]*export[ \t]+var[ \t]+([a-zA-Z0-9_]+)/\1/v,variables/
---regex-typescript=/^[ \t]*var[ \t]+([a-zA-Z0-9_]+)[ \t]*=[ \t]*function[ \t]*\(\)/\1/v,varlambdas/
---regex-typescript=/^[ \t]*(export)?[ \t]*(public|private)[ \t]+(static)?[ \t]*([a-zA-Z0-9_]+)/\4/m,members/
---regex-typescript=/^[ \t]*(export)?[ \t]*interface[ \t]+([a-zA-Z0-9_]+)/\2/i,interfaces/
---regex-typescript=/^[ \t]*(export)?[ \t]*enum[ \t]+([a-zA-Z0-9_]+)/\2/e,enums/
---regex-typescript=/^[ \t]*import[ \t]+([a-zA-Z0-9_]+)/\1/I,imports/
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
---langdef=elm
---langmap=elm:.elm
---regex-elm=/^module[ \t]*([A-Z][a-zA-Z0-9'_.]*)/\1/m,module/
---regex-elm=/^type[ \t]*([A-Z][a-zA-Z0-9'_]*)./\1/t,type/
---regex-elm=/^([a-z_][a-zA-Z0-9'_]*).*=/\1/v,function/
+# ISOFF/2026-05-31: Disabled because don't use; but valid Univ. Ctags config.
+#
+#  --langdef=less
+#  --langmap=less:.less
+#  --regex-less=/^[ \t]*.([A-Za-z0-9_-]+)/1/c,class,classes/
+#  --regex-less=/^[ \t]*#([A-Za-z0-9_-]+)/1/i,id,ids/
+#  --regex-less=/^[ \t]*(([A-Za-z0-9_-]+[ \t\n,]+)+)\{/1/t,tag,tags/
+#  --regex-less=/^[ \t]*@medias+([A-Za-z0-9_-]+)/1/m,media,medias/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ctags-universal: Language "clojure" already defined
+#
+#  --langdef=clojure
+#  --langmap=clojure:.clj
+#  --regex-clojure=/\([ \t]*create-ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
+#  --regex-clojure=/\([ \t]*def[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/d,definition/
+#  --regex-clojure=/\([ \t]*defn-?[ \t]+(\^[-[:alnum:]*+!_:\/.?]+[ \t]+)?([-[:alnum:]*+!_:\/.?]+)/\2/f,function/
+#  --regex-clojure=/\([ \t]*defmacro[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/m,macro/
+#  --regex-clojure=/\([ \t]*defroutes[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/m,macro/
+#  --regex-clojure=/\([ \t]*definline[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/i,inline/
+#  --regex-clojure=/\([ \t]*defmulti[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/a,multimethod definition/
+#  --regex-clojure=/\([ \t]*defmethod[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/b,multimethod instance/
+#  --regex-clojure=/\([ \t]*defonce[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/c,definition (once)/
+#  --regex-clojure=/\([ \t]*defstruct[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/s,struct/
+#  --regex-clojure=/\([ \t]*intern[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/v,intern/
+#  --regex-clojure=/\([ \t]*ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ISOFF/2026-05-31: Disabled because don't use; but valid Univ. Ctags config.
+#
+#  --langdef=coffee
+#  --langmap=coffee:.coffee
+#  --regex-coffee=/(^|=[ \t])*class ([A-Za-z_][A-Za-z0-9_]+\.)*([A-Za-z_][A-Za-z0-9_]+)( extends ([A-Za-z][A-Za-z0-9_.]*)+)?$/\3/c,class/
+#  --regex-coffee=/^[ \t]*(module\.)?(exports\.)?@?(([A-Za-z][A-Za-z0-9_.]*)+):.*[-=]>.*$/\3/m,method/
+#  --regex-coffee=/^[ \t]*(module\.)?(exports\.)?(([A-Za-z][A-Za-z0-9_.]*)+)[ \t]*=.*[-=]>.*$/\3/f,function/
+#  --regex-coffee=/^[ \t]*(([A-Za-z][A-Za-z0-9_.]*)+)[ \t]*=[^->\n]*$/\1/v,variable/
+#  # INERT/FIXEM: From Exub. Ctags. No plans to fix for Univ. Ctags.
+#  # - Don't reuse kind letter 'f' warning:
+#  #     $ ctags-universal --list-kinds=all
+#  #     ctags-universal: Warning: Don't reuse the kind letter `f' in a language coffee (old: "function", new: "field")
+#  #   - From:
+#  #     --regex-coffee=/^[ \t]*@(([A-Za-z][A-Za-z0-9_.]*)+)[ \t]*=[^->\n]*$/\1/f,field/
+#  #     --regex-coffee=/^[ \t]*(([A-Za-z][A-Za-z0-9_.]*)+):[^->\n]*$/\1/f,field/
+#  #     --regex-coffee=/((constructor|initialize):[ \t]*\()@(([A-Za-z][A-Za-z0-9_.]*)+)([ \t]*=[ \t]*[^,)]+)?/\3/f,field/
+#  # - And Non-alpha in kind name alert (warning? error?):
+#  #     $ ctags-universal --list-kinds=all
+#  #     ctags-universal: Non-alphanumeric char is used in kind name: 'static field' in "--regex-coffee" option
+#  #   - From:
+#  #     --regex-coffee=/^[ \t]*@(([A-Za-z][A-Za-z0-9_.]*)+):[^->\n]*$/\1/f,static field/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ISOFF/2026-05-31: Disabled because don't use; but valid Univ. Ctags config.
+#
+#  --langmap=Ruby:+(Rakefile)
+#  --regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
+#  # INERT/FIXEM: From Exub. Ctags. No plans to fix for Univ. Ctags.
+#  # - Don't reuse kind letter 'f' warning:
+#  #     $ ctags-universal --list-kinds=all
+#  #     ctags-universal: Warning: Don't reuse the kind letter `f' in a language coffee (old: "function", new: "field")
+#  #   - From:
+#  #     --regex-ruby=/.*alias(_method)?[[:space:]]+:([[:alnum:]_=!?]+),?[[:space:]]+:([[:alnum:]_=!]+)/\2/f,function/
+#  #     --regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f,function,association/
+#  #     --regex-ruby=/(^|;)[ \t]*(named_)?scope\(? *:([[:alnum:]_]+)/\3/f,function,named_scope/
+#  #     --regex-ruby=/(^|;)[ \t]*expose\(? *:([[:alnum:]_]+)/\2/f,function,exposure/
+#  #     --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f,function,aasm_event/
+#  #     --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f,function,aasm_event/
+#  #     --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f,function,aasm_event/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ctags-universal: Language "haskell" already defined
+#
+#  --langdef=haskell
+#  --langmap=haskell:.hs
+#  --regex-haskell=/^module[ \t]*([A-Z][a-zA-Z0-9'_.]*)/\1/m,module/
+#  --regex-haskell=/^(new)?type[ \t]*([A-Z][a-zA-Z0-9'_]*)./\2/t,type/
+#  --regex-haskell=/^class[ \t]*([A-Z][a-zA-Z0-9'_]*)/\1/c,class/
+#  --regex-haskell=/^data[ \t]*([A-Z][a-zA-Z0-9'_]*)/\1/d,data/
+#  --regex-haskell=/^([a-z_][a-zA-Z0-9'_]*).*=/\1/v,function/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ISOFF/2026-05-31: Disabled because don't use; but valid Univ. Ctags config.
+#
+#  --langmap=C++:+.mm
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ISOFF/2026-05-31: Disabled because don't use; but valid Univ. Ctags config.
+#
+#  --langdef=golang
+#  --langmap=golang:.go
+#  --regex-golang=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/
+#  # INERT/FIXEM: From Exub. Ctags. No plans to fix for Univ. Ctags.
+#  # - Don't reuse kind letter 'd' warnings:
+#  #   - Re: 'var':
+#  #     $ ctags-universal --list-kinds=all
+#  #     ctags-universal: Warning: Don't reuse the kind letter `d' in a language golang (old: "func", new: "var")
+#  #   - From:
+#  #     --regex-golang=/var[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,var/
+#  #   - Ang slightly similar but probably same issue Re: 'type':
+#  #     $ ctags-universal --list-kinds=all
+#  #     ctags-universal: Warning: Don't reuse the kind letter `d' in a language golang (old: "func", new: "type")
+#  #   - From:
+#  #     --regex-golang=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ctags-universal: Language "Rust" already defined
+#
+#  --langdef=Rust
+#  --langmap=Rust:.rs
+#  --regex-Rust=/^[ \t]*(#\[[^\]]\][ \t]*)*(pub[ \t]+)?(extern[ \t]+)?("[^"]+"[ \t]+)?(unsafe[ \t]+)?fn[ \t]+([a-zA-Z0-9_]+)/\6/f,functions,function definitions/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?type[ \t]+([a-zA-Z0-9_]+)/\2/T,types,type definitions/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?enum[ \t]+([a-zA-Z0-9_]+)/\2/g,enum,enumeration names/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?struct[ \t]+([a-zA-Z0-9_]+)/\2/s,structure names/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?mod[ \t]+([a-zA-Z0-9_]+)/\2/m,modules,module names/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?static[ \t]+([a-zA-Z0-9_]+)/\2/c,consts,static constants/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?trait[ \t]+([a-zA-Z0-9_]+)/\2/t,traits,traits/
+#  --regex-Rust=/^[ \t]*(pub[ \t]+)?impl([ \t\n]*<[^>]*>)?[ \t]+(([a-zA-Z0-9_:]+)[ \t]*(<[^>]*>)?[ \t]+(for)[ \t]+)?([a-zA-Z0-9_]+)/\4 \6 \7/i,impls,trait implementations/
+#  --regex-Rust=/^[ \t]*macro_rules![ \t]+([a-zA-Z0-9_]+)/\1/d,macros,macro definitions/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# ctags-universal: Language "elm" already defined
+#
+#  --langdef=elm
+#  --langmap=elm:.elm
+#  --regex-elm=/^module[ \t]*([A-Z][a-zA-Z0-9'_.]*)/\1/m,module/
+#  --regex-elm=/^type[ \t]*([A-Z][a-zA-Z0-9'_]*)./\1/t,type/
+#  --regex-elm=/^([a-z_][a-zA-Z0-9'_]*).*=/\1/v,function/
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+# Add extensionless filenames for --langdef=Sh.
+# - After changing, verify, e.g.:
+#     $ ctags-universal --list-maps | grep "^Sh"
+#     Sh       client-* *.sh *.SH *.bsh *.bash *.ksh *.zsh *.ash
+#
+# INERT/MAYBE/2026-05-31: ALTLY: We could instead rename DepoXy
+# (and other project) shell files so they end with .sh extension.
+# - But while it might be "tedious" to have to list files herein
+#   rather than rename them, I also like being able to name shell
+#   files without a file extension... so I think we just need to
+#   manage this file, oh well.
+
+# REFER: Here's an example of the different --langmap approaches:
+# - Specify as shell arg to ctags invocation (be sure to escape
+#   or single-quote globs), e.g.:
+#     ctags-groom ... --langmap='Sh:+(client-*)'
+# - Use an explicit one-liner herein:
+#   --langmap=Sh:+(client-autocommit)(client-include)(client-infuse)(client-infusePostRebase)
+# - Or use separate non-globs:
+#   --langmap=Sh:+(client-autocommit)
+#   --langmap=Sh:+(client-include)
+#   --langmap=Sh:+(client-infuse)
+#   --langmap=Sh:+(client-infusePostRebase)
+# - But easiest approach is glob, when possible, e.g.:
+#   --langmap=Sh:+(client-*)
+
+# ~/.depoxy/ambers/mrassets/:
+#   client-[autocommit|include|infuse|infusePostRebase]
+--langmap=Sh:+(client-*)
+# ~/.depoxy/ambers/home/:
+#   infuse-config-omr
+#   infuse-home-fries
+#   infuse-nvim-depoxy
+#   infuse-platform-macOS
+#   infuse-user-home
+--langmap=Sh:+(infuse-*)
+# ~/.depoxy/ambers/home/.kit/git/ohmyrepos/bin/:
+#   infuse
+#   infusePostRebase
+#   infuseProjlns
+#   updateDeps
+--langmap=Sh:+(infuse*)
+--langmap=Sh:+(updateDeps)
+
+# DXC files (though does Ctags store var. defs? I don't think so,
+# or at least Exub. didn't).
+--langmap=Sh:+(depoxyrc)
+--langmap=Sh:+(321open.cfg)
+
+--langmap=Sh:+(update-faithful)
+
+# Dunno: Will this work? Ha.
+--langmap=Sh:+(*mrconfig*)
+
+# REFER:
+#   find ~/.depoxy/ambers/bin/ -type f -executable
+# - All but one file is executable:
+#     meld \
+#       <(find ~/.depoxy/ambers/bin/ -type f -executable) \
+#       <(find ~/.depoxy/ambers/bin/ -type f) &
+#   - Fingers osascript "app":
+#       ~/.depoxy/ambers/bin/macOS/launchers/raise--teams--webex--zoom.app
+--langmap=Sh:+(test-as-cron)
+--langmap=Sh:+(group-scraps-by-date.sh)
+--langmap=Sh:+(fussy)
+--langmap=Sh:+(spells.sh)
+--langmap=Sh:+(daily-check-sshd_config)
+--langmap=Sh:+(accelerate-cmd)
+--langmap=Sh:+(notable-notes--prepare.sh)
+--langmap=Sh:+(daily-homebrew-autoupdate)
+--langmap=Sh:+(notify)
+--langmap=Sh:+(pbin/vendor-slurp-dob)
+--langmap=Sh:+(align-bottom)
+--langmap=Sh:+(weekly-omr-report)
+--langmap=Sh:+(demo-bat-styles)
+--langmap=Sh:+(daily-omr-upgrade)
+--langmap=Sh:+(lipsum)
+--langmap=Sh:+(daily-updatedb)
+--langmap=Sh:+(windows/marco-toggle-spotify)
+--langmap=Sh:+(windows/new-terminal-window)
+--langmap=Sh:+(windows/minimize-focused)
+--langmap=Sh:+(windows/marco-toggle-slack)
+--langmap=Sh:+(windows/toggle-numbered)
+--langmap=Sh:+(onboarder/install-ohmyrepos.sh)
+--langmap=Sh:+(onboarder/slather-defaults--PRIVATE.sh)
+--langmap=Sh:+(onboarder/slather-defaults.sh)
+--langmap=Sh:+(daily-alert-reboot-required)
+--langmap=Sh:+(accelerate-fs)
+--langmap=Sh:+(demo-pygmentize-styles)
+--langmap=Sh:+(vimprojects-filter)
+--langmap=Sh:+(weather.sh)
+--langmap=Sh:+(ln-relink-using-private-user-path)
+--langmap=Sh:+(demo-terminal-output-styles)
+--langmap=Sh:+(gnome/toggle-touchpad)
+--langmap=Sh:+(gnome/toggle-idle-delay)
+--langmap=Sh:+(gnome/toggle-focus-mode)
+--langmap=Sh:+(docker-desktop)
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

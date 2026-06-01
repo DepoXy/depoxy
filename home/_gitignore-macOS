@@ -75,7 +75,7 @@
 # DepoXy- and Homefries-infused files.
 /.bash_logout
 /.bashrc
-/.ctags
+/.ctags.d/config.ctags
 /.finicky.js
 /.gitconfig
 /.gitconfig.local

@@ -71,6 +71,10 @@ _dxc_client_infuse() {
 
   symlink_overlay_homefries_private_bashrc
 
+  # *** CTAGS
+
+  symlink_overlay_ctags_config
+
   # *** NVIM
 
   symlink_overlay_nvim_spells
@@ -376,6 +380,35 @@ symlink_overlay_homefries_private_bashrc() {
   #     symlink_overlay_file \
   #       "${MR_REPO}/home/bashrx.private.${DEPOXY_HOSTNAME}.sh" \
   #       "${hf_dir}/.bashrc-bin/bashrx.private.${DEPOXY_HOSTNAME}..sh"
+}
+
+# *** CTAGS
+
+# Infuse private user ctags config, to complement DepoXy's.
+# - CXREF: Wire's private user ctags config:
+#     ~/.ctags.d/private.ctags
+#       -> ~/.depoxy/running/home/.ctags.d/private.ctags
+# - CALSO: DepoXy ctags config:
+#     ~/.depoxy/ambers/home/.ctags.d/config.ctags
+#   - Wired on 'infuse' by infuse_symlinks_user_home_dotfiles:
+#     ~/.depoxy/ambers/home/infuse-user-home
+
+symlink_overlay_ctags_config() {
+  local dxc_ctags_cfg="${MR_REPO}/home/.ctags.d/private.ctags"
+
+  if [ -f "${dxc_ctags_cfg}" ]; then
+    # symlink_overlay_file "${dxc_ctags_cfg}"
+    # - ALTLY: Something like this...:
+    #   MR_REPO="${HOME}" symlink_overlay_file ".ctags.d/private.ctags"
+    symlink_overlay_file "${dxc_ctags_cfg}" "${HOME}/.ctags.d/private.ctags"
+  else
+    # Align w/ common infuse message:
+    #   [INFO] YYYY-MM-DD @ hh:mm:ss  XXXXXXXXXXXXXXXXXXXX /path/to/file
+    #                                 123      10  15   20 <-- 20 char msg.
+    # - E.g.:                       " Private ctags absent"
+    debug " Private ctags $(fg_lightcyan)absent$(attr_reset)" \
+      "$(fg_lightorange)${dxc_ctags_cfg}$(attr_reset)"
+  fi
 }
 
 # *** NVIM

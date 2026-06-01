@@ -309,11 +309,27 @@ tigconfig_generate_depoxy_tig_config() {
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 infuse_symlinks_user_home_dotfiles() {
+  local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
+  local depoxy_home="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
+
   # Note that go-to-definition (e.g., `gd`) from LSP servers is
   # very useful, but Ctags is still useful for DepoXy as a whole
   # (such as being able to jump to any shell function definition
   # from any file from any project).
-  symlink_mrinfuse_file '.ctags'
+  if test -e "${depoxy_home}/.ctags"; then
+    symlink_mrinfuse_file ".ctags"
+  fi
+
+  if test -d "${depoxy_home}/.ctags.d"; then
+    # Not the whole dir.:
+    #   symlink_mrinfuse_dir ".ctags.d"
+    # Because DXC infuses private config:
+    #   ~/.ctags.d/private.ctags
+    # - CXREF: symlink_overlay_ctags_config:
+    #   ~/.depoxy/ambers/mrassets/client-infuse
+    mkdir -p -- "${HOME}/.ctags.d"
+    symlink_mrinfuse_file ".ctags.d/config.ctags"
+  fi
 
   # ~/.gitconfig*: See infuse_symlinks_user_home_gitconfig.
 
