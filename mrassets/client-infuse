@@ -43,6 +43,8 @@ _dxc_client_infuse() {
   insist_is_correctly_wired "${depoxydir_running_full}" \
     || return 1
 
+  print_info_leader
+
   # *** Hard linxks
 
   mr -d . -n infusePostRebase
@@ -181,6 +183,20 @@ set_mrinfuse_vars_for_os_and_app() {
     app_config_dir="${XDG_CONFIG_HOME:-${HOME}/Library/Application Support}/${appname}"
   fi
 }
+
+# ***
+
+# NFUSR: █▄░█ █▀▀ █░█ █▀ █▀█
+#        █░▀█ █▀░ █▄█ ▄█ █▀▄
+
+print_info_leader() {
+  info "                                        ❮❮❮❮❮ ⏱︎."
+  info "🇹‌  🇮‌   █░█   █▀▄ ▀▄▀ █▀▀ ▄ █ █▄░█ █▀▀ █░█ █▀ █▀█"
+  info "🇲‌  🇪‌   ▀▀█   █▄▀ █░█ █▄▄ ▄ █ █░▀█ █▀░ █▄█ ▄█ █▀▄"
+  info "❯❯❯❯❯"
+}
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 # *** DepoXy config
 
