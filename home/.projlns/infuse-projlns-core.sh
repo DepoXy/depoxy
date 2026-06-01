@@ -194,7 +194,8 @@ infuse_projects_links_core_generate_ctags() {
       --exclude=TBD-* \
   )
 
-  if [ ${LOG_LEVEL:-${LOG_LEVEL_ERROR:-40}} -le ${LOG_LEVEL_INFO:-20} ]; then
+  # Note that Ctags prints similar size and runtime stats.
+  print_ctags_report() {
     # Get the file size.
     # - BSD/macOS: Use st_size, aka `-f %z`:
     #     stat -f %z "${DEPOXY_PROJLNS_DEPOXY}/tags"
@@ -216,10 +217,9 @@ infuse_projects_links_core_generate_ctags() {
       echo "scale=0; $($(gnu_stat) -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags") / 1024 / 1024" | bc -l
     )"
 
-    printf "%s (%s)\n" \
-      "done!" \
-      "$(print_elapsed_mins "${time_0}" "${time_n}") min., ${tags_size}M file"
-  fi
+    debug " Ctags done! $(print_elapsed_mins "${time_0}" "${time_n}") min, ${tags_size}M file"
+  }
+  print_ctags_report
 }
 
 print_elapsed_mins() {
