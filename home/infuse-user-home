@@ -358,6 +358,19 @@ infuse_symlinks_depoxy_ambers_git_smart_gitconfig() {
 
 # ***
 
+# CXREF/2026-05-31: The other ~/.gitconfig.* are wired elsewhere:
+#   symlink_overlay_git_assets
+#     ~/.depoxy/ambers/mrassets/client-infuse
+# - Below is just the two files:
+#     ~/.gitconfig
+#     ~/.gitconfig.local
+#   which are the Git-Smart and DepoXy gitconfig.
+# - Then the DXC 'infuse' wires its own files.
+
+# CXREF/2026-05-31: See also home/.gitconfig.* auto-committer:
+#   _dxc_client_autocommit
+#     ~/.depoxy/ambers/mrassets/client-autocommit
+
 infuse_symlinks_user_home_gitconfig() {
   local ambers_path="${DEPOXYDIR_BASE_FULL:-${HOME}/.depoxy}/ambers"
   local mrinfuse_real="${DEPOXYAMBERS_DIR:-${ambers_path}}/home"
