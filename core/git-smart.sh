@@ -225,13 +225,29 @@ _dxy_wire_alias_just_t_for_tig() {
   claim_alias_or_warn "t" "_dxy_tig"
 }
 
+# SAVVY: Referencing $PWD is roughly 100 times faster than fetching
+# stdout from `pwd` subprocess (according to GAIO, YMMV).
+# - Aside: See also $OLDPWD (Ne m'oublie pas!)
+# https://www.google.com/search?q=PWD+environment+variable+vs+pwd+command
+
 _dxy_tig() {
-  local eoa="$1"
+  local eoa_or_path="$1"
   local path="$2"
 
-  if false \
+  if true \
+    && [ $# -eq 1 ] \
+    && [ -d "${eoa_or_path}" ] \
+    && [ -f "${eoa_or_path}/.git/config" ] \
+    ; then
+    # The path is a top-level git directory, so cd there as a convenience.
+    # - I cannot think of any actual tig (or git) command that uses a directory
+    #   path value... can you? Much less a *single* directory path argument.
+    pushd -- "${eoa_or_path}" > /dev/null
+
+    command tig
+  elif false \
     || [ $# -ne 2 ] \
-    || [ "${eoa}" != "--" ] \
+    || [ "${eoa_or_path}" != "--" ] \
     || [ -e "${path}" ] \
     || ! echo "${path}" | grep -q -e "^\(a\|b\)/"; then
 
