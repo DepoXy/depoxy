@@ -206,7 +206,11 @@ infuse_projects_links_core_generate_ctags() {
       | cat > "${ctags_capture}.stderr"
   )
 
-  # Note that Ctags prints similar size and runtime stats.
+  # Note that Ctags prints similar size and time stats
+  # that we print here... the author thinks they wrote
+  # this before they bothered to read the man to learn
+  # about --totals... or maybe I just wanted to double-
+  # check.
   print_ctags_report() {
     # Get the file size.
     # - BSD/macOS: Use st_size, aka `-f %z`:
