@@ -213,17 +213,6 @@ infuse_projects_links_core_generate_ctags() {
     #     stat -f %z "${DEPOXY_PROJLNS_DEPOXY}/tags"
     # - Linux/GNU: Use "total size, in bytes", aka `-c %s`:
     #     (g)stat -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags"
-    gnu_stat() {
-      for cmd in "gstat" "stat"; do
-        (
-          unset -f ${cmd}
-          unalias ${cmd}
-          command -v ${cmd}
-        ) 2> /dev/null \
-          && break
-      done
-    }
-
     local tags_size
     tags_size="$(
       echo "scale=0; $($(gnu_stat) -c %s "${DEPOXY_PROJLNS_DEPOXY}/tags") / 1024 / 1024" | bc -l
@@ -242,6 +231,17 @@ infuse_projects_links_core_generate_ctags() {
   # Savvy: Awkward phrasing (e.g., "outflow") for alignment w/ other trace.
   debug " $(fg_lightcyan)Stored$(attr_reset) ctags outflow" \
     "$(fg_lightorange)$(echo "${ctags_capture}" | tilde_for_home)$(attr_reset)"
+}
+
+gnu_stat() {
+  for cmd in "gstat" "stat"; do
+    (
+      unset -f ${cmd}
+      unalias ${cmd}
+      command -v ${cmd}
+    ) 2> /dev/null \
+      && break
+  done
 }
 
 print_elapsed_mins() {
