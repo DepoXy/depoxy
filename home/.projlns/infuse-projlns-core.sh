@@ -225,14 +225,16 @@ infuse_projects_links_core_generate_ctags() {
     debug " Ctags done! $(print_elapsed_mins "${time_0}" "${time_n}") min, ${tags_size}M file"
     if is_infuse_all; then
       debug " - Run manually:"
-      debug "   LOG_LEVEL=0 $(echo "$0" | tilde_for_home)"
+      debug "   LOG_LEVEL=0 $(echo "$0" | _sh_tilde_for_home)"
     fi
   }
   print_ctags_report
 
   # Savvy: Awkward phrasing (e.g., "outflow") for alignment w/ other trace.
   debug " $(fg_lightcyan)Stored$(attr_reset) ctags outflow" \
-    "$(fg_lightorange)$(echo "${ctags_capture}" | tilde_for_home)$(attr_reset)"
+    "$(fg_lightorange)$(
+      echo "${ctags_capture}" | _sh_tilde_for_home
+    )$(attr_reset)"
 }
 
 gnu_stat() {
@@ -252,11 +254,6 @@ print_elapsed_mins() {
 
   # SAVVY: `bc -l` loads the math library, so scale=1 reduces precision.
   echo "scale=1; ($time_n - $time_0) / 60" | bc -l | xargs printf "%.2f"
-}
-
-# COPYD: Not DRY.
-tilde_for_home() {
-  sed -E "s#^${HOME}(/|$)#~\1#"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
