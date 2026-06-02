@@ -181,13 +181,34 @@
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+--exclude=build
+--exclude=_build
+--exclude=docs/_build
+--exclude=.coverage
+--exclude=dist
+--exclude=*.egg-info
 --exclude=.git
---exclude=.svn
---exclude=*.min.js
---exclude=vendors
 --exclude=.hg
+--exclude=htmlcov
 --exclude=log
+--exclude=*.min.js
+--exclude=node_modules
+--exclude=__pycache__
+--exclude=.pytest_cache
+--exclude=.svn
+--exclude=tags
 --exclude=tmp
+--exclude=.tox
+--exclude=vendors
+--exclude=.venv*
+
+--exclude=deps
+--exclude=.archived
+--exclude=.cipher
+--exclude=.whilom
+--exclude=.zuppa
+--exclude=LICENSE
+--exclude=TBD-*
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 

@@ -206,31 +206,6 @@ infuse_projects_links_core_generate_ctags() {
       -R \
       \
       ${totals} \
-      \
-      --exclude=.git \
-      \
-      --exclude=build \
-      --exclude=_build \
-      --exclude=docs/_build \
-      --exclude=.coverage \
-      --exclude=dist \
-      --exclude='*.egg-info' \
-      --exclude=htmlcov \
-      --exclude=__pycache__ \
-      --exclude=.pytest_cache \
-      --exclude=tags \
-      --exclude=.tox \
-      --exclude='.venv*' \
-      \
-      --exclude=node_modules \
-      \
-      --exclude=deps \
-      --exclude=.archived \
-      --exclude=.cipher \
-      --exclude=.whilom \
-      --exclude=.zuppa \
-      --exclude=LICENSE \
-      --exclude=TBD-* \
       2>&1 > "${ctags_capture}.stdout" \
       | cat > "${ctags_capture}.stderr"
   )
