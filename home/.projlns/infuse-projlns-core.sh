@@ -201,11 +201,7 @@ infuse_projects_links_core_generate_ctags() {
     # LOPRI/FTREQ/2026-06-01: We can probably remove ctags-groom.sh shim.
     #
     # CXREF: ~/.kit/sh/home-fries/bin/ctags-groom.sh
-    ${ctags_groom} ${verbose_or_quiet} \
-      \
-      -R \
-      \
-      ${totals} \
+    ${ctags_groom} ${verbose_or_quiet} -R ${totals} \
       2>&1 > "${ctags_capture}.stdout" \
       | cat > "${ctags_capture}.stderr"
   )
