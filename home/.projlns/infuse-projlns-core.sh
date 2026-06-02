@@ -219,9 +219,7 @@ infuse_projects_links_core_generate_ctags() {
     )"
 
     debug " Ctags done! $(print_elapsed_mins "${time_0}" "${time_n}") min, ${tags_size}M file"
-
     if is_infuse_all; then
-
       debug " - Run manually:"
       debug "   LOG_LEVEL=0 $(echo "$0" | tilde_for_home)"
     fi
