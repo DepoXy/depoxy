@@ -507,8 +507,10 @@ netrw
 nftables
 nginx
 nightlies
+niladic
 notif
 notifs
+nullary
 nvim
 osascript
 overridability
@@ -588,6 +590,7 @@ updatedb
 uppercasing
 vCPU
 vals
+variadic
 var's
 venv
 venv's
