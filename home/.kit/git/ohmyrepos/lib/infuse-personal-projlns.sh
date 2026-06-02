@@ -156,7 +156,7 @@ infuse_create_symlinks_ignore() {
 
   info " $(fg_lightcyan)Created$(attr_reset)" \
     "$(attr_emphasis)root$(attr_reset) symlink" \
-    "$(fg_lightorange)${target}$(attr_reset)"
+    "$(fg_lightorange)$(_sh_tilde_for_home "${target}")$(attr_reset)"
 }
 
 log_intro_message_if_infuse_all() {
@@ -251,7 +251,9 @@ is_personal_project() {
 #         ~/.kit/git/ohmyrepos/lib/overlay-symlink.sh
 
 repo_highlight() {
-  echo "$(fg_mintgreen)${1}$(attr_reset)"
+  local path="$1"
+
+  echo "$(fg_mintgreen)$(_sh_tilde_for_home "${path}")$(attr_reset)"
 }
 
 font_personal_publish() {

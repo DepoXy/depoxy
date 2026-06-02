@@ -313,7 +313,8 @@ infuse_projects_links_sh_lib() {
     "${DEPOXY_PROJLNS_SH_LIB}" \
     "infuse_create_projlns_ignore_symlinks_sh_lib"
 
-  info " Created sh-lib links $(fg_lightorange)${DEPOXY_PROJLNS_SH_LIB}$(attr_reset)"
+  info " $(fg_lightcyan)Created$(attr_reset) sh-lib links" \
+    "$(fg_lightorange)$(_sh_tilde_for_home "${DEPOXY_PROJLNS_SH_LIB}")$(attr_reset)"
 }
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
