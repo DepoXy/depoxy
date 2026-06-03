@@ -389,6 +389,7 @@ depoxyrc
 deps
 dia
 dialogs
+dicts
 diffability
 diffable
 dir
@@ -579,6 +580,7 @@ todoreST
 toml
 txns
 txt
+uBlock
 unescape
 unescaped
 unescaping
