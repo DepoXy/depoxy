@@ -38,7 +38,7 @@ infuse_projects_links_omr_config() {
   cd "${MREDIT_CONFIGS}"
 
   info "$(fg_mintgreen)$(attr_emphasis)Creating links$(attr_reset)" \
-    "$(fg_lightorange)$(pwd)$(attr_reset)"
+    "$(fg_lightorange)$(_sh_tilde_for_home "$(pwd)")$(attr_reset)"
 
   infuse_create_symlinks_omr_entrypoint
 
@@ -174,9 +174,6 @@ main() {
   mkdir -p "${MREDIT_CONFIGS}"
 
   cd "${MREDIT_CONFIGS}"
-
-  info "$(fg_mintgreen)$(attr_emphasis)Creating links$(attr_reset)" \
-    "$(fg_lightorange)$(pwd)$(attr_reset)"
 
   remove_symlink_hierarchy_safe
 
